@@ -7,7 +7,7 @@ name: Add Issues To Project Board
     types: [opened]
 
 jobs:
-  add_issue:
+  add_issue_frontend:
     runs-on: ubuntu-latest
     steps:
       - name: Add issue project board
@@ -24,7 +24,7 @@ jobs:
                 }
               }
             }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id'
-  add_issue:
+  add_issue_webwallet:
     runs-on: ubuntu-latest
     steps:
       - name: Add issue project board

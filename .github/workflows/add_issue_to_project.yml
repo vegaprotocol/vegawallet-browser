@@ -40,7 +40,6 @@ jobs:
               }
             }' -f project=$PROJECT_ID_WW -f issue=$ISSUE_ID -f user=$USER
 
-
       - name: "Add repo identifier label"
         run: |
           gh api graphql -f query='

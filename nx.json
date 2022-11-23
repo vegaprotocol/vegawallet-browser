@@ -40,7 +40,7 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "wallet-ui",
+  "defaultProject": "wallet-web",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {

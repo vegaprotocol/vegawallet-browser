@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "projects": {
+    "wallet-web": "libs/wallet-web",
+    "firefox": "packages/firefox"
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
+}

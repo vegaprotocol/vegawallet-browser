@@ -5,6 +5,7 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -16,6 +17,7 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "paths": {
+      "@vegaprotocol/tooling": ["libs/tooling/src/index.ts"],
       "@vegaprotocol/wallet-web": ["libs/wallet-web/src/index.ts"]
     }
   },

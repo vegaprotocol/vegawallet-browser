@@ -1,0 +1,95 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/wallet-web/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "options": {
+        "outputPath": "dist/libs/wallet-web",
+        "tsConfig": "libs/wallet-web/tsconfig.lib.json",
+        "project": "libs/wallet-web/package.json",
+        "main": "libs/wallet-web/src/index.tsx",
+        "format": ["esm"],
+        "minify": false,
+        "platform": "browser",
+        "esbuildOptions": {
+          "loader": {
+            ".png": "file"
+          }
+        },
+        "assets": [
+          {
+            "glob": "assets/_locales/**",
+            "input": "libs/wallet-web",
+            "output": "."
+          },
+          {
+            "glob": "assets/manifest.json",
+            "input": "libs/wallet-web",
+            "output": "."
+          },
+          {
+            "glob": "assets/popup.html",
+            "input": "libs/wallet-web",
+            "output": "."
+          },
+          {
+            "glob": "README.md",
+            "input": "libs/wallet-web",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "pack": {
+      "executor": "./libs/tooling:build",
+      "options": {
+        "outputPath": "dist/libs/wallet-web"
+      },
+      "configurations": {
+        "firefox": {
+          "target": "firefox"
+        }
+      }
+    },
+    "run": {
+      "executor": "./libs/tooling:run",
+      "configurations": {
+        "firefox": {
+          "target": "firefox"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/wallet-web/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/wallet-web"],
+      "options": {
+        "jestConfig": "libs/wallet-web/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "yarn tsc --noEmit --project ./libs/wallet-web/tsconfig.json"
+      }
+    },
+    "build-spec": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "yarn tsc --project ./libs/wallet-web/tsconfig.spec.json"
+      }
+    }
+  }
+}

@@ -14,9 +14,42 @@
       },
       "x-prompt": "What name would you like to use?"
     },
+    "description": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
     "directory": {
       "type": "string",
       "description": "A directory where the project is placed"
+    },
+    "popupHtml": {
+      "type": "string",
+      "description": "File path for a popup html page"
+    },
+    "popupJs": {
+      "type": "string",
+      "description": "File path for a popup script"
+    },
+    "popupStyles": {
+      "type": "string",
+      "description": "File path for a popup script"
+    },
+    "popupTitle": {
+      "type": "string",
+      "description": "Title for the popup app"
+    },
+    "popupDescription": {
+      "type": "string",
+      "description": "Description for the popup app"
+    },
+    "backgroundJs": {
+      "type": "string",
+      "description": "File path for a background script"
     }
   },
   "required": ["name", "directory"]

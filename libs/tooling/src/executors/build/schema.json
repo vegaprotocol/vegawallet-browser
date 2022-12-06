@@ -3,7 +3,7 @@
   "version": 2,
   "cli": "nx",
   "title": "Build executor",
-  "description": "",
+  "description": "Creates a packaged extension for browsers",
   "type": "object",
   "properties": {
     "outputPath": {
@@ -14,7 +14,45 @@
       "type": "string",
       "enum": ["firefox"],
       "description": "The target browser to build the extension for"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the extension"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description for the extension"
+    },
+    "popup": {
+      "type": "object",
+      "properties": {
+        "main": {
+          "type": "string",
+          "description": "File path for a popup script"
+        },
+        "tsConfig": {
+          "type": "string",
+          "description": "File path for a popup script"
+        },
+        "styles": {
+          "type": "string",
+          "description": "File path for a popup styles"
+        }
+      }
+    },
+    "background": {
+      "type": "object",
+      "properties": {
+        "main": {
+          "type": "string",
+          "description": "File path for a background script"
+        },
+        "tsConfig": {
+          "type": "string",
+          "description": "File path for a popup script"
+        }
+      }
     }
   },
-  "required": ["target", "outputPath"]
+  "required": ["target", "outputPath", "name", "description"]
 }

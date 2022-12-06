@@ -2,8 +2,6 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist",
-    "declaration": true,
-    "declarationDir": "../../dist",
     "types": ["node"]
   },
   "files": [
@@ -21,5 +19,5 @@
     "**/*.test.jsx",
     "jest.config.ts"
   ],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": []
 }

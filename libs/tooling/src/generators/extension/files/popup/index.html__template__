@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="//static.vega.xyz/fonts.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://static.vega.xyz/favicon.ico"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <% if (popupDescription) {%><meta name="description" content="<%= popupDescription %>" /><% } %>
+    <link
+      rel="preload"
+      href="https://static.vega.xyz/AlphaLyrae-Medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <% if (popupStyles) {%><link rel="stylesheet" href="<%= popupStyles %>" /><% } %>
+    <title><%= popupTitle %></title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="app"></div>
+    <script src="<%= popupJs %>"></script>
+  </body>
+</html>

@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "paths": {
       "@vegaprotocol/tooling": ["libs/tooling/src/index.ts"],
-      "@vegaprotocol/wallet-web": ["libs/wallet-web/src/index.ts"]
+      "@vegaprotocol/wallet-popup": ["libs/wallet-popup/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

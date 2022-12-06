@@ -1,6 +1,4 @@
 {
   "name": "@vegaprotocol/wallet-web",
-  "version": "0.0.1",
-  "generators": "generators.json",
-  "executors": "executors.json"
+  "version": "0.0.1"
 }

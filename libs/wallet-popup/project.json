@@ -1,20 +1,13 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/wallet-web/src",
+  "sourceRoot": "libs/wallet-popup/src",
   "projectType": "library",
   "tags": [],
   "targets": {
     "build": {
       "executor": "./libs/tooling:build",
       "options": {
-        "name": "Vega Wallet",
-        "description": "Vega Wallet Browser Extension",
-        "outputPath": "dist/libs/wallet-web",
-        "popup": {
-          "main": "libs/wallet-popup/src/index.tsx",
-          "styles": "libs/wallet-popup/src/styles.css",
-          "tsConfig": "libs/wallet-popup/tsconfig.lib.json"
-        }
+        "outputPath": "dist/libs/wallet-popup"
       },
       "configurations": {
         "firefox": {
@@ -34,14 +27,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/wallet-web/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/wallet-popup/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/wallet-web"],
+      "outputs": ["coverage/libs/wallet-popup"],
       "options": {
-        "jestConfig": "libs/wallet-web/jest.config.ts",
+        "jestConfig": "libs/wallet-popup/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -49,14 +42,14 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "yarn tsc --noEmit --project ./libs/wallet-web/tsconfig.json"
+        "command": "yarn tsc --noEmit --project ./libs/wallet-popup/tsconfig.json"
       }
     },
     "build-spec": {
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "yarn tsc --project ./libs/wallet-web/tsconfig.spec.json"
+        "command": "yarn tsc --project ./libs/wallet-popup/tsconfig.spec.json"
       }
     }
   }

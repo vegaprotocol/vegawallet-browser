@@ -4,25 +4,6 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "./libs/tooling:build",
-      "options": {
-        "outputPath": "dist/libs/wallet-popup"
-      },
-      "configurations": {
-        "firefox": {
-          "target": "firefox"
-        }
-      }
-    },
-    "run": {
-      "executor": "./libs/tooling:run",
-      "configurations": {
-        "firefox": {
-          "target": "firefox"
-        }
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

@@ -15,6 +15,7 @@ The library has been generated using [@nrwl/nx-plugin](https://nx.dev/packages/n
 The build executor can be called from any `project.json` file of a library in the nx context.
 
 Example:
+
 ```
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
@@ -55,6 +56,7 @@ Not yet implemented, coming soon.
 
 The extension generator is used to generate extension specific files (manifest.json, etc) based on the target browser you want to build for, handling the potential overlaps as well as any platform specific criteria.
 You most likely won't need to run this manually, as it's used internally by the executors, but you certainly can by calling `yarn nx generate libs/tooling:extension` with the following flags:
+
 - `--name`: the name of the generated extension
 - `--description`: description of the extension
 - `--directory`: target directory to generate the source files

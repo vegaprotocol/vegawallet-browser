@@ -34,7 +34,7 @@ Before you build you will need to `yarn install` in the root directory.
 
 ### Build
 
-Run `yarn nx run <my-app>:build:<browser>` to build the project. The build artifacts will be stored in the `dist/` directory, with a `.zip` file which you can import into your browser, or upload to the specific extension store. You will need to specify which browser you want to build the app for. 
+Run `yarn nx run <my-app>:build:<browser>` to build the project. The build artifacts will be stored in the `dist/` directory, with a `.zip` file which you can import into your browser, or upload to the specific extension store. You will need to specify which browser you want to build the app for.
 
 ### Running tests
 

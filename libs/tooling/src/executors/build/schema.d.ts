@@ -1,6 +1,6 @@
 export interface BuildExecutorSchema {
   outputPath: string
-  target: 'firefox'
+  target: 'firefox' | 'chrome'
   name: string
   description: string
   popup?: {

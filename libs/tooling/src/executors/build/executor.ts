@@ -1,7 +1,6 @@
 import path from 'node:path'
 import { spawn } from 'node:child_process'
 import { remove, stat } from 'fs-extra'
-// import { esbuildExecutor, EsBuildExecutorOptions } from '@nrwl/esbuild'
 import { webpackExecutor, WebpackExecutorOptions } from '@nrwl/webpack'
 import { FsTree, flushChanges } from 'nx/src/generators/tree'
 import type { ExecutorContext } from '@nrwl/devkit'
@@ -55,6 +54,7 @@ const generateExtenstionFiles = async (
   const tree = new FsTree(context.root, false)
 
   await extensionGenerator(tree, {
+    target: options.target,
     name: options.name,
     description: options.description,
     directory: options.outputPath,
@@ -134,9 +134,11 @@ export default async function runExecutor(
 
     await generateExtenstionFiles(options, context)
 
-    await packExtension({
-      sourceDir: path.join(context.root, options.outputPath),
-    })
+    if (options.target === 'firefox') {
+      await packExtension({
+        sourceDir: path.join(context.root, options.outputPath),
+      })
+    }
   } catch (err) {
     console.error(err)
     return {

@@ -6,7 +6,7 @@
     "extension": {
       "factory": "./src/generators/extension/generator",
       "schema": "./src/generators/extension/schema.json",
-      "description": "extension generator"
+      "description": "Browser extension generator"
     }
   }
 }

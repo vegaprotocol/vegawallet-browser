@@ -5,6 +5,7 @@ The common extension source which generates, builds and packages the UI and the 
 Currently supported browsers:
 
 - Firefox
+- Chrome
 
 ### Running unit tests
 

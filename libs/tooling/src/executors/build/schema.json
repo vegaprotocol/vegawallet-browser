@@ -12,7 +12,7 @@
     },
     "target": {
       "type": "string",
-      "enum": ["firefox"],
+      "enum": ["firefox", "chrome"],
       "description": "The target browser to build the extension for"
     },
     "name": {

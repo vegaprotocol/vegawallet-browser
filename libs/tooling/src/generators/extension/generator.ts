@@ -43,6 +43,12 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     options.projectRoot,
     templateOptions
   )
+  generateFiles(
+    tree,
+    path.join(__dirname, `files-${options.target}`),
+    options.projectRoot,
+    templateOptions
+  )
 }
 
 export default async function (tree: Tree, options: ExtensionGeneratorSchema) {

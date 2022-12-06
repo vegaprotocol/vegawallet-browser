@@ -9,7 +9,6 @@
       "options": {
         "name": "Vega Wallet",
         "description": "Vega Wallet Browser Extension",
-        "outputPath": "dist/libs/wallet-web",
         "popup": {
           "main": "libs/wallet-popup/src/index.tsx",
           "styles": "libs/wallet-popup/src/styles.css",
@@ -18,7 +17,12 @@
       },
       "configurations": {
         "firefox": {
+          "outputPath": "dist/libs/wallet-web-firefox",
           "target": "firefox"
+        },
+        "chrome": {
+          "outputPath": "dist/libs/wallet-web-chrome",
+          "target": "chrome"
         }
       }
     },

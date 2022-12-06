@@ -5,7 +5,7 @@ export interface ExtensionGeneratorSchema {
   popupHtml: string | undefined
   popupJs: string | undefined
   popupStyles: string | undefined
-  popupTitle: string
-  popupDescription: string
+  popupTitle: string | undefined
+  popupDescription: string | undefined
   backgroundJs: string | undefined
 }

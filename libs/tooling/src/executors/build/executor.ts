@@ -58,11 +58,12 @@ const generateExtenstionFiles = async (
     name: options.name,
     description: options.description,
     directory: options.outputPath,
+    target: options.target,
     popupHtml: options.popup ? './popup/index.html' : undefined,
     popupJs: options.popup ? './main.js' : undefined,
     popupTitle: options.name,
     popupDescription: options.description,
-    popupStyles: options.popup.styles ? './styles.css' : undefined,
+    popupStyles: options.popup?.styles ? './styles.css' : undefined,
     backgroundJs: options.background ? './main.js' : undefined,
   })
 

@@ -8,7 +8,7 @@ export interface BuildExecutorSchema {
     styles: string
     tsConfig: string
   }
-  background: {
+  background?: {
     main: string
     tsConfig: string
   }

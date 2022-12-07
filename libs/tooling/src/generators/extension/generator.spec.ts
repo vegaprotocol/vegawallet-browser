@@ -10,6 +10,7 @@ describe('extension generator', () => {
     name: 'test',
     description: 'Test Description',
     directory: './',
+    target: 'firefox',
     popupHtml: undefined,
     popupJs: undefined,
     popupStyles: undefined,

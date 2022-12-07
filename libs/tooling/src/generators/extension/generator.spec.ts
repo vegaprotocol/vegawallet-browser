@@ -1,15 +1,17 @@
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing'
-import { Tree, readProjectConfiguration } from '@nrwl/devkit'
+import { Tree } from '@nrwl/devkit'
 
 import generator from './generator'
 import { ExtensionGeneratorSchema } from './schema'
 
+const NAME = 'wallet-test'
+
 describe('extension generator', () => {
   let appTree: Tree
   const options: ExtensionGeneratorSchema = {
-    name: 'test',
+    name: NAME,
     description: 'Test Description',
-    directory: './',
+    directory: `./dist/libs/${NAME}`,
     target: 'firefox',
     popupHtml: undefined,
     popupJs: undefined,
@@ -25,7 +27,6 @@ describe('extension generator', () => {
 
   it('should run successfully', async () => {
     await generator(appTree, options)
-    const config = readProjectConfiguration(appTree, 'test')
-    expect(config).toBeDefined()
+    expect(appTree.exists(`dist/libs/${NAME}/manifest.json`)).toBe(true)
   })
 })

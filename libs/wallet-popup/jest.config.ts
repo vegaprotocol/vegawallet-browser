@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'wallet-ui',
+  displayName: 'wallet-popup',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,6 +11,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/wallet-ui',
-  setupFilesAfterEnv: ['./src/test/setup-tests.ts'],
+  coverageDirectory: '../../coverage/libs/wallet-popup',
 }

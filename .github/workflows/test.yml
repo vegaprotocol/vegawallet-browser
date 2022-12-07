@@ -41,8 +41,8 @@ jobs:
       - name: Test affected
         run: yarn nx affected:test
       - name: Firefox build affected
-        run: yarn nx affected:build --target=firefox
+        run: yarn nx affected:build --target=firefox --outputPath=dist/libs/wallet-web-firefox
       - name: Chrome build affected
-        run: yarn nx affected:build --target=chrome
+        run: yarn nx affected:build --target=chrome --outputPath=dist/libs/wallet-web-chrome
       - name: Build affected spec
         run: yarn nx affected --target=build-spec

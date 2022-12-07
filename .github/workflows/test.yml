@@ -40,7 +40,7 @@ jobs:
         run: yarn nx affected:lint --max-warnings=0
       - name: Test affected
         run: yarn nx affected:test
-      - name: Build affected
-        run: yarn nx affected:build
+      - name: Firefox build affected
+        run: yarn nx affected:build --target=firefox
       - name: Build affected spec
         run: yarn nx affected --target=build-spec

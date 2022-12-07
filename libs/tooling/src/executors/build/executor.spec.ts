@@ -1,3 +1,5 @@
+import path from 'path'
+import { remove } from 'fs-extra'
 import { BuildExecutorSchema } from './schema'
 import executor from './executor'
 
@@ -7,6 +9,10 @@ const options: BuildExecutorSchema = {
   name: 'wallet-test',
   description: 'Test extension',
 }
+
+afterAll(async () => {
+  await remove(path.join(process.cwd(), options.outputPath))
+})
 
 describe('Build Executor', () => {
   it('can run', async () => {

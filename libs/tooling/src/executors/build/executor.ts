@@ -1,7 +1,6 @@
 import path from 'node:path'
 import { spawn } from 'node:child_process'
 import { remove, stat } from 'fs-extra'
-// import { esbuildExecutor, EsBuildExecutorOptions } from '@nrwl/esbuild'
 import { webpackExecutor, WebpackExecutorOptions } from '@nrwl/webpack'
 import { FsTree, flushChanges } from 'nx/src/generators/tree'
 import type { ExecutorContext } from '@nrwl/devkit'
@@ -63,7 +62,7 @@ const generateExtenstionFiles = async (
     popupJs: options.popup ? './main.js' : undefined,
     popupTitle: options.name,
     popupDescription: options.description,
-    popupStyles: options.popup.styles ? './styles.css' : undefined,
+    popupStyles: options.popup?.styles ? './styles.css' : undefined,
     backgroundJs: options.background ? './main.js' : undefined,
   })
 

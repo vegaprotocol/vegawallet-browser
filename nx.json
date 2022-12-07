@@ -1,7 +1,7 @@
 {
   "npmScope": "vegaprotocol",
   "affected": {
-    "defaultBase": "develop"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "package.json": {

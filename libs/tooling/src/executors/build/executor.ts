@@ -54,7 +54,6 @@ const generateExtenstionFiles = async (
   const tree = new FsTree(context.root, false)
 
   await extensionGenerator(tree, {
-    target: options.target,
     name: options.name,
     description: options.description,
     directory: options.outputPath,

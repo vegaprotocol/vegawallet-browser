@@ -18,27 +18,26 @@
   <% if (popupHtml) { %>
   "action": {
     "default_icon": {
-      "16": "images/vega.png",
-      "19": "images/vega.png",
-      "32": "images/vega.png",
-      "38": "images/vega.png",
-      "64": "images/vega.png",
-      "128": "images/vega.png",
-      "512": "images/vega.png"
+      "16": "images/vega16x16.png",
+      "19": "images/vega19x19.png",
+      "32": "images/vega32x32.png",
+      "38": "images/vega38x38.png",
+      "64": "images/vega64x64.png",
+      "128": "images/vega128x128.png",
+      "512": "images/veg512x512a.png"
     },
     "default_title": "<%= popupTitle %>",
     "default_popup": "<%= popupHtml %>"
   },
   <% } %>
   "icons": {
-    "16": "images/vega.png",
-    "19": "images/vega.png",
-    "32": "images/vega.png",
-    "38": "images/vega.png",
-    "48": "images/vega.png",
-    "64": "images/vega.png",
-    "128": "images/vega.png",
-    "512": "images/vega.png"
+    "16": "images/vega16x16.png",
+    "19": "images/vega19x19.png",
+    "32": "images/vega32x32.png",
+    "38": "images/vega38x38.png",
+    "64": "images/vega64x64.png",
+    "128": "images/vega128x128.png",
+    "512": "images/veg512x512a.png"
   },
   "web_accessible_resources": []
 }

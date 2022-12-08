@@ -6,11 +6,17 @@ This repository is managed using [Nx](https://nx.dev).
 
 # 🔎 Libraries
 
+### [Tooling](./libs/tooling)
+
+Tools for building and running an app as an extension, tool for generating extension environments and packaging an app as a browser extension.
+
+### [Wallet popup](./libs/wallet-popup)
+
+The application rendered when clicking the extension icon in the browser's address bar.
+
 ### [Wallet web](./libs/wallet-web)
 
-The base application which is packaged for different platforms.
-
-# 🔎 Packages
+The base application for the browser extensions, contains only the essential build configurations.
 
 # 💻 Development
 
@@ -28,7 +34,7 @@ Before you build you will need to `yarn install` in the root directory.
 
 ### Build
 
-Run `yarn nx run <my-app>:build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `yarn nx run <my-app>:build:<browser>` to build the project. The build artifacts will be stored in the `dist/` directory, with a `.zip` file which you can import into your browser, or upload to the specific extension store. You will need to specify which browser you want to build the app for.
 
 ### Running tests
 

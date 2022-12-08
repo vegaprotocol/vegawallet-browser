@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "tooling",
+  "version": "0.0.1",
+  "generators": {
+    "extension": {
+      "factory": "./src/generators/extension/generator",
+      "schema": "./src/generators/extension/schema.json",
+      "description": "extension generator"
+    }
+  }
+}

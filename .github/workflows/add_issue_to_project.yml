@@ -1,8 +1,7 @@
 ---
+name: 'Add Issues To Project Board'
 
-name: "Add Issues To Project Board"
-
-"on":
+'on':
   issues:
     types:
       - opened
@@ -12,13 +11,13 @@ env:
   PROJECT_ID_WW: ${{ secrets.WEBWALLET_PROJECT_ID }}
   ISSUE_ID: ${{ github.event.issue.node_id }}
   USER: ${{ github.actor }}
-  LABEL_ID: "LA_kwDOGNxtx878Y-Cl"
+  LABEL_ID: 'LA_kwDOGNxtx878Y-Cl'
 
 jobs:
   add_issue_frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: "Add to front end project board"
+      - name: 'Add to front end project board'
         run: |
           gh api graphql -f query='
             mutation($user:String!, $project:ID!, $issue:ID!) {
@@ -29,7 +28,7 @@ jobs:
               }
             }' -f project=$PROJECT_ID_FE -f issue=$ISSUE_ID -f user=$USER
 
-      - name: "Add to web wallet project board"
+      - name: 'Add to web wallet project board'
         run: |
           gh api graphql -f query='
             mutation($user:String!, $project:ID!, $issue:ID!) {
@@ -40,7 +39,7 @@ jobs:
               }
             }' -f project=$PROJECT_ID_WW -f issue=$ISSUE_ID -f user=$USER
 
-      - name: "Add repo identifier label"
+      - name: 'Add repo identifier label'
         run: |
           gh api graphql -f query='
             mutation($user:String!, $issue:ID!, $label:[ID!]!) {

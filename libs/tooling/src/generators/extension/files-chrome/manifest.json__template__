@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "name": "<%= name %>",
+  "description": "<%= description %>",
+  "author": "Gobalsky Labs Ltd.",
+  "homepage_url": "https://github.com/vegaprotocol/vegawallet-browser",
+  "default_locale": "en",
+  "permissions": [
+    "activeTab",
+    "notifications"
+  ],
+  <% if (backgroundJs) { %>
+  "background": {
+    "service_worker": "<%= backgroundJs %>",
+  },
+  <% } %>
+  <% if (popupHtml) { %>
+  "action": {
+    "default_icon": {
+      "16": "images/vega16x16.png",
+      "19": "images/vega19x19.png",
+      "32": "images/vega32x32.png",
+      "38": "images/vega38x38.png",
+      "64": "images/vega64x64.png",
+      "128": "images/vega128x128.png",
+      "512": "images/vega512x512.png"
+    },
+    "default_title": "<%= popupTitle %>",
+    "default_popup": "<%= popupHtml %>"
+  },
+  <% } %>
+  "icons": {
+    "16": "images/vega16x16.png",
+    "19": "images/vega19x19.png",
+    "32": "images/vega32x32.png",
+    "38": "images/vega38x38.png",
+    "64": "images/vega64x64.png",
+    "128": "images/vega128x128.png",
+    "512": "images/vega512x512.png"
+  },
+  "web_accessible_resources": []
+}

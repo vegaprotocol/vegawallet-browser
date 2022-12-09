@@ -29,8 +29,8 @@
     },
     "target": {
       "type": "string",
-      "enum": ["firefox"],
-      "description": "A target browser to generate extension files for"
+      "enum": ["firefox", "chrome"],
+      "description": "The target browser to build the extension for"
     },
     "popupHtml": {
       "type": "string",

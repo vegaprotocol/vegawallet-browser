@@ -134,9 +134,11 @@ export default async function runExecutor(
 
     await generateExtenstionFiles(options, context)
 
-    await packExtension({
-      sourceDir: path.join(context.root, options.outputPath),
-    })
+    if (options.target === 'firefox') {
+      await packExtension({
+        sourceDir: path.join(context.root, options.outputPath),
+      })
+    }
   } catch (err) {
     console.error(err)
     return {

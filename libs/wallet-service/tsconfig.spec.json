@@ -3,9 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/spec",
     "module": "commonjs",
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
   "include": [
     "**/*.test.ts",
@@ -16,6 +14,6 @@
     "**/*.spec.js",
     "**/*.test.jsx",
     "**/*.spec.jsx",
-    "**/*.d.ts",
+    "**/*.d.ts"
   ]
 }

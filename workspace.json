@@ -3,8 +3,8 @@
   "projects": {
     "tooling": "libs/tooling",
     "wallet-popup": "libs/wallet-popup",
-    "wallet-web": "libs/wallet-web",
-    "wallet-service": "libs/wallet-service"
+    "wallet-service": "libs/wallet-service",
+    "wallet-web": "libs/wallet-web"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

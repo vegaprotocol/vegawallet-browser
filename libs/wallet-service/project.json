@@ -6,13 +6,9 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/wallet-service/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["libs/wallet-service/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
@@ -21,7 +17,7 @@
         "parallel": false,
         "commands": [
           "yarn nx run wallet-service:build-spec",
-          "yarn tape dist/spec/libs/wallet-service/src/*.spec.js"
+          "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"
         ]
       }
     },

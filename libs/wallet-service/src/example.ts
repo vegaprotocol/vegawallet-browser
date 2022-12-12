@@ -1,25 +1,20 @@
-import FSMap from './fs-map.js'
 import { WalletService } from './index.js'
+import { NetworkConfig, Networks } from './services/networks.js'
+import LSMap from './storage/localstorage.js'
+
+import { Storage } from './storage/types/storage.js'
 
 const ws = new WalletService({
-  onerror(err) {
-    console.error(err)
-  },
-  walletStore: new FSMap('wallets'),
-  networkStore: new FSMap('networks'),
-  permissionsStore: new FSMap('permissions')
+  networks: new Networks(new LSMap('networks') as Storage<NetworkConfig>),
 })
 
-ws.adminCreateNetwork({
-  name: 't1',
+ws.handleAdmin('admin.create_network', {
   config: {
     name: 't1',
     api: {
       restConfig: {
-        hosts: [
-          'localhost'
-        ]
-      }
-    }
-  }
+        hosts: ['localhost'],
+      },
+    },
+  },
 })

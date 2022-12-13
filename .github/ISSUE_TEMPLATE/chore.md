@@ -4,7 +4,7 @@ about:
   A template to capture non feature / enhancement work we need to do like work
   to support other functions or housekeeping etc.
 title: ''
-labels: chore
+labels: chore, browser-wallet
 assignees: ''
 ---
 

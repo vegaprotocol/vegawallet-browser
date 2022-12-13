@@ -2,7 +2,7 @@
 name: "\U0001F41B Bug"
 about: Create a report to help us improve
 title: ''
-labels: "\U0001F41B bug"
+labels: "\U0001F41B bug, browser-wallet"
 assignees: ''
 ---
 

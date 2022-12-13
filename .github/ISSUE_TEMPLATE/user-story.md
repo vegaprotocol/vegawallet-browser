@@ -4,7 +4,7 @@ about:
   A template to describe a features or enhancements we want to make from a users
   perspective to ensure we understand what is needed and the value it would add
 title: ''
-labels: feature
+labels: feature, browser-wallet
 assignees: ''
 ---
 

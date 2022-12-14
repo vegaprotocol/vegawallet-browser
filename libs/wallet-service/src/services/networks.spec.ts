@@ -1,5 +1,4 @@
 import test from 'tape'
-import { WalletService } from '../index'
 import { Networks } from './networks'
 
 test('admin.list_networks', async (assert) => {
@@ -41,34 +40,43 @@ test('admin.list_networks', async (assert) => {
   )
 
   try {
+    // eslint-disable-next-line
     await nw.create({} as any)
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network/.test(err.message))
   }
   try {
+    // eslint-disable-next-line
     await nw.create({ config: { name: 1 } } as any)
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network/.test(err.message))
   }
   try {
     await nw.create({ config: { name: 't' } })
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network config/.test(err.message))
   }
   try {
+    // eslint-disable-next-line
     await nw.create({ config: { name: 't', api: {} } } as any)
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network config/.test(err.message))
   }
   try {
     await nw.create({
       config: { name: 't', api: { restConfig: {} } },
+      // eslint-disable-next-line
     } as any)
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network config/.test(err.message))
   }
@@ -77,6 +85,7 @@ test('admin.list_networks', async (assert) => {
       config: { name: 't', api: { restConfig: { hosts: [] } } },
     })
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network config/.test(err.message))
   }
@@ -88,8 +97,10 @@ test('admin.import_network', async (assert) => {
   const nw = new Networks(new Map())
 
   try {
+    // eslint-disable-next-line
     await nw.import({ name: '' } as any)
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(
       /Not implemented/.test(err.message),
@@ -118,14 +129,18 @@ test('admin.describe_network', async (assert) => {
   })
 
   try {
+    // eslint-disable-next-line
     await nw.describe({} as any)
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network/.test(err.message))
   }
   try {
+    // eslint-disable-next-line
     await nw.describe({ name: 1 } as any)
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network/.test(err.message))
   }
@@ -189,8 +204,10 @@ test('admin.remove_network', async (assert) => {
   )
 
   try {
+    // eslint-disable-next-line
     await nw.remove({} as any)
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(
       /Invalid network/.test(err.message),
@@ -200,6 +217,7 @@ test('admin.remove_network', async (assert) => {
   try {
     await nw.remove({ name: 't2' })
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(
       /Invalid network/.test(err.message),
@@ -216,6 +234,7 @@ test('admin.remove_network', async (assert) => {
   try {
     await nw.remove({ name: 't1' })
     assert.fail()
+    // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network/.test(err.message), 'Remove same network twice')
   }

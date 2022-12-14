@@ -1,4 +1,4 @@
-import { Storage } from '../storage/types'
+import type { Storage } from '../storage/types/storage'
 
 export type NetworkConfig = {
   name: string
@@ -89,19 +89,19 @@ export class Networks {
   }
 
   async remove({ name }: { name: string }): Promise<void> {
-    if (this.store.delete(name) == false) throw new Error('Invalid network')
+    if (this.store.delete(name) === false) throw new Error('Invalid network')
     return
   }
 
-  isValidName(name: any) {
+  isValidName(name: unknown) {
     // TODO: Should this be expanded?
     return typeof name === 'string'
   }
 
-  isValidDefintion(config: { name: any; api?: any }): config is NetworkConfig {
+  isValidDefintion(config: NetworkConfig): config is NetworkConfig {
     return (
       this.isValidName(config?.name) &&
-      (config?.api?.restConfig?.hosts?.length > 0 ?? false)
+      (config?.api?.restConfig?.hosts?.length ?? 0) > 1
     )
   }
 }

@@ -16,7 +16,7 @@ export class WalletService {
    * @param origin The origin of the callee. Must include the protocol, FQDN and optional port number
    * @returns
    */
-  async handleClient(method: string, params: any, origin: string) {
+  async handleClient(method: string, params: unknown, origin: string) {
     // TODO Handle any calls in the client namespace, including permission check
     switch (method) {
       case 'client.connect_wallet':
@@ -45,9 +45,10 @@ export class WalletService {
    * @param params Corresponding documented parameters
    * @returns
    */
+  // TODO: Ultimately this function should use the same types as the wallet-ui, however
+  //       currently we cannot satisfy the types without implementing the methods
+  // eslint-disable-next-line
   async handleAdmin(method: string, params: any) {
-    // TODO: Ultimately this function should use the same types as the wallet-ui, however
-    //       currently we cannot satisfy the types without implementing the methods
     switch (method) {
       // Wallets
       case 'admin.list_wallets':

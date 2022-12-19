@@ -101,7 +101,7 @@ export class Networks {
   isValidDefintion(config: NetworkConfig): config is NetworkConfig {
     return (
       this.isValidName(config?.name) &&
-      (config?.api?.restConfig?.hosts?.length ?? 0) > 1
+      (config?.api?.restConfig?.hosts?.length ?? 0) > 0
     )
   }
 }

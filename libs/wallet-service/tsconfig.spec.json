@@ -2,8 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/spec",
+    "esModuleInterop": true,
     "module": "commonjs",
-    "types": ["node"]
+    "types": ["tape", "chrome", "firefox-webext-browser"]
   },
   "include": [
     "**/*.test.ts",

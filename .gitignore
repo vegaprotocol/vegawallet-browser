@@ -62,4 +62,6 @@ Thumbs.db
 
 # builds
 dist
+libs/tooling/src/executors/**/*.js
+libs/tooling/src/generators/**/*.js
 tmp

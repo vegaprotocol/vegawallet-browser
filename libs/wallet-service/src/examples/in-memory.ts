@@ -1,12 +1,10 @@
 import { WalletService } from '../index.js'
-import { NetworkConfig, Networks } from '../services/networks.js'
-import LSMap from '../storage/localstorage.js'
-
-import { Storage } from '../storage/types/storage.js'
+import { NetworkConfig, Networks } from '../services/networks'
+import LSMap from '../services/storage/ext-local'
 
 // Use Map as storage, which will only keep state for this session
 const ws = new WalletService({
-  networks: new Networks(new LSMap('networks') as Storage<NetworkConfig>),
+  networks: new Networks(new LSMap<NetworkConfig>('networks')),
 })
 
 ws.handleAdmin('admin.create_network', {

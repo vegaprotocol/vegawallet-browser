@@ -26,7 +26,7 @@ global.fetch = async (url: RequestInfo | URL) => {
     return new Response()
   }
 
-  const ext = url.split('.').slice(-1)[0]
+  const ext = url.split('.').at(-1)
 
   switch (ext) {
     case 'json': {
@@ -69,6 +69,7 @@ TokenExpiry = "1h"
       `
       return new Response(content)
     }
+    case 'yml':
     case 'yaml': {
       const content = `
 Host: localhost

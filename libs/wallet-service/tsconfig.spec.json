@@ -4,7 +4,7 @@
     "outDir": "../../dist/spec",
     "esModuleInterop": true,
     "module": "commonjs",
-    "types": ["tape", "chrome", "firefox-webext-browser"]
+    "types": ["tape"]
   },
   "include": [
     "**/*.test.ts",

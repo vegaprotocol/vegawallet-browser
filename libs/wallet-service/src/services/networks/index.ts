@@ -33,7 +33,7 @@ export class Networks {
 
   private async getConfig(url: string) {
     const response = await fetch(url)
-    const ext = url.split('.').slice(-1)[0]
+    const ext = url.split('.').at(-1)
 
     switch (ext) {
       case 'json': {

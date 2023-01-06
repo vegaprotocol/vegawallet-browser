@@ -48,6 +48,7 @@ export class Networks {
         const content = await this.readContent(reader)
         return toml.parse(content.toString())
       }
+      case 'yml':
       case 'yaml': {
         const reader = response.body?.getReader()
         if (!reader) {

@@ -14,23 +14,6 @@ export class Networks {
     this.store = store
   }
 
-  private async readContent(reader: ReadableStreamDefaultReader) {
-    let result = ''
-
-    return await reader
-      .read()
-      .then(async function processValue({ done, value }): Promise<string> {
-        if (value) {
-          result += new TextDecoder().decode(value)
-        }
-
-        if (done) {
-          return result
-        }
-        return reader.read().then(processValue)
-      })
-  }
-
   private async getConfig(url: string) {
     const response = await fetch(url)
     const ext = url.split('.').at(-1)
@@ -41,21 +24,13 @@ export class Networks {
         return content
       }
       case 'toml': {
-        const reader = response.body?.getReader()
-        if (!reader) {
-          throw new Error('Invalid response body')
-        }
-        const content = await this.readContent(reader)
-        return toml.parse(content.toString())
+        const content = await response?.text()
+        return toml.parse(content)
       }
       case 'yml':
       case 'yaml': {
-        const reader = response.body?.getReader()
-        if (!reader) {
-          throw new Error('Invalid response body')
-        }
-        const content = await this.readContent(reader)
-        return yaml.parse(content.toString())
+        const content = await response?.text()
+        return yaml.parse(content)
       }
       default: {
         throw new Error(

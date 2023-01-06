@@ -1,9 +1,7 @@
-import { Serializable } from './types/json'
-
 const storage = (globalThis?.browser ?? globalThis?.chrome)?.storage?.local
 
 // Based on https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea
-export default class ExtLocalMap<V extends Serializable> {
+export default class ExtLocalMap<V> {
   static isSupported(): boolean {
     return storage != null
   }

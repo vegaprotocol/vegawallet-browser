@@ -216,7 +216,7 @@ test('admin.import_network - unsupported extension', async (assert) => {
       url: 'http://source.url/file.exe',
     })
     assert.fail()
-    // eslint-dsiable-next-line
+    // eslint-dsiable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     assert.ok(
       /Unsupported extension: "exe". Only ".toml", ".yaml" or ".json" file extensions are supported for network configuration./.test(
@@ -270,7 +270,7 @@ test('admin.remove_network', async (assert) => {
   try {
     await nw.remove({ name: 't2' })
     assert.fail()
-    // eslint-dsiable-next-line
+    // eslint-dsiable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     assert.ok(
       /Invalid network/.test(err.message),

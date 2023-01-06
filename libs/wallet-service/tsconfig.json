@@ -11,15 +11,9 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "types": ["chrome", "firefox-webext-browser"]
+    "noFallthroughCasesInSwitch": true
   },
   "files": [],
   "include": [],
-  "references": [],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  }
+  "references": []
 }

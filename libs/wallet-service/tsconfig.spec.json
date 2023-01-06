@@ -2,8 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/spec",
-    "module": "commonjs",
-    "types": ["node"]
+    "module": "CommonJS"
   },
   "include": [
     "**/*.test.ts",

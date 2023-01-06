@@ -11,7 +11,7 @@ export const ConfigSchema = z
       .object({
         GRPC: z
           .object({
-            Hosts: z.array(z.string()),
+            Hosts: z.array(z.string().url()),
             Retries: z.number().optional(),
           })
           .required(),

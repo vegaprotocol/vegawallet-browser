@@ -20,6 +20,7 @@ describe('Build Executor', () => {
       root: './',
       cwd: './',
       isVerbose: false,
+      projectName: 'wallet-test',
       workspace: {
         version: 1,
         projects: {

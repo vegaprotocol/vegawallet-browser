@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import toml from 'toml'
 import yaml from 'yamljs'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
@@ -5,7 +6,31 @@ import type { WalletModel } from '@vegaprotocol/wallet-admin'
 import type { Storage } from '../storage/types/storage'
 import { ConfigSchema } from './schema'
 
-export type NetworkConfig = WalletModel.DescribeNetworkResult
+export type NetworkConfig = z.infer<typeof ConfigSchema>
+
+const transformConfig = (
+  config: NetworkConfig
+): WalletModel.DescribeNetworkResult => {
+  return {
+    name: config.Name,
+    logLevel: 'info',
+    host: '127.0.0.1',
+    port: 1789,
+    tokenExpiry: '1h',
+    api: {
+      grpcConfig: {
+        hosts: [],
+        retries: 0,
+      },
+      graphQLConfig: {
+        hosts: [],
+      },
+      restConfig: {
+        hosts: config.API.REST.Hosts,
+      },
+    },
+  }
+}
 
 export class Networks {
   private store: Storage<NetworkConfig>
@@ -44,61 +69,21 @@ export class Networks {
     name,
     url,
     overwrite = false,
-  }: {
-    name: string
-    url: string
-    overwrite?: boolean
-  }): Promise<{ name: string }> {
-    const doesNetworkExist = await this.store.has(name)
+  }: WalletModel.ImportNetworkParams): Promise<WalletModel.ImportNetworkResult> {
+    const doesNetworkExist = name && (await this.store.has(name))
 
     if (overwrite === false && doesNetworkExist) {
       throw new Error('Duplicate network')
     }
 
     const content = await this.getConfig(url)
-    const fileconfig = ConfigSchema.parse(content)
-    const config = {
-      name,
-      // @TODO: remove hardcoded values when the openrpc changes
-      port: 1789,
-      // @TODO: remove hardcoded values when the openrpc changes
-      host: '127.0.0.1',
-      // @TODO: remove hardcoded values when the openrpc changes
-      logLevel: 'info',
-      tokenExpiry: '',
-      api: {
-        grpcConfig: {
-          hosts: [],
-          retries: 0,
-        },
-        graphQLConfig: {
-          hosts: [],
-        },
-        restConfig: {
-          hosts: fileconfig.API?.REST?.Hosts || [],
-        },
-      },
+    const config = ConfigSchema.parse(content)
+
+    await this.store.set(name || config.Name, config)
+    return {
+      name: config.Name,
+      filePath: '',
     }
-
-    await this.store.set(name, config)
-    return config
-  }
-
-  async create({
-    config,
-    overwrite = false,
-  }: {
-    config: NetworkConfig
-    overwrite?: boolean
-  }): Promise<NetworkConfig> {
-    const doesNetworkExist = await this.store.has(config.name)
-
-    if (overwrite === false && doesNetworkExist) {
-      throw new Error('Duplicate network')
-    }
-
-    this.store.set(config.name, config)
-    return config
   }
 
   async list(): Promise<string[]> {
@@ -107,19 +92,19 @@ export class Networks {
 
   async describe({
     name,
-  }: {
-    name: string
-  }): Promise<NetworkConfig | undefined> {
+  }: WalletModel.DescribeNetworkParams): Promise<WalletModel.DescribeNetworkResult> {
     const config = await this.store.get(name)
 
     if (config == null) {
       throw new Error(`Cannot find network with name "${name}".`)
     }
 
-    return config
+    return transformConfig(config)
   }
 
-  async update(input: NetworkConfig): Promise<void> {
+  async update(
+    input: WalletModel.UpdateNetworkParams
+  ): Promise<WalletModel.UpdateNetworkResult> {
     const config = await this.store.get(input.name)
     if (config == null) {
       throw new Error('Invalid network')
@@ -127,13 +112,15 @@ export class Networks {
 
     const newConfig = Object.assign(config, input)
     await this.store.set(input.name, newConfig)
-    return
+    return null
   }
 
-  async remove({ name }: { name: string }): Promise<void> {
+  async remove({
+    name,
+  }: WalletModel.RemoveNetworkParams): Promise<WalletModel.RemoveNetworkResult> {
     if (this.store.delete(name) === false) {
       throw new Error('Invalid network')
     }
-    return
+    return null
   }
 }

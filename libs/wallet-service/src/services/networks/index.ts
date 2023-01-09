@@ -59,10 +59,13 @@ export class Networks {
     const fileconfig = ConfigSchema.parse(content)
     const config = {
       name,
-      port: fileconfig.Port,
-      host: fileconfig.Host,
-      logLevel: fileconfig.Level || 'info',
-      tokenExpiry: fileconfig.TokenExpiry,
+      // @TODO: remove hardcoded values when the openrpc changes
+      port: 1789,
+      // @TODO: remove hardcoded values when the openrpc changes
+      host: '127.0.0.1',
+      // @TODO: remove hardcoded values when the openrpc changes
+      logLevel: 'info',
+      tokenExpiry: '',
       api: {
         grpcConfig: {
           hosts: fileconfig?.API?.GRPC?.Hosts || [],

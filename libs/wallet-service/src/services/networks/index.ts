@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { mergeDeepRight } from 'ramda'
 import toml from 'toml'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 

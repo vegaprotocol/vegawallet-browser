@@ -68,11 +68,11 @@ export class Networks {
       tokenExpiry: '',
       api: {
         grpcConfig: {
-          hosts: fileconfig?.API?.GRPC?.Hosts || [],
-          retries: fileconfig?.API?.GRPC?.Retries || 0,
+          hosts: [],
+          retries: 0,
         },
         graphQLConfig: {
-          hosts: fileconfig.API?.GraphQL?.Hosts || [],
+          hosts: [],
         },
         restConfig: {
           hosts: fileconfig.API?.REST?.Hosts || [],

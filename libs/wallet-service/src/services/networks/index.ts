@@ -24,12 +24,12 @@ export class Networks {
         return content
       }
       case 'toml': {
-        const content = await response?.text()
+        const content = await response.text()
         return toml.parse(content)
       }
       case 'yml':
       case 'yaml': {
-        const content = await response?.text()
+        const content = await response.text()
         return yaml.parse(content)
       }
       default: {

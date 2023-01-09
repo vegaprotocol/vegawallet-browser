@@ -2,97 +2,44 @@ import test from 'tape'
 import { Networks } from './'
 
 const mockConfig = {
-  name: 't1',
-  port: 1,
-  host: 'localhost',
-  logLevel: 'info',
-  tokenExpiry: '1h',
-  api: {
-    grpcConfig: {
-      hosts: ['localhost:3007'],
-      retries: 5,
-    },
-    restConfig: {
-      hosts: ['http://localhost'],
-    },
-    graphQLConfig: {
-      hosts: ['http://localhost/graphql'],
+  Name: 't1',
+  API: {
+    REST: {
+      Hosts: ['http://localhost'],
     },
   },
 }
 
-global.fetch = async (url: RequestInfo | URL) => {
-  if (typeof url !== 'string') {
-    return new Response()
-  }
+const setupFetch = (name: string, restHosts: string[] = []) => {
+  global.fetch = async (url: RequestInfo | URL) => {
+    if (typeof url !== 'string') {
+      return new Response()
+    }
 
-  const ext = url.split('.').at(-1)
+    const ext = url.split('.').at(-1)
 
-  switch (ext) {
-    case 'json': {
-      const content = JSON.stringify({
-        Host: 'localhost',
-        Level: 'info',
-        Name: 'test',
-        Port: 1789,
-        TokenExpiry: '1h',
-        API: {
-          GRPC: {
-            Hosts: ['localhost:3007'],
-            Retries: 5,
-          },
-          GraphQL: {
-            Hosts: ['http://localhost/graphql'],
-          },
-          REST: {
-            Hosts: ['http://localhost'],
-          },
-        },
-      })
-      return new Response(content)
-    }
-    case 'toml': {
-      const content = `
-Host = "localhost"
-Level = "info"
-Name = "test"
-Port = 1789
-TokenExpiry = "1h"
-[API]
-  [API.GRPC]
-    Hosts = ["localhost:3007"]
-    Retries = 5
-  [API.GraphQL]
-    Hosts = ["http://localhost/graphql"]
-  [API.REST]
-    Hosts = ["http://localhost"]
-      `
-      return new Response(content)
-    }
-    case 'yml':
-    case 'yaml': {
-      const content = `
-Host: localhost
-Level: info
-Name: test
-Port: 1789
-TokenExpiry: 1h
-API:
-  GRPC:
-    Hosts:
-      - 'localhost:3007'
-    Retries: 5
-  GraphQL:
-    Hosts:
-      - 'http://localhost/graphql'
-  REST:
-    Hosts:
-      - 'http://localhost'
-      `
-      return new Response(content)
-    }
-    default: {
-      return new Response('')
+    switch (ext) {
+      case 'toml': {
+        const content = `
+  Host = "localhost"
+  Level = "info"
+  Name = "${name}"
+  Port = 1789
+  TokenExpiry = "1h"
+  [API]
+    [API.GRPC]
+      Hosts = ["localhost:3007"]
+      Retries = 5
+    [API.GraphQL]
+      Hosts = ["http://localhost/graphql"]
+    [API.REST]
+      Hosts = [${restHosts.map((h) => `"${h}"`).join(', ')}]
+        `
+        return new Response(content)
+      }
+      default: {
+        return new Response('')
+      }
     }
   }
 }
@@ -106,42 +53,44 @@ test('admin.list_networks', async (assert) => {
     'Fresh service should return empty list'
   )
 
-  await nw.create({
-    config: mockConfig,
+  setupFetch('t1')
+
+  await nw.import({
+    url: 'http://some.url/file.toml',
+    filePath: '',
+    overwrite: false,
   })
+
   assert.deepEqual(
-    (await nw.list()).sort(),
+    (await nw.list()).networks.sort(),
     ['t1'],
     'One network should return one name'
   )
 
-  await nw.create({
-    config: {
-      ...mockConfig,
-      name: 't2',
-    },
+  setupFetch('t2')
+
+  await nw.import({
+    url: 'http://some.url/file2.toml',
+    filePath: '',
+    overwrite: false,
   })
+
   assert.deepEqual(
-    (await nw.list()).sort(),
+    (await nw.list()).networks.sort(),
     ['t1', 't2'],
     'Two networks should return two names'
   )
 
-  await nw.create({
-    overwrite: true,
-    config: {
-      ...mockConfig,
-      api: {
-        ...mockConfig.api,
-        restConfig: {
-          hosts: ['http://localhost:8080'],
-        },
-      },
-    },
+  setupFetch('t2', ['http://localhost:8080'])
+
+  await nw.import({
+    url: 'http://some.url/file2.toml',
+    filePath: '',
+    overwrite: false,
   })
 
   assert.deepEqual(
-    (await nw.list()).sort(),
+    (await nw.list()).networks.sort(),
     ['t1', 't2'],
     'Overwriting one network should return two names'
   )
@@ -154,47 +103,13 @@ test('admin.import_network - toml', async (assert) => {
 
   assert.deepEqual(await nw.list(), [], 'Networks list should be empty')
 
+  setupFetch('t1')
+
   await nw.import({
     name: 't1',
     url: 'http://source.url/file.toml',
-  })
-
-  assert.deepEqual(
-    await nw.list(),
-    ['t1'],
-    'Networks list should return the imported network'
-  )
-
-  assert.end()
-})
-
-test('admin.import_network - yaml', async (assert) => {
-  const nw = new Networks(new Map())
-
-  assert.deepEqual(await nw.list(), [], 'Networks list should be empty')
-
-  await nw.import({
-    name: 't1',
-    url: 'http://source.url/file.yaml',
-  })
-
-  assert.deepEqual(
-    await nw.list(),
-    ['t1'],
-    'Networks list should return the imported network'
-  )
-
-  assert.end()
-})
-
-test('admin.import_network - json', async (assert) => {
-  const nw = new Networks(new Map())
-
-  assert.deepEqual(await nw.list(), [], 'Networks list should be empty')
-
-  await nw.import({
-    name: 't1',
-    url: 'http://source.url/file.json',
+    filePath: '',
+    overwrite: false,
   })
 
   assert.deepEqual(
@@ -211,10 +126,14 @@ test('admin.import_network - unsupported extension', async (assert) => {
 
   assert.deepEqual(await nw.list(), [], 'Networks list should be empty')
 
+  setupFetch('t1')
+
   try {
     await nw.import({
       name: 't1',
       url: 'http://source.url/file.exe',
+      filePath: '',
+      overwrite: false,
     })
     assert.fail()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -231,22 +150,32 @@ test('admin.import_network - unsupported extension', async (assert) => {
 })
 
 test('admin.describe_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.name, mockConfig]]))
+  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
 
-  assert.deepEqual(await nw.describe({ name: mockConfig.name }), mockConfig)
+  assert.deepEqual(await nw.describe({ name: mockConfig.Name }), mockConfig)
 
   assert.end()
 })
 
 test('admin.update_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.name, mockConfig]]))
+  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
 
   assert.deepEqual(await nw.describe({ name: 't1' }), mockConfig)
 
   const newConfig = {
-    ...mockConfig,
+    name: mockConfig.Name,
+    logLevel: 'info',
+    tokenExpiry: '2h',
+    host: 'http://host.com',
+    port: 80,
     api: {
-      ...mockConfig.api,
+      grpcConfig: {
+        hosts: [],
+        retries: 0,
+      },
+      graphQLConfig: {
+        hosts: [],
+      },
       restConfig: {
         hosts: ['example.com'],
       },
@@ -257,7 +186,7 @@ test('admin.update_network', async (assert) => {
   await nw.update(newConfig)
 
   assert.deepEqual(
-    await nw.describe({ name: mockConfig.name }),
+    await nw.describe({ name: mockConfig.Name }),
     newConfig,
     'Postcondition'
   )
@@ -266,7 +195,7 @@ test('admin.update_network', async (assert) => {
 })
 
 test('admin.remove_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.name, mockConfig]]))
+  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
 
   try {
     await nw.remove({ name: 't2' })

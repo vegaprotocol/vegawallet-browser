@@ -34,7 +34,6 @@
     "react-dom": "18.2.0",
     "toml": "^3.0.0",
     "tslib": "2.3.0",
-    "yamljs": "^0.3.0",
     "zod": "3.19.1",
     "zod-validation-error": "0.2.1"
   },

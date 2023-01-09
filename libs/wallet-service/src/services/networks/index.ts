@@ -1,6 +1,6 @@
 import { z } from 'zod'
+import { mergeDeepRight } from 'ramda'
 import toml from 'toml'
-import yaml from 'yamljs'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
 import type { Storage } from '../storage/types/storage'
@@ -32,6 +32,19 @@ const transformConfig = (
   }
 }
 
+const untransformConfig = (
+  config: WalletModel.DescribeNetworkResult
+): NetworkConfig => {
+  return {
+    Name: config.name,
+    API: {
+      REST: {
+        Hosts: config.api.restConfig.hosts,
+      },
+    },
+  }
+}
+
 export class Networks {
   private store: Storage<NetworkConfig>
 
@@ -44,18 +57,9 @@ export class Networks {
     const ext = url.split('.').at(-1)
 
     switch (ext) {
-      case 'json': {
-        const content = await response.json()
-        return content
-      }
       case 'toml': {
         const content = await response.text()
         return toml.parse(content)
-      }
-      case 'yml':
-      case 'yaml': {
-        const content = await response.text()
-        return yaml.parse(content)
       }
       default: {
         throw new Error(
@@ -86,8 +90,10 @@ export class Networks {
     }
   }
 
-  async list(): Promise<string[]> {
-    return Array.from(await this.store.keys())
+  async list(): Promise<WalletModel.ListNetworksResult> {
+    return {
+      networks: Array.from(await this.store.keys()),
+    }
   }
 
   async describe({
@@ -110,7 +116,7 @@ export class Networks {
       throw new Error('Invalid network')
     }
 
-    const newConfig = Object.assign(config, input)
+    const newConfig = untransformConfig(input)
     await this.store.set(input.name, newConfig)
     return null
   }

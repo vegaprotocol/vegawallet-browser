@@ -7,8 +7,8 @@ on:
       - main
   pull_request:
 jobs:
-  pr:
-    name: Test and lint - PR
+  setup:
+    name: Setup dependencies
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'
@@ -34,15 +34,38 @@ jobs:
           key: node_modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install root dependencies
         run: yarn install --frozen-lockfile
+  format:
+    name: Check code format
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Check formatting
         run: yarn nx format:check
+  lint:
+    name: Check lint
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Lint affected
         run: yarn nx affected:lint --max-warnings=0
+  test:
+    name: Run unit tests
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Test affected
         run: yarn nx affected:test
+  build-firefox:
+    name: Build for Firefox
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Firefox build affected
         run: yarn nx affected:build --configuration=firefox
+  build-chrome:
+    name: Build for Chrome
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Chrome build affected
         run: yarn nx affected:build --configuration=chrome
-      - name: Build affected spec
-        run: yarn nx affected --target=build-spec

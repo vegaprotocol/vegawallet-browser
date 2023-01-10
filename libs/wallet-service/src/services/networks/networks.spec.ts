@@ -10,6 +10,26 @@ const mockConfig = {
   },
 }
 
+const mockResponse = {
+  name: mockConfig.Name,
+  logLevel: 'info',
+  tokenExpiry: '1h',
+  host: '127.0.0.1',
+  port: 1789,
+  api: {
+    grpcConfig: {
+      hosts: [],
+      retries: 0,
+    },
+    graphQLConfig: {
+      hosts: [],
+    },
+    restConfig: {
+      hosts: mockConfig.API.REST.Hosts,
+    },
+  },
+}
+
 const setupFetch = (name: string, restHosts: string[] = []) => {
   global.fetch = async (url: RequestInfo | URL) => {
     if (typeof url !== 'string') {
@@ -49,7 +69,7 @@ test('admin.list_networks', async (assert) => {
 
   assert.deepEqual(
     await nw.list(),
-    [],
+    { networks: [] },
     'Fresh service should return empty list'
   )
 
@@ -101,7 +121,11 @@ test('admin.list_networks', async (assert) => {
 test('admin.import_network - toml', async (assert) => {
   const nw = new Networks(new Map())
 
-  assert.deepEqual(await nw.list(), [], 'Networks list should be empty')
+  assert.deepEqual(
+    await nw.list(),
+    { networks: [] },
+    'Networks list should be empty'
+  )
 
   setupFetch('t1')
 
@@ -114,7 +138,7 @@ test('admin.import_network - toml', async (assert) => {
 
   assert.deepEqual(
     await nw.list(),
-    ['t1'],
+    { networks: ['t1'] },
     'Networks list should return the imported network'
   )
 
@@ -124,7 +148,11 @@ test('admin.import_network - toml', async (assert) => {
 test('admin.import_network - unsupported extension', async (assert) => {
   const nw = new Networks(new Map())
 
-  assert.deepEqual(await nw.list(), [], 'Networks list should be empty')
+  assert.deepEqual(
+    await nw.list(),
+    { networks: [] },
+    'Networks list should be empty'
+  )
 
   setupFetch('t1')
 
@@ -139,7 +167,7 @@ test('admin.import_network - unsupported extension', async (assert) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     assert.ok(
-      /Unsupported extension: "exe". Only ".toml", ".yaml" or ".json" file extensions are supported for network configuration./.test(
+      /Unsupported extension: "exe". Only ".toml" file extensions are supported for network configuration./.test(
         err.message
       ),
       'admin.import_network is unimplemented'
@@ -152,7 +180,7 @@ test('admin.import_network - unsupported extension', async (assert) => {
 test('admin.describe_network', async (assert) => {
   const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
 
-  assert.deepEqual(await nw.describe({ name: mockConfig.Name }), mockConfig)
+  assert.deepEqual(await nw.describe({ name: mockConfig.Name }), mockResponse)
 
   assert.end()
 })
@@ -160,7 +188,7 @@ test('admin.describe_network', async (assert) => {
 test('admin.update_network', async (assert) => {
   const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
 
-  assert.deepEqual(await nw.describe({ name: 't1' }), mockConfig)
+  assert.deepEqual(await nw.describe({ name: 't1' }), mockResponse)
 
   const newConfig = {
     name: mockConfig.Name,
@@ -187,7 +215,16 @@ test('admin.update_network', async (assert) => {
 
   assert.deepEqual(
     await nw.describe({ name: mockConfig.Name }),
-    newConfig,
+    {
+      ...mockResponse,
+      name: newConfig.name,
+      api: {
+        ...mockResponse.api,
+        restConfig: {
+          hosts: newConfig.api.restConfig.hosts,
+        },
+      },
+    },
     'Postcondition'
   )
 
@@ -208,12 +245,12 @@ test('admin.remove_network', async (assert) => {
     )
   }
 
-  assert.deepEqual(await nw.list(), ['t1'], 'Precondition')
+  assert.deepEqual(await nw.list(), { networks: ['t1'] }, 'Precondition')
 
   // 'Remove network with success'
   await nw.remove({ name: 't1' })
 
-  assert.deepEqual(await nw.list(), [], 'Postcondition')
+  assert.deepEqual(await nw.list(), { networks: [] }, 'Postcondition')
 
   try {
     await nw.remove({ name: 't1' })
@@ -222,7 +259,7 @@ test('admin.remove_network', async (assert) => {
   } catch (err: any) {
     assert.ok(/Invalid network/.test(err.message), 'Remove same network twice')
   }
-  assert.deepEqual(await nw.list(), [], 'Postcondition')
+  assert.deepEqual(await nw.list(), { networks: [] }, 'Postcondition')
 
   assert.end()
 })

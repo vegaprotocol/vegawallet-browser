@@ -7,7 +7,7 @@ import { ConfigSchema } from './schema'
 
 export type NetworkConfig = z.infer<typeof ConfigSchema>
 
-const transformConfig = (
+const toResponse = (
   config: NetworkConfig
 ): WalletModel.DescribeNetworkResult => {
   return {
@@ -31,9 +31,7 @@ const transformConfig = (
   }
 }
 
-const untransformConfig = (
-  config: WalletModel.DescribeNetworkResult
-): NetworkConfig => {
+const toConfig = (config: WalletModel.DescribeNetworkResult): NetworkConfig => {
   return {
     Name: config.name,
     API: {
@@ -62,7 +60,7 @@ export class Networks {
       }
       default: {
         throw new Error(
-          `Unsupported extension: "${ext}". Only ".toml", ".yaml" or ".json" file extensions are supported for network configuration.`
+          `Unsupported extension: "${ext}". Only ".toml" file extensions are supported for network configuration.`
         )
       }
     }
@@ -104,7 +102,7 @@ export class Networks {
       throw new Error(`Cannot find network with name "${name}".`)
     }
 
-    return transformConfig(config)
+    return toResponse(config)
   }
 
   async update(
@@ -115,7 +113,7 @@ export class Networks {
       throw new Error('Invalid network')
     }
 
-    const newConfig = untransformConfig(input)
+    const newConfig = toConfig(input)
     await this.store.set(input.name, newConfig)
     return null
   }

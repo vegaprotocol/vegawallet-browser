@@ -5,15 +5,16 @@ import { webpackExecutor, WebpackExecutorOptions } from '@nrwl/webpack'
 import { FsTree, flushChanges } from 'nx/src/generators/tree'
 import type { ExecutorContext } from '@nrwl/devkit'
 import type { BuildExecutorSchema } from './schema'
-import { extensionGenerator } from '../../'
+import extensionGenerator from '../../generators/extension/generator'
 
 const prepareOutput = async (outputPath: string) => {
   try {
     const outputStats = await stat(outputPath)
-    if (outputStats.isDirectory) {
+    if (outputStats.isDirectory()) {
       await remove(outputPath)
     }
-  } catch (err) {
+    // eslint-disable-next-line
+  } catch (err: any) {
     if ('code' in err && err.code === 'ENOENT') {
       return
     }
@@ -92,7 +93,14 @@ export default async function runExecutor(
   options: BuildExecutorSchema,
   context: ExecutorContext
 ) {
-  const project = context.workspace.projects[context.projectName]
+  const project =
+    context.projectName && context.workspace.projects[context.projectName]
+
+  if (!project) {
+    return {
+      success: false,
+    }
+  }
 
   try {
     await prepareOutput(options.outputPath)

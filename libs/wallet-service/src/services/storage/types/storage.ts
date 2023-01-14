@@ -1,4 +1,4 @@
-import type { Serializable } from './json'
+// import type { Serializable } from './json'
 
 /**
  * Interface for Map-like storage backends used by the various
@@ -6,7 +6,7 @@ import type { Serializable } from './json'
  * any `Storage` should always await the member methods, however
  * we also allow sync implementations (eg. `Map` itself)
  */
-export interface Storage<V extends Serializable> {
+export interface Storage<V> {
   // Sync or Async, but always await
   has(key: string): boolean | Promise<boolean>
   get(key: string): V | undefined | Promise<V | undefined>

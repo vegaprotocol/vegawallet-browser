@@ -44,5 +44,3 @@ jobs:
         run: yarn nx affected:build --configuration=firefox
       - name: Chrome build affected
         run: yarn nx affected:build --configuration=chrome
-      - name: Build affected spec
-        run: yarn nx affected --target=build-spec

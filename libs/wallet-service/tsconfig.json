@@ -15,5 +15,9 @@
   },
   "files": [],
   "include": [],
-  "references": []
+  "references": [
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

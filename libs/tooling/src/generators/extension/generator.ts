@@ -19,7 +19,7 @@ function normalizeOptions(options: ExtensionGeneratorSchema): NormalizedSchema {
   const projectDirectory = options.directory
   const projectName = options.name
   const projectRoot = projectDirectory
-  const parsedTags = []
+  const parsedTags: string[] = []
 
   return {
     ...options,

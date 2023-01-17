@@ -38,7 +38,7 @@ export class Storage<V extends Serializable> {
   }
   async delete(key: string): Promise<boolean> {
     const val = await this._load()
-    const hadKey = val[key] != null
+    const hadKey = key in val
     if (hadKey) {
       delete val[key]
       await this._engine.set({ [this._prefix]: val })

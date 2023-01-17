@@ -1,21 +1,24 @@
-import { WalletService } from '../index.js'
-import { NetworkConfig } from '../services/networks'
-import LSMap from '../services/storage'
+import { WalletService } from '../src'
+import { WalletStore } from '../src/storage'
+import { EventBus } from '../src/events'
 
-// Use Map as storage, which will only keep state for this session
-const ws = new WalletService({
-  store: {
-    networks: new LSMap<NetworkConfig>('networks'),
-  },
-})
+browser.runtime.onConnect.addListener((portal) => {
+  const ws = new WalletService({
+    store: new WalletStore(browser.storage.local),
+    eventBus: new EventBus({
+      sendMessage: (message: any) => portal.postMessage(message),
+      addListener: (handler) => portal.onMessage.addListener(handler),
+    }),
+  })
 
-ws.handleAdmin('admin.create_network', {
-  config: {
-    name: 't1',
-    api: {
-      restConfig: {
-        hosts: ['localhost'],
+  ws.handleAdmin('admin.create_network', {
+    config: {
+      name: 't1',
+      api: {
+        restConfig: {
+          hosts: ['localhost'],
+        },
       },
     },
-  },
+  })
 })

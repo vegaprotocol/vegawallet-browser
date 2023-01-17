@@ -1,5 +1,8 @@
 import test from 'tape'
 import { Networks } from './'
+import { Storage } from '../../storage/wrapper'
+import { NetworkSchema, Network } from '../../storage/schemas/network'
+import { MockStorage } from '../../../test/mock-storage'
 
 const mockConfig = {
   Name: 't1',
@@ -64,8 +67,17 @@ const setupFetch = (name: string, restHosts: string[] = []) => {
   }
 }
 
+const getStorage = async (data?: { name: string; value: Network }) => {
+  const s = new Storage('networks', NetworkSchema, new MockStorage())
+
+  if (data) {
+    await s.set(data.name, data.value)
+  }
+  return s
+}
+
 test('admin.list_networks', async (assert) => {
-  const nw = new Networks(new Map())
+  const nw = new Networks(await getStorage())
 
   assert.deepEqual(
     await nw.list(),
@@ -119,7 +131,7 @@ test('admin.list_networks', async (assert) => {
 })
 
 test('admin.import_network - toml', async (assert) => {
-  const nw = new Networks(new Map())
+  const nw = new Networks(await getStorage())
 
   assert.deepEqual(
     await nw.list(),
@@ -146,7 +158,7 @@ test('admin.import_network - toml', async (assert) => {
 })
 
 test('admin.import_network - unsupported extension', async (assert) => {
-  const nw = new Networks(new Map())
+  const nw = new Networks(await getStorage())
 
   assert.deepEqual(
     await nw.list(),
@@ -178,7 +190,9 @@ test('admin.import_network - unsupported extension', async (assert) => {
 })
 
 test('admin.describe_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
+  const nw = new Networks(
+    await getStorage({ name: mockConfig.Name, value: mockConfig })
+  )
 
   assert.deepEqual(await nw.describe({ name: mockConfig.Name }), mockResponse)
 
@@ -186,7 +200,9 @@ test('admin.describe_network', async (assert) => {
 })
 
 test('admin.update_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
+  const nw = new Networks(
+    await getStorage({ name: mockConfig.Name, value: mockConfig })
+  )
 
   assert.deepEqual(await nw.describe({ name: 't1' }), mockResponse)
 
@@ -232,7 +248,9 @@ test('admin.update_network', async (assert) => {
 })
 
 test('admin.remove_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
+  const nw = new Networks(
+    await getStorage({ name: mockConfig.Name, value: mockConfig })
+  )
 
   try {
     await nw.remove({ name: 't2' })

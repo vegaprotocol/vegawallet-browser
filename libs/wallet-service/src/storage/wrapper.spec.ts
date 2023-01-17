@@ -1,67 +1,12 @@
 import test from 'tape'
 import { z } from 'zod'
 import { Storage } from './wrapper'
-
-class StorageEngineMock {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private s: Map<string, any>
-
-  constructor() {
-    this.s = new Map()
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get(keys?: string | string[] | { [key: string]: any }) {
-    if (Array.isArray(keys)) {
-      const result = (keys as string[]).reduce(
-        (acc, k) => ({
-          ...acc,
-          [k]: this.s.get(k),
-        }),
-        {}
-      )
-      return Promise.resolve(result)
-    } else if (typeof keys === 'string') {
-      return Promise.resolve(this.s.get(keys))
-    } else if (typeof keys === 'object') {
-      const result = Object.keys(keys).reduce(
-        (acc, k) => ({
-          ...acc,
-          [k]: this.s.get(k) || keys[k],
-        }),
-        {}
-      )
-      return Promise.resolve(result)
-    }
-    return Promise.resolve(undefined)
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set(items: { [key: string]: any }) {
-    Object.keys(items).forEach((k) => this.s.set(k, items[k]))
-    return Promise.resolve(undefined)
-  }
-
-  remove(keys: string | string[]) {
-    if (Array.isArray(keys)) {
-      keys.forEach((k) => this.s.delete(k))
-    } else {
-      this.s.delete(keys)
-    }
-
-    return Promise.resolve(undefined)
-  }
-
-  clear() {
-    this.s.clear()
-    return Promise.resolve(undefined)
-  }
-}
+import { MockStorage } from '../../test/mock-storage'
 
 const StringSchema = z.string()
 
 test('has', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new StorageEngineMock())
+  const m = new Storage<string>('test', StringSchema, new MockStorage())
   assert.equal(await m.has('key'), false)
   await m.set('key', 'value')
   assert.equal(await m.has('key'), true)
@@ -70,7 +15,7 @@ test('has', async (assert) => {
 })
 
 test('get', async (assert) => {
-  const m = new Storage('test', StringSchema, new StorageEngineMock())
+  const m = new Storage('test', StringSchema, new MockStorage())
   assert.equal(await m.get('key'), undefined)
   await m.set('key', 'value')
   assert.equal(await m.get('key'), 'value')
@@ -79,7 +24,7 @@ test('get', async (assert) => {
 })
 
 test('set', async (assert) => {
-  const m = new Storage('test', StringSchema, new StorageEngineMock())
+  const m = new Storage('test', StringSchema, new MockStorage())
   assert.equal(await m.get('key'), undefined)
   assert.equal(await m.set('key', 'value'), m)
   assert.equal(await m.get('key'), 'value')
@@ -88,7 +33,7 @@ test('set', async (assert) => {
 })
 
 test('delete', async (assert) => {
-  const m = new Storage('test', StringSchema, new StorageEngineMock())
+  const m = new Storage('test', StringSchema, new MockStorage())
   assert.equal(await m.get('key'), undefined)
   assert.equal(await m.delete('key'), false)
   await m.set('key', 'value')
@@ -101,8 +46,8 @@ test('delete', async (assert) => {
 })
 
 test('clear', async (assert) => {
-  const m = new Storage('test', StringSchema, new StorageEngineMock())
-  const m2 = new Storage('test2', StringSchema, new StorageEngineMock())
+  const m = new Storage('test', StringSchema, new MockStorage())
+  const m2 = new Storage('test2', StringSchema, new MockStorage())
   await m.set('key', 'value')
   await m2.set('key', 'value2')
   assert.equal(await m.get('key'), 'value')
@@ -115,7 +60,7 @@ test('clear', async (assert) => {
 })
 
 test('keys', async (assert) => {
-  const m = new Storage('test', StringSchema, new StorageEngineMock())
+  const m = new Storage('test', StringSchema, new MockStorage())
   assert.deepEqual(Array.from(await m.keys()), [])
   await m.set('key', 'value')
   assert.deepEqual(Array.from(await m.keys()), ['key'])
@@ -128,7 +73,7 @@ test('keys', async (assert) => {
 })
 
 test('values', async (assert) => {
-  const m = new Storage('test', StringSchema, new StorageEngineMock())
+  const m = new Storage('test', StringSchema, new MockStorage())
   assert.deepEqual(Array.from(await m.values()), [])
   await m.set('key', 'value')
   assert.deepEqual(Array.from(await m.values()), ['value'])
@@ -141,7 +86,7 @@ test('values', async (assert) => {
 })
 
 test('entries', async (assert) => {
-  const m = new Storage('test', StringSchema, new StorageEngineMock())
+  const m = new Storage('test', StringSchema, new MockStorage())
   assert.deepEqual(Array.from(await m.entries()), [])
   await m.set('key', 'value')
   assert.deepEqual(Array.from(await m.entries()), [['key', 'value']])

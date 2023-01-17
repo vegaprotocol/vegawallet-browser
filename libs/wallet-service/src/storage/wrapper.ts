@@ -1,22 +1,22 @@
-const storage = (globalThis?.browser ?? globalThis?.chrome)?.storage?.local
+import { z } from 'zod'
+import { Serializable } from './types/json'
+import { Engine } from './types/engine'
 
 // Based on https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea
-export default class ExtLocalMap<V> {
-  static isSupported(): boolean {
-    return storage != null
-  }
-
+export class Storage<V extends Serializable> {
+  private _engine: Engine
+  private _schema: z.Schema
   private _prefix: string
 
-  constructor(prefix: string) {
+  constructor(prefix: string, schema: z.Schema<V>, engine: Engine) {
     this._prefix = prefix
-
-    if (!ExtLocalMap.isSupported())
-      throw new Error('Unsupported storage runtime')
+    this._schema = schema
+    this._engine = engine
   }
 
   private async _load(): Promise<Record<string, V>> {
-    return (await storage.get(this._prefix))?.[this._prefix] ?? {}
+    const result = (await this._engine.get(this._prefix))?.[this._prefix] ?? {}
+    return this._schema.parse(result)
   }
 
   async has(key: string): Promise<boolean> {
@@ -31,10 +31,8 @@ export default class ExtLocalMap<V> {
   async set(key: string, value: Readonly<V>): Promise<this> {
     const val = await this._load()
 
-    val[key] = value
-    await storage.set({
-      [this._prefix]: val,
-    })
+    val[key] = this._schema.parse(value)
+    await this._engine.set({ [this._prefix]: val })
 
     return this
   }
@@ -43,21 +41,19 @@ export default class ExtLocalMap<V> {
     const hadKey = val[key] != null
     if (hadKey) {
       delete val[key]
-      await storage.set({
-        [this._prefix]: val,
-      })
+      await this._engine.set({ [this._prefix]: val })
     }
 
     return hadKey
   }
   async clear(): Promise<void> {
-    await storage.remove(this._prefix)
+    await this._engine.remove(this._prefix)
   }
 
-  async keys(): Promise<Iterable<string>> {
+  async keys(): Promise<Array<string>> {
     return Object.keys(await this._load())
   }
-  async values(): Promise<Iterable<Readonly<V>>> {
+  async values(): Promise<Array<Readonly<V>>> {
     return Object.values(await this._load())
   }
   async entries(): Promise<Iterable<[string, Readonly<V>]>> {

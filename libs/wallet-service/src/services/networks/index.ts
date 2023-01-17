@@ -3,9 +3,9 @@ import toml from 'toml'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
 import type { Storage } from '../storage/types/storage'
-import { ConfigSchema } from './schema'
+import { NetworkSchema } from '../../storage/schemas/network'
 
-export type NetworkConfig = z.infer<typeof ConfigSchema>
+export type NetworkConfig = z.infer<typeof NetworkSchema>
 
 const toResponse = (
   config: NetworkConfig
@@ -78,11 +78,10 @@ export class Networks {
     }
 
     const content = await this.getConfig(url)
-    const config = ConfigSchema.parse(content)
 
-    await this.store.set(name || config.Name, config)
+    await this.store.set(name || content.Name, content)
     return {
-      name: config.Name,
+      name: content.Name,
       filePath: '',
     }
   }

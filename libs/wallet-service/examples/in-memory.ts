@@ -9,7 +9,7 @@ const ws = new WalletService({
 browser.runtime.onConnect.addListener((portal) => {
   ws.onConnect({
     eventBus: new EventBus({
-      sendMessage: (message: any) => portal.postMessage(message),
+      sendMessage: (message) => portal.postMessage(message),
       addListener: (handler) => portal.onMessage.addListener(handler),
     }),
   })

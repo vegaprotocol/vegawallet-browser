@@ -1,4 +1,4 @@
-import { RawInteraction } from '@vegaprotocol/wallet-ui'
+import { RawInteraction, InteractionResponse } from '@vegaprotocol/wallet-ui'
 import {
   WalletService,
   WalletStore,
@@ -9,12 +9,20 @@ const storage =
   globalThis.browser?.storage?.local || globalThis.chrome?.storage?.local
 const runtime = globalThis.browser?.runtime || globalThis.chrome?.runtime
 
+const service = new WalletService({
+  store: new WalletStore(storage),
+})
+
 runtime.onConnect.addListener((portal) => {
-  new WalletService({
-    store: new WalletStore(storage),
+  service.onConnect({
     eventBus: new EventBus({
       sendMessage: (message: RawInteraction) => portal.postMessage(message),
-      addListener: (handler) => portal.onMessage.addListener(handler),
+      addListener: (handler) =>
+        portal.onMessage.addListener((message) => {
+          if ('traceID' in message && 'name' in message) {
+            handler(message as InteractionResponse)
+          }
+        }),
     }),
   })
 })

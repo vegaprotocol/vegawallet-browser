@@ -6,12 +6,16 @@ import { Identifier as AdminIdentifier } from '@vegaprotocol/wallet-admin'
 import { Identifier as ClientIdentifier } from '@vegaprotocol/wallet-client'
 
 export class WalletService {
-  private client: Client
+  private store: WalletStore
   private networks: Networks
+  private client?: Client
 
-  constructor({ store, eventBus }: { store: WalletStore; eventBus: EventBus }) {
-    this.client = new Client(store, eventBus)
+  constructor({ store }: { store: WalletStore }) {
     this.networks = new Networks(store.networks)
+  }
+
+  onConnect({ eventBus }: { eventBus: EventBus }) {
+    this.client = new Client(this.store, eventBus)
   }
 
   /**
@@ -25,6 +29,10 @@ export class WalletService {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async handleClient(method: string, params: any, origin: string) {
+    if (!this.client) {
+      throw new Error('Application not connected')
+    }
+
     // TODO Handle any calls in the client namespace, including permission check
     switch (method) {
       case ClientIdentifier.ConnectWallet:

@@ -20,9 +20,32 @@ import {
   InteractionResponseSelectedWallet,
 } from '@vegaprotocol/wallet-ui'
 
+const ResponseMapping: Record<
+  INTERACTION_TYPE,
+  INTERACTION_RESPONSE_TYPE | null
+> = {
+  [INTERACTION_TYPE.ERROR_OCCURRED]: null,
+  [INTERACTION_TYPE.INTERACTION_SESSION_BEGAN]: null,
+  [INTERACTION_TYPE.INTERACTION_SESSION_ENDED]: null,
+  [INTERACTION_TYPE.LOG]: null,
+  [INTERACTION_TYPE.TRANSACTION_SUCCEEDED]: null,
+  [INTERACTION_TYPE.TRANSACTION_FAILED]: null,
+  [INTERACTION_TYPE.REQUEST_SUCCEEDED]: null,
+  [INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW]:
+    INTERACTION_RESPONSE_TYPE.DECISION,
+  [INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW]:
+    INTERACTION_RESPONSE_TYPE.WALLET_CONNECTION_DECISION,
+  [INTERACTION_TYPE.REQUEST_WALLET_SELECTION]:
+    INTERACTION_RESPONSE_TYPE.SELECTED_WALLET,
+  [INTERACTION_TYPE.REQUEST_PASSPHRASE]:
+    INTERACTION_RESPONSE_TYPE.ENTERED_PASSPHRASE,
+  [INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING]:
+    INTERACTION_RESPONSE_TYPE.DECISION,
+}
+
 type Implementation = {
   sendMessage: (interaction: RawInteraction) => void
-  addListener: (handler: (message: unknown) => void) => void
+  addListener: (handler: (message: InteractionResponse) => void) => void
 }
 
 export class EventBus {
@@ -33,11 +56,8 @@ export class EventBus {
     this.implementation = implementation
     this.events = new EventEmitter()
 
-    this.implementation.addListener((message: unknown) => {
-      if (message && 'name' in message && 'traceID' in message) {
-        const event = message as InteractionResponse
-        this.events.emit(event.name, event)
-      }
+    this.implementation.addListener((message) => {
+      this.events.emit(message.traceID, message)
     })
   }
 
@@ -108,43 +128,47 @@ export class EventBus {
       data,
     })
 
-    return new Promise((resolve, reject) => {
-      const onCancel = () => {
-        this.implementation.sendMessage({
-          traceID,
-          name: INTERACTION_TYPE.ERROR_OCCURRED,
-          data: {
-            name: 'Error',
-            error: 'Cancelled by the user',
-          },
-        })
-        this.implementation.sendMessage({
-          traceID,
-          name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
-        })
-        this.events.removeListener(
-          INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST,
-          onCancel
-        )
-        reject(new Error('Cancelled by the user'))
-      }
+    if (!ResponseMapping[name]) {
+      return null
+    }
 
+    return new Promise((resolve, reject) => {
       const handler = (message: InteractionResponse) => {
         if (message.traceID === traceID) {
-          resolve(message as InteractionResponse)
+          if (message.name === INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST) {
+            this.implementation.sendMessage({
+              traceID,
+              name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
+            })
+            reject(new Error('Cancelled by the user'))
+            this.events.removeListener(traceID, handler)
+            return
+          }
+
+          if (message.name !== ResponseMapping[name]) {
+            this.implementation.sendMessage({
+              traceID,
+              name: INTERACTION_TYPE.ERROR_OCCURRED,
+              data: {
+                name: 'Error',
+                error: 'Unexpected response type',
+              },
+            })
+            this.implementation.sendMessage({
+              traceID,
+              name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
+            })
+            reject(new Error('Cancelled by the user'))
+            this.events.removeListener(name, handler)
+            return
+          }
+
+          resolve(message)
           this.events.removeListener(name, handler)
-          this.events.removeListener(
-            INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST,
-            onCancel
-          )
         }
       }
 
-      this.events.addListener(
-        INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST,
-        onCancel
-      )
-      this.events.addListener(name, handler)
+      this.events.addListener(traceID, handler)
     })
   }
 }

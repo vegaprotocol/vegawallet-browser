@@ -15,12 +15,20 @@ export class Storage<V extends Serializable> {
   }
 
   private async _load(): Promise<Record<string, V>> {
-    const result = (await this._engine.get(this._prefix))?.[this._prefix] ?? {}
-    return this._schema.parse(result)
+    const result = (await this._engine.get(this._prefix)) ?? {}
+
+    return Object.keys(result).reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: this._schema.parse(result[key]),
+      }),
+      {}
+    )
   }
 
   async has(key: string): Promise<boolean> {
-    return (await this._load())[key] !== undefined
+    const val = await this._load()
+    return key in val
   }
 
   async get(key: string): Promise<V | undefined> {

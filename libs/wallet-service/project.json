@@ -19,13 +19,11 @@
       }
     },
     "test": {
-      "executor": "nx:run-commands",
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/wallet-service"],
       "options": {
-        "parallel": false,
-        "commands": [
-          "yarn nx run wallet-service:build-spec",
-          "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"
-        ]
+        "jestConfig": "libs/wallet-service/jest.config.ts",
+        "passWithNoTests": true
       }
     },
     "typecheck": {
@@ -33,13 +31,6 @@
       "outputs": [],
       "options": {
         "command": "yarn tsc --noEmit --project ./libs/wallet-service/tsconfig.json"
-      }
-    },
-    "build-spec": {
-      "executor": "nx:run-commands",
-      "outputs": [],
-      "options": {
-        "command": "yarn tsc --project ./libs/wallet-service/tsconfig.spec.json"
       }
     }
   }

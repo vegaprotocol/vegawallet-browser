@@ -1,9 +1,6 @@
 {
   "extends": ["../../.eslintrc.json"],
-  "ignorePatterns": [
-    "src/executors/**/executor.js",
-    "src/generators/**/generator.js"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

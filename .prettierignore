@@ -2,3 +2,5 @@
 
 /dist
 /coverage
+libs/tooling/src/executors/**/executor.js
+libs/tooling/src/generators/**/generator.js

@@ -1,6 +1,8 @@
 import { z } from 'zod'
 
-export const ConfigSchema = z
+export type Network = z.infer<typeof NetworkSchema>
+
+export const NetworkSchema = z
   .object({
     Name: z.string(),
     API: z

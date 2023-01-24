@@ -1,5 +1,8 @@
-import test from 'tape'
+import fetchMock from 'jest-fetch-mock'
 import { Networks } from './'
+import { Storage } from '../../storage/wrapper'
+import { NetworkSchema, Network } from '../../storage/schemas/network'
+import { MockStorage } from '../../../test/mock-storage'
 
 const mockConfig = {
   Name: 't1',
@@ -30,192 +33,150 @@ const mockResponse = {
   },
 }
 
-const setupFetch = (name: string, restHosts: string[] = []) => {
-  global.fetch = async (url: RequestInfo | URL) => {
-    if (typeof url !== 'string') {
-      return new Response()
-    }
+const getTomlContent = (
+  name: string,
+  hosts: string[] = mockConfig.API.REST.Hosts
+) => `
+Host = "localhost"
+Level = "info"
+Name = "${name}"
+Port = 1789
+TokenExpiry = "1h"
+[API]
+  [API.GRPC]
+    Hosts = ["localhost:3007"]
+    Retries = 5
+  [API.GraphQL]
+    Hosts = ["http://localhost/graphql"]
+  [API.REST]
+    Hosts = [${hosts.map((h) => `"${h}"`).join(', ')}]
+`
 
-    const ext = url.split('.').at(-1)
+const getStorage = async (data?: { name: string; value: Network }) => {
+  const s = new Storage('networks', NetworkSchema, new MockStorage())
 
-    switch (ext) {
-      case 'toml': {
-        const content = `
-  Host = "localhost"
-  Level = "info"
-  Name = "${name}"
-  Port = 1789
-  TokenExpiry = "1h"
-  [API]
-    [API.GRPC]
-      Hosts = ["localhost:3007"]
-      Retries = 5
-    [API.GraphQL]
-      Hosts = ["http://localhost/graphql"]
-    [API.REST]
-      Hosts = [${restHosts.map((h) => `"${h}"`).join(', ')}]
-        `
-        return new Response(content)
-      }
-      default: {
-        return new Response('')
-      }
-    }
+  if (data) {
+    await s.set(data.name, data.value)
   }
+  return s
 }
 
-test('admin.list_networks', async (assert) => {
-  const nw = new Networks(new Map())
+describe('Networks', () => {
+  test('list', async () => {
+    const nw = new Networks(await getStorage())
 
-  assert.deepEqual(
-    await nw.list(),
-    { networks: [] },
-    'Fresh service should return empty list'
-  )
+    expect(await nw.list()).toEqual({ networks: [] })
 
-  setupFetch('t1')
+    fetchMock.mockResponseOnce(async () => getTomlContent('t1'))
 
-  await nw.import({
-    url: 'http://some.url/file.toml',
-    filePath: '',
-    overwrite: false,
-  })
-
-  assert.deepEqual(
-    (await nw.list()).networks.sort(),
-    ['t1'],
-    'One network should return one name'
-  )
-
-  setupFetch('t2')
-
-  await nw.import({
-    url: 'http://some.url/file2.toml',
-    filePath: '',
-    overwrite: false,
-  })
-
-  assert.deepEqual(
-    (await nw.list()).networks.sort(),
-    ['t1', 't2'],
-    'Two networks should return two names'
-  )
-
-  setupFetch('t2', ['http://localhost:8080'])
-
-  await nw.import({
-    url: 'http://some.url/file2.toml',
-    filePath: '',
-    overwrite: false,
-  })
-
-  assert.deepEqual(
-    (await nw.list()).networks.sort(),
-    ['t1', 't2'],
-    'Overwriting one network should return two names'
-  )
-
-  assert.end()
-})
-
-test('admin.import_network - toml', async (assert) => {
-  const nw = new Networks(new Map())
-
-  assert.deepEqual(
-    await nw.list(),
-    { networks: [] },
-    'Networks list should be empty'
-  )
-
-  setupFetch('t1')
-
-  await nw.import({
-    name: 't1',
-    url: 'http://source.url/file.toml',
-    filePath: '',
-    overwrite: false,
-  })
-
-  assert.deepEqual(
-    await nw.list(),
-    { networks: ['t1'] },
-    'Networks list should return the imported network'
-  )
-
-  assert.end()
-})
-
-test('admin.import_network - unsupported extension', async (assert) => {
-  const nw = new Networks(new Map())
-
-  assert.deepEqual(
-    await nw.list(),
-    { networks: [] },
-    'Networks list should be empty'
-  )
-
-  setupFetch('t1')
-
-  try {
     await nw.import({
-      name: 't1',
-      url: 'http://source.url/file.exe',
+      url: 'http://some.url/file.toml',
       filePath: '',
       overwrite: false,
     })
-    assert.fail()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    assert.ok(
-      /Unsupported extension: "exe". Only ".toml" file extensions are supported for network configuration./.test(
-        err.message
-      ),
-      'admin.import_network is unimplemented'
+
+    expect((await nw.list()).networks.sort()).toEqual(['t1'])
+
+    fetchMock.mockResponseOnce(async () => getTomlContent('t2'))
+
+    await nw.import({
+      url: 'http://some.url/file2.toml',
+      filePath: '',
+      overwrite: false,
+    })
+
+    expect((await nw.list()).networks.sort()).toEqual(['t1', 't2'])
+
+    fetchMock.mockResponseOnce(async () =>
+      getTomlContent('t2', ['http://localhost:8080'])
     )
-  }
 
-  assert.end()
-})
+    await nw.import({
+      url: 'http://some.url/file2.toml',
+      filePath: '',
+      overwrite: false,
+    })
 
-test('admin.describe_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
+    expect((await nw.list()).networks.sort()).toEqual(['t1', 't2'])
+  })
 
-  assert.deepEqual(await nw.describe({ name: mockConfig.Name }), mockResponse)
+  test('import - toml', async () => {
+    const nw = new Networks(await getStorage())
 
-  assert.end()
-})
+    expect(await nw.list()).toEqual({ networks: [] })
 
-test('admin.update_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
+    fetchMock.mockResponseOnce(async () => getTomlContent('t1'))
 
-  assert.deepEqual(await nw.describe({ name: 't1' }), mockResponse)
+    await nw.import({
+      name: 't1',
+      url: 'http://source.url/file.toml',
+      filePath: '',
+      overwrite: false,
+    })
 
-  const newConfig = {
-    name: mockConfig.Name,
-    logLevel: 'info',
-    tokenExpiry: '2h',
-    host: 'http://host.com',
-    port: 80,
-    api: {
-      grpcConfig: {
-        hosts: [],
-        retries: 0,
+    expect(await nw.list()).toEqual({ networks: ['t1'] })
+  })
+
+  test('import - unsupported', async () => {
+    const nw = new Networks(await getStorage())
+
+    expect(await nw.list()).toEqual({ networks: [] })
+
+    fetchMock.mockResponseOnce(async () => getTomlContent('t1'))
+
+    const importNetwork = async () => {
+      await nw.import({
+        name: 't1',
+        url: 'http://source.url/file.exe',
+        filePath: '',
+        overwrite: false,
+      })
+    }
+
+    await expect(importNetwork()).rejects.toThrow(
+      /Unsupported extension: "exe". Only ".toml" file extensions are supported for network configuration./
+    )
+  })
+
+  test('describe', async () => {
+    const nw = new Networks(
+      await getStorage({ name: mockConfig.Name, value: mockConfig })
+    )
+
+    expect(await nw.describe({ name: mockConfig.Name })).toEqual(mockResponse)
+  })
+
+  test('update', async () => {
+    const nw = new Networks(
+      await getStorage({ name: mockConfig.Name, value: mockConfig })
+    )
+
+    expect(await nw.describe({ name: 't1' })).toEqual(mockResponse)
+
+    const newConfig = {
+      name: mockConfig.Name,
+      logLevel: 'info',
+      tokenExpiry: '2h',
+      host: 'http://host.com',
+      port: 80,
+      api: {
+        grpcConfig: {
+          hosts: [],
+          retries: 0,
+        },
+        graphQLConfig: {
+          hosts: [],
+        },
+        restConfig: {
+          hosts: ['http://example.com'],
+        },
       },
-      graphQLConfig: {
-        hosts: [],
-      },
-      restConfig: {
-        hosts: ['example.com'],
-      },
-    },
-  }
+    }
 
-  // 'Successfully update network t1'
-  await nw.update(newConfig)
+    // 'Successfully update network t1'
+    await nw.update(newConfig)
 
-  assert.deepEqual(
-    await nw.describe({ name: mockConfig.Name }),
-    {
+    expect(await nw.describe({ name: mockConfig.Name })).toEqual({
       ...mockResponse,
       name: newConfig.name,
       api: {
@@ -224,42 +185,27 @@ test('admin.update_network', async (assert) => {
           hosts: newConfig.api.restConfig.hosts,
         },
       },
-    },
-    'Postcondition'
-  )
+    })
+  })
 
-  assert.end()
-})
-
-test('admin.remove_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
-
-  try {
-    await nw.remove({ name: 't2' })
-    assert.fail()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    assert.ok(
-      /Invalid network/.test(err.message),
-      'Remove non-existing network'
+  test('remove', async () => {
+    const nw = new Networks(
+      await getStorage({ name: mockConfig.Name, value: mockConfig })
     )
-  }
 
-  assert.deepEqual(await nw.list(), { networks: ['t1'] }, 'Precondition')
+    const remove = async (name: string) => await nw.remove({ name })
 
-  // 'Remove network with success'
-  await nw.remove({ name: 't1' })
+    await expect(remove('t2')).rejects.toThrow(/Invalid network/)
 
-  assert.deepEqual(await nw.list(), { networks: [] }, 'Postcondition')
+    expect(await nw.list()).toEqual({ networks: ['t1'] })
 
-  try {
+    // 'Remove network with success'
     await nw.remove({ name: 't1' })
-    assert.fail()
-    // eslint-disable-next-line
-  } catch (err: any) {
-    assert.ok(/Invalid network/.test(err.message), 'Remove same network twice')
-  }
-  assert.deepEqual(await nw.list(), { networks: [] }, 'Postcondition')
 
-  assert.end()
+    expect(await nw.list()).toEqual({ networks: [] })
+
+    await expect(remove('t1')).rejects.toThrow(/Invalid network/)
+
+    expect(await nw.list()).toEqual({ networks: [] })
+  })
 })

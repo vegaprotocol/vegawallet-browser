@@ -9,6 +9,10 @@
       "options": {
         "name": "Vega Wallet",
         "description": "Vega Wallet Browser Extension",
+        "background": {
+          "main": "libs/wallet-web/src/background.ts",
+          "tsConfig": "libs/wallet-web/tsconfig.lib.json"
+        },
         "popup": {
           "main": "libs/wallet-popup/src/index.tsx",
           "styles": "libs/wallet-popup/src/styles.css",

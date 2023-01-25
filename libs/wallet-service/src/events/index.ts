@@ -19,7 +19,7 @@ import {
   InteractionResponseEnteredPassphrase,
   InteractionResponseWalletConnectionDecision,
   InteractionResponseSelectedWallet,
-} from '@vegaprotocol/wallet-ui'
+} from '@vegaprotocol/wallet-ui/src/types'
 
 export type EventData =
   | RequestWalletConnectionContent

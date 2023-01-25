@@ -18,7 +18,13 @@
     "paths": {
       "@vegaprotocol/tooling": ["libs/tooling/src/index.ts"],
       "@vegaprotocol/wallet-popup": ["libs/wallet-popup/src/index.ts"],
-      "@vegaprotocol/wallet-service": ["libs/wallet-service/src/index.ts"]
+      "@vegaprotocol/wallet-service": ["libs/wallet-service/src/index.ts"],
+      "@vegaprotocol/wallet-ui": [
+        "node_modules/@vegaprotocol/wallet-ui/index.cjs"
+      ],
+      "@vegaprotocol/wallet-ui/src/types": [
+        "node_modules/@vegaprotocol/wallet-ui/src/types/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

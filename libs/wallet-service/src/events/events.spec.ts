@@ -6,7 +6,7 @@ import {
   CONNECTION_RESPONSE,
   PermissionTarget,
   PermissionType,
-} from '@vegaprotocol/wallet-ui'
+} from '@vegaprotocol/wallet-ui/src/types'
 import { EventBus, ResponseMapping } from './'
 import type { EventData, EventResponseData } from './'
 

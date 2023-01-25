@@ -1,4 +1,4 @@
-import { RawInteraction, InteractionResponse } from '@vegaprotocol/wallet-ui'
+import { RawInteraction, InteractionResponse } from '@vegaprotocol/wallet-ui/src/types'
 import {
   WalletService,
   WalletStore,
@@ -13,16 +13,19 @@ const service = new WalletService({
   store: new WalletStore(storage),
 })
 
-runtime.onConnect.addListener((portal) => {
-  service.onConnect({
-    eventBus: new EventBus({
-      sendMessage: (message: RawInteraction) => portal.postMessage(message),
-      addListener: (handler) =>
-        portal.onMessage.addListener((message) => {
-          if ('traceID' in message && 'name' in message) {
-            handler(message as InteractionResponse)
-          }
-        }),
-    }),
-  })
+runtime.onConnect.addListener(portal => {
+  if (portal.sender?.url) {
+    service.onConnect({
+      sender: portal.sender.url,
+      eventBus: new EventBus({
+        sendMessage: (message: RawInteraction) => portal.postMessage(message),
+        addListener: (handler: (message: InteractionResponse) => void) =>
+          portal.onMessage.addListener((message: object) => {
+            if ('traceID' in message && 'name' in message) {
+              handler(message as InteractionResponse)
+            }
+          }),
+      }),
+    })
+  }
 })

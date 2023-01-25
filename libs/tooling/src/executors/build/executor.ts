@@ -1,6 +1,7 @@
 import path from 'node:path'
 import { spawn } from 'node:child_process'
 import { remove, stat } from 'fs-extra'
+import { build } from 'esbuild'
 import { webpackExecutor, WebpackExecutorOptions } from '@nrwl/webpack'
 import { FsTree, flushChanges } from 'nx/src/generators/tree'
 import type { ExecutorContext } from '@nrwl/devkit'
@@ -31,7 +32,7 @@ const buildJs = async (
   options: WebpackExecutorOptions,
   context: ExecutorContext
 ) => {
-  const result = { success: false }
+  const result = { success: true }
 
   for await (const item of webpackExecutor(
     {
@@ -42,7 +43,7 @@ const buildJs = async (
     },
     context
   )) {
-    result.success = item.success
+    result.success = result.success && item.success
   }
 
   return result
@@ -64,7 +65,7 @@ const generateExtenstionFiles = async (
     popupTitle: options.name,
     popupDescription: options.description,
     popupStyles: options.popup?.styles ? './styles.css' : undefined,
-    backgroundJs: options.background ? './main.js' : undefined,
+    backgroundJs: options.background ? './background/main.js' : undefined,
   })
 
   const changes = tree.listChanges()
@@ -124,12 +125,24 @@ export default async function runExecutor(
     }
 
     if (options.background) {
+      // await build({
+      //   entryPoints: [path.join(context.root, options.background.main)],
+      //   bundle: true,
+      //   format: 'cjs',
+      //   outfile: path.join(context.root, options.outputPath, 'background', 'main.js'),
+      //   tsconfig: path.join(context.root, options.background.tsConfig),
+      //   alias: {
+      //     '@vegaprotocol/wallet-ui/src/types': path.join(context.root, 'node_modules/@vegaprotocol/wallet-ui/src/types/index.d.ts')
+      //   }
+      // })
+      //
       await buildJs(
         {
           compiler: 'swc',
           outputPath: path.join(context.root, options.outputPath, 'background'),
           main: path.join(context.root, options.background.main),
           tsConfig: path.join(context.root, options.background.tsConfig),
+          styles: [],
           webpackConfig: path.join(
             context.root,
             project.root,

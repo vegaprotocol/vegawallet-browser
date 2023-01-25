@@ -2,7 +2,7 @@ import {
   INTERACTION_TYPE,
   PermissionTarget,
   PermissionType,
-} from '@vegaprotocol/wallet-ui'
+} from '@vegaprotocol/wallet-ui/src/types'
 
 import { EventBus } from '../../events'
 

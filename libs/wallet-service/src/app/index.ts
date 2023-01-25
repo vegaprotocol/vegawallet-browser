@@ -14,8 +14,8 @@ export class WalletService {
     this.networks = new Networks(store.networks)
   }
 
-  onConnect({ eventBus }: { eventBus: EventBus }) {
-    this.client = new Client(this.store, eventBus)
+  onConnect({ eventBus, sender }: { eventBus: EventBus, sender: string  }) {
+    this.client = new Client(sender, this.store, eventBus)
   }
 
   /**
@@ -24,29 +24,28 @@ export class WalletService {
    * @async
    * @param method Any method from the Vega OpenRPC `client.*`
    * @param params
-   * @param origin The origin of the callee. Must include the protocol, FQDN and optional port number
    * @returns
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async handleClient(method: string, params: any, origin: string) {
+  async handleClient(method: string, params: any) {
     if (!this.client) {
-      throw new Error('Application not connected')
+      throw new Error('No application connected. Make sure you initialize the client with service.onConnect(...) first.')
     }
 
     // TODO Handle any calls in the client namespace, including permission check
     switch (method) {
       case ClientIdentifier.ConnectWallet:
-        return this.client.connect(origin)
+        return this.client.connect()
       case ClientIdentifier.DisconnectWallet:
-        return this.client.disconnect(params, origin)
+        return this.client.disconnect(params)
       case ClientIdentifier.ListKeys:
-        return this.client.listKeys(params, origin)
+        return this.client.listKeys(params)
       case ClientIdentifier.SignTransaction:
-        return this.client.signTransaction(params, origin)
+        return this.client.signTransaction(params)
       case ClientIdentifier.SendTransaction:
-        return this.client.sendTransaction(params, origin)
+        return this.client.sendTransaction(params)
       case ClientIdentifier.GetChainId:
-        return this.client.getChainId(params, origin)
+        return this.client.getChainId(params)
 
       default:
         return notImplemented()

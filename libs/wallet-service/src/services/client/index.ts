@@ -1,6 +1,5 @@
-import { generate } from 'rand-token'
 import type { WalletModel } from '@vegaprotocol/wallet-client'
-import { CONNECTION_RESPONSE } from '@vegaprotocol/wallet-ui'
+import { CONNECTION_RESPONSE } from '@vegaprotocol/wallet-ui/src/types'
 
 import type { WalletStore } from '../../storage'
 import { Interactor } from '../interactor'
@@ -8,17 +7,22 @@ import { EventBus } from '../../events'
 
 const MAX_TOKEN_CREATE_RETRIES = 3
 
+// @TODO: add implementation for token generation
+const generateToken = () => '1234567890'
+
 export class Client {
+  private sender: string
   private store: WalletStore
   private interactor: Interactor
 
-  constructor(store: WalletStore, eventBus: EventBus) {
+  constructor(sender: string, store: WalletStore, eventBus: EventBus) {
+    this.sender = sender
     this.store = store
     this.interactor = new Interactor(eventBus)
   }
 
   private createToken(retries?: number): string {
-    const token = generate(64)
+    const token = generateToken()
     if (!this.store.connections.has(token)) {
       return token
     } else if (retries && retries < MAX_TOKEN_CREATE_RETRIES) {
@@ -27,10 +31,10 @@ export class Client {
     throw new Error('Cannot create new connection token.')
   }
 
-  async connect(origin: string): Promise<WalletModel.ConnectWalletResult> {
+  async connect(): Promise<WalletModel.ConnectWalletResult> {
     const {
       data: { connectionApproval },
-    } = await this.interactor.requestWalletConnection({ origin })
+    } = await this.interactor.requestWalletConnection({ origin: this.sender })
 
     if (connectionApproval === CONNECTION_RESPONSE.APPROVED_ONCE) {
       const wallets = await this.store.wallets.values()
@@ -66,7 +70,6 @@ export class Client {
 
   async disconnect(
     params: WalletModel.DisconnectWalletParams,
-    origin: string
   ): Promise<WalletModel.DisconnectWalletResult> {
     const connection = await this.store.connections.get(origin)
 
@@ -80,13 +83,12 @@ export class Client {
       throw new Error('Invalid token')
     }
 
-    await this.store.connections.delete(origin)
+    await this.store.connections.delete(connection.origin)
     return {}
   }
 
   async listKeys(
     params: WalletModel.ListKeysParams,
-    origin: string
   ): Promise<WalletModel.ListKeysResult> {
     const connection = await this.store.connections.get(origin)
 
@@ -121,21 +123,18 @@ export class Client {
 
   async sendTransaction(
     params: WalletModel.SendTransactionParams,
-    origin: string
   ): Promise<WalletModel.SendTransactionResult> {
     throw new Error('Not implemented')
   }
 
   async signTransaction(
     params: WalletModel.SignTransactionParams,
-    origin: string
   ): Promise<WalletModel.SignTransactionResult> {
     throw new Error('Not implemented')
   }
 
   async getChainId(
     params: WalletModel.GetChainIdParams,
-    origin: string
   ): Promise<WalletModel.GetChainIdResult> {
     throw new Error('Not implemented')
   }

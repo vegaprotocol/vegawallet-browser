@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "types": ["node", "chrome", "firefox-webext-browser"]
+  },
+  "include": ["src/*.ts", "../wallet-service/**/*.ts"],
+  "exclude": [
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "../wallet-service/**/*.spec.ts",
+    "../wallet-service/**/*.test.ts"
+  ]
+}

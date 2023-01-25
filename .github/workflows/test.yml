@@ -34,13 +34,15 @@ jobs:
           key: node_modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install root dependencies
         run: yarn install --frozen-lockfile
-      - name: Firefox build affected
-        run: yarn nx affected:build --configuration=firefox
-      - name: Chrome build affected
-        run: yarn nx affected:build --configuration=chrome
+      - name: Build tooling
+        run: yarn run tooling:build
       - name: Check formatting
         run: yarn nx format:check
       - name: Lint affected
         run: yarn nx affected:lint --max-warnings=0
       - name: Test affected
         run: yarn nx affected:test
+      - name: Firefox build affected
+        run: yarn nx affected:build --configuration=firefox
+      - name: Chrome build affected
+        run: yarn nx affected:build --configuration=chrome

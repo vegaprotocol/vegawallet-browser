@@ -1,7 +1,4 @@
 {
   "name": "@vegaprotocol/wallet-web",
-  "version": "0.0.1",
-  "scripts": {
-    "test": "trigger build"
-  }
+  "version": "0.0.1"
 }

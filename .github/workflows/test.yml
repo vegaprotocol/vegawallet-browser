@@ -34,6 +34,8 @@ jobs:
           key: node_modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install root dependencies
         run: yarn install --frozen-lockfile
+      - name: Build tooling
+        run: yarn nx run tooling:build --skip-nx-cache
       - name: Check formatting
         run: yarn nx format:check
       - name: Lint affected

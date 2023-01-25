@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "sourceMap": true,
+    "inlineSourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "esModuleInterop": true,

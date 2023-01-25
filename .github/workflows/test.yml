@@ -35,7 +35,7 @@ jobs:
       - name: Install root dependencies
         run: yarn install --frozen-lockfile
       - name: Build tooling
-        run: yarn run tooling:build
+        run: yarn nx run tooling:build
       - name: Check formatting
         run: yarn nx format:check
       - name: Lint affected

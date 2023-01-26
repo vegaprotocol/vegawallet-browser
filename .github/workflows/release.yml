@@ -1,12 +1,12 @@
 ---
 name: Release
 
-"on":
+'on':
   push:
     branches:
       - develop
     tags:
-      - "v*"
+      - 'v*'
 
   workflow_dispatch:
     inputs:
@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: ["chrome", "firefox"]
+        browser: ['chrome', 'firefox']
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -49,13 +49,14 @@ jobs:
       - name: Build tooling
         run: yarn nx run tooling:build --skip-nx-cache
       - name: Build
-        run: yarn nx run wallet-web:build:${{matrix.browser}} --skip-nx-cache
-          
+        run: yarn nx run wallet-web:build:${{ matrix.browser }} --skip-nx-cache
+
       - name: Bundle binary in archive
         uses: thedoctor0/zip-release@master
         with:
           type: zip
-          directory: build
+          directory: dist/libs/wallet-web-${{ matrix.browser }}
+          exclusions: '*.zip'
           filename: ${{ matrix.browser }}.zip
 
       - name: Release

@@ -1,5 +1,5 @@
 ---
-name: Release vega, data-node, vegawallet and visor binaries
+name: Release
 
 "on":
   push:
@@ -23,7 +23,7 @@ name: Release vega, data-node, vegawallet and visor binaries
 
 jobs:
   release-firefox:
-    name: Release Firefox
+    name: Release
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -46,8 +46,9 @@ jobs:
           key: node_modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install root dependencies
         run: yarn install --frozen-lockfile
-      
-      - name: Build Firefox
+      - name: Build tooling
+        run: yarn nx run tooling:build --skip-nx-cache
+      - name: Build
         run: yarn nx run wallet-web:build:${{matrix.browser}} --skip-nx-cache
           
       - name: Bundle binary in archive

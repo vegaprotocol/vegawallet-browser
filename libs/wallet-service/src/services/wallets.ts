@@ -5,7 +5,7 @@ import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 // @ts-ignore
 import { generate as generateMnemonic } from '@vegaprotocol/crypto/bip-0039/mnemonic'
 
-import { Storage } from './storage/types/storage.js'
+import type { Storage } from './storage/types/storage'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
 export type WalletConfig = {

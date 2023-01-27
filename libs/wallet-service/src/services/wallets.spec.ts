@@ -1,5 +1,5 @@
 import test from 'tape'
-import { Wallets } from './wallets.js'
+import { Wallets } from './wallets'
 
 test('admin.create_wallet', async (assert) => {
   const w = new Wallets(new Map())

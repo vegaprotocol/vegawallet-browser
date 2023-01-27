@@ -2,8 +2,8 @@
 // @ts-ignore
 import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 
-import { WalletConfig } from './wallets.js'
-import { Storage } from './storage/types/storage.js'
+import type { WalletConfig } from './wallets'
+import type { Storage } from './storage/types/storage'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
 export class Keys {

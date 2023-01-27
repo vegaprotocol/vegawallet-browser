@@ -1,6 +1,6 @@
 import test from 'tape'
-import { Keys } from './keys.js'
-import { Wallets } from './wallets.js'
+import { Keys } from './keys'
+import { Wallets } from './wallets'
 
 test('admin.generate_key / admin.list_keys', async (assert) => {
   const ws = new Map()

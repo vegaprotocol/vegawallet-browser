@@ -1,11 +1,14 @@
 import test from 'tape'
-import { Networks } from './'
+import { Networks } from './networks'
+import { Storage } from '../storage/wrapper'
+import { NetworkSchema } from '../storage/schemas/network'
+import { MockStorage } from '../../test/mock-storage'
 
 const mockConfig = {
   Name: 't1',
   API: {
     REST: {
-      Hosts: ['http://localhost'],
+      Hosts: ['https://example.com'],
     },
   },
 }
@@ -41,17 +44,17 @@ const setupFetch = (name: string, restHosts: string[] = []) => {
     switch (ext) {
       case 'toml': {
         const content = `
-  Host = "localhost"
+  Host = "http://example.com"
   Level = "info"
   Name = "${name}"
   Port = 1789
   TokenExpiry = "1h"
   [API]
     [API.GRPC]
-      Hosts = ["localhost:3007"]
+      Hosts = ["http://example.com:3007"]
       Retries = 5
     [API.GraphQL]
-      Hosts = ["http://localhost/graphql"]
+      Hosts = ["http://example.com/graphql"]
     [API.REST]
       Hosts = [${restHosts.map((h) => `"${h}"`).join(', ')}]
         `
@@ -65,52 +68,53 @@ const setupFetch = (name: string, restHosts: string[] = []) => {
 }
 
 test('admin.list_networks', async (assert) => {
-  const nw = new Networks(new Map())
+  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  const n = new Networks(s)
 
   assert.deepEqual(
-    await nw.list(),
+    await n.list(),
     { networks: [] },
     'Fresh service should return empty list'
   )
 
   setupFetch('t1')
 
-  await nw.import({
+  await n.import({
     url: 'http://some.url/file.toml',
     filePath: '',
     overwrite: false,
   })
 
   assert.deepEqual(
-    (await nw.list()).networks.sort(),
+    (await n.list()).networks.sort(),
     ['t1'],
     'One network should return one name'
   )
 
   setupFetch('t2')
 
-  await nw.import({
+  await n.import({
     url: 'http://some.url/file2.toml',
     filePath: '',
     overwrite: false,
   })
 
   assert.deepEqual(
-    (await nw.list()).networks.sort(),
+    (await n.list()).networks.sort(),
     ['t1', 't2'],
     'Two networks should return two names'
   )
 
-  setupFetch('t2', ['http://localhost:8080'])
+  setupFetch('t2', ['http://example.com:8080'])
 
-  await nw.import({
+  await n.import({
     url: 'http://some.url/file2.toml',
     filePath: '',
     overwrite: false,
   })
 
   assert.deepEqual(
-    (await nw.list()).networks.sort(),
+    (await n.list()).networks.sort(),
     ['t1', 't2'],
     'Overwriting one network should return two names'
   )
@@ -119,17 +123,18 @@ test('admin.list_networks', async (assert) => {
 })
 
 test('admin.import_network - toml', async (assert) => {
-  const nw = new Networks(new Map())
+  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  const n = new Networks(s)
 
   assert.deepEqual(
-    await nw.list(),
+    await n.list(),
     { networks: [] },
     'Networks list should be empty'
   )
 
   setupFetch('t1')
 
-  await nw.import({
+  await n.import({
     name: 't1',
     url: 'http://source.url/file.toml',
     filePath: '',
@@ -137,7 +142,7 @@ test('admin.import_network - toml', async (assert) => {
   })
 
   assert.deepEqual(
-    await nw.list(),
+    await n.list(),
     { networks: ['t1'] },
     'Networks list should return the imported network'
   )
@@ -146,10 +151,11 @@ test('admin.import_network - toml', async (assert) => {
 })
 
 test('admin.import_network - unsupported extension', async (assert) => {
-  const nw = new Networks(new Map())
+  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  const n = new Networks(s)
 
   assert.deepEqual(
-    await nw.list(),
+    await n.list(),
     { networks: [] },
     'Networks list should be empty'
   )
@@ -157,7 +163,7 @@ test('admin.import_network - unsupported extension', async (assert) => {
   setupFetch('t1')
 
   try {
-    await nw.import({
+    await n.import({
       name: 't1',
       url: 'http://source.url/file.exe',
       filePath: '',
@@ -178,17 +184,21 @@ test('admin.import_network - unsupported extension', async (assert) => {
 })
 
 test('admin.describe_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
+  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  await s.set(mockConfig.Name, mockConfig)
+  const n = new Networks(s)
 
-  assert.deepEqual(await nw.describe({ name: mockConfig.Name }), mockResponse)
+  assert.deepEqual(await n.describe({ name: mockConfig.Name }), mockResponse)
 
   assert.end()
 })
 
 test('admin.update_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
+  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  await s.set(mockConfig.Name, mockConfig)
+  const n = new Networks(s)
 
-  assert.deepEqual(await nw.describe({ name: 't1' }), mockResponse)
+  assert.deepEqual(await n.describe({ name: mockConfig.Name }), mockResponse)
 
   const newConfig = {
     name: mockConfig.Name,
@@ -205,16 +215,16 @@ test('admin.update_network', async (assert) => {
         hosts: [],
       },
       restConfig: {
-        hosts: ['example.com'],
+        hosts: ['http://example1.com', 'http://example2.com'],
       },
     },
   }
 
   // 'Successfully update network t1'
-  await nw.update(newConfig)
+  await n.update(newConfig)
 
   assert.deepEqual(
-    await nw.describe({ name: mockConfig.Name }),
+    await n.describe({ name: mockConfig.Name }),
     {
       ...mockResponse,
       name: newConfig.name,
@@ -232,10 +242,12 @@ test('admin.update_network', async (assert) => {
 })
 
 test('admin.remove_network', async (assert) => {
-  const nw = new Networks(new Map([[mockConfig.Name, mockConfig]]))
+  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  s.set(mockConfig.Name, mockConfig)
+  const n = new Networks(s)
 
   try {
-    await nw.remove({ name: 't2' })
+    await n.remove({ name: 't2' })
     assert.fail()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
@@ -245,21 +257,21 @@ test('admin.remove_network', async (assert) => {
     )
   }
 
-  assert.deepEqual(await nw.list(), { networks: ['t1'] }, 'Precondition')
+  assert.deepEqual(await n.list(), { networks: ['t1'] }, 'Precondition')
 
   // 'Remove network with success'
-  await nw.remove({ name: 't1' })
+  await n.remove({ name: 't1' })
 
-  assert.deepEqual(await nw.list(), { networks: [] }, 'Postcondition')
+  assert.deepEqual(await n.list(), { networks: [] }, 'Postcondition')
 
   try {
-    await nw.remove({ name: 't1' })
+    await n.remove({ name: 't1' })
     assert.fail()
     // eslint-disable-next-line
   } catch (err: any) {
     assert.ok(/Invalid network/.test(err.message), 'Remove same network twice')
   }
-  assert.deepEqual(await nw.list(), { networks: [] }, 'Postcondition')
+  assert.deepEqual(await n.list(), { networks: [] }, 'Postcondition')
 
   assert.end()
 })

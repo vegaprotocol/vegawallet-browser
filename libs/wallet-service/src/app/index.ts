@@ -1,13 +1,19 @@
 import { WalletStore } from '../storage'
 import { Networks } from '../services/networks'
+import { Keys } from '../services/keys'
+import { Wallets } from '../services/wallets'
 
 export class WalletService {
   private store: WalletStore
   private networks: Networks
+  private wallets: Wallets
+  private keys: Keys
 
   constructor({ store }: { store: WalletStore }) {
     this.store = store
     this.networks = new Networks(store.networks)
+    this.wallets = new Wallets(store.wallets)
+    this.keys = new Keys(store.wallets)
   }
 
   /**
@@ -55,17 +61,17 @@ export class WalletService {
     switch (method) {
       // Wallets
       case 'admin.list_wallets':
-        return notImplemented()
+        return this.wallets.list(params)
       case 'admin.create_wallet':
-        return notImplemented()
+        return this.wallets.create(params)
       case 'admin.import_wallet':
-        return notImplemented()
+        return this.wallets.import(params)
       case 'admin.describe_wallet':
-        return notImplemented()
+        return this.wallets.describe(params)
       case 'admin.rename_wallet':
-        return notImplemented()
+        return this.wallets.rename(params)
       case 'admin.remove_wallet':
-        return notImplemented()
+        return this.wallets.remove(params)
 
       // Network
       case 'admin.list_networks':
@@ -81,21 +87,21 @@ export class WalletService {
 
       // Keys
       case 'admin.generate_key':
-        return notImplemented()
+        return this.keys.generate(params)
       case 'admin.describe_key':
-        return notImplemented()
+        return this.keys.describe(params)
       case 'admin.list_keys':
-        return notImplemented()
+        return this.keys.list(params)
       case 'admin.annotate_key':
-        return notImplemented()
+        return this.keys.annotate(params)
       case 'admin.isolate_key':
         return notImplemented()
       case 'admin.rotate_key':
         return notImplemented()
       case 'admin.taint_key':
-        return notImplemented()
+        return this.keys.taint(params)
       case 'admin.untain_key':
-        return notImplemented()
+        return this.keys.untaint(params)
 
       // Permissions
       case 'admin.describe_permissions':

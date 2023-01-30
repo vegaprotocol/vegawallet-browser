@@ -23,7 +23,7 @@
     "@sentry/react": "7.17.4",
     "@sentry/tracing": "7.17.4",
     "@swc/helpers": "~0.4.11",
-    "@vegaprotocol/crypto": "0.1.0",
+    "@vegaprotocol/crypto": "0.4.1",
     "@vegaprotocol/wallet-admin": "^0.1.1",
     "@vegaprotocol/wallet-client": "0.0.4",
     "@vegaprotocol/wallet-ui": "0.1.11",

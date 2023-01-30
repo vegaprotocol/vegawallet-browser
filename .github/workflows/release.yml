@@ -22,7 +22,7 @@ name: Release
         default: ''
 
 jobs:
-  release-firefox:
+  release:
     name: Release
     runs-on: ubuntu-latest
     strategy:

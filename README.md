@@ -40,6 +40,10 @@ Run `yarn nx run <my-app>:build:<browser>` to build the project. The build artif
 
 Run `yarn nx run <my-app>:test` to execute the unit tests with [Jest](https://jestjs.io), or `nx affected:test` to execute just unit tests affected by a change. You can also use `--watch` with these test to run jest in watch mode, see [Jest executor](https://nx.dev/packages/jest/executors/jest) for all CLI flags.
 
+### Release
+
+The repository has been set up so that it creates a new release with a compressed bundle for each of the supported browsers. To create a new release, follow the guide from the [release documentation](./RELEASE.md).
+
 ### Formatting
 
 In CI linting, formatting and also run. These checks can be seen in the [CI workflow file](.github/workflows//test.yml).

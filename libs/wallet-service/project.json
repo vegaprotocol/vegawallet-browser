@@ -13,16 +13,18 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["coverage/libs/wallet-service"],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/wallet-service/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "libs/wallet-service/jest.config.ts",
-        "passWithNoTests": true
+        "commands": [
+          "yarn tsc --project ./libs/wallet-service/tsconfig.spec.json",
+          "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"
+        ]
       }
     },
     "typecheck": {

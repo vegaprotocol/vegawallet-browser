@@ -1,88 +1,89 @@
+import test from 'tape'
 import { z } from 'zod'
 import { Storage } from './wrapper'
 import { MockStorage } from '../../test/mock-storage'
 
 const StringSchema = z.string()
 
-describe('Storage', () => {
+test('storage has', async (assert) => {
   const m = new Storage<string>('test', StringSchema, new MockStorage())
+  assert.equal(await m.has('key'), false)
+  await m.set('key', 'value')
+  assert.equal(await m.has('key'), true)
+})
 
-  afterEach(async () => {
-    await m.clear()
-  })
+test('storage get', async (assert) => {
+  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  assert.equal(await m.get('key'), undefined)
+  await m.set('key', 'value')
+  assert.equal(await m.get('key'), 'value')
+})
 
-  test('has', async () => {
-    expect(await m.has('key')).toBe(false)
-    await m.set('key', 'value')
-    expect(await m.has('key')).toBe(true)
-  })
+test('storage set', async (assert) => {
+  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  assert.equal(await m.get('key'), undefined)
+  await m.set('key', 'value')
+  assert.equal(await m.get('key'), 'value')
+})
 
-  test('get', async () => {
-    expect(await m.get('key')).toBe(undefined)
-    await m.set('key', 'value')
-    expect(await m.get('key')).toBe('value')
-  })
+test('storage delete', async (assert) => {
+  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  assert.equal(await m.get('key'), undefined)
+  assert.equal(await m.delete('key'), false)
+  await m.set('key', 'value')
+  assert.equal(await m.get('key'), 'value')
+  assert.equal(await m.delete('key'), true)
+  assert.equal(await m.get('key'), undefined)
+  assert.equal(await m.delete('key'), false)
+})
 
-  test('set', async () => {
-    expect(await m.get('key')).toBe(undefined)
-    await m.set('key', 'value')
-    expect(await m.get('key')).toBe('value')
-  })
+test('storage clear', async (assert) => {
+  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  const m2 = new Storage('test2', StringSchema, new MockStorage())
+  await m.set('key', 'value')
+  await m2.set('key', 'value2')
+  assert.equal(await m.get('key'), 'value')
+  assert.equal(await m2.get('key'), 'value2')
+  await m.clear()
+  assert.equal(await m2.get('key'), 'value2')
+  assert.equal(await m.get('key'), undefined)
+})
 
-  test('delete', async () => {
-    expect(await m.get('key')).toBe(undefined)
-    expect(await m.delete('key')).toBe(false)
-    await m.set('key', 'value')
-    expect(await m.get('key')).toBe('value')
-    expect(await m.delete('key')).toBe(true)
-    expect(await m.get('key')).toBe(undefined)
-    expect(await m.delete('key')).toBe(false)
-  })
+test('storage keys', async (assert) => {
+  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  assert.deepEquals(Array.from(await m.keys()), [])
+  await m.set('key', 'value')
+  assert.deepEquals(Array.from(await m.keys()), ['key'])
+  await m.set('key2', 'value2')
+  assert.deepEquals(Array.from(await m.keys()), ['key', 'key2'])
+  await m.set('key', 'value')
+  assert.deepEquals(Array.from(await m.keys()), ['key', 'key2'])
+})
 
-  test('clear', async () => {
-    const m2 = new Storage('test2', StringSchema, new MockStorage())
-    await m.set('key', 'value')
-    await m2.set('key', 'value2')
-    expect(await m.get('key')).toBe('value')
-    expect(await m2.get('key')).toBe('value2')
-    await m.clear()
-    expect(await m2.get('key')).toBe('value2')
-    expect(await m.get('key')).toBe(undefined)
-  })
+test('storage values', async (assert) => {
+  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  assert.deepEquals(Array.from(await m.values()), [])
+  await m.set('key', 'value')
+  assert.deepEquals(Array.from(await m.values()), ['value'])
+  await m.set('key2', 'value2')
+  assert.deepEquals(Array.from(await m.values()), ['value', 'value2'])
+  await m.set('key', 'value')
+  assert.deepEquals(Array.from(await m.values()), ['value', 'value2'])
+})
 
-  test('keys', async () => {
-    expect(Array.from(await m.keys())).toEqual([])
-    await m.set('key', 'value')
-    expect(Array.from(await m.keys())).toEqual(['key'])
-    await m.set('key2', 'value2')
-    expect(Array.from(await m.keys())).toEqual(['key', 'key2'])
-    await m.set('key', 'value')
-    expect(Array.from(await m.keys())).toEqual(['key', 'key2'])
-  })
-
-  test('values', async () => {
-    expect(Array.from(await m.values())).toEqual([])
-    await m.set('key', 'value')
-    expect(Array.from(await m.values())).toEqual(['value'])
-    await m.set('key2', 'value2')
-    expect(Array.from(await m.values())).toEqual(['value', 'value2'])
-    await m.set('key', 'value')
-    expect(Array.from(await m.values())).toEqual(['value', 'value2'])
-  })
-
-  test('entries', async () => {
-    expect(Array.from(await m.entries())).toEqual([])
-    await m.set('key', 'value')
-    expect(Array.from(await m.entries())).toEqual([['key', 'value']])
-    await m.set('key2', 'value2')
-    expect(Array.from(await m.entries())).toEqual([
-      ['key', 'value'],
-      ['key2', 'value2'],
-    ])
-    await m.set('key', 'value')
-    expect(Array.from(await m.entries())).toEqual([
-      ['key', 'value'],
-      ['key2', 'value2'],
-    ])
-  })
+test('storage entries', async (assert) => {
+  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  assert.deepEquals(Array.from(await m.entries()), [])
+  await m.set('key', 'value')
+  assert.deepEquals(Array.from(await m.entries()), [['key', 'value']])
+  await m.set('key2', 'value2')
+  assert.deepEquals(Array.from(await m.entries()), [
+    ['key', 'value'],
+    ['key2', 'value2'],
+  ])
+  await m.set('key', 'value')
+  assert.deepEquals(Array.from(await m.entries()), [
+    ['key', 'value'],
+    ['key2', 'value2'],
+  ])
 })

@@ -1,8 +1,8 @@
 import toml from 'toml'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
-import type { Storage } from '../../storage/wrapper'
-import { Network } from '../../storage/schemas/network'
+import type { Storage } from '../storage/wrapper'
+import { Network } from '../storage/schemas/network'
 
 const toResponse = (config: Network): WalletModel.DescribeNetworkResult => {
   return {

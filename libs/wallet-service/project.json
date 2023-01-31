@@ -21,6 +21,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
+        "parallel": false,
         "commands": [
           "yarn tsc --project ./libs/wallet-service/tsconfig.spec.json",
           "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"

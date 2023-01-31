@@ -1,33 +1,33 @@
 import test from 'tape'
 import { z } from 'zod'
 import { Storage } from './wrapper'
-import { MockStorage } from '../../test/mock-storage'
+import { MockStorageEngine } from '../../test/mock-storage'
 
 const StringSchema = z.string()
 
 test('storage has', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  const m = new Storage<string>('test', StringSchema, new MockStorageEngine())
   assert.equal(await m.has('key'), false)
   await m.set('key', 'value')
   assert.equal(await m.has('key'), true)
 })
 
 test('storage get', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  const m = new Storage<string>('test', StringSchema, new MockStorageEngine())
   assert.equal(await m.get('key'), undefined)
   await m.set('key', 'value')
   assert.equal(await m.get('key'), 'value')
 })
 
 test('storage set', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  const m = new Storage<string>('test', StringSchema, new MockStorageEngine())
   assert.equal(await m.get('key'), undefined)
   await m.set('key', 'value')
   assert.equal(await m.get('key'), 'value')
 })
 
 test('storage delete', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  const m = new Storage<string>('test', StringSchema, new MockStorageEngine())
   assert.equal(await m.get('key'), undefined)
   assert.equal(await m.delete('key'), false)
   await m.set('key', 'value')
@@ -38,8 +38,8 @@ test('storage delete', async (assert) => {
 })
 
 test('storage clear', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new MockStorage())
-  const m2 = new Storage('test2', StringSchema, new MockStorage())
+  const m = new Storage<string>('test', StringSchema, new MockStorageEngine())
+  const m2 = new Storage('test2', StringSchema, new MockStorageEngine())
   await m.set('key', 'value')
   await m2.set('key', 'value2')
   assert.equal(await m.get('key'), 'value')
@@ -50,7 +50,7 @@ test('storage clear', async (assert) => {
 })
 
 test('storage keys', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  const m = new Storage<string>('test', StringSchema, new MockStorageEngine())
   assert.deepEquals(Array.from(await m.keys()), [])
   await m.set('key', 'value')
   assert.deepEquals(Array.from(await m.keys()), ['key'])
@@ -61,7 +61,7 @@ test('storage keys', async (assert) => {
 })
 
 test('storage values', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  const m = new Storage<string>('test', StringSchema, new MockStorageEngine())
   assert.deepEquals(Array.from(await m.values()), [])
   await m.set('key', 'value')
   assert.deepEquals(Array.from(await m.values()), ['value'])
@@ -72,7 +72,7 @@ test('storage values', async (assert) => {
 })
 
 test('storage entries', async (assert) => {
-  const m = new Storage<string>('test', StringSchema, new MockStorage())
+  const m = new Storage<string>('test', StringSchema, new MockStorageEngine())
   assert.deepEquals(Array.from(await m.entries()), [])
   await m.set('key', 'value')
   assert.deepEquals(Array.from(await m.entries()), [['key', 'value']])

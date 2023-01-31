@@ -1,7 +1,7 @@
 import toml from 'toml'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
-import type { Storage } from '../storage/wrapper'
+import { WalletStore } from '../storage'
 import { Network } from '../storage/schemas/network'
 
 const toResponse = (config: Network): WalletModel.DescribeNetworkResult => {
@@ -38,9 +38,9 @@ const toConfig = (config: WalletModel.DescribeNetworkResult): Network => {
 }
 
 export class Networks {
-  private store: Storage<Network>
+  private store: WalletStore
 
-  constructor(store: Storage<Network>) {
+  constructor(store: WalletStore) {
     this.store = store
   }
 
@@ -66,7 +66,7 @@ export class Networks {
     url,
     overwrite = false,
   }: WalletModel.ImportNetworkParams): Promise<WalletModel.ImportNetworkResult> {
-    const doesNetworkExist = name && (await this.store.has(name))
+    const doesNetworkExist = name && (await this.store.networks.has(name))
 
     if (overwrite === false && doesNetworkExist) {
       throw new Error('Duplicate network')
@@ -74,7 +74,7 @@ export class Networks {
 
     const content = await this.getConfig(url)
 
-    await this.store.set(name || content.Name, content)
+    await this.store.networks.set(name || content.Name, content)
     return {
       name: content.Name,
       filePath: '',
@@ -83,14 +83,14 @@ export class Networks {
 
   async list(): Promise<WalletModel.ListNetworksResult> {
     return {
-      networks: Array.from(await this.store.keys()),
+      networks: Array.from(await this.store.networks.keys()),
     }
   }
 
   async describe({
     name,
   }: WalletModel.DescribeNetworkParams): Promise<WalletModel.DescribeNetworkResult> {
-    const config = await this.store.get(name)
+    const config = await this.store.networks.get(name)
 
     if (config == null) {
       throw new Error(`Cannot find network with name "${name}".`)
@@ -102,21 +102,21 @@ export class Networks {
   async update(
     input: WalletModel.UpdateNetworkParams
   ): Promise<WalletModel.UpdateNetworkResult> {
-    const config = await this.store.get(input.name)
+    const config = await this.store.networks.get(input.name)
     if (config == null) {
       throw new Error('Invalid network')
     }
 
     const newConfig = toConfig(input)
-    await this.store.set(input.name, newConfig)
+    await this.store.networks.set(input.name, newConfig)
     return null
   }
 
   async remove({
     name,
   }: WalletModel.RemoveNetworkParams): Promise<WalletModel.RemoveNetworkResult> {
-    if (await this.store.has(name)) {
-      await this.store.delete(name)
+    if (await this.store.networks.has(name)) {
+      await this.store.networks.delete(name)
     } else {
       throw new Error('Invalid network')
     }

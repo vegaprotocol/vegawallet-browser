@@ -1,4 +1,6 @@
-export class MockStorage {
+import { WalletStore } from '../src/storage'
+
+export class MockStorageEngine {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private s: Map<string, any>
 
@@ -51,5 +53,11 @@ export class MockStorage {
   clear() {
     this.s.clear()
     return Promise.resolve(undefined)
+  }
+}
+
+export class MockStore extends WalletStore {
+  constructor() {
+    super(new MockStorageEngine())
   }
 }

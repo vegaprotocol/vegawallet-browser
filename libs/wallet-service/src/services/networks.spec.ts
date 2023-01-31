@@ -1,8 +1,6 @@
 import test from 'tape'
 import { Networks } from './networks'
-import { Storage } from '../storage/wrapper'
-import { NetworkSchema } from '../storage/schemas/network'
-import { MockStorage } from '../../test/mock-storage'
+import { MockStore } from '../../test/mock-storage'
 
 const mockConfig = {
   Name: 't1',
@@ -68,7 +66,7 @@ const setupFetch = (name: string, restHosts: string[] = []) => {
 }
 
 test('admin.list_networks', async (assert) => {
-  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  const s = new MockStore()
   const n = new Networks(s)
 
   assert.deepEqual(
@@ -123,7 +121,7 @@ test('admin.list_networks', async (assert) => {
 })
 
 test('admin.import_network - toml', async (assert) => {
-  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  const s = new MockStore()
   const n = new Networks(s)
 
   assert.deepEqual(
@@ -151,7 +149,7 @@ test('admin.import_network - toml', async (assert) => {
 })
 
 test('admin.import_network - unsupported extension', async (assert) => {
-  const s = new Storage('networks', NetworkSchema, new MockStorage())
+  const s = new MockStore()
   const n = new Networks(s)
 
   assert.deepEqual(
@@ -184,8 +182,8 @@ test('admin.import_network - unsupported extension', async (assert) => {
 })
 
 test('admin.describe_network', async (assert) => {
-  const s = new Storage('networks', NetworkSchema, new MockStorage())
-  await s.set(mockConfig.Name, mockConfig)
+  const s = new MockStore()
+  await s.networks.set(mockConfig.Name, mockConfig)
   const n = new Networks(s)
 
   assert.deepEqual(await n.describe({ name: mockConfig.Name }), mockResponse)
@@ -194,8 +192,8 @@ test('admin.describe_network', async (assert) => {
 })
 
 test('admin.update_network', async (assert) => {
-  const s = new Storage('networks', NetworkSchema, new MockStorage())
-  await s.set(mockConfig.Name, mockConfig)
+  const s = new MockStore()
+  await s.networks.set(mockConfig.Name, mockConfig)
   const n = new Networks(s)
 
   assert.deepEqual(await n.describe({ name: mockConfig.Name }), mockResponse)
@@ -242,8 +240,8 @@ test('admin.update_network', async (assert) => {
 })
 
 test('admin.remove_network', async (assert) => {
-  const s = new Storage('networks', NetworkSchema, new MockStorage())
-  s.set(mockConfig.Name, mockConfig)
+  const s = new MockStore()
+  s.networks.set(mockConfig.Name, mockConfig)
   const n = new Networks(s)
 
   try {

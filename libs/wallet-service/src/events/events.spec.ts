@@ -1,3 +1,4 @@
+import test from 'tape'
 import { EventEmitter } from 'events'
 import {
   InteractionResponse,
@@ -82,10 +83,7 @@ const EventResponseDataMap: Record<
   },
 }
 
-const MOCK_TRACE_ID = '1'
-
 const getImplementation = (events: EventEmitter) => ({
-  getTraceId: () => MOCK_TRACE_ID,
   sendMessage: jest.fn(),
   addListener: (handler: (message: InteractionResponse) => void) => {
     events.addListener('event', (message: InteractionResponse) =>
@@ -94,167 +92,180 @@ const getImplementation = (events: EventEmitter) => ({
   },
 })
 
-describe('Events', () => {
-  test.each`
-    event                                                      | responseEvent
-    ${INTERACTION_TYPE.ERROR_OCCURRED}                         | ${ResponseMapping[INTERACTION_TYPE.ERROR_OCCURRED]}
-    ${INTERACTION_TYPE.INTERACTION_SESSION_BEGAN}              | ${ResponseMapping[INTERACTION_TYPE.INTERACTION_SESSION_BEGAN]}
-    ${INTERACTION_TYPE.INTERACTION_SESSION_ENDED}              | ${ResponseMapping[INTERACTION_TYPE.INTERACTION_SESSION_ENDED]}
-    ${INTERACTION_TYPE.LOG}                                    | ${ResponseMapping[INTERACTION_TYPE.LOG]}
-    ${INTERACTION_TYPE.REQUEST_PASSPHRASE}                     | ${ResponseMapping[INTERACTION_TYPE.REQUEST_PASSPHRASE]}
-    ${INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW}             | ${ResponseMapping[INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW]}
-    ${INTERACTION_TYPE.REQUEST_SUCCEEDED}                      | ${ResponseMapping[INTERACTION_TYPE.REQUEST_SUCCEEDED]}
-    ${INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING} | ${ResponseMapping[INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING]}
-    ${INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW}       | ${ResponseMapping[INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW]}
-    ${INTERACTION_TYPE.REQUEST_WALLET_SELECTION}               | ${ResponseMapping[INTERACTION_TYPE.REQUEST_WALLET_SELECTION]}
-  `(
-    'when emitting $event, resolves the correct response',
-    async ({
-      event,
-      responseEvent,
-    }: {
-      event: INTERACTION_TYPE
-      responseEvent: INTERACTION_RESPONSE_TYPE
-    }) => {
-      const TRACE_ID = '1'
-      const events = new EventEmitter()
-      const eventData = EventDataMap[event]
-      const responseData = EventResponseDataMap[responseEvent]
+const traceID = '1'
 
-      const implementation = getImplementation(events)
+const TEST_CASES: [INTERACTION_TYPE, INTERACTION_RESPONSE_TYPE | null][] = [
+  [
+    INTERACTION_TYPE.ERROR_OCCURRED,
+    ResponseMapping[INTERACTION_TYPE.ERROR_OCCURRED],
+  ],
+  [
+    INTERACTION_TYPE.INTERACTION_SESSION_BEGAN,
+    ResponseMapping[INTERACTION_TYPE.INTERACTION_SESSION_BEGAN],
+  ],
+  [
+    INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
+    ResponseMapping[INTERACTION_TYPE.INTERACTION_SESSION_ENDED],
+  ],
+  [INTERACTION_TYPE.LOG, ResponseMapping[INTERACTION_TYPE.LOG]],
+  [
+    INTERACTION_TYPE.REQUEST_PASSPHRASE,
+    ResponseMapping[INTERACTION_TYPE.REQUEST_PASSPHRASE],
+  ],
+  [
+    INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW,
+    ResponseMapping[INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW],
+  ],
+  [
+    INTERACTION_TYPE.REQUEST_SUCCEEDED,
+    ResponseMapping[INTERACTION_TYPE.REQUEST_SUCCEEDED],
+  ],
+  [
+    INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING,
+    ResponseMapping[INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING],
+  ],
+  [
+    INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW,
+    ResponseMapping[INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW],
+  ],
+  [
+    INTERACTION_TYPE.REQUEST_WALLET_SELECTION,
+    ResponseMapping[INTERACTION_TYPE.REQUEST_WALLET_SELECTION],
+  ],
+]
 
-      const bus = new EventBus(implementation)
+TEST_CASES.forEach(([event, responseEvent]) => {
+  test(`events - emitting ${event} resolves the correct response`, async (assert) => {
+    assert.plan(4)
+    const TRACE_ID = '1'
+    const events = new EventEmitter()
+    const eventData = EventDataMap[event]
+    const responseData = responseEvent
+      ? EventResponseDataMap[responseEvent]
+      : null
 
-      const [res] = await Promise.all([
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore Dynamic arguments confuste typescript
-        bus.emit(event, eventData),
-        // Emulate the correct user response for interactions which need one
-        new Promise((resolve) =>
-          setTimeout(() => {
-            if (responseEvent) {
-              events.emit('event', {
-                traceID: TRACE_ID,
-                name: responseEvent,
-                data: responseData,
-              })
-              resolve(null)
-            }
-            resolve(null)
-          })
-        ),
-      ])
+    const implementation = getImplementation(events)
 
-      expect(implementation.sendMessage).toHaveBeenCalledTimes(1)
-      expect(implementation.sendMessage).toHaveBeenCalledWith({
-        traceID: TRACE_ID,
-        name: event,
-        data: eventData,
-      })
+    const bus = new EventBus(implementation)
 
-      if (responseEvent) {
-        expect(res).toEqual({
-          traceID: TRACE_ID,
-          name: responseEvent,
-          data: responseData,
+    const [res] = await Promise.all([
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore Dynamic arguments confuste typescript
+      bus.emit(event, eventData),
+      // Emulate the correct user response for interactions which need one
+      new Promise((resolve) =>
+        setTimeout(() => {
+          if (responseEvent) {
+            events.emit('event', {
+              traceID: TRACE_ID,
+              name: responseEvent,
+              data: responseData,
+            })
+          }
+
+          resolve(null)
         })
-      } else {
-        expect(res).toBe(null)
-      }
+      ),
+    ])
+
+    if (responseEvent) {
+      assert.deepEqual(res, {
+        traceID: TRACE_ID,
+        name: responseEvent,
+        data: responseData,
+      })
+    } else {
+      assert.equal(res, null)
     }
-  )
 
-  describe('when a user cancels an interaction', () => {
-    test('the event flow gets aborted', async () => {
-      const TRACE_ID = '1'
-      const event = INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW
-      const events = new EventEmitter()
-      const eventData = EventDataMap[event]
-
-      const implementation = getImplementation(events)
-
-      const bus = new EventBus(implementation)
-
-      const main = () =>
-        Promise.all([
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore Dynamic arguments confuste typescript
-          bus.emit(event, eventData),
-          // Emulate a cancel event emission by the user
-          new Promise((resolve) =>
-            setTimeout(() => {
-              events.emit('event', {
-                traceID: TRACE_ID,
-                name: INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST,
-              })
-              resolve(null)
-            })
-          ),
-        ])
-
-      await expect(main()).rejects.toThrow(/Cancelled by the user/)
-      expect(implementation.sendMessage).toHaveBeenCalledTimes(2)
-      expect(implementation.sendMessage).toHaveBeenCalledWith({
-        traceID: TRACE_ID,
-        name: event,
-        data: eventData,
-      })
-      expect(implementation.sendMessage).toHaveBeenCalledWith({
-        traceID: TRACE_ID,
-        name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
-      })
-    })
+    assert.end()
   })
+})
 
-  describe('when an unexpected response gets received', () => {
-    test('the event flow gets aborted with an error', async () => {
-      const TRACE_ID = '1'
-      const event = INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW
-      const events = new EventEmitter()
-      const eventData = EventDataMap[event]
+test('the event flow gets aborted', async () => {
+  const event = INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW
+  const events = new EventEmitter()
+  const eventData = EventDataMap[event]
 
-      const implementation = getImplementation(events)
+  const implementation = getImplementation(events)
 
-      const bus = new EventBus(implementation)
+  const bus = new EventBus(implementation)
 
-      const main = () =>
-        Promise.all([
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore Dynamic arguments confuste typescript
-          bus.emit(event, eventData),
-          // Emulate an incorrect user response
-          new Promise((resolve) =>
-            setTimeout(() => {
-              events.emit('event', {
-                traceID: TRACE_ID,
-                name: 'INVALID_INTERACTION_RESPONSE_TYPE',
-              })
-              resolve(null)
-            })
-          ),
-        ])
+  const main = () =>
+    Promise.all([
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore Dynamic arguments confuste typescript
+      bus.emit(event, eventData),
+      // Emulate a cancel event emission by the user
+      new Promise((resolve) =>
+        setTimeout(() => {
+          events.emit('event', {
+            traceID,
+            name: INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST,
+          })
+          resolve(null)
+        })
+      ),
+    ])
 
-      await expect(main()).rejects.toThrow(
-        /Incorrect response to interaction event/
-      )
-      expect(implementation.sendMessage).toHaveBeenCalledTimes(3)
-      expect(implementation.sendMessage).toHaveBeenCalledWith({
-        traceID: TRACE_ID,
-        name: event,
-        data: eventData,
-      })
-      expect(implementation.sendMessage).toHaveBeenCalledWith({
-        traceID: TRACE_ID,
-        name: INTERACTION_TYPE.ERROR_OCCURRED,
-        data: {
-          name: 'Error',
-          error: 'Unexpected response type',
-        },
-      })
-      expect(implementation.sendMessage).toHaveBeenCalledWith({
-        traceID: TRACE_ID,
-        name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
-      })
-    })
+  await expect(main()).rejects.toThrow(/Cancelled by the user/)
+  expect(implementation.sendMessage).toHaveBeenCalledTimes(2)
+  expect(implementation.sendMessage).toHaveBeenCalledWith({
+    traceID,
+    name: event,
+    data: eventData,
+  })
+  expect(implementation.sendMessage).toHaveBeenCalledWith({
+    traceID,
+    name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
+  })
+})
+
+test('the event flow gets aborted with an error', async () => {
+  const event = INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW
+  const events = new EventEmitter()
+  const eventData = EventDataMap[event]
+
+  const implementation = getImplementation(events)
+
+  const bus = new EventBus(implementation)
+
+  const main = () =>
+    Promise.all([
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore Dynamic arguments confuste typescript
+      bus.emit(event, eventData),
+      // Emulate an incorrect user response
+      new Promise((resolve) =>
+        setTimeout(() => {
+          events.emit('event', {
+            traceID,
+            name: 'INVALID_INTERACTION_RESPONSE_TYPE',
+          })
+          resolve(null)
+        })
+      ),
+    ])
+
+  await expect(main()).rejects.toThrow(
+    /Incorrect response to interaction event/
+  )
+  expect(implementation.sendMessage).toHaveBeenCalledTimes(3)
+  expect(implementation.sendMessage).toHaveBeenCalledWith({
+    traceID,
+    name: event,
+    data: eventData,
+  })
+  expect(implementation.sendMessage).toHaveBeenCalledWith({
+    traceID,
+    name: INTERACTION_TYPE.ERROR_OCCURRED,
+    data: {
+      name: 'Error',
+      error: 'Unexpected response type',
+    },
+  })
+  expect(implementation.sendMessage).toHaveBeenCalledWith({
+    traceID,
+    name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
   })
 })

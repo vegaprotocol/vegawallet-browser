@@ -1,9 +1,9 @@
-import { v4 as uuid } from 'uuid'
 import { EventEmitter } from 'events'
 import {
   RawInteraction,
   InteractionResponse,
   INTERACTION_TYPE,
+  INTERACTION_RESPONSE_TYPE,
   RequestWalletConnectionContent,
   RequestWalletSelectionContent,
   RequestPermissionsContent,
@@ -14,7 +14,18 @@ import {
   RequestSucceededContent,
   ErrorOccurredContent,
   LogContent,
-  INTERACTION_RESPONSE_TYPE,
+  SessionStarted,
+  SessionEnded,
+  RequestWalletConnection,
+  RequestWalletSelection,
+  RequestPermissions,
+  RequestTransactionReview,
+  RequestTransactionSuccess,
+  RequestTransactionFailure,
+  RequestPassphrase,
+  RequestSucceeded,
+  ErrorOccurred,
+  Log,
   InteractionResponseDecision,
   InteractionResponseEnteredPassphrase,
   InteractionResponseWalletConnectionDecision,
@@ -77,84 +88,44 @@ export const ResponseMapping: Record<
 type Implementation = {
   sendMessage: (interaction: RawInteraction) => void
   addListener: (handler: (message: InteractionResponse) => void) => void
-  getTraceId?: () => string
 }
 
 export class EventBus {
-  private getTraceId: () => string
   private events: EventEmitter
   private implementation: Implementation
 
   constructor(implementation: Implementation) {
     this.implementation = implementation
     this.events = new EventEmitter()
-    this.getTraceId = implementation.getTraceId || (() => uuid())
 
     this.implementation.addListener((message) => {
       this.events.emit(message.traceID, message)
     })
   }
 
-  emit(name: INTERACTION_TYPE.INTERACTION_SESSION_BEGAN): Promise<null>
-
-  emit(name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED): Promise<null>
-
-  emit(
-    name: INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW,
-    data: RequestWalletConnectionContent
-  ): Promise<InteractionResponseWalletConnectionDecision>
-
-  emit(
-    name: INTERACTION_TYPE.REQUEST_WALLET_SELECTION,
-    data: RequestWalletSelectionContent
-  ): Promise<InteractionResponseSelectedWallet>
-
-  emit(
-    name: INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW,
-    data: RequestPermissionsContent
-  ): Promise<InteractionResponse>
-
-  emit(
-    name: INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING,
-    data: RequestTransactionReviewContent
-  ): Promise<InteractionResponse>
-
-  emit(
-    name: INTERACTION_TYPE.TRANSACTION_SUCCEEDED,
-    data: RequestTransactionSuccessContent
-  ): Promise<InteractionResponse>
-
-  emit(
-    name: INTERACTION_TYPE.TRANSACTION_FAILED,
-    data: RequestTransactionFailureContent
-  ): Promise<InteractionResponse>
-
-  emit(
-    name: INTERACTION_TYPE.REQUEST_PASSPHRASE,
-    data: RequestPassphraseContent
-  ): Promise<InteractionResponseEnteredPassphrase>
-
-  emit(
-    name: INTERACTION_TYPE.REQUEST_SUCCEEDED,
-    data: RequestSucceededContent
-  ): Promise<InteractionResponse>
-
-  emit(
-    name: INTERACTION_TYPE.ERROR_OCCURRED,
-    data: ErrorOccurredContent
-  ): Promise<InteractionResponse>
-
-  emit(
-    name: INTERACTION_TYPE.LOG,
-    data: LogContent
-  ): Promise<InteractionResponse>
-
+  async emit(event: SessionStarted): Promise<null>
+  async emit(event: SessionEnded): Promise<null>
   async emit(
-    name: INTERACTION_TYPE,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any
-  ): Promise<InteractionResponse | null> {
-    const traceID = this.getTraceId()
+    event: RequestWalletConnection
+  ): Promise<InteractionResponseWalletConnectionDecision>
+  async emit(
+    event: RequestWalletSelection
+  ): Promise<InteractionResponseSelectedWallet>
+  async emit(event: RequestPermissions): Promise<InteractionResponseDecision>
+  async emit(
+    event: RequestTransactionReview
+  ): Promise<InteractionResponseDecision>
+  async emit(event: RequestTransactionSuccess): Promise<null>
+  async emit(event: RequestTransactionFailure): Promise<null>
+  async emit(
+    event: RequestPassphrase
+  ): Promise<InteractionResponseEnteredPassphrase>
+  async emit(event: RequestSucceeded): Promise<null>
+  async emit(event: ErrorOccurred): Promise<null>
+  async emit(event: Log): Promise<null>
+
+  async emit(event: RawInteraction): Promise<InteractionResponse | null> {
+    const traceID = event?.traceID
 
     return new Promise((resolve, reject) => {
       const handler = (message: InteractionResponse) => {
@@ -169,7 +140,7 @@ export class EventBus {
             return
           }
 
-          if (message.name !== ResponseMapping[name]) {
+          if (message.name !== ResponseMapping[event.name]) {
             this.implementation.sendMessage({
               traceID,
               name: INTERACTION_TYPE.ERROR_OCCURRED,
@@ -194,13 +165,9 @@ export class EventBus {
 
       this.events.addListener(traceID, handler)
 
-      this.implementation.sendMessage({
-        traceID,
-        name,
-        data,
-      })
+      this.implementation.sendMessage(event)
 
-      if (!ResponseMapping[name]) {
+      if (!ResponseMapping[event.name]) {
         this.events.removeListener(traceID, handler)
         resolve(null)
       }

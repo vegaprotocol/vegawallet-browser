@@ -23,7 +23,8 @@
       "options": {
         "parallel": false,
         "commands": [
-          "yarn tsc --project ./libs/wallet-service/tsconfig.spec.json",
+          "npx esbuild libs/wallet-service/src/**/*.ts --format=esm --outdir=dist/spec/libs/wallet-service --bundle --platform=node",
+          "cp libs/wallet-service/package.json dist/spec/libs/wallet-service/package.json",
           "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"
         ]
       }

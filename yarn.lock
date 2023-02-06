@@ -4020,10 +4020,10 @@
     "@typescript-eslint/types" "5.46.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vegaprotocol/crypto@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/crypto/-/crypto-0.1.0.tgz#c96932517939f13774090d14d2bccdbb44bc3c68"
-  integrity sha512-sNQdrdQVngiV4FyASwUVwNh3lrhMyiwhWew1DPVbDC/dBgiWa8dHsjfz2I0UAfyDdZpHdCtZ1dWzTTNjFOio8A==
+"@vegaprotocol/crypto@0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/crypto/-/crypto-0.4.1.tgz#3ac1fea7611156a9fb1f521c0d988369b41d1c4b"
+  integrity sha512-hDq1t5kGodLBZtJ8mNyDSwqG3NlQlyusKJ9O1H2f+gLomMTgds8y5uWfky4m4i6MzWOJDZ6noe+i1irwj6xKLw==
   dependencies:
     nanoassert "^2.0.0"
 

@@ -1,5 +1,5 @@
 import test from 'tape'
-import { EventEmitter } from 'events'
+import { EventEmitter } from 'eventemitter3'
 import {
   InteractionResponse,
   INTERACTION_TYPE,

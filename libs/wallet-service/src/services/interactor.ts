@@ -1,5 +1,4 @@
 import { v4 as uuid } from 'uuid'
-import type { RequestWalletConnectionContent } from '@vegaprotocol/wallet-ui'
 
 import { WalletStore } from '../storage'
 import { EventBus } from '../events'
@@ -10,6 +9,11 @@ type Props = {
   bus: EventBus
   store: WalletStore
   getTraceID?: GetTraceId
+}
+
+type ConnectProps = {
+  origin: string
+  wallets: string[]
 }
 
 export class Interactor {
@@ -23,7 +27,10 @@ export class Interactor {
     this.getTraceID = getTraceID ?? uuid
   }
 
-  async connectWallet(data: RequestWalletConnectionContent) {
+  async connectWallet({
+    origin,
+    wallets,
+  }: ConnectProps): Promise<{ approvedForWallet?: string }> {
     throw new Error('Not implemented')
   }
 

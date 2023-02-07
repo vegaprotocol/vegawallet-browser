@@ -1,8 +1,18 @@
+import { z } from 'zod'
 import toml from 'toml'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
 import { WalletStore } from '../storage'
 import { Network } from '../storage/schemas/network'
+
+const FileSchema = z.object({
+  Name: z.string(),
+  API: z.object({
+    REST: z.object({
+      Hosts: z.array(z.string().url()),
+    }),
+  }),
+})
 
 const toResponse = (config: Network): WalletModel.DescribeNetworkResult => {
   return {
@@ -44,14 +54,15 @@ export class Networks {
     this.store = store
   }
 
-  private async getConfig(url: string) {
+  private async getConfig(url: string): Promise<z.infer<typeof FileSchema>> {
     const response = await fetch(url)
     const ext = url.split('.').at(-1)
 
     switch (ext) {
       case 'toml': {
         const content = await response.text()
-        return toml.parse(content)
+        const json = toml.parse(content)
+        return FileSchema.parse(json)
       }
       default: {
         throw new Error(
@@ -115,11 +126,7 @@ export class Networks {
   async remove({
     name,
   }: WalletModel.RemoveNetworkParams): Promise<WalletModel.RemoveNetworkResult> {
-    if (await this.store.networks.has(name)) {
-      await this.store.networks.delete(name)
-    } else {
-      throw new Error('Invalid network')
-    }
-    return null
+    if (await this.store.networks.delete(name)) return null
+    throw new Error('Invalid network')
   }
 }

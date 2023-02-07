@@ -99,10 +99,11 @@ TEST_CASES.forEach(([event, responseEvent]) => {
   })
 })
 
-test.skip('events - user cancellation', async (assert) => {
+test('events - user cancellation', async (assert) => {
   const event = 'REQUEST_WALLET_CONNECTION_REVIEW'
   const events = new EventEmitter()
   const eventToSend = EventDataMap[event]
+  const eventToReceive = EventResponseDataMap['CANCEL_REQUEST']
 
   const sentEvents: RawInteraction[] = []
   const implementation = getImplementation(events, sentEvents)
@@ -110,7 +111,7 @@ test.skip('events - user cancellation', async (assert) => {
   const bus = new EventBus(implementation)
 
   try {
-    await waitForClient(bus, events, eventToSend)
+    await waitForClient(bus, events, eventToSend, eventToReceive)
     assert.fail('Expected to throw a cancellation error')
   } catch (err: unknown) {
     assert.match((err as Error).message, /Cancelled by the user/)
@@ -129,10 +130,11 @@ test.skip('events - user cancellation', async (assert) => {
   )
 })
 
-test.skip('events - incorrect response', async (assert) => {
+test('events - incorrect response', async (assert) => {
   const event = 'REQUEST_WALLET_CONNECTION_REVIEW'
   const events = new EventEmitter()
   const eventToSend = EventDataMap[event]
+  const eventToReceive = EventResponseDataMap['ENTERED_PASSPHRASE']
 
   const sentEvents: RawInteraction[] = []
   const implementation = getImplementation(events, sentEvents)
@@ -140,7 +142,7 @@ test.skip('events - incorrect response', async (assert) => {
   const bus = new EventBus(implementation)
 
   try {
-    await waitForClient(bus, events, eventToSend)
+    await waitForClient(bus, events, eventToSend, eventToReceive)
     assert.fail('Expected to throw a cancellation error')
     return
   } catch (err: unknown) {

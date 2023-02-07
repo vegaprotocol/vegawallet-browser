@@ -2,14 +2,19 @@ import { z } from 'zod'
 import toml from 'toml'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
-import type { Storage } from '../storage/types/storage'
-import { ConfigSchema } from './schema'
+import type { Storage } from '../storage/wrapper'
+import { Network } from '../storage/schemas/network'
 
-export type NetworkConfig = z.infer<typeof ConfigSchema>
+const FileSchema = z.object({
+  Name: z.string(),
+  API: z.object({
+    REST: z.object({
+      Hosts: z.array(z.string().url()),
+    }),
+  }),
+})
 
-const toResponse = (
-  config: NetworkConfig
-): WalletModel.DescribeNetworkResult => {
+const toResponse = (config: Network): WalletModel.DescribeNetworkResult => {
   return {
     name: config.Name,
     logLevel: 'info',
@@ -31,7 +36,7 @@ const toResponse = (
   }
 }
 
-const toConfig = (config: WalletModel.DescribeNetworkResult): NetworkConfig => {
+const toConfig = (config: WalletModel.DescribeNetworkResult): Network => {
   return {
     Name: config.name,
     API: {
@@ -43,20 +48,21 @@ const toConfig = (config: WalletModel.DescribeNetworkResult): NetworkConfig => {
 }
 
 export class Networks {
-  private store: Storage<NetworkConfig>
+  private store: Storage<Network>
 
-  constructor(store: Storage<NetworkConfig>) {
+  constructor(store: Storage<Network>) {
     this.store = store
   }
 
-  private async getConfig(url: string) {
+  private async getConfig(url: string): Promise<z.infer<typeof FileSchema>> {
     const response = await fetch(url)
     const ext = url.split('.').at(-1)
 
     switch (ext) {
       case 'toml': {
         const content = await response.text()
-        return toml.parse(content)
+        const json = toml.parse(content)
+        return FileSchema.parse(json)
       }
       default: {
         throw new Error(
@@ -78,11 +84,10 @@ export class Networks {
     }
 
     const content = await this.getConfig(url)
-    const config = ConfigSchema.parse(content)
 
-    await this.store.set(name || config.Name, config)
+    await this.store.set(name || content.Name, content)
     return {
-      name: config.Name,
+      name: content.Name,
       filePath: '',
     }
   }
@@ -121,9 +126,8 @@ export class Networks {
   async remove({
     name,
   }: WalletModel.RemoveNetworkParams): Promise<WalletModel.RemoveNetworkResult> {
-    if (this.store.delete(name) === false) {
-      throw new Error('Invalid network')
-    }
-    return null
+    if (await this.store.delete(name)) return null
+
+    throw new Error('Invalid network')
   }
 }

@@ -1,11 +1,14 @@
 import test from 'tape'
 import { Keys } from './keys'
 import { Wallets } from './wallets'
+import { Storage } from '../storage/wrapper'
+import { WalletSchema } from '../storage/schemas/wallet'
+import { MockStorage } from '../../test/mock-storage'
 
 test('admin.generate_key / admin.list_keys', async (assert) => {
-  const ws = new Map()
-  const w = new Wallets(ws)
-  const k = new Keys(ws)
+  const s = new Storage('wallets', WalletSchema, new MockStorage())
+  const w = new Wallets(s)
+  const k = new Keys(s)
 
   const wp = { wallet: 'wallet-1', passphrase: 'foobar' }
   await w.create(wp)

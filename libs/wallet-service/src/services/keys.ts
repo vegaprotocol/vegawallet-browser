@@ -1,15 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
-
-import type { WalletConfig } from './wallets'
-import type { Storage } from './storage/types/storage'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
-export class Keys {
-  private store: Storage<WalletConfig>
+import { Storage } from '../storage/wrapper'
+import { Wallet } from '../storage/schemas/wallet'
 
-  constructor(store: Storage<WalletConfig>) {
+export class Keys {
+  private store: Storage<Wallet>
+
+  constructor(store: Storage<Wallet>) {
     this.store = store
   }
 

@@ -4,26 +4,18 @@ import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { generate as generateMnemonic } from '@vegaprotocol/crypto/bip-0039/mnemonic'
-
-import type { Storage } from './storage/types/storage'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
-export type WalletConfig = {
-  seed: number[]
-  keys: {
-    index: number
-    publicKey: string
-    metadata: { key: string; value: string }[]
-  }[]
-}
+import type { Storage } from '../storage/wrapper'
+import { Wallet } from '../storage/schemas/wallet'
 
 const KEY_DERIVATION_VERSION = 2
 const WALLET_TYPE = 'HD Wallet'
 
 export class Wallets {
-  private store: Storage<WalletConfig>
+  private store: Storage<Wallet>
 
-  constructor(store: Storage<WalletConfig>) {
+  constructor(store: Storage<Wallet>) {
     this.store = store
   }
 
@@ -111,10 +103,8 @@ export class Wallets {
     params: WalletModel.RemoveWalletParams
   ): Promise<WalletModel.RemoveWalletResult> {
     // TODO: Consider the passphrase when we have encrypted storage
-    if (this.store.delete(params.wallet) === false) {
-      throw new Error('Invalid wallet')
-    }
+    if (await this.store.delete(params.wallet)) return null
 
-    return null
+    throw new Error('Invalid wallet')
   }
 }

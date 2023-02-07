@@ -1,9 +1,9 @@
 import { EventEmitter } from 'eventemitter3'
-import {
+import type {
+  InteractionType,
+  InteractionResponseType,
   RawInteraction,
   InteractionResponse,
-  INTERACTION_TYPE,
-  INTERACTION_RESPONSE_TYPE,
   RequestWalletConnectionContent,
   RequestWalletSelectionContent,
   RequestPermissionsContent,
@@ -63,26 +63,21 @@ export class EventIncorrectResponseError extends Error {
 }
 
 export const ResponseMapping: Record<
-  INTERACTION_TYPE,
-  INTERACTION_RESPONSE_TYPE | null
+  InteractionType,
+  InteractionResponseType | null
 > = {
-  [INTERACTION_TYPE.ERROR_OCCURRED]: null,
-  [INTERACTION_TYPE.INTERACTION_SESSION_BEGAN]: null,
-  [INTERACTION_TYPE.INTERACTION_SESSION_ENDED]: null,
-  [INTERACTION_TYPE.LOG]: null,
-  [INTERACTION_TYPE.TRANSACTION_SUCCEEDED]: null,
-  [INTERACTION_TYPE.TRANSACTION_FAILED]: null,
-  [INTERACTION_TYPE.REQUEST_SUCCEEDED]: null,
-  [INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW]:
-    INTERACTION_RESPONSE_TYPE.DECISION,
-  [INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW]:
-    INTERACTION_RESPONSE_TYPE.WALLET_CONNECTION_DECISION,
-  [INTERACTION_TYPE.REQUEST_WALLET_SELECTION]:
-    INTERACTION_RESPONSE_TYPE.SELECTED_WALLET,
-  [INTERACTION_TYPE.REQUEST_PASSPHRASE]:
-    INTERACTION_RESPONSE_TYPE.ENTERED_PASSPHRASE,
-  [INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING]:
-    INTERACTION_RESPONSE_TYPE.DECISION,
+  ERROR_OCCURRED: null,
+  INTERACTION_SESSION_BEGAN: null,
+  INTERACTION_SESSION_ENDED: null,
+  LOG: null,
+  TRANSACTION_SUCCEEDED: null,
+  TRANSACTION_FAILED: null,
+  REQUEST_SUCCEEDED: null,
+  REQUEST_PERMISSIONS_REVIEW: 'DECISION',
+  REQUEST_WALLET_CONNECTION_REVIEW: 'WALLET_CONNECTION_DECISION',
+  REQUEST_WALLET_SELECTION: 'SELECTED_WALLET',
+  REQUEST_PASSPHRASE: 'ENTERED_PASSPHRASE',
+  REQUEST_TRANSACTION_REVIEW_FOR_SENDING: 'DECISION',
 }
 
 type Implementation = {
@@ -130,10 +125,10 @@ export class EventBus {
     return new Promise((resolve, reject) => {
       const handler = (message: InteractionResponse) => {
         if (message.traceID === traceID) {
-          if (message.name === INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST) {
+          if (message.name === 'CANCEL_REQUEST') {
             this.implementation.sendMessage({
               traceID,
-              name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
+              name: 'INTERACTION_SESSION_ENDED',
             })
             reject(new EventCancelError())
             this.events.removeListener(traceID, handler)
@@ -143,7 +138,7 @@ export class EventBus {
           if (message.name !== ResponseMapping[event.name]) {
             this.implementation.sendMessage({
               traceID,
-              name: INTERACTION_TYPE.ERROR_OCCURRED,
+              name: 'ERROR_OCCURRED',
               data: {
                 name: 'Error',
                 error: 'Unexpected response type',
@@ -151,7 +146,7 @@ export class EventBus {
             })
             this.implementation.sendMessage({
               traceID,
-              name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
+              name: 'INTERACTION_SESSION_ENDED',
             })
             reject(new EventIncorrectResponseError())
             this.events.removeListener(traceID, handler)

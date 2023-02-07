@@ -1,271 +1,181 @@
 import test from 'tape'
 import { EventEmitter } from 'eventemitter3'
-import {
+import type {
+  InteractionType,
+  InteractionResponseType,
   InteractionResponse,
-  INTERACTION_TYPE,
-  INTERACTION_RESPONSE_TYPE,
-  CONNECTION_RESPONSE,
-  PermissionTarget,
-  PermissionType,
+  RawInteraction,
 } from '@vegaprotocol/wallet-ui'
+
+import {
+  EventDataMap,
+  EventResponseDataMap,
+  traceID,
+} from '../../test/mock-events'
 import { EventBus, ResponseMapping } from './'
-import type { EventData, EventResponseData } from './'
 
-const EventDataMap: Record<INTERACTION_TYPE, EventData | null> = {
-  [INTERACTION_TYPE.INTERACTION_SESSION_BEGAN]: null,
-  [INTERACTION_TYPE.INTERACTION_SESSION_ENDED]: null,
-  [INTERACTION_TYPE.LOG]: {
-    type: 'Info',
-    message: 'What a sunny day!',
-  },
-  [INTERACTION_TYPE.ERROR_OCCURRED]: {
-    name: 'Error',
-    message: 'Oh no, this happened!',
-  },
-  [INTERACTION_TYPE.REQUEST_SUCCEEDED]: {
-    message: 'Success!',
-  },
-  [INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING]: {
-    hostname: 'http://example.com',
-    wallet: 'wallet-1',
-    publicKey: '0x1',
-    transaction: '<TRANSACTION_CONTENT>',
-    receivedAt: new Date('2023/01/01').toISOString(),
-  },
-  [INTERACTION_TYPE.TRANSACTION_SUCCEEDED]: {
-    txHash: '0x0',
-    tx: '<TX>',
-    deserializedInputData: '<TRANSACTION_INPUT>',
-    sentAt: new Date('2023/01/01').toISOString(),
-  },
-  [INTERACTION_TYPE.TRANSACTION_FAILED]: {
-    tx: '<TX>',
-    deserializedInputData: '<TRANSACTION_INPUT>',
-    error: 'Transaction Error',
-    sentAt: new Date('2023/01/01').toISOString(),
-  },
-  [INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW]: {
-    hostname: 'http://example.com',
-    wallet: 'wallet-1',
-    permissions: {
-      [PermissionTarget.PUBLIC_KEYS]: PermissionType.READ,
-    },
-  },
-  [INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW]: {
-    hostname: 'http://example.com',
-  },
-  [INTERACTION_TYPE.REQUEST_WALLET_SELECTION]: {
-    hostname: 'http://example.com',
-    availableWallets: ['wallet-1', 'wallet-2'],
-  },
-  [INTERACTION_TYPE.REQUEST_PASSPHRASE]: {
-    wallet: 'wallet-1',
-  },
-}
+const TEST_CASES: [InteractionType, InteractionResponseType | null][] = [
+  ['ERROR_OCCURRED', ResponseMapping['ERROR_OCCURRED']],
+  ['INTERACTION_SESSION_BEGAN', ResponseMapping['INTERACTION_SESSION_BEGAN']],
+  ['INTERACTION_SESSION_ENDED', ResponseMapping['INTERACTION_SESSION_ENDED']],
+  ['LOG', ResponseMapping['LOG']],
+  ['REQUEST_PASSPHRASE', ResponseMapping['REQUEST_PASSPHRASE']],
+  ['REQUEST_PERMISSIONS_REVIEW', ResponseMapping['REQUEST_PERMISSIONS_REVIEW']],
+  ['REQUEST_SUCCEEDED', ResponseMapping['REQUEST_SUCCEEDED']],
+  [
+    'REQUEST_TRANSACTION_REVIEW_FOR_SENDING',
+    ResponseMapping['REQUEST_TRANSACTION_REVIEW_FOR_SENDING'],
+  ],
+  [
+    'REQUEST_WALLET_CONNECTION_REVIEW',
+    ResponseMapping['REQUEST_WALLET_CONNECTION_REVIEW'],
+  ],
+  ['REQUEST_WALLET_SELECTION', ResponseMapping['REQUEST_WALLET_SELECTION']],
+]
 
-const EventResponseDataMap: Record<
-  INTERACTION_RESPONSE_TYPE,
-  EventResponseData | null
-> = {
-  [INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST]: null,
-  [INTERACTION_RESPONSE_TYPE.DECISION]: {
-    approved: true,
+const getImplementation = (
+  emitter: EventEmitter,
+  sentEvents: RawInteraction[]
+) => ({
+  sendMessage: (event: RawInteraction) => {
+    sentEvents.push(event)
   },
-  [INTERACTION_RESPONSE_TYPE.ENTERED_PASSPHRASE]: {
-    passphrase: 'xyz',
-  },
-  [INTERACTION_RESPONSE_TYPE.SELECTED_WALLET]: {
-    wallet: 'test',
-    passphrase: 'xyz',
-  },
-  [INTERACTION_RESPONSE_TYPE.WALLET_CONNECTION_DECISION]: {
-    connectionApproval: CONNECTION_RESPONSE.APPROVED_ONCE,
-  },
-}
-
-const getImplementation = (events: EventEmitter) => ({
-  sendMessage: jest.fn(),
   addListener: (handler: (message: InteractionResponse) => void) => {
-    events.addListener('event', (message: InteractionResponse) =>
+    emitter.addListener('event', (message: InteractionResponse) =>
       handler(message)
     )
   },
 })
 
-const traceID = '1'
+const waitForClient = async (
+  bus: EventBus,
+  emitter: EventEmitter,
+  event: RawInteraction,
+  response?: InteractionResponse | null
+) => {
+  return Promise.all([
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore Doesn't understand dynamic assignments here
+    bus.emit(event),
+    // Emulate the correct user response for interactions which need one
+    new Promise((resolve) =>
+      setTimeout(() => {
+        if (response) {
+          emitter.emit('event', {
+            traceID,
+            name: response.name,
+            data: 'data' in response ? response.data : null,
+          })
+        }
 
-const TEST_CASES: [INTERACTION_TYPE, INTERACTION_RESPONSE_TYPE | null][] = [
-  [
-    INTERACTION_TYPE.ERROR_OCCURRED,
-    ResponseMapping[INTERACTION_TYPE.ERROR_OCCURRED],
-  ],
-  [
-    INTERACTION_TYPE.INTERACTION_SESSION_BEGAN,
-    ResponseMapping[INTERACTION_TYPE.INTERACTION_SESSION_BEGAN],
-  ],
-  [
-    INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
-    ResponseMapping[INTERACTION_TYPE.INTERACTION_SESSION_ENDED],
-  ],
-  [INTERACTION_TYPE.LOG, ResponseMapping[INTERACTION_TYPE.LOG]],
-  [
-    INTERACTION_TYPE.REQUEST_PASSPHRASE,
-    ResponseMapping[INTERACTION_TYPE.REQUEST_PASSPHRASE],
-  ],
-  [
-    INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW,
-    ResponseMapping[INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW],
-  ],
-  [
-    INTERACTION_TYPE.REQUEST_SUCCEEDED,
-    ResponseMapping[INTERACTION_TYPE.REQUEST_SUCCEEDED],
-  ],
-  [
-    INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING,
-    ResponseMapping[INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING],
-  ],
-  [
-    INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW,
-    ResponseMapping[INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW],
-  ],
-  [
-    INTERACTION_TYPE.REQUEST_WALLET_SELECTION,
-    ResponseMapping[INTERACTION_TYPE.REQUEST_WALLET_SELECTION],
-  ],
-]
+        resolve(null)
+      })
+    ),
+  ])
+}
 
 TEST_CASES.forEach(([event, responseEvent]) => {
   test(`events - emitting ${event} resolves the correct response`, async (assert) => {
-    assert.plan(4)
-    const TRACE_ID = '1'
     const events = new EventEmitter()
-    const eventData = EventDataMap[event]
-    const responseData = responseEvent
+    const eventToSend = EventDataMap[event]
+    const eventToReceive = responseEvent
       ? EventResponseDataMap[responseEvent]
       : null
 
-    const implementation = getImplementation(events)
+    const sentEvents: RawInteraction[] = []
+    const implementation = getImplementation(events, sentEvents)
 
     const bus = new EventBus(implementation)
 
-    const [res] = await Promise.all([
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore Dynamic arguments confuste typescript
-      bus.emit(event, eventData),
-      // Emulate the correct user response for interactions which need one
-      new Promise((resolve) =>
-        setTimeout(() => {
-          if (responseEvent) {
-            events.emit('event', {
-              traceID: TRACE_ID,
-              name: responseEvent,
-              data: responseData,
-            })
-          }
+    const [res] = await waitForClient(bus, events, eventToSend, eventToReceive)
 
-          resolve(null)
-        })
-      ),
-    ])
+    assert.equals(sentEvents.length, 1, 'Sent one event to the wallet ui')
 
     if (responseEvent) {
-      assert.deepEqual(res, {
-        traceID: TRACE_ID,
-        name: responseEvent,
-        data: responseData,
-      })
+      assert.deepEqual(res, eventToReceive)
     } else {
       assert.equal(res, null)
     }
+  })
+})
 
+test('events - user cancellation', async (assert) => {
+  const event = 'REQUEST_WALLET_CONNECTION_REVIEW'
+  const events = new EventEmitter()
+  const eventToSend = EventDataMap[event]
+
+  const sentEvents: RawInteraction[] = []
+  const implementation = getImplementation(events, sentEvents)
+
+  const bus = new EventBus(implementation)
+
+  try {
+    const r = await waitForClient(bus, events, eventToSend)
+    console.log('SUCC!', r)
+    assert.fail('Expected to throw a cancellation error')
     assert.end()
-  })
-})
+  } catch (err: unknown) {
+    assert.match((err as Error).message, /Cancelled by the user/)
+    assert.pass('Cancels the event and throws a cancellation error')
+  }
 
-test('the event flow gets aborted', async () => {
-  const event = INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW
-  const events = new EventEmitter()
-  const eventData = EventDataMap[event]
-
-  const implementation = getImplementation(events)
-
-  const bus = new EventBus(implementation)
-
-  const main = () =>
-    Promise.all([
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore Dynamic arguments confuste typescript
-      bus.emit(event, eventData),
-      // Emulate a cancel event emission by the user
-      new Promise((resolve) =>
-        setTimeout(() => {
-          events.emit('event', {
-            traceID,
-            name: INTERACTION_RESPONSE_TYPE.CANCEL_REQUEST,
-          })
-          resolve(null)
-        })
-      ),
-    ])
-
-  await expect(main()).rejects.toThrow(/Cancelled by the user/)
-  expect(implementation.sendMessage).toHaveBeenCalledTimes(2)
-  expect(implementation.sendMessage).toHaveBeenCalledWith({
-    traceID,
-    name: event,
-    data: eventData,
-  })
-  expect(implementation.sendMessage).toHaveBeenCalledWith({
-    traceID,
-    name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
-  })
-})
-
-test('the event flow gets aborted with an error', async () => {
-  const event = INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW
-  const events = new EventEmitter()
-  const eventData = EventDataMap[event]
-
-  const implementation = getImplementation(events)
-
-  const bus = new EventBus(implementation)
-
-  const main = () =>
-    Promise.all([
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore Dynamic arguments confuste typescript
-      bus.emit(event, eventData),
-      // Emulate an incorrect user response
-      new Promise((resolve) =>
-        setTimeout(() => {
-          events.emit('event', {
-            traceID,
-            name: 'INVALID_INTERACTION_RESPONSE_TYPE',
-          })
-          resolve(null)
-        })
-      ),
-    ])
-
-  await expect(main()).rejects.toThrow(
-    /Incorrect response to interaction event/
-  )
-  expect(implementation.sendMessage).toHaveBeenCalledTimes(3)
-  expect(implementation.sendMessage).toHaveBeenCalledWith({
-    traceID,
-    name: event,
-    data: eventData,
-  })
-  expect(implementation.sendMessage).toHaveBeenCalledWith({
-    traceID,
-    name: INTERACTION_TYPE.ERROR_OCCURRED,
-    data: {
-      name: 'Error',
-      error: 'Unexpected response type',
+  assert.equals(sentEvents.length, 2, 'Sent two events to the wallet ui')
+  assert.deepEqual(sentEvents[0], eventToSend, 'Sends the connection request')
+  assert.deepEqual(
+    sentEvents[1],
+    {
+      traceID,
+      name: 'INTERACTION_SESSION_ENDED',
     },
-  })
-  expect(implementation.sendMessage).toHaveBeenCalledWith({
-    traceID,
-    name: INTERACTION_TYPE.INTERACTION_SESSION_ENDED,
-  })
+    'Sends an interaction end event'
+  )
+  assert.end()
+})
+
+test('events - incorrect response', async (assert) => {
+  const event = 'REQUEST_WALLET_CONNECTION_REVIEW'
+  const events = new EventEmitter()
+  const eventToSend = EventDataMap[event]
+
+  const sentEvents: RawInteraction[] = []
+  const implementation = getImplementation(events, sentEvents)
+
+  const bus = new EventBus(implementation)
+
+  try {
+    const r = await waitForClient(bus, events, eventToSend)
+    console.log('SUCC!', r)
+    assert.fail('Expected to throw a cancellation error')
+    assert.end()
+  } catch (err: unknown) {
+    assert.match(
+      (err as Error).message,
+      /Incorrect response to interaction event/
+    )
+    assert.pass('Cancels the event and throws a cancellation error')
+  }
+
+  assert.equals(sentEvents.length, 3, 'Sent three events to the wallet ui')
+  assert.deepEqual(sentEvents[0], eventToSend, 'Sends the connection request')
+  assert.deepEqual(
+    sentEvents[1],
+    {
+      traceID,
+      name: 'ERROR_OCCURRED',
+      data: {
+        name: 'Error',
+        error: 'Unexpected response type',
+      },
+    },
+    'Sends the error event'
+  )
+  assert.deepEqual(
+    sentEvents[2],
+    {
+      traceID,
+      name: 'INTERACTION_SESSION_ENDED',
+    },
+    'Sends the interaction end event'
+  )
+  assert.end()
 })

@@ -23,9 +23,9 @@
       "options": {
         "parallel": false,
         "commands": [
-          "npx esbuild libs/wallet-service/src/**/*.ts --outdir=dist/spec/libs/wallet-service --format=cjs --platform=node --tree-shaking=true --bundle",
+          "npx esbuild libs/wallet-service/src/**/*.ts --format=cjs --outdir=dist/spec/libs/wallet-service --bundle --platform=node",
           "cp libs/wallet-service/package.json dist/spec/libs/wallet-service/package.json",
-          "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"
+          "tape dist/spec/libs/wallet-service/**/*.spec.js"
         ]
       }
     },

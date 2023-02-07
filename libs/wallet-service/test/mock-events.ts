@@ -1,9 +1,7 @@
-import {
+import type {
   RawInteraction,
   InteractionResponse,
-  INTERACTION_TYPE,
-  INTERACTION_RESPONSE_TYPE,
-  CONNECTION_RESPONSE,
+  InteractionResponseType,
   SessionStarted,
   SessionEnded,
   RequestWalletConnection,
@@ -22,6 +20,147 @@ import {
   InteractionResponseSelectedWallet,
 } from '@vegaprotocol/wallet-ui'
 import { EventBus } from '../src/events'
+
+export const traceID = '1'
+
+export const EventDataMap: Record<InteractionType, RawInteraction> = {
+  INTERACTION_SESSION_BEGAN: {
+    traceID,
+    name: 'INTERACTION_SESSION_BEGAN',
+  },
+  INTERACTION_SESSION_ENDED: {
+    traceID,
+    name: 'INTERACTION_SESSION_ENDED',
+  },
+  LOG: {
+    traceID,
+    name: 'LOG',
+    data: {
+      type: 'Info',
+      message: 'What a sunny day!',
+    },
+  },
+  ERROR_OCCURRED: {
+    traceID,
+    name: 'ERROR_OCCURRED',
+    data: {
+      name: 'Error',
+      error: 'Oh no, this happened!',
+    },
+  },
+  REQUEST_SUCCEEDED: {
+    traceID,
+    name: 'REQUEST_SUCCEEDED',
+    data: {
+      message: 'Success!',
+    },
+  },
+  REQUEST_TRANSACTION_REVIEW_FOR_SENDING: {
+    traceID,
+    name: 'REQUEST_TRANSACTION_REVIEW_FOR_SENDING',
+    data: {
+      hostname: 'http://example.com',
+      wallet: 'wallet-1',
+      publicKey: '0x1',
+      transaction: '<TRANSACTION_CONTENT>',
+      receivedAt: new Date('2023/01/01').toISOString(),
+    },
+  },
+  TRANSACTION_SUCCEEDED: {
+    traceID,
+    name: 'TRANSACTION_SUCCEEDED',
+    data: {
+      txHash: '0x0',
+      tx: '<TX>',
+      deserializedInputData: '<TRANSACTION_INPUT>',
+      sentAt: new Date('2023/01/01').toISOString(),
+    },
+  },
+  TRANSACTION_FAILED: {
+    traceID,
+    name: 'TRANSACTION_FAILED',
+    data: {
+      tx: '<TX>',
+      deserializedInputData: '<TRANSACTION_INPUT>',
+      error: {
+        Message: 'Transaction Error',
+      },
+      sentAt: new Date('2023/01/01').toISOString(),
+    },
+  },
+  REQUEST_PERMISSIONS_REVIEW: {
+    traceID,
+    name: 'REQUEST_PERMISSIONS_REVIEW',
+    data: {
+      hostname: 'http://example.com',
+      wallet: 'wallet-1',
+      permissions: {
+        public_keys: 'read',
+      },
+    },
+  },
+  REQUEST_WALLET_CONNECTION_REVIEW: {
+    traceID,
+    name: 'REQUEST_WALLET_CONNECTION_REVIEW',
+    data: {
+      hostname: 'http://example.com',
+    },
+  },
+  REQUEST_WALLET_SELECTION: {
+    traceID,
+    name: 'REQUEST_WALLET_SELECTION',
+    data: {
+      hostname: 'http://example.com',
+      availableWallets: ['wallet-1', 'wallet-2'],
+    },
+  },
+  REQUEST_PASSPHRASE: {
+    traceID,
+    name: 'REQUEST_PASSPHRASE',
+    data: {
+      wallet: 'wallet-1',
+    },
+  },
+}
+
+export const EventResponseDataMap: Record<
+  InteractionResponseType,
+  InteractionResponse
+> = {
+  CANCEL_REQUEST: {
+    traceID,
+    name: 'CANCEL_REQUEST',
+  },
+  DECISION: {
+    traceID,
+    name: 'DECISION',
+    data: {
+      approved: true,
+    },
+  },
+  ENTERED_PASSPHRASE: {
+    traceID,
+    name: 'ENTERED_PASSPHRASE',
+    data: {
+      passphrase: 'xyz',
+    },
+  },
+  SELECTED_WALLET: {
+    traceID,
+    name: 'SELECTED_WALLET',
+    data: {
+      wallet: 'test',
+      passphrase: 'xyz',
+    },
+  },
+  WALLET_CONNECTION_DECISION: {
+    traceID,
+    name: 'WALLET_CONNECTION_DECISION',
+    data: {
+      connectionApproval: 'APPROVED_ONLY_THIS_TIME',
+    },
+  },
+}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {}
@@ -61,60 +200,60 @@ export class MockEventBus extends EventBus {
     event: RawInteraction
   ): Promise<InteractionResponse | null> {
     switch (event.name) {
-      case INTERACTION_TYPE.INTERACTION_SESSION_BEGAN:
+      case 'INTERACTION_SESSION_BEGAN':
         return Promise.resolve(null)
-      case INTERACTION_TYPE.INTERACTION_SESSION_ENDED:
+      case 'INTERACTION_SESSION_ENDED':
         return Promise.resolve(null)
-      case INTERACTION_TYPE.REQUEST_WALLET_CONNECTION_REVIEW:
+      case 'REQUEST_WALLET_CONNECTION_REVIEW':
         return Promise.resolve({
           traceID: event.traceID,
-          name: INTERACTION_RESPONSE_TYPE.WALLET_CONNECTION_DECISION,
+          name: 'WALLET_CONNECTION_DECISION',
           data: {
-            connectionApproval: CONNECTION_RESPONSE.APPROVED_ONCE,
+            connectionApproval: 'APPROVED_ONLY_THIS_TIME',
           },
         })
-      case INTERACTION_TYPE.REQUEST_WALLET_SELECTION:
+      case 'REQUEST_WALLET_SELECTION':
         return Promise.resolve({
           traceID: event.traceID,
-          name: INTERACTION_RESPONSE_TYPE.SELECTED_WALLET,
+          name: 'SELECTED_WALLET',
           data: {
             wallet: 'test',
             passphrase: '123',
           },
         })
-      case INTERACTION_TYPE.REQUEST_PERMISSIONS_REVIEW:
+      case 'REQUEST_PERMISSIONS_REVIEW':
         return Promise.resolve({
           traceID: event.traceID,
-          name: INTERACTION_RESPONSE_TYPE.DECISION,
+          name: 'DECISION',
           data: {
             approved: true,
           },
         })
-      case INTERACTION_TYPE.REQUEST_TRANSACTION_REVIEW_FOR_SENDING:
+      case 'REQUEST_TRANSACTION_REVIEW_FOR_SENDING':
         return Promise.resolve({
           traceID: event.traceID,
-          name: INTERACTION_RESPONSE_TYPE.DECISION,
+          name: 'DECISION',
           data: {
             approved: true,
           },
         })
-      case INTERACTION_TYPE.TRANSACTION_SUCCEEDED:
+      case 'TRANSACTION_SUCCEEDED':
         return Promise.resolve(null)
-      case INTERACTION_TYPE.TRANSACTION_FAILED:
+      case 'TRANSACTION_FAILED':
         return Promise.resolve(null)
-      case INTERACTION_TYPE.REQUEST_PASSPHRASE:
+      case 'REQUEST_PASSPHRASE':
         return Promise.resolve({
           traceID: event.traceID,
-          name: INTERACTION_RESPONSE_TYPE.ENTERED_PASSPHRASE,
+          name: 'ENTERED_PASSPHRASE',
           data: {
             passphrase: '123',
           },
         })
-      case INTERACTION_TYPE.REQUEST_SUCCEEDED:
+      case 'REQUEST_SUCCEEDED':
         return Promise.resolve(null)
-      case INTERACTION_TYPE.ERROR_OCCURRED:
+      case 'ERROR_OCCURRED':
         return Promise.resolve(null)
-      case INTERACTION_TYPE.LOG:
+      case 'LOG':
         return Promise.resolve(null)
     }
   }

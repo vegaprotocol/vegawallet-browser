@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { RequestWalletConnectionContent } from '@vegaprotocol/wallet-ui'
+import type { RequestWalletConnectionContent } from '@vegaprotocol/wallet-ui'
 
 import { WalletStore } from '../storage'
 import { EventBus } from '../events'

@@ -110,8 +110,7 @@ test('events - user cancellation', async (assert) => {
   const bus = new EventBus(implementation)
 
   try {
-    const r = await waitForClient(bus, events, eventToSend)
-    console.log('SUCC!', r)
+    await waitForClient(bus, events, eventToSend)
     assert.fail('Expected to throw a cancellation error')
     assert.end()
   } catch (err: unknown) {
@@ -143,8 +142,7 @@ test('events - incorrect response', async (assert) => {
   const bus = new EventBus(implementation)
 
   try {
-    const r = await waitForClient(bus, events, eventToSend)
-    console.log('SUCC!', r)
+    await waitForClient(bus, events, eventToSend)
     assert.fail('Expected to throw a cancellation error')
     assert.end()
   } catch (err: unknown) {

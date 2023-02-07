@@ -31,7 +31,39 @@ export class Interactor {
     origin,
     wallets,
   }: ConnectProps): Promise<{ approvedForWallet?: string }> {
-    throw new Error('Not implemented')
+    const traceID = this.getTraceID()
+
+    await this.bus.emit({
+      traceID,
+      name: 'INTERACTION_SESSION_BEGAN',
+    })
+
+    const {
+      data: { connectionApproval },
+    } = await this.bus.emit({
+      traceID,
+      name: 'REQUEST_WALLET_CONNECTION_REVIEW',
+      data: {
+        hostname: origin,
+      },
+    })
+
+    if (connectionApproval === 'REJECTED_ONLY_THIS_TIME') {
+      throw new Error(`User rejected the connection request from ${origin}`)
+    }
+
+    const {
+      data: { wallet },
+    } = await this.bus.emit({
+      traceID,
+      name: 'REQUEST_WALLET_SELECTION',
+      data: {
+        hostname: origin,
+        availableWallets: wallets,
+      },
+    })
+
+    return { approvedForWallet: wallet }
   }
 
   async reviewTransaction() {

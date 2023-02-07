@@ -9,7 +9,7 @@ const FileSchema = z.object({
   Name: z.string(),
   API: z.object({
     REST: z.object({
-      HOSTS: z.array(z.string().url()),
+      Hosts: z.array(z.string().url()),
     }),
   }),
 })

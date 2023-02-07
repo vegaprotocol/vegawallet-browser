@@ -23,7 +23,6 @@
       "options": {
         "commands": [
           "npx esbuild libs/wallet-service/src/**/*.ts --format=cjs --outdir=dist/spec/libs/wallet-service --bundle --platform=node",
-          "cp libs/wallet-service/package.json dist/spec/libs/wallet-service/package.json",
           "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"
         ]
       }

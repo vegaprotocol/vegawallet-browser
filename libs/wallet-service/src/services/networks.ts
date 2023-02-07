@@ -115,11 +115,8 @@ export class Networks {
   async remove({
     name,
   }: WalletModel.RemoveNetworkParams): Promise<WalletModel.RemoveNetworkResult> {
-    if (await this.store.has(name)) {
-      await this.store.delete(name)
-    } else {
-      throw new Error('Invalid network')
-    }
-    return null
+    if (await this.store.delete(name)) return null
+
+    throw new Error('Invalid network')
   }
 }

@@ -25,7 +25,7 @@ export class Client {
       })
 
       if (approvedForWallet) {
-        await this.store.connections.set(origin, {
+        await this.store.connections.set(this.origin, {
           wallet: approvedForWallet,
           origin,
           permissions: {
@@ -43,25 +43,19 @@ export class Client {
     return null
   }
 
-  async disconnect(
-    params: WalletModel.DisconnectWalletParams,
-    origin: string
-  ): Promise<WalletModel.DisconnectWalletResult> {
-    const connection = await this.store.connections.get(origin)
+  async disconnect(): Promise<WalletModel.DisconnectWalletResult> {
+    const connection = await this.store.connections.get(this.origin)
 
     if (!connection) {
       throw new Error('Connection not found')
     }
 
-    await this.store.connections.delete(origin)
+    await this.store.connections.delete(this.origin)
     return connection
   }
 
-  async listKeys(
-    params: WalletModel.ListKeysParams,
-    origin: string
-  ): Promise<WalletModel.ListKeysResult> {
-    const connection = await this.store.connections.get(origin)
+  async listKeys(): Promise<WalletModel.ListKeysResult> {
+    const connection = await this.store.connections.get(this.origin)
 
     if (!connection) {
       throw new Error('Connection not found')
@@ -91,23 +85,18 @@ export class Client {
   }
 
   async sendTransaction(
-    params: WalletModel.SendTransactionParams,
-    origin: string
+    params: WalletModel.SendTransactionParams
   ): Promise<WalletModel.SendTransactionResult> {
     throw new Error('Not implemented')
   }
 
   async signTransaction(
-    params: WalletModel.SignTransactionParams,
-    origin: string
+    params: WalletModel.SignTransactionParams
   ): Promise<WalletModel.SignTransactionResult> {
     throw new Error('Not implemented')
   }
 
-  async getChainId(
-    params: WalletModel.GetChainIdParams,
-    origin: string
-  ): Promise<WalletModel.GetChainIdResult> {
+  async getChainId(): Promise<WalletModel.GetChainIdResult> {
     throw new Error('Not implemented')
   }
 }

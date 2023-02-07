@@ -58,7 +58,8 @@ jobs:
           directory: dist/libs/wallet-web-${{ matrix.browser }}
           exclusions: '*.zip'
           filename: vegawallet-${{ matrix.browser }}.zip
-
+      - name: Generate changelog
+        run: npx conventional-changelog -p conventionalcommits -k libs/wallet-web/package.json -o CHANGELOG.md
       - name: Release
         if: ${{ inputs.publish || startsWith(github.ref, 'refs/tags/') }}
         uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
@@ -67,5 +68,6 @@ jobs:
           name: ${{ inputs.tag || github.ref_name }}
           tag_name: ${{ inputs.tag || github.ref_name }}
           prerelease: true
+          body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.VEGA_CI_BOT_GITHUB_TOKEN }}

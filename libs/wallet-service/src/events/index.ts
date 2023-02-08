@@ -123,6 +123,7 @@ export class EventBus {
     const traceID = event?.traceID
 
     if (!ResponseMapping[event.name]) {
+      this.implementation.sendMessage(event)
       return null
     }
 

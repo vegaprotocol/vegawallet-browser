@@ -49,6 +49,10 @@ export class Interactor {
     })
 
     if (connectionApproval === 'REJECTED_ONLY_THIS_TIME') {
+      await this.bus.emit({
+        traceID,
+        name: 'INTERACTION_SESSION_ENDED',
+      })
       throw new Error(`User rejected the connection request from ${origin}`)
     }
 
@@ -61,6 +65,11 @@ export class Interactor {
         hostname: origin,
         availableWallets: wallets,
       },
+    })
+
+    await this.bus.emit({
+      traceID,
+      name: 'INTERACTION_SESSION_ENDED',
     })
 
     return { approvedForWallet: wallet }

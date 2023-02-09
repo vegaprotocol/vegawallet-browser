@@ -1,5 +1,6 @@
 import type {
   RawInteraction,
+  InteractionType,
   InteractionResponse,
   InteractionResponseType,
   SessionStarted,
@@ -165,12 +166,46 @@ export const EventResponseDataMap: Record<
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {}
 
+export const EventToResponseMapping: Record<
+  InteractionType,
+  InteractionResponseType | null
+> = {
+  INTERACTION_SESSION_BEGAN: null,
+  INTERACTION_SESSION_ENDED: null,
+  REQUEST_WALLET_CONNECTION_REVIEW: 'WALLET_CONNECTION_DECISION',
+  REQUEST_WALLET_SELECTION: 'SELECTED_WALLET',
+  REQUEST_PERMISSIONS_REVIEW: 'DECISION',
+  REQUEST_TRANSACTION_REVIEW_FOR_SENDING: 'DECISION',
+  TRANSACTION_SUCCEEDED: null,
+  TRANSACTION_FAILED: null,
+  REQUEST_PASSPHRASE: 'ENTERED_PASSPHRASE',
+  REQUEST_SUCCEEDED: null,
+  ERROR_OCCURRED: null,
+  LOG: null,
+}
+
 export class MockEventBus extends EventBus {
-  constructor() {
+  private eventToData: typeof EventDataMap
+  private responseToData: typeof EventResponseDataMap
+  private eventToResponse: typeof EventToResponseMapping
+
+  constructor({
+    eventToData,
+    responseToData,
+    eventToResponse,
+  }: {
+    eventToData?: typeof EventDataMap
+    responseToData?: typeof EventResponseDataMap
+    eventToResponse?: typeof EventToResponseMapping
+  } = {}) {
     super({
       sendMessage: noop,
       addListener: noop,
     })
+
+    this.eventToData = eventToData || EventDataMap
+    this.responseToData = responseToData || EventResponseDataMap
+    this.eventToResponse = eventToResponse || EventToResponseMapping
   }
 
   override async emit(event: SessionStarted): Promise<null>
@@ -199,62 +234,11 @@ export class MockEventBus extends EventBus {
   override async emit(
     event: RawInteraction
   ): Promise<InteractionResponse | null> {
-    switch (event.name) {
-      case 'INTERACTION_SESSION_BEGAN':
-        return Promise.resolve(null)
-      case 'INTERACTION_SESSION_ENDED':
-        return Promise.resolve(null)
-      case 'REQUEST_WALLET_CONNECTION_REVIEW':
-        return Promise.resolve({
-          traceID: event.traceID,
-          name: 'WALLET_CONNECTION_DECISION',
-          data: {
-            connectionApproval: 'APPROVED_ONLY_THIS_TIME',
-          },
-        })
-      case 'REQUEST_WALLET_SELECTION':
-        return Promise.resolve({
-          traceID: event.traceID,
-          name: 'SELECTED_WALLET',
-          data: {
-            wallet: 'test',
-            passphrase: '123',
-          },
-        })
-      case 'REQUEST_PERMISSIONS_REVIEW':
-        return Promise.resolve({
-          traceID: event.traceID,
-          name: 'DECISION',
-          data: {
-            approved: true,
-          },
-        })
-      case 'REQUEST_TRANSACTION_REVIEW_FOR_SENDING':
-        return Promise.resolve({
-          traceID: event.traceID,
-          name: 'DECISION',
-          data: {
-            approved: true,
-          },
-        })
-      case 'TRANSACTION_SUCCEEDED':
-        return Promise.resolve(null)
-      case 'TRANSACTION_FAILED':
-        return Promise.resolve(null)
-      case 'REQUEST_PASSPHRASE':
-        return Promise.resolve({
-          traceID: event.traceID,
-          name: 'ENTERED_PASSPHRASE',
-          data: {
-            passphrase: '123',
-          },
-        })
-      case 'REQUEST_SUCCEEDED':
-        return Promise.resolve(null)
-      case 'ERROR_OCCURRED':
-        return Promise.resolve(null)
-      case 'LOG':
-        return Promise.resolve(null)
+    if (this.eventToResponse[event.name]) {
+      const responseName = this.eventToResponse[event.name]
+      const response = responseName && this.responseToData[responseName]
+      return response
     }
+    return null
   }
 }

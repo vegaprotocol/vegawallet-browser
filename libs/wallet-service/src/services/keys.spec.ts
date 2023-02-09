@@ -3,10 +3,10 @@ import { Keys } from './keys'
 import { Wallets } from './wallets'
 import { Storage } from '../storage/wrapper'
 import { WalletSchema } from '../storage/schemas/wallet'
-import { MockStorage } from '../../test/mock-storage'
+import { MockStorageEngine } from '../../test/mock-storage'
 
 test('admin.generate_key / admin.list_keys', async (assert) => {
-  const s = new Storage('wallets', WalletSchema, new MockStorage())
+  const s = new Storage('wallets', WalletSchema, new MockStorageEngine())
   const w = new Wallets(s)
   const k = new Keys(s)
 

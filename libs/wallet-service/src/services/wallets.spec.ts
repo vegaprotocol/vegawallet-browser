@@ -2,10 +2,10 @@ import test from 'tape'
 import { Wallets } from './wallets'
 import { Storage } from '../storage/wrapper'
 import { WalletSchema } from '../storage/schemas/wallet'
-import { MockStorage } from '../../test/mock-storage'
+import { MockStorageEngine } from '../../test/mock-storage'
 
 test('admin.create_wallet', async (assert) => {
-  const s = new Storage('wallets', WalletSchema, new MockStorage())
+  const s = new Storage('wallets', WalletSchema, new MockStorageEngine())
   const w = new Wallets(s)
 
   const { wallet, key } = await w.create({
@@ -32,7 +32,7 @@ test('admin.create_wallet', async (assert) => {
 })
 
 test('admin.list_wallets', async (assert) => {
-  const s = new Storage('wallets', WalletSchema, new MockStorage())
+  const s = new Storage('wallets', WalletSchema, new MockStorageEngine())
   const w = new Wallets(s)
 
   assert.deepEquals(await w.list([]), { wallets: [] })
@@ -52,7 +52,7 @@ test('admin.list_wallets', async (assert) => {
 // })
 
 test('admin.remove_wallets', async (assert) => {
-  const s = new Storage('wallets', WalletSchema, new MockStorage())
+  const s = new Storage('wallets', WalletSchema, new MockStorageEngine())
   const w = new Wallets(s)
 
   const wp = { wallet: 'wallet-1', passphrase: 'foobar' }

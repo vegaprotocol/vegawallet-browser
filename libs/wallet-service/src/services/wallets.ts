@@ -104,7 +104,6 @@ export class Wallets {
   ): Promise<WalletModel.RemoveWalletResult> {
     // TODO: Consider the passphrase when we have encrypted storage
     if (await this.store.delete(params.wallet)) return null
-
     throw new Error('Invalid wallet')
   }
 }

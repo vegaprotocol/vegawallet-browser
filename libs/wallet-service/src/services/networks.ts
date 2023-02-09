@@ -2,7 +2,7 @@ import { z } from 'zod'
 import toml from 'toml'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
-import type { Storage } from '../storage/wrapper'
+import { Storage } from '../storage/wrapper'
 import { Network } from '../storage/schemas/network'
 
 const FileSchema = z.object({
@@ -127,7 +127,6 @@ export class Networks {
     name,
   }: WalletModel.RemoveNetworkParams): Promise<WalletModel.RemoveNetworkResult> {
     if (await this.store.delete(name)) return null
-
     throw new Error('Invalid network')
   }
 }

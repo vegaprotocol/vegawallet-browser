@@ -22,7 +22,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "yarn tsc --project ./libs/wallet-service/tsconfig.spec.json",
+          "npx esbuild libs/wallet-service/src/**/*.ts --format=cjs --outdir=dist/spec/libs/wallet-service --bundle --platform=node",
           "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"
         ]
       }

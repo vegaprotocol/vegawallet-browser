@@ -3,7 +3,6 @@ import { Interactor } from './interactor'
 import { MockStore } from '../../test/mock-storage'
 import {
   MockEventBus,
-  EventToResponseMapping,
   EventResponseDataMap,
   traceID,
 } from '../../test/mock-events'

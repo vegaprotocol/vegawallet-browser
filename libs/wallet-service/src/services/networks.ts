@@ -1,8 +1,18 @@
+import { z } from 'zod'
 import toml from 'toml'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
-import { WalletStore } from '../storage'
+import { Storage } from '../storage/wrapper'
 import { Network } from '../storage/schemas/network'
+
+const FileSchema = z.object({
+  Name: z.string(),
+  API: z.object({
+    REST: z.object({
+      Hosts: z.array(z.string().url()),
+    }),
+  }),
+})
 
 const toResponse = (config: Network): WalletModel.DescribeNetworkResult => {
   return {
@@ -38,20 +48,21 @@ const toConfig = (config: WalletModel.DescribeNetworkResult): Network => {
 }
 
 export class Networks {
-  private store: WalletStore
+  private store: Storage<Network>
 
-  constructor(store: WalletStore) {
+  constructor(store: Storage<Network>) {
     this.store = store
   }
 
-  private async getConfig(url: string) {
+  private async getConfig(url: string): Promise<z.infer<typeof FileSchema>> {
     const response = await fetch(url)
     const ext = url.split('.').at(-1)
 
     switch (ext) {
       case 'toml': {
         const content = await response.text()
-        return toml.parse(content)
+        const json = toml.parse(content)
+        return FileSchema.parse(json)
       }
       default: {
         throw new Error(
@@ -66,15 +77,15 @@ export class Networks {
     url,
     overwrite = false,
   }: WalletModel.ImportNetworkParams): Promise<WalletModel.ImportNetworkResult> {
-    const doesNetworkExist = name && (await this.store.networks.has(name))
+    const doesNetworkExist = name && (await this.store.has(name))
 
     if (overwrite === false && doesNetworkExist) {
       throw new Error('Duplicate network')
     }
 
     const content = await this.getConfig(url)
+    await this.store.set(name || content.Name, content)
 
-    await this.store.networks.set(name || content.Name, content)
     return {
       name: content.Name,
       filePath: '',
@@ -83,14 +94,14 @@ export class Networks {
 
   async list(): Promise<WalletModel.ListNetworksResult> {
     return {
-      networks: Array.from(await this.store.networks.keys()),
+      networks: Array.from(await this.store.keys()),
     }
   }
 
   async describe({
     name,
   }: WalletModel.DescribeNetworkParams): Promise<WalletModel.DescribeNetworkResult> {
-    const config = await this.store.networks.get(name)
+    const config = await this.store.get(name)
 
     if (config == null) {
       throw new Error(`Cannot find network with name "${name}".`)
@@ -102,24 +113,20 @@ export class Networks {
   async update(
     input: WalletModel.UpdateNetworkParams
   ): Promise<WalletModel.UpdateNetworkResult> {
-    const config = await this.store.networks.get(input.name)
+    const config = await this.store.get(input.name)
     if (config == null) {
       throw new Error('Invalid network')
     }
 
     const newConfig = toConfig(input)
-    await this.store.networks.set(input.name, newConfig)
+    await this.store.set(input.name, newConfig)
     return null
   }
 
   async remove({
     name,
   }: WalletModel.RemoveNetworkParams): Promise<WalletModel.RemoveNetworkResult> {
-    if (await this.store.networks.has(name)) {
-      await this.store.networks.delete(name)
-    } else {
-      throw new Error('Invalid network')
-    }
-    return null
+    if (await this.store.delete(name)) return null
+    throw new Error('Invalid network')
   }
 }

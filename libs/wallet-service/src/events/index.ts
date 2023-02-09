@@ -122,50 +122,44 @@ export class EventBus {
   async emit(event: RawInteraction): Promise<InteractionResponse | null> {
     const traceID = event?.traceID
 
+    if (!ResponseMapping[event.name]) {
+      this.implementation.sendMessage(event)
+      return null
+    }
+
     return new Promise((resolve, reject) => {
       const handler = (message: InteractionResponse) => {
-        if (message.traceID === traceID) {
-          if (message.name === 'CANCEL_REQUEST') {
-            this.implementation.sendMessage({
-              traceID,
-              name: 'INTERACTION_SESSION_ENDED',
-            })
-            reject(new EventCancelError())
-            this.events.removeListener(traceID, handler)
-            return
-          }
-
-          if (message.name !== ResponseMapping[event.name]) {
-            this.implementation.sendMessage({
-              traceID,
-              name: 'ERROR_OCCURRED',
-              data: {
-                name: 'Error',
-                error: 'Unexpected response type',
-              },
-            })
-            this.implementation.sendMessage({
-              traceID,
-              name: 'INTERACTION_SESSION_ENDED',
-            })
-            reject(new EventIncorrectResponseError())
-            this.events.removeListener(traceID, handler)
-            return
-          }
-
-          resolve(message)
-          this.events.removeListener(traceID, handler)
+        if (message.name === 'CANCEL_REQUEST') {
+          this.implementation.sendMessage({
+            traceID,
+            name: 'INTERACTION_SESSION_ENDED',
+          })
+          reject(new EventCancelError())
+          return
         }
+
+        if (message.name !== ResponseMapping[event.name]) {
+          this.implementation.sendMessage({
+            traceID,
+            name: 'ERROR_OCCURRED',
+            data: {
+              name: 'Error',
+              error: 'Unexpected response type',
+            },
+          })
+          this.implementation.sendMessage({
+            traceID,
+            name: 'INTERACTION_SESSION_ENDED',
+          })
+          reject(new EventIncorrectResponseError())
+          return
+        }
+
+        resolve(message)
       }
 
-      this.events.addListener(traceID, handler)
-
+      this.events.once(traceID, handler)
       this.implementation.sendMessage(event)
-
-      if (!ResponseMapping[event.name]) {
-        this.events.removeListener(traceID, handler)
-        resolve(null)
-      }
     })
   }
 }

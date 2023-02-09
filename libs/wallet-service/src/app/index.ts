@@ -13,7 +13,7 @@ export class WalletService {
     this.store = store
     this.networks = new Networks(store.networks)
     this.wallets = new Wallets(store.wallets)
-    this.keys = new Keys(store.wallets)
+    this.keys = new Keys(store.keys)
   }
 
   /**

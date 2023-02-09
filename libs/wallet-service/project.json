@@ -21,11 +21,9 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "parallel": false,
         "commands": [
           "npx esbuild libs/wallet-service/src/**/*.ts --format=cjs --outdir=dist/spec/libs/wallet-service --bundle --platform=node",
-          "cp libs/wallet-service/package.json dist/spec/libs/wallet-service/package.json",
-          "tape dist/spec/libs/wallet-service/**/*.spec.js"
+          "yarn tape dist/spec/libs/wallet-service/**/*.spec.js"
         ]
       }
     },

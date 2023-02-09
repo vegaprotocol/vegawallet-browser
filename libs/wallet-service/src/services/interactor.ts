@@ -1,5 +1,4 @@
 import { v4 as uuid } from 'uuid'
-import type { RequestWalletConnectionContent } from '@vegaprotocol/wallet-ui'
 
 import { WalletStore } from '../storage'
 import { EventBus } from '../events'
@@ -10,6 +9,11 @@ type Props = {
   bus: EventBus
   store: WalletStore
   getTraceID?: GetTraceId
+}
+
+type ConnectProps = {
+  origin: string
+  wallets: string[]
 }
 
 export class Interactor {
@@ -23,8 +27,52 @@ export class Interactor {
     this.getTraceID = getTraceID ?? uuid
   }
 
-  async connectWallet(data: RequestWalletConnectionContent) {
-    throw new Error('Not implemented')
+  async connectWallet({
+    origin,
+    wallets,
+  }: ConnectProps): Promise<{ approvedForWallet?: string }> {
+    const traceID = this.getTraceID()
+
+    await this.bus.emit({
+      traceID,
+      name: 'INTERACTION_SESSION_BEGAN',
+    })
+
+    const {
+      data: { connectionApproval },
+    } = await this.bus.emit({
+      traceID,
+      name: 'REQUEST_WALLET_CONNECTION_REVIEW',
+      data: {
+        hostname: origin,
+      },
+    })
+
+    if (connectionApproval === 'REJECTED_ONLY_THIS_TIME') {
+      await this.bus.emit({
+        traceID,
+        name: 'INTERACTION_SESSION_ENDED',
+      })
+      throw new Error(`User rejected the connection request from ${origin}`)
+    }
+
+    const {
+      data: { wallet },
+    } = await this.bus.emit({
+      traceID,
+      name: 'REQUEST_WALLET_SELECTION',
+      data: {
+        hostname: origin,
+        availableWallets: wallets,
+      },
+    })
+
+    await this.bus.emit({
+      traceID,
+      name: 'INTERACTION_SESSION_ENDED',
+    })
+
+    return { approvedForWallet: wallet }
   }
 
   async reviewTransaction() {

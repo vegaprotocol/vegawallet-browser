@@ -84,8 +84,8 @@ export class Networks {
     }
 
     const content = await this.getConfig(url)
-
     await this.store.set(name || content.Name, content)
+
     return {
       name: content.Name,
       filePath: '',

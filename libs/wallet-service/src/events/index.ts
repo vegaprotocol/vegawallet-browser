@@ -135,7 +135,6 @@ export class EventBus {
             name: 'INTERACTION_SESSION_ENDED',
           })
           reject(new EventCancelError())
-          this.events.removeListener(traceID, handler)
           return
         }
 
@@ -153,15 +152,13 @@ export class EventBus {
             name: 'INTERACTION_SESSION_ENDED',
           })
           reject(new EventIncorrectResponseError())
-          this.events.removeListener(traceID, handler)
           return
         }
 
         resolve(message)
-        this.events.removeListener(traceID, handler)
       }
 
-      this.events.addListener(traceID, handler)
+      this.events.once(traceID, handler)
       this.implementation.sendMessage(event)
     })
   }

@@ -32,7 +32,7 @@
         },
         "tsConfig": {
           "type": "string",
-          "description": "File path for a popup script"
+          "description": "File path for a popup script's typescript configuration"
         },
         "styles": {
           "type": "string",
@@ -49,7 +49,20 @@
         },
         "tsConfig": {
           "type": "string",
-          "description": "File path for a popup script"
+          "description": "File path for a background script's typescript configuration"
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "main": {
+          "type": "string",
+          "description": "File path for a content script"
+        },
+        "tsConfig": {
+          "type": "string",
+          "description": "File path for a content script's typescript configuration"
         }
       }
     }

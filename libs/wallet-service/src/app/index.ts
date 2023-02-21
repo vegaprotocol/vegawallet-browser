@@ -2,18 +2,28 @@ import { WalletStore } from '../storage'
 import { Networks } from '../services/networks'
 import { Keys } from '../services/keys'
 import { Wallets } from '../services/wallets'
+import { Client } from '../services/client'
+import { Implementation } from '../events'
 
 export class WalletService {
   private store: WalletStore
   private networks: Networks
   private wallets: Wallets
   private keys: Keys
+  private client: Client
 
-  constructor({ store }: { store: WalletStore }) {
+  constructor({
+    store,
+    implementation,
+  }: {
+    store: WalletStore
+    implementation: Implementation
+  }) {
     this.store = store
     this.networks = new Networks(store.networks)
     this.wallets = new Wallets(store.wallets)
     this.keys = new Keys(store.keys)
+    this.client = new Client(origin, this.store, implementation)
   }
 
   /**
@@ -25,21 +35,22 @@ export class WalletService {
    * @param origin The origin of the callee. Must include the protocol, FQDN and optional port number
    * @returns
    */
-  async handleClient(method: string, params: unknown, origin: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async handleClient(method: string, params: any, origin: string) {
     // TODO Handle any calls in the client namespace, including permission check
     switch (method) {
       case 'client.connect_wallet':
-        return notImplemented()
+        return this.client.connect()
       case 'client.disconnect_wallet':
-        return notImplemented()
+        return this.client.disconnect()
       case 'client.list_keys':
-        return notImplemented()
+        return this.client.listKeys()
       case 'client.sign_transaction':
-        return notImplemented()
+        return this.client.signTransaction(params)
       case 'client.send_transaction':
-        return notImplemented()
+        return this.client.sendTransaction(params)
       case 'client.get_chain_id':
-        return notImplemented()
+        return this.client.getChainId()
 
       default:
         return notImplemented()
@@ -56,7 +67,7 @@ export class WalletService {
    */
   // TODO: Ultimately this function should use the same types as the wallet-ui, however
   //       currently we cannot satisfy the types without implementing the methods
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async handleAdmin(method: string, params: any) {
     switch (method) {
       // Wallets

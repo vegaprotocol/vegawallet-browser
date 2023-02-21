@@ -15,15 +15,20 @@ export class Storage<V extends Serializable> {
   }
 
   private async _load(): Promise<Record<string, V>> {
-    const result = (await this._engine.get(this._prefix)) ?? {}
+    const storage = (await this._engine.get(this._prefix)) ?? {}
 
-    return Object.keys(result).reduce(
-      (acc, key) => ({
-        ...acc,
-        [key]: this._schema.parse(result[key]),
-      }),
-      {}
-    )
+    if (storage[this._prefix]) {
+      const result = storage[this._prefix]
+      return Object.keys(result).reduce(
+        (acc, key) => ({
+          ...acc,
+          [key]: this._schema.parse(result[key]),
+        }),
+        {}
+      )
+    }
+
+    return {}
   }
 
   async has(key: string): Promise<boolean> {
@@ -33,7 +38,6 @@ export class Storage<V extends Serializable> {
 
   async get(key: string): Promise<V | undefined> {
     const val = await this._load()
-
     return val[key]
   }
   async set(key: string, value: Readonly<V>): Promise<this> {

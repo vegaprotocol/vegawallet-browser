@@ -1,10 +1,34 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
+// import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
 import { Storage } from '../storage/wrapper'
 import { Wallet } from '../storage/schemas/wallet'
+
+const HARDENED = 0
+
+class VegaWallet {
+  static deriveSeed(m: string) {
+    return new Uint8Array()
+  }
+
+  static fromSeed(arr: Uint8Array) {
+    return {
+      id: 'aaa',
+      algorithm: {
+        name: 'mock',
+        version: 0,
+      },
+      keyPair: (v: number) => {
+        return {
+          index: 0,
+          pk: '',
+        }
+      },
+    }
+  }
+}
 
 export class Keys {
   private store: Storage<Wallet>

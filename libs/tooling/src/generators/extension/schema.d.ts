@@ -9,4 +9,5 @@ export interface ExtensionGeneratorSchema {
   popupTitle: string | undefined
   popupDescription: string | undefined
   backgroundJs: string | undefined
+  contentJs: string | undefined
 }

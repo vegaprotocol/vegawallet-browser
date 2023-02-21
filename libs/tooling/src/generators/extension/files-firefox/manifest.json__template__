@@ -7,8 +7,11 @@
   "homepage_url": "https://github.com/vegaprotocol/vegawallet-browser",
   "default_locale": "en",
   "permissions": [
+    "theme",
+    "tabs",
     "activeTab",
     "notifications",
+    "clipboardWrite",
     "storage"
   ],
   <% if (backgroundJs) { %>
@@ -16,6 +19,14 @@
     "scripts": ["<%= backgroundJs %>"],
     "persistent": true
   },
+  <% } %>
+  <% if (contentJs) { %>
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["<%= contentJs %>"]
+    }
+  ],
   <% } %>
   <% if (popupHtml) { %>
   "browser_action": {

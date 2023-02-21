@@ -1,7 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "..",
+    "jsx": "react-jsx",
     "inlineSourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -18,10 +19,8 @@
     "resolveJsonModule": true,
     "paths": {
       "@vegaprotocol/tooling": ["libs/tooling/src/index.ts"],
-      "@vegaprotocol/wallet-popup": ["libs/wallet-popup/src/index.ts"],
-      "@vegaprotocol/wallet-ui": [
-        "./node_modules/@vegaprotocol/wallet-ui/src/types/index.d.ts"
-      ]
+      "@vegaprotocol/wallet-popup": ["libs/wallet-popup/src/index.tsx"],
+      "@vegaprotocol/wallet-service": ["libs/wallet-service/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

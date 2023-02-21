@@ -80,7 +80,7 @@ export const ResponseMapping: Record<
   REQUEST_TRANSACTION_REVIEW_FOR_SENDING: 'DECISION',
 }
 
-type Implementation = {
+export type Implementation = {
   sendMessage: (interaction: RawInteraction) => void
   addListener: (handler: (message: InteractionResponse) => void) => void
 }

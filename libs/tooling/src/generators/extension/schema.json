@@ -55,6 +55,10 @@
     "backgroundJs": {
       "type": "string",
       "description": "File path for a background script"
+    },
+    "contentJs": {
+      "type": "string",
+      "description": "File path for a content script"
     }
   },
   "required": ["name", "directory"]

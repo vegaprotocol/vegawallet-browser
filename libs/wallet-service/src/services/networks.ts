@@ -5,22 +5,22 @@ import type { WalletModel } from '@vegaprotocol/wallet-admin'
 import { Storage } from '../storage/wrapper'
 import { Network } from '../storage/schemas/network'
 
-const FileSchema = z.object({
-  Name: z.string(),
-  API: z.object({
-    REST: z.object({
-      Hosts: z.array(z.string().url()),
-    }),
-  }),
-})
+const FileSchema = z
+  .object({
+    Name: z.string(),
+    API: z
+      .object({
+        REST: z.object({
+          Hosts: z.array(z.string().url()),
+        }),
+      })
+      .required(),
+  })
+  .required()
 
 const toResponse = (config: Network): WalletModel.DescribeNetworkResult => {
   return {
     name: config.Name,
-    logLevel: 'info',
-    host: '127.0.0.1',
-    port: 1789,
-    tokenExpiry: '1h',
     api: {
       grpcConfig: {
         hosts: [],
@@ -33,6 +33,7 @@ const toResponse = (config: Network): WalletModel.DescribeNetworkResult => {
         hosts: config.API.REST.Hosts,
       },
     },
+    apps: {},
   }
 }
 
@@ -41,7 +42,7 @@ const toConfig = (config: WalletModel.DescribeNetworkResult): Network => {
     Name: config.name,
     API: {
       REST: {
-        Hosts: config.api.restConfig.hosts,
+        Hosts: config.api.restConfig?.hosts || [],
       },
     },
   }
@@ -94,7 +95,9 @@ export class Networks {
 
   async list(): Promise<WalletModel.ListNetworksResult> {
     return {
-      networks: Array.from(await this.store.keys()),
+      networks: Array.from(await this.store.keys()).map((name) => ({
+        name,
+      })),
     }
   }
 

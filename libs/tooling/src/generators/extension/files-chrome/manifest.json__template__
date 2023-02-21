@@ -7,9 +7,17 @@
   "homepage_url": "https://github.com/vegaprotocol/vegawallet-browser",
   "default_locale": "en",
   "permissions": [
+    "tabs",
     "activeTab",
     "notifications",
+    "clipboardWrite",
     "storage"
+  ],
+  "externally_connectable": {
+    "matches": ["http://localhost:4200/*"]
+  },
+  "host_permissions": [
+    "http://localhost:4200/*"
   ],
   <% if (backgroundJs) { %>
   "background": {
@@ -30,6 +38,14 @@
     "default_title": "<%= popupTitle %>",
     "default_popup": "<%= popupHtml %>"
   },
+  <% } %>
+  <% if (contentJs) { %>
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["<%= contentJs %>"]
+    }
+  ],
   <% } %>
   "icons": {
     "16": "images/vega16x16.png",

@@ -12,4 +12,8 @@ export interface BuildExecutorSchema {
     main: string
     tsConfig: string
   }
+  content?: {
+    main: string
+    tsConfig: string
+  }
 }

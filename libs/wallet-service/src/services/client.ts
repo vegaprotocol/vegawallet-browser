@@ -2,17 +2,24 @@ import type { WalletModel } from '@vegaprotocol/wallet-client'
 
 import type { WalletStore } from '../storage'
 import { Interactor } from './interactor'
-import { EventBus } from '../events'
+import { EventBus, Implementation } from '../events'
 
 export class Client {
   private origin: string
   private store: WalletStore
   private interactor: Interactor
 
-  constructor(origin: string, store: WalletStore, bus: EventBus) {
+  constructor(
+    origin: string,
+    store: WalletStore,
+    implementation: Implementation
+  ) {
     this.origin = origin
     this.store = store
-    this.interactor = new Interactor({ bus, store })
+    this.interactor = new Interactor({
+      bus: new EventBus(implementation),
+      store,
+    })
   }
 
   async connect(): Promise<WalletModel.ConnectWalletResult> {
@@ -97,6 +104,9 @@ export class Client {
   }
 
   async getChainId(): Promise<WalletModel.GetChainIdResult> {
-    throw new Error('Not implemented')
+    return {
+      chainID: 'vega-fairground-202302061213',
+    }
+    // throw new Error('Not implemented')
   }
 }

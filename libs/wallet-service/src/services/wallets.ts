@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-// import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
+import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-// import { generate as generateMnemonic } from '@vegaprotocol/crypto/bip-0039/mnemonic'
+import { generate as generateMnemonic } from '@vegaprotocol/crypto/bip-0039/mnemonic'
 import type { WalletModel } from '@vegaprotocol/wallet-admin'
 
 import type { Storage } from '../storage/wrapper'
@@ -11,32 +11,6 @@ import { Wallet } from '../storage/schemas/wallet'
 
 const KEY_DERIVATION_VERSION = 2
 const WALLET_TYPE = 'HD Wallet'
-
-const HARDENED = 0
-
-const generateMnemonic = (n: number) => [0, 1, 2, 3]
-
-class VegaWallet {
-  static deriveSeed(m: string) {
-    return new Uint8Array()
-  }
-
-  static fromSeed(arr: Uint8Array) {
-    return {
-      id: 'aaa',
-      algorithm: {
-        name: 'mock',
-        version: 0,
-      },
-      keyPair: (v: number) => {
-        return {
-          index: 0,
-          pk: '',
-        }
-      },
-    }
-  }
-}
 
 export class Wallets {
   private store: Storage<Wallet>

@@ -9,6 +9,7 @@
   "permissions": [
     "tabs",
     "activeTab",
+    "scripting",
     "notifications",
     "clipboardWrite",
     "storage"

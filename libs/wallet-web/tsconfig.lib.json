@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist",
-    "module": "commonjs"
+    "outDir": "../../dist"
   },
   "files": [
     "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
@@ -17,7 +16,12 @@
     "**/*.test.js",
     "**/*.spec.jsx",
     "**/*.test.jsx",
-    "jest.config.ts"
+    "jest.config.ts",
+    "../wallet-service/**/*.spec.ts"
   ],
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  "include": [
+    "../wallet-service/src/**/*.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ]
 }

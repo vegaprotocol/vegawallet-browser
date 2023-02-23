@@ -41,10 +41,20 @@ const buildJs = async (
       thirdParty: true,
       platform: 'browser',
       project: 'wallet-web',
+      target: 'es2017',
       esbuildOptions: {
+        // not working :(
+        outExtension: {
+          '.cjs': '.js',
+          '.js': '.js',
+        },
         alias: {
           react: path.resolve(context.root, 'node_modules/react'),
           'react-dom': path.resolve(context.root, 'node_modules/react-dom'),
+          '@vegaprotocol/wallet-service': path.resolve(
+            context.root,
+            'libs/wallet-service/src/index.ts'
+          ),
         },
         loader: {
           '.png': 'file',
@@ -142,7 +152,8 @@ export default async function runExecutor(
         context
       )
 
-      // the browser extension won't eat the .cjs formats, renaming them to .js
+      // can't get esbuild to output normal .js extension formats, so renaming the .cjs output here
+      // the browser extension can't digest .cjs for some reason
       await Promise.all(
         outputPaths.map((p) => {
           return rename(

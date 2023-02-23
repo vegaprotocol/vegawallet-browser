@@ -104,9 +104,6 @@ export class Client {
   }
 
   async getChainId(): Promise<WalletModel.GetChainIdResult> {
-    return {
-      chainID: 'vega-stagnet1-202302211715',
-    }
-    // throw new Error('Not implemented')
+    throw new Error('Not implemented')
   }
 }

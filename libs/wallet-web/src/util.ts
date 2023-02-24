@@ -1,3 +1,5 @@
+import { RawInteraction } from '@vegaprotocol/wallet-ui'
+
 type Platform = 'chrome' | 'firefox'
 
 export const getPlatform = (): Platform => {
@@ -40,4 +42,32 @@ export const getStorage = () => {
   throw new Error(
     'Unsupported platform, both "chrome" or "browser" is unavailable in the global namespace.'
   )
+}
+
+const getTabs = () => {
+  if (typeof browser !== 'undefined') {
+    return browser.tabs
+  }
+
+  if (typeof chrome !== 'undefined') {
+    return chrome.tabs
+  }
+
+  throw new Error(
+    'Unsupported platform, both "chrome" or "browser" is unavailable in the global namespace.'
+  )
+}
+
+export const sendMessageToPages = async (message: RawInteraction) => {
+  const tabs = getTabs()
+  const matches = await tabs.query({
+    url: '<all_urls>',
+    windowType: 'normal',
+  })
+
+  matches.forEach((tab) => {
+    if (typeof tab.id == 'number') {
+      chrome.tabs.sendMessage(tab.id, message)
+    }
+  })
 }

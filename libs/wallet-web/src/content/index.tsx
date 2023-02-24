@@ -3,7 +3,7 @@ import { getRuntime } from '../util'
 const runtime = getRuntime()
 
 runtime.onMessage.addListener((message, sender) => {
-  if (sender.id === browser.runtime.id) {
+  if (sender.id === runtime.id) {
     // Receive messages from the background script and send them back to the dApp's runtime
     window.postMessage(message)
   }

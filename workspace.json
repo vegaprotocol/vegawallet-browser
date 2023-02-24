@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "projects": {
-    "tooling": "libs/tooling",
-    "wallet-service": "libs/wallet-service",
-    "wallet-web": "libs/wallet-web"
-  },
-  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
-}

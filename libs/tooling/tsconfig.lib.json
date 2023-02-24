@@ -2,6 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["esnext"],
     "types": ["node"]
   },
   "include": ["src/executors/**/executor.ts", "src/generators/**/generator.ts"],

@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../../dist/spec",
     "module": "commonjs",
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "lib": ["esnext"]
   },
   "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"]
 }

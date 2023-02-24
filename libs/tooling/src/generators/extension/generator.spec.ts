@@ -19,6 +19,7 @@ describe('extension generator', () => {
     popupTitle: undefined,
     popupDescription: undefined,
     backgroundJs: undefined,
+    contentJs: undefined,
   }
 
   beforeEach(() => {

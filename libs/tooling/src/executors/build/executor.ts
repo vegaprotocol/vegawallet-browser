@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { spawn } from 'node:child_process'
-import { remove, stat, rename } from 'fs-extra'
-import { esbuildExecutor, EsBuildExecutorOptions } from '@nrwl/esbuild'
+import { remove, stat } from 'fs-extra'
+import { esbuildExecutor } from '@nrwl/esbuild'
 import { FsTree, flushChanges } from 'nx/src/generators/tree'
 import type { ExecutorContext } from '@nrwl/devkit'
 import type { BuildExecutorSchema } from './schema'
@@ -28,7 +28,9 @@ type BuildExtensionProps = {
 }
 
 const buildJs = async (
-  options: EsBuildExecutorOptions,
+  // eslint-disable-next-line
+  // @ts-ignore Jest can't import esbuild's schema type
+  options: any,
   context: ExecutorContext
 ) => {
   const result = { success: false }
@@ -37,11 +39,12 @@ const buildJs = async (
     {
       ...options,
       format: ['cjs'],
+      bundle: true,
       minify: false,
       thirdParty: true,
       platform: 'browser',
       project: 'wallet-web',
-      target: 'es2017',
+      target: 'esnext',
       esbuildOptions: {
         // not working :(
         outExtension: {
@@ -116,7 +119,7 @@ export default async function runExecutor(
   context: ExecutorContext
 ) {
   const project =
-    context.projectName && context.workspace.projects[context.projectName]
+    context.projectName && context.workspace?.projects[context.projectName]
 
   if (!project) {
     return {
@@ -146,25 +149,10 @@ export default async function runExecutor(
           outputPath: path.join(context.root, options.outputPath),
           main: path.join(context.root, paths[0]),
           additionalEntryPoints: paths.slice(1),
-          tsConfig: path.join(context.root, project.root, 'tsconfig.lib.json'),
+          tsConfig: path.join(project.root, 'tsconfig.lib.json'),
           assets: [],
         },
         context
-      )
-
-      // can't get esbuild to output normal .js extension formats, so renaming the .cjs output here
-      // the browser extension can't digest .cjs for some reason
-      await Promise.all(
-        outputPaths.map((p) => {
-          return rename(
-            path.join(context.root, options.outputPath, p),
-            path.join(
-              context.root,
-              options.outputPath,
-              p.replace('.cjs', '.js')
-            )
-          )
-        })
       )
     }
 

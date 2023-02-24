@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { spawn } from 'node:child_process'
 import { remove, stat } from 'fs-extra'
-import { esbuildExecutor } from '@nrwl/esbuild'
+import { esbuildExecutor, EsBuildExecutorOptions } from '@nrwl/esbuild'
 import { FsTree, flushChanges } from 'nx/src/generators/tree'
 import type { ExecutorContext } from '@nrwl/devkit'
 import type { BuildExecutorSchema } from './schema'
@@ -28,9 +28,7 @@ type BuildExtensionProps = {
 }
 
 const buildJs = async (
-  // eslint-disable-next-line
-  // @ts-ignore Jest can't import esbuild's schema type
-  options: any,
+  options: EsBuildExecutorOptions,
   context: ExecutorContext
 ) => {
   const result = { success: false }
@@ -134,12 +132,6 @@ export default async function runExecutor(
       options.background?.main,
       options.popup?.main,
       options.content?.main,
-    ].filter((p) => !!p) as string[]
-
-    const outputPaths = [
-      options.background?.main && 'background/index.cjs',
-      options.popup?.main && 'popup/index.cjs',
-      options.content?.main && 'content/index.cjs',
     ].filter((p) => !!p) as string[]
 
     if (paths.length) {

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample dApp</title>
+</head>
+<body style="max-width: 40rem; margin: auto;">
+  <h1>Sample dApp</h1>
+  <p>
+    This sample dApp allows you to interact with the extension either by
+    clicking the button below or by using one of the following commands in
+    the console. If you pin the extension you will notice how the badge counter
+    increases on each click and decreases after a little while
+  </p>
+  <code>
+    <pre style="background-color: #ececec; padding: 1rem; ">
+  await ext.sendTransaction(params)</pre>
+  </code>
+  <button id="btn" style="font-size: 1.5rem;" onclick="sendTransaction()">Test me</button>
+  <a id="block-explorer" target="_blank" href=""></a>
+  <script>
+    async function sendTransaction () {
+      const btn = document.getElementById('btn')
+      btn.setAttribute('disabled', '')
+      btn.innerText = 'Sending'
+
+      const res = await vega.sendTransaction({
+        publicKey: 'b45b5db62b6fac2effa0b68dc82fec94a6d7ae990c1e05c227e6a37e36666fbb',
+        sendingMode: 'TYPE_SYNC',
+        transaction: {
+          transfer: {
+            fromAccountType: 'ACCOUNT_TYPE_GENERAL',
+            toAccountType: 'ACCOUNT_TYPE_GENERAL',
+
+            amount: '1',
+            asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+            to: 'b45b5db62b6fac2effa0b68dc82fec94a6d7ae990c1e05c227e6a37e36666fbb',
+            kind: {
+              oneOff: {}
+            }
+          }
+        }
+      })
+
+      console.log(res)
+
+      if (res.txHash) {
+        const elm = document.getElementById('block-explorer')
+        elm.href = `https://stagnet1.explorer.vega.xyz/txs/${res.txHash}`
+        elm.innerText = `View on Block Explorer (${res.txHash})`
+      }
+
+      btn.removeAttribute('disabled')
+      btn.innerText = 'Test me'
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "vegawallet-browser",
+  "version": "0.0.0",
+  "description": "",
+  "main": "",
+  "type": "module",
+  "scripts": {
+    "build": "make dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "esbuild": "^0.17.10",
+    "tape": "^5.6.1",
+    "watchify": "^4.0.0",
+    "web-ext": "^7.4.0"
+  },
+  "dependencies": {
+    "@vegaprotocol/crypto": "^0.5.1",
+    "@vegaprotocol/protos": "^0.1.5",
+    "mithril": "^2.2.2",
+    "nanoassert": "^2.0.0"
+  }
+}

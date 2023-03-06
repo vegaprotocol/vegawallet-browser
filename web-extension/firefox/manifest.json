@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "16": "icons/16x16.png",
+      "18": "icons/18x18.png",
+      "32": "icons/32x32.png",
+      "38": "icons/38x38.png",
+      "48": "icons/48x48.png",
+      "64": "icons/64x64.png",
+      "96": "icons/96x96.png",
+      "128": "icons/128x128.png",
+      "196": "icons/196x196.png"
+    },
+    "default_title": "Minimal Extension",
+    "default_popup": "ui/index.html"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
+  "web_accessible_resources": ["in-page.js"]
+}

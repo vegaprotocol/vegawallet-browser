@@ -9,16 +9,13 @@ script.src = runtime.getURL('/in-page.js')
 doc.insertBefore(script, doc.children[0])
 doc.removeChild(script)
 
+// Connection happens on first message which handles reconnects also
+let backgroundPort
 
-const backgroundPort = runtime.connect({ name: 'content-script' })
-
-// Relay replies from background to page
-backgroundPort.onMessage.addListener(message => {
-  window.postMessage(message, '*')
-})
+window.addEventListener('message', onwindowmessage, false)
 
 // Relay requests from page to background
-window.addEventListener('message', function (event) {
+function onwindowmessage (event) {
   if (event.source !== window) return
   const data = event.data
 
@@ -28,5 +25,22 @@ window.addEventListener('message', function (event) {
   // Only react to requests and notifications
   if (!isNotification && !isRequest) return
 
+  if (backgroundPort == null) {
+    backgroundPort = runtime.connect({ name: 'content-script' })
+    backgroundPort.onMessage.addListener(onbackgroundmessage)
+    backgroundPort.onDisconnect.addListener(onbackgrounddisconnect)
+  }
+
   backgroundPort.postMessage(data)
-}, false)
+}
+
+// Relay replies from background to page
+function onbackgroundmessage (message) {
+  window.postMessage(message, '*')
+}
+
+function onbackgrounddisconnect () {
+  backgroundPort.onMessage.removeListener(onbackgroundmessage)
+  backgroundPort.onDisconnect.removeListener(onbackgrounddisconnect)
+  backgroundPort = null
+}

@@ -6,6 +6,7 @@ import * as InputData from '@vegaprotocol/protos/dist/vega/commands/v1/InputData
 import * as Transaction from '@vegaprotocol/protos/dist/vega/commands/v1/Transaction/encode.js'
 import { TX_VERSION_V3 } from '@vegaprotocol/protos/dist/vega/commands/v1/TxVersion.js'
 import { VegaWallet, HARDENED, PoW } from "@vegaprotocol/crypto"
+import NodeRPC from './backend/node-rpc.js'
 
 const runtime = (globalThis.browser?.runtime ?? globalThis.chrome?.runtime)
 const action = (globalThis.browser?.browserAction ?? globalThis.chrome?.action)
@@ -118,11 +119,11 @@ class PopupChannel {
   }
 }
 
-async function sendTransaction (message) {
-  const MNEMONIC = '...'
-  const NODE_URL = new URL('https://n01.stagnet1.vega.xyz')
+const rpc = new NodeRPC(new URL('https://n01.stagnet1.vega.xyz'))
 
-  const latestBlock = await (await fetch(new URL('/blockchain/height', NODE_URL))).json()
+
+async function sendTransaction ({ params }) {
+  const latestBlock = await rpc.blockchainHeight()
 
   const wallet = await VegaWallet.fromMnemonic(MNEMONIC)
   const keys = await wallet.keyPair(HARDENED + 1)
@@ -134,7 +135,7 @@ async function sendTransaction (message) {
   const inputData = InputData.encode({
     blockHeight,
     nonce,
-    command: message.params.transaction
+    command: params.transaction
   })
 
   const tx = Transaction.encode({
@@ -155,17 +156,7 @@ async function sendTransaction (message) {
     )
   })
 
-  const res = await (await fetch(new URL('/transaction/raw', NODE_URL), {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      tx: Buffer.from(tx).toString('base64'),
-      type: message.params.sendingMode
-    })
-  })).json()
+  const res = await rpc.submitRawTransaction(Buffer.from(tx).toString('base64'), params.sendingMode)
 
   if (res.code != 0) {
     throw new Error(res)

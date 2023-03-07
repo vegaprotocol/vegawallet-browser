@@ -19,7 +19,6 @@ test-firefox: dist/firefox
 		--target=firefox-desktop \
 		--start-url=test/sample-dapp/index.html
 
-
 dist: dist/firefox dist/chrome
 
 dist/firefox: dist/firefox/manifest.json \
@@ -39,6 +38,10 @@ dist/chrome: dist/chrome/manifest.json \
 	dist/chrome/background.js \
 	dist/chrome/content-script.js \
 	dist/chrome/in-page.js
+
+node_modules: package.json
+	npm install
+	touch -m node_modules
 
 # Build ui/index.html
 dist/chrome/ui/index.html: web-extension/common/ui/index.html
@@ -65,17 +68,17 @@ dist/firefox/fonts dist/chrome/fonts: web-extension/common/fonts
 	cp -r $^ $@
 
 # Build background.js
-dist/firefox/background.js dist/chrome/background.js: web-extension/common/background.js
+dist/firefox/background.js dist/chrome/background.js: web-extension/common/background.js node_modules
 	$(JS_BUNDLER) $< -o $@
 
 # Build ui/index.js
-dist/firefox/ui/index.js dist/chrome/ui/index.js: web-extension/common/ui/index.js
+dist/firefox/ui/index.js dist/chrome/ui/index.js: web-extension/common/ui/index.js node_modules
 	$(JS_BUNDLER) $< -o $@
 
 # Build content-script.js
-dist/firefox/content-script.js dist/chrome/content-script.js: web-extension/common/content-script.js
+dist/firefox/content-script.js dist/chrome/content-script.js: web-extension/common/content-script.js node_modules
 	$(JS_BUNDLER) $< -o $@
 
 # Build in-page.js
-dist/firefox/in-page.js dist/chrome/in-page.js: web-extension/common/in-page.js
+dist/firefox/in-page.js dist/chrome/in-page.js: web-extension/common/in-page.js node_modules
 	$(JS_BUNDLER) $< -o $@

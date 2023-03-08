@@ -20,36 +20,43 @@
   </code>
   <button id="btn" style="font-size: 1.5rem;" onclick="sendTransaction()">Test me</button>
   <a id="block-explorer" target="_blank" href=""></a>
+  <span id="error" style="color: red; font-weight: bold;"></span>
   <script>
     async function sendTransaction () {
       const btn = document.getElementById('btn')
+      const link = document.getElementById('block-explorer')
+      const errorText = document.getElementById('error')
+
+      error.innerText = ''
       btn.setAttribute('disabled', '')
       btn.innerText = 'Sending'
 
-      const res = await vega.sendTransaction({
-        publicKey: 'b45b5db62b6fac2effa0b68dc82fec94a6d7ae990c1e05c227e6a37e36666fbb',
-        sendingMode: 'TYPE_SYNC',
-        transaction: {
-          transfer: {
-            fromAccountType: 'ACCOUNT_TYPE_GENERAL',
-            toAccountType: 'ACCOUNT_TYPE_GENERAL',
+      try {
+        const res = await vega.sendTransaction({
+          publicKey: 'b45b5db62b6fac2effa0b68dc82fec94a6d7ae990c1e05c227e6a37e36666fbb',
+          sendingMode: 'TYPE_SYNC',
+          transaction: {
+            transfer: {
+              fromAccountType: 'ACCOUNT_TYPE_GENERAL',
+              toAccountType: 'ACCOUNT_TYPE_GENERAL',
 
-            amount: '1',
-            asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
-            to: 'b45b5db62b6fac2effa0b68dc82fec94a6d7ae990c1e05c227e6a37e36666fbb',
-            kind: {
-              oneOff: {}
+              amount: '1',
+              asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+              to: 'b45b5db62b6fac2effa0b68dc82fec94a6d7ae990c1e05c227e6a37e36666fbb',
+              kind: {
+                oneOff: {}
+              }
             }
           }
+        })
+
+        if (res.txHash) {
+          link.href = `https://stagnet1.explorer.vega.xyz/txs/${res.txHash}`
+          link.innerText = `View on Block Explorer (${res.txHash})`
         }
-      })
-
-      console.log(res)
-
-      if (res.txHash) {
-        const elm = document.getElementById('block-explorer')
-        elm.href = `https://stagnet1.explorer.vega.xyz/txs/${res.txHash}`
-        elm.innerText = `View on Block Explorer (${res.txHash})`
+      } catch (ex) {
+        link.innerText = ''
+        error.innerText = `Error: ${ex.message} (${ex.code}) [${JSON.stringify(ex.data)}]`
       }
 
       btn.removeAttribute('disabled')

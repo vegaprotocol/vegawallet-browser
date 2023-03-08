@@ -146,11 +146,11 @@ async function sendTransaction ({ params }) {
     inputData,
     signature: {
       value: Buffer.from(await keys.sign(inputData, chainId)).toString('hex'),
-      algo: wallet.algorithm.name,
-      version: wallet.algorithm.version
+      algo: keys.algorithm.name,
+      version: keys.algorithm.version
     },
     from: {
-      pubKey: keys.pk.toString()
+      pubKey: keys.publicKey.toString()
     },
     version: TX_VERSION_V3,
     pow

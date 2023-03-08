@@ -19,7 +19,7 @@
     "web-ext": "^7.4.0"
   },
   "dependencies": {
-    "@vegaprotocol/crypto": "^0.5.1",
+    "@vegaprotocol/crypto": "^0.6.2",
     "@vegaprotocol/protos": "^0.1.5",
     "ajv": "^8.12.0",
     "ajv-errors": "^3.0.0",

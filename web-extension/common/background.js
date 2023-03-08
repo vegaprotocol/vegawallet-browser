@@ -7,6 +7,9 @@ import * as Transaction from '@vegaprotocol/protos/dist/vega/commands/v1/Transac
 import { TX_VERSION_V3 } from '@vegaprotocol/protos/dist/vega/commands/v1/TxVersion.js'
 import { VegaWallet, HARDENED, PoW } from "@vegaprotocol/crypto"
 import NodeRPC from './backend/node-rpc.js'
+import Ajv from 'ajv'
+import ajvErrors from 'ajv-errors'
+import clientSendTransaction from './schemas/client/send-transaction.js'
 
 const runtime = (globalThis.browser?.runtime ?? globalThis.chrome?.runtime)
 const action = (globalThis.browser?.browserAction ?? globalThis.chrome?.action)
@@ -102,25 +105,11 @@ function popup (port) {
   })
 }
 
-class PopupChannel {
-  constructor () {
-    this.ports = new WeakMap()
-  }
+const ajv = new Ajv({ allErrors: true })
+ajvErrors(ajv)
+const validateSendTransaction = ajv.compile(clientSendTransaction)
 
-  onconnect (port) {
-    assert(port.name === 'popup')
-
-  }
-
-  onmessage () {}
-
-  ondisconnect (port) {
-    this.ports
-  }
-}
-
-const rpc = new NodeRPC(new URL('https://n01.stagnet1.vega.xyz'))
-
+  if (!validateSendTransaction(params)) throw new JSONRPCServer.Error(validateSendTransaction.errors[0].message, 1, validateSendTransaction.errors.map(e => e.message))
 
 async function sendTransaction ({ params }) {
   const latestBlock = await rpc.blockchainHeight()

@@ -73,7 +73,7 @@ dist/firefox/fonts dist/chrome/fonts: web-extension/common/fonts
 dist/firefox/background.js dist/chrome/background.js: web-extension/common/background.js node_modules
 	$(JS_BUNDLER) $< -o $@
 
-dist/firefox/pow-worker.js dist/chrome/pow-worker.js: web-extension/common/backend/pow-worker.js node_modules
+dist/firefox/pow-worker.js dist/chrome/pow-worker.js: web-extension/common/pow-worker.js node_modules
 	$(JS_BUNDLER) $< -o $@
 
 # Build ui/index.js

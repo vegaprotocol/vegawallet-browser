@@ -1,14 +1,19 @@
 export default class JSONRPCClient {
   static Error = class extends Error {
-    constructor (message, code) {
-      super(message)
+    constructor (msg, code, data) {
+      super(msg)
       this.code = code
+      this.data = data
+    }
+
+    toJSON () {
+      return { message: this.message, code: this.code, data: this.data }
     }
   }
 
   constructor ({
     send,
-    onnotification = ((_) => {})
+    onnotification = (_) => {}
   }) {
     this._send = send
     this._onnotification = onnotification ?? (() => {})
@@ -59,7 +64,7 @@ export default class JSONRPCClient {
     this.inflight.delete(id)
 
     if (data.error) {
-      const err = new JSONRPCClient.Error(data.error.message, data.error.code)
+      const err = new JSONRPCClient.Error(data.error.message, data.error.code, data.error.data)
       p[1](err)
       return
     }

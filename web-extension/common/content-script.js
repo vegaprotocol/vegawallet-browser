@@ -19,7 +19,7 @@ function onwindowmessage (event) {
   if (event.source !== window) return
   const data = event.data
 
-  const isNotification = data.jsonrpc === '2.0' && 'method' in data
+  const isNotification = data.jsonrpc === '2.0' && typeof data.method === 'string'
   const isRequest = isNotification && data.id != null
 
   // Only react to requests and notifications

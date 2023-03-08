@@ -8,7 +8,7 @@ import JsonRpcClient from './lib/json-rpc-client'
   })
 
   window.addEventListener('message', (event) => {
-    if (event.origin !== "null") return
+    if (event.origin !== 'null') return
     if (event.source !== window) return
 
     const data = event.data

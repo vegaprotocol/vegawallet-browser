@@ -4,8 +4,8 @@ import assert from 'nanoassert'
 async function getJson (url) {
   return (await fetch(url, {
     headers: {
-      'Accept': 'application/json'
-    },
+      Accept: 'application/json'
+    }
   })).json()
 }
 
@@ -13,7 +13,7 @@ async function postJson (url, body) {
   return (await fetch(url, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
@@ -60,11 +60,11 @@ export default class NodeRPC {
     assert(typeof type === 'string')
 
     const res = await postJson(new URL('/transaction/raw', this.url), {
-       tx, type
+      tx, type
     })
 
-    if (res.code != 0) {
-      throw new Error(res)
+    if (res.code !== 0) {
+      throw new Error(Buffer.from(res.data, 'hex').toString())
     }
 
     return res

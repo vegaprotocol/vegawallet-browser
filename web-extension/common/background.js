@@ -1,10 +1,9 @@
 /* globals Worker */
-import assert from 'nanoassert'
 
 import * as InputData from '@vegaprotocol/protos/dist/vega/commands/v1/InputData/encode.js'
 import * as Transaction from '@vegaprotocol/protos/dist/vega/commands/v1/Transaction/encode.js'
 import { TX_VERSION_V3 } from '@vegaprotocol/protos/dist/vega/commands/v1/TxVersion.js'
-import { VegaWallet, HARDENED, PoW } from "@vegaprotocol/crypto"
+import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 import NodeRPC from './backend/node-rpc.js'
 import Ajv from 'ajv'
 import ajvErrors from 'ajv-errors'

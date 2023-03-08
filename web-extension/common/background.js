@@ -8,12 +8,14 @@ import { VegaWallet, HARDENED, PoW } from "@vegaprotocol/crypto"
 import NodeRPC from './backend/node-rpc.js'
 import Ajv from 'ajv'
 import ajvErrors from 'ajv-errors'
+import JSONRPCServer from './lib/json-rpc-server.js'
 import clientSendTransaction from './schemas/client/send-transaction.js'
 import JSONRPCClient from './lib/json-rpc-client.js'
 
 const runtime = (globalThis.browser?.runtime ?? globalThis.chrome?.runtime)
 const action = (globalThis.browser?.browserAction ?? globalThis.chrome?.action)
 
+const rpc = new NodeRPC(new URL('https://n01.stagnet3.vega.xyz'))
 const _powWorker = new Worker(runtime.getURL('/pow-worker.js'))
 const powWorker = new JSONRPCClient({
   send (req) {
@@ -78,26 +80,38 @@ class ClientChannels {
   }
 }
 
-const clients = new ClientChannels(async (message) => {
-  try {
-    switch (message.method) {
-      case 'client.send_transaction':
-        return {
-          jsonrpc: '2.0',
-          id: message.id,
-          result: await sendTransaction(message)
-        }
-      case 'client.get_chain_id'
+const clientServer = new JSONRPCServer({
+  methods: {
+    async 'client.connect_wallet' (params, context) {
+      return null
+    },
+    async 'client.disconnect_wallet' (params, context) {
+      return null
+    },
+    async 'client.send_transaction' (params, context) {
+      return sendTransaction(params)
+    },
+    async 'client.sign_transaction' (params, context) {
+      throw new JSONRPCServer.Error('Not Implemented', -32601)
+    },
+    async 'client.get_chain_id' (params, context) {
+      const latestBlock = await rpc.blockchainHeight()
+      return { chainID: latestBlock.chainId }
+    },
+
+    'client.list_keys' (params, context) {
+      return { keys: [] }
     }
-  } catch (ex) {
-    return {
-      jsonrpc: '2.0',
-      id: message.id,
-      result: ex.message
-    }
+  },
+  onerror (err) {
+    console.error(err)
   }
+})
 
+const clients = new ClientChannels(async (message) => {
+  const res = await clientServer.onrequest(message, { origin: '' })
 
+  return res
 })
 
 runtime.onConnect.addListener(port => {
@@ -119,9 +133,9 @@ const ajv = new Ajv({ allErrors: true })
 ajvErrors(ajv)
 const validateSendTransaction = ajv.compile(clientSendTransaction)
 
+async function sendTransaction (params) {
   if (!validateSendTransaction(params)) throw new JSONRPCServer.Error(validateSendTransaction.errors[0].message, 1, validateSendTransaction.errors.map(e => e.message))
 
-async function sendTransaction ({ params }) {
   const latestBlock = await rpc.blockchainHeight()
   const pow = await powWorker.request('solve', {
     difficulty: latestBlock.spamPowDifficulty + 20,
@@ -156,11 +170,9 @@ async function sendTransaction ({ params }) {
     pow
   })
 
-  const res = await rpc.submitRawTransaction(Buffer.from(tx).toString('base64'), params.sendingMode)
-
-  if (res.code != 0) {
-    throw new Error(res)
+  try {
+    return await rpc.submitRawTransaction(Buffer.from(tx).toString('base64'), params.sendingMode)
+  } catch (ex) {
+    throw new JSONRPCServer.Error(ex.message, -1, ex)
   }
-
-  return res
 }

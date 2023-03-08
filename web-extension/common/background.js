@@ -1,5 +1,4 @@
-/* global chrome, browser */
-
+/* globals Worker */
 import assert from 'nanoassert'
 
 import * as InputData from '@vegaprotocol/protos/dist/vega/commands/v1/InputData/encode.js'
@@ -10,9 +9,20 @@ import NodeRPC from './backend/node-rpc.js'
 import Ajv from 'ajv'
 import ajvErrors from 'ajv-errors'
 import clientSendTransaction from './schemas/client/send-transaction.js'
+import JSONRPCClient from './lib/json-rpc-client.js'
 
 const runtime = (globalThis.browser?.runtime ?? globalThis.chrome?.runtime)
 const action = (globalThis.browser?.browserAction ?? globalThis.chrome?.action)
+
+const _powWorker = new Worker(runtime.getURL('/pow-worker.js'))
+const powWorker = new JSONRPCClient({
+  send (req) {
+    _powWorker.postMessage(req)
+  }
+})
+_powWorker.onmessage = (ev) => {
+  powWorker.onmessage(ev.data)
+}
 
 class ClientChannels {
   constructor (onmessage = async (_1, _2) => {}) {
@@ -113,6 +123,11 @@ const validateSendTransaction = ajv.compile(clientSendTransaction)
 
 async function sendTransaction ({ params }) {
   const latestBlock = await rpc.blockchainHeight()
+  const pow = await powWorker.request('solve', {
+    difficulty: latestBlock.spamPowDifficulty + 20,
+    blockHash: latestBlock.hash,
+    tid: latestBlock.hash
+  })
 
   const wallet = await VegaWallet.fromMnemonic(MNEMONIC)
   const keys = await wallet.keyPair(HARDENED + 1)
@@ -138,11 +153,7 @@ async function sendTransaction ({ params }) {
       pubKey: keys.pk.toString()
     },
     version: TX_VERSION_V3,
-    pow: await PoW.solve(
-      latestBlock.spamPowDifficulty,
-      latestBlock.hash,
-      latestBlock.hash
-    )
+    pow
   })
 
   const res = await rpc.submitRawTransaction(Buffer.from(tx).toString('base64'), params.sendingMode)

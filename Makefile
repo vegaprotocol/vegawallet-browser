@@ -27,6 +27,7 @@ dist/firefox: dist/firefox/manifest.json \
 	dist/firefox/icons \
 	dist/firefox/fonts \
 	dist/firefox/background.js \
+	dist/firefox/pow-worker.js \
 	dist/firefox/content-script.js \
 	dist/firefox/in-page.js
 
@@ -36,6 +37,7 @@ dist/chrome: dist/chrome/manifest.json \
 	dist/chrome/icons \
 	dist/chrome/fonts \
 	dist/chrome/background.js \
+	dist/chrome/pow-worker.js \
 	dist/chrome/content-script.js \
 	dist/chrome/in-page.js
 
@@ -69,6 +71,9 @@ dist/firefox/fonts dist/chrome/fonts: web-extension/common/fonts
 
 # Build background.js
 dist/firefox/background.js dist/chrome/background.js: web-extension/common/background.js node_modules
+	$(JS_BUNDLER) $< -o $@
+
+dist/firefox/pow-worker.js dist/chrome/pow-worker.js: web-extension/common/backend/pow-worker.js node_modules
 	$(JS_BUNDLER) $< -o $@
 
 # Build ui/index.js

@@ -1,0 +1,10 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "last 10 chrome versions, last 10 firefox versions"
+      }
+    ]
+  ]
+}

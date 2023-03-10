@@ -1,5 +1,5 @@
-JS_BUNDLER=npx browserify --debug -t [ babelify --global --presets [ @babel/preset-env ] ]
-# JS_BUNDLER=npx watchify --debug -t [ babelify --global --presets [ @babel/preset-env ] ]
+JS_BUNDLER=npx browserify --debug -t [ babelify --global ]
+# JS_BUNDLER=npx watchify --debug -t [ babelify --global ]
 
 .PHONY: clean test-chrome test-firefox
 

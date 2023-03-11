@@ -87,3 +87,22 @@ dist/firefox/content-script.js dist/chrome/content-script.js: web-extension/comm
 # Build in-page.js
 dist/firefox/in-page.js dist/chrome/in-page.js: web-extension/common/in-page.js node_modules
 	$(JS_BUNDLER) $< -o $@
+
+schemas: web-extension/common/validation/client/connect-wallet.js \
+	web-extension/common/validation/client/disconnect-wallet.js \
+	web-extension/common/validation/client/get-chain-id.js \
+	web-extension/common/validation/client/list-keys.js \
+	web-extension/common/validation/client/send-transaction.js
+
+web-extension/common/validation/client/connect-wallet.js: 		web-extension/common/schemas/client/connect-wallet.js
+web-extension/common/validation/client/disconnect-wallet.js: 	web-extension/common/schemas/client/disconnect-wallet.js
+web-extension/common/validation/client/get-chain-id.js: 			web-extension/common/schemas/client/get-chain-id.js
+web-extension/common/validation/client/list-keys.js: 					web-extension/common/schemas/client/list-keys.js
+web-extension/common/validation/client/send-transaction.js: 	web-extension/common/schemas/client/send-transaction.js
+web-extension/common/validation/client/connect-wallet.js \
+	web-extension/common/validation/client/disconnect-wallet.js \
+	web-extension/common/validation/client/get-chain-id.js \
+	web-extension/common/validation/client/list-keys.js \
+	web-extension/common/validation/client/send-transaction.js:
+	mkdir -p $(@D)
+	./scripts/compile-ajv-schema.js $< > $@

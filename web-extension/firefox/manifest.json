@@ -21,6 +21,6 @@
       "background.js"
     ]
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'",
+  "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
   "web_accessible_resources": ["in-page.js"]
 }

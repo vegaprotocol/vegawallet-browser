@@ -57,7 +57,7 @@ dist/chrome/manifest.json: web-extension/common/manifest.json web-extension/chro
 dist/firefox/manifest.json: web-extension/common/manifest.json web-extension/firefox/manifest.json
 dist/firefox/manifest.json dist/chrome/manifest.json:
 	mkdir -p $(@D)
-	jq -s '. | reduce .[] as $$j ({}; . * $$j)' $^ > $@
+	jq --slurp --from-file scripts/merge-manifests.jq $^ > $@
 
 # Build icons
 dist/firefox/icons dist/chrome/icons: web-extension/common/icons

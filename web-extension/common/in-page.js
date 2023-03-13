@@ -25,13 +25,13 @@ import JsonRpcClient from './lib/json-rpc-client'
   // Define end-use API
   globalThis.vega = {
     async connectWallet (params) {
-      return client.request('client.connect_wallet', params)
+      return client.request('client.connect_wallet', null)
     },
     async disconnectWallet (params) {
-      return client.request('client.disconnect_wallet', params)
+      return client.request('client.disconnect_wallet', null)
     },
     async listKeys (params) {
-      return client.request('client.list_keys', params)
+      return client.request('client.list_keys', null)
     },
     async signTransaction (params) {
       return client.request('client.sign_transaction', params)
@@ -40,7 +40,7 @@ import JsonRpcClient from './lib/json-rpc-client'
       return client.request('client.send_transaction', params)
     },
     async getChainId (params) {
-      return client.request('client.get_chain_id', params)
+      return client.request('client.get_chain_id', null)
     }
   }
 })()

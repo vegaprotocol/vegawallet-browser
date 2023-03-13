@@ -3,6 +3,53 @@
 > This is minimal extension to explore communication between a browser page and
 > an extension popup
 
+## Installation
+
+**NOTE** The extension is in active development and may break at any time.
+It will not allow you to backup the recovery phrase, and you should regard
+all funds transferred to keys that are managed to the extension as lost.
+
+Download a release from [Github Releases](https://github.com/vegaprotocol/vegawallet-browser/releases) and follow one of the guides below:
+
+- [Chrome - Load unpacked extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
+- [Firefox - Temporary Add-on](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
+
+## Usage
+
+The end-user API is available after `window.onload` and has the following
+methods exposed on `window`/`globalThis`:
+
+- `await vega.connectWallet()`
+- `await vega.disconnectWallet()`
+- `await vega.getChainId()`
+- `await vega.listKeys()`
+- `await vega.sendTransaction({ publicKey, transaction, sendingMode })`
+
+A sample dApp is provided in `test/sample-dapp/index.html`, and is also
+published to Github Pages (see the repo website for a live demo).
+
+Alternatively, end-users can also communicate with the content script directly
+using JSON-RPC:
+
+```js
+window.addEventListener('message', event => {
+  // somehow avoid catching own message
+
+  const response = event.data
+
+  if (response.error) return console.error(response.error)
+
+  console.log(response.result)
+})
+
+window.postMessage({
+  jsonrpc: '2.0',
+  id: '1',
+  method: 'vega.sendTransaction',
+  params: { type, tx }
+}, '*')
+```
+
 ## Structure
 
 The project is built with `make`:
@@ -26,30 +73,3 @@ The web extension has 4 components:
    page and the background script
 - `in-page.js`: This script is injected in the web page to provide a
    higher-level, promise-based API for end-users
-
-The end-user API is available after `window.onload` and has the following
-methods exposed on `window`/`globalThis`:
-
-- `await vega.sendTransaction(params)`
-
-Alternatively, end-users can also communicate with the content script directly
-using JSON-RPC:
-
-```js
-window.addEventListener('message', event => {
-  // somehow avoid catching own message
-
-  const response = event.data
-
-  if (response.error) return console.error(response.error)
-
-  console.log(response.result)
-})
-
-window.postMessage({
-  jsonrpc: '2.0',
-  id: '1',
-  method: 'vega.sendTransaction',
-  params: { type, tx }
-}, '*')
-```

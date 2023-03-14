@@ -1,7 +1,7 @@
 {
   "name": "Vega Wallet",
   "version": "0.0.0",
-  "versionName": "0.0.0",
+  "version_name": "0.0.0",
   "icons": {
     "16": "icons/16x16.png",
     "18": "icons/18x18.png",
@@ -13,7 +13,7 @@
     "128": "icons/128x128.png",
     "196": "icons/196x196.png"
   },
-  "permissions": [],
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

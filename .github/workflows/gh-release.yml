@@ -30,6 +30,7 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   release:
+    if: ${{ inputs.publish }}
     environment:
       name: github-releases
     runs-on: ubuntu-latest

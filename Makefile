@@ -45,6 +45,12 @@ node_modules: package.json
 	npm install
 	touch -m node_modules
 
+dist/firefox.zip: dist/firefox
+	cd $< && zip ../$(@F) -r .
+
+dist/chrome.zip: dist/chrome
+	cd $(<D) && zip $(@F) -r $(<F)
+
 # Build ui/index.html
 dist/chrome/ui/index.html: web-extension/common/ui/index.html
 dist/firefox/ui/index.html: web-extension/common/ui/index.html

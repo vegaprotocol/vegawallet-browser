@@ -23,20 +23,26 @@ async function postJson (url, body) {
 export default class NodeRPC {
   /**
    *
-   * @param {URL} nodeUrl
+   * @param {URL[]} nodeUrls
    */
-  constructor (nodeUrl) {
-    assert(nodeUrl instanceof URL, 'nodeUrl must be WHATWG URL')
+  constructor (nodeUrls) {
+    if (typeof nodeUrls === 'string') nodeUrls = [nodeUrls]
 
-    this.url = nodeUrl
+    assert(nodeUrls.every(u => u instanceof URL), 'nodeUrls must be WHATWG URLs')
+
+    this.urls = nodeUrls
+  }
+
+  async _findHealthyNode () {
+    return this.urls.at(0)
   }
 
   async blockchainHeight () {
-    return getJson(new URL('/blockchain/height', this.url))
+    return getJson(new URL('/blockchain/height', await this._findHealthyNode()))
   }
 
   async statistics () {
-    return getJson(new URL('/statistics', this.url))
+    return getJson(new URL('/statistics', await this._findHealthyNode()))
   }
 
   /**
@@ -46,11 +52,11 @@ export default class NodeRPC {
    */
   async statisticsSpam ({ partyId }) {
     assert(typeof partyId === 'string')
-    return getJson(new URL(`/statistics/spam/${partyId}`, this.url))
+    return getJson(new URL(`/statistics/spam/${partyId}`, await this._findHealthyNode()))
   }
 
   async checkRawTransaction (tx) {
-    const res = await postJson(new URL('/transaction/raw/check', this.url), { tx })
+    const res = await postJson(new URL('/transaction/raw/check', await this._findHealthyNode()), { tx })
 
     return res
   }
@@ -59,14 +65,31 @@ export default class NodeRPC {
     assert(typeof tx === 'string')
     assert(typeof type === 'string')
 
-    const res = await postJson(new URL('/transaction/raw', this.url), {
+    const res = await postJson(new URL('/transaction/raw', await this._findHealthyNode()), {
       tx, type
     })
 
-    if (res.code !== 0) {
-      throw new Error(Buffer.from(res.data, 'hex').toString())
-    }
+    // Error codes from https://github.com/vegaprotocol/vega/blob/develop/core/blockchain/response.go
+    switch (res.code) {
+      case 0: return res
 
-    return res
+      /* eslint-disable no-fallthrough */
+      // AbciTxnValidationFailure ...
+      case 51:
+
+      // AbciTxnDecodingFailure code is returned when CheckTx or DeliverTx fail to decode the Txn.
+      case 60:
+
+      // AbciTxnInternalError code is returned when CheckTx or DeliverTx fail to process the Txn.
+      case 70:
+
+      // AbciUnknownCommandError code is returned when the app doesn't know how to handle a given command.
+      case 80:
+
+      // AbciSpamError code is returned when CheckTx or DeliverTx fail spam protection tests.
+      case 89:
+        throw new Error(Buffer.from(res.data, 'hex').toString())
+      /* eslint-enable no-fallthrough */
+    }
   }
 }

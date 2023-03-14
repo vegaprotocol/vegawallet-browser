@@ -48,23 +48,13 @@ jobs:
         run: npm install
       - name: Build artifacts
         run: make dist -j4
-      - name: Bundle Firefox artifacts in archive
-        uses: TheDoctor0/zip-release@0.7.1
-        with:
-          type: zip
-          directory: dist/firefox
-          filename: firefox.zip
-      - name: Bundle Chrome artifacts in archive
-        uses: TheDoctor0/zip-release@0.7.1
-        with:
-          type: zip
-          directory: dist/chrome
-          filename: chrome.zip
+      - name: Bundle artifacts in archive
+        run: make dist/firefox.zip dist/chrome.zip
       - name: Upload to Github Releases
         if: ${{ inputs.publish }}
         uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
         with:
-          files: '*.zip'
+          files: 'dist/*.zip'
           name: ${{ inputs.tag || 'Latest' }}
           tag_name: ${{ inputs.tag || 'latest' }}
           prerelease: true

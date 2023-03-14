@@ -21,6 +21,15 @@ A clear and concise description of what the bug is.
 
 A clear and concise description of what you expected to happen.
 
+## Logs
+
+If applicable, please provide the output of both
+the DevTools console from the dApp used, the error page from the
+`about:addons` (FF) / `chrome://extensions/` (Chromium) page and relevant logs
+from the background script and popup.
+[See this guide for Chromium](https://developer.chrome.com/docs/extensions/mv3/tut_debugging/)
+or [this guide for Firefox](https://extensionworkshop.com/documentation/develop/debugging/)
+
 ## Screenshots
 
 If applicable, add screenshots to help explain your problem.
@@ -29,16 +38,9 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
 
-- OS: [e.g. iOS]
-- Browser [e.g. chrome, safari]
-- Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
-
-- Device: [e.g. iPhone6]
-- OS: [e.g. iOS8.1]
-- Browser [e.g. stock browser, safari]
-- Version [e.g. 22]
+- OS: [e.g. macOS]
+- Browser [e.g. Firefox, Chrome, Brave]
+- Version [e.g. 109]
 
 ## Additional context
 

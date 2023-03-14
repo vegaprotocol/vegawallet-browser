@@ -50,6 +50,27 @@ window.postMessage({
 }, '*')
 ```
 
+## Reporting Bugs
+
+Please provide which browser you used and its version, and the output of both
+the DevTools console from the dApp used, the error page from the
+`about:addons` (FF) / `chrome://extensions/` (Chromium) page and relevant logs
+from the background script and popup.
+[See this guide for Chromium](https://developer.chrome.com/docs/extensions/mv3/tut_debugging/)
+or [this guide for Firefox](https://extensionworkshop.com/documentation/develop/debugging/)
+
+Examples of Chromium based browsers:
+
+- Google Chrome
+- Chromium
+- Brave
+
+Examples of Firefox based browsers:
+
+- Firefox
+- Firefox Nightly
+- Firefox Developer Edition
+
 ## Structure
 
 The project is built with `make`:

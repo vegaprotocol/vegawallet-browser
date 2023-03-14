@@ -1,177 +1,121 @@
-/* globals Worker */
-
-import * as InputData from '@vegaprotocol/protos/dist/vega/commands/v1/InputData/encode.js'
-import * as Transaction from '@vegaprotocol/protos/dist/vega/commands/v1/Transaction/encode.js'
-import { TX_VERSION_V3 } from '@vegaprotocol/protos/dist/vega/commands/v1/TxVersion.js'
-import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
-import NodeRPC from './backend/node-rpc.js'
-import Ajv from 'ajv'
-import ajvErrors from 'ajv-errors'
+import { NetworkCollection } from './backend/network.js'
+import { WalletCollection } from './backend/wallets.js'
+import { PortServer } from './lib/port-server.js'
 import JSONRPCServer from './lib/json-rpc-server.js'
-import clientSendTransaction from './schemas/client/send-transaction.js'
-import JSONRPCClient from './lib/json-rpc-client.js'
+import * as validation from './validation/client/index.js'
+import * as backend from './backend/index.js'
+import StorageLocalMap from './lib/storage.js'
 
 const runtime = (globalThis.browser?.runtime ?? globalThis.chrome?.runtime)
 const action = (globalThis.browser?.browserAction ?? globalThis.chrome?.action)
 
-const rpc = new NodeRPC(new URL('https://n01.stagnet3.vega.xyz'))
-const _powWorker = new Worker(runtime.getURL('/pow-worker.js'))
-const powWorker = new JSONRPCClient({
-  send (req) {
-    _powWorker.postMessage(req)
-  }
-})
-_powWorker.onmessage = (ev) => {
-  powWorker.onmessage(ev.data)
-}
+const wallets = new WalletCollection(new StorageLocalMap('wallets'))
+const networks = new NetworkCollection(new StorageLocalMap('networks'))
 
-class ClientChannels {
-  constructor (onmessage = async (_1, _2) => {}) {
-    // Map<Port, Map<id, message>>
-    this.ports = new Map()
+const selectedNetwork = 'fairground'
+const selectedWallet = 'Wallet 1'
 
-    this.onmessage = onmessage
-  }
-
-  totalPending () {
-    return Array.from(this.ports.values(), v => v.size)
-      .reduce((sum, size) => sum + size, 0)
-  }
-
-  onchange () {
-    const pending = this.totalPending()
-    action.setBadgeText({
-      text: pending === 0 ? '' : pending.toString()
-    })
-  }
-
-  listen (port) {
-    const self = this
-
-    const origin = new URL(port.sender.url).origin
-
-    this.ports.set(port, new Set())
-    port.onMessage.addListener(_onmessage)
-    port.onDisconnect.addListener(_ondisconnect)
-
-    function _onmessage (message) {
-      self.ports.get(port)?.add(message)
-
-      self.onchange()
-      self.onmessage(message, origin).finally(() => {
-        self.ports.get(port)?.delete(message)
-        self.onchange()
-      }).then(res => {
-        if (self.ports.has(port) === false) return console.error('No port')
-        port.postMessage(res)
-      }).catch(ex => {
-        console.log('ex', JSON.stringify(ex))
-      })
-    }
-
-    function _ondisconnect () {
-      port.onMessage.removeEventListener(_onmessage)
-      port.onDisconnect.removeEventListener(_ondisconnect)
-
-      self.ports.delete(port)
-      self.onchange()
-    }
-  }
-}
-
-const clientServer = new JSONRPCServer({
-  methods: {
-    async 'client.connect_wallet' (params, context) {
-      return null
-    },
-    async 'client.disconnect_wallet' (params, context) {
-      return null
-    },
-    async 'client.send_transaction' (params, context) {
-      return sendTransaction(params)
-    },
-    async 'client.sign_transaction' (params, context) {
-      throw new JSONRPCServer.Error('Not Implemented', -32601)
-    },
-    async 'client.get_chain_id' (params, context) {
-      const latestBlock = await rpc.blockchainHeight()
-      return { chainID: latestBlock.chainId }
-    },
-
-    'client.list_keys' (params, context) {
-      return { keys: [] }
-    }
-  },
+const clientPorts = new PortServer({
+  onbeforerequest: setPending,
+  onafterrequest: setPending,
   onerror (err) {
     console.error(err)
-  }
-})
+  },
+  server: new JSONRPCServer({
+    methods: {
+      async 'client.connect_wallet' (params, context) {
+        doValidate(validation.connectWallet, params)
+        return null
+      },
+      async 'client.disconnect_wallet' (params, context) {
+        doValidate(validation.disconnectWallet, params)
+        return null
+      },
+      async 'client.send_transaction' (params, context) {
+        doValidate(validation.sendTransaction, params)
 
-const clients = new ClientChannels(async (message) => {
-  const res = await clientServer.onrequest(message, { origin: '' })
+        const network = await networks.get(selectedNetwork)
+        const rpc = network.rpc()
 
-  return res
-})
+        const keys = await wallets.getKeyByPublicKey({ publicKey: params.publicKey })
+        if (keys == null) throw new Error('Unknown public key')
 
-runtime.onConnect.addListener(port => {
-  if (port.name === 'popup') return popup(port)
-  if (port.name === 'content-script') return clients.listen(port)
-})
+        return backend.sendTransaction({ keys, rpc, sendingMode: params.sendingMode, transaction: params.transaction })
+      },
+      async 'client.sign_transaction' (params, context) {
+        throw new JSONRPCServer.Error('Not Implemented', -32601)
+      },
+      async 'client.get_chain_id' (params, context) {
+        doValidate(validation.getChainId, params)
 
-function popup (port) {
-  port.onMessage.addListener(async message => {
-    console.log(message)
+        const network = await networks.get(selectedNetwork)
+        const rpc = network.rpc()
+
+        const chainID = await backend.getChainId({ rpc })
+        return { chainID }
+      },
+
+      async 'client.list_keys' (params, context) {
+        doValidate(validation.listKeys, params)
+
+        const ws = await wallets.list()
+        const keys = (await Promise.all(ws.map(w => wallets.listKeys({ wallet: w })))).flat()
+
+        return { keys }
+      }
+    },
+    onerror (err) {
+      console.error(err)
+    }
   })
+})
 
-  port.onDisconnect.addListener((...args) => {
-    console.log(args)
+const popupPorts = new PortServer({
+  server: new JSONRPCServer({
+    methods: {
+      async 'admin.list_networks' () {
+        return { networks: await networks.list() }
+      },
+      async 'admin.list_wallets' () {
+        return { wallets: await wallets.list() }
+      },
+      async 'admin.list_keys' (params) {
+        return { keys: await wallets.listKeys({ wallet: params.wallet }) }
+      }
+    }
+  })
+})
+
+runtime.onConnect.addListener(async port => {
+  if (port.name === 'popup') return popupPorts.listen(port)
+  if (port.name === 'content-script') return clientPorts.listen(port)
+})
+
+runtime.onInstalled.addListener(async details => {
+  await StorageLocalMap.permanentClearAll()
+
+  await Promise.allSettled([
+    // networks.set('stagnet1', {
+    //   name: 'Stagnet1',
+    //   rest: ['https://api.stagnet1.vega.xyz', 'https://api.n05.stagnet1.vega.xyz', 'https://api.n06.stagnet1.vega.xyz'],
+    //   explorer: 'https://stagnet1.explorer.vega.xyz/'
+    // }),
+    wallets.create({ name: selectedWallet }),
+    networks.set('fairground', {
+      name: 'Fairground',
+      rest: ['https://api.testnet.vega.xyz', 'https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz', 'https://api.n08.testnet.vega.xyz', 'https://api.n09.testnet.vega.xyz', 'https://api.n10.testnet.vega.xyz', 'https://api.n11.testnet.vega.xyz', 'https://api.n12.testnet.vega.xyz'],
+      explorer: 'https://explorer.fairground.wtf/'
+    })
+  ])
+})
+
+function setPending () {
+  const pending = clientPorts.totalPending()
+  action.setBadgeText({
+    text: pending === 0 ? '' : pending.toString()
   })
 }
 
-const ajv = new Ajv({ allErrors: true })
-ajvErrors(ajv)
-const validateSendTransaction = ajv.compile(clientSendTransaction)
-
-async function sendTransaction (params) {
-  if (!validateSendTransaction(params)) throw new JSONRPCServer.Error(validateSendTransaction.errors[0].message, 1, validateSendTransaction.errors.map(e => e.message))
-
-  const latestBlock = await rpc.blockchainHeight()
-  const pow = await powWorker.request('solve', {
-    difficulty: latestBlock.spamPowDifficulty + 20,
-    blockHash: latestBlock.hash,
-    tid: latestBlock.hash
-  })
-
-  const wallet = await VegaWallet.fromMnemonic(MNEMONIC)
-  const keys = await wallet.keyPair(HARDENED + 1)
-
-  const nonce = BigInt(Math.random() * Number.MAX_SAFE_INTEGER >>> 0)
-  const blockHeight = BigInt(latestBlock.height)
-  const chainId = latestBlock.chainId
-
-  const inputData = InputData.encode({
-    blockHeight,
-    nonce,
-    command: params.transaction
-  })
-
-  const tx = Transaction.encode({
-    inputData,
-    signature: {
-      value: Buffer.from(await keys.sign(inputData, chainId)).toString('hex'),
-      algo: keys.algorithm.name,
-      version: keys.algorithm.version
-    },
-    from: {
-      pubKey: keys.publicKey.toString()
-    },
-    version: TX_VERSION_V3,
-    pow
-  })
-
-  try {
-    return await rpc.submitRawTransaction(Buffer.from(tx).toString('base64'), params.sendingMode)
-  } catch (ex) {
-    throw new JSONRPCServer.Error(ex.message, -1, ex)
-  }
+function doValidate (validator, params) {
+  if (!validator(params)) throw new JSONRPCServer.Error(validator.errors[0].message, 1, validator.errors.map(e => e.message))
 }

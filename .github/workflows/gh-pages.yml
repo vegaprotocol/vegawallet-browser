@@ -3,6 +3,8 @@ name: Deploy sample dApp to Pages
 on:
   push:
     branches: ["main"]
+    paths:
+      - 'test/sample-dapp/**'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

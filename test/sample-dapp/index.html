@@ -28,6 +28,22 @@
     const App = {
       connected: false,
       busy: false,
+      chainId: null,
+
+      getChainId () {
+        if (App.connected === false) return
+        App.busy = true
+
+        vega.getChainId()
+          .then(({ chainID }) => {
+            App.chainId = chainID
+            console.log(chainID)
+          })
+          .finally(() => {
+            App.busy = false
+            m.redraw()
+          })
+      },
 
       view () {
         if (window.vega == null) {
@@ -58,10 +74,12 @@
                   .finally(() => {
                     App.busy = false
                     m.redraw()
+
+                    App.getChainId()
                   })
               }
             }, 'Connect wallet')
-            : m('button', {
+            : [m('button', {
               disabled: App.busy,
               onclick () {
                 App.busy = true
@@ -69,13 +87,14 @@
                 vega.disconnectWallet()
                   .then(() => {
                     App.connected = false
+                    App.chainId = null
                   })
                   .finally(() => {
                     App.busy = false
                     m.redraw()
                   })
               }
-            }, 'Disconnect wallet'),
+            }, 'Disconnect wallet'), ' Connected to: ', m('code', App.chainId)],
             App.connected === false
             ? null
             : m(Transfer)

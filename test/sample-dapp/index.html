@@ -78,7 +78,7 @@
                   })
               }
             }, 'Connect wallet')
-            : [m('button', {
+            : m('button', {
               disabled: App.busy,
               onclick () {
                 App.busy = true
@@ -93,7 +93,8 @@
                     m.redraw()
                   })
               }
-            }, 'Disconnect wallet'), ' Connected to: ', m('code', App.chainId)],
+            }, 'Disconnect wallet'),
+            App.chainId == null ? null : m('span', [' Connected to: ', m('code', App.chainId)]),
             App.connected === false
             ? null
             : m(Transfer)
@@ -195,6 +196,26 @@
               Transfer.selectedKey = ev.target.value
             }
           }, keyOptions), m('button', { style: { margin: '0 0.5rem' }, onclick: Transfer.refreshKeys }, 'Refresh keys'),
+          m('p', 'Proposed transaction'),
+          m('pre', { style: 'background-color: #ececec; padding: 1rem;' },
+`{
+  "publicKey": "${Transfer.selectedKey.publicKey}",
+  "sendingMode": "TYPE_SYNC",
+  "transaction": {
+    "transfer": {
+      "fromAccountType": "ACCOUNT_TYPE_GENERAL",
+      "toAccountType": "ACCOUNT_TYPE_GENERAL",
+
+      "asset": "fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55",
+      "amount": "1",
+      "to": "${Transfer.selectedKey.publicKey}",
+
+      "kind": {
+        "oneOff": {}
+      }
+    }
+  }
+}`),
           m('br'),
           m('button', { disabled: Transfer.loading || Transfer.selectedKey == null, style: { fontSize: '1.5rem', margin: '0.8rem 0' }, onclick: Transfer.sendTransaction }, 'Transfer'),
           Transfer.error == null ? null : m('p', { style: { color: 'red' } }, `Error: ${Transfer.error.message} (${Transfer.error.code}) - ${Transfer.error.data ?? ''}`),

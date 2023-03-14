@@ -46,7 +46,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build artifacts
-        run: make dist
+        run: make dist -j4
       - name: Bundle Firefox artifacts in archive
         uses: TheDoctor0/zip-release@0.7.1
         with:
@@ -62,8 +62,8 @@ jobs:
         uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
         with:
           files: build/*.zip
-          name: ${{ inputs.tag || 'latest' }}
-          tag_name: ${{ inputs.tag || github.ref }}
+          name: ${{ inputs.tag || 'Latest' }}
+          tag_name: ${{ inputs.tag || 'latest' }}
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

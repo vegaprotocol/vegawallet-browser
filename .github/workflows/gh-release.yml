@@ -58,12 +58,12 @@ jobs:
           type: zip
           directory: dist/chrome
       - name: Upload to Github Releases
-        if: ${{ inputs.publish || startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ inputs.publish }}
         uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
         with:
           files: build/*.zip
-          name: ${{ inputs.tag || github.ref_name }}
-          tag_name: ${{ inputs.tag || github.ref_name }}
+          name: ${{ inputs.tag || 'latest' }}
+          tag_name: ${{ inputs.tag || null }}
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

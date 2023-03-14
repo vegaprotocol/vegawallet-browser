@@ -61,7 +61,7 @@ jobs:
         if: ${{ inputs.publish }}
         uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
         with:
-          files: build/*.zip
+          files: dist/*.zip
           name: ${{ inputs.tag || 'Latest' }}
           tag_name: ${{ inputs.tag || 'latest' }}
           prerelease: true

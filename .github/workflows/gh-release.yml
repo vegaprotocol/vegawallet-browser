@@ -63,7 +63,7 @@ jobs:
         with:
           files: build/*.zip
           name: ${{ inputs.tag || 'latest' }}
-          tag_name: ${{ inputs.tag || null }}
+          tag_name: ${{ inputs.tag || github.ref }}
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

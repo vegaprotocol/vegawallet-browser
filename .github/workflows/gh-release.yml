@@ -53,11 +53,13 @@ jobs:
         with:
           type: zip
           directory: dist/firefox
+          filename: dist/firefox.zip
       - name: Bundle Chrome artifacts in archive
         uses: TheDoctor0/zip-release@0.7.1
         with:
           type: zip
           directory: dist/chrome
+          filename: dist/chrome.zip
       - name: Upload to Github Releases
         if: ${{ inputs.publish }}
         uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477

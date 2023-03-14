@@ -67,7 +67,6 @@ dist/firefox/manifest.json dist/chrome/manifest.json:
 
 # Build icons
 dist/firefox/icons dist/chrome/icons: web-extension/common/icons
-	mkdir -p $(@D)
 	cp -r $^ $@
 
 # Build fonts

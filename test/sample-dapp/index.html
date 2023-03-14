@@ -197,7 +197,7 @@
             }
           }, keyOptions), m('button', { style: { margin: '0 0.5rem' }, onclick: Transfer.refreshKeys }, 'Refresh keys'),
           m('p', 'Proposed transaction'),
-          m('pre', { style: 'background-color: #ececec; padding: 1rem;' },
+          Transfer.selectedKey == null ? null : m('pre', { style: 'background-color: #ececec; padding: 1rem;' },
 `{
   "publicKey": "${Transfer.selectedKey.publicKey}",
   "sendingMode": "TYPE_SYNC",

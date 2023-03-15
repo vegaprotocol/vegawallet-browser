@@ -5,7 +5,8 @@
   "main": "",
   "type": "module",
   "scripts": {
-    "build": "make dist"
+    "build": "make dist",
+    "preversion": "make preversion"
   },
   "author": "Emil Bay <emil@vega.xyz>",
   "license": "MIT",

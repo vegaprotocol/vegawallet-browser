@@ -1,10 +1,16 @@
 JS_BUNDLER=npx browserify --debug -t [ babelify --global ]
 # JS_BUNDLER=npx watchify --debug -t [ babelify --global ]
 
-.PHONY: clean test-chrome test-firefox
+PKG_VERSION=$(shell jq -r '.version' package.json)
+
+.PHONY: clean test-chrome test-firefox preversion schemas
 
 clean:
 	rm -r dist
+
+preversion: web-extension/common/manifest.json package.json
+	jq --arg v "$(PKG_VERSION)" '.version = $$v' web-extension/common/manifest.json > web-extension/common/manifest-tmp.json
+	mv web-extension/common/manifest-tmp.json web-extension/common/manifest.json
 
 test-chrome: dist/chrome
 	npx web-ext run \

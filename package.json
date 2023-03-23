@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@vegaprotocol/crypto": "^0.7.1",
-    "@vegaprotocol/protos": "^0.1.5",
+    "@vegaprotocol/protos": "^0.3.0",
     "mithril": "^2.2.2",
     "mutexify": "^1.4.0",
     "nanoassert": "^2.0.0"

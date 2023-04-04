@@ -25,13 +25,10 @@ export default class NodeRPC {
    *
    * @param {URL[]} nodeUrls
    */
-  constructor (nodeUrls, maxDrift = 2) {
-    if (!Array.isArray(nodeUrls)) nodeUrls = [nodeUrls]
+  constructor (nodeUrl) {
+    assert(nodeUrl instanceof URL, 'nodeUrl must be WHATWG URLs')
 
-    assert(nodeUrls.every(u => u instanceof URL), 'nodeUrls must be WHATWG URLs')
-
-    this.urls = nodeUrls
-    this.maxDrift = maxDrift
+    this._urls = nodeUrl
   }
 
   /**
@@ -46,8 +43,8 @@ export default class NodeRPC {
    *
    * @returns URL
    */
-  async _findHealthyNode () {
-    const nodesHeights = await promiseAllResolved(this.urls.map(async u => {
+  static async findHealthyNode (urls, maxDrift = 2, bucketSize = 3) {
+    const nodesHeights = await promiseAllResolved(urls.map(async u => {
       const res = await fetch(new URL('/blockchain/height', u), {
         headers: {
           Accept: 'application/json'
@@ -64,7 +61,7 @@ export default class NodeRPC {
 
       const drift = coreHeight - nodeHeight
       // eslint-disable-next-line yoda
-      if (-this.maxDrift > drift || drift > this.maxDrift) throw new Error('Block drift too high')
+      if (-maxDrift > drift || drift > maxDrift) throw new Error('Block drift too high')
 
       return [u, nodeHeight]
     }))
@@ -72,7 +69,7 @@ export default class NodeRPC {
     const maxHeight = nodesHeights.reduce((m, [_, height]) => bigintMax(m, height), 0n)
 
     const groups = group(nodesHeights, ([node, height]) => {
-      const key = (maxHeight - height) / 3n // Group into buckets of 3 blocks
+      const key = (maxHeight - height) / BigInt(bucketSize) // Group into buckets
       return [key, node]
     })
 
@@ -80,7 +77,7 @@ export default class NodeRPC {
 
     if (largestGroup.length === 0) throw new Error('No healthy node found')
 
-    return pickRandom(largestGroup)
+    return new this(pickRandom(largestGroup))
 
     // Math.max does not work with bigint
     /**
@@ -93,7 +90,7 @@ export default class NodeRPC {
       return a > b ? a : b
     }
 
-    function promiseAllResolved (promises) {
+    async function promiseAllResolved (promises) {
       return Promise.allSettled(promises).then(results => {
         return results
           .filter(({ status }) => status === 'fulfilled')
@@ -125,11 +122,11 @@ export default class NodeRPC {
   }
 
   async blockchainHeight () {
-    return getJson(new URL('/blockchain/height', await this._findHealthyNode()))
+    return getJson(new URL('/blockchain/height', this._url))
   }
 
   async statistics () {
-    return getJson(new URL('/statistics', await this._findHealthyNode()))
+    return getJson(new URL('/statistics', this._url))
   }
 
   /**
@@ -139,11 +136,11 @@ export default class NodeRPC {
    */
   async statisticsSpam ({ partyId }) {
     assert(typeof partyId === 'string')
-    return getJson(new URL(`/statistics/spam/${partyId}`, await this._findHealthyNode()))
+    return getJson(new URL(`/statistics/spam/${partyId}`, this._url))
   }
 
   async checkRawTransaction (tx) {
-    const res = await postJson(new URL('/transaction/raw/check', await this._findHealthyNode()), { tx })
+    const res = await postJson(new URL('/transaction/raw/check', this._url), { tx })
 
     return res
   }
@@ -152,7 +149,7 @@ export default class NodeRPC {
     assert(typeof tx === 'string')
     assert(typeof type === 'string')
 
-    const res = await postJson(new URL('/transaction/raw', await this._findHealthyNode()), {
+    const res = await postJson(new URL('/transaction/raw', this._url), {
       tx, type
     })
 

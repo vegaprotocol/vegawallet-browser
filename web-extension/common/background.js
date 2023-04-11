@@ -2,7 +2,8 @@ import { NetworkCollection } from './backend/network.js'
 import { WalletCollection } from './backend/wallets.js'
 import { PortServer } from './lib/port-server.js'
 import JSONRPCServer from './lib/json-rpc-server.js'
-import * as validation from './validation/client/index.js'
+import * as clientValidation from './validation/client/index.js'
+import * as adminValidation from './validation/admin/index.js'
 import * as backend from './backend/index.js'
 import StorageLocalMap from './lib/storage.js'
 
@@ -24,15 +25,15 @@ const clientPorts = new PortServer({
   server: new JSONRPCServer({
     methods: {
       async 'client.connect_wallet' (params, context) {
-        doValidate(validation.connectWallet, params)
+        doValidate(clientValidation.connectWallet, params)
         return null
       },
       async 'client.disconnect_wallet' (params, context) {
-        doValidate(validation.disconnectWallet, params)
+        doValidate(clientValidation.disconnectWallet, params)
         return null
       },
       async 'client.send_transaction' (params, context) {
-        doValidate(validation.sendTransaction, params)
+        doValidate(clientValidation.sendTransaction, params)
 
         const network = await networks.get(selectedNetwork)
         const rpc = network.rpc()
@@ -46,7 +47,7 @@ const clientPorts = new PortServer({
         throw new JSONRPCServer.Error('Not Implemented', -32601)
       },
       async 'client.get_chain_id' (params, context) {
-        doValidate(validation.getChainId, params)
+        doValidate(clientValidation.getChainId, params)
 
         const network = await networks.get(selectedNetwork)
         const rpc = network.rpc()
@@ -56,7 +57,7 @@ const clientPorts = new PortServer({
       },
 
       async 'client.list_keys' (params, context) {
-        doValidate(validation.listKeys, params)
+        doValidate(clientValidation.listKeys, params)
 
         const ws = await wallets.list()
         const keys = (await Promise.all(ws.map(w => wallets.listKeys({ wallet: w })))).flat()
@@ -77,9 +78,11 @@ const popupPorts = new PortServer({
         return { networks: await networks.list() }
       },
       async 'admin.list_wallets' () {
+        doValidate(adminValidation.listWallets, params)
         return { wallets: await wallets.list() }
       },
       async 'admin.list_keys' (params) {
+        doValidate(adminValidation.listKeys, params)
         return { keys: await wallets.listKeys({ wallet: params.wallet }) }
       }
     }

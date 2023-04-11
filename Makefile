@@ -99,21 +99,69 @@ dist/firefox/content-script.js dist/chrome/content-script.js: web-extension/comm
 dist/firefox/in-page.js dist/chrome/in-page.js: web-extension/common/in-page.js node_modules
 	$(JS_BUNDLER) $< -o $@
 
-schemas: web-extension/common/validation/client/connect-wallet.js \
+schemas: \
+	web-extension/common/validation/admin/create-wallet.js \
+	web-extension/common/validation/admin/describe-network.js \
+	web-extension/common/validation/admin/describe-wallet.js \
+	web-extension/common/validation/admin/import-network.js \
+	web-extension/common/validation/admin/import-wallet.js \
+	web-extension/common/validation/admin/list-keys.js \
+	web-extension/common/validation/admin/index.js \
+	web-extension/common/validation/admin/list-networks.js \
+	web-extension/common/validation/admin/list-wallets.js \
+	web-extension/common/validation/admin/remove-network.js \
+	web-extension/common/validation/admin/remove-wallet.js \
+	web-extension/common/validation/admin/rename-network.js \
+	web-extension/common/validation/admin/rename-wallet.js \
+	web-extension/common/validation/admin/update-network.js \
+	web-extension/common/validation/admin/update-passphrase.js \
+	web-extension/common/validation/client/connect-wallet.js \
 	web-extension/common/validation/client/disconnect-wallet.js \
 	web-extension/common/validation/client/get-chain-id.js \
+	web-extension/common/validation/client/index.js \
 	web-extension/common/validation/client/list-keys.js \
 	web-extension/common/validation/client/send-transaction.js
 
-web-extension/common/validation/client/connect-wallet.js: 		web-extension/common/schemas/client/connect-wallet.js
-web-extension/common/validation/client/disconnect-wallet.js: 	web-extension/common/schemas/client/disconnect-wallet.js
-web-extension/common/validation/client/get-chain-id.js: 			web-extension/common/schemas/client/get-chain-id.js
-web-extension/common/validation/client/list-keys.js: 					web-extension/common/schemas/client/list-keys.js
-web-extension/common/validation/client/send-transaction.js: 	web-extension/common/schemas/client/send-transaction.js
+
+web-extension/common/validation/admin/create-wallet.js: web-extension/common/schemas/admin/create-wallet.js
+web-extension/common/validation/admin/describe-network.js: web-extension/common/schemas/admin/describe-network.js
+web-extension/common/validation/admin/describe-wallet.js: web-extension/common/schemas/admin/describe-wallet.js
+web-extension/common/validation/admin/import-network.js: web-extension/common/schemas/admin/import-network.js
+web-extension/common/validation/admin/import-wallet.js: web-extension/common/schemas/admin/import-wallet.js
+web-extension/common/validation/admin/list-keys.js: web-extension/common/schemas/admin/list-keys.js
+web-extension/common/validation/admin/list-networks.js: web-extension/common/schemas/admin/list-networks.js
+web-extension/common/validation/admin/list-wallets.js: web-extension/common/schemas/admin/list-wallets.js
+web-extension/common/validation/admin/remove-network.js: web-extension/common/schemas/admin/remove-network.js
+web-extension/common/validation/admin/remove-wallet.js: web-extension/common/schemas/admin/remove-wallet.js
+web-extension/common/validation/admin/rename-network.js: web-extension/common/schemas/admin/rename-network.js
+web-extension/common/validation/admin/rename-wallet.js: web-extension/common/schemas/admin/rename-wallet.js
+web-extension/common/validation/admin/update-network.js: web-extension/common/schemas/admin/update-network.js
+web-extension/common/validation/admin/update-passphrase.js: web-extension/common/schemas/admin/update-passphrase.js
+web-extension/common/validation/client/connect-wallet.js: web-extension/common/schemas/client/connect-wallet.js
+web-extension/common/validation/client/disconnect-wallet.js: web-extension/common/schemas/client/disconnect-wallet.js
+web-extension/common/validation/client/get-chain-id.js: web-extension/common/schemas/client/get-chain-id.js
+web-extension/common/validation/client/list-keys.js: web-extension/common/schemas/client/list-keys.js
+web-extension/common/validation/client/send-transaction.js: web-extension/common/schemas/client/send-transaction.js
+
+
+web-extension/common/validation/admin/create-wallet.js \
+web-extension/common/validation/admin/describe-network.js \
+web-extension/common/validation/admin/describe-wallet.js \
+web-extension/common/validation/admin/import-network.js \
+web-extension/common/validation/admin/import-wallet.js \
+web-extension/common/validation/admin/list-keys.js \
+web-extension/common/validation/admin/list-networks.js \
+web-extension/common/validation/admin/list-wallets.js \
+web-extension/common/validation/admin/remove-network.js \
+web-extension/common/validation/admin/remove-wallet.js \
+web-extension/common/validation/admin/rename-network.js \
+web-extension/common/validation/admin/rename-wallet.js \
+web-extension/common/validation/admin/update-network.js \
+web-extension/common/validation/admin/update-passphrase.js \
 web-extension/common/validation/client/connect-wallet.js \
-	web-extension/common/validation/client/disconnect-wallet.js \
-	web-extension/common/validation/client/get-chain-id.js \
-	web-extension/common/validation/client/list-keys.js \
-	web-extension/common/validation/client/send-transaction.js:
+web-extension/common/validation/client/disconnect-wallet.js \
+web-extension/common/validation/client/get-chain-id.js \
+web-extension/common/validation/client/list-keys.js \
+web-extension/common/validation/client/send-transaction.js:
 	mkdir -p $(@D)
 	./scripts/compile-ajv-schema.js $< > $@

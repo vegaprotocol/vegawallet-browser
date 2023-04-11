@@ -52,7 +52,6 @@ export default async function (args) {
         return w.request('solve', { ...args, startNonce, endNonce })
       }))
 
-      console.log(i / NUM_WORKERS)
       const nonce = res.find(r => r.nonce != null)
 
       if (nonce != null) return nonce

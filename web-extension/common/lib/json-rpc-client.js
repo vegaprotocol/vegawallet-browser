@@ -6,11 +6,13 @@ export default class JSONRPCClient {
   constructor ({
     send,
     onnotification = (_) => {}
+    idPrefix = Math.random().toString(36)
   }) {
     this._send = send
     this._onnotification = onnotification ?? (() => {})
     this.inflight = new Map()
     this.id = 0
+    this._idPrefix = idPrefix
   }
 
   notify (method, params) {
@@ -24,7 +26,7 @@ export default class JSONRPCClient {
   }
 
   async request (method, params) {
-    const id = '' + ++this.id
+    const id = this._idPrefix + ++this.id
     const msg = {
       jsonrpc: '2.0',
       id,

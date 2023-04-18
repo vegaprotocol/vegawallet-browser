@@ -4,6 +4,7 @@ import { isNotification, isResponse } from './lib/json-rpc.js';
 // Wrap in a closure to protect scope
 (() => {
   const client = new JsonRpcClient({
+    idPrefix: 'vega.in-page-',
     send (msg) {
       window.postMessage(msg, '*')
     }

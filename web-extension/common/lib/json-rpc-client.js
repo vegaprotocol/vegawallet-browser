@@ -1,15 +1,7 @@
-export default class JSONRPCClient {
-  static Error = class extends Error {
-    constructor (msg, code, data) {
-      super(msg)
-      this.code = code
-      this.data = data
-    }
+import { JSONRPCError, isNotification, isResponse } from './json-rpc.js'
 
-    toJSON () {
-      return { message: this.message, code: this.code, data: this.data }
-    }
-  }
+export default class JSONRPCClient {
+  static Error = JSONRPCError
 
   constructor ({
     send,
@@ -55,9 +47,12 @@ export default class JSONRPCClient {
   async onmessage (data) {
     if (data == null) return // invalid response
 
-    const id = data?.id
-    if (id == null) return this._onnotification(data) // JSON-RPC notifications are not supported for now
+    if (isNotification(data)) return this._onnotification(data) // JSON-RPC notifications are not supported for now
 
+    // Only react to responses and notifications
+    if (!isResponse(data)) return
+
+    const id = data.id
     const p = this.inflight.get(id)
     if (p == null) return // duplicate or unknown response
 

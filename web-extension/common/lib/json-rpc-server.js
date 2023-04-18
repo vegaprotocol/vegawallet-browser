@@ -1,3 +1,5 @@
+import { JSONRPCError, isNotification, isRequest } from './json-rpc.js'
+
 const Errors = {
   JSONRPC_PARSE_ERROR: { code: -32700, message: 'Parse error' },
   JSONRPC_INVALID_REQUEST: { code: -32600, message: 'Invalid request' },
@@ -6,17 +8,7 @@ const Errors = {
 }
 
 export default class JSONRPCServer {
-  static Error = class extends Error {
-    constructor (msg, code, data) {
-      super(msg)
-      this.code = code
-      this.data = data
-    }
-
-    toJSON () {
-      return { message: this.message, code: this.code, data: this.data }
-    }
-  }
+  static Error = JSONRPCError
 
   constructor ({
     methods,
@@ -32,12 +24,9 @@ export default class JSONRPCServer {
     // Will match Arrays also but those will be caught below
     if (req == null || typeof req !== 'object') return { jsonrpc: '2.0', error: Errors.JSONRPC_PARSE_ERROR }
 
-    const isNotification = req.jsonrpc === '2.0' && typeof req.method === 'string' && req.id == null
-    if (isNotification) return this.onnotification(req.method, req.params, context)
+    if (isNotification(req)) return this.onnotification(req.method, req.params, context)
 
-    const isRequest = req.jsonrpc === '2.0' && typeof req.method === 'string' && req.id != null
-
-    if (!isRequest) return { jsonrpc: '2.0', error: Errors.JSONRPC_INVALID_REQUEST, id: req.id }
+    if (!isRequest(req)) return { jsonrpc: '2.0', error: Errors.JSONRPC_INVALID_REQUEST, id: req.id }
 
     const method = this._dispatch.get(req.method)
     if (method == null) return { jsonrpc: '2.0', error: Errors.JSONRPC_METHOD_NOT_FOUND, id: req.id }

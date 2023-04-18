@@ -1,3 +1,5 @@
+import { isRequest, isNotification } from './lib/json-rpc.js'
+
 const runtime = (globalThis.browser?.runtime ?? globalThis.chrome?.runtime)
 
 // Inject in-page script
@@ -19,11 +21,8 @@ function onwindowmessage (event) {
   if (event.source !== window) return
   const data = event.data
 
-  const isNotification = data.jsonrpc === '2.0' && typeof data.method === 'string'
-  const isRequest = isNotification && data.id != null
-
   // Only react to requests and notifications
-  if (!isNotification && !isRequest) return
+  if (!isNotification(data) && !isRequest(data)) return
 
   if (backgroundPort == null) {
     backgroundPort = runtime.connect({ name: 'content-script' })

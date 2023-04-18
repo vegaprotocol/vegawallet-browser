@@ -1,4 +1,6 @@
 import JsonRpcClient from './lib/json-rpc-client'
+import { isNotification, isResponse } from './lib/json-rpc.js';
+
 // Wrap in a closure to protect scope
 (() => {
   const client = new JsonRpcClient({
@@ -7,19 +9,20 @@ import JsonRpcClient from './lib/json-rpc-client'
     }
   })
 
-  window.addEventListener('message', (event) => {
-    if (event.source !== window) return
+  window.addEventListener(
+    'message',
+    (event) => {
+      if (event.source !== window) return
 
-    const data = event.data
+      const data = event.data
 
-    const isNotification = data.jsonrpc === '2.0' && 'method' in data && data.id == null
-    const isResponse = data.jsonrpc === '2.0' && data.id != null && ('result' in data || 'error' in data)
+      // Only react to repsponses and notifications
+      if (!isNotification(data) && !isResponse(data)) return
 
-    // Only react to repsponses and notifications
-    if (!isNotification && !isResponse) return
-
-    client.onmessage(data)
-  }, false)
+      client.onmessage(data)
+    },
+    false
+  )
 
   // Define end-use API
   globalThis.vega = {

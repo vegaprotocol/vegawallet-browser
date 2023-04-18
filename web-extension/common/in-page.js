@@ -27,13 +27,13 @@ import { isNotification, isResponse } from './lib/json-rpc.js';
 
   // Define end-use API
   globalThis.vega = {
-    async connectWallet (params) {
+    async connectWallet () {
       return client.request('client.connect_wallet', null)
     },
-    async disconnectWallet (params) {
+    async disconnectWallet () {
       return client.request('client.disconnect_wallet', null)
     },
-    async listKeys (params) {
+    async listKeys () {
       return client.request('client.list_keys', null)
     },
     async signTransaction (params) {
@@ -42,7 +42,7 @@ import { isNotification, isResponse } from './lib/json-rpc.js';
     async sendTransaction (params) {
       return client.request('client.send_transaction', params)
     },
-    async getChainId (params) {
+    async getChainId () {
       return client.request('client.get_chain_id', null)
     }
   }

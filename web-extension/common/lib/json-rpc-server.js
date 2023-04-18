@@ -12,8 +12,8 @@ export default class JSONRPCServer {
 
   constructor ({
     methods,
-    onnotification = (method, params, context) => {},
-    onerror = (ex, req, context) => {}
+    onnotification = (method, params, context) => { },
+    onerror = (ex, req, context) => { }
   }) {
     this.onerror = onerror
     this.onnotification = onnotification

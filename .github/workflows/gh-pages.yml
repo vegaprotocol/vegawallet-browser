@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - 'test/sample-dapp/**'
+      - "examples/sample-dapp/**"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload only the sample dApp for now
-          path: './test/sample-dapp'
+          path: "./examples/sample-dapp"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1

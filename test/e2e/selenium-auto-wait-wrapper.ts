@@ -1,6 +1,17 @@
-import { By, until, WebDriver } from 'selenium-webdriver'
+import { Builder, By, Capabilities, until, WebDriver } from 'selenium-webdriver'
+import chrome from 'selenium-webdriver/chrome'
 
 const defaultTimeoutMillis = 3000
+const extensionPath = './build'
+
+export function initDriver() {
+  const options = new chrome.Options()
+  options.addArguments(`--load-extension=${extensionPath}`)
+  return new Builder()
+    .withCapabilities(Capabilities.chrome())
+    .setChromeOptions(options)
+    .build()
+}
 
 export async function clickElement(
   driver: WebDriver,
@@ -18,6 +29,10 @@ export async function sendKeysToElement(
 ): Promise<void> {
   const element = await waitForElementToBeReady(driver, locator)
   await element.sendKeys(text)
+}
+
+export function getByDataTestID(dataTestID: string) {
+  return By.css(`[data-testid ='${dataTestID}']`)
 }
 
 export async function waitForElementToBeReady(

@@ -1,1 +1,1 @@
-declare module "@vegaprotocol/crypto";
+declare module '@vegaprotocol/crypto'

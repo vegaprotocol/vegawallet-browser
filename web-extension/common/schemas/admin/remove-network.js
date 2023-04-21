@@ -1,10 +1,10 @@
 module.exports = {
-  type: "object",
+  type: 'object',
   additionalProperties: false,
-  required: ["name"],
+  required: ['name'],
   properties: {
     name: {
-      type: "string",
+      type: 'string',
     },
   },
-};
+}

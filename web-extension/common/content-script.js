@@ -1,45 +1,45 @@
-import { isRequest, isNotification } from "./lib/json-rpc.js";
+import { isRequest, isNotification } from './lib/json-rpc.js'
 
-const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime;
+const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
 // Inject in-page script
-const doc = document.head ?? document.documentElement;
-const script = document.createElement("script");
-script.setAttribute("async", "false");
+const doc = document.head ?? document.documentElement
+const script = document.createElement('script')
+script.setAttribute('async', 'false')
 // This also works in firefox!
-script.src = runtime.getURL("/static/js/in-page.js");
-doc.insertBefore(script, doc.children[0]);
-doc.removeChild(script);
+script.src = runtime.getURL('/static/js/in-page.js')
+doc.insertBefore(script, doc.children[0])
+doc.removeChild(script)
 
 // Connection happens on first message which handles reconnects also
-let backgroundPort;
+let backgroundPort
 
-window.addEventListener("message", onwindowmessage, false);
+window.addEventListener('message', onwindowmessage, false)
 
 // Relay requests from page to background
 function onwindowmessage(event) {
-  if (event.source !== window) return;
-  const data = event.data;
+  if (event.source !== window) return
+  const data = event.data
 
   // Only react to requests and notifications
-  if (!isNotification(data) && !isRequest(data)) return;
+  if (!isNotification(data) && !isRequest(data)) return
 
   if (backgroundPort == null) {
-    backgroundPort = runtime.connect({ name: "content-script" });
-    backgroundPort.onMessage.addListener(onbackgroundmessage);
-    backgroundPort.onDisconnect.addListener(onbackgrounddisconnect);
+    backgroundPort = runtime.connect({ name: 'content-script' })
+    backgroundPort.onMessage.addListener(onbackgroundmessage)
+    backgroundPort.onDisconnect.addListener(onbackgrounddisconnect)
   }
 
-  backgroundPort.postMessage(data);
+  backgroundPort.postMessage(data)
 }
 
 // Relay replies from background to page
 function onbackgroundmessage(message) {
-  window.postMessage(message, "*");
+  window.postMessage(message, '*')
 }
 
 function onbackgrounddisconnect() {
-  backgroundPort.onMessage.removeListener(onbackgroundmessage);
-  backgroundPort.onDisconnect.removeListener(onbackgrounddisconnect);
-  backgroundPort = null;
+  backgroundPort.onMessage.removeListener(onbackgroundmessage)
+  backgroundPort.onDisconnect.removeListener(onbackgrounddisconnect)
+  backgroundPort = null
 }

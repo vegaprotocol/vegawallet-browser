@@ -1,23 +1,27 @@
 import assert from 'nanoassert'
 
 // TODO: Improve this "fetch" shim to handle TCP and HTTP errors
-async function getJson (url) {
-  return (await fetch(url, {
-    headers: {
-      Accept: 'application/json'
-    }
-  })).json()
+async function getJson(url) {
+  return (
+    await fetch(url, {
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+  ).json()
 }
 
-async function postJson (url, body) {
-  return (await fetch(url, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  })).json()
+async function postJson(url, body) {
+  return (
+    await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+  ).json()
 }
 
 export default class NodeRPC {
@@ -25,7 +29,7 @@ export default class NodeRPC {
    *
    * @param {URL[]} nodeUrls
    */
-  constructor (nodeUrl) {
+  constructor(nodeUrl) {
     assert(nodeUrl instanceof URL, 'nodeUrl must be WHATWG URLs')
 
     this._urls = nodeUrl
@@ -43,30 +47,38 @@ export default class NodeRPC {
    *
    * @returns URL
    */
-  static async findHealthyNode (urls, maxDrift = 2, bucketSize = 3) {
-    const nodesHeights = await promiseAllResolved(urls.map(async u => {
-      const res = await fetch(new URL('/blockchain/height', u), {
-        headers: {
-          Accept: 'application/json'
-        }
+  static async findHealthyNode(urls, maxDrift = 2, bucketSize = 3) {
+    const nodesHeights = await promiseAllResolved(
+      urls.map(async (u) => {
+        const res = await fetch(new URL('/blockchain/height', u), {
+          headers: {
+            Accept: 'application/json',
+          },
+        })
+
+        if (res.ok === false) throw new Error('Failed request')
+
+        const { height } = await res.json()
+
+        const coreHeight = BigInt(height)
+        // The header is not set for talking to core nodes
+        const nodeHeight = BigInt(
+          res.headers.get('x-block-height') ?? coreHeight
+        )
+
+        const drift = coreHeight - nodeHeight
+        // eslint-disable-next-line yoda
+        if (-maxDrift > drift || drift > maxDrift)
+          throw new Error('Block drift too high')
+
+        return [u, nodeHeight]
       })
+    )
 
-      if (res.ok === false) throw new Error('Failed request')
-
-      const { height } = await res.json()
-
-      const coreHeight = BigInt(height)
-      // The header is not set for talking to core nodes
-      const nodeHeight = BigInt(res.headers.get('x-block-height') ?? coreHeight)
-
-      const drift = coreHeight - nodeHeight
-      // eslint-disable-next-line yoda
-      if (-maxDrift > drift || drift > maxDrift) throw new Error('Block drift too high')
-
-      return [u, nodeHeight]
-    }))
-
-    const maxHeight = nodesHeights.reduce((m, [_, height]) => bigintMax(m, height), 0n)
+    const maxHeight = nodesHeights.reduce(
+      (m, [_, height]) => bigintMax(m, height),
+      0n
+    )
 
     const groups = group(nodesHeights, ([node, height]) => {
       const key = (maxHeight - height) / BigInt(bucketSize) // Group into buckets
@@ -86,19 +98,19 @@ export default class NodeRPC {
      * @param {bigint} b
      * @returns bigint
      */
-    function bigintMax (a, b) {
+    function bigintMax(a, b) {
       return a > b ? a : b
     }
 
-    async function promiseAllResolved (promises) {
-      return Promise.allSettled(promises).then(results => {
+    async function promiseAllResolved(promises) {
+      return Promise.allSettled(promises).then((results) => {
         return results
           .filter(({ status }) => status === 'fulfilled')
           .map(({ value }) => value)
       })
     }
 
-    function group (values, fn) {
+    function group(values, fn) {
       const groups = values.reduce((map, val) => {
         const [key, value] = fn(val)
 
@@ -112,20 +124,23 @@ export default class NodeRPC {
       return Array.from(groups.values())
     }
 
-    function findLargest (arr) {
-      return arr.reduce((largest, group) => group.length > largest.length ? group : largest, [])
+    function findLargest(arr) {
+      return arr.reduce(
+        (largest, group) => (group.length > largest.length ? group : largest),
+        []
+      )
     }
 
-    function pickRandom (arr) {
-      return arr[arr.length * Math.random() | 0]
+    function pickRandom(arr) {
+      return arr[(arr.length * Math.random()) | 0]
     }
   }
 
-  async blockchainHeight () {
+  async blockchainHeight() {
     return getJson(new URL('/blockchain/height', this._url))
   }
 
-  async statistics () {
+  async statistics() {
     return getJson(new URL('/statistics', this._url))
   }
 
@@ -134,28 +149,32 @@ export default class NodeRPC {
    * @param {{ partyId: string }} param0
    * @returns
    */
-  async statisticsSpam ({ partyId }) {
+  async statisticsSpam({ partyId }) {
     assert(typeof partyId === 'string')
     return getJson(new URL(`/statistics/spam/${partyId}`, this._url))
   }
 
-  async checkRawTransaction (tx) {
-    const res = await postJson(new URL('/transaction/raw/check', this._url), { tx })
+  async checkRawTransaction(tx) {
+    const res = await postJson(new URL('/transaction/raw/check', this._url), {
+      tx,
+    })
 
     return res
   }
 
-  async submitRawTransaction (tx, type) {
+  async submitRawTransaction(tx, type) {
     assert(typeof tx === 'string')
     assert(typeof type === 'string')
 
     const res = await postJson(new URL('/transaction/raw', this._url), {
-      tx, type
+      tx,
+      type,
     })
 
     // Error codes from https://github.com/vegaprotocol/vega/blob/develop/core/blockchain/response.go
     switch (res.code) {
-      case 0: return res
+      case 0:
+        return res
 
       /* eslint-disable no-fallthrough */
       // AbciTxnValidationFailure ...

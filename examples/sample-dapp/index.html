@@ -1,204 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sample dApp</title>
-</head>
-<body style="max-width: 40rem; margin: auto;">
-  <h1>Sample dApp</h1>
-  <p>
-    This sample dApp allows you to interact with the extension either by
-    clicking the button below or by using one of the following commands in
-    the console
-  </p>
-  <code>
-    <pre style="background-color: #ececec; padding: 1rem; ">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample dApp</title>
+  </head>
+  <body style="max-width: 40rem; margin: auto">
+    <h1>Sample dApp</h1>
+    <p>
+      This sample dApp allows you to interact with the extension either by
+      clicking the button below or by using one of the following commands in the
+      console
+    </p>
+    <code>
+      <pre style="background-color: #ececec; padding: 1rem">
   await vega.connectWallet()
   await vega.disconnectWallet()
   await vega.getChainId()
   await vega.listKeys()
-  await vega.sendTransaction({ publicKey, transaction, sendingMode })</pre>
-  </code>
-  <main id="app"></main>
+  await vega.sendTransaction({ publicKey, transaction, sendingMode })</pre
+      >
+    </code>
+    <main id="app"></main>
 
-  <script src="https://unpkg.com/mithril/mithril.js"></script>
-  <script>
-    const App = {
-      connected: false,
-      busy: false,
-      chainId: null,
+    <script src="https://unpkg.com/mithril/mithril.js"></script>
+    <script>
+      const App = {
+        connected: false,
+        busy: false,
+        chainId: null,
 
-      getChainId () {
-        if (App.connected === false) return
-        App.busy = true
+        getChainId() {
+          if (App.connected === false) return
+          App.busy = true
 
-        vega.getChainId()
-          .then(({ chainID }) => {
-            App.chainId = chainID
-          })
-          .finally(() => {
-            App.busy = false
-            m.redraw()
-          })
-      },
+          vega
+            .getChainId()
+            .then(({ chainID }) => {
+              App.chainId = chainID
+            })
+            .finally(() => {
+              App.busy = false
+              m.redraw()
+            })
+        },
 
-      view () {
-        if (window.vega == null) {
-          return [
-            m('h1', 'No Vega Browser Extension'),
-            m('p', [
-               'No installation of the Vega Browser Extension was found. The extension is currently in a public alpha.',
-               'You can download a preview release from Github Releases. Be WARNED that updates may wipe all data and keys are not recoverable',
-               m('br'),
-               m('a', { href: 'https://github.com/vegaprotocol/vegawallet-browser/releases', target: '_blank' }, 'Download from Github Releases'),
-               m('br'),
-               m('button', { onclick () {} }, 'Retry')
-            ])
-          ]
-        }
-
-        return [
-          App.connected === false
-            ? m('button', {
-              disabled: App.busy,
-              onclick () {
-                App.busy = true
-
-                vega.connectWallet({ hostname: 'Test dApp'})
-                  .then(() => {
-                    App.connected = true
-                  })
-                  .finally(() => {
-                    App.busy = false
-                    m.redraw()
-
-                    App.getChainId()
-                  })
-              }
-            }, 'Connect wallet')
-            : m('button', {
-              disabled: App.busy,
-              onclick () {
-                App.busy = true
-
-                vega.disconnectWallet()
-                  .then(() => {
-                    App.connected = false
-                    App.chainId = null
-                  })
-                  .finally(() => {
-                    App.busy = false
-                    m.redraw()
-                  })
-              }
-            }, 'Disconnect wallet'),
-            App.chainId == null ? null : m('span', [' Connected to: ', m('code', App.chainId)]),
-            App.connected === false
-            ? null
-            : m(Transfer)
-        ]
-      }
-    }
-
-    const Transfer = {
-      keys: [],
-      loading: true,
-      selectedKey: null,
-
-      error: null,
-      txHash: null,
-
-      oninit () {
-        Transfer.refreshKeys()
-      },
-
-      refreshKeys () {
-        Transfer.error = null
-        Transfer.loading = true
-        Transfer.keys = []
-        Transfer.selectedKey = null
-
-        vega.listKeys()
-          .then(({ keys }) => {
-            Transfer.keys = keys
-            Transfer.selectedKey = keys[0]
-          })
-          .finally(() => {
-            Transfer.loading = false
-            m.redraw()
-          })
-      },
-
-      sendTransaction () {
-        Transfer.error = null
-        Transfer.txHash = null
-        Transfer.loading = true
-
-        vega.sendTransaction({
-          publicKey: Transfer.selectedKey.publicKey,
-          sendingMode: 'TYPE_SYNC',
-          transaction: {
-            transfer: {
-              fromAccountType: 'ACCOUNT_TYPE_GENERAL',
-              toAccountType: 'ACCOUNT_TYPE_GENERAL',
-
-              // Vega
-              asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
-              amount: '1',
-              to: Transfer.selectedKey.publicKey,
-
-              kind: {
-                oneOff: {}
-              }
-            }
+        view() {
+          if (window.vega == null) {
+            return [
+              m('h1', 'No Vega Browser Extension'),
+              m('p', [
+                'No installation of the Vega Browser Extension was found. The extension is currently in a public alpha.',
+                'You can download a preview release from Github Releases. Be WARNED that updates may wipe all data and keys are not recoverable',
+                m('br'),
+                m(
+                  'a',
+                  {
+                    href: 'https://github.com/vegaprotocol/vegawallet-browser/releases',
+                    target: '_blank',
+                  },
+                  'Download from Github Releases'
+                ),
+                m('br'),
+                m('button', { onclick() {} }, 'Retry'),
+              ]),
+            ]
           }
-        })
-        .then((res) => {
-          Transfer.txHash = res.txHash
-        })
-        .catch((err) => {
-          Transfer.error = err
-        })
-        .finally(() => {
-          Transfer.loading = false
-          m.redraw()
-        })
-      },
 
-      view () {
-        const hasKeys = Transfer.keys.length > 0
+          return [
+            App.connected === false
+              ? m(
+                  'button',
+                  {
+                    disabled: App.busy,
+                    onclick() {
+                      App.busy = true
 
-        let keyOptions
-        if (!hasKeys && Transfer.loading) {
-          keyOptions = [ m('option', 'Loading keys...') ]
-        } else if (!hasKeys) {
-          keyOptions = [ m('option', 'No keys found') ]
-        } else {
-          keyOptions = Transfer.keys.map(k => {
-            const shortKey = k.publicKey.slice(0, 6) + '...' + k.publicKey.slice(-6)
-            const label = `${k.name} (${shortKey})`
+                      vega
+                        .connectWallet({ hostname: 'Test dApp' })
+                        .then(() => {
+                          App.connected = true
+                        })
+                        .finally(() => {
+                          App.busy = false
+                          m.redraw()
 
-            return m('option', {
-              value: k.publicKey,
-              selected: k.publicKey === Transfer.selectedKey
-            }, label)
-          })
-        }
+                          App.getChainId()
+                        })
+                    },
+                  },
+                  'Connect wallet'
+                )
+              : m(
+                  'button',
+                  {
+                    disabled: App.busy,
+                    onclick() {
+                      App.busy = true
 
-        return [
-          m('h1', 'Transfer'),
-          m('p', 'This sample makes a transfer for the VEGA assert from the selected key to itself'),
-          m('select', {
-            disabled: !hasKeys,
-            onchange (ev) {
-              Transfer.selectedKey = ev.target.value
-            }
-          }, keyOptions), m('button', { style: { margin: '0 0.5rem' }, onclick: Transfer.refreshKeys }, 'Refresh keys'),
-          m('p', 'Proposed transaction'),
-          Transfer.selectedKey == null ? null : m('pre', { style: 'background-color: #ececec; padding: 1rem;' },
-`{
+                      vega
+                        .disconnectWallet()
+                        .then(() => {
+                          App.connected = false
+                          App.chainId = null
+                        })
+                        .finally(() => {
+                          App.busy = false
+                          m.redraw()
+                        })
+                    },
+                  },
+                  'Disconnect wallet'
+                ),
+            App.chainId == null
+              ? null
+              : m('span', [' Connected to: ', m('code', App.chainId)]),
+            App.connected === false ? null : m(Transfer),
+          ]
+        },
+      }
+
+      const Transfer = {
+        keys: [],
+        loading: true,
+        selectedKey: null,
+
+        error: null,
+        txHash: null,
+
+        oninit() {
+          Transfer.refreshKeys()
+        },
+
+        refreshKeys() {
+          Transfer.error = null
+          Transfer.loading = true
+          Transfer.keys = []
+          Transfer.selectedKey = null
+
+          vega
+            .listKeys()
+            .then(({ keys }) => {
+              Transfer.keys = keys
+              Transfer.selectedKey = keys[0]
+            })
+            .finally(() => {
+              Transfer.loading = false
+              m.redraw()
+            })
+        },
+
+        sendTransaction() {
+          Transfer.error = null
+          Transfer.txHash = null
+          Transfer.loading = true
+
+          vega
+            .sendTransaction({
+              publicKey: Transfer.selectedKey.publicKey,
+              sendingMode: 'TYPE_SYNC',
+              transaction: {
+                transfer: {
+                  fromAccountType: 'ACCOUNT_TYPE_GENERAL',
+                  toAccountType: 'ACCOUNT_TYPE_GENERAL',
+
+                  // Vega
+                  asset:
+                    'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+                  amount: '1',
+                  to: Transfer.selectedKey.publicKey,
+
+                  kind: {
+                    oneOff: {},
+                  },
+                },
+              },
+            })
+            .then((res) => {
+              Transfer.txHash = res.txHash
+            })
+            .catch((err) => {
+              Transfer.error = err
+            })
+            .finally(() => {
+              Transfer.loading = false
+              m.redraw()
+            })
+        },
+
+        view() {
+          const hasKeys = Transfer.keys.length > 0
+
+          let keyOptions
+          if (!hasKeys && Transfer.loading) {
+            keyOptions = [m('option', 'Loading keys...')]
+          } else if (!hasKeys) {
+            keyOptions = [m('option', 'No keys found')]
+          } else {
+            keyOptions = Transfer.keys.map((k) => {
+              const shortKey =
+                k.publicKey.slice(0, 6) + '...' + k.publicKey.slice(-6)
+              const label = `${k.name} (${shortKey})`
+
+              return m(
+                'option',
+                {
+                  value: k.publicKey,
+                  selected: k.publicKey === Transfer.selectedKey,
+                },
+                label
+              )
+            })
+          }
+
+          return [
+            m('h1', 'Transfer'),
+            m(
+              'p',
+              'This sample makes a transfer for the VEGA assert from the selected key to itself'
+            ),
+            m(
+              'select',
+              {
+                disabled: !hasKeys,
+                onchange(ev) {
+                  Transfer.selectedKey = ev.target.value
+                },
+              },
+              keyOptions
+            ),
+            m(
+              'button',
+              { style: { margin: '0 0.5rem' }, onclick: Transfer.refreshKeys },
+              'Refresh keys'
+            ),
+            m('p', 'Proposed transaction'),
+            Transfer.selectedKey == null
+              ? null
+              : m(
+                  'pre',
+                  { style: 'background-color: #ececec; padding: 1rem;' },
+                  `{
   "publicKey": "${Transfer.selectedKey.publicKey}",
   "sendingMode": "TYPE_SYNC",
   "transaction": {
@@ -215,29 +258,77 @@
       }
     }
   }
-}`),
-          m('br'),
-          m('button', { disabled: Transfer.loading || Transfer.selectedKey == null, style: { fontSize: '1.5rem', margin: '0.8rem 0' }, onclick: Transfer.sendTransaction }, 'Transfer'),
-          Transfer.error == null ? null : m('p', { style: { color: 'red' } }, `Error: ${Transfer.error.message} (${Transfer.error.code}) - ${Transfer.error.data ?? ''}`),
-          Transfer.txHash == null ? null : [
-            m('p', [
-              'Transaction hash ',
-              m('code', Transfer.txHash),
-              '. Find your transaction on one of the block explorers (depending on your chosen network):'
-            ]),
-            m('a', { target: '_blank', href: 'https://explorer.fairground.wtf/txs/' + Transfer.txHash }, 'View on Fairground'),
+}`
+                ),
             m('br'),
-            m('a', { target: '_blank', href: 'https://explorer.stagnet1.vega.xyz/txs/' + Transfer.txHash }, 'View on Stagnet1'),
-            m('br'),
-            m('a', { target: '_blank', href: 'https://explorer.stagnet3.vega.xyz/txs/' + Transfer.txHash }, 'View on Stagnet3'),
-            m('br'),
+            m(
+              'button',
+              {
+                disabled: Transfer.loading || Transfer.selectedKey == null,
+                style: { fontSize: '1.5rem', margin: '0.8rem 0' },
+                onclick: Transfer.sendTransaction,
+              },
+              'Transfer'
+            ),
+            Transfer.error == null
+              ? null
+              : m(
+                  'p',
+                  { style: { color: 'red' } },
+                  `Error: ${Transfer.error.message} (${
+                    Transfer.error.code
+                  }) - ${Transfer.error.data ?? ''}`
+                ),
+            Transfer.txHash == null
+              ? null
+              : [
+                  m('p', [
+                    'Transaction hash ',
+                    m('code', Transfer.txHash),
+                    '. Find your transaction on one of the block explorers (depending on your chosen network):',
+                  ]),
+                  m(
+                    'a',
+                    {
+                      target: '_blank',
+                      href:
+                        'https://explorer.fairground.wtf/txs/' +
+                        Transfer.txHash,
+                    },
+                    'View on Fairground'
+                  ),
+                  m('br'),
+                  m(
+                    'a',
+                    {
+                      target: '_blank',
+                      href:
+                        'https://explorer.stagnet1.vega.xyz/txs/' +
+                        Transfer.txHash,
+                    },
+                    'View on Stagnet1'
+                  ),
+                  m('br'),
+                  m(
+                    'a',
+                    {
+                      target: '_blank',
+                      href:
+                        'https://explorer.stagnet3.vega.xyz/txs/' +
+                        Transfer.txHash,
+                    },
+                    'View on Stagnet3'
+                  ),
+                  m('br'),
+                ],
           ]
-        ]
+        },
       }
-    }
 
-    const root = document.getElementById('app')
-    window.onload = () => { m.mount(root, App) }
-  </script>
-</body>
+      const root = document.getElementById('app')
+      window.onload = () => {
+        m.mount(root, App)
+      }
+    </script>
+  </body>
 </html>

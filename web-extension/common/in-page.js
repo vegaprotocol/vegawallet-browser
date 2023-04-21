@@ -1,13 +1,13 @@
 import JsonRpcClient from './lib/json-rpc-client'
-import { isNotification, isResponse } from './lib/json-rpc.js';
+import { isNotification, isResponse } from './lib/json-rpc.js'
 
 // Wrap in a closure to protect scope
-(() => {
+;(() => {
   const client = new JsonRpcClient({
     idPrefix: 'vega.in-page-',
-    send (msg) {
+    send(msg) {
       window.postMessage(msg, '*')
-    }
+    },
   })
 
   window.addEventListener(
@@ -27,23 +27,23 @@ import { isNotification, isResponse } from './lib/json-rpc.js';
 
   // Define end-use API
   globalThis.vega = {
-    async connectWallet () {
+    async connectWallet() {
       return client.request('client.connect_wallet', null)
     },
-    async disconnectWallet () {
+    async disconnectWallet() {
       return client.request('client.disconnect_wallet', null)
     },
-    async listKeys () {
+    async listKeys() {
       return client.request('client.list_keys', null)
     },
-    async signTransaction (params) {
+    async signTransaction(params) {
       return client.request('client.sign_transaction', params)
     },
-    async sendTransaction (params) {
+    async sendTransaction(params) {
       return client.request('client.send_transaction', params)
     },
-    async getChainId () {
+    async getChainId() {
       return client.request('client.get_chain_id', null)
-    }
+    },
   }
 })()

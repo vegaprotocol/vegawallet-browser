@@ -7,7 +7,7 @@ import { isNotification, isResponse } from './lib/json-rpc.js'
     idPrefix: 'vega.in-page-',
     send(msg) {
       window.postMessage(msg, '*')
-    },
+    }
   })
 
   window.addEventListener(
@@ -44,6 +44,6 @@ import { isNotification, isResponse } from './lib/json-rpc.js'
     },
     async getChainId() {
       return client.request('client.get_chain_id', null)
-    },
+    }
   }
 })()

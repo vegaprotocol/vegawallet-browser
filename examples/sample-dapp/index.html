@@ -58,13 +58,13 @@
                   'a',
                   {
                     href: 'https://github.com/vegaprotocol/vegawallet-browser/releases',
-                    target: '_blank',
+                    target: '_blank'
                   },
                   'Download from Github Releases'
                 ),
                 m('br'),
-                m('button', { onclick() {} }, 'Retry'),
-              ]),
+                m('button', { onclick() {} }, 'Retry')
+              ])
             ]
           }
 
@@ -88,7 +88,7 @@
 
                           App.getChainId()
                         })
-                    },
+                    }
                   },
                   'Connect wallet'
                 )
@@ -109,16 +109,16 @@
                           App.busy = false
                           m.redraw()
                         })
-                    },
+                    }
                   },
                   'Disconnect wallet'
                 ),
             App.chainId == null
               ? null
               : m('span', [' Connected to: ', m('code', App.chainId)]),
-            App.connected === false ? null : m(Transfer),
+            App.connected === false ? null : m(Transfer)
           ]
-        },
+        }
       }
 
       const Transfer = {
@@ -172,10 +172,10 @@
                   to: Transfer.selectedKey.publicKey,
 
                   kind: {
-                    oneOff: {},
-                  },
-                },
-              },
+                    oneOff: {}
+                  }
+                }
+              }
             })
             .then((res) => {
               Transfer.txHash = res.txHash
@@ -207,7 +207,7 @@
                 'option',
                 {
                   value: k.publicKey,
-                  selected: k.publicKey === Transfer.selectedKey,
+                  selected: k.publicKey === Transfer.selectedKey
                 },
                 label
               )
@@ -226,7 +226,7 @@
                 disabled: !hasKeys,
                 onchange(ev) {
                   Transfer.selectedKey = ev.target.value
-                },
+                }
               },
               keyOptions
             ),
@@ -266,7 +266,7 @@
               {
                 disabled: Transfer.loading || Transfer.selectedKey == null,
                 style: { fontSize: '1.5rem', margin: '0.8rem 0' },
-                onclick: Transfer.sendTransaction,
+                onclick: Transfer.sendTransaction
               },
               'Transfer'
             ),
@@ -285,15 +285,14 @@
                   m('p', [
                     'Transaction hash ',
                     m('code', Transfer.txHash),
-                    '. Find your transaction on one of the block explorers (depending on your chosen network):',
+                    '. Find your transaction on one of the block explorers (depending on your chosen network):'
                   ]),
                   m(
                     'a',
                     {
                       target: '_blank',
                       href:
-                        'https://explorer.fairground.wtf/txs/' +
-                        Transfer.txHash,
+                        'https://explorer.fairground.wtf/txs/' + Transfer.txHash
                     },
                     'View on Fairground'
                   ),
@@ -304,7 +303,7 @@
                       target: '_blank',
                       href:
                         'https://explorer.stagnet1.vega.xyz/txs/' +
-                        Transfer.txHash,
+                        Transfer.txHash
                     },
                     'View on Stagnet1'
                   ),
@@ -315,14 +314,14 @@
                       target: '_blank',
                       href:
                         'https://explorer.stagnet3.vega.xyz/txs/' +
-                        Transfer.txHash,
+                        Transfer.txHash
                     },
                     'View on Stagnet3'
                   ),
-                  m('br'),
-                ],
+                  m('br')
+                ]
           ]
-        },
+        }
       }
 
       const root = document.getElementById('app')

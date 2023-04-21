@@ -4,7 +4,7 @@ module.exports = {
   required: ['wallet'],
   properties: {
     wallet: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

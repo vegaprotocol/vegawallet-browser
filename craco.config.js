@@ -58,16 +58,16 @@ module.exports = {
       const fallback = webpackConfig.resolve.fallback || {}
       // Webpack 5 does not bundle some node things that CRA relies on. Polyfill these.
       Object.assign(fallback, {
-        url: require.resolve('url'),
+        url: require.resolve('url')
       })
       webpackConfig.module.rules = [
         {
           test: /\.(mjs|js)?$/,
           resolve: {
-            fullySpecified: false,
-          },
+            fullySpecified: false
+          }
         },
-        ...webpackConfig.module.rules,
+        ...webpackConfig.module.rules
       ]
       return {
         ...webpackConfig,
@@ -75,20 +75,20 @@ module.exports = {
           main: [
             env === 'development' &&
               require.resolve('react-dev-utils/webpackHotDevClient'),
-            paths.appIndexJs,
+            paths.appIndexJs
           ].filter(Boolean),
           'content-script': './web-extension/common/content-script.js',
           background: './web-extension/common/background.js',
           'pow-worker': './web-extension/common/pow-worker.js',
-          'in-page': './web-extension/common/in-page.js',
+          'in-page': './web-extension/common/in-page.js'
         },
         output: {
           ...webpackConfig.output,
-          filename: `static/js/[name].js`,
+          filename: `static/js/[name].js`
         },
         optimization: {
           ...webpackConfig.optimization,
-          runtimeChunk: false,
+          runtimeChunk: false
         },
         plugins: [
           new WebpackBeforeBuildPlugin(async (stats, callback) => {
@@ -101,9 +101,9 @@ module.exports = {
               return callback(e)
             }
           }),
-          ...webpackConfig.plugins,
-        ],
+          ...webpackConfig.plugins
+        ]
       }
-    },
-  },
+    }
+  }
 }

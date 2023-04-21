@@ -8,12 +8,12 @@ module.exports = {
     publicKey: {
       type: 'string',
       pattern: '^[0-9a-z]{64}$',
-      errorMessage: '`publicKey` must be a 64 character hex encoded publicKey',
+      errorMessage: '`publicKey` must be a 64 character hex encoded publicKey'
     },
     sendingMode: {
       enum: ['TYPE_ASYNC', 1, 'TYPE_SYNC', 2, 'TYPE_COMMIT', 3],
       errorMessage:
-        'Only `TYPE_ASYNC` (1), `TYPE_SYNC` (2) and `TYPE_COMMIT` (3) are valid sending modes. The sendingMode must be the string name or numerical enum',
+        'Only `TYPE_ASYNC` (1), `TYPE_SYNC` (2) and `TYPE_COMMIT` (3) are valid sending modes. The sendingMode must be the string name or numerical enum'
     },
     transaction: {
       type: 'object',
@@ -43,12 +43,12 @@ module.exports = {
         'ethereumKeyRotateSubmission',
         'protocolUpgradeProposal',
         'issueSignatures',
-        'oracleDataSubmission',
+        'oracleDataSubmission'
       ].map((command) => ({
         additionalProperties: false,
         required: [command],
-        properties: { [command]: {} },
-      })),
-    },
-  },
+        properties: { [command]: {} }
+      }))
+    }
+  }
 }

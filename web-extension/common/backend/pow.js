@@ -26,7 +26,7 @@ const workers = Array.from({ length: NUM_WORKERS }, (_) => {
   const client = new JSONRPCClient({
     send(req) {
       worker.postMessage(req)
-    },
+    }
   })
   worker.onmessage = (ev) => {
     client.onmessage(ev.data)

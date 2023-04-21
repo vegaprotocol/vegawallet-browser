@@ -35,7 +35,7 @@ export default class StorageLocalMap {
     const val = await this._load()
     val[key] = value
     await storage.set({
-      [this._prefix]: val,
+      [this._prefix]: val
     })
     return this
   }
@@ -46,7 +46,7 @@ export default class StorageLocalMap {
     if (hadKey) {
       delete val[key]
       await storage.set({
-        [this._prefix]: val,
+        [this._prefix]: val
       })
     }
     return hadKey

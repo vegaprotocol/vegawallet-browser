@@ -4,13 +4,13 @@ module.exports = {
   required: ['wallet', 'passphrase', 'newPassphrase'],
   properties: {
     wallet: {
-      type: 'string',
+      type: 'string'
     },
     passphrase: {
-      type: 'string',
+      type: 'string'
     },
     newPassphrase: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

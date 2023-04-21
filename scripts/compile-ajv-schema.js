@@ -14,8 +14,8 @@ const compileFile = async (sourcePath, destinationPath) => {
 
       // Generate ESM code like the rest of the project.
       // This can be transpiled to CJS later
-      esm: true,
-    },
+      esm: true
+    }
   })
   // Decorate with ajv-errors to generate human readable errors from
   // the custom `errorMessage` properties on the schema

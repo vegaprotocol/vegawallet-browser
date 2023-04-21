@@ -4,7 +4,7 @@ module.exports = {
   required: ['name'],
   properties: {
     name: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

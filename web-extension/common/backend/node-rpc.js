@@ -5,8 +5,8 @@ async function getJson(url) {
   return (
     await fetch(url, {
       headers: {
-        Accept: 'application/json',
-      },
+        Accept: 'application/json'
+      }
     })
   ).json()
 }
@@ -17,9 +17,9 @@ async function postJson(url, body) {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(body)
     })
   ).json()
 }
@@ -52,8 +52,8 @@ export default class NodeRPC {
       urls.map(async (u) => {
         const res = await fetch(new URL('/blockchain/height', u), {
           headers: {
-            Accept: 'application/json',
-          },
+            Accept: 'application/json'
+          }
         })
 
         if (res.ok === false) throw new Error('Failed request')
@@ -156,7 +156,7 @@ export default class NodeRPC {
 
   async checkRawTransaction(tx) {
     const res = await postJson(new URL('/transaction/raw/check', this._url), {
-      tx,
+      tx
     })
 
     return res
@@ -168,7 +168,7 @@ export default class NodeRPC {
 
     const res = await postJson(new URL('/transaction/raw', this._url), {
       tx,
-      type,
+      type
     })
 
     // Error codes from https://github.com/vegaprotocol/vega/blob/develop/core/blockchain/response.go

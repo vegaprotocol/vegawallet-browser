@@ -2,13 +2,13 @@
 name: "\U0001F41B Bug"
 about: Create a report to help us improve
 title: ''
-labels: "\U0001F41B bug, browser-wallet"
+labels: "\U0001F41B Bug"
 assignees: ''
 ---
 
 ## Description
 
-A clear and concise description of what the bug is.
+A clear and concise description of the bug
 
 ## Steps to Reproduce
 
@@ -19,7 +19,11 @@ A clear and concise description of what the bug is.
 
 ## Expected behavior
 
-A clear and concise description of what you expected to happen.
+A clear and concise description of what you expected to happen (we can use these to build out our A/Cs, verify the fix and increase our test coverage)
+
+- [ ] I can 
+- [ ] I can
+- [ ] I can
 
 ## Logs
 
@@ -30,18 +34,16 @@ from the background script and popup.
 [See this guide for Chromium](https://developer.chrome.com/docs/extensions/mv3/tut_debugging/)
 or [this guide for Firefox](https://extensionworkshop.com/documentation/develop/debugging/)
 
-## Screenshots
+## Screenshots/casts
 
-If applicable, add screenshots to help explain your problem.
+If applicable, add screenshots/casts to help us understand the problem.
 
 ## Device details
-
-**Desktop (please complete the following information):**
 
 - OS: [e.g. macOS]
 - Browser [e.g. Firefox, Chrome, Brave]
 - Version [e.g. 109]
 
-## Additional context
+## Notes
 
 Add any other context about the problem here.

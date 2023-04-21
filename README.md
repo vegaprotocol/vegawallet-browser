@@ -47,7 +47,7 @@ window.postMessage(
     jsonrpc: '2.0',
     id: '1',
     method: 'vega.sendTransaction',
-    params: { type, tx },
+    params: { type, tx }
   },
   '*'
 )

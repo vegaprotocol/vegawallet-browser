@@ -3,7 +3,7 @@ import {
   clickElement,
   isElementDisplayed,
   sendKeysToElement,
-  waitForElementToBeReady,
+  waitForElementToBeReady
 } from '../selenium-auto-wait-wrapper'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'

@@ -63,17 +63,17 @@ export class WalletCollection {
         // TODO: When we make encrypted storage we should be able to persist
         // this Uint8Array in a better way
         seed: Array.from(seed),
-        keys: [],
+        keys: []
       })
 
       return {
-        recoveryPhrase: mnemonic,
+        recoveryPhrase: mnemonic
       }
     } finally {
       release()
       await this.generateKey({
         wallet: name,
-        metadata: [{ key: 'name', value: 'Key 1' }],
+        metadata: [{ key: 'name', value: 'Key 1' }]
       })
     }
   }
@@ -105,10 +105,10 @@ export class WalletCollection {
       const metadata = [
         {
           key: 'name',
-          value: keyName,
+          value: keyName
         },
         // Add renaming metadata sans the key name
-        ...extraMetadata.filter((m) => m.key === 'name'),
+        ...extraMetadata.filter((m) => m.key === 'name')
       ]
 
       // TODO: Ideally this should be in a mutex on the storage key
@@ -116,7 +116,7 @@ export class WalletCollection {
         index: keyPair.index,
         publicKey,
         name: keyName,
-        metadata,
+        metadata
       })
 
       await this.store.set(walletName, walletConfig)

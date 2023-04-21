@@ -5,13 +5,13 @@ const vegaCustomClasses = require('@vegaprotocol/tailwindcss-config/src/vega-cus
 module.exports = {
   content: [
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx}'),
-    join(__dirname, './node_modules/@vegaprotocol/ui-toolkit/index.js'),
+    join(__dirname, './node_modules/@vegaprotocol/ui-toolkit/index.js')
   ],
   darkMode: 'class',
   theme: {
     extend: {
-      ...theme,
-    },
+      ...theme
+    }
   },
-  plugins: [vegaCustomClasses],
+  plugins: [vegaCustomClasses]
 }

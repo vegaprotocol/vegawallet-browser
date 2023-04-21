@@ -6,7 +6,7 @@ export default class JSONRPCClient {
   constructor({
     send,
     onnotification = (_) => {},
-    idPrefix = Math.random().toString(36),
+    idPrefix = Math.random().toString(36)
   }) {
     this._send = send
     this._onnotification = onnotification ?? (() => {})
@@ -19,7 +19,7 @@ export default class JSONRPCClient {
     const msg = {
       jsonrpc: '2.0',
       method,
-      params,
+      params
     }
 
     this._send(msg)
@@ -31,7 +31,7 @@ export default class JSONRPCClient {
       jsonrpc: '2.0',
       id,
       method,
-      params,
+      params
     }
 
     return new Promise((resolve, reject) => {

@@ -5,7 +5,7 @@ export class PortServer {
     onerror = (_) => {},
     onbeforerequest = () => {},
     onafterrequest = () => {},
-    server,
+    server
   }) {
     this.onerror = onerror
     this.onbeforerequest = onbeforerequest

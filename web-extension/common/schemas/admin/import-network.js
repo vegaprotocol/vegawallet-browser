@@ -5,14 +5,14 @@ module.exports = {
   properties: {
     name: {
       type: 'string',
-      minLength: 1,
+      minLength: 1
     },
     url: {
-      type: 'string',
+      type: 'string'
       // format: 'url'
     },
     overwrite: {
-      type: 'boolean',
-    },
-  },
+      type: 'boolean'
+    }
+  }
 }

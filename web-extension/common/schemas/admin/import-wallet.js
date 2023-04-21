@@ -4,16 +4,16 @@ module.exports = {
   required: ['wallet', 'passphrase', 'recoveryPhrase', 'keyDerivationVersion'],
   properties: {
     wallet: {
-      type: 'string',
+      type: 'string'
     },
     passphrase: {
-      type: 'string',
+      type: 'string'
     },
     recoveryPhrase: {
-      type: 'string',
+      type: 'string'
     },
     keyDerivationVersion: {
-      enum: [2],
-    },
-  },
+      enum: [2]
+    }
+  }
 }

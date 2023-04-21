@@ -4,7 +4,7 @@ const Errors = {
   JSONRPC_PARSE_ERROR: { code: -32700, message: 'Parse error' },
   JSONRPC_INVALID_REQUEST: { code: -32600, message: 'Invalid request' },
   JSONRPC_INTERNAL_ERROR: { code: -32603, message: 'Internal error' },
-  JSONRPC_METHOD_NOT_FOUND: { code: -32601, message: 'Method not found' },
+  JSONRPC_METHOD_NOT_FOUND: { code: -32601, message: 'Method not found' }
 }
 
 export default class JSONRPCServer {
@@ -13,7 +13,7 @@ export default class JSONRPCServer {
   constructor({
     methods,
     onnotification = (method, params, context) => {},
-    onerror = (ex, req, context) => {},
+    onerror = (ex, req, context) => {}
   }) {
     this.onerror = onerror
     this.onnotification = onnotification
@@ -32,7 +32,7 @@ export default class JSONRPCServer {
       return {
         jsonrpc: '2.0',
         error: Errors.JSONRPC_INVALID_REQUEST,
-        id: req.id,
+        id: req.id
       }
 
     const method = this._dispatch.get(req.method)
@@ -40,14 +40,14 @@ export default class JSONRPCServer {
       return {
         jsonrpc: '2.0',
         error: Errors.JSONRPC_METHOD_NOT_FOUND,
-        id: req.id,
+        id: req.id
       }
 
     try {
       return {
         jsonrpc: '2.0',
         id: req.id,
-        result: await method(req.params, context),
+        result: await method(req.params, context)
       }
     } catch (ex) {
       if (ex instanceof JSONRPCServer.Error)
@@ -57,7 +57,7 @@ export default class JSONRPCServer {
       return {
         jsonrpc: '2.0',
         error: Errors.JSONRPC_INTERNAL_ERROR,
-        id: req.id,
+        id: req.id
       }
     }
   }

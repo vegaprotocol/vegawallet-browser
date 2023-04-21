@@ -39,7 +39,7 @@ const clientPorts = new PortServer({
         const rpc = network.rpc()
 
         const keys = await wallets.getKeyByPublicKey({
-          publicKey: params.publicKey,
+          publicKey: params.publicKey
         })
         if (keys == null) throw new Error('Unknown public key')
 
@@ -47,7 +47,7 @@ const clientPorts = new PortServer({
           keys,
           rpc,
           sendingMode: params.sendingMode,
-          transaction: params.transaction,
+          transaction: params.transaction
         })
       },
       async 'client.sign_transaction'(params, context) {
@@ -72,12 +72,12 @@ const clientPorts = new PortServer({
         ).flat()
 
         return { keys }
-      },
+      }
     },
     onerror(err) {
       console.error(err)
-    },
-  }),
+    }
+  })
 })
 
 const popupPorts = new PortServer({
@@ -93,9 +93,9 @@ const popupPorts = new PortServer({
       async 'admin.list_keys'(params) {
         doValidate(adminValidation.listKeys, params)
         return { keys: await wallets.listKeys({ wallet: params.wallet }) }
-      },
-    },
-  }),
+      }
+    }
+  })
 })
 
 runtime.onConnect.addListener(async (port) => {
@@ -123,17 +123,17 @@ runtime.onInstalled.addListener(async (details) => {
         'https://api.n09.testnet.vega.xyz',
         'https://api.n10.testnet.vega.xyz',
         'https://api.n11.testnet.vega.xyz',
-        'https://api.n12.testnet.vega.xyz',
+        'https://api.n12.testnet.vega.xyz'
       ],
-      explorer: 'https://explorer.fairground.wtf/',
-    }),
+      explorer: 'https://explorer.fairground.wtf/'
+    })
   ])
 })
 
 function setPending() {
   const pending = clientPorts.totalPending()
   action.setBadgeText({
-    text: pending === 0 ? '' : pending.toString(),
+    text: pending === 0 ? '' : pending.toString()
   })
 }
 

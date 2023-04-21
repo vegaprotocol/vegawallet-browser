@@ -4,10 +4,10 @@ module.exports = {
   required: ['wallet', 'newName'],
   properties: {
     wallet: {
-      type: 'string',
+      type: 'string'
     },
     newName: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

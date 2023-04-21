@@ -8,7 +8,7 @@ module.exports = {
     name: {
       type: 'string',
       minLength: 1,
-      errorMessage: '`name` must be given',
+      errorMessage: '`name` must be given'
     },
     metadata: {
       type: 'array',
@@ -18,17 +18,17 @@ module.exports = {
         additionalProperties: false,
         properties: {
           key: { type: 'string' },
-          value: { type: 'string' },
-        },
-      },
+          value: { type: 'string' }
+        }
+      }
     },
     api: {
-      type: 'object',
+      type: 'object'
       // TODO: closely specify the types here
     },
     apps: {
-      type: 'object',
+      type: 'object'
       // TODO: closely specify the types here
-    },
-  },
+    }
+  }
 }

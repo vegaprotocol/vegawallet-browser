@@ -5,10 +5,10 @@ module.exports = {
   errorMessage: '`admin.list_keys` must only be given `wallet`, `passphrase`',
   properties: {
     wallet: {
-      type: 'string',
+      type: 'string'
     },
     passphrase: {
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 }

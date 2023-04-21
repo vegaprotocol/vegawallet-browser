@@ -23,10 +23,10 @@
   },
   "scripts": {
     "dev:chrome": "web-ext run --source-dir=build/chrome --target=chromium --start-url=examples/sample-dapp/index.html",
-    "dev:firefox": "web-ext run --source-dir=build/firefox --target=firefox --start-url=examples/sample-dapp/index.html",
+    "dev:firefox": "web-ext run --source-dir=build/firefox --target=firefox-desktop --start-url=examples/sample-dapp/index.html",
     "build": "INLINE_RUNTIME_CHUNK=false craco build",
     "build:chrome": "yarn build --build-chrome",
-    "build:firefox": "yarn build --build-friefox",
+    "build:firefox": "yarn build --build-firefox",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch": "npm-watch",

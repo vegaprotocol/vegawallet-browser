@@ -19,7 +19,7 @@ function concatMerger(objValue, srcValue) {
 }
 
 const compileValidation = async () => {
-  const paths = await glob("./extension/common/schemas/**/*.js");
+  const paths = await glob("./web-extension/common/schemas/**/*.js");
   await Promise.all(
     paths.map((path) =>
       compileFile(path, path.replace("schemas/", "validation/"))
@@ -28,11 +28,11 @@ const compileValidation = async () => {
 };
 
 const buildManifest = async (browser, appPath) => {
-  const manifest = require("./extension/common/manifest.json");
+  const manifest = require("./web-extension/common/manifest.json");
 
   const packageJson = require("./package.json");
   const destinationPath = `${appPath}/manifest.json`;
-  const browserManifest = require(`./extension/${browser}/manifest.json`);
+  const browserManifest = require(`./web-extension/${browser}/manifest.json`);
   const mergedManifest = _.mergeWith(manifest, browserManifest, concatMerger);
   mergedManifest.version = packageJson.version;
   await fs.mkdir(path.dirname(destinationPath), { recursive: true });
@@ -77,10 +77,10 @@ module.exports = {
               require.resolve("react-dev-utils/webpackHotDevClient"),
             paths.appIndexJs,
           ].filter(Boolean),
-          "content-script": "./extension/common/content-script.js",
-          background: "./extension/common/background.js",
-          "pow-worker": "./extension/common/pow-worker.js",
-          "in-page": "./extension/common/in-page.js",
+          "content-script": "./web-extension/common/content-script.js",
+          background: "./web-extension/common/background.js",
+          "pow-worker": "./web-extension/common/pow-worker.js",
+          "in-page": "./web-extension/common/in-page.js",
         },
         output: {
           ...webpackConfig.output,

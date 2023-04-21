@@ -1,11 +1,11 @@
 import assert from 'nanoassert'
 
 export class PortServer {
-  constructor ({
-    onerror = (_) => { },
-    onbeforerequest = () => { },
-    onafterrequest = () => { },
-    server
+  constructor({
+    onerror = (_) => {},
+    onbeforerequest = () => {},
+    onafterrequest = () => {},
+    server,
   }) {
     this.onerror = onerror
     this.onbeforerequest = onbeforerequest
@@ -16,12 +16,14 @@ export class PortServer {
     this.ports = new Map()
   }
 
-  totalPending () {
-    return Array.from(this.ports.values(), v => v.length)
-      .reduce((sum, size) => sum + size, 0)
+  totalPending() {
+    return Array.from(this.ports.values(), (v) => v.length).reduce(
+      (sum, size) => sum + size,
+      0
+    )
   }
 
-  listen (port) {
+  listen(port) {
     const self = this
 
     const origin = new URL(port.sender.url).origin
@@ -35,7 +37,7 @@ export class PortServer {
     port.onMessage.addListener(_onmessage)
     port.onDisconnect.addListener(_ondisconnect)
 
-    function _onmessage (message) {
+    function _onmessage(message) {
       // Append a message to the queue and
       // kick off the processing loop if idle
       messageQueue.push(message)
@@ -43,14 +45,15 @@ export class PortServer {
       if (busy === false) _process()
     }
 
-    function _process () {
+    function _process() {
       self.onbeforerequest()
       const req = messageQueue.shift()
       if (req == null) return
       busy = true
 
-      self.server.onrequest(req, context)
-        .then(res => {
+      self.server
+        .onrequest(req, context)
+        .then((res) => {
           // notification
           if (res == null) return
 
@@ -67,7 +70,7 @@ export class PortServer {
         })
     }
 
-    function _ondisconnect (port) {
+    function _ondisconnect(port) {
       port.onMessage.removeListener(_onmessage)
       port.onDisconnect.removeListener(_ondisconnect)
 

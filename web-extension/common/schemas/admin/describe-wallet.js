@@ -1,13 +1,13 @@
 module.exports = {
-  type: "object",
+  type: 'object',
   additionalProperties: false,
-  required: ["wallet", "passphrase"],
+  required: ['wallet', 'passphrase'],
   properties: {
     wallet: {
-      type: "string",
+      type: 'string',
     },
     passphrase: {
-      type: "string",
+      type: 'string',
     },
   },
-};
+}

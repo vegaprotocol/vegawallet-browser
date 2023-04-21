@@ -2,7 +2,7 @@ import assert from 'nanoassert'
 import NodeRPC from './node-rpc.js'
 
 export class NetworkCollection {
-  constructor (store) {
+  constructor(store) {
     this.store = store
   }
 
@@ -12,7 +12,7 @@ export class NetworkCollection {
    * @param {{name: string, rest: string[], explorer: string}} config
    * @returns {Promise<Network>}
    */
-  async set (name, config) {
+  async set(name, config) {
     assert(typeof config.name === 'string')
     assert(Array.isArray(config.rest))
 
@@ -27,7 +27,7 @@ export class NetworkCollection {
    * @param {string} name
    * @returns {Promise<Network>}
    */
-  async get (name) {
+  async get(name) {
     const candidate = await this.store.get(name)
 
     if (candidate == null) throw new Error('Unknown network')
@@ -40,7 +40,7 @@ export class NetworkCollection {
    * @param {string} name
    * @returns {Promise<boolean>}
    */
-  async delete (name) {
+  async delete(name) {
     return this.store.delete(name)
   }
 
@@ -48,19 +48,19 @@ export class NetworkCollection {
    *
    * @returns {Promise<string[]>}
    */
-  async list () {
+  async list() {
     return Array.from(await this.store.keys())
   }
 }
 
 class Network {
-  constructor ({ name, rest, explorer }) {
+  constructor({ name, rest, explorer }) {
     this.name = name
     this.rest = rest
     this.explorer = explorer
   }
 
-  rpc () {
-    return new NodeRPC(this.rest.map(u => new URL(u)))
+  rpc() {
+    return new NodeRPC(this.rest.map((u) => new URL(u)))
   }
 }

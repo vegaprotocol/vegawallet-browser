@@ -1,35 +1,35 @@
-import * as InputData from "@vegaprotocol/protos/vega/commands/v1/InputData/encode";
-import * as Transaction from "@vegaprotocol/protos/vega/commands/v1/Transaction/encode";
-import { TX_VERSION_V3 } from "@vegaprotocol/protos/vega/commands/v1/TxVersion";
+import * as InputData from '@vegaprotocol/protos/vega/commands/v1/InputData/encode'
+import * as Transaction from '@vegaprotocol/protos/vega/commands/v1/Transaction/encode'
+import { TX_VERSION_V3 } from '@vegaprotocol/protos/vega/commands/v1/TxVersion'
 
-import solvePoW from "./pow.js";
+import solvePoW from './pow.js'
 
 export async function getChainId({ rpc }) {
-  const latestBlock = await rpc.blockchainHeight();
+  const latestBlock = await rpc.blockchainHeight()
 
-  return latestBlock.chainId;
+  return latestBlock.chainId
 }
 
 export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
-  const latestBlock = await rpc.blockchainHeight();
+  const latestBlock = await rpc.blockchainHeight()
   const pow = await solvePoW({
     difficulty: latestBlock.spamPowDifficulty,
     blockHash: latestBlock.hash,
     tid: latestBlock.hash, // TODO: this should be random
-  });
+  })
 
   const inputData = InputData.encode({
     blockHeight: BigInt(latestBlock.height),
     nonce: BigInt((Math.random() * Number.MAX_SAFE_INTEGER) >>> 0),
     command: transaction,
-  });
+  })
 
-  const chainId = latestBlock.chainId;
+  const chainId = latestBlock.chainId
 
   const tx = Transaction.encode({
     inputData,
     signature: {
-      value: Buffer.from(await keys.sign(inputData, chainId)).toString("hex"),
+      value: Buffer.from(await keys.sign(inputData, chainId)).toString('hex'),
       algo: keys.algorithm.name,
       version: keys.algorithm.version,
     },
@@ -38,10 +38,10 @@ export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
     },
     version: TX_VERSION_V3,
     pow,
-  });
+  })
 
   return await rpc.submitRawTransaction(
-    Buffer.from(tx).toString("base64"),
+    Buffer.from(tx).toString('base64'),
     sendingMode
-  );
+  )
 }

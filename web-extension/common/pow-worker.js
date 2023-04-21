@@ -9,12 +9,6 @@ globalThis.onmessage = async function (ev) {
   globalThis.postMessage({
     jsonrpc: '2.0',
     id,
-    result: await PoW.solve(
-      difficulty,
-      blockHash,
-      tid,
-      startNonce,
-      endNonce
-    )
+    result: await PoW.solve(difficulty, blockHash, tid, startNonce, endNonce),
   })
 }

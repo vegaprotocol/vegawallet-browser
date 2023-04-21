@@ -1,4 +1,4 @@
 module.exports = {
-  type: "null",
-  errorMessage: "`client.list_keys` does not take any parameters",
-};
+  type: 'null',
+  errorMessage: '`client.list_keys` does not take any parameters',
+}

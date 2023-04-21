@@ -1,4 +1,4 @@
 module.exports = {
-  type: "null",
-  errorMessage: "`client.get_chain_id` does not take any parameters",
-};
+  type: 'null',
+  errorMessage: '`client.get_chain_id` does not take any parameters',
+}

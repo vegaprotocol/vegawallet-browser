@@ -14,3 +14,4 @@ export const getStartedButton = 'wallet-get-started'
 //This refers to errors that show when not acknowledging warning checkboxes, feel free to rename if too generic
 export const errorMessage = 'error-message'
 export const reportBugsAndCrashesButtonMessage = 'report-bugs-and-crashes'
+export const viewWalletsHeader = 'view-wallets-header'

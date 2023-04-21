@@ -1,4 +1,4 @@
-export default {
-  type: 'null',
-  errorMessage: '`client.disconnect_wallet` does not take any parameters'
-}
+module.exports = {
+  type: "null",
+  errorMessage: "`client.disconnect_wallet` does not take any parameters",
+};

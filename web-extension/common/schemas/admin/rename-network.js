@@ -1,13 +1,13 @@
-export default {
-  type: 'object',
+module.exports = {
+  type: "object",
   additionalProperties: false,
-  required: ['network', 'newName'],
+  required: ["network", "newName"],
   properties: {
     network: {
-      type: 'string'
+      type: "string",
     },
     newName: {
-      type: 'string'
-    }
-  }
-}
+      type: "string",
+    },
+  },
+};

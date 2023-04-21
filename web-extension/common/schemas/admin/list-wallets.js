@@ -1,3 +1,3 @@
-export default {
-  type: 'null'
-}
+module.exports = {
+  type: "null",
+};

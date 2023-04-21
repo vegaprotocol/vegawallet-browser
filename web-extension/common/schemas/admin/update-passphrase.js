@@ -1,16 +1,16 @@
-export default {
-  type: 'object',
+module.exports = {
+  type: "object",
   additionalProperties: false,
-  required: ['wallet', 'passphrase', 'newPassphrase'],
+  required: ["wallet", "passphrase", "newPassphrase"],
   properties: {
     wallet: {
-      type: 'string'
+      type: "string",
     },
     passphrase: {
-      type: 'string'
+      type: "string",
     },
     newPassphrase: {
-      type: 'string'
-    }
-  }
-}
+      type: "string",
+    },
+  },
+};

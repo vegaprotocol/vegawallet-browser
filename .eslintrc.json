@@ -1,0 +1,6 @@
+{
+  "extends": ["react-app"],
+  "env": {
+    "es2020": true
+  }
+}

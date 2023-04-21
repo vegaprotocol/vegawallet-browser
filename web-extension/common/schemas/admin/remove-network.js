@@ -1,10 +1,10 @@
-export default {
-  type: 'object',
+module.exports = {
+  type: "object",
   additionalProperties: false,
-  required: ['name'],
+  required: ["name"],
   properties: {
     name: {
-      type: 'string'
-    }
-  }
-}
+      type: "string",
+    },
+  },
+};

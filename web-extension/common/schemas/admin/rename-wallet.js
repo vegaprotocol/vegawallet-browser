@@ -1,13 +1,13 @@
-export default {
-  type: 'object',
+module.exports = {
+  type: "object",
   additionalProperties: false,
-  required: ['wallet', 'newName'],
+  required: ["wallet", "newName"],
   properties: {
     wallet: {
-      type: 'string'
+      type: "string",
     },
     newName: {
-      type: 'string'
-    }
-  }
-}
+      type: "string",
+    },
+  },
+};

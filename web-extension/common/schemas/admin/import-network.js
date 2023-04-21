@@ -1,18 +1,18 @@
-export default {
-  type: 'object',
+module.exports = {
+  type: "object",
   additionalProperties: false,
-  required: ['name', 'url', 'overwrite'],
+  required: ["name", "url", "overwrite"],
   properties: {
     name: {
-      type: 'string',
-      minLength: 1
+      type: "string",
+      minLength: 1,
     },
     url: {
-      type: 'string'
+      type: "string",
       // format: 'url'
     },
     overwrite: {
-      type: 'boolean'
-    }
-  }
-}
+      type: "boolean",
+    },
+  },
+};

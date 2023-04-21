@@ -3,21 +3,15 @@
   "action": {
     "browser_style": true,
     "default_icon": {
-      "16": "icons/16x16.png",
-      "18": "icons/18x18.png",
-      "32": "icons/32x32.png",
-      "38": "icons/38x38.png",
-      "48": "icons/48x48.png",
-      "64": "icons/64x64.png",
-      "96": "icons/96x96.png",
-      "128": "icons/128x128.png",
-      "196": "icons/196x196.png"
+      "16": "fairground.png",
+      "48": "fairground.png",
+      "128": "fairground.png"
     },
     "default_title": "Minimal Extension",
-    "default_popup": "ui/index.html"
+    "default_popup": "index.html"
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "./static/js/background.js"
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
@@ -25,7 +19,7 @@
   "permissions": [],
   "web_accessible_resources": [
     {
-      "resources": ["in-page.js"],
+      "resources": ["/static/js/in-page.js"],
       "matches": ["<all_urls>"]
     }
   ]

@@ -1,16 +1,10 @@
-# Watching a build
+# Development
 
-Run:
+To watch for changes in the `src` and `web-extension` fire up two terminals and run:
 
-`yarn watch`
+`yarn watch` in the first terminal
+`yarn dev:[chrome|firefox]` in the second terminal
 
-You can then use the `Update` button in your browser to test the extension.
+# Building
 
-Maybe this?
-
-```
-npx web-ext run \
- --source-dir=build \
- --target=chromium \
- --start-url=build/index.html
-```
+`yarn build:chrome` or `yarn build:firefox`

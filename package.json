@@ -74,10 +74,10 @@
   "watch": {
     "build:chrome": {
       "patterns": [
-        "extension",
+        "web-extension",
         "src"
       ],
-      "ignore": "extension/common/validation/**/*.js",
+      "ignore": "web-extension/common/validation/**/*.js",
       "extensions": "js,jsx,ts,tsx"
     }
   }

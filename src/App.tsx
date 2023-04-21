@@ -1,4 +1,3 @@
-// import JSONRPCClient from "./lib/json-rpc-client";
 import { HashRouter as Router } from "react-router-dom";
 import { Routing } from "./routes";
 import { JsonRPCProvider } from "./contexts/json-rpc/json-rpc-provider";

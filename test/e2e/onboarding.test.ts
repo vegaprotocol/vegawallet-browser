@@ -2,6 +2,10 @@ import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { browser } from 'webextension-polyfill-ts'
 import { initDriver } from './selenium-auto-wait-wrapper'
+import * as fs from 'fs'
+import { promisify } from 'util'
+
+const writeFile = promisify(fs.writeFile)
 
 describe('Onboarding', () => {
   let driver: WebDriver
@@ -16,6 +20,14 @@ describe('Onboarding', () => {
 
   afterEach(async () => {
     browser.storage.local.clear()
+    const testName = expect.getState().currentTestName?.replace(/\s+/g, '_')
+    const screenshot = await driver.takeScreenshot()
+    if (expect.getState().currentTestFailed()) {
+      await writeFile(`${testName}.png`, screenshot, 'base64')
+    }
+  })
+
+  afterAll(async () => {
     await driver.quit()
   })
 

@@ -32,12 +32,6 @@
     "watch": "npm-watch",
     "test:e2e": "yarn jest ./test/e2e"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       "last 10 chrome version",

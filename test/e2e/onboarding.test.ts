@@ -1,9 +1,9 @@
-import { Builder, Capabilities, WebDriver } from 'selenium-webdriver'
+import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { browser } from 'webextension-polyfill-ts'
 import { initDriver } from './selenium-auto-wait-wrapper'
 
-describe('Create wallet', () => {
+describe('Onboarding', () => {
   let driver: WebDriver
   let createWallet: CreateWallet
   const testPassword = 'password1'

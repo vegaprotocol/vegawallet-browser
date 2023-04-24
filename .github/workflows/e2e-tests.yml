@@ -22,7 +22,7 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn build
+        run: yarn build:chrome
 
       - name: Run tests
         run: yarn test:e2e

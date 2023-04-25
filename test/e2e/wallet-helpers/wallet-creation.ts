@@ -107,7 +107,6 @@ export class CreateWallet {
       await this.isRecoveryPhrasePage(),
       this.checkOnCorrectViewErrorMessage('Recovery Phrase')
     ).toBe(true)
-
     await clickElement(this.driver, this.revealRecoveryPhraseButton)
     await clickElement(this.driver, this.copyRecoveryPhraseToClipboardButton)
     if (acknowledgeWarning) {
@@ -176,6 +175,9 @@ export class CreateWallet {
     return await isElementDisplayed(this.driver, this.walletCreatedIcon)
   }
 
+  /**
+   * Returns the text from an error message generated when submitting a form with invalid data
+   */
   async getErrorMessageText() {
     return await waitForElementToBeReady(this.driver, this.errorMessage).then(
       (element) => element.getText()

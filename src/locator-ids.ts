@@ -15,3 +15,4 @@ export const getStartedButton = 'wallet-get-started'
 export const errorMessage = 'error-message'
 export const reportBugsAndCrashesButtonMessage = 'report-bugs-and-crashes'
 export const viewWalletsHeader = 'view-wallets-header'
+

@@ -8,14 +8,14 @@ labels: chore, browser-wallet
 assignees: ''
 ---
 
-## The Chore
+## Chore
 
 What we need to achieve and who for
 
 ## Tasks
 
-- [ ] What do we need to do first
-- [ ] and then what?
-- [ ] Etc.
+- [ ] 
+- [ ] 
+- [ ] 
 
-## Additional details / background info
+## Notes

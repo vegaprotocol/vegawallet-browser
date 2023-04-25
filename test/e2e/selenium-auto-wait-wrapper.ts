@@ -13,6 +13,7 @@ export function initDriver() {
     .build()
 }
 
+
 export async function clickElement(
   driver: WebDriver,
   locator: By,

@@ -65,7 +65,8 @@ export class CreateWallet {
     await this.driver.get(this.landingPageURL)
     expect(
       await this.isGettingStartedPage(),
-      this.checkOnCorrectViewErrorMessage('Get Started')
+      this.checkOnCorrectViewErrorMessage('Get Started'),
+      { showPrefix: false }
     ).toBe(true)
   }
 

@@ -5,7 +5,7 @@ const defaultTimeoutMillis = 3000
 const extensionPath = './build'
 
 export function initDriver() {
-  const options = new chrome.Options()
+  const options = new chrome.Options().headless()
   options.addArguments(`--load-extension=${extensionPath}`)
   return new Builder()
     .withCapabilities(Capabilities.chrome())

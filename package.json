@@ -9,6 +9,7 @@
     "@vegaprotocol/protos": "0.4.0",
     "@vegaprotocol/tailwindcss-config": "^0.0.1",
     "@vegaprotocol/ui-toolkit": "0.7.0",
+    "jest-junit": "^16.0.0",
     "lodash": "^4.17.21",
     "mutexify": "^1.4.0",
     "protobuf-codec": "^1.0.6",
@@ -24,7 +25,7 @@
     "webextension-polyfill-ts": "^0.26.0"
   },
   "scripts": {
-    "dev:chrome": "web-ext run --source-dir=build/chrome --target=chromium --start-url=examples/sample-dapp/index.html ",
+    "dev:chrome": "web-ext run --source-dir=build/chrome --target=chromium --start-url=examples/sample-dapp/index.html",
     "dev:firefox": "web-ext run --source-dir=build/firefox --target=firefox --start-url=examples/sample-dapp/index.html",
     "build": "INLINE_RUNTIME_CHUNK=false craco build",
     "build:chrome": "yarn build --build-chrome",
@@ -32,7 +33,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch": "npm-watch",
-    "test:e2e": "yarn jest ./test/e2e"
+    "test:e2e:chrome": "jest ./test/e2e --ci",
+    "test:e2e:chrome-ci": "yarn test:e2e:chrome --headless",
+    "test:e2e:firefox": "jest ./test/e2e",
+    "test:e2e:firefox-ci": "yarn test:e2e:firefox --headless"
   },
   "browserslist": {
     "production": [

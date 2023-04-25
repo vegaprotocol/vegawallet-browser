@@ -1,6 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
-import { browser } from 'webextension-polyfill-ts'
 import { initDriver } from './selenium-auto-wait-wrapper'
 
 describe('Check correct app state persists after closing the extension', () => {
@@ -14,8 +13,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await createWallet.navigateToLandingPage()
   })
 
-  afterEach(async () => {
-    localStorage.clear()
+  afterAll(async () => {
     await driver.quit()
   })
 

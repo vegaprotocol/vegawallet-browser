@@ -19,12 +19,7 @@ describe('Onboarding', () => {
   })
 
   afterEach(async () => {
-    browser.storage.local.clear()
-    const testName = expect.getState().currentTestName?.replace(/\s+/g, '_')
-    const screenshot = await driver.takeScreenshot()
-    if (expect.getState().currentTestFailed()) {
-      await writeFile(`${testName}.png`, screenshot, 'base64')
-    }
+    //localStorage.clear()
   })
 
   afterAll(async () => {

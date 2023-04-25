@@ -1,11 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
-import { browser } from 'webextension-polyfill-ts'
 import { initDriver } from './selenium-auto-wait-wrapper'
-import * as fs from 'fs'
-import { promisify } from 'util'
-
-const writeFile = promisify(fs.writeFile)
 
 describe('Onboarding', () => {
   let driver: WebDriver

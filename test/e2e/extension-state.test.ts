@@ -15,7 +15,7 @@ describe('Check correct app state persists after closing the extension', () => {
   })
 
   afterEach(async () => {
-    browser.storage.local.clear()
+    localStorage.clear()
     await driver.quit()
   })
 

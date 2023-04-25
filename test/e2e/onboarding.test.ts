@@ -26,7 +26,8 @@ describe('Onboarding', () => {
     await createWallet.addNewWallet()
     expect(
       await createWallet.isWalletCreated(),
-      'Expected to be on the create wallet success screen but was not'
+      'Expected to be on the create wallet success screen but was not',
+      { showPrefix: false }
     ).toBe(true)
   })
 
@@ -37,7 +38,8 @@ describe('Onboarding', () => {
     )
     expect(
       await createWallet.isPasswordPage(),
-      'expected to remain on the password page after failing password validation'
+      'expected to remain on the password page after failing password validation',
+      { showPrefix: false }
     ).toBe(true)
   })
 
@@ -52,7 +54,8 @@ describe('Onboarding', () => {
     )
     expect(
       await createWallet.isPasswordPage(),
-      'expected to remain on the password page after not acknowledging the password warning'
+      'expected to remain on the password page after not acknowledging the password warning',
+      { showPrefix: false }
     ).toBe(true)
   })
 
@@ -60,7 +63,8 @@ describe('Onboarding', () => {
     await createWallet.configureAppCredentials(testPassword)
     expect(
       await createWallet.canAttemptContinueFromCreateWallet(),
-      'expected to be unable to proceed without revealing the recovery phrase'
+      'expected to be unable to proceed without revealing the recovery phrase',
+      { showPrefix: false }
     ).toBe(false)
   })
 
@@ -72,7 +76,8 @@ describe('Onboarding', () => {
     )
     expect(
       await createWallet.isAddWalletPage(),
-      'expected to remain on the secure wallet page after not acknowledging the recovery phrase warning'
+      'expected to remain on the secure wallet page after not acknowledging the recovery phrase warning',
+      { showPrefix: false }
     ).toBe(true)
   })
 })

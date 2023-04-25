@@ -2,5 +2,13 @@
   "extends": ["react-app", "react-app/jest"],
   "env": {
     "es2020": true
+  },
+  "rules": {
+    "jest/valid-expect": [
+      "error",
+      {
+        "maxArgs": 3
+      }
+    ]
   }
 }

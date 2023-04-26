@@ -11,7 +11,6 @@ export const GetStarted = () => {
   const items = useMemo(
     () => [
       'Securely connect to Vega dapps',
-      'Easily deposit and withdraw assets',
       'Instantly approve and reject transactions'
     ],
     []

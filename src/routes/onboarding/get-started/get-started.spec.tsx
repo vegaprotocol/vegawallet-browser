@@ -24,9 +24,6 @@ describe('GetStarted', () => {
       screen.getByText('Securely connect to Vega dapps')
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Easily deposit and withdraw assets')
-    ).toBeInTheDocument()
-    expect(
       screen.getByText('Instantly approve and reject transactions')
     ).toBeInTheDocument()
     expect(screen.getByTestId(getStartedButton)).toHaveTextContent(

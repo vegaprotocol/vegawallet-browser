@@ -2,6 +2,11 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { CreatePassword } from '.'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../routes'
+import {
+  confirmPasswordInput,
+  passwordInput,
+  submitPasswordButton
+} from '../../../locator-ids'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
@@ -26,13 +31,43 @@ describe('CreatePassword', () => {
     ).toBeInTheDocument()
   })
 
-  it('should show validation errors when form is submitted with invalid data', async () => {
+  it('should keep button disabled if only password is filled in', async () => {
     renderComponent()
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: '123' }
+    fireEvent.click(
+      screen.getByLabelText(
+        'I understand that Vega Wallet cannot recover this password if I lose it'
+      )
+    )
+
+    fireEvent.change(screen.getByTestId(passwordInput), {
+      target: { value: 'password1' }
     })
-    fireEvent.change(screen.getByLabelText('Confirm password'), {
-      target: { value: '321' }
+
+    expect(screen.getByTestId(submitPasswordButton)).toBeDisabled()
+  })
+
+  it('should keep button disabled if only confirm password is filled in', async () => {
+    renderComponent()
+    fireEvent.click(
+      screen.getByLabelText(
+        'I understand that Vega Wallet cannot recover this password if I lose it'
+      )
+    )
+
+    fireEvent.change(screen.getByTestId(confirmPasswordInput), {
+      target: { value: 'password1' }
+    })
+
+    expect(screen.getByTestId(submitPasswordButton)).toBeDisabled()
+  })
+
+  it('should show error message when passwords do not match', async () => {
+    renderComponent()
+    fireEvent.change(screen.getByTestId(passwordInput), {
+      target: { value: 'password1' }
+    })
+    fireEvent.change(screen.getByTestId(confirmPasswordInput), {
+      target: { value: 'Password1' }
     })
     fireEvent.click(
       screen.getByLabelText(

@@ -6,7 +6,11 @@ import { useCallback, useEffect } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../..'
-import { confirmPasswordInput, passwordInput } from '../../../locator-ids'
+import {
+  confirmPasswordInput,
+  passwordInput,
+  submitPasswordButton
+} from '../../../locator-ids'
 
 interface FormFields {
   password: string
@@ -25,6 +29,7 @@ export const CreatePassword = () => {
   const navigate = useNavigate()
   const password = useWatch({ control, name: 'password' })
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
+  const confirmPassword = useWatch({ control, name: 'confirmPassword' })
   const submit = useCallback(
     (fields: { confirmPassword: string; password: string }) => {
       console.log(fields)
@@ -84,11 +89,15 @@ export const CreatePassword = () => {
           />
           <Button
             fill={true}
+            data-testid={submitPasswordButton}
             className="mt-8"
             variant="primary"
             type="submit"
             disabled={
-              Boolean(errors.confirmPassword?.message) || !acceptedTerms
+              Boolean(errors.confirmPassword?.message) ||
+              !Boolean(password) ||
+              !Boolean(confirmPassword) ||
+              !acceptedTerms
             }
           >
             Submit

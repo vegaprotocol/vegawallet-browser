@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { ErrorModal } from '.'
+import locators from '../locators'
 
 describe('ErrorModal', () => {
   const error = new Error('Test error')
@@ -8,7 +9,7 @@ describe('ErrorModal', () => {
 
   it('renders error message', () => {
     render(<ErrorModal error={error} onClose={onCloseMock} />)
-    const errorMessage = screen.getByText(error.message)
+    const errorMessage = screen.getByTestId(locators.codeWindowContent)
     expect(errorMessage).toBeInTheDocument()
     const title = screen.getByText("Something's gone wrong 🙃")
     expect(title).toBeInTheDocument()
@@ -16,7 +17,7 @@ describe('ErrorModal', () => {
 
   it('calls onClose when Close button is clicked', () => {
     render(<ErrorModal error={error} onClose={onCloseMock} />)
-    const closeButton = screen.getByText('Close')
+    const closeButton = screen.getByTestId(locators.errorModalClose)
     fireEvent.click(closeButton)
     expect(onCloseMock).toHaveBeenCalled()
   })

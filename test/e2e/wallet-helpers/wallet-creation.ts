@@ -32,13 +32,13 @@ export class CreateWallet {
   checkOnCorrectViewErrorMessage = (expectedPage: string) => `Expected to be on the '${expectedPage}' page but was not`
 
   /**
-   * Constructor for the crypto wallet chrome extension CreateWallet workflow.
+   * Constructor for the vega wallet chrome extension CreateWallet workflow.
    * @param driver - The WebDriver instance to use for interacting with the browser.
    */
   constructor(private readonly driver: WebDriver) {}
 
   /**
-   * Navigates to the landing page of the wallet extension and checks if it is the expected page.
+   * Navigates to the landing page of the extension and checks if it is the expected page.
    */
   async navigateToLandingPage() {
     await this.driver.get(this.landingPageURL)

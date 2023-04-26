@@ -4,14 +4,13 @@ module.exports = {
   testEnvironment: 'node',
   testTimeout: 30000,
   reporters: [
-    "default", // use the default reporter
+    "default",
     [
-      "jest-junit", // use the junit reporter
+      "jest-junit", 
       {
-        outputDirectory: "./test-reports", // specify the directory where the report will be generated
-        outputName: "test-results.xml", // specify the filename of the report
+        outputDirectory: "./test-reports",
+        outputName: "test-results.xml",
       },
     ],
-  ],
-  testTimeout: 30000
+  ]
 }

@@ -53,11 +53,6 @@ export const CreatePassword = () => {
               type="password"
               {...register('password', { required: Validation.REQUIRED })}
             />
-            {errors.password?.message && (
-              <InputError forInput="password">
-                {errors.password.message}
-              </InputError>
-            )}
           </FormGroup>
           <FormGroup
             label="Confirm password"

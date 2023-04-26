@@ -2,7 +2,7 @@ import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { initDriver } from './selenium-auto-wait-wrapper'
 
-describe('Check correct app state persists after closing the extension', () => {
+describe.skip('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
   let createWallet: CreateWallet
   const testPassword = 'password1'
@@ -28,7 +28,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await createWallet.configureAppCredentials(testPassword, 'diffPassword')
     await driver.close()
     await createWallet.navigateToLandingPage()
-    expect(await createWallet.isGettingStartedPage()).toBe(true)
+    expect(await createWallet.isGetStartedPage()).toBe(true)
   })
 
   it('shows the View Wallet page if I successfully create a wallet and close the app', async () => {

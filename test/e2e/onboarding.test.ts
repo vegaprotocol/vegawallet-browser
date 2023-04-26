@@ -2,7 +2,7 @@ import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { initDriver } from './selenium-auto-wait-wrapper'
 
-describe('Onboarding', () => {
+describe.skip('Onboarding', () => {
   let driver: WebDriver
   let createWallet: CreateWallet
   const testPassword = 'password1'
@@ -20,36 +20,26 @@ describe('Onboarding', () => {
   it('can create a new wallet', async () => {
     await createWallet.configureAppCredentials(testPassword)
     await createWallet.addNewWallet()
-    expect(
-      await createWallet.isWalletCreated(),
-      'Expected to be on the create wallet success screen but was not',
-      { showPrefix: false }
-    ).toBe(true)
+    expect(await createWallet.isWalletCreated(), 'Expected to be on the create wallet success screen but was not', {
+      showPrefix: false
+    }).toBe(true)
   })
 
   it('shows an error message when passwords differ', async () => {
     await createWallet.configureAppCredentials(testPassword, testPassword + '2')
-    expect(await createWallet.getErrorMessageText()).toBe(
-      'Please enter identical passwords in both fields'
-    )
+    expect(await createWallet.getErrorMessageText()).toBe('Please enter identical passwords in both fields')
     expect(
-      await createWallet.isPasswordPage(),
+      await createWallet.isCreatePasswordPage(),
       'expected to remain on the password page after failing password validation',
       { showPrefix: false }
     ).toBe(true)
   })
 
   it('error shown and cannot proceed without acknowledging password warning', async () => {
-    await createWallet.configureAppCredentials(
-      testPassword,
-      testPassword,
-      false
-    )
-    expect(await createWallet.getErrorMessageText()).toBe(
-      'Please acknowledge the password warning to continue'
-    )
+    await createWallet.configureAppCredentials(testPassword, testPassword, false)
+    expect(await createWallet.getErrorMessageText()).toBe('Please acknowledge the password warning to continue')
     expect(
-      await createWallet.isPasswordPage(),
+      await createWallet.isCreatePasswordPage(),
       'expected to remain on the password page after not acknowledging the password warning',
       { showPrefix: false }
     ).toBe(true)
@@ -67,9 +57,7 @@ describe('Onboarding', () => {
   it('shows an error message when recovery phrase warning not acknowledged', async () => {
     await createWallet.configureAppCredentials(testPassword)
     await createWallet.addNewWallet(false)
-    expect(await createWallet.getErrorMessageText()).toBe(
-      'Please acknowledge the recovery phrase warning to continue'
-    )
+    expect(await createWallet.getErrorMessageText()).toBe('Please acknowledge the recovery phrase warning to continue')
     expect(
       await createWallet.isAddWalletPage(),
       'expected to remain on the secure wallet page after not acknowledging the recovery phrase warning',

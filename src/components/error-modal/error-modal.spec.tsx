@@ -6,7 +6,7 @@ describe('ErrorModal', () => {
   const error = new Error('Test error')
   const onCloseMock = jest.fn()
 
-  test('renders error message', () => {
+  it('renders error message', () => {
     render(<ErrorModal error={error} onClose={onCloseMock} />)
     const errorMessage = screen.getByText(error.message)
     expect(errorMessage).toBeInTheDocument()
@@ -14,7 +14,7 @@ describe('ErrorModal', () => {
     expect(title).toBeInTheDocument()
   })
 
-  test('calls onClose when Close button is clicked', () => {
+  it('calls onClose when Close button is clicked', () => {
     render(<ErrorModal error={error} onClose={onCloseMock} />)
     const closeButton = screen.getByText('Close')
     fireEvent.click(closeButton)

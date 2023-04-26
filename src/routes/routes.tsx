@@ -3,6 +3,7 @@ import { Home } from './home'
 import { GetStarted } from './onboarding/get-started'
 import { usePersistLocation } from '../hooks/persist-location'
 import { ComingSoon } from '../components/coming-soon'
+import { CreatePassword } from './onboarding/create-password'
 
 const ROUTE_NAMES = {
   auth: 'auth',
@@ -78,7 +79,7 @@ export const Routing = () => {
         <Route path={ROUTES.onboarding} element={<Outlet />}>
           <Route index element={<Navigate to={FULL_ROUTES.getStarted} />} />
           <Route path={ROUTES.getStarted} element={<GetStarted />} />
-          <Route path={ROUTES.createPassword} element={<ComingSoon />} />
+          <Route path={ROUTES.createPassword} element={<CreatePassword />} />
           <Route path={ROUTES.createWallet} element={<ComingSoon />} />
           <Route path={ROUTES.saveMnemonic} element={<ComingSoon />} />
           <Route path={ROUTES.telemetry} element={<ComingSoon />} />

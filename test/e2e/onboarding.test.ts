@@ -13,10 +13,6 @@ describe('Onboarding', () => {
     await createWallet.navigateToLandingPage()
   })
 
-  afterEach(async () => {
-    //localStorage.clear()
-  })
-
   afterAll(async () => {
     await driver.quit()
   })

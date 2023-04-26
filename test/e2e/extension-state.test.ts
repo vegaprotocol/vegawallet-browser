@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
-import { initDriver } from './selenium-auto-wait-wrapper'
+import { initDriver } from './selenium-util'
 
 describe.skip('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver

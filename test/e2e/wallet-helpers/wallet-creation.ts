@@ -5,7 +5,7 @@ import {
   isElementDisplayed,
   sendKeysToElement,
   waitForElementToBeReady
-} from '../selenium-auto-wait-wrapper'
+} from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
 

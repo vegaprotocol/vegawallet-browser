@@ -8,7 +8,7 @@ describe('Onboarding', () => {
   const testPassword = 'password1'
 
   beforeEach(async () => {
-    driver = initDriver()
+    driver = await initDriver()
     createWallet = new CreateWallet(driver)
     await createWallet.navigateToLandingPage()
   })

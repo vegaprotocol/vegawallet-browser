@@ -8,7 +8,7 @@ describe('Check correct app state persists after closing the extension', () => {
   const testPassword = 'password1'
 
   beforeEach(async () => {
-    driver = initDriver()
+    driver = await initDriver()
     createWallet = new CreateWallet(driver)
     await createWallet.navigateToLandingPage()
   })

@@ -4,15 +4,25 @@ import chrome from 'selenium-webdriver/chrome'
 const defaultTimeoutMillis = 3000
 const extensionPath = './build'
 
-export function initDriver() {
-  const options = new chrome.Options().headless()
-  options.addArguments(`--load-extension=${extensionPath}`)
-  return new Builder()
+export async function initDriver() {
+  let driver: WebDriver | null = null
+  let chromeOptions = new chrome.Options().addArguments(
+    `--load-extension=${extensionPath + '/chrome'}`
+  )
+  if (process.env.HEADLESS) {
+    chromeOptions = chromeOptions.headless()
+  }
+  driver = new Builder()
     .withCapabilities(Capabilities.chrome())
-    .setChromeOptions(options)
+    .setChromeOptions(chromeOptions)
     .build()
-}
 
+  if (!driver) {
+    throw new Error('Failed to create WebDriver instance')
+  }
+
+  return driver
+}
 
 export async function clickElement(
   driver: WebDriver,

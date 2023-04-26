@@ -1,11 +1,12 @@
 import classnames from 'classnames'
 
 import { className as defaultClassName } from './style'
+import locators from '../locators'
 
 export function Tick({ className }: { className?: string }) {
   return (
     <svg
-      data-testid="tick"
+      data-testid={locators.tickIcon}
       viewBox="0 0 16 16"
       className={classnames(defaultClassName, className)}
     >

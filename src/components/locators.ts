@@ -3,6 +3,7 @@ const locators = {
   codeWindow: 'code-window',
   codeWindowContent: 'code-window-content',
   comingSoon: 'coming-soon',
+  copyIcon: 'copy-icon',
   copyWithCheck: 'copy-with-check',
   errorModal: 'error-modal',
   errorModalClose: 'error-modal-close',
@@ -10,8 +11,10 @@ const locators = {
   mnemonicContainer: 'mnemonic-container',
   pageBack: 'page-back',
   splashWrapper: 'splash-wrapper',
+  tickIcon: 'tick-icon',
   vegaIcon: 'vega-icon',
-  vega: 'vega'
+  vega: 'vega',
+  walletIcon: 'wallet-icon'
 }
 
 export default locators

@@ -2,6 +2,7 @@ import React from 'react'
 import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CopyWithCheckmark } from './copy-with-check'
+import locators from '../locators'
 
 jest.mock('react-copy-to-clipboard', () => ({ children, onCopy }: any) => (
   <button onClick={onCopy}>{children}</button>
@@ -19,14 +20,14 @@ describe('CopyWithCheckmark', () => {
     expect(copyButton).toBeInTheDocument()
     expect(codeElement).toBeInTheDocument()
     expect(copyButton).toHaveTextContent(text)
-    expect(screen.getByTestId('copy')).toBeInTheDocument()
-    expect(screen.queryByTestId('tick')).not.toBeInTheDocument()
+    expect(screen.getByTestId(locators.copyIcon)).toBeInTheDocument()
+    expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument()
 
     userEvent.click(copyButton)
 
-    const tick = screen.getByTestId('tick')
+    const tick = screen.getByTestId(locators.tickIcon)
 
-    expect(screen.queryByTestId('copy')).not.toBeInTheDocument()
+    expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
     expect(tick).toHaveClass('text-vega-green-550')
   })
@@ -38,14 +39,14 @@ describe('CopyWithCheckmark', () => {
       </CopyWithCheckmark>
     )
     const copyButton = screen.getByTestId('copy-with-check')
-    expect(screen.getByTestId('copy')).toBeInTheDocument()
-    expect(screen.queryByTestId('tick')).not.toBeInTheDocument()
+    expect(screen.getByTestId(locators.copyIcon)).toBeInTheDocument()
+    expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument()
 
     userEvent.click(copyButton)
 
-    const tick = screen.getByTestId('tick')
+    const tick = screen.getByTestId(locators.tickIcon)
 
-    expect(screen.queryByTestId('copy')).not.toBeInTheDocument()
+    expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
     expect(tick).toHaveClass('text-vega-green-550')
   })
@@ -61,15 +62,15 @@ describe('CopyWithCheckmark', () => {
 
     userEvent.click(copyButton)
 
-    const tick = screen.getByTestId('tick')
+    const tick = screen.getByTestId(locators.tickIcon)
 
-    expect(screen.queryByTestId('copy')).not.toBeInTheDocument()
+    expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
     expect(tick).toHaveClass('text-vega-green-550')
 
     act(() => jest.runOnlyPendingTimers())
 
-    expect(screen.getByTestId('copy')).toBeInTheDocument()
-    expect(screen.queryByTestId('tick')).not.toBeInTheDocument()
+    expect(screen.getByTestId(locators.copyIcon)).toBeInTheDocument()
+    expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument()
   })
 })

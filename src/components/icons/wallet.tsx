@@ -1,3 +1,5 @@
+import locators from '../locators'
+
 export const Wallet = ({
   className,
   squareFill,
@@ -9,6 +11,7 @@ export const Wallet = ({
 }) => {
   return (
     <svg
+      data-testid={locators.walletIcon}
       className={className}
       width={size}
       height={size}

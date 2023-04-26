@@ -9,7 +9,7 @@ describe('CodeWindow', () => {
   const content = 'const a = 1; const b = 2;'
   const text = 'Copy code'
 
-  test('renders the component with the correct content and text', () => {
+  it('renders the component with the correct content and text', () => {
     render(<CodeWindow content={content} text={text} />)
     const codeWindow = screen.getByTestId('code-window')
     const codeWindowContent = screen.getByTestId('code-window-content')
@@ -18,7 +18,7 @@ describe('CodeWindow', () => {
     expect(codeWindowContent).toHaveTextContent(content)
   })
 
-  test('renders the copy with clipboard component', () => {
+  it('renders the copy with clipboard component', () => {
     render(<CodeWindow content={content} text={text} />)
     expect(screen.getByTestId('copy-with-checkmark')).toBeInTheDocument()
   })

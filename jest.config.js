@@ -2,6 +2,9 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  collectCoverage: true,
+  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
+  coverageReporters: ['html']
   testTimeout: 30000,
   reporters: [
     "default",

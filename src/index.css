@@ -10,7 +10,7 @@ body,
   margin: 0;
   overflow: hidden;
   padding: 0;
-  width: 400px;
+  width: 360px;
 }
 
 #root {
@@ -29,6 +29,6 @@ body,
 }
 
 @font-face {
-  font-family: "Alpha Lyrae";
+  font-family: "AlphaLyrae";
   src: url("./fonts/AlphaLyrae-Medium.woff2") format("woff2");
 }

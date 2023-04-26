@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../..'
 import { Checkbox } from '../../../components/checkbox'
 import { MnemonicContainer } from '../../../components/mnemonic-container'
+import {
+  saveMnemonicButton,
+  saveMnemonicDescription
+} from '../../../locator-ids'
 
 interface FormFields {
   acceptedTerms: boolean
@@ -50,7 +54,7 @@ export const SaveMnemonic = () => {
   return (
     <Page name="Secure your wallet">
       <>
-        <p className="pb-6">
+        <p data-testid={saveMnemonicDescription} className="pb-6">
           Write down or save this recovery phrase to a safe place. You'll need
           it to recover your wallet. Never share this with anyone else.
         </p>
@@ -62,6 +66,7 @@ export const SaveMnemonic = () => {
             control={control}
           />
           <Button
+            data-testid={saveMnemonicButton}
             fill={true}
             type="submit"
             variant="primary"

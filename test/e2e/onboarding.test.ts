@@ -7,9 +7,12 @@ describe.skip('Onboarding', () => {
   let createWallet: CreateWallet
   const testPassword = 'password1'
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     driver = await initDriver()
     createWallet = new CreateWallet(driver)
+  })
+
+  beforeEach(async () => {
     await createWallet.navigateToLandingPage()
   })
 

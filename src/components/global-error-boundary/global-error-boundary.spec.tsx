@@ -33,6 +33,7 @@ const BrokenComponent = () => {
 
 describe('GlobalErrorBoundary', () => {
   it('renders error modal when there is an error', () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {})
     render(
       <MemoryRouter>
         <GlobalErrorBoundary>

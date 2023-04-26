@@ -30,6 +30,7 @@ describe('JsonRpcProvider', () => {
     expect(screen.getByText('Content')).toBeInTheDocument()
   })
   it('throws error if hook is called outside context', () => {
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
     expect(() => render(<TestComponent expect={expect} />)).toThrow(
       'useJsonRpcClient must be used within JsonRPCProvider'
     )

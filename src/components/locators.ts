@@ -1,7 +1,8 @@
 const locators = {
-  comingSoon: 'coming-soon',
+  checkboxWrapper: 'checkbox-wrapper',
   codeWindow: 'code-window',
   codeWindowContent: 'code-window-content',
+  comingSoon: 'coming-soon',
   copyWithCheck: 'copy-with-check',
   errorModal: 'error-modal',
   errorModalClose: 'error-modal-close',

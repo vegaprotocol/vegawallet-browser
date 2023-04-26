@@ -19,7 +19,9 @@ export const ErrorModal = ({
         <div className="my-5">
           <CodeWindow content={error.message} text={error.message} />
         </div>
-        <Button onClick={onClose}>Close</Button>
+        <Button data-testid={locators.errorModalClose} onClick={onClose}>
+          Close
+        </Button>
       </section>
     </Splash>
   )

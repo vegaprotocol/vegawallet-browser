@@ -46,6 +46,7 @@ export const CreatePassword = () => {
         <form onSubmit={handleSubmit(submit)}>
           <FormGroup label="Password" labelFor="password" className="mb-6">
             <Input
+              id="password"
               hasError={!!errors.password?.message}
               placeholder="Enter a password"
               data-testid="create-wallet-form-password"
@@ -64,6 +65,7 @@ export const CreatePassword = () => {
             className="mb-6"
           >
             <Input
+              id="confirmPassword"
               hasError={!!errors.confirmPassword?.message}
               placeholder="Enter password again"
               data-testid="create-wallet-form-password-confirm"

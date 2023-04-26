@@ -7,6 +7,7 @@ const locators = {
   errorModal: 'error-modal',
   errorModalClose: 'error-modal-close',
   frame: 'frame',
+  mnemonicContainer: 'mnemonic-container',
   pageBack: 'page-back',
   splashWrapper: 'splash-wrapper',
   vegaIcon: 'vega-icon',

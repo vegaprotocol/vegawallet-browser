@@ -4,6 +4,8 @@ import { GetStarted } from './onboarding/get-started'
 import { usePersistLocation } from '../hooks/persist-location'
 import { ComingSoon } from '../components/coming-soon'
 import { CreatePassword } from './onboarding/create-password'
+import { CreateWallet } from './onboarding/create-wallet'
+import { SaveMnemonic } from './onboarding/save-mnemonic'
 
 const ROUTE_NAMES = {
   auth: 'auth',
@@ -80,8 +82,8 @@ export const Routing = () => {
           <Route index element={<Navigate to={FULL_ROUTES.getStarted} />} />
           <Route path={ROUTES.getStarted} element={<GetStarted />} />
           <Route path={ROUTES.createPassword} element={<CreatePassword />} />
-          <Route path={ROUTES.createWallet} element={<ComingSoon />} />
-          <Route path={ROUTES.saveMnemonic} element={<ComingSoon />} />
+          <Route path={ROUTES.createWallet} element={<CreateWallet />} />
+          <Route path={ROUTES.saveMnemonic} element={<SaveMnemonic />} />
           <Route path={ROUTES.telemetry} element={<ComingSoon />} />
           <Route path={ROUTES.importWallet} element={<ComingSoon />} />
         </Route>

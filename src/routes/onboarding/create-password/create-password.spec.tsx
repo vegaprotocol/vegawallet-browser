@@ -31,6 +31,12 @@ describe('CreatePassword', () => {
     ).toBeInTheDocument()
   })
 
+  it('cannot navigate to next page until button is enabled', async () => {
+    renderComponent()
+    fireEvent.click(screen.getByTestId(submitPasswordButton))
+    await waitFor(() => expect(mockNavigate).not.toHaveBeenCalled())
+  })
+
   it('should keep button disabled if only password is filled in', async () => {
     renderComponent()
     fireEvent.click(
@@ -75,7 +81,7 @@ describe('CreatePassword', () => {
       )
     )
 
-    fireEvent.click(screen.getByRole('button', { name: /Submit/ }))
+    fireEvent.click(screen.getByTestId(submitPasswordButton))
 
     expect(
       await screen.findByText('Password does not match')
@@ -96,7 +102,8 @@ describe('CreatePassword', () => {
         'I understand that Vega Wallet cannot recover this password if I lose it'
       )
     )
-    fireEvent.click(screen.getByRole('button', { name: /Submit/ }))
+    fireEvent.click(screen.getByTestId(submitPasswordButton))
+
     await waitFor(() =>
       expect(mockNavigate).toHaveBeenCalledWith(FULL_ROUTES.createWallet)
     )

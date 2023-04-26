@@ -85,10 +85,10 @@ describe('CreatePassword', () => {
   it('should navigate to create wallet page when form is submitted with valid data', async () => {
     renderComponent()
 
-    fireEvent.change(screen.getByLabelText('Password'), {
+    fireEvent.change(screen.getByTestId(passwordInput), {
       target: { value: 'test1234' }
     })
-    fireEvent.change(screen.getByLabelText('Confirm password'), {
+    fireEvent.change(screen.getByTestId(confirmPasswordInput), {
       target: { value: 'test1234' }
     })
     fireEvent.click(

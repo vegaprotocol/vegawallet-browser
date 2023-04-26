@@ -5,6 +5,7 @@ import { className as defaultClassName } from './style'
 export function Copy({ className }: { className?: string }) {
   return (
     <svg
+      data-testid="copy"
       className={classnames(defaultClassName, className)}
       width="16"
       height="16"

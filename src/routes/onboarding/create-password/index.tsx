@@ -6,6 +6,7 @@ import { useCallback, useEffect } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../..'
+import { confirmPasswordInput, passwordInput } from '../../../locator-ids'
 
 interface FormFields {
   password: string
@@ -49,7 +50,7 @@ export const CreatePassword = () => {
               id="password"
               hasError={!!errors.password?.message}
               placeholder="Enter a password"
-              data-testid="create-wallet-form-password"
+              data-testid={passwordInput}
               type="password"
               {...register('password', { required: Validation.REQUIRED })}
             />
@@ -63,7 +64,7 @@ export const CreatePassword = () => {
               id="confirmPassword"
               hasError={!!errors.confirmPassword?.message}
               placeholder="Enter password again"
-              data-testid="create-wallet-form-password-confirm"
+              data-testid={confirmPasswordInput}
               type="password"
               {...register('confirmPassword', {
                 required: Validation.REQUIRED,

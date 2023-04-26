@@ -1,11 +1,12 @@
 import classnames from 'classnames'
 
 import { className as defaultClassName } from './style'
+import locators from '../locators'
 
 export function Copy({ className }: { className?: string }) {
   return (
     <svg
-      data-testid="copy"
+      data-testid={locators.copyIcon}
       className={classnames(defaultClassName, className)}
       width="16"
       height="16"

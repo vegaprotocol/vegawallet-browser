@@ -8,7 +8,10 @@ export const MnemonicContainer = ({ mnemonic }: { mnemonic: string }) => {
   const [showMnemonic, setShowMnemonic] = useState(false)
   return showMnemonic ? (
     <div data-testid={locators.mnemonicContainer}>
-      <code className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6 text-left overflow-y-scroll overflow-x-scroll w-full scrollbar-hide">
+      <code
+        data-testid={locators.mnemonicContainerMnemonic}
+        className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6 text-left overflow-y-scroll overflow-x-scroll w-full scrollbar-hide"
+      >
         {mnemonic}
       </code>
       <div className="text-vega-dark-300 flex justify-between">
@@ -27,6 +30,7 @@ export const MnemonicContainer = ({ mnemonic }: { mnemonic: string }) => {
     </div>
   ) : (
     <div
+      data-testid={locators.mnemonicContainer}
       role="button"
       onClick={() => setShowMnemonic(true)}
       className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6"

@@ -1,6 +1,9 @@
+import locators from '../locators'
+
 export const Hide = () => {
   return (
     <svg
+      data-testid={locators.hideIcon}
       width="16"
       height="16"
       viewBox="0 0 16 16"

@@ -11,7 +11,7 @@ export interface PageProps {
 
 export const Page = ({ name, children, backLocation = '' }: PageProps) => {
   const navigate = useNavigate()
-  const testId = useMemo(() => name.replace(' ', '-').toLowerCase(), [name])
+  const testId = useMemo(() => name.replace(/ /g, '-').toLowerCase(), [name])
   return (
     <section
       className="pt-14 px-5 h-full pb-8 overflow-y-scroll"

@@ -2,9 +2,6 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  collectCoverage: true,
-  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
-  coverageReporters: ['html'],
   testTimeout: 30000,
   reporters: [
     'default',
@@ -12,7 +9,7 @@ module.exports = {
       'jest-junit',
       {
         outputDirectory: './test-reports',
-        outputName: 'test-results.xml'
+        outputName: 'e2e-test-results.xml'
       }
     ]
   ]

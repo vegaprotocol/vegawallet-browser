@@ -36,7 +36,7 @@
     "format:write": "prettier src --write",
     "lint": "eslint --ext js,ts,tsx src",
     "test": "react-scripts test",
-    "test:ci": "JEST_JUNIT_OUTPUT_DIR=test-reports JEST_JUNIT_OUTPUT_NAME=unit-test-results.xml yarn test --testResultsProcessor=\"jest-junit\"",
+    "test:ci": "JEST_JUNIT_OUTPUT_DIR=test-reports JEST_JUNIT_OUTPUT_NAME=unit-test-results.xml yarn test --testResultsProcessor=\"jest-junit\" --coverage",
     "eject": "react-scripts eject",
     "watch": "npm-watch",
     "test:e2e:chrome": "jest ./test/e2e --config=jest.config-e2e.js",

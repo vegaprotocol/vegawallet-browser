@@ -4,16 +4,16 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverage: true,
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
-  coverageReporters: ['html']
+  coverageReporters: ['html'],
   testTimeout: 30000,
   reporters: [
-    "default",
+    'default',
     [
-      "jest-junit", 
+      'jest-junit',
       {
-        outputDirectory: "./test-reports",
-        outputName: "test-results.xml",
-      },
-    ],
+        outputDirectory: './test-reports',
+        outputName: 'test-results.xml'
+      }
+    ]
   ]
 }

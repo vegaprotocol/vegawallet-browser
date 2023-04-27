@@ -60,4 +60,18 @@ describe('Store', () => {
     expect(useWalletStore.getState().loading).toBe(false)
     expect(useWalletStore.getState().wallets).toStrictEqual([])
   })
+  it('renders generic error if error message is not present', async () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+    await useWalletStore.getState().loadWallets({
+      request(method: string) {
+        // eslint-disable-next-line no-throw-literal
+        throw null
+      }
+    } as unknown as any)
+    expect(useWalletStore.getState().error).toStrictEqual(
+      'Something went wrong'
+    )
+    expect(useWalletStore.getState().loading).toBe(false)
+    expect(useWalletStore.getState().wallets).toStrictEqual([])
+  })
 })

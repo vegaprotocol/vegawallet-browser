@@ -37,3 +37,9 @@ jobs:
           name: JEST Tests
           path: ./test-reports/unit-test-results.xml
           reporter: jest-junit
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage

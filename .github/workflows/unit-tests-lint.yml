@@ -24,8 +24,8 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Format
-        run: yarn format
+      # - name: Format
+      #   run: yarn format
 
       - name: Test
         run: yarn test

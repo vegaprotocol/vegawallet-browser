@@ -28,7 +28,7 @@ jobs:
       #   run: yarn format
 
       - name: Test
-        run: yarn test
+        run: yarn test:ci
 
       - name: Test Report
         uses: dorny/test-reporter@v1

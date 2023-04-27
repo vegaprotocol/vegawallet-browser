@@ -8,6 +8,8 @@ jest.mock('./onboarding/get-started')
 jest.mock('./onboarding/create-password')
 jest.mock('./onboarding/create-wallet')
 jest.mock('./onboarding/save-mnemonic')
+jest.mock('./auth')
+jest.mock('./auth/wallets')
 
 describe('Routes', () => {
   it('calls persist location', () => {

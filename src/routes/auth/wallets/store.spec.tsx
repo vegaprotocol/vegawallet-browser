@@ -48,13 +48,14 @@ describe('Store', () => {
     ])
   })
   it('renders error if error is present', async () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {})
     await useWalletStore.getState().loadWallets({
       request(method: string) {
         throw new Error('Something sideways')
       }
     } as unknown as any)
     expect(useWalletStore.getState().error).toStrictEqual(
-      Error('Error: Something sideways')
+      'Error: Something sideways'
     )
     expect(useWalletStore.getState().loading).toBe(false)
     expect(useWalletStore.getState().wallets).toStrictEqual([])

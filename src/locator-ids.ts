@@ -2,6 +2,10 @@
  this is just a generic locators.ts, this should at least ensure that naming related changes to elements will not require any test maintenance */
 export const getStartedButton = 'get-started-button'
 export const createNewWalletButton = 'create-new-wallet'
+
+export const loginPassword = 'login-password'
+export const loginButton = 'login-button'
+
 export const passwordInput = 'password-input'
 export const confirmPasswordInput = 'confirm-password-input'
 export const passwordWarningCheckbox = 'ack-password-recovery-warning'

@@ -84,7 +84,15 @@
     ],
     "coverageReporters": [
       "html"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 93,
+        "functions": 93,
+        "lines": 93,
+        "statements": 93
+      }
+    }
   },
   "watch": {
     "build:chrome": {

@@ -6,6 +6,8 @@ import { ComingSoon } from '../components/coming-soon'
 import { CreatePassword } from './onboarding/create-password'
 import { CreateWallet } from './onboarding/create-wallet'
 import { SaveMnemonic } from './onboarding/save-mnemonic'
+import { Auth } from './auth'
+import { Wallets } from './auth/wallets'
 
 const ROUTE_NAMES = {
   auth: 'auth',
@@ -69,8 +71,8 @@ export const Routing = () => {
     <Routes>
       <Route element={<Outlet />}>
         <Route index path={ROUTES.home} element={<Home />} />
-        <Route path={ROUTES.auth} element={<ComingSoon />}>
-          <Route path={ROUTES.wallets} element={<ComingSoon />} />
+        <Route path={ROUTES.auth} element={<Auth />}>
+          <Route path={ROUTES.wallets} element={<Wallets />} />
           <Route path={ROUTES.transactions} element={<ComingSoon />}>
             <Route index element={<ComingSoon />} />
             <Route path={':id'} element={<ComingSoon />} />

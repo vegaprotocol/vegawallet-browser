@@ -21,7 +21,7 @@ export interface Metadata {
 export type WalletsStore = {
   wallets: Wallet[]
   loading: boolean
-  error: Error | null
+  error: string | null
   loadWallets: (client: JSONRPCClient) => void
 }
 
@@ -45,7 +45,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       )
       set({ wallets: res })
     } catch (e) {
-      set({ error: new Error(e?.toString()) })
+      set({ error: e?.toString() || 'Something went wrong' })
     } finally {
       set({ loading: false })
     }

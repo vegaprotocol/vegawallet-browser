@@ -32,7 +32,6 @@ export const CreatePassword = () => {
   const confirmPassword = useWatch({ control, name: 'confirmPassword' })
   const submit = useCallback(
     (fields: { confirmPassword: string; password: string }) => {
-      console.log(fields)
       navigate(FULL_ROUTES.createWallet)
     },
     [navigate]

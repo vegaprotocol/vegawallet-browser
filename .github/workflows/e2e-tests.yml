@@ -1,0 +1,36 @@
+name: End-to-End Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '*'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build:chrome
+
+      - name: Run tests
+        run: yarn test:e2e:chrome:ci
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: JEST Tests
+          path: ./test-reports/test-results.xml
+          reporter: jest-junit

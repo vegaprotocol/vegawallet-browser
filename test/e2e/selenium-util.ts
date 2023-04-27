@@ -1,6 +1,28 @@
-import { By, until, WebDriver } from 'selenium-webdriver'
+import { Builder, By, Capabilities, until, WebDriver } from 'selenium-webdriver'
+import chrome from 'selenium-webdriver/chrome'
 
 const defaultTimeoutMillis = 3000
+const extensionPath = './build'
+
+export async function initDriver() {
+  let driver: WebDriver | null = null
+  let chromeOptions = new chrome.Options().addArguments(
+    `--load-extension=${extensionPath + '/chrome'}`
+  )
+  if (process.env.HEADLESS) {
+    chromeOptions = chromeOptions.headless()
+  }
+  driver = new Builder()
+    .withCapabilities(Capabilities.chrome())
+    .setChromeOptions(chromeOptions)
+    .build()
+
+  if (!driver) {
+    throw new Error('Failed to create WebDriver instance')
+  }
+
+  return driver
+}
 
 export async function clickElement(
   driver: WebDriver,
@@ -18,6 +40,10 @@ export async function sendKeysToElement(
 ): Promise<void> {
   const element = await waitForElementToBeReady(driver, locator)
   await element.sendKeys(text)
+}
+
+export function getByDataTestID(dataTestID: string) {
+  return By.css(`[data-testid ='${dataTestID}']`)
 }
 
 export async function waitForElementToBeReady(

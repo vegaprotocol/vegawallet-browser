@@ -39,7 +39,7 @@
     "test:ci": "yarn test --testResultsProcessor=\"jest-junit\"",
     "eject": "react-scripts eject",
     "watch": "npm-watch",
-    "test:e2e:chrome": "jest ./test/e2e config=jest.config.js",
+    "test:e2e:chrome": "jest ./test/e2e --config=jest.config-e2e.js",
     "test:e2e:chrome:ci": "HEADLESS=true yarn test:e2e:chrome --ci"
   },
   "browserslist": {

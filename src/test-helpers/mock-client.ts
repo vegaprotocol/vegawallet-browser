@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export const mockClient = () => {
   const listeners: Function[] = []
   // @ts-ignore

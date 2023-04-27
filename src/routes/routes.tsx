@@ -4,6 +4,7 @@ import { GetStarted } from './onboarding/get-started'
 import { usePersistLocation } from '../hooks/persist-location'
 import { ComingSoon } from '../components/coming-soon'
 import { CreatePassword } from './onboarding/create-password'
+import { Login } from './login'
 import { CreateWallet } from './onboarding/create-wallet'
 import { SaveMnemonic } from './onboarding/save-mnemonic'
 import { Auth } from './auth'
@@ -89,7 +90,7 @@ export const Routing = () => {
           <Route path={ROUTES.telemetry} element={<ComingSoon />} />
           <Route path={ROUTES.importWallet} element={<ComingSoon />} />
         </Route>
-        <Route path={ROUTES.login} element={<ComingSoon />} />
+        <Route path={ROUTES.login} element={<Login />} />
       </Route>
     </Routes>
   )

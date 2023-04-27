@@ -79,6 +79,7 @@ describe('Wallets', () => {
     expect(screen.getByTestId(locators.copyWithCheck)).toHaveTextContent(
       '07248a…3673'
     )
+    expect(screen.getByTestId(locators.copyWithCheck)).toBeInTheDocument()
     expect(screen.getByTestId(walletsKeyName)).toHaveTextContent('Key 1')
     expect(screen.getByTestId(walletsCreateKey)).toHaveTextContent(
       'Create new key/pair'

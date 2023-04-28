@@ -7,7 +7,7 @@ import locators from '../locators'
 export const MnemonicContainer = ({ mnemonic }: { mnemonic: string }) => {
   const [showMnemonic, setShowMnemonic] = useState(false)
   return showMnemonic ? (
-    <div data-testid={locators.mnemonicContainer}>
+    <div data-testid={locators.mnemonicContainerShown}>
       <code
         data-testid={locators.mnemonicContainerMnemonic}
         className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6 text-left overflow-y-scroll overflow-x-scroll w-full scrollbar-hide"
@@ -18,11 +18,7 @@ export const MnemonicContainer = ({ mnemonic }: { mnemonic: string }) => {
         <CopyWithCheckmark text={mnemonic} iconSide="left">
           Copy to clipboard
         </CopyWithCheckmark>
-        <div
-          role="button"
-          onClick={() => setShowMnemonic(false)}
-          className="flex justify-between items-center"
-        >
+        <div role="button" onClick={() => setShowMnemonic(false)} className="flex justify-between items-center">
           <Hide />
           <span className="ml-3">Hide</span>
         </div>
@@ -30,7 +26,7 @@ export const MnemonicContainer = ({ mnemonic }: { mnemonic: string }) => {
     </div>
   ) : (
     <div
-      data-testid={locators.mnemonicContainer}
+      data-testid={locators.mnemonicContainerHidden}
       role="button"
       onClick={() => setShowMnemonic(true)}
       className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6"

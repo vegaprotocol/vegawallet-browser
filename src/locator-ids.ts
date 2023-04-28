@@ -22,10 +22,21 @@ export const walletsCreateKey = 'wallets-create-key'
 export const walletsAssetHeader = 'wallets-asset-header'
 export const walletsDepositLink = 'wallets-deposit-link'
 export const walletsError = 'wallets-error'
-
-export const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
+export const revealRecoveryPhraseButton = 'reveal-recovery-phrase'
+export const copyRecoveryPhraseToClipboardButton = 'copy-recovery-phrase'
+export const recoveryPhraseWarningCheckbox = 'ack-recovery-phrase-warning'
+export const secureWalletContinueButton = 'secure-wallet-continue'
+export const walletCreatedIcon = 'wallet-created'
+export const getStartedButton = 'wallet-get-started'
+export const importMnemonic = 'import-mnemonic'
+export const importMnemonicSubmit = 'import-mnemonic-submit'
+export const importMnemonicDescription = 'import-mnemonic-description'
+//This refers to errors that show when not acknowledging warning checkboxes, feel free to rename if too generic
+export const errorMessage = 'error-message'
+export const reportBugsAndCrashesButtonMessage = 'report-bugs-and-crashes'
 export const walletsPage = 'wallets-page'
 export const errorMessage = 'input-error-text'
+export const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
 export const viewWalletsHeader = 'view-wallets-header'
 
 export const settingsPage = 'settings-page'

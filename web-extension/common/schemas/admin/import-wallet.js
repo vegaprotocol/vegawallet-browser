@@ -1,19 +1,13 @@
 module.exports = {
   type: 'object',
   additionalProperties: false,
-  required: ['wallet', 'passphrase', 'recoveryPhrase', 'keyDerivationVersion'],
+  required: ['name', 'recoveryPhrase'],
   properties: {
-    wallet: {
-      type: 'string'
-    },
-    passphrase: {
+    name: {
       type: 'string'
     },
     recoveryPhrase: {
       type: 'string'
-    },
-    keyDerivationVersion: {
-      enum: [2]
     }
   }
 }

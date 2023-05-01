@@ -1,9 +1,9 @@
 module.exports = {
   type: 'object',
   additionalProperties: false,
-  required: ['wallet'],
+  required: ['name'],
   properties: {
-    wallet: {
+    name: {
       type: 'string'
     }
   }

@@ -1,9 +1,9 @@
 module.exports = {
   type: 'object',
   additionalProperties: false,
-  required: ['network', 'newName'],
+  required: ['name', 'newName'],
   properties: {
-    network: {
+    name: {
       type: 'string'
     },
     newName: {

@@ -1,10 +1,10 @@
 module.exports = {
   type: 'object',
   additionalProperties: false,
-  required: ['name'],
+  required: ['telemetry'],
   properties: {
-    name: {
-      type: 'string'
+    telemetry: {
+      type: 'boolean'
     }
   }
 }

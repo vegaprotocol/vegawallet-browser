@@ -1,0 +1,23 @@
+module.exports = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['publicKey'],
+  properties: {
+    publicKey: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    metadata: {
+      type: 'object'
+    },
+    options: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        // TODO add options
+      }
+    }
+  }
+}

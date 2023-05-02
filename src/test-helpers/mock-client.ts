@@ -21,8 +21,7 @@ export const mockClient = () => {
                 result: {
                   keys: [
                     {
-                      publicKey:
-                        '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+                      publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
                       name: 'Key 1',
                       index: 0,
                       metadata: [
@@ -34,6 +33,14 @@ export const mockClient = () => {
                     }
                   ]
                 },
+                id: message.id
+              })
+            )
+          } else if (message.method === 'admin.create_passphrase') {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                result: null,
                 id: message.id
               })
             )

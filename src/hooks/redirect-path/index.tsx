@@ -54,7 +54,6 @@ export const useGetRedirectPath = () => {
   } else {
     // If the user has a path they were previously on then redirect to that
     const path = localStorage.getItem(LOCATION_KEY)
-    console.log(path)
     return {
       loading: false,
       error: null,

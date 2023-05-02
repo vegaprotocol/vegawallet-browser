@@ -31,11 +31,12 @@ const KeyIcon = ({ publicKey }: { publicKey: string }) => {
 
 export const Wallets = () => {
   const { client } = useJsonRpcClient()
-  const { wallets, loadWallets, loading, error } = useWalletStore((store) => ({
+  const { wallets, loadWallets, loading, error, createNewKey } = useWalletStore((store) => ({
     wallets: store.wallets,
     loadWallets: store.loadWallets,
     loading: store.loading,
-    error: store.error
+    error: store.error,
+    createNewKey: store.createKey
   }))
   const [creatingKey, setCreatingKey] = useState(false)
   useEffect(() => {
@@ -43,13 +44,9 @@ export const Wallets = () => {
   }, [client, loadWallets])
   const createKey = useCallback(async () => {
     setCreatingKey(true)
-    await client.request('wallet.create_key', {
-      wallet: wallets[0].name,
-      name: `Key ${(wallets[0].keys?.length || 0) + 1}`
-    })
-    await loadWallets(client)
+    await createNewKey(client, wallets[0].name)
     setCreatingKey(false)
-  }, [client, loadWallets, wallets, setCreatingKey])
+  }, [client, createNewKey, wallets])
   const [wallet] = wallets
 
   if (loading) return null

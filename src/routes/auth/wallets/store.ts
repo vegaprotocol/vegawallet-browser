@@ -23,12 +23,36 @@ export type WalletsStore = {
   loading: boolean
   error: string | null
   loadWallets: (client: JSONRPCClient) => void
+  createKey: (client: JSONRPCClient, walletName: string) => void
 }
 
 export const useWalletStore = create<WalletsStore>()((set, get) => ({
   wallets: [],
   loading: true,
   error: null,
+  createKey: async (client: JSONRPCClient, walletName: string) => {
+    const wallets = get().wallets
+    const wallet = wallets.find(({ name }) => name === walletName)
+    if (!wallet) {
+      set({ error: 'Could not find wallet to create key for' })
+      return
+    }
+    const newKey = await client.request('admin.create_key', {
+      wallet: wallet.name,
+      name: `Key ${(wallet.keys?.length || 0) + 1}`
+    })
+    const newWallets = [
+      ...wallets.filter(({ name }) => name !== walletName),
+      {
+        ...wallet,
+        keys: [...wallet.keys, newKey]
+      }
+    ]
+    console.log(newWallets)
+    set({
+      wallets: newWallets
+    })
+  },
   loadWallets: async (client: JSONRPCClient) => {
     try {
       set({ loading: true, error: null })

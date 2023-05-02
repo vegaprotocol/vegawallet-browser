@@ -1,5 +1,36 @@
+import { Key } from '../routes/auth/wallets/store'
+import { AppGlobals } from '../routes/home/store'
+
 /* istanbul ignore file */
-export const mockClient = () => {
+const defaultWallets = ['wallet 1']
+const defaultKeys = [
+  {
+    publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+    name: 'Key 1',
+    index: 0,
+    metadata: [
+      {
+        key: 'name',
+        value: 'key 1'
+      }
+    ]
+  }
+]
+const defaultGlobals = {
+  passphrase: true,
+  wallet: true,
+  version: '0.0.1',
+  locked: false,
+  settings: {
+    telemetry: false
+  }
+}
+
+export const mockClient = (
+  wallets: string[] = defaultWallets,
+  keys: Key[] = defaultKeys,
+  globals: AppGlobals = defaultGlobals
+) => {
   const listeners: Function[] = []
   // @ts-ignore
   global.browser = {
@@ -10,7 +41,7 @@ export const mockClient = () => {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
-                result: { wallets: ['wallet 1'] },
+                result: { wallets },
                 id: message.id
               })
             )

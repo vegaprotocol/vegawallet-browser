@@ -27,7 +27,7 @@ export const copyRecoveryPhraseToClipboardButton = 'copy-recovery-phrase'
 export const recoveryPhraseWarningCheckbox = 'ack-recovery-phrase-warning'
 export const secureWalletContinueButton = 'secure-wallet-continue'
 export const walletCreatedIcon = 'wallet-created'
-export const getStartedButton = 'wallet-get-started'
+
 export const importMnemonic = 'import-mnemonic'
 export const importMnemonicSubmit = 'import-mnemonic-submit'
 export const importMnemonicDescription = 'import-mnemonic-description'

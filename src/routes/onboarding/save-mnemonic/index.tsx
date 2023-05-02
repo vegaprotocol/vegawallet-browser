@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Page } from '../../../components/page'
 import { Button } from '@vegaprotocol/ui-toolkit'
 import { useForm, useWatch } from 'react-hook-form'
@@ -18,40 +18,25 @@ export const SaveMnemonic = () => {
   const navigate = useNavigate()
   const { control, handleSubmit } = useForm<FormFields>()
   const [mnemonicShown, setMnemonicShown] = useState<boolean>(false)
-  const [mnemonic] = useState<string>(
-    [
-      'symptomatic',
-      'hissing',
-      'hill',
-      'ugly',
-      'lavish',
-      'possessive',
-      'suck',
-      'anger',
-      'circle',
-      'neighborly',
-      'unit',
-      'wait',
-      'matter',
-      'incandescent',
-      'null',
-      'borrow',
-      'classy',
-      'quiet',
-      'branch',
-      'awake',
-      'responsible',
-      'meeting',
-      'religion',
-      'tremble'
-    ].join(' ')
-  )
-  const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
+  const [mnemonic, setMnemonic] = useState<string | null>(null)
 
+  const suggestMnemonic = useCallback(async () => {
+    const { mnemonic } = await client.request('admin.generate_recovery_phrase')
+    setMnemonic(mnemonic)
+  }, [client])
+
+  useEffect(() => {
+    suggestMnemonic()
+  }, [suggestMnemonic])
+
+  const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
+  useEffect(() => {}, [])
   const submit = useCallback(async () => {
     await client.request('admin.create_wallet', { mnemonic, name: 'Wallet 1' })
     navigate(FULL_ROUTES.wallets)
   }, [client, mnemonic, navigate])
+  // While loading, render nothing
+  if (!mnemonic) return null
   return (
     <Page name="Secure your wallet">
       <>

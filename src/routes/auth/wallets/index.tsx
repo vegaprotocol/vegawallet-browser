@@ -43,17 +43,12 @@ export const Wallets = () => {
   }, [client, loadWallets])
   const createKey = useCallback(async () => {
     setCreatingKey(true)
-    try {
-      await client.request('wallet.create_key', {
-        wallet: wallets[0].name,
-        name: `Key ${(wallets[0].keys?.length || 0) + 1}`
-      })
-      await loadWallets(client)
-    } catch (e) {
-      throw e
-    } finally {
-      setCreatingKey(false)
-    }
+    await client.request('wallet.create_key', {
+      wallet: wallets[0].name,
+      name: `Key ${(wallets[0].keys?.length || 0) + 1}`
+    })
+    await loadWallets(client)
+    setCreatingKey(false)
   }, [client, loadWallets, wallets, setCreatingKey])
   const [wallet] = wallets
 

@@ -6,11 +6,8 @@ import { useCallback, useEffect } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../..'
-import {
-  confirmPasswordInput,
-  passwordInput,
-  submitPasswordButton
-} from '../../../locator-ids'
+import { confirmPasswordInput, passwordInput, submitPasswordButton } from '../../../locator-ids'
+import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 
 interface FormFields {
   password: string
@@ -19,6 +16,7 @@ interface FormFields {
 }
 
 export const CreatePassword = () => {
+  const { client } = useJsonRpcClient()
   const {
     control,
     register,
@@ -31,10 +29,11 @@ export const CreatePassword = () => {
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
   const confirmPassword = useWatch({ control, name: 'confirmPassword' })
   const submit = useCallback(
-    (fields: { confirmPassword: string; password: string }) => {
+    async ({ password }: FormFields) => {
+      await client.request('admin.create_passphrase', { passphrase: password })
       navigate(FULL_ROUTES.createWallet)
     },
-    [navigate]
+    [client, navigate]
   )
 
   useEffect(() => {
@@ -45,8 +44,8 @@ export const CreatePassword = () => {
     <Page name="Create Password" backLocation={FULL_ROUTES.getStarted}>
       <>
         <p className="mb-6">
-          Set a password to protect and unlock your Vega Wallet. Your password
-          can't be recovered or used to recover a wallet.
+          Set a password to protect and unlock your Vega Wallet. Your password can't be recovered or used to recover a
+          wallet.
         </p>
         <form onSubmit={handleSubmit(submit)}>
           <FormGroup label="Password" labelFor="password" className="mb-6">
@@ -59,11 +58,7 @@ export const CreatePassword = () => {
               {...register('password', { required: Validation.REQUIRED })}
             />
           </FormGroup>
-          <FormGroup
-            label="Confirm password"
-            labelFor="confirmPassword"
-            className="mb-6"
-          >
+          <FormGroup label="Confirm password" labelFor="confirmPassword" className="mb-6">
             <Input
               id="confirmPassword"
               hasError={!!errors.confirmPassword?.message}
@@ -76,9 +71,7 @@ export const CreatePassword = () => {
               })}
             />
             {errors.confirmPassword?.message && (
-              <InputError forInput="confirmPassword">
-                {errors.confirmPassword.message}
-              </InputError>
+              <InputError forInput="confirmPassword">{errors.confirmPassword.message}</InputError>
             )}
           </FormGroup>
           <Checkbox

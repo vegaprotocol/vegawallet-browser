@@ -4,7 +4,7 @@ import { CopyWithCheckmark } from '../copy-with-check'
 import { Hide } from '../icons/hide'
 import locators from '../locators'
 
-export const MnemonicContainer = ({ mnemonic }: { mnemonic: string }) => {
+export const MnemonicContainer = ({ mnemonic, onChange }: { mnemonic: string; onChange: (show: boolean) => void }) => {
   const [showMnemonic, setShowMnemonic] = useState(false)
   return showMnemonic ? (
     <div data-testid={locators.mnemonicContainerShown}>
@@ -18,7 +18,14 @@ export const MnemonicContainer = ({ mnemonic }: { mnemonic: string }) => {
         <CopyWithCheckmark text={mnemonic} iconSide="left">
           Copy to clipboard
         </CopyWithCheckmark>
-        <div role="button" onClick={() => setShowMnemonic(false)} className="flex justify-between items-center">
+        <div
+          role="button"
+          onClick={() => {
+            setShowMnemonic(false)
+            onChange(false)
+          }}
+          className="flex justify-between items-center"
+        >
           <Hide />
           <span className="ml-3">Hide</span>
         </div>
@@ -28,7 +35,10 @@ export const MnemonicContainer = ({ mnemonic }: { mnemonic: string }) => {
     <div
       data-testid={locators.mnemonicContainerHidden}
       role="button"
-      onClick={() => setShowMnemonic(true)}
+      onClick={() => {
+        setShowMnemonic(true)
+        onChange(true)
+      }}
       className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6"
     >
       <div className="flex flex-col items-center">

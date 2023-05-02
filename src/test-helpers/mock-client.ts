@@ -1,3 +1,4 @@
+import { RpcMethods } from '../lib/rpc-methods'
 import { Key } from '../routes/auth/wallets/store'
 import { AppGlobals } from '../routes/home/store'
 
@@ -37,7 +38,7 @@ export const mockClient = (
     runtime: {
       connect: () => ({
         postMessage: (message: any) => {
-          if (message.method === 'admin.list_wallets') {
+          if (message.method === RpcMethods.ListWallets) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -45,7 +46,7 @@ export const mockClient = (
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.list_keys') {
+          } else if (message.method === RpcMethods.ListKeys) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',

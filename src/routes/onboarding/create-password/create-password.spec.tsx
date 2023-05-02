@@ -2,11 +2,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { CreatePassword } from '.'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../routes'
-import {
-  confirmPasswordInput,
-  passwordInput,
-  submitPasswordButton
-} from '../../../locator-ids'
+import { confirmPasswordInput, passwordInput, submitPasswordButton } from '../../../locator-ids'
+import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
+import { mockClient } from '../../../test-helpers/mock-client'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
@@ -16,13 +14,16 @@ jest.mock('react-router-dom', () => ({
 
 const renderComponent = () =>
   render(
-    <MemoryRouter>
-      <CreatePassword />
-    </MemoryRouter>
+    <JsonRPCProvider>
+      <MemoryRouter>
+        <CreatePassword />
+      </MemoryRouter>
+    </JsonRPCProvider>
   )
 
 describe('CreatePassword', () => {
   it('should render correctly', () => {
+    mockClient()
     renderComponent()
     expect(
       screen.getByText(
@@ -39,11 +40,7 @@ describe('CreatePassword', () => {
 
   it('should keep button disabled if only password is filled in', async () => {
     renderComponent()
-    fireEvent.click(
-      screen.getByLabelText(
-        'I understand that Vega Wallet cannot recover this password if I lose it'
-      )
-    )
+    fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
 
     fireEvent.change(screen.getByTestId(passwordInput), {
       target: { value: 'password1' }
@@ -54,11 +51,7 @@ describe('CreatePassword', () => {
 
   it('should keep button disabled if only confirm password is filled in', async () => {
     renderComponent()
-    fireEvent.click(
-      screen.getByLabelText(
-        'I understand that Vega Wallet cannot recover this password if I lose it'
-      )
-    )
+    fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
 
     fireEvent.change(screen.getByTestId(confirmPasswordInput), {
       target: { value: 'password1' }
@@ -75,17 +68,11 @@ describe('CreatePassword', () => {
     fireEvent.change(screen.getByTestId(confirmPasswordInput), {
       target: { value: 'Password1' }
     })
-    fireEvent.click(
-      screen.getByLabelText(
-        'I understand that Vega Wallet cannot recover this password if I lose it'
-      )
-    )
+    fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
 
     fireEvent.click(screen.getByTestId(submitPasswordButton))
 
-    expect(
-      await screen.findByText('Password does not match')
-    ).toBeInTheDocument()
+    expect(await screen.findByText('Password does not match')).toBeInTheDocument()
   })
 
   it('should navigate to create wallet page when form is submitted with valid data', async () => {
@@ -97,15 +84,9 @@ describe('CreatePassword', () => {
     fireEvent.change(screen.getByTestId(confirmPasswordInput), {
       target: { value: 'test1234' }
     })
-    fireEvent.click(
-      screen.getByLabelText(
-        'I understand that Vega Wallet cannot recover this password if I lose it'
-      )
-    )
+    fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
     fireEvent.click(screen.getByTestId(submitPasswordButton))
 
-    await waitFor(() =>
-      expect(mockNavigate).toHaveBeenCalledWith(FULL_ROUTES.createWallet)
-    )
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith(FULL_ROUTES.createWallet))
   })
 })

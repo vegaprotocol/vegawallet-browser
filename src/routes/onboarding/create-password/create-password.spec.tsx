@@ -22,8 +22,14 @@ const renderComponent = () =>
   )
 
 describe('CreatePassword', () => {
-  it('should render correctly', () => {
+  beforeEach(() => {
     mockClient()
+  })
+  afterEach(() => {
+    // @ts-ignore
+    global.browser = null
+  })
+  it('should render correctly', () => {
     renderComponent()
     expect(
       screen.getByText(

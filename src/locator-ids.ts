@@ -23,7 +23,6 @@ export const copyRecoveryPhraseToClipboardButton = 'copy-recovery-phrase'
 export const recoveryPhraseWarningCheckbox = 'ack-recovery-phrase-warning'
 export const secureWalletContinueButton = 'secure-wallet-continue'
 export const walletCreatedIcon = 'wallet-created'
-export const getStartedButton = 'wallet-get-started'
 //This refers to errors that show when not acknowledging warning checkboxes, feel free to rename if too generic
 export const errorMessage = 'error-message'
 export const reportBugsAndCrashesButtonMessage = 'report-bugs-and-crashes'

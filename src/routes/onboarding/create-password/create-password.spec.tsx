@@ -30,7 +30,6 @@ describe('CreatePassword', () => {
     global.browser = null
   })
   it('should render correctly', () => {
-    mockClient()
     renderComponent()
     const passwordInfo = screen.getByText(
       "Set a password to protect and unlock your Vega Wallet. Your password can't be recovered or used to recover a wallet."

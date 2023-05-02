@@ -1,3 +1,4 @@
+import { RpcMethods } from '../../../lib/rpc-methods'
 import { useWalletStore } from './store'
 
 const keys = [
@@ -16,9 +17,9 @@ const keys = [
 
 const client = {
   request(method: string) {
-    if (method === 'admin.list_wallets') {
+    if (method === RpcMethods.ListWallets) {
       return { wallets: ['Wallet 1'] }
-    } else if (method === 'admin.list_keys') {
+    } else if (method === RpcMethods.ListKeys) {
       return {
         keys
       }

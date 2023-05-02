@@ -1,19 +1,5 @@
 import { useHomeStore } from './store'
 
-const keys = [
-  {
-    publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-    name: 'Key 1',
-    index: 0,
-    metadata: [
-      {
-        key: 'name',
-        value: 'key 1'
-      }
-    ]
-  }
-]
-
 const client = {
   request(method: string) {
     if (method === 'admin.app_globals') {

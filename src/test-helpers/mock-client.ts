@@ -44,6 +44,22 @@ export const mockClient = () => {
                 id: message.id
               })
             )
+          } else if (message.method === 'admin.generate_recovery_phrase') {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                result: { mnemonic: 'Word '.repeat(24) },
+                id: message.id
+              })
+            )
+          } else if (message.method === 'admin.create_wallet') {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                result: null,
+                id: message.id
+              })
+            )
           } else {
             throw new Error('Message not handled')
           }

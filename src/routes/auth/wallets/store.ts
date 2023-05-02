@@ -39,7 +39,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
     }
     const newKey = await client.request('admin.create_key', {
       wallet: wallet.name,
-      name: `Key ${(wallet.keys?.length || 0) + 1}`
+      name: `Key ${wallet.keys.length + 1}`
     })
     const newWallets = [
       ...wallets.filter(({ name }) => name !== walletName),

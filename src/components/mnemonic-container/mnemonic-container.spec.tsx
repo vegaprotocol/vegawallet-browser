@@ -9,7 +9,7 @@ jest.mock('../copy-with-check', () => ({
 describe('MnemonicContainer', () => {
   it('displays the mnemonic when the "Reveal recovery phrase" button is clicked', () => {
     const mnemonic = 'test mnemonic'
-    render(<MnemonicContainer mnemonic={mnemonic} />)
+    render(<MnemonicContainer mnemonic={mnemonic} onChange={() => {}} />)
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
     const mnemonicElement = screen.getByTestId(locators.mnemonicContainerMnemonic)
     expect(mnemonicElement).toHaveTextContent(mnemonic)
@@ -17,7 +17,7 @@ describe('MnemonicContainer', () => {
 
   it('hides the mnemonic when the "Hide" button is clicked', () => {
     const mnemonic = 'test mnemonic'
-    render(<MnemonicContainer mnemonic={mnemonic} />)
+    render(<MnemonicContainer mnemonic={mnemonic} onChange={() => {}} />)
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
     const hideButton = screen.getByTestId(locators.hideIcon)
     fireEvent.click(hideButton)
@@ -27,7 +27,7 @@ describe('MnemonicContainer', () => {
 
   it('renders a copy button', async () => {
     const mnemonic = 'test mnemonic'
-    render(<MnemonicContainer mnemonic={mnemonic} />)
+    render(<MnemonicContainer mnemonic={mnemonic} onChange={() => {}} />)
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
     expect(screen.getByTestId('copy')).toBeInTheDocument()
   })

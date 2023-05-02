@@ -9,6 +9,10 @@ const TestComponent = ({ expect }: { expect: jest.Expect }) => {
 }
 
 describe('JsonRpcProvider', () => {
+  beforeEach(() => {
+    // @ts-ignore
+    global.browser = {}
+  })
   it('renders and provides client', () => {
     // @ts-ignore
     global.browser = {
@@ -34,5 +38,46 @@ describe('JsonRpcProvider', () => {
     expect(() => render(<TestComponent expect={expect} />)).toThrow(
       'useJsonRpcClient must be used within JsonRPCProvider'
     )
+  })
+  it('uses firefox runtime if available', () => {
+    // @ts-ignore
+    global.chrome = {
+      runtime: {
+        connect: () => ({
+          postMessage: () => {},
+          onmessage: () => {},
+          // @ts-ignore
+          onMessage: {
+            addListener: () => {}
+          }
+        })
+      }
+    }
+    render(
+      <JsonRPCProvider>
+        <TestComponent expect={expect} />
+      </JsonRPCProvider>
+    )
+    expect(screen.getByText('Content')).toBeInTheDocument()
+  })
+  it('uses chrome runtime if available', () => {
+    // @ts-ignore
+    global.browser = {
+      runtime: {
+        connect: () => ({
+          postMessage: () => {},
+          onmessage: () => {},
+          onMessage: {
+            addListener: () => {}
+          }
+        })
+      }
+    }
+    render(
+      <JsonRPCProvider>
+        <TestComponent expect={expect} />
+      </JsonRPCProvider>
+    )
+    expect(screen.getByText('Content')).toBeInTheDocument()
   })
 })

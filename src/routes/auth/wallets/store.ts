@@ -31,7 +31,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
   error: null,
   loadWallets: async (client: JSONRPCClient) => {
     try {
-      set({ loading: true })
+      set({ loading: true, error: null })
       const { wallets } = await client.request('admin.list_wallets', null)
       const res = await Promise.all(
         wallets.map(async (w: string) => {

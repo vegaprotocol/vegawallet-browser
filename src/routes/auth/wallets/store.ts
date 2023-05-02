@@ -48,7 +48,6 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
         keys: [...wallet.keys, newKey]
       }
     ]
-    console.log(newWallets)
     set({
       wallets: newWallets
     })

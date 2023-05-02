@@ -1,10 +1,6 @@
-import {
-  ButtonLink,
-  ExternalLink,
-  truncateMiddle
-} from '@vegaprotocol/ui-toolkit'
+import { ButtonLink, ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { CopyWithCheckmark } from '../../../components/copy-with-check'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { Key, useWalletStore } from './store'
 import { Frame } from '../../../components/frame'
@@ -27,11 +23,7 @@ const KeyIcon = ({ publicKey }: { publicKey: string }) => {
         .match(/.{6}/g)
         ?.slice(0, 9)
         .map((c, i) => (
-          <div
-            key={i}
-            className="w-3 h-3"
-            style={{ backgroundColor: `#${c}` }}
-          />
+          <div key={i} className="w-3 h-3" style={{ backgroundColor: `#${c}` }} />
         ))}
     </div>
   )
@@ -45,9 +37,24 @@ export const Wallets = () => {
     loading: store.loading,
     error: store.error
   }))
+  const [creatingKey, setCreatingKey] = useState(false)
   useEffect(() => {
     loadWallets(client)
   }, [client, loadWallets])
+  const createKey = useCallback(async () => {
+    setCreatingKey(true)
+    try {
+      await client.request('wallet.create_key', {
+        wallet: wallets[0].name,
+        name: `Key ${(wallets[0].keys?.length || 0) + 1}`
+      })
+      await loadWallets(client)
+    } catch (e) {
+      throw e
+    } finally {
+      setCreatingKey(false)
+    }
+  }, [client, loadWallets, wallets, setCreatingKey])
   const [wallet] = wallets
 
   if (loading) return null
@@ -65,10 +72,7 @@ export const Wallets = () => {
           {process.env['REACT_APP_ENV_NAME']}
         </div>
       </div>
-      <h1
-        data-testid={walletsWalletName}
-        className="flex justify-center flex-col text-2xl mt-10 text-white"
-      >
+      <h1 data-testid={walletsWalletName} className="flex justify-center flex-col text-2xl mt-10 text-white">
         {wallet.name}
       </h1>
       <h2 className="uppercase text-sm mt-6 mb-2 text-vega-dark-300">Keys</h2>
@@ -90,15 +94,12 @@ export const Wallets = () => {
         )}
       />
       <div className="mt-3 text-white">
-        <ButtonLink data-testid={walletsCreateKey}>
+        <ButtonLink disabled={creatingKey} onClick={createKey} data-testid={walletsCreateKey}>
           Create new key/pair
         </ButtonLink>
       </div>
       <section className="mt-10">
-        <h1
-          data-testid={walletsAssetHeader}
-          className="mb-3 text-vega-dark-300 uppercase text-sm"
-        >
+        <h1 data-testid={walletsAssetHeader} className="mb-3 text-vega-dark-300 uppercase text-sm">
           Assets
         </h1>
         <Frame>

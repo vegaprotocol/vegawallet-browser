@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react'
+import { renderHook } from '@testing-library/react'
 import { useGetRedirectPath } from '.'
 import { FULL_ROUTES } from '../../routes'
 import { AppGlobals, useHomeStore } from '../../routes/home/store'

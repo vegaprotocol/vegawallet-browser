@@ -1,0 +1,51 @@
+import { render, screen } from '@testing-library/react'
+import { Home } from '.'
+import { useGetRedirectPath } from '../../hooks/redirect-path'
+
+jest.mock('../../hooks/redirect-path', () => ({
+  useGetRedirectPath: jest.fn()
+}))
+
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as any),
+  Navigate: () => <div data-testid="navigate" />
+}))
+
+describe('Home', () => {
+  it('renders error if an error is present', () => {
+    ;(useGetRedirectPath as jest.Mock).mockReturnValue({
+      loading: false,
+      error: 'Error',
+      path: null
+    })
+    render(<Home />)
+    expect(screen.getByText('Error')).toBeInTheDocument()
+  })
+  it('renders nothing if loading', () => {
+    ;(useGetRedirectPath as jest.Mock).mockReturnValue({
+      loading: true,
+      error: null,
+      path: null
+    })
+    const { container } = render(<Home />)
+    expect(container).toBeEmptyDOMElement()
+  })
+  it('renders nothing if path is undefined', () => {
+    ;(useGetRedirectPath as jest.Mock).mockReturnValue({
+      loading: false,
+      error: null,
+      path: null
+    })
+    const { container } = render(<Home />)
+    expect(container).toBeEmptyDOMElement()
+  })
+  it('renders navigate to the path specified', () => {
+    ;(useGetRedirectPath as jest.Mock).mockReturnValue({
+      loading: false,
+      error: null,
+      path: '/foo'
+    })
+    render(<Home />)
+    expect(screen.getByTestId('navigate')).toBeInTheDocument()
+  })
+})

@@ -1,17 +1,19 @@
 import { useHomeStore } from './store'
 
+const globalsMock = {
+  passphrase: true,
+  locked: false,
+  wallet: true,
+  version: '0.0.1',
+  settings: {
+    telemetry: false
+  }
+}
+
 const client = {
   request(method: string) {
     if (method === 'admin.app_globals') {
-      return {
-        passphrase: true,
-        locked: false,
-        wallet: true,
-        version: '0.0.1',
-        settings: {
-          telemetry: false
-        }
-      }
+      return globalsMock
     }
   }
 }
@@ -29,15 +31,7 @@ describe('Store', () => {
     await useHomeStore.getState().loadGlobals(client as unknown as any)
     expect(useHomeStore.getState().error).toBe(null)
     expect(useHomeStore.getState().loading).toBe(false)
-    expect(useHomeStore.getState().globals).toStrictEqual({
-      passphrase: true,
-      locked: false,
-      wallet: true,
-      version: '0.0.1',
-      settings: {
-        telemetry: false
-      }
-    })
+    expect(useHomeStore.getState().globals).toStrictEqual(globalsMock)
   })
   it('renders error if error is present', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {})

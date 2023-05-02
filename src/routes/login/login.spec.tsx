@@ -40,6 +40,6 @@ describe('Login', () => {
       target: { value: '123' }
     })
     fireEvent.click(screen.getByTestId(loginButton))
-    await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.wallets))
+    await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.home))
   })
 })

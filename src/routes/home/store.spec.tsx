@@ -1,3 +1,4 @@
+import { RpcMethods } from '../../lib/rpc-methods'
 import { useHomeStore } from './store'
 
 const globalsMock = {
@@ -12,7 +13,7 @@ const globalsMock = {
 
 const client = {
   request(method: string) {
-    if (method === 'admin.app_globals') {
+    if (method === RpcMethods.AppGlobals) {
       return globalsMock
     }
   }

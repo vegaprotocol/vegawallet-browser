@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import JSONRPCClient from '../../lib/json-rpc-client'
+import { RpcMethods } from '../../lib/rpc-methods'
 
 export interface AppGlobals {
   // Has the user set a passphrase
@@ -30,7 +31,7 @@ export const useHomeStore = create<HomeStore>()((set, get) => ({
   loadGlobals: async (client: JSONRPCClient) => {
     try {
       set({ loading: true, error: null })
-      const res = await client.request('admin.app_globals')
+      const res = await client.request(RpcMethods.AppGlobals)
       set({ globals: res })
     } catch (e) {
       set({ error: e?.toString() || 'Something went wrong' })

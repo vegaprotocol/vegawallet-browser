@@ -15,7 +15,7 @@ export class CreateWallet {
   private readonly getStartedButton: By = getByDataTestID(locators.getStartedButton)
   private readonly passwordInput: By = getByDataTestID(locators.passwordInput)
   private readonly confirmPasswordInput: By = getByDataTestID(locators.confirmPasswordInput)
-  private readonly acknowledgeWarningCheckbox: By = getByDataTestID(locators.passwordWarningCheckbox)
+  private readonly acknowledgeWarningCheckbox: By = By.name(locators.passwordWarningCheckbox)
   private readonly submitButton: By = getByDataTestID(locators.submitPasswordButton)
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(locators.revealRecoveryPhraseButton)
   private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(

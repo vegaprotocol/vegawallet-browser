@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
-import { clearExtensionStorage, initDriver } from './selenium-util'
+import { initDriver } from './selenium-util'
 
 describe('Onboarding', () => {
   let driver: WebDriver
@@ -18,7 +18,12 @@ describe('Onboarding', () => {
   })
 
   it('can create a new wallet', async () => {
+    // 10001-BWAL-007 I can submit the password I entered
+    // 10001-BWAL-008 When I have submitted my new password, I am given some feedback that it was set successfully
+    // 10001-BWAL-009 When I have submitted my new password, I am taken to the next step
+
     await createWallet.configureAppCredentials(testPassword)
+    // assert a success message here
     await createWallet.addNewWallet()
     expect(await createWallet.isWalletCreated(), 'Expected to be on the create wallet success screen but was not', {
       showPrefix: false

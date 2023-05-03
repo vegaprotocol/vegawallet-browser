@@ -6,16 +6,11 @@ const extensionPath = './build'
 
 export async function initDriver() {
   let driver: WebDriver | null = null
-  let chromeOptions = new chrome.Options().addArguments(
-    `--load-extension=${extensionPath + '/chrome'}`
-  )
+  let chromeOptions = new chrome.Options().addArguments(`--load-extension=${extensionPath + '/chrome'}`)
   if (process.env.HEADLESS) {
     chromeOptions = chromeOptions.headless()
   }
-  driver = new Builder()
-    .withCapabilities(Capabilities.chrome())
-    .setChromeOptions(chromeOptions)
-    .build()
+  driver = new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
 
   if (!driver) {
     throw new Error('Failed to create WebDriver instance')
@@ -24,20 +19,12 @@ export async function initDriver() {
   return driver
 }
 
-export async function clickElement(
-  driver: WebDriver,
-  locator: By,
-  timeout: number = defaultTimeoutMillis
-) {
+export async function clickElement(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   const element = await waitForElementToBeReady(driver, locator, timeout)
   await element.click()
 }
 
-export async function sendKeysToElement(
-  driver: WebDriver,
-  locator: By,
-  text: string
-): Promise<void> {
+export async function sendKeysToElement(driver: WebDriver, locator: By, text: string): Promise<void> {
   const element = await waitForElementToBeReady(driver, locator)
   await element.sendKeys(text)
 }
@@ -46,11 +33,7 @@ export function getByDataTestID(dataTestID: string) {
   return By.css(`[data-testid ='${dataTestID}']`)
 }
 
-export async function waitForElementToBeReady(
-  driver: WebDriver,
-  locator: By,
-  timeout: number = defaultTimeoutMillis
-) {
+export async function waitForElementToBeReady(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   try {
     const element = await driver.wait(
       until.elementLocated(locator),
@@ -74,11 +57,7 @@ export async function waitForElementToBeReady(
   }
 }
 
-export async function isElementDisplayed(
-  driver: WebDriver,
-  locator: By,
-  timeout: number = defaultTimeoutMillis
-) {
+export async function isElementDisplayed(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   try {
     await driver.wait(until.elementLocated(locator), timeout)
     const element = await driver.findElement(locator)

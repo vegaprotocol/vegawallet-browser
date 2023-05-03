@@ -8,7 +8,7 @@ export const loginButton = 'login-button'
 
 export const passwordInput = 'password-input'
 export const confirmPasswordInput = 'confirm-password-input'
-export const passwordWarningCheckbox = 'ack-password-recovery-warning'
+export const passwordWarningCheckbox = 'acceptedTerms' //name attribute
 export const submitPasswordButton = 'submit-password'
 export const createWalletButton = 'create-wallet'
 export const importWalletButton = 'import-wallet'
@@ -27,7 +27,6 @@ export const copyRecoveryPhraseToClipboardButton = 'copy-recovery-phrase'
 export const recoveryPhraseWarningCheckbox = 'ack-recovery-phrase-warning'
 export const secureWalletContinueButton = 'secure-wallet-continue'
 export const walletCreatedIcon = 'wallet-created'
-//This refers to errors that show when not acknowledging warning checkboxes, feel free to rename if too generic
-export const errorMessage = 'error-message'
+export const errorMessage = 'input-error-text'
 export const reportBugsAndCrashesButtonMessage = 'report-bugs-and-crashes'
 export const viewWalletsHeader = 'view-wallets-header'

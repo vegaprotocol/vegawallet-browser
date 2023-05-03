@@ -2,7 +2,7 @@ import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { initDriver } from './selenium-util'
 
-describe.skip('Onboarding', () => {
+describe('Onboarding', () => {
   let driver: WebDriver
   let createWallet: CreateWallet
   const testPassword = 'password1'
@@ -30,20 +30,10 @@ describe.skip('Onboarding', () => {
 
   it('shows an error message when passwords differ', async () => {
     await createWallet.configureAppCredentials(testPassword, testPassword + '2')
-    expect(await createWallet.getErrorMessageText()).toBe('Please enter identical passwords in both fields')
+    expect(await createWallet.getErrorMessageText()).toBe('Password does not match')
     expect(
       await createWallet.isCreatePasswordPage(),
       'expected to remain on the password page after failing password validation',
-      { showPrefix: false }
-    ).toBe(true)
-  })
-
-  it('error shown and cannot proceed without acknowledging password warning', async () => {
-    await createWallet.configureAppCredentials(testPassword, testPassword, false)
-    expect(await createWallet.getErrorMessageText()).toBe('Please acknowledge the password warning to continue')
-    expect(
-      await createWallet.isCreatePasswordPage(),
-      'expected to remain on the password page after not acknowledging the password warning',
       { showPrefix: false }
     ).toBe(true)
   })

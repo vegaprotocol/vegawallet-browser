@@ -36,46 +36,46 @@ export default class ConcurrentStorage {
      * @param {string} key
      * @returns {Promise<boolean>}
      */
-    this.has = wrapMutexify(this._storage.has)
+    this.has = wrapMutexify(this._storage.has.bind(this._storage))
 
     /**
      * @param {string} key
      * @returns {Promise<any>}
      */
-    this.get = wrapMutexify(this._storage.get)
+    this.get = wrapMutexify(this._storage.get.bind(this._storage))
 
     /**
      * @param {string} key
      * @param {any} value
      * @returns {Promise<this>}
      */
-    this.set = wrapMutexify(this._storage.set)
+    this.set = wrapMutexify(this._storage.set.bind(this._storage))
 
     /**
      * @param {string} key
      * @returns {Promise<boolean>}
      */
-    this.delete = wrapMutexify(this._storage.delete)
+    this.delete = wrapMutexify(this._storage.delete.bind(this._storage))
 
     /**
      * @returns {Promise<void>}
      */
-    this.clear = wrapMutexify(this._storage.clear)
+    this.clear = wrapMutexify(this._storage.clear.bind(this._storage))
 
     /**
      * @returns {Promise<IterableIterator<string>}
      */
-    this.keys = wrapMutexify(this._storage.keys)
+    this.keys = wrapMutexify(this._storage.keys.bind(this._storage))
 
     /**
      * @returns {Promise<IterableIterator<any>}
      */
-    this.values = wrapMutexify(this._storage.values)
+    this.values = wrapMutexify(this._storage.values.bind(this._storage))
 
     /**
      * @returns {Promise<IterableIterator<[string, any]>}
      */
-    this.entries = wrapMutexify(this._storage.entries)
+    this.entries = wrapMutexify(this._storage.entries.bind(this._storage))
 
     const self = this
     function wrapMutexify(fn) {

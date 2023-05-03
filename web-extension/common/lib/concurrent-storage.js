@@ -3,19 +3,20 @@ import mutexify from 'mutexify'
 function mutexifyPromise() {
   const lock = mutexify()
 
-  const acquire = function(failFast = false) {
+  const acquire = function (failFast = false) {
     if (failFast === true && acquire.locked === true) throw new Error('Deadlock detected')
     return new Promise(lock)
   }
 
   Object.defineProperty(acquire, 'locked', {
-    get: function() { return lock.locked },
+    get: function () {
+      return lock.locked
+    },
     enumerable: true
   })
 
   return acquire
 }
-
 
 /**
  * Storage proxy that wraps all methods in a mutex to prevent concurrent access
@@ -76,9 +77,10 @@ export default class ConcurrentStorage {
      */
     this.entries = wrapMutexify(this._storage.entries)
 
+    const self = this
     function wrapMutexify(fn) {
       return async (...args) => {
-        const release = await this._lock(this._transaction)
+        const release = await self._lock(self._transaction)
         try {
           return await fn(...args)
         } finally {
@@ -105,4 +107,3 @@ export default class ConcurrentStorage {
     }
   }
 }
-

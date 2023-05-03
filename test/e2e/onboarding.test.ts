@@ -1,22 +1,19 @@
 import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
-import { initDriver } from './selenium-util'
+import { clearExtensionStorage, initDriver } from './selenium-util'
 
 describe('Onboarding', () => {
   let driver: WebDriver
   let createWallet: CreateWallet
   const testPassword = 'password1'
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     driver = await initDriver()
     createWallet = new CreateWallet(driver)
-  })
-
-  beforeEach(async () => {
     await createWallet.navigateToLandingPage()
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await driver.quit()
   })
 

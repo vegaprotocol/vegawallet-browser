@@ -31,11 +31,20 @@ describe('CreatePassword', () => {
   })
   it('should render correctly', () => {
     renderComponent()
+    const passwordInfo = screen.getByText(
+      "Set a password to protect and unlock your Vega Wallet. Your password can't be recovered or used to recover a wallet."
+    )
+    expect(passwordInfo).toBeInTheDocument()
+  })
+
+  it('should contain information and warnings about the wallet password', () => {
+    // 10001-BWAL-002 - I can see an explanation of what the password is for and that it cannot be used to recover my keys or recover itself
+    renderComponent()
     expect(
       screen.getByText(
         "Set a password to protect and unlock your Vega Wallet. Your password can't be recovered or used to recover a wallet."
       )
-    ).toBeInTheDocument()
+    ).toBeVisible()
   })
 
   it('cannot navigate to next page until button is enabled', async () => {
@@ -55,6 +64,14 @@ describe('CreatePassword', () => {
     expect(screen.getByTestId(submitPasswordButton)).toBeDisabled()
   })
 
+  it('should keep button disabled if no passwords are filled in', async () => {
+    // 10001-BWAL-006 I can NOT submit an empty password
+    renderComponent()
+    fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
+
+    expect(screen.getByTestId(submitPasswordButton)).toBeDisabled()
+  })
+
   it('should keep button disabled if only confirm password is filled in', async () => {
     renderComponent()
     fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
@@ -67,6 +84,7 @@ describe('CreatePassword', () => {
   })
 
   it('should show error message when passwords do not match', async () => {
+    // 10001-BWAL-004 - I can verify the password I set for my browser wallet (to help ensure I typed it correctly and can replicate it)
     renderComponent()
     fireEvent.change(screen.getByTestId(passwordInput), {
       target: { value: 'password1' }
@@ -82,6 +100,8 @@ describe('CreatePassword', () => {
   })
 
   it('should navigate to create wallet page when form is submitted with valid data', async () => {
+    // 10001-BWAL-003 - I can enter a password for the browser wallet
+    // 10001-BWAL-005 - I can verify that I understand that Vega doesn't store and therefore can't recover this password if I lose it
     renderComponent()
 
     fireEvent.change(screen.getByTestId(passwordInput), {
@@ -90,7 +110,10 @@ describe('CreatePassword', () => {
     fireEvent.change(screen.getByTestId(confirmPasswordInput), {
       target: { value: 'test1234' }
     })
-    fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
+
+    const checkbox = screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it')
+    fireEvent.click(checkbox)
+    expect(checkbox).toBeChecked()
     fireEvent.click(screen.getByTestId(submitPasswordButton))
 
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith(FULL_ROUTES.createWallet))

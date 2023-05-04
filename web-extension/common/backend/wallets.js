@@ -88,8 +88,7 @@ export class WalletCollection {
 
       const lastKey = walletConfig.keys.at(-1) ?? {}
       const lastKeyIndex = (lastKey.index ?? HARDENED + 1) + 1
-
-      const key = await this._generateKey({ walletInstance: wallet, name, metadata, options })
+      const key = await this._generateKey({ walletInstance: wallet, name, metadata, options, index: lastKeyIndex })
 
       walletConfig.keys.push(key)
       await store.set(walletName, walletConfig)

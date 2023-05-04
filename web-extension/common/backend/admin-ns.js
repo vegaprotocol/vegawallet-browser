@@ -81,7 +81,7 @@ export default async function init({ settingsStore, walletsStore, publicKeyIndex
         return null
       },
 
-      async 'admin.update_passpharse'(params) {
+      async 'admin.update_passphrase'(params) {
         doValidate(adminValidation.updatePassphrase, params)
         if (storedPassphrase == null) throw new Error('Passphrase does not exist')
         if (storedPassphrase !== params.passphrase) throw new Error('Passphrase does not match')

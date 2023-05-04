@@ -6,12 +6,21 @@ import * as clientValidation from './validation/client/index.js'
 import * as adminValidation from './validation/admin/index.js'
 import * as backend from './backend/index.js'
 import StorageLocalMap from './lib/storage.js'
+import init from './backend/admin-ns.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
-const wallets = new WalletCollection(new StorageLocalMap('wallets'))
-const networks = new NetworkCollection(new StorageLocalMap('networks'))
+const walletsStore = new StorageLocalMap('wallets')
+const publicKeyIndexStore = new StorageLocalMap('publicKeyIndex')
+const settingsStore = new StorageLocalMap('settings')
+const networksStore = new StorageLocalMap('networks')
+
+const wallets = new WalletCollection({
+  walletsStore,
+  publicKeyIndexStore
+})
+const networks = new NetworkCollection(networksStore)
 
 const selectedNetwork = 'fairground'
 const selectedWallet = 'Wallet 1'
@@ -67,9 +76,7 @@ const clientPorts = new PortServer({
         doValidate(clientValidation.listKeys, params)
 
         const ws = await wallets.list()
-        const keys = (
-          await Promise.all(ws.map((w) => wallets.listKeys({ wallet: w })))
-        ).flat()
+        const keys = (await Promise.all(ws.map((w) => wallets.listKeys({ wallet: w })))).flat()
 
         return { keys }
       }
@@ -80,25 +87,19 @@ const clientPorts = new PortServer({
   })
 })
 
-const popupPorts = new PortServer({
-  server: new JSONRPCServer({
-    methods: {
-      async 'admin.list_networks'() {
-        return { networks: await networks.list() }
-      },
-      async 'admin.list_wallets'(params) {
-        doValidate(adminValidation.listWallets, params)
-        return { wallets: await wallets.list() }
-      },
-      async 'admin.list_keys'(params) {
-        doValidate(adminValidation.listKeys, params)
-        return { keys: await wallets.listKeys({ wallet: params.wallet }) }
-      }
-    }
-  })
-})
-
 runtime.onConnect.addListener(async (port) => {
+  const server = await init({
+    settingsStore,
+    walletsStore,
+    publicKeyIndexStore,
+    networksStore,
+    onerror: (...args) => console.log(args)
+  })
+
+  const popupPorts = new PortServer({
+    server
+  })
+
   if (port.name === 'popup') return popupPorts.listen(port)
   if (port.name === 'content-script') return clientPorts.listen(port)
 })

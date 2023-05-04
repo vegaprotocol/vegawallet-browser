@@ -1,8 +1,8 @@
-import ConcurrentStorage from '../lib/concurrent-storage'
-import JSONRPCServer from '../lib/json-rpc-server'
+import ConcurrentStorage from '../lib/concurrent-storage.js'
+import JSONRPCServer from '../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
-import { version } from '../../package.json' assert { type: "json" }
-import { generate as generateMnemonic } from '@vegaprotocol/crypto/bip-0039/mnemonic'
+import pkg from '../../../package.json' assert { type: 'json' }
+import { WalletCollection } from './wallets.js'
 
 function doValidate(validator, params) {
   if (!validator(params))
@@ -13,27 +13,49 @@ function doValidate(validator, params) {
     )
 }
 
-export default function init() {
+/**
+ * Initialise the admin namespace server. The stores passed should be low-level Map-like
+ * storage, as the internals of the implementation will wrap these to do encryption and
+ * prevent data-races
+ *
+ * @param {Store} settingsStore Map-like implementation to store settings.
+ * @param {Store} walletsStore Map-like implementation to store wallets.
+ * @param {Store} publicKeyIndexStore Map-like implementation to store an index of public keys.
+ * @param {Store} networksStore Map-like implementation to store networks.
+ * @param {Function} onerror Error handler
+ * @returns {JSONRPCServer}
+ */
+export default async function init({ settingsStore, walletsStore, publicKeyIndexStore, networksStore, onerror }) {
   let storedPassphrase = null
-  let selectedNetwork = null
 
-  const settings = new ConcurrentStorage(new Map())
-  const wallets = new ConcurrentStorage(new Map())
-  const networks = new ConcurrentStorage(new Map())
+  const settings = new ConcurrentStorage(settingsStore)
+  const wallets = new WalletCollection({
+    walletsStore: new ConcurrentStorage(walletsStore),
+    publicKeyIndexStore: new ConcurrentStorage(publicKeyIndexStore)
+  })
+  const networks = new ConcurrentStorage(networksStore)
+
+  const selectedNetwork = await settings.get('selectedNetwork')
+
+  // If no network is selected or the selected network doesn't exist, select the first one
+  if (selectedNetwork == null || !(await networks.has(selectedNetwork))) {
+    await settings.set('selectedNetwork', Array.from(await networks.keys())[0])
+  }
 
   return new JSONRPCServer({
+    onerror,
     methods: {
-      async 'admin.app_globals'() {
+      async 'admin.app_globals'(params) {
         doValidate(adminValidation.appGlobals, params)
 
         const hasPassphrase = storedPassphrase != null
-        const hasWallet = Array.from(await wallets.list()).length > 0
+        const hasWallet = Array.from(await walletsStore.keys()).length > 0
 
         return {
           passphrase: hasPassphrase,
           wallet: hasWallet,
           locked: false,
-          version,
+          version: pkg.version,
 
           settings: Object.fromEntries(await settings.entries())
         }
@@ -64,54 +86,45 @@ export default function init() {
         if (storedPassphrase == null) throw new Error('Passphrase does not exist')
         if (storedPassphrase !== params.passphrase) throw new Error('Passphrase does not match')
 
-        storedPassphrase = params.new_passphrase
+        storedPassphrase = params.newPassphrase
 
         return null
       },
+
       async 'admin.list_networks'(params) {
         doValidate(adminValidation.listNetworks, params)
-        return await networks.list()
-      },
-      async 'admin.selected_network'(params) {
-        doValidate(adminValidation.selectedNetwork, params)
-
-        return { network: selectedNetwork }
+        return { networks: Array.from(await networks.keys()) }
       },
 
       async 'admin.generate_recovery_phrase'(params) {
         doValidate(adminValidation.generateRecoveryPhrase, params)
 
-        // 24 words = 256 bits
-        return { recovery_phrase: (await generateMnemonic(256)).join(' ') }
+        return { recoveryPhrase: await wallets.generateRecoveryPhrase() }
       },
+
       async 'admin.import_wallet'(params) {
         doValidate(adminValidation.importWallet, params)
-        return {}
+
+        await wallets.import(params)
+        return null
       },
 
       async 'admin.list_wallets'(params) {
         doValidate(adminValidation.listWallets, params)
-        return []
+
+        return { wallets: await wallets.list() }
       },
 
       async 'admin.list_keys'(params) {
         doValidate(adminValidation.listKeys, params)
-        return []
+
+        return { keys: Array.from(await wallets.listKeys(params)) }
       },
 
       async 'admin.generate_key'(params) {
         doValidate(adminValidation.generateKey, params)
-        return {}
-      },
 
-      async 'admin.describe_key'(params) {
-        doValidate(adminValidation.describeKey, params)
-        return {}
-      },
-
-      async 'admin.update_key'(params) {
-        doValidate(adminValidation.updateKey, params)
-        return {}
+        return await wallets.generateKey(params)
       }
     }
   })

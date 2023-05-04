@@ -54,8 +54,10 @@ export class WalletCollection {
       if (await store.has(name)) throw new Error(`Wallet with name "${name}" already exists.`)
 
       const seed = await VegaWallet.deriveSeed(recoveryPhrase)
+
       await store.set(name, {
         seed: Array.from(seed),
+        recoveryPhrase,
         keys: []
       })
 

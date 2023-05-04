@@ -54,14 +54,9 @@ export class WalletCollection {
       if (await store.has(name)) throw new Error(`Wallet with name "${name}" already exists.`)
 
       const seed = await VegaWallet.deriveSeed(recoveryPhrase)
-      const firstKey = await this._generateKey({
-        walletInstance: await VegaWallet.fromSeed(new Uint8Array(seed)),
-        // TODO Verify this is actually generating the correct keys
-        index: HARDENED + 1 + 1
-      })
       await store.set(name, {
         seed: Array.from(seed),
-        keys: [firstKey]
+        keys: []
       })
 
       await this.index.set(firstKey.publicKey, name)

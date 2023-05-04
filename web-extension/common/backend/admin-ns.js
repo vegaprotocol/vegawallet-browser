@@ -73,7 +73,7 @@ export default async function init({ settingsStore, walletsStore, publicKeyIndex
         return null
       },
 
-      async 'admin.create_passpharse'(params) {
+      async 'admin.create_passphrase'(params) {
         doValidate(adminValidation.createPassphrase, params)
         if (storedPassphrase != null) throw new Error('Passphrase already exists')
         storedPassphrase = params.passphrase

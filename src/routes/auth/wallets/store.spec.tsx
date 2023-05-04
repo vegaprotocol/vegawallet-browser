@@ -16,7 +16,6 @@ const keys = [
 
 const client = {
   request(method: string) {
-    console.log(method)
     if (method === 'admin.list_wallets') {
       return { wallets: ['Wallet 1'] }
     } else if (method === 'admin.list_keys') {

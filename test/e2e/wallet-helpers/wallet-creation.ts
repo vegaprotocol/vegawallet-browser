@@ -19,6 +19,7 @@ export class CreateWallet {
   private readonly acknowledgeWarningCheckbox: By = By.id(locators.passwordWarningCheckbox)
   private readonly submitButton: By = getByDataTestID(locators.submitPasswordButton)
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)
+  private readonly secureYourWalletPage: By = getByDataTestID(locators.secureYourWalletPage)
   private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(componentLocators.copyWithCheck)
   private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(locators.recoveryPhraseWarningCheckbox)
   private readonly secureWalletContinueButton: By = getByDataTestID(locators.saveMnemonicButton)
@@ -67,12 +68,14 @@ export class CreateWallet {
    * Adds a new wallet.
    * @param acknowledgeWarning - Whether to acknowledge the warning about the recovery phrase.
    */
-  async addNewWallet(acknowledgeWarning: boolean = true) {
+  async addNewWallet(acknowledgeWarning: boolean = true, revealRecoveryPhrase: boolean = true) {
     expect(await this.isAddWalletPage(), this.checkOnCorrectViewErrorMessage('Create a wallet')).toBe(true)
     await clickElement(this.driver, this.createNewWalletButton)
     expect(await this.isRecoveryPhrasePage(), this.checkOnCorrectViewErrorMessage('Recovery Phrase')).toBe(true)
-    await clickElement(this.driver, this.revealRecoveryPhraseButton)
-    await clickElement(this.driver, this.copyRecoveryPhraseToClipboardButton)
+    if (revealRecoveryPhrase) {
+      await clickElement(this.driver, this.revealRecoveryPhraseButton)
+      await clickElement(this.driver, this.copyRecoveryPhraseToClipboardButton)
+    }
     if (acknowledgeWarning) {
       await clickElement(this.driver, this.acknowledgeRecoveryPhraseWarningCheckbox)
       await clickElement(this.driver, this.secureWalletContinueButton)
@@ -92,7 +95,7 @@ export class CreateWallet {
    * @returns Whether the current page is the recovery phrase page.
    */
   async isRecoveryPhrasePage() {
-    return await isElementDisplayed(this.driver, this.revealRecoveryPhraseButton)
+    return await isElementDisplayed(this.driver, this.secureYourWalletPage)
   }
 
   /**

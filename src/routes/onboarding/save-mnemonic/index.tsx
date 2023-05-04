@@ -22,7 +22,6 @@ export const SaveMnemonic = () => {
 
   const suggestMnemonic = useCallback(async () => {
     const res = await client.request('admin.generate_recovery_phrase', null)
-    console.log(res)
     const { recoveryPhrase } = res
     setMnemonic(recoveryPhrase)
   }, [client])

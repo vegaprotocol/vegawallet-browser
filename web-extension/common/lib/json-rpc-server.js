@@ -10,11 +10,7 @@ const Errors = {
 export default class JSONRPCServer {
   static Error = JSONRPCError
 
-  constructor({
-    methods,
-    onnotification = (method, params, context) => {},
-    onerror = (ex, req, context) => {}
-  }) {
+  constructor({ methods, onnotification = (method, params, context) => { }, onerror = (ex, req, context) => { } }) {
     this.onerror = onerror
     this.onnotification = onnotification
     this._dispatch = new Map(Object.entries(methods))
@@ -22,11 +18,9 @@ export default class JSONRPCServer {
 
   async onrequest(req, context) {
     // Will match Arrays also but those will be caught below
-    if (req == null || typeof req !== 'object')
-      return { jsonrpc: '2.0', error: Errors.JSONRPC_PARSE_ERROR }
+    if (req == null || typeof req !== 'object') return { jsonrpc: '2.0', error: Errors.JSONRPC_PARSE_ERROR }
 
-    if (isNotification(req))
-      return this.onnotification(req.method, req.params, context)
+    if (isNotification(req)) return this.onnotification(req.method, req.params, context)
 
     if (!isRequest(req))
       return {
@@ -50,8 +44,7 @@ export default class JSONRPCServer {
         result: await method(req.params, context)
       }
     } catch (ex) {
-      if (ex instanceof JSONRPCServer.Error)
-        return { jsonrpc: '2.0', error: ex, id: req.id }
+      if (ex instanceof JSONRPCServer.Error) return { jsonrpc: '2.0', error: ex, id: req.id }
 
       this.onerror(ex, req, context)
       return {

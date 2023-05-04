@@ -8,6 +8,7 @@ import {
 } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
+import componentLocators from '../../../src/components/locators'
 
 export class CreateWallet {
   private readonly landingPageURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
@@ -15,20 +16,15 @@ export class CreateWallet {
   private readonly getStartedButton: By = getByDataTestID(locators.getStartedButton)
   private readonly passwordInput: By = getByDataTestID(locators.passwordInput)
   private readonly confirmPasswordInput: By = getByDataTestID(locators.confirmPasswordInput)
-  private readonly acknowledgeWarningCheckbox: By = By.name(locators.passwordWarningCheckbox)
+  private readonly acknowledgeWarningCheckbox: By = By.id(locators.passwordWarningCheckbox)
   private readonly submitButton: By = getByDataTestID(locators.submitPasswordButton)
-  private readonly revealRecoveryPhraseButton: By = getByDataTestID(locators.revealRecoveryPhraseButton)
-  private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(
-    locators.copyRecoveryPhraseToClipboardButton
-  )
-  private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = getByDataTestID(
-    locators.recoveryPhraseWarningCheckbox
-  )
-  private readonly secureWalletContinueButton: By = getByDataTestID(locators.secureWalletContinueButton)
-  private readonly walletCreatedIcon: By = getByDataTestID(locators.walletCreatedIcon)
+  private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)
+  private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(componentLocators.copyWithCheck)
+  private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(locators.recoveryPhraseWarningCheckbox)
+  private readonly secureWalletContinueButton: By = getByDataTestID(locators.saveMnemonicButton)
+  private readonly walletsPage: By = getByDataTestID(locators.walletsPage)
   private readonly errorMessage: By = getByDataTestID(locators.errorMessage)
   private readonly viewWalletsHeader: By = getByDataTestID(locators.viewWalletsHeader)
-  private readonly reportBugsAndCrashesButton: By = getByDataTestID(locators.reportBugsAndCrashesButtonMessage)
   checkOnCorrectViewErrorMessage = (expectedPage: string) => `Expected to be on the '${expectedPage}' page but was not`
 
   /**
@@ -72,24 +68,22 @@ export class CreateWallet {
    * @param acknowledgeWarning - Whether to acknowledge the warning about the recovery phrase.
    */
   async addNewWallet(acknowledgeWarning: boolean = true) {
-    expect(await this.isAddWalletPage(), this.checkOnCorrectViewErrorMessage('Add a Wallet')).toBe(true)
+    expect(await this.isAddWalletPage(), this.checkOnCorrectViewErrorMessage('Create a wallet')).toBe(true)
     await clickElement(this.driver, this.createNewWalletButton)
     expect(await this.isRecoveryPhrasePage(), this.checkOnCorrectViewErrorMessage('Recovery Phrase')).toBe(true)
     await clickElement(this.driver, this.revealRecoveryPhraseButton)
     await clickElement(this.driver, this.copyRecoveryPhraseToClipboardButton)
     if (acknowledgeWarning) {
       await clickElement(this.driver, this.acknowledgeRecoveryPhraseWarningCheckbox)
+      await clickElement(this.driver, this.secureWalletContinueButton)
     }
-    await clickElement(this.driver, this.secureWalletContinueButton)
-    await clickElement(this.driver, this.reportBugsAndCrashesButton)
   }
 
   /**
    * Determines whether the 'Continue' button is enabled on the 'Create Wallet' page.
    * @returns Whether the 'Continue' button is enabled.
    */
-  async canAttemptContinueFromCreateWallet() {
-    expect(await isElementDisplayed(this.driver, this.revealRecoveryPhraseButton)).toBe(true)
+  async isContinueFromCreateWalletEnabled() {
     return await this.driver.findElement(this.secureWalletContinueButton).isEnabled()
   }
 
@@ -134,17 +128,18 @@ export class CreateWallet {
   }
 
   /**
-   * Determines whether the wallet created icon is displayed.
-   * @returns whether the wallet created icon is displayed.
+   * Determines whether the wallet page is displayed.
+   * @returns whether the wallet page is displayed.
    */
   async isWalletCreated() {
-    return await isElementDisplayed(this.driver, this.walletCreatedIcon)
+    return await isElementDisplayed(this.driver, this.walletsPage)
   }
 
   /**
    * Returns the text from an error message generated when submitting a form with invalid data
    */
   async getErrorMessageText() {
-    return await waitForElementToBeReady(this.driver, this.errorMessage).then((element) => element.getText())
+    const el = await waitForElementToBeReady(this.driver, this.errorMessage)
+    return el.getText()
   }
 }

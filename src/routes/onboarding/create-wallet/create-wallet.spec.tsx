@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router-dom'
 import { CreateWallet } from '.'
 import locators from '../../../components/locators'
-import { createWalletButton, importWalletButton } from '../../../locator-ids'
+import { createNewWalletButton, importWalletButton } from '../../../locator-ids'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { FULL_ROUTES } from '../../routes'
 
@@ -22,12 +22,8 @@ describe('Create wallet', () => {
   it('renders icon and buttons', () => {
     renderComponent()
     expect(screen.getByTestId(locators.walletIcon)).toBeInTheDocument()
-    expect(screen.getByTestId(createWalletButton)).toHaveTextContent(
-      'Create a wallet'
-    )
-    expect(screen.getByTestId(importWalletButton)).toHaveTextContent(
-      'Import - Coming Soon'
-    )
+    expect(screen.getByTestId(createNewWalletButton)).toHaveTextContent('Create a wallet')
+    expect(screen.getByTestId(importWalletButton)).toHaveTextContent('Import - Coming Soon')
   })
 
   it('renders import wallet as disabled', () => {
@@ -37,7 +33,7 @@ describe('Create wallet', () => {
 
   it('navigates to create wallet route when create wallet button is pressed', async () => {
     renderComponent()
-    fireEvent.click(screen.getByTestId(createWalletButton))
+    fireEvent.click(screen.getByTestId(createNewWalletButton))
     expect(mockNavigate).toBeCalledWith(FULL_ROUTES.saveMnemonic)
   })
 })

@@ -13,6 +13,7 @@ import {
   walletsDepositLink,
   walletsError,
   walletsKeyName,
+  walletsPage,
   walletsWalletName
 } from '../../../locator-ids'
 
@@ -54,7 +55,7 @@ export const Wallets = () => {
   if (error) return <span data-testid={walletsError}>{error.toString()}</span>
 
   return (
-    <section className="pt-3 px-5">
+    <section data-testid={walletsPage} className="pt-3 px-5">
       <div className="flex justify-between items-center">
         <VegaIcon size={48} backgroundColor="none" />
         <div

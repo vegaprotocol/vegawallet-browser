@@ -11,12 +11,12 @@ const createClient = (logger: ReturnType<typeof useLogger>) => {
 
   const background = new JSONRPCClient({
     send(msg: any) {
-      logger.debug('Sending message to background', msg)
+      logger.info('Sending message to background', msg)
       backgroundPort.postMessage(msg)
     }
   })
   backgroundPort.onMessage.addListener((res: any) => {
-    logger.debug('Received message from background', res)
+    logger.info('Received message from background', res)
     background.onmessage(res)
   })
   return background

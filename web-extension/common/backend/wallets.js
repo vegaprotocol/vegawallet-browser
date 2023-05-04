@@ -31,7 +31,7 @@ export class WalletCollection {
   }
 
   async list() {
-    return Array.from(await this.store.keys()).filter((k) => k !== '_index')
+    return Array.from(await this.store.keys())
   }
 
   async listKeys({ wallet }) {

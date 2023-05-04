@@ -1,7 +1,7 @@
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import JSONRPCServer from '../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
-import pkg from '../../../package.json' assert { type: 'json' }
+import pkg from '../../../package.json'
 import { WalletCollection } from './wallets.js'
 
 function doValidate(validator, params) {

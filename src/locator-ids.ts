@@ -8,9 +8,8 @@ export const loginButton = 'login-button'
 
 export const passwordInput = 'password-input'
 export const confirmPasswordInput = 'confirm-password-input'
-export const passwordWarningCheckbox = 'acceptedTerms' //name attribute
+export const passwordWarningCheckbox = 'acceptedTerms' // by id
 export const submitPasswordButton = 'submit-password'
-export const createWalletButton = 'create-wallet'
 export const importWalletButton = 'import-wallet'
 export const saveMnemonicDescription = 'save-mnemonic-description'
 export const saveMnemonicButton = 'save-mnemonic-button'
@@ -22,11 +21,8 @@ export const walletsCreateKey = 'wallets-create-key'
 export const walletsAssetHeader = 'wallets-asset-header'
 export const walletsDepositLink = 'wallets-deposit-link'
 export const walletsError = 'wallets-error'
-export const revealRecoveryPhraseButton = 'reveal-recovery-phrase'
-export const copyRecoveryPhraseToClipboardButton = 'copy-recovery-phrase'
-export const recoveryPhraseWarningCheckbox = 'ack-recovery-phrase-warning'
-export const secureWalletContinueButton = 'secure-wallet-continue'
-export const walletCreatedIcon = 'wallet-created'
+
+export const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
+export const walletsPage = 'wallets-page'
 export const errorMessage = 'input-error-text'
-export const reportBugsAndCrashesButtonMessage = 'report-bugs-and-crashes'
 export const viewWalletsHeader = 'view-wallets-header'

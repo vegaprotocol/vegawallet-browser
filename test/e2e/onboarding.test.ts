@@ -9,6 +9,7 @@ describe('Onboarding', () => {
 
   beforeEach(async () => {
     driver = await initDriver()
+    driver.executeScript('window.localStorage.clear();')
     createWallet = new CreateWallet(driver)
     await createWallet.navigateToLandingPage()
   })
@@ -40,21 +41,21 @@ describe('Onboarding', () => {
     ).toBe(true)
   })
 
-  it('cannot proceed without revealing the revovery phrase', async () => {
+  it('cannot proceed without revealing the recovery phrase', async () => {
     await createWallet.configureAppCredentials(testPassword)
     expect(
-      await createWallet.canAttemptContinueFromCreateWallet(),
+      await createWallet.isContinueFromCreateWalletEnabled(),
       'expected to be unable to proceed without revealing the recovery phrase',
       { showPrefix: false }
     ).toBe(false)
   })
 
-  it('shows an error message when recovery phrase warning not acknowledged', async () => {
+  it('button disabled when recovery phrase warning not acknowledged', async () => {
     await createWallet.configureAppCredentials(testPassword)
     await createWallet.addNewWallet(false)
-    expect(await createWallet.getErrorMessageText()).toBe('Please acknowledge the recovery phrase warning to continue')
+    expect(await createWallet.isContinueFromCreateWalletEnabled()).toBe(false)
     expect(
-      await createWallet.isAddWalletPage(),
+      await createWallet.isRecoveryPhrasePage(),
       'expected to remain on the secure wallet page after not acknowledging the recovery phrase warning',
       { showPrefix: false }
     ).toBe(true)

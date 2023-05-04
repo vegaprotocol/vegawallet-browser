@@ -35,7 +35,7 @@ test('admin-ns', async (assert) => {
   assert.is(appGlobals2.result.settings.telemetry, false, 'settings.telemetry is false')
 
   const createPassphrase = await admin.onrequest(
-    { jsonrpc: '2.0', id: 1, method: 'admin.create_passpharse', params: { passphrase: 'foo' } },
+    { jsonrpc: '2.0', id: 1, method: 'admin.create_passphrase', params: { passphrase: 'foo' } },
     {}
   )
   assert.is(createPassphrase.result, null, 'createPassphrase returns null')

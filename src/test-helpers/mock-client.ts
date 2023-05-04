@@ -22,14 +22,7 @@ export const mockClient = () => {
                   keys: [
                     {
                       publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-                      name: 'Key 1',
-                      index: 0,
-                      metadata: [
-                        {
-                          key: 'name',
-                          value: 'key 1'
-                        }
-                      ]
+                      name: 'Key 1'
                     }
                   ]
                 },
@@ -48,11 +41,11 @@ export const mockClient = () => {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
-                result: { mnemonic: 'Word '.repeat(24) },
+                result: { recoveryPhrase: 'Word '.repeat(24) },
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.create_wallet') {
+          } else if (message.method === 'admin.import_wallet') {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -60,7 +53,7 @@ export const mockClient = () => {
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.create_key') {
+          } else if (message.method === 'admin.generate_key') {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',

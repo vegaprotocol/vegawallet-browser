@@ -21,8 +21,10 @@ export const SaveMnemonic = () => {
   const [mnemonic, setMnemonic] = useState<string | null>(null)
 
   const suggestMnemonic = useCallback(async () => {
-    const { mnemonic } = await client.request('admin.generate_recovery_phrase')
-    setMnemonic(mnemonic)
+    const res = await client.request('admin.generate_recovery_phrase', null)
+    console.log(res)
+    const { recoveryPhrase } = res
+    setMnemonic(recoveryPhrase)
   }, [client])
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export const SaveMnemonic = () => {
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
   useEffect(() => {}, [])
   const submit = useCallback(async () => {
-    await client.request('admin.create_wallet', { mnemonic, name: 'Wallet 1' })
+    await client.request('admin.import_wallet', { recoveryPhrase: mnemonic, name: 'Wallet 1' })
     navigate(FULL_ROUTES.wallets)
   }, [client, mnemonic, navigate])
   // While loading, render nothing

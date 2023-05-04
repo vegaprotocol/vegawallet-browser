@@ -9,7 +9,6 @@ describe('Onboarding', () => {
 
   beforeEach(async () => {
     driver = await initDriver()
-    driver.executeScript('window.localStorage.clear();')
     createWallet = new CreateWallet(driver)
     await createWallet.navigateToLandingPage()
   })
@@ -43,6 +42,7 @@ describe('Onboarding', () => {
 
   it('cannot proceed without revealing the recovery phrase', async () => {
     await createWallet.configureAppCredentials(testPassword)
+    await createWallet.addNewWallet(false, false)
     expect(
       await createWallet.isContinueFromCreateWalletEnabled(),
       'expected to be unable to proceed without revealing the recovery phrase',

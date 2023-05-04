@@ -13,6 +13,7 @@ export const submitPasswordButton = 'submit-password'
 export const importWalletButton = 'import-wallet'
 export const saveMnemonicDescription = 'save-mnemonic-description'
 export const saveMnemonicButton = 'save-mnemonic-button'
+export const secureYourWalletPage = 'secure-your-wallet'
 
 export const networkIndicator = 'network-indicator'
 export const walletsWalletName = 'wallets-wallet-name'

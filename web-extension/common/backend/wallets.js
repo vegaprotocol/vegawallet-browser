@@ -61,8 +61,6 @@ export class WalletCollection {
         keys: []
       })
 
-      await this.index.set(firstKey.publicKey, name)
-
       return null
     })
   }

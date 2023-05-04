@@ -37,7 +37,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       set({ error: 'Could not find wallet to create key for' })
       return
     }
-    const newKey = await client.request('admin.create_key', {
+    const newKey = await client.request('admin.generate_key', {
       wallet: wallet.name,
       name: `Key ${wallet.keys.length + 1}`
     })
@@ -59,8 +59,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       const res = await Promise.all(
         wallets.map(async (w: string) => {
           const keyList = await client.request('admin.list_keys', {
-            wallet: w,
-            passphrase: ''
+            wallet: w
           })
           const { keys } = keyList
           return { name: w, keys }

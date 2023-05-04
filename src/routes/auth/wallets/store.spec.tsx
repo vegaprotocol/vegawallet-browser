@@ -16,23 +16,17 @@ const keys = [
 
 const client = {
   request(method: string) {
+    console.log(method)
     if (method === 'admin.list_wallets') {
       return { wallets: ['Wallet 1'] }
     } else if (method === 'admin.list_keys') {
       return {
         keys
       }
-    } else if (method === 'admin.create_key') {
+    } else if (method === 'admin.generate_key') {
       return {
         publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-        index: 1,
-        name: 'Key 2',
-        metadata: [
-          {
-            key: 'name',
-            value: 'key 2'
-          }
-        ]
+        name: 'Key 2'
       }
     }
   }

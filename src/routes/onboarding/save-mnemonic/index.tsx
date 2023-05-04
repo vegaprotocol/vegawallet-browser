@@ -33,7 +33,12 @@ export const SaveMnemonic = () => {
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
   useEffect(() => {}, [])
   const submit = useCallback(async () => {
-    await client.request('admin.import_wallet', { recoveryPhrase: mnemonic, name: 'Wallet 1' })
+    const walletName = 'Wallet 1'
+    await client.request('admin.import_wallet', { recoveryPhrase: mnemonic, name: walletName })
+    await client.request('admin.generate_key', {
+      wallet: walletName,
+      name: `Key 1`
+    })
     navigate(FULL_ROUTES.wallets)
   }, [client, mnemonic, navigate])
   // While loading, render nothing

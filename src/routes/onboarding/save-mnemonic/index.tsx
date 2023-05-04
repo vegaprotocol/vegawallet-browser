@@ -49,6 +49,7 @@ export const SaveMnemonic = () => {
         <form className="mt-8" onSubmit={handleSubmit(submit)}>
           {mnemonicShown && (
             <Checkbox
+              className="mb-8"
               name="acceptedTerms"
               label="I understand that if I lose my recovery phrase, I lose access to my wallet and keys."
               control={control}
@@ -59,7 +60,6 @@ export const SaveMnemonic = () => {
             fill={true}
             type="submit"
             variant="primary"
-            className="mt-8"
             disabled={!Boolean(acceptedTerms)}
           >
             Continue

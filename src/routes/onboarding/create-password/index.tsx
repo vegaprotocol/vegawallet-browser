@@ -30,7 +30,7 @@ export const CreatePassword = () => {
   const confirmPassword = useWatch({ control, name: 'confirmPassword' })
   const submit = useCallback(
     async ({ password }: FormFields) => {
-      await client.request('admin.create_passphrase', { passphrase: password })
+      await client.request('admin.create_passpharse', { passphrase: password })
       navigate(FULL_ROUTES.createWallet)
     },
     [client, navigate]

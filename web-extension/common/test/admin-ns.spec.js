@@ -52,7 +52,7 @@ describe('admin-ns', () => {
     const createPassphrase = await admin.onrequest({
       jsonrpc: '2.0',
       id: 1,
-      method: 'admin.create_passpharse',
+      method: 'admin.create_passphrase',
       params: { passphrase: 'foo' }
     })
     expect(createPassphrase.result).toBe(null)

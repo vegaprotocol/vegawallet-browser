@@ -10,5 +10,6 @@ module.exports = {
         outputName: 'backend-test-results.xml'
       }
     ]
-  ]
+  ],
+  roots: ['./web-extension/']
 }

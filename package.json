@@ -39,7 +39,7 @@
     "test:ci": "JEST_JUNIT_OUTPUT_DIR=test-reports JEST_JUNIT_OUTPUT_NAME=unit-test-results.xml yarn test --testResultsProcessor=\"jest-junit\" --coverage",
     "eject": "react-scripts eject",
     "watch": "npm-watch",
-    "test:backend": "jest ./web-extension --config=jest.config-backend.js",
+    "test:backend": "jest --config=jest.config-backend.js",
     "test:e2e:chrome": "jest ./test/e2e --config=jest.config-e2e.js",
     "test:e2e:chrome:ci": "HEADLESS=true yarn test:e2e:chrome --ci"
   },

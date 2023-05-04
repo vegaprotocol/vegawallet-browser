@@ -4,8 +4,7 @@ module.exports = {
   required: ['name', 'url', 'overwrite'],
   properties: {
     name: {
-      type: 'string',
-      minLength: 1
+      type: 'string'
     },
     url: {
       type: 'string'

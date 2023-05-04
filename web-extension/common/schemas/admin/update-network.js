@@ -2,12 +2,10 @@ module.exports = {
   type: 'object',
   required: ['name', 'api', 'apps'],
   additionalProperties: false,
-  errorMessage:
-    '`admin.update_network` must only be given `name`, `metadata`, `api`, `apps`',
+  errorMessage: '`admin.update_network` must only be given `name`, `metadata`, `api`, `apps`',
   properties: {
     name: {
       type: 'string',
-      minLength: 1,
       errorMessage: '`name` must be given'
     },
     metadata: {

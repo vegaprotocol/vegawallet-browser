@@ -1,6 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { initDriver } from './selenium-util'
+import { writeFileSync } from 'fs';
 
 describe('Onboarding', () => {
   let driver: WebDriver
@@ -14,6 +15,13 @@ describe('Onboarding', () => {
   })
 
   afterEach(async () => {
+  
+   
+      // take a screenshot and save it to a file
+      const screenshot = await driver.takeScreenshot()
+      writeFileSync('screenshot.png', screenshot, 'base64')
+      console.log('Screenshot saved to screenshot.png')
+    
     await driver.quit()
   })
 

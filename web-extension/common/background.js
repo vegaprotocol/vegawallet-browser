@@ -97,6 +97,7 @@ const popupPorts = new PortServer({
     server
   })
 
+runtime.onConnect.addListener(async (port) => {
   if (port.name === 'popup') return popupPorts.listen(port)
   if (port.name === 'content-script') return clientPorts.listen(port)
 })

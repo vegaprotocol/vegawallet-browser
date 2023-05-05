@@ -56,15 +56,6 @@ jobs:
          google-chrome --version
 
 
-      - name: Install Xvfb and wait-for-it tool
-        run: |
-           sudo apt-get update && sudo apt-get install -y xvfb
-           wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
-           chmod +x wait-for-it.sh
-           sudo chmod 1777 /tmp/.X11-unix
-      - name: Start chrome
-        run: google-chrome --enable-logging --v=1
-
       - name: Install dependencies
         run: yarn install
 

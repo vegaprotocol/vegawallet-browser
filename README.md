@@ -80,8 +80,9 @@ The project is built with `webpack`, `create-react-app` and `craco`:
 
 ### Development + building
 
-- `dev:chrome` / `dev:firefox`: Builds the extension in development mode for the respective browser. Servers the `build/[BROWSER]` directory. Run `build:[BROWSER]` to build the extension _before_ running this command.
 - `build:chrome` / `build:firefox`: Builds the extension in production mode for the respective browser. Outputs to `build/[BROWSER]`.
+- `dev:chrome` / `dev:firefox`: Builds the extension in development mode for the respective browser and serves the `build/[BROWSER]` directory. First run `build:[BROWSER]` to build the extension _before_ running this command, or use the `watch` command.
+- `watch` Watch for changes in the source code and rebuild the extension in development mode. Can be used with `dev:chrome` / `dev:firefox` to automatically reload the extension when changes are made. You can change the browser this builds for in package.json. Default is `build:chrome`.
 - `format` / `lint`: Formats / lints the source code
 
 ### Testing

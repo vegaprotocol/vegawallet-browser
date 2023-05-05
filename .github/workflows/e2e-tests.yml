@@ -22,26 +22,24 @@ jobs:
         with:
           node-version: '*'
 
-      - name: Install Chrome and ChromeDriver
+      - name: Install Chrome and Chromedriver
         run: |
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
             sudo apt-get update
-            sudo apt-get install -y google-chrome-stable
-            CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-            wget -N https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}
-            LATEST_CHROMEDRIVER_VERSION=$(cat LATEST_RELEASE_${CHROME_VERSION})
-            wget https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
+            sudo apt-get install google-chrome-stable
+            wget https://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip
             unzip chromedriver_linux64.zip
-            chmod +x chromedriver
             sudo mv chromedriver /usr/local/bin/
+            sudo chown root:root /usr/local/bin/chromedriver
+            sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Install dependencies
         run: yarn install
 
       - name: Build
         run: yarn build:chrome
-        
+
       - name: Run tests
         run: yarn test:e2e:chrome
 

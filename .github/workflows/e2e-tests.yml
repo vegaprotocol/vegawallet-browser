@@ -62,9 +62,6 @@ jobs:
            wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
            chmod +x wait-for-it.sh
            sudo chmod 1777 /tmp/.X11-unix
-
-      - name: Start Xvfb
-        run: Xvfb :99 -screen 0 1024x768x16 -ac 
          
       - name: Wait for Xvfb to start
         run: |

@@ -103,6 +103,14 @@ export const mockClient = (
                 id: message.id
               })
             )
+          } else if (message.method === RpcMethods.AppGlobals) {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                result: globals,
+                id: message.id
+              })
+            )
           } else {
             throw new Error('Message not handled')
           }

@@ -32,7 +32,7 @@ export default class NodeRPC {
   constructor(nodeUrl) {
     assert(nodeUrl instanceof URL, 'nodeUrl must be WHATWG URLs')
 
-    this._urls = nodeUrl
+    this._url = nodeUrl
   }
 
   /**
@@ -62,23 +62,17 @@ export default class NodeRPC {
 
         const coreHeight = BigInt(height)
         // The header is not set for talking to core nodes
-        const nodeHeight = BigInt(
-          res.headers.get('x-block-height') ?? coreHeight
-        )
+        const nodeHeight = BigInt(res.headers.get('x-block-height') ?? coreHeight)
 
         const drift = coreHeight - nodeHeight
         // eslint-disable-next-line yoda
-        if (-maxDrift > drift || drift > maxDrift)
-          throw new Error('Block drift too high')
+        if (-maxDrift > drift || drift > maxDrift) throw new Error('Block drift too high')
 
         return [u, nodeHeight]
       })
     )
 
-    const maxHeight = nodesHeights.reduce(
-      (m, [_, height]) => bigintMax(m, height),
-      0n
-    )
+    const maxHeight = nodesHeights.reduce((m, [_, height]) => bigintMax(m, height), 0n)
 
     const groups = group(nodesHeights, ([node, height]) => {
       const key = (maxHeight - height) / BigInt(bucketSize) // Group into buckets
@@ -104,9 +98,7 @@ export default class NodeRPC {
 
     async function promiseAllResolved(promises) {
       return Promise.allSettled(promises).then((results) => {
-        return results
-          .filter(({ status }) => status === 'fulfilled')
-          .map(({ value }) => value)
+        return results.filter(({ status }) => status === 'fulfilled').map(({ value }) => value)
       })
     }
 
@@ -125,10 +117,7 @@ export default class NodeRPC {
     }
 
     function findLargest(arr) {
-      return arr.reduce(
-        (largest, group) => (group.length > largest.length ? group : largest),
-        []
-      )
+      return arr.reduce((largest, group) => (group.length > largest.length ? group : largest), [])
     }
 
     function pickRandom(arr) {
@@ -155,9 +144,7 @@ export default class NodeRPC {
   }
 
   async checkRawTransaction(tx) {
-    const res = await postJson(new URL('/transaction/raw/check', this._url), {
-      tx
-    })
+    const res = await postJson(new URL('/transaction/raw/check', this._url), { tx })
 
     return res
   }

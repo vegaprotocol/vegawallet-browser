@@ -23,6 +23,9 @@ export async function initDriver() {
     throw new Error('Failed to create WebDriver instance')
   }
 
+  console.log("about to try and get arsenal.com from within the initDriver function")
+  await driver.get('http://arsenal.com')
+
   console.log('Driver created')
   return driver
 }

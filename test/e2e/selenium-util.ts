@@ -5,9 +5,10 @@ const defaultTimeoutMillis = 3000
 const extensionPath = './build'
 
 export async function initDriver() {
+  console.log("about to try and create a new driver")
   let driver: WebDriver | null = null
 
-  
+  console.log("about to try and create a new chrome options")
   let chromeOptions = new chrome.Options()
     .addArguments('--no-sandbox')
     .addArguments('--disable-dev-shm-usage')
@@ -17,6 +18,7 @@ export async function initDriver() {
     .addArguments("--remote-debugging-port=9222");
    // .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
 
+   console.log("about to try and set logging prefs")
    const loggingPrefs = new logging.Preferences();
    loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.ALL);
    chromeOptions.setLoggingPrefs(loggingPrefs);
@@ -30,6 +32,7 @@ export async function initDriver() {
     throw new Error('Failed to create WebDriver instance')
   }
 
+  console.log("about to try and print logs")
   const logs = await driver.manage().logs().get(logging.Type.DRIVER);
   logs.forEach((log) => {
     console.log(`${log.level.name}: ${log.message}`);

@@ -9,6 +9,7 @@ describe('Onboarding', () => {
   const testPassword = 'password1'
 
   beforeEach(async () => {
+    console.log("in the before each")
     driver = await initDriver()
     console.log("about to instantiate wallet")
     createWallet = new CreateWallet(driver)

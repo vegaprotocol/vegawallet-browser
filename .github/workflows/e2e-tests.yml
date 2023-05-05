@@ -48,7 +48,9 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn build:chrome
+        run: |
+          yarn
+          yarn build:chrome
 
       - name: Run tests
         run: yarn test:e2e:chrome

@@ -34,7 +34,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: JEST Tests
+          name: JEST Unit Tests (FE)
           path: ./test-reports/unit-test-results.xml
           reporter: jest-junit
 
@@ -64,6 +64,6 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: JEST Tests
+          name: JEST Unit Tests (BE)
           path: ./test-reports/backend-test-results.xml
           reporter: jest-junit

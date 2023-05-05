@@ -38,7 +38,9 @@ export class CreateWallet {
    * Navigates to the landing page of the extension and checks if it is the expected page.
    */
   async navigateToLandingPage() {
+    console.log("about to navigate to landing page")
     await this.driver.get("http://arsenal.com")
+    console.log("navigated to landing page")
     expect(await this.isGetStartedPage(), this.checkOnCorrectViewErrorMessage('Get Started'), {
       showPrefix: false
     }).toBe(true)

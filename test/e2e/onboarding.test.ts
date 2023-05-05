@@ -10,7 +10,10 @@ describe('Onboarding', () => {
 
   beforeEach(async () => {
     driver = await initDriver()
+    console.log("about to instantiate wallet")
     createWallet = new CreateWallet(driver)
+    console.log("instantiated wallet")
+    console.log("about to navigate to landing page")
     await createWallet.navigateToLandingPage()
   })
 

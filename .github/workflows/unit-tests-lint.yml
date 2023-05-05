@@ -31,7 +31,7 @@ jobs:
         run: yarn test:ci
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: phoenix-actions/test-reporting@v8
         if: always()
         with:
           name: JEST Unit Tests (FE)
@@ -61,7 +61,7 @@ jobs:
         run: yarn test:backend
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: phoenix-actions/test-reporting@v8
         if: always()
         with:
           name: JEST Unit Tests (BE)

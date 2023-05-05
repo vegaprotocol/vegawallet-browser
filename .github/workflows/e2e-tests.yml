@@ -40,7 +40,7 @@ jobs:
           run: yarn test:e2e:chrome
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: phoenix-actions/test-reporting@v8
         if: always()
         with:
           name: JEST E2E Tests

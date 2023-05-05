@@ -3,27 +3,20 @@ import { WalletCollection } from './backend/wallets.js'
 import { PortServer } from './lib/port-server.js'
 import JSONRPCServer from './lib/json-rpc-server.js'
 import * as clientValidation from './validation/client/index.js'
-import * as adminValidation from './validation/admin/index.js'
 import * as backend from './backend/index.js'
 import StorageLocalMap from './lib/storage.js'
+import ConcurrentStorage from './lib/concurrent-storage.js'
 import init from './backend/admin-ns.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
-const walletsStore = new StorageLocalMap('wallets')
-const publicKeyIndexStore = new StorageLocalMap('publicKeyIndex')
-const settingsStore = new StorageLocalMap('settings')
-const networksStore = new StorageLocalMap('networks')
-
+const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
 const wallets = new WalletCollection({
-  walletsStore,
-  publicKeyIndexStore
+  walletsStore: new ConcurrentStorage(new StorageLocalMap('wallets')),
+  publicKeyIndexStore: new ConcurrentStorage(new StorageLocalMap('publicKeyIndex'))
 })
-const networks = new NetworkCollection(networksStore)
-
-const selectedNetwork = 'fairground'
-const selectedWallet = 'Wallet 1'
+const networks = new NetworkCollection(new ConcurrentStorage(new StorageLocalMap('networks')))
 
 const clientPorts = new PortServer({
   onbeforerequest: setPending,
@@ -44,6 +37,7 @@ const clientPorts = new PortServer({
       async 'client.send_transaction'(params, context) {
         doValidate(clientValidation.sendTransaction, params)
 
+        const selectedNetwork = await settings.get('selectedNetwork')
         const network = await networks.get(selectedNetwork)
         const rpc = network.rpc()
 
@@ -65,6 +59,7 @@ const clientPorts = new PortServer({
       async 'client.get_chain_id'(params, context) {
         doValidate(clientValidation.getChainId, params)
 
+        const selectedNetwork = await settings.get('selectedNetwork')
         const network = await networks.get(selectedNetwork)
         const rpc = network.rpc()
 
@@ -87,19 +82,18 @@ const clientPorts = new PortServer({
   })
 })
 
+const server = init({
+  settings,
+  wallets,
+  networks,
+  onerror: (...args) => console.error(args)
+})
+
+const popupPorts = new PortServer({
+  server
+})
+
 runtime.onConnect.addListener(async (port) => {
-  const server = await init({
-    settingsStore,
-    walletsStore,
-    publicKeyIndexStore,
-    networksStore,
-    onerror: (...args) => console.log(args)
-  })
-
-  const popupPorts = new PortServer({
-    server
-  })
-
   if (port.name === 'popup') return popupPorts.listen(port)
   if (port.name === 'content-script') return clientPorts.listen(port)
 })
@@ -127,7 +121,8 @@ runtime.onInstalled.addListener(async (details) => {
         'https://api.n12.testnet.vega.xyz'
       ],
       explorer: 'https://explorer.fairground.wtf/'
-    })
+    }),
+    settings.set('selectedNetwork', 'fairground')
   ])
 })
 

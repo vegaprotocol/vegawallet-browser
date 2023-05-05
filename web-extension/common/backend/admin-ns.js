@@ -18,29 +18,14 @@ function doValidate(validator, params) {
  * storage, as the internals of the implementation will wrap these to do encryption and
  * prevent data-races
  *
- * @param {Store} settingsStore Map-like implementation to store settings.
- * @param {Store} walletsStore Map-like implementation to store wallets.
- * @param {Store} publicKeyIndexStore Map-like implementation to store an index of public keys.
- * @param {Store} networksStore Map-like implementation to store networks.
+ * @param {Store} settings Map-like implementation to store settings.
+ * @param {WalletCollection} wallets
+ * @param {NetworkColleciton} networks
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default async function init({ settingsStore, walletsStore, publicKeyIndexStore, networksStore, onerror }) {
+export default function init({ settings, wallets, networks, onerror }) {
   let storedPassphrase = null
-
-  const settings = new ConcurrentStorage(settingsStore)
-  const wallets = new WalletCollection({
-    walletsStore: new ConcurrentStorage(walletsStore),
-    publicKeyIndexStore: new ConcurrentStorage(publicKeyIndexStore)
-  })
-  const networks = new ConcurrentStorage(networksStore)
-
-  const selectedNetwork = await settings.get('selectedNetwork')
-
-  // If no network is selected or the selected network doesn't exist, select the first one
-  if (selectedNetwork == null || !(await networks.has(selectedNetwork))) {
-    await settings.set('selectedNetwork', Array.from(await networks.keys())[0])
-  }
 
   return new JSONRPCServer({
     onerror,
@@ -93,7 +78,7 @@ export default async function init({ settingsStore, walletsStore, publicKeyIndex
 
       async 'admin.list_networks'(params) {
         doValidate(adminValidation.listNetworks, params)
-        return { networks: Array.from(await networks.keys()) }
+        return { networks: await networks.list() }
       },
 
       async 'admin.generate_recovery_phrase'(params) {

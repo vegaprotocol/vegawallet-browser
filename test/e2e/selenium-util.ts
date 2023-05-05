@@ -6,10 +6,13 @@ const extensionPath = './build'
 
 export async function initDriver() {
   let driver: WebDriver | null = null
-  let chromeOptions = new chrome.Options().addArguments(`--load-extension=${extensionPath + '/chrome'}`)
-  if (process.env.HEADLESS) {
-    chromeOptions = chromeOptions.headless()
-  }
+
+  let chromeOptions = new chrome.Options()
+    .addArguments('--no-sandbox')
+    .addArguments('--disable-dev-shm-usage')
+    .addArguments('--disable-gpu')
+    .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+
   driver = new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
 
   if (!driver) {

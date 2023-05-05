@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { initDriver } from './selenium-util'
-import { writeFileSync } from 'fs';
+import { writeFileSync } from 'fs'
 
 describe('Onboarding', () => {
   let driver: WebDriver

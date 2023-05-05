@@ -18,19 +18,32 @@ jobs:
         with:
           node-version: '*'
 
+      - name: Install chromedriver
+        run: |
+          CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1-3)
+          LATEST_CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
+          wget "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          sudo chown root:root /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+
       - name: Install dependencies
         run: yarn install
 
       - name: Build
         run: yarn build:chrome
 
-      - name: Run tests
-        run: yarn test:e2e:chrome
+      - name: Run E2E tests using Xvfb
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: yarn test:e2e:chrome
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: phoenix-actions/test-reporting@v9
         if: always()
         with:
           name: JEST E2E Tests
           path: ./test-reports/e2e-test-results.xml
           reporter: jest-junit
+          output-to: step-summary

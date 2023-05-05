@@ -31,7 +31,7 @@ export const useHomeStore = create<HomeStore>()((set, get) => ({
   loadGlobals: async (client: JSONRPCClient) => {
     try {
       set({ loading: true, error: null })
-      const res = await client.request(RpcMethods.AppGlobals)
+      const res = await client.request(RpcMethods.AppGlobals, null)
       set({ globals: res })
     } catch (e) {
       set({ error: e?.toString() || 'Something went wrong' })

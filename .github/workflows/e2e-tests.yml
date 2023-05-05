@@ -32,7 +32,9 @@ jobs:
 
       - name: Install Chrome and Chromedriver
         run: |
-            sudo apt-get install libgconf-2-4
+            sudo apt-get update
+            sudo apt-get install -y xvfb libxi6 libgconf-2-4
+        
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
             sudo apt-get update
@@ -46,11 +48,18 @@ jobs:
             sudo chown root:root /usr/local/bin/chromedriver
             sudo chmod +x /usr/local/bin/chromedriver
 
-      - name: Check if Chrome is installed
+      - name: Check if Chrome is installed and kill any running instances 
         run: |
          whereis chromedriver
          chromedriver --version
          google-chrome --version
+         sudo killall chrome
+
+
+      - name: Start Xvfb
+        run: |
+           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+           export DISPLAY=:99
 
       - name: Install dependencies
         run: yarn install

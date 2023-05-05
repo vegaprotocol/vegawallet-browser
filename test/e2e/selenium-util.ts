@@ -7,11 +7,12 @@ const extensionPath = './build'
 export async function initDriver() {
   let driver: WebDriver | null = null
   let chromeOptions = new chrome.Options()
-    .addArguments('no-sandbox')
-    .addArguments('disable-dev-shm-usage')
-    .addArguments('disable-gpu')
-    .addArguments("disable-extensions")
-    .addArguments("start-maximized");
+    .addArguments('--no-sandbox')
+    .addArguments('--disable-dev-shm-usage')
+    .addArguments('--disable-gpu')
+    .addArguments("--disable-extensions")
+    .addArguments("--start-maximized")
+    .addArguments("--remote-debugging-port=9222");
    // .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
 
   driver = new Builder()

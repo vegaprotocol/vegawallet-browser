@@ -5,47 +5,25 @@ const defaultTimeoutMillis = 3000
 const extensionPath = './build'
 
 export async function initDriver() {
-  console.log("about to try and create a new driver")
+  console.log('about to try and create a new driver')
   let driver: WebDriver | null = null
 
-  console.log("about to try and create a new chrome options")
+  console.log('about to try and create a new chrome options')
   let chromeOptions = new chrome.Options()
     .addArguments('--no-sandbox')
+    .addArguments('--headless')
     .addArguments('--disable-dev-shm-usage')
     .addArguments('--disable-gpu')
-    .addArguments("--disable-extensions")
-    .addArguments("--start-maximized")
-    .addArguments("--remote-debugging-port=9222");
-   // .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+    .addArguments('--start-maximized')
+    .addArguments('--remote-debugging-port=9222')
+    .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
 
-   console.log("about to try and set logging prefs")
-   const loggingPrefs = new logging.Preferences();
-   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.ALL);
-   chromeOptions.setLoggingPrefs(loggingPrefs);
-
-  driver = new Builder()
-    .withCapabilities(Capabilities.chrome())
-    .setChromeOptions(chromeOptions)
-    .build()
+  driver = new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
 
   if (!driver) {
     throw new Error('Failed to create WebDriver instance')
   }
 
-  console.log("about to try and print logs")
-  const logs = await driver.manage().logs().get(logging.Type.DRIVER);
-  logs.forEach((log) => {
-    console.log(`${log.level.name}: ${log.message}`);
-});
-
-  console.log("about to try and get arsenal.com from within the initDriver function")
-  await driver.get('http://arsenal.com')
-
-  const logs2 = await driver.manage().logs().get(logging.Type.DRIVER);
-  logs2.forEach((log) => {
-    console.log(`${log.level.name}: ${log.message}`);
-});
-  console.log('Driver created')
   return driver
 }
 

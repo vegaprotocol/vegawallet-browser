@@ -56,14 +56,18 @@ jobs:
          google-chrome --version
 
 
-      - name: Install Xvfb
-        run: sudo apt-get update && sudo apt-get install -y xvfb
- 
-      - name: Start Xvfb
+      - name: Install Xvfb and wait-for-it tool
         run: |
-         Xvfb :99 -screen 0 1024x768x16 -ac &
-         export DISPLAY=:99
-
+           sudo apt-get update && sudo apt-get install -y xvfb
+           wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+           chmod +x wait-for-it.sh
+       
+      - name: Start Xvfb
+        run: Xvfb :99 -screen 0 1024x768x16 -ac &
+         
+      - name: Wait for Xvfb to start
+        run: ./wait-for-it.sh localhost:99 -t 0
+         
       - name: Start chrome
         run: google-chrome --enable-logging --v=1
 

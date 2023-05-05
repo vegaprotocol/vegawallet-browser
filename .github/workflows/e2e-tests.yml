@@ -29,7 +29,6 @@ jobs:
             sudo apt-get remove google-chrome-stable
             sudo apt-get purge google-chrome-stable
             sudo apt purge chromium-browser
-            rm -r ~/.cache/google-chrome/
             whereis google-chrome
 
       - name: Install Chrome and Chromedriver

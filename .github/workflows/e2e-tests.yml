@@ -30,7 +30,6 @@ jobs:
             sudo apt-get purge google-chrome-stable
             sudo apt purge chromium-browser
             whereis google-chrome
-            google-chrome --enable-logging --v=1
 
       - name: Install Chrome and Chromedriver
         run: |
@@ -64,7 +63,7 @@ jobs:
 
       - name: Start chrome
         run: google-chrome --enable-logging --v=1
-        
+
       - name: Install dependencies
         run: yarn install
 

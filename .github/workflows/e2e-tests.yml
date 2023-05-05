@@ -53,7 +53,6 @@ jobs:
          whereis chromedriver
          chromedriver --version
          google-chrome --version
-         sudo killall chrome
 
 
       - name: Start Xvfb

@@ -24,9 +24,14 @@ jobs:
         with:
           node-version: '*'
 
+      - name: Uninstall existing chrome
+        run: |
+            sudo apt-get remove google-chrome-stable
+            sudo apt-get purge google-chrome-stable
+            whereis google-chrome
+
       - name: Install Chrome and Chromedriver
         run: |
-            sudo apt install chromium-browser
             sudo apt-get install libgconf-2-4
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
@@ -45,6 +50,8 @@ jobs:
         run: |
          whereis chromedriver
          chromedriver --version
+         google-chrome --version
+
       - name: Install dependencies
         run: yarn install
 

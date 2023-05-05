@@ -11,7 +11,6 @@ export async function initDriver() {
   console.log('about to try and create a new chrome options')
   let chromeOptions = new chrome.Options()
     .addArguments('--no-sandbox')
-    .addArguments('--headless')
     .addArguments('--disable-dev-shm-usage')
     .addArguments('--disable-gpu')
     .addArguments('--start-maximized')

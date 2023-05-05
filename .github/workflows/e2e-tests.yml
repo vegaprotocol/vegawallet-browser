@@ -16,6 +16,8 @@ jobs:
       - name: Check if Chrome is installed
         run: |
          whereis google-chrome
+         whereis libgconf-2-4
+
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -24,6 +26,7 @@ jobs:
 
       - name: Install Chrome and Chromedriver
         run: |
+            sudo apt-get install libgconf-2-4
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
             sudo apt-get update

@@ -13,48 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check if Chrome is installed
-        run: |
-         whereis google-chrome
-         whereis libgconf-2-4
-
-
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '*'
 
-      - name: Uninstall existing chrome
-        run: |
-            sudo apt-get remove google-chrome-stable
-            sudo apt-get purge google-chrome-stable
-            sudo apt purge chromium-browser
-            whereis google-chrome
-
       - name: Install Chrome and Chromedriver
         run: |
-            sudo apt-get update
-            sudo apt-get install -y xvfb libxi6 libgconf-2-4
-        
-            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-            sudo apt-get update
-            sudo apt-get install google-chrome-stable
-
-            CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1-3)
-            LATEST_CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
-            wget "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-            unzip chromedriver_linux64.zip
-            sudo mv chromedriver /usr/local/bin/
-            sudo chown root:root /usr/local/bin/chromedriver
-            sudo chmod +x /usr/local/bin/chromedriver
-
-      - name: Check if Chrome is installed and kill any running instances 
-        run: |
-         whereis chromedriver
-         chromedriver --version
-         google-chrome --version
-
+          CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1-3)
+          LATEST_CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
+          wget "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          sudo chown root:root /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Install dependencies
         run: yarn install
@@ -67,7 +39,7 @@ jobs:
       - name: Run headless test
         uses: coactions/setup-xvfb@v1
         with:
-            run: yarn test:e2e:chrome
+          run: yarn test:e2e:chrome
 
       - name: Test Report
         uses: dorny/test-reporter@v1

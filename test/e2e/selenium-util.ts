@@ -5,7 +5,6 @@ const defaultTimeoutMillis = 3000
 const extensionPath = './build'
 
 export async function initDriver() {
-  console.log('about to try and create a new driver')
   let driver: WebDriver | null = null
 
   console.log('about to try and create a new chrome options')
@@ -13,8 +12,6 @@ export async function initDriver() {
     .addArguments('--no-sandbox')
     .addArguments('--disable-dev-shm-usage')
     .addArguments('--disable-gpu')
-    .addArguments('--start-maximized')
-    .addArguments('--remote-debugging-port=9222')
     .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
 
   driver = new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()

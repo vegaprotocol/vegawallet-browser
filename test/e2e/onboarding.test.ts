@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { initDriver } from './selenium-util'
-import { writeFileSync } from 'fs';
+import { writeFileSync } from 'fs'
 
 describe('Onboarding', () => {
   let driver: WebDriver
@@ -9,12 +9,8 @@ describe('Onboarding', () => {
   const testPassword = 'password1'
 
   beforeEach(async () => {
-    console.log("in the before each")
     driver = await initDriver()
-    console.log("about to instantiate wallet")
     createWallet = new CreateWallet(driver)
-    console.log("instantiated wallet")
-    console.log("about to navigate to landing page")
     await createWallet.navigateToLandingPage()
   })
 

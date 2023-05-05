@@ -31,6 +31,6 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: JEST Tests
+          name: JEST E2E Tests
           path: ./test-reports/e2e-test-results.xml
           reporter: jest-junit

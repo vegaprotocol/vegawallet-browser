@@ -61,13 +61,29 @@ jobs:
            sudo apt-get update && sudo apt-get install -y xvfb
            wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
            chmod +x wait-for-it.sh
-       
+           sudo chmod 1777 /tmp/.X11-unix
+
       - name: Start Xvfb
-        run: Xvfb :99 -screen 0 1024x768x16 -ac &
+        run: Xvfb :99 -screen 0 1024x768x16 -ac 
          
       - name: Wait for Xvfb to start
-        run: ./wait-for-it.sh localhost:99 -t 0
-         
+        run: |
+          Xvfb :99 -screen 0 1024x768x16 -ac &
+          n=0
+          until [ $n -ge 5 ]
+          do
+            if [ -n "${DISPLAY+x}" ]; then
+              break
+            fi
+            n=$((n+1))
+            sleep 1
+          done
+          if [ -z "${DISPLAY+x}" ]; then
+            echo "Xvfb failed to start"
+            exit 1
+          fi
+          echo "Xvfb started successfully"
+            
       - name: Start chrome
         run: google-chrome --enable-logging --v=1
 

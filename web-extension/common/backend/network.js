@@ -61,6 +61,6 @@ class Network {
   }
 
   rpc() {
-    return new NodeRPC(this.rest.map((u) => new URL(u)))
+    return NodeRPC.findHealthyNode(this.rest.map((u) => new URL(u)))
   }
 }

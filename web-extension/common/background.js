@@ -39,7 +39,7 @@ const clientPorts = new PortServer({
 
         const selectedNetwork = await settings.get('selectedNetwork')
         const network = await networks.get(selectedNetwork)
-        const rpc = network.rpc()
+        const rpc = await network.rpc()
 
         const keys = await wallets.getKeyByPublicKey({
           publicKey: params.publicKey
@@ -61,7 +61,7 @@ const clientPorts = new PortServer({
 
         const selectedNetwork = await settings.get('selectedNetwork')
         const network = await networks.get(selectedNetwork)
-        const rpc = network.rpc()
+        const rpc = await network.rpc()
 
         const chainID = await backend.getChainId({ rpc })
         return { chainID }
@@ -102,24 +102,9 @@ runtime.onInstalled.addListener(async (details) => {
   await StorageLocalMap.permanentClearAll()
 
   await Promise.allSettled([
-    // networks.set('stagnet1', {
-    //   name: 'Stagnet1',
-    //   rest: ['https://api.stagnet1.vega.xyz', 'https://api.n05.stagnet1.vega.xyz', 'https://api.n06.stagnet1.vega.xyz'],
-    //   explorer: 'https://stagnet1.explorer.vega.xyz/'
-    // }),
-    wallets.create({ name: selectedWallet }),
     networks.set('fairground', {
       name: 'Fairground',
-      rest: [
-        'https://api.testnet.vega.xyz',
-        'https://api.n06.testnet.vega.xyz',
-        'https://api.n07.testnet.vega.xyz',
-        'https://api.n08.testnet.vega.xyz',
-        'https://api.n09.testnet.vega.xyz',
-        'https://api.n10.testnet.vega.xyz',
-        'https://api.n11.testnet.vega.xyz',
-        'https://api.n12.testnet.vega.xyz'
-      ],
+      rest: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
       explorer: 'https://explorer.fairground.wtf/'
     }),
     settings.set('selectedNetwork', 'fairground')

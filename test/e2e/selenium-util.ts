@@ -7,6 +7,9 @@ const extensionPath = './build'
 export async function initDriver() {
   let driver: WebDriver | null = null
   let chromeOptions = new chrome.Options().addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+  chromeOptions.addArguments('--disable-gpu');
+  chromeOptions.addArguments('--no-sandbox');
+  chromeOptions.addArguments('--disable-dev-shm-usage');
   if (process.env.HEADLESS) {
     chromeOptions = chromeOptions.headless()
   }

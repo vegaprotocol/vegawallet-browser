@@ -6,7 +6,7 @@ const extensionPath = './build'
 
 export async function initDriver() {
   let driver: WebDriver | null = null
-  let chromeOptions = new chrome.Options().addArguments('--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage').setChromeBinaryPath('/usr/bin/google-chrome')
+  let chromeOptions = new chrome.Options().addArguments(`--load-extension=${extensionPath + '/chrome'}`, '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage').setChromeBinaryPath('/usr/bin/google-chrome')
   driver = new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
 
   if (!driver) {

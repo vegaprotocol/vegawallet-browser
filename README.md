@@ -89,7 +89,8 @@ The project is built with `webpack`, `create-react-app` and `craco`:
 
 - `test` Runs the unit tests on UI components
 - `test:backend` Runs the unit tests on the backend
-- `test:e2e:chrome` Runs the e2e tests through `selenium` on Chrome
+- `test:e2e:chrome` Runs the e2e tests through `selenium` on Chrome (headed)
+- `test:e2e:chrome:ci` Runs the e2e tests through `selenium` on Chrome (headless)
 
 The web extension source code lives in `web-extension/common` with platform
 specific artifacts in respectively `web-extension/firefox` and `web-extension/chrome`. All UI components exist in the `src` directory.

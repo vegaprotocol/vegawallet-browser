@@ -13,8 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check if Google Chrome is installed
-        run: google-chrome --version
+      - name: Check if Chrome is installed
+        run: |
+         whereis google-chrome
 
       - name: Use Node.js
         uses: actions/setup-node@v1

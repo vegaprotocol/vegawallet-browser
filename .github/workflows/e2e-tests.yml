@@ -60,10 +60,12 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y xvfb
  
       - name: Start Xvfb
-        run: Xvfb :99 -screen 0 1024x768x24 &
+        run: |
+         Xvfb :99 -screen 0 1024x768x16 -ac &
+         export DISPLAY=:99
 
       - name: Start chrome
-        run: DISPLAY:=99 google-chrome --enable-logging --v=1
+        run: google-chrome --enable-logging --v=1
 
       - name: Install dependencies
         run: yarn install

@@ -25,7 +25,7 @@ methods exposed on `window`/`globalThis`:
 - `await vega.listKeys()`
 - `await vega.sendTransaction({ publicKey, transaction, sendingMode })`
 
-A sample dApp is provided in `test/sample-dapp/index.html`, and is also
+A sample dApp is provided in `examples/sample-dapp/index.html`, and is also
 published to Github Pages (see the repo website for a live demo).
 
 Alternatively, end-users can also communicate with the content script directly
@@ -76,22 +76,28 @@ Examples of Firefox based browsers:
 
 ## Structure
 
-The project is built with `make`:
+The project is built with `webpack`, `create-react-app` and `craco`:
 
-- `make clean`: Remove all build artifacts
-- `make dist`: Build extensions for Firefox and Chrome to separate directories
-  in `dist/`
-- `make test-firefox`: Build and run `web-ext` for Firefox using a sample page
-- `make test-chrome`: Build and run `web-ext` for Chromium using a sample page
+### Development + building
 
-Alternatively the extensions can be built with `npm run build`
+- `build:chrome` / `build:firefox`: Builds the extension in production mode for the respective browser. Outputs to `build/[BROWSER]`.
+- `dev:chrome` / `dev:firefox`: Serves the `build/[BROWSER]` directory to develop against the extension. First run `build:[BROWSER]` to build the extension _before_ running this command, or use the `watch` command.
+- `watch` Watch for changes in the source code and rebuild the extension in development mode. Can be used with `dev:chrome` / `dev:firefox` to automatically reload the extension when changes are made. You can change the browser this builds for in package.json. Default is `build:chrome`.
+- `format` / `lint`: Formats / lints the source code
+
+### Testing
+
+- `test` Runs the unit tests on UI components
+- `test:backend` Runs the unit tests on the backend
+- `test:e2e:chrome` Runs the e2e tests through `selenium` on Chrome (headed)
+- `test:e2e:chrome:ci` Runs the e2e tests through `selenium` on Chrome (headless)
 
 The web extension source code lives in `web-extension/common` with platform
-specific artifacts in respectively `web-extension/firefox` and `web-extension/chrome`.
+specific artifacts in respectively `web-extension/firefox` and `web-extension/chrome`. All UI components exist in the `src` directory.
 
 The web extension has 4 components:
 
-- `index.html` / `index.js`: This is the source code for the extension popup
+- `index.html` / `index.js`: This is the source code for the extension popup, rendered using `react`.
 - `background.js`: This is the background script that handles all core logic
 - `content-script.js`: This script intermediates communication between the web
   page and the background script

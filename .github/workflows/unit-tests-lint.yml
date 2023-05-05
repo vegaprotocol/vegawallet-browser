@@ -31,12 +31,13 @@ jobs:
         run: yarn test:ci
 
       - name: Test Report
-        uses: phoenix-actions/test-reporting@v8
+        uses: phoenix-actions/test-reporting@f68b7c5fcffefd98dd230c686cca6c26683668c3
         if: always()
         with:
           name: JEST Unit Tests (FE)
           path: ./test-reports/unit-test-results.xml
           reporter: jest-junit
+          output-to: step-summary
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
@@ -61,9 +62,10 @@ jobs:
         run: yarn test:backend
 
       - name: Test Report
-        uses: phoenix-actions/test-reporting@v8
+        uses: phoenix-actions/test-reporting@f68b7c5fcffefd98dd230c686cca6c26683668c3
         if: always()
         with:
           name: JEST Unit Tests (BE)
           path: ./test-reports/backend-test-results.xml
           reporter: jest-junit
+          output-to: step-summary

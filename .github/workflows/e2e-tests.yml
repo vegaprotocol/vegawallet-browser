@@ -40,9 +40,10 @@ jobs:
           run: yarn test:e2e:chrome
 
       - name: Test Report
-        uses: phoenix-actions/test-reporting@v8
+        uses: phoenix-actions/test-reporting@f68b7c5fcffefd98dd230c686cca6c26683668c3
         if: always()
         with:
           name: JEST E2E Tests
           path: ./test-reports/e2e-test-results.xml
           reporter: jest-junit
+          output-to: step-summary

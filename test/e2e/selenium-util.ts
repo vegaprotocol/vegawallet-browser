@@ -1,4 +1,4 @@
-import { Builder, By, Capabilities, until, WebDriver } from 'selenium-webdriver'
+import { Builder, By, Capabilities, logging, until, WebDriver } from 'selenium-webdriver'
 import chrome from 'selenium-webdriver/chrome'
 
 const defaultTimeoutMillis = 3000
@@ -6,6 +6,8 @@ const extensionPath = './build'
 
 export async function initDriver() {
   let driver: WebDriver | null = null
+
+  
   let chromeOptions = new chrome.Options()
     .addArguments('--no-sandbox')
     .addArguments('--disable-dev-shm-usage')
@@ -14,6 +16,10 @@ export async function initDriver() {
     .addArguments("--start-maximized")
     .addArguments("--remote-debugging-port=9222");
    // .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+
+   const loggingPrefs = new logging.Preferences();
+   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.ALL);
+   chromeOptions.setLoggingPrefs(loggingPrefs);
 
   driver = new Builder()
     .withCapabilities(Capabilities.chrome())
@@ -24,9 +30,18 @@ export async function initDriver() {
     throw new Error('Failed to create WebDriver instance')
   }
 
+  const logs = await driver.manage().logs().get(logging.Type.DRIVER);
+  logs.forEach((log) => {
+    console.log(`${log.level.name}: ${log.message}`);
+});
+
   console.log("about to try and get arsenal.com from within the initDriver function")
   await driver.get('http://arsenal.com')
 
+  const logs2 = await driver.manage().logs().get(logging.Type.DRIVER);
+  logs2.forEach((log) => {
+    console.log(`${log.level.name}: ${log.message}`);
+});
   console.log('Driver created')
   return driver
 }

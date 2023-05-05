@@ -1,4 +1,4 @@
-import { Builder, By, Capabilities, logging, until, WebDriver } from 'selenium-webdriver'
+import { Builder, By, Capabilities, until, WebDriver } from 'selenium-webdriver'
 import chrome from 'selenium-webdriver/chrome'
 
 const defaultTimeoutMillis = 3000
@@ -7,7 +7,6 @@ const extensionPath = './build'
 export async function initDriver() {
   let driver: WebDriver | null = null
 
-  console.log('about to try and create a new chrome options')
   let chromeOptions = new chrome.Options()
     .addArguments('--no-sandbox')
     .addArguments('--disable-dev-shm-usage')

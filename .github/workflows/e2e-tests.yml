@@ -62,13 +62,6 @@ jobs:
            wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
            chmod +x wait-for-it.sh
            sudo chmod 1777 /tmp/.X11-unix
-
-      - name: Start Xvfb
-        run: Xvfb :99 -screen 0 1024x768x16 -ac 
-         
-      - name: Wait for Xvfb to start
-        run: ./wait-for-it.sh localhost:99 -t 0
-         
       - name: Start chrome
         run: google-chrome --enable-logging --v=1
 
@@ -80,8 +73,10 @@ jobs:
           yarn
           yarn build:chrome
 
-      - name: Run tests
-        run: yarn test:e2e:chrome
+      - name: Run headless test
+        uses: coactions/setup-xvfb@v1
+        with:
+            run: yarn test:e2e:chrome
 
       - name: Test Report
         uses: dorny/test-reporter@v1

@@ -14,11 +14,14 @@ export class CreateWallet {
   private readonly landingPageURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
   private readonly createNewWalletButton: By = getByDataTestID(locators.createNewWalletButton)
   private readonly getStartedButton: By = getByDataTestID(locators.getStartedButton)
+  private readonly createPasswordBackButton: By = getByDataTestID('create-password-back')
   private readonly passwordInput: By = getByDataTestID(locators.passwordInput)
   private readonly confirmPasswordInput: By = getByDataTestID(locators.confirmPasswordInput)
   private readonly acknowledgeWarningCheckbox: By = By.id(locators.passwordWarningCheckbox)
   private readonly submitButton: By = getByDataTestID(locators.submitPasswordButton)
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)
+  private readonly hideRecoveryPhraseButton: By = getByDataTestID(componentLocators.hideIcon)
+  private readonly recoveryPhraseElement: By = getByDataTestID(componentLocators.mnemonicContainerShown)
   private readonly secureYourWalletPage: By = getByDataTestID(locators.secureYourWalletPage)
   private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(componentLocators.copyWithCheck)
   private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(locators.recoveryPhraseWarningCheckbox)
@@ -42,6 +45,16 @@ export class CreateWallet {
     expect(await this.isGetStartedPage(), this.checkOnCorrectViewErrorMessage('Get Started'), {
       showPrefix: false
     }).toBe(true)
+  }
+
+  /**
+   * Navigates to the Get Started page of the extension
+   */
+  async navigateBackToGetStarted() {
+    await clickElement(this.driver, this.createPasswordBackButton)
+    expect(await this.isGetStartedPage(), this.checkOnCorrectViewErrorMessage('Get Started'), {
+      showPrefix: false
+    })
   }
 
   /**
@@ -69,17 +82,29 @@ export class CreateWallet {
    * @param acknowledgeWarning - Whether to acknowledge the warning about the recovery phrase.
    */
   async addNewWallet(acknowledgeWarning: boolean = true, revealRecoveryPhrase: boolean = true) {
-    expect(await this.isAddWalletPage(), this.checkOnCorrectViewErrorMessage('Create a wallet')).toBe(true)
+    expect(await this.isAddWalletPage(), this.checkOnCorrectViewErrorMessage('Create a wallet'))
     await clickElement(this.driver, this.createNewWalletButton)
-    expect(await this.isRecoveryPhrasePage(), this.checkOnCorrectViewErrorMessage('Recovery Phrase')).toBe(true)
+    expect(await this.isRecoveryPhrasePage(), this.checkOnCorrectViewErrorMessage('Recovery Phrase'))
     if (revealRecoveryPhrase) {
-      await clickElement(this.driver, this.revealRecoveryPhraseButton)
-      await clickElement(this.driver, this.copyRecoveryPhraseToClipboardButton)
+      await this.revealRecoveryPhraseAndCopyPasswordToClipboard()
     }
     if (acknowledgeWarning) {
       await clickElement(this.driver, this.acknowledgeRecoveryPhraseWarningCheckbox)
       await clickElement(this.driver, this.secureWalletContinueButton)
     }
+  }
+
+  async revealRecoveryPhraseAndCopyPasswordToClipboard() {
+    await clickElement(this.driver, this.revealRecoveryPhraseButton)
+    await clickElement(this.driver, this.copyRecoveryPhraseToClipboardButton)
+  }
+
+  async hideRecoveryPhrase() {
+    await clickElement(this.driver, this.hideRecoveryPhraseButton)
+  }
+
+  async isRecoveryPhraseDisplayed() {
+    return this.driver.findElement(this.recoveryPhraseElement).isDisplayed()
   }
 
   /**

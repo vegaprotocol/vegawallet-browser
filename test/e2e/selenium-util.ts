@@ -27,6 +27,11 @@ export async function clickElement(driver: WebDriver, locator: By, timeout: numb
   await element.click()
 }
 
+export async function getElementText(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
+  const element = await waitForElementToBeReady(driver, locator, timeout)
+  return element.getText()
+}
+
 export async function sendKeysToElement(driver: WebDriver, locator: By, text: string): Promise<void> {
   const element = await waitForElementToBeReady(driver, locator)
   await element.sendKeys(text)

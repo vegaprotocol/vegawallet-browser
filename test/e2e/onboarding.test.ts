@@ -31,23 +31,21 @@ describe('Onboarding', () => {
     await driver.quit()
   })
 
-  it('can create a new wallet', async () => {
+  it('can create a new wallet and remember that a wallet has been created when I next load the app', async () => {
     // 1101-BWAL-007 I can submit the password I entered
     await password.createPassword(testPassword)
     // 1101-BWAL-009 When I have submitted my new password, I am taken to the next step
     // 1101-BWAL-011 I can choose to create a wallet
+    // 1101-BWAL-020 The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" #
+    // 1101-BWAL-021 When I have already created a wallet, I am redirected to the landing page where I can view that wallet
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
-    expect(await viewWallet.isViewWalletsPage(), 'Expected to be on the create wallet page but was not', {
-      showPrefix: false
-    })
-
-    expect(await viewWallet.getWalletName(), 'Expected wallet name to be "Wallet 1"', { showPrefix: false }).toBe(
-      'Wallet 1'
-    )
-    const walletKeys = await viewWallet.getWalletKeys()
-    expect(walletKeys).toHaveLength(1)
-    expect(walletKeys[0]).toBe('Key 1')
+    await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
+    const driver2 = await initDriver()
+    //This doesn't work at present
+    await navigateToLandingPage(driver2)
+    await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
+    driver2.quit
   })
 
   it('can navigate back to the getting started page if no password submitted', async () => {
@@ -92,4 +90,19 @@ describe('Onboarding', () => {
     await secureYourWallet.hideRecoveryPhrase()
     expect(!(await secureYourWallet.isRecoveryPhraseDisplayed()))
   })
+
+  async function checkOnWalletPageWithExpectedWalletAndKeys(expectedWalletName: string, expectedWalletKey: string) {
+    expect(await viewWallet.isViewWalletsPage(), 'Expected to be on the create wallet page but was not', {
+      showPrefix: false
+    }).toBe(true)
+    const walletName = await viewWallet.getWalletName()
+    expect(
+      await viewWallet.getWalletName(),
+      `Expected wallet name to be "${expectedWalletName}, instead it was ${walletName}"`,
+      { showPrefix: false }
+    ).toBe(expectedWalletName)
+    const walletKeys = await viewWallet.getWalletKeys()
+    expect(walletKeys).toHaveLength(1)
+    expect(walletKeys[0]).toBe(expectedWalletKey)
+  }
 })

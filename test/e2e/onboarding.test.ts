@@ -54,7 +54,7 @@ describe('Onboarding', () => {
     await password.goBack()
     expect(await getStarted.isGetStartedPage(), 'expected to be able to navigate back to the Get Started', {
       showPrefix: false
-    })
+    }).toBe(true)
   })
 
   it('shows an error message when passwords differ', async () => {
@@ -64,7 +64,7 @@ describe('Onboarding', () => {
       await password.isCreatePasswordPage(),
       'expected to remain on the password page after failing password validation',
       { showPrefix: false }
-    )
+    ).toBe(true)
   })
 
   it('recovery phrase can be revealed and hidden, cannot continue without revealing and acknowledging warning', async () => {
@@ -80,15 +80,15 @@ describe('Onboarding', () => {
       { showPrefix: false }
     )
     await secureYourWallet.revealRecoveryPhrase()
-    expect(await secureYourWallet.isRecoveryPhraseDisplayed())
+    expect(await secureYourWallet.isRecoveryPhraseDisplayed()).toBe(true)
     expect(
-      !(await secureYourWallet.isContinueEnabled()),
+      await secureYourWallet.isContinueEnabled(),
       'expected to be unable to proceed without enabling the checkbox',
       { showPrefix: false }
-    )
+    ).toBeFalse()
 
     await secureYourWallet.hideRecoveryPhrase()
-    expect(!(await secureYourWallet.isRecoveryPhraseDisplayed()))
+    expect(await secureYourWallet.isRecoveryPhraseDisplayed()).toBe(false)
   })
 
   async function checkOnWalletPageWithExpectedWalletAndKeys(expectedWalletName: string, expectedWalletKey: string) {

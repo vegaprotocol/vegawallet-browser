@@ -1,11 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import {
-  clickElement,
-  getByDataTestID,
-  isElementDisplayed,
-  sendKeysToElement,
-  waitForElementToBeReady
-} from '../selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
 import componentLocators from '../../../src/components/locators'

@@ -8,7 +8,6 @@ import {
 } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
-import { CreateWallet } from '../wallet-helpers/wallet-creation'
 
 export class Password {
   private readonly createPasswordBackButton: By = getByDataTestID('create-password-back')

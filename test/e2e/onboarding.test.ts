@@ -1,15 +1,14 @@
 import { WebDriver } from 'selenium-webdriver'
-import { CreateWallet } from './wallet-helpers/wallet-creation'
 import { initDriver } from './selenium-util'
 import { GetStarted } from './page-objects/get-started'
 import { Password } from './page-objects/password'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
+import { navigateToLandingPage } from './wallet-helpers/common'
 
 describe('Onboarding', () => {
   let driver: WebDriver
-  let createWallet: CreateWallet
   let getStarted: GetStarted
   let password: Password
   let secureYourWallet: SecureYourWallet
@@ -20,12 +19,11 @@ describe('Onboarding', () => {
   beforeEach(async () => {
     driver = await initDriver()
     password = new Password(driver)
-    createWallet = new CreateWallet(driver)
     getStarted = new GetStarted(driver)
     secureYourWallet = new SecureYourWallet(driver)
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
-    await createWallet.navigateToLandingPage()
+    await navigateToLandingPage(driver)
     await getStarted.getStarted()
   })
 

@@ -6,7 +6,6 @@ import { saveMnemonicButton, saveMnemonicDescription } from '../../../locator-id
 import { FULL_ROUTES } from '../../routes'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
-import { check } from 'prettier'
 
 const mockedUsedNavigate = jest.fn()
 const saveMnemonicDescriptionText =
@@ -51,7 +50,7 @@ describe('Save mnemonic', () => {
     expect(screen.getByTestId(saveMnemonicDescription)).toHaveTextContent(saveMnemonicDescriptionText)
     expect(screen.getByTestId(saveMnemonicDescription)).toBeVisible()
     expect(screen.getByTestId(locators.checkboxWrapper)).toHaveTextContent(checkboxDescription)
-    expect(screen.getByTestId(checkboxDescription)).toBeVisible()
+    expect(screen.getByLabelText(checkboxDescription)).toBeVisible()
     expect(screen.getByTestId(locators.mnemonicContainerMnemonic)).toHaveTextContent(
       'Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word Word'
     )
@@ -71,7 +70,7 @@ describe('Save mnemonic', () => {
     expect(screen.getByTestId(saveMnemonicButton)).toBeDisabled()
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
     expect(screen.getByTestId(saveMnemonicButton)).toBeDisabled()
-    expect(screen.getByTestId(checkboxDescription)).toBeVisible()
+    expect(screen.getByLabelText(checkboxDescription)).toBeVisible()
 
     fireEvent.click(screen.getByTestId('acceptedTerms'))
     expect(screen.getByTestId('acceptedTerms')).toBeChecked()

@@ -25,6 +25,6 @@ export class ViewWallet {
   }
 
   async isViewWalletsPage() {
-    return await isElementDisplayed(this.driver, this.viewWalletsHeader)
+    return await isElementDisplayed(this.driver, this.walletName)
   }
 }

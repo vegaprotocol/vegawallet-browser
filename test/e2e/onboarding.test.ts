@@ -31,7 +31,7 @@ describe('Onboarding', () => {
     await driver.quit()
   })
 
-  it('can create a new wallet and remember that a wallet has been created when I next load the app', async () => {
+  it('can create a new wallet and remember that a wallet has been created when I navigate back to the landing page', async () => {
     // 1101-BWAL-007 I can submit the password I entered
     await password.createPassword(testPassword)
     // 1101-BWAL-009 When I have submitted my new password, I am taken to the next step
@@ -41,11 +41,8 @@ describe('Onboarding', () => {
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
-    const driver2 = await initDriver()
-    //This doesn't work at present
-    await navigateToLandingPage(driver2)
+    await navigateToLandingPage(driver)
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
-    driver2.quit
   })
 
   it('can navigate back to the getting started page if no password submitted', async () => {
@@ -73,22 +70,22 @@ describe('Onboarding', () => {
     // 1101-BWAL-016 - I can copy the recovery phrase into my clipboard
     await password.createPassword(testPassword)
     await createAWallet.createNewWallet()
-    expect(!(await secureYourWallet.isRecoveryPhraseDisplayed()))
+    expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
     expect(
-      !(await secureYourWallet.isContinueEnabled()),
+      await secureYourWallet.isContinueEnabled(),
       'expected to be unable to proceed without revealing the recovery phrase',
       { showPrefix: false }
-    )
+    ).toBe(false)
     await secureYourWallet.revealRecoveryPhrase()
     expect(await secureYourWallet.isRecoveryPhraseDisplayed()).toBe(true)
     expect(
       await secureYourWallet.isContinueEnabled(),
       'expected to be unable to proceed without enabling the checkbox',
       { showPrefix: false }
-    ).toBeFalse()
+    ).toBe(false)
 
     await secureYourWallet.hideRecoveryPhrase()
-    expect(await secureYourWallet.isRecoveryPhraseDisplayed()).toBe(false)
+    expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
   })
 
   async function checkOnWalletPageWithExpectedWalletAndKeys(expectedWalletName: string, expectedWalletKey: string) {

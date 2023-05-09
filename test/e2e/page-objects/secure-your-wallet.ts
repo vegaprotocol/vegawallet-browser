@@ -29,11 +29,15 @@ export class SecureYourWallet {
   }
 
   async isRecoveryPhraseDisplayed() {
+    return await isElementDisplayed(this.driver, this.recoveryPhraseElement)
+  }
+
+  async isRecoveryPhraseHidden() {
     try {
-      return await this.driver.findElement(this.recoveryPhraseElement)
+      return !(await this.driver.findElement(this.recoveryPhraseElement))
     } catch (error) {
       if ((error as Error).name === 'NoSuchElementError') {
-        return false
+        return true
       }
       throw error
     }

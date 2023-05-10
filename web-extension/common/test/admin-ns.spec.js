@@ -1,16 +1,25 @@
 import initAdminServer from '../backend/admin-ns.js'
+import { WalletCollection } from '../backend/wallets.js'
+import { NetworkCollection } from '../backend/network.js'
+import ConcurrentStorage from '../lib/concurrent-storage.js'
+
+const createAdmin = () => {
+  return initAdminServer({
+    settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
+    wallets: new WalletCollection({
+      walletsStore: new Map(),
+      publicKeyIndexStore: new Map()
+    }),
+    networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground' }]])),
+    onerror(err) {
+      throw err
+    }
+  })
+}
 
 describe('admin-ns', () => {
   it('should return app globals', async () => {
-    const admin = await initAdminServer({
-      settingsStore: new Map(),
-      walletsStore: new Map(),
-      networksStore: new Map([['fairground', { name: 'Fairground' }]]),
-      publicKeyIndexStore: new Map(),
-      onerror(err) {
-        throw err
-      }
-    })
+    const admin = await createAdmin()
     const appGlobals = await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.app_globals', params: null }, {})
     expect(appGlobals.result.passphrase).toBe(false)
     expect(appGlobals.result.wallet).toBe(false)
@@ -19,15 +28,7 @@ describe('admin-ns', () => {
     expect(appGlobals.result.settings).toEqual({ selectedNetwork: 'fairground' })
   })
   it('should update app settings', async () => {
-    const admin = await initAdminServer({
-      settingsStore: new Map(),
-      walletsStore: new Map(),
-      networksStore: new Map([['fairground', { name: 'Fairground' }]]),
-      publicKeyIndexStore: new Map(),
-      onerror(err) {
-        throw err
-      }
-    })
+    const admin = await createAdmin()
     const updateAppSettings = await admin.onrequest({
       jsonrpc: '2.0',
       id: 1,
@@ -40,15 +41,8 @@ describe('admin-ns', () => {
     expect(appGlobals2.result.settings.telemetry).toBe(false)
   })
   it('should create passphrase', async () => {
-    const admin = await initAdminServer({
-      settingsStore: new Map(),
-      walletsStore: new Map(),
-      networksStore: new Map([['fairground', { name: 'Fairground' }]]),
-      publicKeyIndexStore: new Map(),
-      onerror(err) {
-        throw err
-      }
-    })
+    const admin = await createAdmin()
+
     const createPassphrase = await admin.onrequest({
       jsonrpc: '2.0',
       id: 1,
@@ -60,15 +54,8 @@ describe('admin-ns', () => {
     expect(appGlobals3.result.passphrase).toBe(true)
   })
   it('should generate recovery phrase', async () => {
-    const admin = await initAdminServer({
-      settingsStore: new Map(),
-      walletsStore: new Map(),
-      networksStore: new Map([['fairground', { name: 'Fairground' }]]),
-      publicKeyIndexStore: new Map(),
-      onerror(err) {
-        throw err
-      }
-    })
+    const admin = await createAdmin()
+
     const generateRecoveryPhrase = await admin.onrequest({
       jsonrpc: '2.0',
       id: 1,
@@ -78,21 +65,15 @@ describe('admin-ns', () => {
     expect(generateRecoveryPhrase.result.recoveryPhrase.split(' ').length).toBe(24)
   })
   it('should list networks', async () => {
-    const admin = await initAdminServer({
-      settingsStore: new Map(),
-      walletsStore: new Map(),
-      networksStore: new Map([['fairground', { name: 'Fairground' }]]),
-      publicKeyIndexStore: new Map(),
-      onerror(err) {
-        throw err
-      }
-    })
+    const admin = await createAdmin()
+
     const listNetworks = await admin.onrequest({
       jsonrpc: '2.0',
       id: 1,
       method: 'admin.list_networks',
       params: null
     })
+
     expect(listNetworks.result).toEqual({ networks: ['fairground'] })
   })
 })

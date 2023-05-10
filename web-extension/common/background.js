@@ -13,8 +13,8 @@ const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
 const wallets = new WalletCollection({
-  walletsStore: new ConcurrentStorage(new StorageLocalMap('wallets')),
-  publicKeyIndexStore: new ConcurrentStorage(new StorageLocalMap('publicKeyIndex'))
+  walletsStore: new StorageLocalMap('wallets'),
+  publicKeyIndexStore: new StorageLocalMap('publicKeyIndex')
 })
 const networks = new NetworkCollection(new ConcurrentStorage(new StorageLocalMap('networks')))
 

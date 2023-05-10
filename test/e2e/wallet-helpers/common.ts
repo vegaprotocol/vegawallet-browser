@@ -8,7 +8,6 @@ async function getLandingPageURL(driver: WebDriver) {
     const profilePath = (await (await driver.getCapabilities()).get('moz:profile')) as string
     const userPrefsFileContent = fs.readFileSync(`${profilePath}/prefs.js`, 'utf-8')
     const uuid = await getExtensionUuid(userPrefsFileContent)
-    console.log(`uuid is ${uuid}`)
     return `moz-extension://${uuid}/index.html`
   } else {
     return landingPageURL

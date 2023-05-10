@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import * as fs from 'fs'
 
-const landingPageURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
+const chromeExtensionURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
 
 async function getLandingPageURL(driver: WebDriver) {
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {
@@ -10,9 +10,10 @@ async function getLandingPageURL(driver: WebDriver) {
     const uuid = await getExtensionUuid(userPrefsFileContent)
     return `moz-extension://${uuid}/index.html`
   } else {
-    return landingPageURL
+    return chromeExtensionURL
   }
 }
+
 export async function navigateToLandingPage(driver: WebDriver) {
   const url = await getLandingPageURL(driver)
   await driver.get(url)
@@ -20,7 +21,6 @@ export async function navigateToLandingPage(driver: WebDriver) {
 
 async function getExtensionUuid(userPrefsFileContent: string): Promise<string | null> {
   let uuid: string | null = null
-
   const userPrefsList = userPrefsFileContent.split(';')
 
   for (const currentPref of userPrefsList) {

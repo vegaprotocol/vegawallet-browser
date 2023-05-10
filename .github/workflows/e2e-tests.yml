@@ -43,7 +43,7 @@ jobs:
         uses: phoenix-actions/test-reporting@v9
         if: always()
         with:
-          name: JEST E2E Tests
+          name: JEST E2E Tests - Chrome
           path: ./test-reports/e2e-test-results.xml
           reporter: jest-junit
           output-to: step-summary
@@ -59,11 +59,25 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Install Firefox
-        uses: JasonEtco/setup-firefox@v1
+      - uses: browser-actions/setup-geckodriver@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: geckodriver --version
 
       - name: Install dependencies
         run: yarn install
 
+      - name: Build
+        run: yarn build:firefox
+
       - name: Run Firefox e2e tests
         run: yarn test:e2e:firefox:ci
+
+      - name: Test Report
+        uses: phoenix-actions/test-reporting@v9
+        if: always()
+        with:
+          name: JEST E2E Tests - Firefox
+          path: ./test-reports/e2e-test-results.xml
+          reporter: jest-junit
+          output-to: step-summary

@@ -1,8 +1,6 @@
-import ConcurrentStorage from '../lib/concurrent-storage.js'
 import JSONRPCServer from '../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../../package.json'
-import { WalletCollection } from './wallets.js'
 
 function doValidate(validator, params) {
   if (!validator(params))
@@ -34,7 +32,7 @@ export default function init({ settings, wallets, networks, onerror }) {
         doValidate(adminValidation.appGlobals, params)
 
         const hasPassphrase = storedPassphrase != null
-        const hasWallet = Array.from(await walletsStore.keys()).length > 0
+        const hasWallet = Array.from(await wallets.list()).length > 0
 
         return {
           passphrase: hasPassphrase,
@@ -48,7 +46,6 @@ export default function init({ settings, wallets, networks, onerror }) {
 
       async 'admin.update_app_settings'(params) {
         doValidate(adminValidation.updateAppSettings, params)
-
         await settings.transaction(async (store) => {
           Object.entries(params).forEach(async ([key, value]) => {
             await store.set(key, value)

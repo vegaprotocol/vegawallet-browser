@@ -29,7 +29,7 @@ async function getExtensionUuid(userPrefsFileContent: string): Promise<string | 
       uuid = currentPref.split(':')[1].replace(/"/g, '').replace('}', '').replace(')', '').replace(/\\/g, '')
     }
   }
-  //
+
   if (uuid !== null && uuid.includes(',')) {
     uuid = uuid.split(',')[0]
   }

@@ -1,5 +1,11 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, getElementText, isElementDisplayed } from '../selenium-util'
+import {
+  clickElement,
+  getByDataTestID,
+  getElementText,
+  isElementDisplayed,
+  waitForElementToBeReady
+} from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
 
@@ -16,7 +22,7 @@ export class ViewWallet {
   }
 
   async getWalletKeys() {
-    const keyList = await this.driver.findElement(this.walletKeys)
+    const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
     const keyElements = await keyList.findElements(getByDataTestID(locators.walletsKeyName))
     const keys: string[] = []
     for (const key of keyElements) {

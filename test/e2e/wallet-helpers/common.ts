@@ -15,7 +15,6 @@ async function getLandingPageURL(driver: WebDriver) {
 }
 export async function navigateToLandingPage(driver: WebDriver) {
   const url = await getLandingPageURL(driver)
-  console.log(`url is ${url}`)
   await driver.get(url)
 }
 

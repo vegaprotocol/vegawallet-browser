@@ -36,12 +36,13 @@ jobs:
           echo "Jenkins file:"
           cat results/jenkins.txt
           echo "::set-output name=file::$(cat results/jenkins.txt)"
-      - name: Comment results on pull request
+      - name: Comment on Pull Request
+        if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
+            The Jenkins file output is:
             ```
             ${{ steps.approbation.outputs.file }}
             ```
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}

@@ -34,8 +34,8 @@ jobs:
           echo "showing files"
           ls
           echo "Jenkins file:"
-          cat results/jenkins.txt
-          echo "::set-output name=file::$(cat results/jenkins.txt)"
+          results=$(cat results/jenkins.txt)
+          echo "::set-output name=file::$results"
 
       - name: echo output
         id: approbation-output

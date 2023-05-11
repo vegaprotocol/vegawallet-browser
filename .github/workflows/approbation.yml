@@ -32,7 +32,7 @@ jobs:
           ls
           criteria=$(npx --yes --silent github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
-            --tests="vegawallet-browser/{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
+            --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
             --show-branches --show-mystery | tail -n 8 | head -n 3)
           echo "Acceptance Criteria Coverage:"

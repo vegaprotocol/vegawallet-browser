@@ -22,21 +22,36 @@ jobs:
           path: specs
 
       - name: Run Approbation
-        run: |
-          npm install -g github:vegaprotocol/approbation
-          npx github:vegaprotocol/approbation check-references \
-            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
-            --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
-            --categories="specs/user-interface/categories.json" \
-            --show-branches --show-mystery
+        id: approbation
+          run: |
+            npm install -g github:vegaprotocol/approbation
+            echo "Starting Approbation"
+            npx github:vegaprotocol/approbation check-references \
+              --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
+              --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
+              --categories="specs/user-interface/categories.json" \
+              --show-branches --show-mystery > output.txt
+            echo "Approbation completed"
+            output=$(cat output.txt)
+            total_criteria=$(echo "$output" | awk 'NR==1{print $3}')
+            with_references=$(echo "$output" | awk 'NR==2{print $3}')
+            without_references=$(echo "$output" | awk 'NR==3{print $3}')
+            mystery_criteria=$(echo "$output" | awk 'NR==4{print $3}')
+            echo "::set-output name=total_criteria::$total_criteria"
+            echo "::set-output name=with_references::$with_references"
+            echo "::set-output name=without_references::$without_references"
+            echo "::set-output name=mystery_criteria::$mystery_criteria"
 
       - name: Comment on pull request
         uses: peter-evans/create-or-update-comment@v1
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            Acceptance Criteria Coverage:
-            Total criteria: ${{ steps.approbation.outputs.total }}
-            With references: ${{ steps.approbation.outputs.with }} (${{ steps.approbation.outputs.with_pct }}%)
-            Without references: ${{ steps.approbation.outputs.without }} (${{ steps.approbation.outputs.without_pct }}%)
-            Mystery criteria: ${{ steps.approbation.outputs.mystery }}
+            issue-number: ${{ github.event.pull_request.number }}
+            body: |
+                ```
+                Total criteria:       ${{ steps.approbation.outputs.total_criteria }}
+                With references:      ${{ steps.approbation.outputs.with_references }}
+                Without references:   ${{ steps.approbation.outputs.without_references }}
+                Mystery criteria:     ${{ steps.approbation.outputs.mystery_criteria }}
+                ```
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

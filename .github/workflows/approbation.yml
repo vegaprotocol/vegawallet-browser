@@ -1,0 +1,43 @@
+name: Check Approbation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-approbation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Checkout specs repository
+        uses: actions/checkout@v2
+        with:
+          repository: vega/specs
+          ref: main
+          path: specs
+
+      - name: Install Approbation
+        run: npm install -g github:vegaprotocol/approbation
+
+      - name: Run Approbation
+        run: |
+          criteria=$(npx --yes --silent github:vegaprotocol/approbation check-references \
+            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
+            --tests="vegawallet-browser/{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
+            --categories="specs/user-interface/categories.json" \
+            --show-branches --show-mystery | tail -n 8 | head -n 3)
+          echo "Acceptance Criteria Coverage:"
+          echo "$criteria"
+
+      - name: Comment on pull request
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Acceptance Criteria Coverage:
+            ${{ env.criteria }}

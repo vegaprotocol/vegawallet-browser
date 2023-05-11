@@ -26,6 +26,10 @@ jobs:
 
       - name: Run Approbation
         run: |
+          echo "this is the directory"
+          pwd
+          echo "Here are the files"
+          ls
           criteria=$(npx --yes --silent github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="vegawallet-browser/{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \

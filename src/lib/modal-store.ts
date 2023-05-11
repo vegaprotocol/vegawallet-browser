@@ -8,7 +8,7 @@ export type ModalStore = {
 }
 
 export const useModalStore = create<ModalStore>()((set, get) => ({
-  connectionModalOpen: true,
+  connectionModalOpen: false,
   transactionModalOpen: false,
   setConnectionModalOpen: (open: boolean) => {
     set({

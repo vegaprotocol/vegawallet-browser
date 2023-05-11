@@ -26,25 +26,22 @@ jobs:
         run: |
           npm install -g github:vegaprotocol/approbation
           echo "Starting Approbation"
-          npx github:vegaprotocol/approbation check-references \
+          output=$(npx github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-branches --show-mystery > output.txt
-          echo "Approbation completed"
-          output=$(cat output.txt)
-          echo "$output"
+            --show-branches --show-mystery)
+            echo "::set-output name=approbation_output::$output"
 
-      - name: Read output file
-        id: read_output
-        run: |
-          output=$(cat output.txt)
-          echo "setting output to $output"
-          echo "::set-output name=output::$output"
-
-      - name: comment PR
-        uses: machine-learning-apps/pr-comment@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Auto Comment
+        uses: bubkoo/auto-comment@v1
         with:
-          path: output.txt
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pullRequestOpened: >
+            👋 @{{ author }}
+
+            This is the AC coverage after your PR:
+
+            ```
+            ${{ steps.approbation.outputs.approbation_output }}
+            ```

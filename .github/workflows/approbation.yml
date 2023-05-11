@@ -30,9 +30,4 @@ jobs:
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-branches --show-mystery | tee output.txt)
-          echo "$output" > output.txt
-          echo "::set-output name=approbation_output::$(cat output.txt)"
-
-      - name: echo output
-        run: echo ${{ steps.approbation.outputs.approbation_output }}
+            --show-branches --show-mystery)

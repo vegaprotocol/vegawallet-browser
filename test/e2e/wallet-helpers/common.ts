@@ -1,4 +1,4 @@
-import { WebDriver } from 'selenium-webdriver'
+import { WebDriver, until } from 'selenium-webdriver'
 import * as fs from 'fs'
 
 const chromeExtensionURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
@@ -17,6 +17,7 @@ async function getLandingPageURL(driver: WebDriver) {
 export async function navigateToLandingPage(driver: WebDriver) {
   const url = await getLandingPageURL(driver)
   await driver.get(url)
+  await driver.wait(until.urlContains(url), 10000)
 }
 
 async function getExtensionUuid(userPrefsFileContent: string): Promise<string | null> {

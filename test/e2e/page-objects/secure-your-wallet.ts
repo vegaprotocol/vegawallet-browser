@@ -1,5 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed, isElementEnabled } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
 import componentLocators from '../../../src/components/locators'
@@ -44,7 +44,7 @@ export class SecureYourWallet {
   }
 
   async isContinueEnabled() {
-    return await this.driver.findElement(this.secureWalletContinueButton).isEnabled()
+    return await isElementEnabled(this.driver, this.secureWalletContinueButton)
   }
 
   async isSecureYourWalletPage() {

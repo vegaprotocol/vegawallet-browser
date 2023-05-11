@@ -5,6 +5,8 @@ const locators = {
   comingSoon: 'coming-soon',
   copyIcon: 'copy-icon',
   connectionModalSuccess: 'connection-modal-success',
+  connectionSuccessTitle: 'connection-success-title',
+  connectionSuccessHostname: 'connection-success-hostname',
   connectionModalApprove: 'connection-modal-approve',
   connectionModalAccessListTitle: 'connection-modal-access-list-title',
   connectionModalAccessListAccess: 'connection-modal-access-list-access',

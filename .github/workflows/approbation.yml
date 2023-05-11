@@ -27,29 +27,23 @@ jobs:
       - name: Run Approbation
         id: approbation
         run: |
-          echo "this is the directory"
-          pwd
-          echo "Here are the files"
-          ls
-          criteria=$(npx github:vegaprotocol/approbation check-references \
+          criteria=$(echo "" | npx github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
             --show-branches --show-mystery)
-          echo "Acceptance Criteria Coverage:"
-          echo "$criteria"
-
-      - name: Extract criteria
-        id: extract
-        run: |
-          total=$(echo "${{ steps.approbation.outputs.criteria }}" | grep -oP 'Total criteria:\s+\K\d+')
-          with=$(echo "${{ steps.approbation.outputs.criteria }}" | grep -oP 'With references:\s+\K\d+')
-          without=$(echo "${{ steps.approbation.outputs.criteria }}" | grep -oP 'Without references:\s+\K\d+')
-          mystery=$(echo "${{ steps.approbation.outputs.criteria }}" | grep -oP 'Mystery criteria:\s+\K\d+')
+          total=$(echo "$criteria" | grep -oP 'Total criteria:\s+\K\d+')
+          with=$(echo "$criteria" | grep -oP 'With references:\s+\K\d+')
+          without=$(echo "$criteria" | grep -oP 'Without references:\s+\K\d+')
+          mystery=$(echo "$criteria" | grep -oP 'Mystery criteria:\s+\K\d+')
           echo "Total: $total"
           echo "With references: $with"
           echo "Without references: $without"
           echo "Mystery criteria: $mystery"
+          echo "::set-output name=total::$total"
+          echo "::set-output name=with::$with"
+          echo "::set-output name=without::$without"
+          echo "::set-output name=mystery::$mystery"
 
       - name: Comment on pull request
         uses: peter-evans/create-or-update-comment@v1
@@ -57,7 +51,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             Acceptance Criteria Coverage:
-            Total criteria: ${{ steps.extract.outputs.total }}
-            With references: ${{ steps.extract.outputs.with }}
-            Without references: ${{ steps.extract.outputs.without }}
-            Mystery criteria: ${{ steps.extract.outputs.mystery }}
+            Total criteria: ${{ steps.approbation.outputs.total }}
+            With references: ${{ steps.approbation.outputs.with }}
+            Without references: ${{ steps.approbation.outputs.without }}
+            Mystery criteria: ${{ steps.approbation.outputs.mystery }}

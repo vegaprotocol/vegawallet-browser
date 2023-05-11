@@ -33,6 +33,7 @@ jobs:
             --show-branches --show-mystery > output.txt
           echo "Approbation completed"
           output=$(cat output.txt)
+          echo "$output"
           total_criteria=$(echo "$output" | awk 'NR==1{print $3}')
           with_references=$(echo "$output" | awk 'NR==2{print $3}')
           without_references=$(echo "$output" | awk 'NR==3{print $3}')

@@ -43,16 +43,18 @@ jobs:
           echo "::set-output name=without_references::$without_references"
           echo "::set-output name=mystery_criteria::$mystery_criteria"
 
+      - name: Read output file
+        id: read_output
+        run: |
+          output=$(cat output.txt)
+          echo "::set-output name=output::$output"
+
       - name: Comment on pull request
         uses: peter-evans/create-or-update-comment@v1
         with:
-          issue-number: ${{ github.event.pull_request.number }}
           body: |
             ```
-            Total criteria:       ${{ steps.approbation.outputs.total_criteria }}
-            With references:      ${{ steps.approbation.outputs.with_references }}
-            Without references:   ${{ steps.approbation.outputs.without_references }}
-            Mystery criteria:     ${{ steps.approbation.outputs.mystery_criteria }}
+            $(cat output.txt)
             ```
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

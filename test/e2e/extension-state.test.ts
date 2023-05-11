@@ -7,7 +7,7 @@ import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 
-describe.skip('Check correct app state persists after closing the extension', () => {
+describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
   let getStarted: GetStarted
   let password: Password
@@ -28,7 +28,6 @@ describe.skip('Check correct app state persists after closing the extension', ()
 
   beforeEach(async () => {
     await navigateToLandingPage(driver)
-    await getStarted.getStarted()
   })
 
   afterAll(async () => {
@@ -36,8 +35,10 @@ describe.skip('Check correct app state persists after closing the extension', ()
   })
 
   it('shows the Create a Wallet page after creating password and closing the app', async () => {
+    await getStarted.getStarted()
     await password.createPassword(testPassword)
     await driver.close()
+    driver = await initDriver()
     await navigateToLandingPage(driver)
     expect(await createAWallet.isCreateWalletPage()).toBe(true)
   })
@@ -45,6 +46,7 @@ describe.skip('Check correct app state persists after closing the extension', ()
   it('shows the Get Started page if I unsuccessfully create a password and close the app', async () => {
     await password.createPassword(testPassword, 'diffPassword')
     await driver.close()
+    driver = await initDriver()
     await navigateToLandingPage(driver)
     expect(await getStarted.isGetStartedPage()).toBe(true)
   })
@@ -55,6 +57,7 @@ describe.skip('Check correct app state persists after closing the extension', ()
     await secureYourWallet.revealRecoveryPhrase(true)
     expect(await viewWallet.isViewWalletsPage()).toBe(true)
     await driver.close()
+    driver = await initDriver()
     await navigateToLandingPage(driver)
     expect(await viewWallet.isViewWalletsPage()).toBe(true)
   })

@@ -1,4 +1,4 @@
-import { By, until, WebDriver } from 'selenium-webdriver'
+import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 
 const defaultTimeoutMillis = 3000
 
@@ -21,13 +21,24 @@ export function getByDataTestID(dataTestID: string) {
   return By.css(`[data-testid ='${dataTestID}']`)
 }
 
-export async function waitForElementToBeReady(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
+export async function waitForElementToBeReady(
+  driver: WebDriver,
+  locator: By,
+  timeout: number = defaultTimeoutMillis
+): Promise<WebElement> {
+  let element: WebElement
+
   try {
-    const element = await driver.wait(
+    element = await driver.wait(
       until.elementLocated(locator),
       timeout,
       `Timeout waiting for element with locator: ${locator}`
     )
+  } catch (error) {
+    console.error(`Error waiting for element with locator: ${locator}`, error)
+    throw error
+  }
+  try {
     await driver.wait(
       until.elementIsVisible(element),
       timeout,
@@ -40,6 +51,11 @@ export async function waitForElementToBeReady(driver: WebDriver, locator: By, ti
     )
     return element
   } catch (error) {
+    const err = error as Error
+    if (err.name === 'StaleElementReferenceError') {
+      console.warn(`Element with locator ${locator} became stale, retrying...`)
+      return await waitForElementToBeReady(driver, locator, timeout)
+    }
     console.error(`Error waiting for element with locator: ${locator}`, error)
     throw error
   }

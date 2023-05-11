@@ -32,7 +32,9 @@ export const ModalHeader = ({ hostname, title }: { hostname: string; title: stri
         <VegaIcon color="black" backgroundColor="white" />
       </div>
       <div className="text-center mb-6 mt-8">
-        <h1 className="mb-1 text-2xl">{title}</h1>
+        <h1 data-testid={locators.modalHeaderTitle} className="mb-1 text-2xl">
+          {title}
+        </h1>
         <p data-testid={locators.dAppHostname} className="text-neutral-light text-vega-dark-400">
           {hostname}
         </p>

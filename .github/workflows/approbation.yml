@@ -21,21 +21,14 @@ jobs:
           ref: master
           path: specs
 
-      - name: Install Approbation
-        run: npm install -g github:vegaprotocol/approbation
-
       - name: Run Approbation
-        id: approbation
         run: |
-          echo "this is the directory"
-          pwd
-          echo "Here are the files"
-          ls
-          criteria=$(npx github:vegaprotocol/approbation check-references \
+          npm install -g github:vegaprotocol/approbation
+          npx github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-branches --show-mystery)
+            --show-branches --show-mystery
 
       - name: Comment on pull request
         uses: peter-evans/create-or-update-comment@v1

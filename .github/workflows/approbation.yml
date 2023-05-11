@@ -21,11 +21,10 @@ jobs:
           ref: master
           path: specs
 
-      - name: Install Approbation
-        run: npm install -g github:vegaprotocol/approbation
+      - name: Install approbation package
+        run: npm install github:vegaprotocol/approbation@latest
 
-      - name: Run Approbation
-        id: approbation
+      - name: Check Criteria
         run: |
           criteria=$(echo "" | npx github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
@@ -44,6 +43,7 @@ jobs:
           echo "::set-output name=with::$with"
           echo "::set-output name=without::$without"
           echo "::set-output name=mystery::$mystery"
+        shell: /usr/bin/bash -e {0}
 
       - name: Comment on pull request
         uses: peter-evans/create-or-update-comment@v1

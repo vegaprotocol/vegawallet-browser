@@ -31,6 +31,7 @@ jobs:
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
             --show-branches --show-mystery)
+            echo "output is $output"
             echo "::set-output name=approbation_output::$output"
 
       - name: echo output

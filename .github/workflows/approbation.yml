@@ -21,44 +21,34 @@ jobs:
           ref: master
           path: specs
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - name: Install Approbation
+        run: npm install -g github:vegaprotocol/approbation
 
-      - name: Configure Git
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Approbation
+        id: approbation
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Actions"
-
-      - name: Install approbation package
-        run: npm install github:vegaprotocol/approbation@latest
-
-      - name: Check Criteria
-        run: |
-          criteria=$(echo "" | npx github:vegaprotocol/approbation check-references \
+          echo "this is the directory"
+          pwd
+          echo "Here are the files"
+          ls
+          criteria=$(npx github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
             --show-branches --show-mystery)
-          total=$(echo "$criteria" | grep -oP 'Total criteria:\s+\K\d+')
-          with=$(echo "$criteria" | grep -oP 'With references:\s+\K\d+')
-          without=$(echo "$criteria" | grep -oP 'Without references:\s+\K\d+')
-          mystery=$(echo "$criteria" | grep -oP 'Mystery criteria:\s+\K\d+')
-          echo "Total: $total"
-          echo "With references: $with"
-          echo "Without references: $without"
-          echo "Mystery criteria: $mystery"
-          echo "::set-output name=total::$total"
-          echo "::set-output name=with::$with"
-          echo "::set-output name=without::$without"
-          echo "::set-output name=mystery::$mystery"
-        shell: /usr/bin/bash -e {0}
-
+            total=$(echo "$criteria" | grep -oP 'Total criteria:\s+\K\d+')
+            with=$(echo "$criteria" | grep -oP 'With references:\s+\K\d+')
+            without=$(echo "$criteria" | grep -oP 'Without references:\s+\K\d+')
+            mystery=$(echo "$criteria" | grep -oP 'Mystery criteria:\s+\K\d+')
+            echo "Acceptance Criteria Coverage:"
+            echo "Total criteria: $total"
+            echo "With references: $with"
+            echo "Without references: $without"
+            echo "Mystery criteria: $mystery"
+            echo "::set-output name=total::$total"
+            echo "::set-output name=with::$with"
+            echo "::set-output name=without::$without"
+            echo "::set-output name=mystery::$mystery"
       - name: Comment on pull request
         uses: peter-evans/create-or-update-comment@v1
         with:
@@ -66,6 +56,6 @@ jobs:
           body: |
             Acceptance Criteria Coverage:
             Total criteria: ${{ steps.approbation.outputs.total }}
-            With references: ${{ steps.approbation.outputs.with }}
-            Without references: ${{ steps.approbation.outputs.without }}
+            With references: ${{ steps.approbation.outputs.with }} (${{ steps.approbation.outputs.with_pct }}%)
+            Without references: ${{ steps.approbation.outputs.without }} (${{ steps.approbation.outputs.without_pct }}%)
             Mystery criteria: ${{ steps.approbation.outputs.mystery }}

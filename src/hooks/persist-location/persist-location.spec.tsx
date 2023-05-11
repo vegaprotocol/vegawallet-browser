@@ -4,6 +4,9 @@ import { MemoryRouter, useNavigate } from 'react-router-dom'
 import { ReactNode, useEffect } from 'react'
 
 describe('PersistLocation', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
   it('sets the current location in local storage', () => {
     const wrapper = ({ children }: { children: ReactNode }) => (
       <MemoryRouter initialEntries={['/foo']}>{children}</MemoryRouter>
@@ -29,5 +32,19 @@ describe('PersistLocation', () => {
     expect(secondRoute).toBe('/bar')
     // Sets the route after navigation
     expect(initialRoute).toBe('/foo')
+  })
+  it('ignores the home page', () => {
+    const wrapper = ({ children }: { children: ReactNode }) => (
+      <MemoryRouter initialEntries={['/']}>{children}</MemoryRouter>
+    )
+    let initialRoute: string | null = null
+    renderHook(
+      () => {
+        usePersistLocation()
+        initialRoute = localStorage.getItem(LOCATION_KEY)
+      },
+      { wrapper }
+    )
+    expect(initialRoute).toBe(null)
   })
 })

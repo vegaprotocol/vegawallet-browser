@@ -5,10 +5,12 @@
   "license": "MIT",
   "dependencies": {
     "@craco/craco": "^7.1.0",
+    "@types/archiver": "^5.3.2",
     "@vegaprotocol/crypto": "^0.7.1",
     "@vegaprotocol/protos": "0.4.0",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
     "@vegaprotocol/ui-toolkit": "0.12.1",
+    "archiver": "^5.3.1",
     "date-fns": "^2.29.3",
     "ethers": "5.7.1",
     "graphql": "15.8.0",
@@ -40,7 +42,9 @@
     "eject": "react-scripts eject",
     "watch": "npm-watch",
     "test:backend": "jest --config=jest.config-backend.js",
-    "test:e2e:chrome": "jest ./test/e2e --config=jest.config-e2e.js"
+    "test:e2e:chrome": "BROWSER=chrome jest ./test/e2e --config=jest.config-e2e.js",
+    "test:e2e:firefox": "BROWSER=firefox jest ./test/e2e --config=jest.config-e2e.js",
+    "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox"
   },
   "browserslist": {
     "production": [

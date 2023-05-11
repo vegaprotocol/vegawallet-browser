@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { initDriver } from './selenium-util'
+import { initDriver } from './driver'
 import { GetStarted } from './page-objects/get-started'
 import { Password } from './page-objects/password'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
@@ -36,8 +36,10 @@ describe('Onboarding', () => {
     await password.createPassword(testPassword)
     // 1101-BWAL-009 When I have submitted my new password, I am taken to the next step
     // 1101-BWAL-011 I can choose to create a wallet
+    // 1101-BWAL-018 I am given feedback that my wallet was successfully created
     // 1101-BWAL-020 The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" #
     // 1101-BWAL-021 When I have already created a wallet, I am redirected to the landing page where I can view that wallet
+
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')

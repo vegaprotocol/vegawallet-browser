@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { initDriver } from './selenium-util'
+import { initDriver } from './driver'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { Password } from './page-objects/password'
 import { GetStarted } from './page-objects/get-started'

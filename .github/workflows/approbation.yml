@@ -42,11 +42,9 @@ jobs:
           echo "setting output to $output"
           echo "::set-output name=output::$output"
 
-      - name: Comment on pull request
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: '${{ steps.read_output.outputs.output }}'
-
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: output.txt

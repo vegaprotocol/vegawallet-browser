@@ -30,9 +30,29 @@ jobs:
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-branches --show-mystery --output-csv
+            --show-mystery --category-stats --output-jenkins
           echo "showing files"
           ls
+          echo "Jenkins file:"
+          cat results/jenkins.txt
+          echo "::set-output name=file::$(cat results/jenkins.txt)"
+
+      - name: Comment on Pull Request
+        uses: actions/github-script@v4
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            const results = '${{ steps.approbation.outputs.file }}';
+            const context = github.context;
+            const octokit = new github.getOctokit('${{ secrets.GITHUB_TOKEN }}');
+            octokit.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `${results}`
+            });
 
       - name: echo output
         run: printf '%s\n' "${{ steps.approbation.outputs.approbation_output }}"

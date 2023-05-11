@@ -23,7 +23,7 @@ const client = {
       return {
         keys
       }
-    } else if (method === 'admin.generate_key') {
+    } else if (method === RpcMethods.GenerateKey) {
       return {
         publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
         name: 'Key 2'

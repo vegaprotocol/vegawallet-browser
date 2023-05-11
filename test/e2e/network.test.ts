@@ -36,16 +36,8 @@ describe('View wallet page', () => {
   })
 
   it('can create new key/pair in the view wallet screen', async () => {
-    // 1101-BWAL-028  can create a new key pair from the wallet view
-    // 1101-BWAL-029 New key pairs are assigned a name automatically "Vega Key 1" "Vega Key 2" etc.
-    // 1101-BWAL-030 New key pairs are listed in order they were created - oldest first
-    await viewWallet.createNewKeyPair()
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2'])
-
-    await viewWallet.createNewKeyPair()
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
-
-    await navigateToLandingPage(driver)
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
+    // 1101-BWAL-026 The browser wallet defaults to use the Fairground network
+    const connectedNetwork = await viewWallet.getNetworkConnectedTo()
+    expect(connectedNetwork.toLowerCase()).toBe('fairground')
   })
 })

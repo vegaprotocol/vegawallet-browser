@@ -30,7 +30,7 @@ jobs:
           pwd
           echo "Here are the files"
           ls
-          criteria=$(npx --yes --silent github:vegaprotocol/approbation check-references \
+          criteria=$(npx github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \

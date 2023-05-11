@@ -17,7 +17,7 @@ jobs:
       - name: Checkout specs repository
         uses: actions/checkout@v2
         with:
-          repository: vega/specs
+          repository: vegaprotocol/specs
           ref: main
           path: specs
 

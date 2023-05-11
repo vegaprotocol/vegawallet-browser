@@ -26,13 +26,13 @@ jobs:
         run: |
           npm install -g github:vegaprotocol/approbation
           echo "Starting Approbation"
-          output=$(npx github:vegaprotocol/approbation check-references \
+          npx github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-branches --show-mystery)
-            echo "output is $output"
-            echo "::set-output name=approbation_output::$output"
+            --show-branches --show-mystery --output-csv
+          echo "showing files"
+          ls
 
       - name: echo output
         run: printf '%s\n' "${{ steps.approbation.outputs.approbation_output }}"

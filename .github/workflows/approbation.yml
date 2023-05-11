@@ -36,19 +36,19 @@ jobs:
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
             --show-branches --show-mystery)
-            total=$(echo "$criteria" | grep -oP 'Total criteria:\s+\K\d+')
-            with=$(echo "$criteria" | grep -oP 'With references:\s+\K\d+')
-            without=$(echo "$criteria" | grep -oP 'Without references:\s+\K\d+')
-            mystery=$(echo "$criteria" | grep -oP 'Mystery criteria:\s+\K\d+')
-            echo "Acceptance Criteria Coverage:"
-            echo "Total criteria: $total"
-            echo "With references: $with"
-            echo "Without references: $without"
-            echo "Mystery criteria: $mystery"
-            echo "::set-output name=total::$total"
-            echo "::set-output name=with::$with"
-            echo "::set-output name=without::$without"
-            echo "::set-output name=mystery::$mystery"
+          total=$(echo "$criteria" | grep -oP 'Total criteria:\s+\K\d+')
+          with=$(echo "$criteria" | grep -oP 'With references:\s+\K\d+')
+          without=$(echo "$criteria" | grep -oP 'Without references:\s+\K\d+')
+          mystery=$(echo "$criteria" | grep -oP 'Mystery criteria:\s+\K\d+')
+          echo "Acceptance Criteria Coverage:"
+          echo "Total criteria: $total"
+          echo "With references: $with"
+          echo "Without references: $without"
+          echo "Mystery criteria: $mystery"
+          echo "::set-output name=total::$total"
+          echo "::set-output name=with::$with"
+          echo "::set-output name=without::$without"
+          echo "::set-output name=mystery::$mystery"
       - name: Comment on pull request
         uses: peter-evans/create-or-update-comment@v1
         with:

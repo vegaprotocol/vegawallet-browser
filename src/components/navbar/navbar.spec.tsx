@@ -8,10 +8,7 @@ jest.mock('@vegaprotocol/ui-toolkit', () => ({
   Button: (props: HTMLAttributes<HTMLButtonElement>) => <button {...props} />
 }))
 
-const renderNavButton = (
-  props: NavButtonProps,
-  initialEntries: string[] = []
-) =>
+const renderNavButton = (props: NavButtonProps, initialEntries: string[] = []) =>
   render(
     <MemoryRouter initialEntries={initialEntries}>
       <NavButton {...props} />
@@ -25,7 +22,6 @@ const renderNav = ({ isFairground }: { isFairground: boolean }) =>
     </MemoryRouter>
   )
 
-// eslint-disable-next-line jest/no-disabled-tests
 describe('NavButton', () => {
   it('renders with text and icon', () => {
     const icon = <svg data-testid="test-icon" />
@@ -79,7 +75,6 @@ describe('NavButton', () => {
   })
 })
 
-// eslint-disable-next-line jest/no-disabled-tests
 describe('NavBar', () => {
   it('renders with all three NavButtons', () => {
     renderNav({ isFairground: false })

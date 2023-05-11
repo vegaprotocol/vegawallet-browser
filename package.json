@@ -42,7 +42,7 @@
     "eject": "react-scripts eject",
     "watch": "npm-watch",
     "test:backend": "jest --config=jest.config-backend.js",
-    "test:e2e:chrome": "jest ./test/e2e --config=jest.config-e2e.js",
+    "test:e2e:chrome": "BROWSER=chrome jest ./test/e2e --config=jest.config-e2e.js",
     "test:e2e:firefox": "BROWSER=firefox jest ./test/e2e --config=jest.config-e2e.js",
     "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox"
   },

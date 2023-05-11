@@ -44,7 +44,7 @@ jobs:
         if: always()
         with:
           name: JEST E2E Tests - Chrome
-          path: ./test-reports/e2e-test-results.xml
+          path: ./test-reports/chrome-e2e-test-results.xml
           reporter: jest-junit
           output-to: step-summary
 
@@ -78,6 +78,6 @@ jobs:
         if: always()
         with:
           name: JEST E2E Tests - Firefox
-          path: ./test-reports/e2e-test-results.xml
+          path: ./test-reports/firefox-e2e-test-results.xml
           reporter: jest-junit
           output-to: step-summary

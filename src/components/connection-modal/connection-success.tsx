@@ -39,8 +39,12 @@ export const ConnectionSuccess = ({ onClose, hostname }: ConnectionSuccessProps)
       <div className="rounded-md py-5 px-4 bg-vega-green-550 mb-8">
         <PixelatedTick />
       </div>
-      <h1 className="text-3xl text-center mb-1">Connected</h1>
-      <h2 className="text-center text-vega-dark-400">{hostname}</h2>
+      <h1 data-testid={locators.connectionSuccessTitle} className="text-3xl text-center mb-1">
+        Connected
+      </h1>
+      <h2 data-testid={locators.connectionSuccessHostname} className="text-center text-vega-dark-400">
+        {hostname}
+      </h2>
     </div>
   )
 }

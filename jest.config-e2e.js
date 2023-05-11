@@ -9,7 +9,7 @@ module.exports = {
       'jest-junit',
       {
         outputDirectory: './test-reports',
-        outputName: 'e2e-test-results.xml'
+        outputName: `${process.env.BROWSER}-e2e-test-results.xml`
       }
     ]
   ]

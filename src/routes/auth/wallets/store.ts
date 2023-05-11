@@ -38,7 +38,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       set({ error: 'Could not find wallet to create key for' })
       return
     }
-    const newKey = await client.request('admin.generate_key', {
+    const newKey = await client.request(RpcMethods.GenerateKey, {
       wallet: wallet.name,
       name: `Key ${wallet.keys.length + 1}`
     })

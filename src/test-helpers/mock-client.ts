@@ -1,8 +1,8 @@
+/* istanbul ignore file */
 import { RpcMethods } from '../lib/rpc-methods'
 import { Key } from '../routes/auth/wallets/store'
 import { AppGlobals } from '../routes/home/store'
 
-/* istanbul ignore file */
 const defaultWallets = ['wallet 1']
 const defaultKeys = [
   {
@@ -61,7 +61,7 @@ export const mockClient = (
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.create_passphrase') {
+          } else if (message.method === RpcMethods.CreatePassphrase) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -69,7 +69,7 @@ export const mockClient = (
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.generate_recovery_phrase') {
+          } else if (message.method === RpcMethods.GenerateRecoveryPhrase) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -77,7 +77,7 @@ export const mockClient = (
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.import_wallet') {
+          } else if (message.method === RpcMethods.ImportWallet) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -85,7 +85,7 @@ export const mockClient = (
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.generate_key') {
+          } else if (message.method === RpcMethods.GenerateKey) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',

@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
   "action": {
-    "browser_style": true,
+    "chrome_style": false,
     "default_icon": {
       "16": "fairground.png",
       "48": "fairground.png",
       "128": "fairground.png"
     },
-    "default_title": "Minimal Extension",
+    "default_title": "Vega Browser Wallet",
     "default_popup": "index.html"
   },
   "background": {

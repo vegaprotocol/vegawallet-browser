@@ -33,15 +33,5 @@ jobs:
             --show-branches --show-mystery)
             echo "::set-output name=approbation_output::$output"
 
-      - name: Auto Comment
-        uses: bubkoo/auto-comment@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          pullRequestOpened: >
-            👋 @{{ author }}
-
-            This is the AC coverage after your PR:
-
-            ```
-            ${{ steps.approbation.outputs.approbation_output }}
-            ```
+      - name: echo output
+        run: echo ${{ steps.approbation.outputs.approbation_output }}

@@ -55,7 +55,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ```
-            ${{ steps.read_output.outputs.output }}
+            echo -e "$(fold -w 80 output.txt)"
 
             ```
         env:

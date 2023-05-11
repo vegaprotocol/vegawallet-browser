@@ -14,12 +14,16 @@ jest.mock('../../routes/home/store', () => ({
 }))
 
 const renderRedirectHook = (globals: AppGlobals, loading: boolean = false, error: string | null = null) => {
-  ;(useHomeStore as unknown as jest.Mock).mockImplementationOnce(() => ({
-    loading,
-    error,
-    globals,
-    loadGlobals: mockLoadGlobals
-  }))
+  ;(useHomeStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
+    const result = {
+      loading,
+      error,
+      globals,
+      loadGlobals: mockLoadGlobals
+    }
+    fn(result)
+    return result
+  })
   const {
     result: { current }
   } = renderHook(() => useGetRedirectPath(), {

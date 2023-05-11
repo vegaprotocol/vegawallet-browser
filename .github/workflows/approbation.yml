@@ -34,19 +34,12 @@ jobs:
           echo "Approbation completed"
           output=$(cat output.txt)
           echo "$output"
-          total_criteria=$(echo "$output" | awk 'NR==1{print $3}')
-          with_references=$(echo "$output" | awk 'NR==2{print $3}')
-          without_references=$(echo "$output" | awk 'NR==3{print $3}')
-          mystery_criteria=$(echo "$output" | awk 'NR==4{print $3}')
-          echo "::set-output name=total_criteria::$total_criteria"
-          echo "::set-output name=with_references::$with_references"
-          echo "::set-output name=without_references::$without_references"
-          echo "::set-output name=mystery_criteria::$mystery_criteria"
 
       - name: Read output file
         id: read_output
         run: |
           output=$(cat output.txt)
+          echo "setting output to $output"
           echo "::set-output name=output::$output"
 
       - name: Comment on pull request
@@ -55,7 +48,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ```
-            $(cat output.txt)
+            ${{ steps.read_output.outputs.output }}
             ```
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

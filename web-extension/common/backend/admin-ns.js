@@ -24,6 +24,7 @@ function doValidate(validator, params) {
  */
 export default function init({ settings, wallets, networks, onerror }) {
   let storedPassphrase = null
+  console.log('init')
 
   return new JSONRPCServer({
     onerror,
@@ -31,7 +32,7 @@ export default function init({ settings, wallets, networks, onerror }) {
       async 'admin.app_globals'(params) {
         doValidate(adminValidation.appGlobals, params)
 
-        const hasPassphrase = storedPassphrase != null
+        const hasPassphrase = settings.has('passphrase')
         const hasWallet = Array.from(await wallets.list()).length > 0
 
         return {
@@ -57,8 +58,8 @@ export default function init({ settings, wallets, networks, onerror }) {
 
       async 'admin.create_passphrase'(params) {
         doValidate(adminValidation.createPassphrase, params)
-        if (storedPassphrase != null) throw new Error('Passphrase already exists')
-        storedPassphrase = params.passphrase
+        if (settings.has('passphrase')) throw new Error('Passphrase already exists')
+        settings.set('passphrase', params.passphrase)
 
         return null
       },

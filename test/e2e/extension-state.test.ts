@@ -7,7 +7,7 @@ import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 
-describe.skip('Check correct app state persists after closing the extension', () => {
+describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
   let getStarted: GetStarted
   let password: Password

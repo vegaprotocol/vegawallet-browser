@@ -35,7 +35,7 @@ describe('View wallet page', () => {
     await driver.quit()
   })
 
-  it('can create new key/pair in the view wallet screen', async () => {
+  it('defaults to the fairground network', async () => {
     // 1101-BWAL-026 The browser wallet defaults to use the Fairground network
     const connectedNetwork = await viewWallet.getNetworkConnectedTo()
     expect(connectedNetwork.toLowerCase()).toBe('fairground')

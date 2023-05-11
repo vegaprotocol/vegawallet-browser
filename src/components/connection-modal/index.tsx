@@ -31,13 +31,13 @@ const PixelatedTick = () => {
 }
 
 export const ConnectionSuccess = ({ onClose, hostname }: InteractionSuccessProps) => {
-  // useEffect(() => {
-  //   const stamp = setTimeout(() => {
-  //     onClose()
-  //   }, 1000)
+  useEffect(() => {
+    const stamp = setTimeout(() => {
+      onClose()
+    }, 1000)
 
-  //   return () => clearTimeout(stamp)
-  // }, [onClose])
+    return () => clearTimeout(stamp)
+  }, [onClose])
 
   return (
     <div
@@ -111,7 +111,7 @@ export const ConnectionModal = () => {
     isOpen: store.connectionModalOpen,
     setIsOpen: store.setConnectionModalOpen
   }))
-  const [hasConnected, setHasConnected] = useState(true)
+  const [hasConnected, setHasConnected] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const handleDecision = useCallback((decision: boolean) => {
     if (decision) {

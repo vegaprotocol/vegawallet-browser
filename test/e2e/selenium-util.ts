@@ -54,3 +54,13 @@ export async function isElementDisplayed(driver: WebDriver, locator: By, timeout
     return false
   }
 }
+
+export async function isElementEnabled(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
+  try {
+    await driver.wait(until.elementLocated(locator), timeout)
+    const element = await driver.findElement(locator)
+    return await element.isEnabled()
+  } catch (error) {
+    return false
+  }
+}

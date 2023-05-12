@@ -17,7 +17,7 @@ const PixelatedTick = () => {
   )
 }
 
-type ConnectionSuccessProps = {
+export interface ConnectionSuccessProps {
   onClose: () => void
   hostname: string
 }

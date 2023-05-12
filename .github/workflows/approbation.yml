@@ -34,7 +34,7 @@ jobs:
           echo "showing files"
           ls
           echo "Jenkins file:"
-          results=$(cat results/jenkins.txt)
+          results=$(cat results/jenkins.txt | sed 's/\*//g;s/ \([a-zA-Z]\)/\n\1/g')
           echo "::set-output name=file::$results"
 
       - name: echo output
@@ -46,8 +46,8 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            The Jenkins file output is:
-            ```
-            ${{ steps.approbation.outputs.file }}
-            ```
+            👋 @{{ author }}, here are the approbation results for this PR:
+              
+            ${{steps.approbation.outputs.file }}
+
           issue-number: ${{ github.event.pull_request.number }}

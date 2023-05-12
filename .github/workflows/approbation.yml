@@ -30,11 +30,11 @@ jobs:
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-mystery --category-stats --output-jenkins
+            --show-mystery --category-stats --output-jenkins | sed 's/\*//g;s/ \([a-zA-Z]\)/\n\1/g' > results/jenkins.txt
           echo "showing files"
           ls
           echo "Jenkins file:"
-          results=$(cat results/jenkins.txt | sed 's/\*//g;s/ \([a-zA-Z]\)/\n\1/g')
+          results=$(cat results/jenkins.txt)
           echo "::set-output name=file::$results"
 
       - name: echo output
@@ -46,8 +46,9 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            👋 @{{ author }}, here are the approbation results for this PR:
-              
-            ${{steps.approbation.outputs.file }}
+            Here are the approbation results for this PR:
 
+            ```
+            ${{steps.approbation.outputs.file}}
+            ```
           issue-number: ${{ github.event.pull_request.number }}

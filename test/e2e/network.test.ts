@@ -16,7 +16,7 @@ describe('View wallet page', () => {
   let viewWallet: ViewWallet
   const testPassword = 'password1'
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     //TODO- replace this set up with an api method to create a password and an api method importing a wallet. We should then be taken straight to the view wallet page
     driver = await initDriver()
     password = new Password(driver)
@@ -31,7 +31,7 @@ describe('View wallet page', () => {
     await secureYourWallet.revealRecoveryPhrase(true)
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await driver.quit()
   })
 

@@ -33,7 +33,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await driver.quit()
   })
 
-  it('shows the Create a Wallet page after creating password and closing the app', async () => {
+   it('shows the Create a Wallet page after creating password and closing the app', async () => {
     await getStarted.getStarted()
     await password.createPassword(testPassword, 'incorrectPassword')
 

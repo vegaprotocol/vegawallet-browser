@@ -23,16 +23,13 @@ function doValidate(validator, params) {
  * @returns {JSONRPCServer}
  */
 export default function init({ settings, wallets, networks, onerror }) {
-  let storedPassphrase = null
-  console.log('init')
-
   return new JSONRPCServer({
     onerror,
     methods: {
       async 'admin.app_globals'(params) {
         doValidate(adminValidation.appGlobals, params)
 
-        const hasPassphrase = settings.has('passphrase')
+        const hasPassphrase = await settings.has('passphrase')
         const hasWallet = Array.from(await wallets.list()).length > 0
 
         return {
@@ -58,18 +55,18 @@ export default function init({ settings, wallets, networks, onerror }) {
 
       async 'admin.create_passphrase'(params) {
         doValidate(adminValidation.createPassphrase, params)
-        if (settings.has('passphrase')) throw new Error('Passphrase already exists')
-        settings.set('passphrase', params.passphrase)
+        if (await settings.has('passphrase')) throw new Error('Passphrase already exists')
+        await settings.set('passphrase', params.passphrase)
 
         return null
       },
 
       async 'admin.update_passphrase'(params) {
         doValidate(adminValidation.updatePassphrase, params)
-        if (storedPassphrase == null) throw new Error('Passphrase does not exist')
-        if (storedPassphrase !== params.passphrase) throw new Error('Passphrase does not match')
-
-        storedPassphrase = params.newPassphrase
+        const passphrase = await settings.get('passphrase')
+        if (passphrase == null) throw new Error('Passphrase does not exist')
+        if (passphrase !== params.passphrase) throw new Error('Passphrase does not match')
+        await settings.set('passphrase', params.newPassphrase)
 
         return null
       },

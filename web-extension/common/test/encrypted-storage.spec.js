@@ -29,6 +29,12 @@ describe('encrypted-storage', () => {
     await encryptedStorage.set('foo', 'bar')
 
     expect(await encryptedStorage.get('foo')).toBe('bar')
+
+    await encryptedStorage.close()
+
+    await encryptedStorage.open('passphrase')
+
+    expect(await encryptedStorage.get('foo')).toBe('bar')
   })
 
   test('Storage is cleared when closed', async () => {

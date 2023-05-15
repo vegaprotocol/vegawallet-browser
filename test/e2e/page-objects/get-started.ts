@@ -12,7 +12,11 @@ export class GetStarted {
     await clickElement(this.driver, this.getStartedButton)
   }
 
-  async isGetStartedPage() {
-    return await isElementDisplayed(this.driver, this.getStartedButton)
+  async checkOnGetStartedPage() {
+    expect(
+      await isElementDisplayed(this.driver, this.getStartedButton),
+      "expected to be on the 'get started' page but could not locate the get started button",
+      { showPrefix: false }
+    ).toBe(true)
   }
 }

@@ -8,7 +8,6 @@ import {
 } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
-import { networkIndicator } from '../../../src/locator-ids'
 
 export class ViewWallet {
   private readonly viewWalletsHeader: By = getByDataTestID(locators.viewWalletsHeader)
@@ -33,8 +32,12 @@ export class ViewWallet {
     return keys
   }
 
-  async isViewWalletsPage() {
-    return await isElementDisplayed(this.driver, this.walletName)
+  async checkOnViewWalletPage() {
+    expect(
+      await isElementDisplayed(this.driver, this.walletName),
+      "expected to be on the 'view wallet' page but could not locate the 'view wallets' header ",
+      { showPrefix: false }
+    ).toBe(true)
   }
 
   async createNewKeyPair() {

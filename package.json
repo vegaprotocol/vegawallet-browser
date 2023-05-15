@@ -6,7 +6,7 @@
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@types/archiver": "^5.3.2",
-    "@vegaprotocol/crypto": "^0.7.1",
+    "@vegaprotocol/crypto": "^0.9.0",
     "@vegaprotocol/protos": "0.4.0",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
     "@vegaprotocol/ui-toolkit": "0.12.1",
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "dev:chrome": "web-ext run --source-dir=build/chrome --target=chromium --start-url=examples/sample-dapp/index.html",
-    "dev:firefox": "web-ext run --source-dir=build/firefox --devtools --target=firefox-desktop --start-url=examples/sample-dapp/index.html",
+    "dev:firefox": "web-ext run --source-dir=build/firefox --firefox=firefoxdeveloperedition --start-url=examples/sample-dapp/index.html",
     "build": "INLINE_RUNTIME_CHUNK=false craco build",
     "build:chrome": "yarn build --build-chrome",
     "build:firefox": "yarn build --build-firefox",

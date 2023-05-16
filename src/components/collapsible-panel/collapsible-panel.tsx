@@ -16,14 +16,8 @@ export const CollapsiblePanel = ({
   const [isOpen, setIsOpen] = useState(initiallyOpen)
   return (
     <div data-testid={locators.collapsiblePanel}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        data-testid={locators.collapsiblePanelButton}
-      >
-        <span
-          className="text-dark-300 uppercase"
-          data-testid={locators.collapsiblePanelTitle}
-        >
+      <button onClick={() => setIsOpen(!isOpen)} data-testid={locators.collapsiblePanelButton}>
+        <span className="text-vega-dark-300 text-sm uppercase" data-testid={locators.collapsiblePanelTitle}>
           {title}
         </span>
         <DropdownArrow
@@ -32,10 +26,7 @@ export const CollapsiblePanel = ({
           })}
         />
       </button>
-      <div
-        data-testid={locators.collapsiblePanelContent}
-        className={!isOpen ? 'hidden' : ''}
-      >
+      <div data-testid={locators.collapsiblePanelContent} className={!isOpen ? 'hidden' : ''}>
         {panelContent}
       </div>
     </div>

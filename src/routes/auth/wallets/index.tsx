@@ -14,19 +14,7 @@ import {
   walletsPage,
   walletsWalletName
 } from '../../../locator-ids'
-
-const KeyIcon = ({ publicKey }: { publicKey: string }) => {
-  return (
-    <div className="inline-grid grid-cols-3 gap-0 w-9 h-9 mr-4">
-      {publicKey
-        .match(/.{6}/g)
-        ?.slice(0, 9)
-        .map((c, i) => (
-          <div key={i} className="w-3 h-3" style={{ backgroundColor: `#${c}` }} />
-        ))}
-    </div>
-  )
-}
+import { KeyIcon } from '../../../components/key-icon'
 
 export const Wallets = () => {
   const { client } = useJsonRpcClient()
@@ -64,7 +52,7 @@ export const Wallets = () => {
         renderItem={(k) => (
           <div className="flex items-center">
             <KeyIcon publicKey={k.publicKey} />
-            <div>
+            <div className="ml-4">
               <div data-testid={walletsKeyName} className="text-lg text-white">
                 {k.name}
               </div>

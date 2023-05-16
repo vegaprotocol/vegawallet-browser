@@ -4,7 +4,7 @@ import { VegaIcon } from '../icons/vega-icon'
 export const PageHeader = () => {
   return (
     <>
-      <div className="flex justify-between items-center mb-10">
+      <div className="flex justify-between items-center mb-8">
         <VegaIcon size={48} backgroundColor="none" />
         <div
           data-testid={networkIndicator}

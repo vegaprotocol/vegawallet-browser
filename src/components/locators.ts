@@ -22,6 +22,7 @@ const locators = {
   errorModal: 'error-modal',
   errorModalClose: 'error-modal-close',
   frame: 'frame',
+  pageHeader: 'page-header',
   hideIcon: 'hide-icon',
   modalHeader: 'modal-header',
   modalHeaderTitle: 'modal-header-title',

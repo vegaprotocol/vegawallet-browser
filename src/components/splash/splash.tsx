@@ -4,12 +4,13 @@ import type { ReactNode } from 'react'
 
 interface SplashProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
+  centered?: boolean
 }
 
 /**
  * Component to display content centered in the middle of the screen
  */
-export function Splash({ children, className, ...props }: SplashProps) {
+export function Splash({ children, centered = false, className, ...props }: SplashProps) {
   return (
     <div
       {...props}
@@ -19,7 +20,13 @@ export function Splash({ children, className, ...props }: SplashProps) {
         className
       )}
     >
-      <div className={classnames('flex flex-col justify-center', 'w-full min-h-full max-w-full')}>{children}</div>
+      <div
+        className={classnames('h-full w-full min-h-full max-w-full py-3 px-5', {
+          'flex flex-col justify-center': centered
+        })}
+      >
+        {children}
+      </div>
     </div>
   )
 }

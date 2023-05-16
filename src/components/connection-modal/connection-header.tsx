@@ -24,7 +24,7 @@ const LeftRightArrows = () => {
 export const ConnectionHeader = ({ hostname, title }: { hostname: string; title: string }) => {
   return (
     <div data-testid={locators.modalHeader}>
-      <div className="flex justify-center mt-16">
+      <div className="flex justify-center">
         <HostImage hostname={hostname} />
         <div className="flex flex-col justify-center mx-4">
           <LeftRightArrows />

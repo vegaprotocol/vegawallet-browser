@@ -15,7 +15,7 @@ export const ConnectionDetails = ({
   hostname: string
 }) => {
   return (
-    <div data-testid={locators.connectionModalApprove} className="px-5">
+    <div data-testid={locators.connectionModalApprove}>
       <ConnectionHeader hostname={hostname} title="Connected to dApp" />
       <Frame>
         <p className="text-vega-dark-300 mb-3" data-testid={locators.connectionModalAccessListTitle}>

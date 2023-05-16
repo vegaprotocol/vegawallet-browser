@@ -23,8 +23,8 @@ export default class EncryptedStorage {
       // mutators
       ;['set', 'delete', 'clear'].forEach((method) => {
         this[method] = async (...args) => {
-          if (this._cache == null) {
-            throw new Error('Storage is not open')
+          if (this.isLocked === false) {
+            throw new Error('Storage is locked')
           }
 
           const result = await this._cache[method](...args)
@@ -38,8 +38,8 @@ export default class EncryptedStorage {
       // accessors
       ;['get', 'has', 'entries', 'keys', 'values'].forEach((method) => {
         this[method] = async (...args) => {
-          if (this._cache == null) {
-            throw new Error('Storage is not open')
+          if (this.isLocked === false) {
+            throw new Error('Storage is locked')
           }
 
           return this._cache[method](...args)
@@ -47,20 +47,8 @@ export default class EncryptedStorage {
       })
   }
 
-  /**
-   * Create a new encrypted storage instance.
-   * This is the main initializer for this class.
-   * Do not use the constructor directly.
-   *
-   * Note that you must call `open()` before using the storage.
-   *
-   * @param {StorageLocalMap} storage - The underlying storage to use.
-   * @param {string} passphrase - The passphrase to use for encryption.
-   * @returns {Promise<EncryptedStorage>} - The encrypted storage instance.
-   */
-  static async create(storage, passphrase) {
-    const inst = new this(storage)
-    return inst
+  get isLocked() {
+    return this._passphrase != null
   }
 
   /**
@@ -105,8 +93,31 @@ export default class EncryptedStorage {
    * @returns {Promise<boolean>} - Whether the passphrase is valid.
    */
   async verifyPassphrase(passphrase) {
+    if (this.isLocked === false) {
+      throw new Error('Storage is locked')
+    }
+
     // TODO: Should we instead store a derived value in memory?
     return fromString(passphrase) === this._passphrase
+  }
+
+  /**
+   * Change the passphrase used to encrypt the storage.
+   * @param {string} oldPassphrase - The current passphrase.
+   * @param {string} newPassphrase - The new passphrase.
+   * @returns {Promise<void>}
+   */
+  async changePassphrase(oldPassphrase, newPassphrase) {
+    if (this.isLocked === false) {
+      throw new Error('Storage is locked')
+    }
+
+    if (!await this.verifyPassphrase(oldPassphrase)) {
+      throw new Error('Invalid passphrase')
+    }
+
+    this._passphrase = fromString(newPassphrase)
+    this._save()
   }
 
   /**
@@ -122,7 +133,7 @@ export default class EncryptedStorage {
    * @param {string} passphrase - The passphrase to use for encryption.
    * @returns {Promise<void>}
    */
-  async open(passphrase) {
+  async unlock(passphrase) {
     this._passphrase = fromString(passphrase)
     this._cache = new Map(await this._load())
   }
@@ -131,7 +142,7 @@ export default class EncryptedStorage {
    * Close the encrypted storage, clearing the in-memory cache and passphrase.
    * @returns {Promise<void>}
    */
-  async close() {
+  async lock() {
     this._cache = null
     this._passphrase.fill(0)
     this._passphrase = null

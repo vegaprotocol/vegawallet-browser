@@ -3570,10 +3570,10 @@
     "@typescript-eslint/types" "5.58.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vegaprotocol/crypto@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/crypto/-/crypto-0.9.0.tgz#c9921ad6797d5544de456871f6cf9a4b55c127d7"
-  integrity sha512-XWmJqb8QIEgSJweGFBmb4r7sBKKqCI6y/wR8aIgjhzV3PQmeD8dt87at8JtdEpPl5OoXkfZwG6SJYKoCtXGffg==
+"@vegaprotocol/crypto@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/crypto/-/crypto-0.9.1.tgz#fbdbbe232b75723bd2838a6f4564856a46733a61"
+  integrity sha512-s1bQGvJqOn3nf2CWPnmaRhUWZUcr/TuMMXUywHr3Yy6RrqyIpXv1V5aUHhP00LJtCfdzLCHIUk5LhQNy7BBdiQ==
   dependencies:
     compare "^2.0.0"
     nanoassert "^2.0.0"

@@ -1,7 +1,7 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
 import { Frame } from '../frame'
 import { Tick } from '../icons/tick'
-import { ModalHeader } from '../modal-header'
+import { ConnectionHeader } from './connection-header'
 
 import locators from '../locators'
 
@@ -16,7 +16,7 @@ export const ConnectionDetails = ({
 }) => {
   return (
     <div data-testid={locators.connectionModalApprove} className="px-5">
-      <ModalHeader hostname={hostname} title="Connected to dApp" />
+      <ConnectionHeader hostname={hostname} title="Connected to dApp" />
       <Frame>
         <p className="text-vega-dark-300 mb-3" data-testid={locators.connectionModalAccessListTitle}>
           Allow this site to:

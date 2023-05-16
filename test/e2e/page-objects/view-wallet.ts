@@ -2,7 +2,7 @@ import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, getElementText, waitForElementToBeReady } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
-import CopyToClipboard from 'react-copy-to-clipboard'
+import clipboardy from 'clipboardy'
 
 export class ViewWallet {
   private readonly viewWalletsHeader: By = getByDataTestID(locators.viewWalletsHeader)
@@ -50,7 +50,7 @@ export class ViewWallet {
     return publicKey
   }
 
-  async readClipboard() {
+  async readClipboardChrome() {
     try {
       const clipboardValue = await this.driver.executeScript(() => {
         return navigator.clipboard.readText()

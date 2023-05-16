@@ -62,10 +62,14 @@ describe('View wallet page', () => {
     await navPanel.checkOnExpectedNavigationTab('Wallets')
 
     await viewWallet.copyPublicKeyToClipboard()
-    const copiedKey = await viewWallet.readClipboard()
-    const displayedKey = (await viewWallet.getVisiblePublicKeyText()).substring(0, 6)
-    expect(copiedKey, `expected the copied key to contain ${displayedKey}, but instead it was ${copiedKey}`).toContain(
-      displayedKey
-    )
+    // could not get checking clipboard to work in firefox besides clicking the button. Chrome we can check clipboard contents
+    if (process.env.BROWSER === 'chrome') {
+      const copiedKey = await viewWallet.readClipboardChrome()
+      const displayedKey = (await viewWallet.getVisiblePublicKeyText()).substring(0, 6)
+      expect(
+        copiedKey,
+        `expected the copied key to contain ${displayedKey}, but instead it was ${copiedKey}`
+      ).toContain(displayedKey)
+    }
   })
 })

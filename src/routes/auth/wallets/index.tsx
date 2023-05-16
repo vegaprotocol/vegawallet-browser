@@ -4,10 +4,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { Key, useWalletStore } from './store'
 import { Frame } from '../../../components/frame'
-import { VegaIcon } from '../../../components/icons/vega-icon'
 import { List } from '../../../components/list'
 import {
-  networkIndicator,
   walletsAssetHeader,
   walletsCreateKey,
   walletsDepositLink,
@@ -56,16 +54,7 @@ export const Wallets = () => {
 
   return (
     <section data-testid={walletsPage} className="pt-3 px-5">
-      <div className="flex justify-between items-center">
-        <VegaIcon size={48} backgroundColor="none" />
-        <div
-          data-testid={networkIndicator}
-          className="flex flex-col justify-center border rounded-md border-vega-dark-300 text-sm px-2 h-6"
-        >
-          {process.env['REACT_APP_ENV_NAME']}
-        </div>
-      </div>
-      <h1 data-testid={walletsWalletName} className="flex justify-center flex-col text-2xl mt-10 text-white">
+      <h1 data-testid={walletsWalletName} className="flex justify-center flex-col text-2xl text-white">
         {wallet.name}
       </h1>
       <h2 className="uppercase text-sm mt-6 mb-2 text-vega-dark-300">Keys</h2>

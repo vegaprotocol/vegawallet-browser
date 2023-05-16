@@ -29,24 +29,24 @@ export default class EncryptedStorage {
             throw new Error('Storage is locked')
           }
 
-          const result = await this._cache[method](...args)
+        const result = await this._cache[method](...args)
 
-          await this._save()
+        await this._save()
 
-          return result
+        return result
+      }
+    })
+
+    // accessors
+    ;['get', 'has', 'entries', 'keys', 'values'].forEach((method) => {
+      this[method] = async (...args) => {
+        if (this.isLocked === false) {
+          throw new Error('Storage is locked')
         }
-      })
 
-      // accessors
-      ;['get', 'has', 'entries', 'keys', 'values'].forEach((method) => {
-        this[method] = async (...args) => {
-          if (this.isLocked) {
-            throw new Error('Storage is locked')
-          }
-
-          return this._cache[method](...args)
-        }
-      })
+        return this._cache[method](...args)
+      }
+    })
   }
 
   get isLocked() {
@@ -62,9 +62,10 @@ export default class EncryptedStorage {
     const plaintext = fromString(JSON.stringify(Array.from(this._cache.entries())))
     const { ciphertext, salt, kdfParams } = await encrypt(this._passphrase, plaintext, this._kdfSettings)
 
-    await Promise.all([this._storage.set('ciphertext', toBase64(ciphertext)),
-    this._storage.set('salt', toBase64(salt)),
-    this._storage.set('kdfParams', kdfParams)
+    await Promise.all([
+      this._storage.set('ciphertext', toBase64(ciphertext)),
+      this._storage.set('salt', toBase64(salt)),
+      this._storage.set('kdfParams', kdfParams)
     ])
   }
 
@@ -126,7 +127,7 @@ export default class EncryptedStorage {
       throw new Error('Storage is locked')
     }
 
-    if (!await this.verifyPassphrase(oldPassphrase)) {
+    if (!(await this.verifyPassphrase(oldPassphrase))) {
       throw new Error('Invalid passphrase')
     }
 
@@ -184,7 +185,7 @@ export default class EncryptedStorage {
   async lock() {
     await this._save()
     this._cache = null
-    this._passphrase.fill(0)
+    this._passphrase?.fill(0)
     this._passphrase = null
     return
   }

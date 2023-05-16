@@ -90,6 +90,7 @@ const server = init({
   settings,
   wallets,
   networks,
+  encryptedStore,
   onerror: (...args) => console.error(args)
 })
 

@@ -10,6 +10,7 @@ import { SaveMnemonic } from './onboarding/save-mnemonic'
 import { Auth } from './auth'
 import { Wallets } from './auth/wallets'
 import { FULL_ROUTES, ROUTES } from './route-names'
+import { Settings } from './auth/settings'
 
 export const Routing = () => {
   usePersistLocation()
@@ -24,7 +25,7 @@ export const Routing = () => {
             <Route path={':id'} element={<ComingSoon />} />
           </Route>
           <Route path={ROUTES.connections} element={<ComingSoon />} />
-          <Route path={ROUTES.settings} element={<ComingSoon />} />
+          <Route path={ROUTES.settings} element={<Settings />} />
         </Route>
         <Route path={ROUTES.onboarding} element={<Outlet />}>
           <Route index element={<Navigate to={FULL_ROUTES.getStarted} />} />

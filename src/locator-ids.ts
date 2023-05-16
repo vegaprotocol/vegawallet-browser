@@ -27,3 +27,5 @@ export const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
 export const walletsPage = 'wallets-page'
 export const errorMessage = 'input-error-text'
 export const viewWalletsHeader = 'view-wallets-header'
+
+export const settingsPage = 'settings-page'

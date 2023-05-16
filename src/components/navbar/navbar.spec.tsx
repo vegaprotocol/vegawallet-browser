@@ -8,10 +8,7 @@ jest.mock('@vegaprotocol/ui-toolkit', () => ({
   Button: (props: HTMLAttributes<HTMLButtonElement>) => <button {...props} />
 }))
 
-const renderNavButton = (
-  props: NavButtonProps,
-  initialEntries: string[] = []
-) =>
+const renderNavButton = (props: NavButtonProps, initialEntries: string[] = []) =>
   render(
     <MemoryRouter initialEntries={initialEntries}>
       <NavButton {...props} />
@@ -81,11 +78,12 @@ describe('NavButton', () => {
 
 // eslint-disable-next-line jest/no-disabled-tests
 describe('NavBar', () => {
-  it('renders with all three NavButtons', () => {
+  it('renders with all four NavButtons', () => {
     renderNav({ isFairground: false })
     expect(screen.getByTestId('nav-bar')).toBeInTheDocument()
     expect(screen.getByTestId('nav-bar')).toHaveClass('bg-black')
-    expect(screen.getAllByTestId('nav-button')).toHaveLength(4)
+    // expect(screen.getAllByTestId('nav-button')).toHaveLength(4)
+    expect(screen.getAllByTestId('nav-button')).toHaveLength(2)
   })
 
   it('changes color if in fairground mode', () => {

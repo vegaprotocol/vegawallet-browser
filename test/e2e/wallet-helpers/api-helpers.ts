@@ -11,23 +11,7 @@ export class APIHelper {
   async generateRecoveryPhrase() {
     return await this.driver.executeScript<string>(async () => {
       // @ts-ignore
-      // this code returns the recovery phrase just fine for now, want to use the JsonRPC client
-      const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
-      const port = runtime.connect({ name: 'popup' })
-      const responsePromise = new Promise<string>((resolve) => {
-        port.onMessage.addListener((msg: any) => {
-          console.log('promise: ', msg)
-          resolve(msg.result.recoveryPhrase)
-        })
-      })
-      await port.postMessage({
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'admin.generate_recovery_phrase',
-        params: null
-      })
-
-      const recoveryPhrase = await responsePromise
+      const { recoveryPhrase } = await window.client.request('admin.generate_recovery_phrase', null)
       return recoveryPhrase
     })
   }

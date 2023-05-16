@@ -1,11 +1,9 @@
-import { ReactNode, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useModalStore } from '../../lib/modal-store'
 import { Splash } from '../splash'
 import { CodeWindow } from '../code-window'
 import { Button, truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { ListItem } from '../list'
 import { CollapsiblePanel } from '../collapsible-panel'
-import { formatDate } from '../../lib/date'
 import locators from '../locators'
 import { PageHeader } from '../page-header'
 import { HostImage } from '../host-image'
@@ -35,15 +33,6 @@ const data = {
   publicKey: '3fd42fd5ceb22d99ac45086f1d82d516118a5cb7ad9a2e096cd78ca2c8960c80',
   transaction: transaction,
   receivedAt: new Date().toISOString()
-}
-
-const TransactionDetailsItem = ({ children, title }: { children: ReactNode; title: string }) => {
-  return (
-    <div>
-      <div className="text-dark-300 uppercase">{title}</div>
-      <div>{children}</div>
-    </div>
-  )
 }
 
 export const TransactionModal = () => {
@@ -94,10 +83,10 @@ export const TransactionModal = () => {
               />
             }
           />
-          <div className="text-sm text-vega-dark-300 mt-3 mb-24">Received 30 seconds ago</div>
+          <div className="text-sm text-vega-dark-300 mt-3 mb-20">Received 30 seconds ago</div>
         </section>
       </Splash>
-      <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-6 bg-black z-20 px-5 border-t border-vega-dark-200">
+      <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-4 bg-black z-20 px-5 border-t border-vega-dark-200">
         <Button
           data-testid={locators.transactionModalApproveButton}
           disabled={!!isLoading}

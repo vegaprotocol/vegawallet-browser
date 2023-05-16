@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { Auth } from '.'
 import { MemoryRouter } from 'react-router-dom'
 import locators from '../../components/locators'
+import { networkIndicator } from '../../locator-ids'
 
 jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as any),
@@ -17,5 +18,7 @@ describe('Auth', () => {
     )
     expect(screen.getByTestId(locators.navBar)).toBeInTheDocument()
     expect(screen.getByTestId('outlet')).toBeInTheDocument()
+    expect(screen.getByTestId(locators.vegaIcon)).toBeInTheDocument()
+    expect(screen.getByTestId(networkIndicator)).toHaveTextContent('Fairground')
   })
 })

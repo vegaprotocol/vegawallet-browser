@@ -22,22 +22,22 @@ function doValidate(validator, params) {
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default function init({ settings, wallets, networks, onerror }) {
-  let storedPassphrase = null
-
+export default function init({ encryptedStore, settings, wallets, networks, onerror }) {
   return new JSONRPCServer({
     onerror,
     methods: {
       async 'admin.app_globals'(params) {
         doValidate(adminValidation.appGlobals, params)
 
-        const hasPassphrase = storedPassphrase != null
-        const hasWallet = Array.from(await wallets.list()).length > 0
+        const hasPassphrase = await encryptedStore.exists()
+        const isLocked = encryptedStore.isOpen === false
+        // TODO this is kinda indeterminate, as we don't know if the storage is empty
+        const hasWallet = isLocked ? false : Array.from(await wallets.list()).length > 0
 
         return {
           passphrase: hasPassphrase,
           wallet: hasWallet,
-          locked: false,
+          locked: isLocked,
           version: pkg.version,
 
           settings: Object.fromEntries(await settings.entries())
@@ -57,18 +57,32 @@ export default function init({ settings, wallets, networks, onerror }) {
 
       async 'admin.create_passphrase'(params) {
         doValidate(adminValidation.createPassphrase, params)
-        if (storedPassphrase != null) throw new Error('Passphrase already exists')
-        storedPassphrase = params.passphrase
+        // TODO: Is this a leaky hack?
+        if (await encryptedStore.exists()) throw new JSONRPCServer.Error('Encryption already initialised', 1)
+        await encryptedStore.unlock(params.passphrase)
 
         return null
       },
 
       async 'admin.update_passphrase'(params) {
         doValidate(adminValidation.updatePassphrase, params)
-        if (storedPassphrase == null) throw new Error('Passphrase does not exist')
-        if (storedPassphrase !== params.passphrase) throw new Error('Passphrase does not match')
+        if (await encryptedStore.exists() === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
+        await encryptedStore.changePassphrase(params.passphrase, params.newPassphrase)
 
-        storedPassphrase = params.newPassphrase
+        return null
+      },
+
+      async 'admin.unlock'(params) {
+        doValidate(adminValidation.unlock, params)
+        if (await encryptedStore.exists() === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
+        await encryptedStore.unlock(params.passphrase)
+
+        return null
+      },
+
+      async 'admin.lock'(params) {
+        doValidate(adminValidation.lock, params)
+        await encryptedStore.lock()
 
         return null
       },

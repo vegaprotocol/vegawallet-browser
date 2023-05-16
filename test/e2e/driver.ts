@@ -27,6 +27,12 @@ async function initChromeDriver() {
     .addArguments('--disable-dev-shm-usage')
     .addArguments('--disable-gpu')
     .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+  chromeOptions.setUserPreferences({
+    'profile.default_content_setting_values': {
+      clipboard: 1
+    }
+  })
+
   return new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
 }
 

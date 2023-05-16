@@ -6,6 +6,7 @@ import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
+import { APIHelper } from './wallet-helpers/api-helpers'
 
 describe('View wallet page', () => {
   let driver: WebDriver
@@ -14,6 +15,7 @@ describe('View wallet page', () => {
   let secureYourWallet: SecureYourWallet
   let createAWallet: CreateAWallet
   let viewWallet: ViewWallet
+  let apiHelper: APIHelper
   const testPassword = 'password1'
 
   beforeAll(async () => {
@@ -25,14 +27,21 @@ describe('View wallet page', () => {
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
     await navigateToLandingPage(driver)
-    await getStarted.getStarted()
-    await password.createPassword(testPassword)
-    await createAWallet.createNewWallet()
-    await secureYourWallet.revealRecoveryPhrase(true)
+    apiHelper = new APIHelper(driver)
+    //const recoveryPhrase = await apiHelper.generateRecoveryPhrase()
+    //console.log('recoveryPhrase: ', recoveryPhrase)
+    const client = await apiHelper.getClient()
+    //console.log('newWallet: ', newWallet)
+
+    await new Promise((resolve) => setTimeout(resolve, 30000))
+    // await getStarted.getStarted()
+    // await password.createPassword(testPassword)
+    // await createAWallet.createNewWallet()
+    // await secureYourWallet.revealRecoveryPhrase(true)
   })
 
   afterAll(async () => {
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('can create new key/pair in the view wallet screen', async () => {

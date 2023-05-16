@@ -9,6 +9,7 @@ import { formatDate } from '../../lib/date'
 import locators from '../locators'
 import { PageHeader } from '../page-header'
 import { HostImage } from '../host-image'
+import { KeyIcon } from '../key-icon'
 
 const transaction = {
   orderSubmission: {
@@ -63,51 +64,56 @@ export const TransactionModal = () => {
 
   if (!isOpen) return null
   return (
-    <Splash data-testid={locators.transactionWrapper}>
-      <section className="pb-4">
-        <PageHeader />
-        <h1 className="flex justify-center flex-col text-2xl text-white">Order submission</h1>
-        <div className="flex items-center">
-          <HostImage size={10} hostname={data.hostname} />
-          <div className="ml-4">
-            <span className="text-vega-dark-300">Request from</span> {data.hostname}
+    <>
+      <Splash data-testid={locators.transactionWrapper}>
+        <section className="pb-4">
+          <PageHeader />
+          <h1 className="flex justify-center flex-col text-2xl text-white">Order submission</h1>
+          <div className="flex items-center mt-6">
+            <HostImage size={9} hostname={data.hostname} />
+            <div className="ml-4">
+              <span className="text-vega-dark-300">Request from</span> {data.hostname}
+            </div>
           </div>
-        </div>
-        <div>
-          <div>Signing with:</div>
-          <p className="text-center text-lg">
-            {data.keyName}: ({truncateMiddle(data.publicKey)})
-          </p>
-        </div>
-        <CollapsiblePanel
-          title="View raw Transaction"
-          initiallyOpen={true}
-          panelContent={
-            <CodeWindow
-              text={JSON.stringify(data.transaction, null, '  ')}
-              content={JSON.stringify(data.transaction, null, '  ')}
-            />
-          }
-        />
-        <div className="text-sm text-vega-dark-300">Received 30 seconds ago</div>
-        <div className="grid grid-cols-[1fr_1fr] justify-between gap-4 mt-5">
-          <Button
-            data-testid={locators.transactionModalApproveButton}
-            disabled={!!isLoading}
-            onClick={() => handleDecision(false)}
-          >
-            Deny
-          </Button>
-          <Button
-            data-testid={locators.transactionModalDenyButton}
-            variant="primary"
-            disabled={!!isLoading}
-            onClick={() => handleDecision(true)}
-          >
-            Confirm
-          </Button>
-        </div>
-      </section>
-    </Splash>
+          <div className="flex items-center mb-8">
+            <KeyIcon publicKey={data.publicKey} />
+            <div className="ml-4">
+              <div className="text-vega-dark-300">Signing with</div>
+              <p>
+                {data.keyName}: <span className="text-vega-dark-300">{truncateMiddle(data.publicKey)}</span>
+              </p>
+            </div>
+          </div>
+          <CollapsiblePanel
+            title="View raw Transaction"
+            initiallyOpen={true}
+            panelContent={
+              <CodeWindow
+                text={JSON.stringify(data.transaction, null, '  ')}
+                content={JSON.stringify(data.transaction, null, '  ')}
+              />
+            }
+          />
+          <div className="text-sm text-vega-dark-300 mt-3 mb-24">Received 30 seconds ago</div>
+        </section>
+      </Splash>
+      <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-6 bg-black z-20 px-5 border-t border-vega-dark-200">
+        <Button
+          data-testid={locators.transactionModalApproveButton}
+          disabled={!!isLoading}
+          onClick={() => handleDecision(false)}
+        >
+          Deny
+        </Button>
+        <Button
+          data-testid={locators.transactionModalDenyButton}
+          variant="primary"
+          disabled={!!isLoading}
+          onClick={() => handleDecision(true)}
+        >
+          Confirm
+        </Button>
+      </div>
+    </>
   )
 }

@@ -8,6 +8,7 @@ import { CollapsiblePanel } from '../collapsible-panel'
 import { formatDate } from '../../lib/date'
 import locators from '../locators'
 import { PageHeader } from '../page-header'
+import { HostImage } from '../host-image'
 
 const transaction = {
   orderSubmission: {
@@ -27,10 +28,11 @@ const transaction = {
 }
 
 const data = {
-  hostname: 'vega.xyz',
+  keyName: 'Key 1',
+  hostname: 'https://www.google.com',
   wallet: 'test-wallet',
   publicKey: '3fd42fd5ceb22d99ac45086f1d82d516118a5cb7ad9a2e096cd78ca2c8960c80',
-  transaction: JSON.stringify(transaction),
+  transaction: transaction,
   receivedAt: new Date().toISOString()
 }
 
@@ -44,7 +46,6 @@ const TransactionDetailsItem = ({ children, title }: { children: ReactNode; titl
 }
 
 export const TransactionModal = () => {
-  const hostname = 'https://www.google.com'
   const { isOpen, setIsOpen } = useModalStore((store) => ({
     isOpen: store.transactionModalOpen,
     setIsOpen: store.setTransactionModalOpen
@@ -65,50 +66,30 @@ export const TransactionModal = () => {
     <Splash data-testid={locators.transactionWrapper}>
       <section className="pb-4">
         <PageHeader />
-        <p className="text-center text-lg">
-          Signing with key {data.wallet} ({truncateMiddle(data.publicKey)})
-        </p>
-        <ul>
-          <ListItem
-            item={transaction}
-            renderItem={(transaction) => (
-              <CollapsiblePanel
-                title="Details"
-                initiallyOpen={true}
-                panelContent={
-                  <CodeWindow
-                    text={JSON.stringify(JSON.parse(data.transaction), null, '  ')}
-                    content={JSON.stringify(JSON.parse(data.transaction), null, '  ')}
-                  />
-                }
-              />
-            )}
-          />
-          <ListItem
-            item={transaction}
-            renderItem={(transaction) => (
-              <TransactionDetailsItem title="Received At">
-                {formatDate(new Date(data.receivedAt))}
-              </TransactionDetailsItem>
-            )}
-          />
-          <ListItem
-            item={transaction}
-            renderItem={(transaction) => (
-              <TransactionDetailsItem title="Received At">
-                {formatDate(new Date(data.receivedAt))}
-              </TransactionDetailsItem>
-            )}
-          />
-          <ListItem
-            item={transaction}
-            renderItem={(transaction) => (
-              <TransactionDetailsItem title="Received At">
-                {formatDate(new Date(data.receivedAt))}
-              </TransactionDetailsItem>
-            )}
-          />
-        </ul>
+        <h1 className="flex justify-center flex-col text-2xl text-white">Order submission</h1>
+        <div className="flex items-center">
+          <HostImage size={10} hostname={data.hostname} />
+          <div className="ml-4">
+            <span className="text-vega-dark-300">Request from</span> {data.hostname}
+          </div>
+        </div>
+        <div>
+          <div>Signing with:</div>
+          <p className="text-center text-lg">
+            {data.keyName}: ({truncateMiddle(data.publicKey)})
+          </p>
+        </div>
+        <CollapsiblePanel
+          title="View raw Transaction"
+          initiallyOpen={true}
+          panelContent={
+            <CodeWindow
+              text={JSON.stringify(data.transaction, null, '  ')}
+              content={JSON.stringify(data.transaction, null, '  ')}
+            />
+          }
+        />
+        <div className="text-sm text-vega-dark-300">Received 30 seconds ago</div>
         <div className="grid grid-cols-[1fr_1fr] justify-between gap-4 mt-5">
           <Button
             data-testid={locators.transactionModalApproveButton}
@@ -123,7 +104,7 @@ export const TransactionModal = () => {
             disabled={!!isLoading}
             onClick={() => handleDecision(true)}
           >
-            Approve
+            Confirm
           </Button>
         </div>
       </section>

@@ -29,3 +29,8 @@ export const errorMessage = 'input-error-text'
 export const viewWalletsHeader = 'view-wallets-header'
 
 export const settingsPage = 'settings-page'
+export const settingsVersionTitle = 'settings-version-title'
+export const settingsVersionNumber = 'settings-version-number'
+export const settingsLockButton = 'settings-lock-button'
+export const settingsFeedbackDescription = 'settings-feedback-description'
+export const settingsFeedbackLink = 'settings-feedback-link'

@@ -10,7 +10,7 @@ describe('encrypted-storage', () => {
   test('Storage is not open', async () => {
     const encryptedStorage = new EncryptedStorage(new Map())
 
-    await expect(encryptedStorage.get('foo')).rejects.toThrow('Storage is not open')
+    await expect(encryptedStorage.get('foo')).rejects.toThrow('Storage is locked')
   })
 
   test('get() returns undefined for missing keys', async () => {
@@ -46,6 +46,6 @@ describe('encrypted-storage', () => {
 
     await encryptedStorage.lock()
 
-    await expect(encryptedStorage.get('foo')).rejects.toThrow('Storage is not open')
+    await expect(encryptedStorage.get('foo')).rejects.toThrow('Storage is locked')
   })
 })

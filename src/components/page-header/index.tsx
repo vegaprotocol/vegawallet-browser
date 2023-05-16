@@ -1,10 +1,11 @@
 import { networkIndicator } from '../../locator-ids'
 import { VegaIcon } from '../icons/vega-icon'
+import locators from '../locators'
 
 export const PageHeader = () => {
   return (
     <>
-      <div className="flex justify-between items-center mb-8">
+      <div data-testid={locators.pageHeader} className="flex justify-between items-center mb-8">
         <VegaIcon size={48} backgroundColor="none" />
         <div
           data-testid={networkIndicator}

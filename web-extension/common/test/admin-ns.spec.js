@@ -2,12 +2,15 @@ import initAdminServer from '../backend/admin-ns.js'
 import { WalletCollection } from '../backend/wallets.js'
 import { NetworkCollection } from '../backend/network.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
+import EncryptedStorage from '../lib/encrypted-storage.js'
 
-const createAdmin = () => {
+const createAdmin = async () => {
+  const enc = new EncryptedStorage(new Map())
   return initAdminServer({
+    encryptedStore: enc,
     settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
     wallets: new WalletCollection({
-      walletsStore: new Map(),
+      walletsStore: enc,
       publicKeyIndexStore: new Map()
     }),
     networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground' }]])),

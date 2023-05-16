@@ -3,6 +3,8 @@ export { default as updateAppSettings } from "./update-app-settings.js";
 
 export { default as createPassphrase } from "./create-passphrase.js";
 export { default as updatePassphrase } from "./update-passphrase.js";
+export { default as unlock } from "./unlock.js";
+export { default as lock } from "./lock.js";
 
 export { default as importNetwork } from "./import-network.js";
 export { default as describeNetwork } from "./describe-network.js";

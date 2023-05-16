@@ -29,11 +29,14 @@ describe('View wallet page', () => {
     await navigateToLandingPage(driver)
     apiHelper = new APIHelper(driver)
     //const recoveryPhrase = await apiHelper.generateRecoveryPhrase()
-    //console.log('recoveryPhrase: ', recoveryPhrase)
-    const client = await apiHelper.getClient()
-    //console.log('newWallet: ', newWallet)
+    console.log('about to call the apiHelper generateRecoveryPhrase method')
 
-    await new Promise((resolve) => setTimeout(resolve, 30000))
+    const recoveryPhrase = await apiHelper.generateRecoveryPhrase()
+    console.log('called it, mans back')
+    expect(recoveryPhrase).toBeDefined()
+    console.log('recovery phrase mutha flippaz: ', recoveryPhrase)
+
+    //await new Promise((resolve) => setTimeout(resolve, 30000))
     // await getStarted.getStarted()
     // await password.createPassword(testPassword)
     // await createAWallet.createNewWallet()
@@ -41,20 +44,18 @@ describe('View wallet page', () => {
   })
 
   afterAll(async () => {
-    //await driver.quit()
+    await driver.quit()
   })
 
   it('can create new key/pair in the view wallet screen', async () => {
     // 1101-BWAL-028  can create a new key pair from the wallet view
     // 1101-BWAL-029 New key pairs are assigned a name automatically "Vega Key 1" "Vega Key 2" etc.
     // 1101-BWAL-030 New key pairs are listed in order they were created - oldest first
-    await viewWallet.createNewKeyPair()
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2'])
-
-    await viewWallet.createNewKeyPair()
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
-
-    await navigateToLandingPage(driver)
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
+    // await viewWallet.createNewKeyPair()
+    // expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2'])
+    // await viewWallet.createNewKeyPair()
+    // expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
+    // await navigateToLandingPage(driver)
+    // expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
   })
 })

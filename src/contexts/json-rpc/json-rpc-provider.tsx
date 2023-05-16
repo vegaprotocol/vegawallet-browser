@@ -3,15 +3,15 @@ import JSONRPCClient from '../../lib/json-rpc-client'
 import { JsonRpcContext } from './json-rpc-context'
 import { useLogger } from '@vegaprotocol/react-helpers'
 
-const createClient = (logger: ReturnType<typeof useLogger>) => {
+export const createClient = (logger: ReturnType<typeof useLogger>) => {
   // @ts-ignore
   const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
   const backgroundPort = runtime.connect({ name: 'popup' })
-
+  console.log('RUNTIME MOTHER FLIPPERS', runtime)
   const background = new JSONRPCClient({
     send(msg: any) {
-      logger.info('Sending message to background', msg)
+      logger.info('Sending message to background POWWWW', msg)
       backgroundPort.postMessage(msg)
     }
   })

@@ -1,7 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { useLogger } from '@vegaprotocol/react-helpers'
 import JSONRPCClient from '../../../src/lib/json-rpc-client'
-import { CreateClient } from '../../../src/contexts/json-rpc/json-rpc-provider'
 
 export class APIHelper {
   private driver: WebDriver
@@ -10,25 +8,28 @@ export class APIHelper {
     this.driver = driver
   }
 
-  async getClient() {
-    let client: JSONRPCClient
-    await this.driver.executeAsyncScript(async () => {
-      const clientLogger = useLogger({
-        application: 'E2E tests',
-        tags: ['global', 'json-rpc-client']
+  async generateRecoveryPhrase() {
+    return await this.driver.executeScript<string>(async () => {
+      // @ts-ignore
+      // this code returns the recovery phrase just fine for now, want to use the JsonRPC client
+      const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
+      const port = runtime.connect({ name: 'popup' })
+      const responsePromise = new Promise<string>((resolve) => {
+        port.onMessage.addListener((msg: any) => {
+          console.log('promise: ', msg)
+          resolve(msg.result.recoveryPhrase)
+        })
       })
-      client = CreateClient(clientLogger)
-      return client
-    })
-  }
+      await port.postMessage({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'admin.generate_recovery_phrase',
+        params: null
+      })
 
-  async generateRecoveryPhrase(client: JSONRPCClient) {
-    console.log('client', client)
-    let resp: any
-    await this.driver.executeScript(async () => {
-      resp = await client.request('admin.generate_recovery_phrase', null)
+      const recoveryPhrase = await responsePromise
+      return recoveryPhrase
     })
-    return resp
   }
 
   async importWallet(client: JSONRPCClient, recoveryPhrase: string) {

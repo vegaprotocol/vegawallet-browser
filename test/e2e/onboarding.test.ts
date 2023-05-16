@@ -91,9 +91,7 @@ describe('Onboarding', () => {
   })
 
   async function checkOnWalletPageWithExpectedWalletAndKeys(expectedWalletName: string, expectedWalletKey: string) {
-    expect(await viewWallet.isViewWalletsPage(), 'Expected to be on the create wallet page but was not', {
-      showPrefix: false
-    }).toBe(true)
+    await viewWallet.checkOnViewWalletsPage()
     const walletName = await viewWallet.getWalletName()
     expect(
       await viewWallet.getWalletName(),

@@ -1,14 +1,7 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import {
-  clickElement,
-  getByDataTestID,
-  getElementText,
-  isElementDisplayed,
-  waitForElementToBeReady
-} from '../selenium-util'
+import { clickElement, getByDataTestID, getElementText, waitForElementToBeReady } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
-import { networkIndicator } from '../../../src/locator-ids'
 
 export class ViewWallet {
   private readonly viewWalletsHeader: By = getByDataTestID(locators.viewWalletsHeader)
@@ -16,6 +9,8 @@ export class ViewWallet {
   private readonly createNewKeyPairButton: By = getByDataTestID(locators.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly networkIndicator: By = getByDataTestID(locators.networkIndicator)
+  private readonly copyIcon: By = getByDataTestID('copy-icon')
+  private readonly copyableKey: By = getByDataTestID('copy-with-check')
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -33,12 +28,37 @@ export class ViewWallet {
     return keys
   }
 
-  async isViewWalletsPage() {
-    return await isElementDisplayed(this.driver, this.walletName)
+  async checkOnViewWalletsPage() {
+    const walletHeaderText = await getElementText(this.driver, this.walletName)
+    expect(
+      walletHeaderText,
+      `Expected the name of the wallet to be on display as 'Wallet 1', instead it was ${walletHeaderText}`
+    ).toBe('Wallet 1')
   }
 
   async createNewKeyPair() {
     await clickElement(this.driver, this.createNewKeyPairButton)
+  }
+
+  async copyPublicKeyToClipboard() {
+    await clickElement(this.driver, this.copyIcon)
+  }
+
+  async getVisiblePublicKeyText() {
+    const publicKey = await getElementText(this.driver, this.copyableKey)
+    return publicKey
+  }
+
+  async readClipboardChrome() {
+    try {
+      const clipboardValue = await this.driver.executeScript(() => {
+        return navigator.clipboard.readText()
+      })
+      return clipboardValue
+    } catch (error) {
+      console.error('Failed to read clipboard:', error)
+      return ''
+    }
   }
 
   async getNetworkConnectedTo() {

@@ -37,6 +37,7 @@ describe('View wallet page', () => {
 
   it('defaults to the fairground network', async () => {
     // 1101-BWAL-026 The browser wallet defaults to use the Fairground network
+    // 1101-BWAL-027 I can see which vega network the browser wallet is connected to from the view wallet page
     const connectedNetwork = await viewWallet.getNetworkConnectedTo()
     expect(connectedNetwork.toLowerCase()).toBe('fairground')
   })

@@ -16,6 +16,7 @@ import { WalletsStore, useWalletStore } from './store'
 
 describe('Wallets', () => {
   let initialState: WalletsStore | null = null
+  const informationText = 'Deposit and manage your assets directly in a Vega dapp.'
   beforeEach(() => {
     initialState = useWalletStore.getState()
   })
@@ -79,9 +80,7 @@ describe('Wallets', () => {
     expect(screen.getByTestId(walletsKeyName)).toHaveTextContent('Key 1')
     expect(screen.getByTestId(walletsCreateKey)).toHaveTextContent('Create new key/pair')
     expect(screen.getByTestId(walletsAssetHeader)).toHaveTextContent('Assets')
-    expect(screen.getByTestId(locators.frame)).toHaveTextContent(
-      'Deposit and manage your assets directly in a Vega dapp.'
-    )
+    expect(screen.getByTestId(locators.frame)).toHaveTextContent(informationText)
     expect(screen.getByTestId(walletsDepositLink)).toHaveTextContent('a Vega dapp.')
     expect(screen.getByTestId(walletsDepositLink)).toHaveAttribute('href', 'https://console.fairground.wtf')
   })
@@ -100,5 +99,20 @@ describe('Wallets', () => {
     const [key1, key2] = screen.queryAllByTestId(locators.listItem)
     expect(key1).toHaveTextContent('Key 1')
     expect(key2).toHaveTextContent('Key 2')
+  })
+
+  it('gives information of where to deposit and manage assets', async () => {
+    // 1101-BWAL-060 I can see information of where to go to deposit and manage my assets
+    mockClient()
+    render(
+      <JsonRPCProvider>
+        <Wallets />
+      </JsonRPCProvider>
+    )
+    // Wait for list to load
+    await screen.findByTestId(locators.listItem)
+    const infoElement = screen.getByTestId(locators.frame)
+    expect(infoElement).toHaveTextContent(informationText)
+    expect(infoElement).toBeVisible()
   })
 })

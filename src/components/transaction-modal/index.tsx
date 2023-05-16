@@ -7,6 +7,7 @@ import { ListItem } from '../list'
 import { CollapsiblePanel } from '../collapsible-panel'
 import { formatDate } from '../../lib/date'
 import locators from '../locators'
+import { PageHeader } from '../page-header'
 
 const transaction = {
   orderSubmission: {
@@ -62,7 +63,8 @@ export const TransactionModal = () => {
   if (!isOpen) return null
   return (
     <Splash data-testid={locators.transactionWrapper}>
-      <div>
+      <section className="pb-4">
+        <PageHeader />
         <p className="text-center text-lg">
           Signing with key {data.wallet} ({truncateMiddle(data.publicKey)})
         </p>
@@ -80,6 +82,22 @@ export const TransactionModal = () => {
                   />
                 }
               />
+            )}
+          />
+          <ListItem
+            item={transaction}
+            renderItem={(transaction) => (
+              <TransactionDetailsItem title="Received At">
+                {formatDate(new Date(data.receivedAt))}
+              </TransactionDetailsItem>
+            )}
+          />
+          <ListItem
+            item={transaction}
+            renderItem={(transaction) => (
+              <TransactionDetailsItem title="Received At">
+                {formatDate(new Date(data.receivedAt))}
+              </TransactionDetailsItem>
             )}
           />
           <ListItem
@@ -108,7 +126,7 @@ export const TransactionModal = () => {
             Approve
           </Button>
         </div>
-      </div>
+      </section>
     </Splash>
   )
 }

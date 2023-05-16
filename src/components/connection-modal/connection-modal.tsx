@@ -21,7 +21,7 @@ export const ConnectionModal = () => {
 
   if (!isOpen) return null
   return (
-    <Splash data-testid={locators.connectionModal}>
+    <Splash data-testid={locators.connectionModal} centered={true}>
       {hasConnected ? (
         <ConnectionSuccess
           hostname={hostname}

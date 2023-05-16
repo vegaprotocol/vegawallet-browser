@@ -5,6 +5,7 @@ import { networkIndicator } from '../../locator-ids'
 
 import { ConnectionModal } from '../../components/connection-modal'
 import { TransactionModal } from '../../components/transaction-modal'
+import { PageHeader } from '../../components/page-header'
 
 export const Auth = () => {
   return (
@@ -12,15 +13,7 @@ export const Auth = () => {
       <ConnectionModal />
       <TransactionModal />
       <section className="w-full h-full overflow-y-scroll pt-3 px-5 bg-vega-dark-100">
-        <div className="flex justify-between items-center mb-10">
-          <VegaIcon size={48} backgroundColor="none" />
-          <div
-            data-testid={networkIndicator}
-            className="flex flex-col justify-center border rounded-md border-vega-dark-300 text-sm px-2 h-6"
-          >
-            {process.env['REACT_APP_ENV_NAME']}
-          </div>
-        </div>
+        <PageHeader />
         <Outlet />
       </section>
       <NavBar isFairground={false} />

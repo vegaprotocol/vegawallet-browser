@@ -34,7 +34,7 @@ export const ConnectionSuccess = ({ onClose, hostname }: ConnectionSuccessProps)
   return (
     <div
       data-testid={locators.connectionModalSuccess}
-      className="w-full h-full flex flex-col py-24 px-5 justify-center items-center"
+      className="w-full h-full flex flex-col py-24 justify-center items-center"
     >
       <div className="rounded-md py-5 px-4 bg-vega-green-550 mb-8">
         <PixelatedTick />

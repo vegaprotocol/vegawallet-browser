@@ -84,8 +84,8 @@ jobs:
 
       - name: Allure results
         run: |
-          wget https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_386 -O ./allurectl
-          chmod +x ./allurectl
+          wget https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_386 -O /bin/allurectl
+          sudo chmod +x ./allurectl
           allurectl auth login --endpoint https://dalebennett.testops.cloud/ --token fa11ad16-a921-48db-a175-88780884bd2d
           export ALLURE_ENDPOINT=https://dalebennett.testops.cloud/
           export ALLURE_TOKEN=fa11ad16-a921-48db-a175-88780884bd2d

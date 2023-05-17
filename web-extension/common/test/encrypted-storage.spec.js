@@ -5,7 +5,9 @@ describe('encrypted-storage', () => {
     const store = new Map()
     const encryptedStorage = new EncryptedStorage(store, { memory: 1, iterations: 1 })
 
-    await expect(encryptedStorage.unlock('invalid')).rejects.toThrow('Invalid passphrase')
+    await encryptedStorage.create('passphrase')
+    await encryptedStorage.lock()
+    await expect(encryptedStorage.unlock('invalid')).rejects.toThrow('Unsupported state or unable to authenticate data')
   })
 
   test('Storage is not open', async () => {
@@ -17,7 +19,7 @@ describe('encrypted-storage', () => {
   test('get() returns undefined for missing keys', async () => {
     const encryptedStorage = new EncryptedStorage(new Map(), { memory: 1, iterations: 1 })
 
-    await encryptedStorage.unlock('passphrase')
+    await encryptedStorage.create('passphrase')
 
     expect(await encryptedStorage.get('foo')).toBe(undefined)
   })
@@ -25,7 +27,7 @@ describe('encrypted-storage', () => {
   test('get() returns the value for existing keys', async () => {
     const encryptedStorage = new EncryptedStorage(new Map(), { memory: 1, iterations: 1 })
 
-    await encryptedStorage.unlock('passphrase')
+    await encryptedStorage.create('passphrase')
 
     await encryptedStorage.set('foo', 'bar')
 
@@ -41,12 +43,28 @@ describe('encrypted-storage', () => {
   test('Storage is cleared when closed', async () => {
     const encryptedStorage = new EncryptedStorage(new Map(), { memory: 1, iterations: 1 })
 
-    await encryptedStorage.unlock('passphrase')
+    await encryptedStorage.create('passphrase')
 
     await encryptedStorage.set('foo', 'bar')
 
     await encryptedStorage.lock()
 
     await expect(encryptedStorage.get('foo')).rejects.toThrow('Storage is locked')
+  })
+
+  test('Create storage twice', async () => {
+    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 1, iterations: 1 })
+
+    await encryptedStorage.create('passphrase')
+
+    await expect(encryptedStorage.create('passphrase')).rejects.toThrow('Storage already exists')
+  })
+
+  test('Create storage twice with overwrite', async () => {
+    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 1, iterations: 1 })
+
+    await encryptedStorage.create('passphrase')
+
+    await encryptedStorage.create('passphrase', true)
   })
 })

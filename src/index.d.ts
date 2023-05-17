@@ -1,4 +1,4 @@
-import JSONRPCClient from '../../../src/lib/json-rpc-client'
+import JSONRPCClient from './lib/json-rpc-client'
 declare global {
   interface Window {
     client: JSONRPCClient

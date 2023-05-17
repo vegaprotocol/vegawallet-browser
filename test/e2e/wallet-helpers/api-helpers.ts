@@ -1,6 +1,4 @@
 import { WebDriver } from 'selenium-webdriver'
-import JSONRPCClient from '../../../src/lib/json-rpc-client'
-
 export class APIHelper {
   private driver: WebDriver
 
@@ -16,14 +14,49 @@ export class APIHelper {
     })
   }
 
-  async importWallet(client: JSONRPCClient, recoveryPhrase: string) {
-    let resp: any
-    await this.driver.executeScript(async () => {
-      resp = await client.request('admin.import_wallet', {
-        recovery_phrase: recoveryPhrase,
-        name: 'Wallet import'
-      })
-    })
-    return resp
+  async importWallet(recoveryPhrase: string) {
+    return (
+      await this.driver.executeScript<string>(async (recoveryPhrase: string) => {
+        console.log('here is the recovery phrase:', recoveryPhrase)
+        // @ts-ignore
+        const resp = await window.client.request('admin.import_wallet', {
+          recoveryPhrase: recoveryPhrase,
+          name: 'Wallet import'
+        })
+        return resp
+      }, recoveryPhrase),
+      recoveryPhrase
+    )
+  }
+
+  async createPassphrase(passphrase: string) {
+    return (
+      await this.driver.executeScript<string>(async (passphrase: string) => {
+        console.log('here is the passphrase', passphrase)
+        // @ts-ignore
+        const resp = await window.client.request('admin.create_passphrase', { passphrase: passphrase })
+        return resp
+      }, passphrase),
+      passphrase
+    )
+  }
+
+  async createKey(walletName: string, keyName: string) {
+    return (
+      await this.driver.executeScript<string>(
+        async (walletName: string, keyName: string) => {
+          // @ts-ignore
+          const resp = await client.request('admin.generate_key', {
+            wallet: walletName,
+            name: keyName
+          })
+          return resp
+        },
+        walletName,
+        keyName
+      ),
+      walletName,
+      keyName
+    )
   }
 }

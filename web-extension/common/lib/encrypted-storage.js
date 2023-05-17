@@ -129,7 +129,7 @@ export default class EncryptedStorage {
    * @returns {Promise<boolean>} - Whether the storage exists and is populated.
    */
   async exists() {
-    return Array.from(await this._storage.entries())
+    return Array.from(await this._storage.entries()).length > 0
   }
 
   /**

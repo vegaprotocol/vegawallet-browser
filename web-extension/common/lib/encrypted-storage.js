@@ -134,6 +134,7 @@ export default class EncryptedStorage {
 
   /**
    * Open the encrypted storage and decrypt into the in-memory cache.
+   * If no storage exists, this creates a new one on the first save.
    * @param {string} passphrase - The passphrase to use for encryption.
    * @returns {Promise<EncryptedStorage>} - The storage instance.
    */
@@ -145,10 +146,11 @@ export default class EncryptedStorage {
   }
 
   /**
-   * Close the encrypted storage, clearing the in-memory cache and passphrase.
+   * Close the encrypted storage, saving and clearing the in-memory cache and passphrase.
    * @returns {Promise<void>}
    */
   async lock() {
+    await this._save()
     this._cache = null
     this._passphrase.fill(0)
     this._passphrase = null

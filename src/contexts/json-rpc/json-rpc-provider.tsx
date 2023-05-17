@@ -8,6 +8,7 @@ const createClient = (logger: ReturnType<typeof useLogger>) => {
   const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
   const backgroundPort = runtime.connect({ name: 'popup' })
+
   const background = new JSONRPCClient({
     send(msg: any) {
       logger.info('Sending message to background', msg)

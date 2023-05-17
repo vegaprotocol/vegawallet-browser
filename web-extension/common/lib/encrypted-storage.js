@@ -107,7 +107,7 @@ export default class EncryptedStorage {
    * Change the passphrase used to encrypt the storage.
    * @param {string} oldPassphrase - The current passphrase.
    * @param {string} newPassphrase - The new passphrase.
-   * @returns {Promise<void>}
+   * @returns {Promise<EncryptedStorage>} - The storage instance.
    */
   async changePassphrase(oldPassphrase, newPassphrase) {
     if (this.isLocked === false) {
@@ -120,6 +120,8 @@ export default class EncryptedStorage {
 
     this._passphrase = fromString(newPassphrase)
     this._save()
+
+    return this
   }
 
   /**
@@ -133,11 +135,13 @@ export default class EncryptedStorage {
   /**
    * Open the encrypted storage and decrypt into the in-memory cache.
    * @param {string} passphrase - The passphrase to use for encryption.
-   * @returns {Promise<void>}
+   * @returns {Promise<EncryptedStorage>} - The storage instance.
    */
   async unlock(passphrase) {
     this._passphrase = fromString(passphrase)
     this._cache = new Map(await this._load())
+
+    return this
   }
 
   /**

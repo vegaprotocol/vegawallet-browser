@@ -2,8 +2,10 @@ import { encrypt, decrypt } from '@vegaprotocol/crypto/encryption'
 import { base64 as toBase64, fromBase64, string as fromString, toString } from '@vegaprotocol/crypto/buf'
 
 export default class EncryptedStorage {
-  constructor(storage) {
+  constructor(storage, kdfSettings = undefined) {
     this._storage = storage
+
+    this._kdfSettings = kdfSettings
 
     /**
      * The passphrase used to encrypt the storage.
@@ -58,7 +60,7 @@ export default class EncryptedStorage {
    */
   async _save() {
     const plaintext = fromString(JSON.stringify(Array.from(this._cache.entries())))
-    const { ciphertext, salt, kdfParams } = await encrypt(this._passphrase, plaintext)
+    const { ciphertext, salt, kdfParams } = await encrypt(this._passphrase, plaintext, this._kdfSettings)
 
     await Promise.all([this._storage.set('ciphertext', toBase64(ciphertext)),
     this._storage.set('salt', toBase64(salt)),

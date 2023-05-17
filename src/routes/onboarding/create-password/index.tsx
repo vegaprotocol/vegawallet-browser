@@ -6,7 +6,7 @@ import { useCallback, useEffect } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
-import { confirmPasswordInput, passwordInput, submitPasswordButton } from '../../../locator-ids'
+import { confirmPassphraseInput, passphraseInput, submitPassphraseButton } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/rpc-methods'
 
@@ -54,7 +54,7 @@ export const CreatePassword = () => {
               id="password"
               hasError={!!errors.password?.message}
               placeholder="Enter a password"
-              data-testid={passwordInput}
+              data-testid={passphraseInput}
               type="password"
               {...register('password', { required: Validation.REQUIRED })}
             />
@@ -64,7 +64,7 @@ export const CreatePassword = () => {
               id="confirmPassword"
               hasError={!!errors.confirmPassword?.message}
               placeholder="Enter password again"
-              data-testid={confirmPasswordInput}
+              data-testid={confirmPassphraseInput}
               type="password"
               {...register('confirmPassword', {
                 required: Validation.REQUIRED,
@@ -82,7 +82,7 @@ export const CreatePassword = () => {
           />
           <Button
             fill={true}
-            data-testid={submitPasswordButton}
+            data-testid={submitPassphraseButton}
             className="mt-8"
             variant="primary"
             type="submit"

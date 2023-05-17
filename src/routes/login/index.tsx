@@ -5,13 +5,15 @@ import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
-import { loginButton, loginPassword } from '../../locator-ids'
+import { loginButton, loginPassphrase } from '../../locator-ids'
+import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 
 interface FormFields {
-  password: string
+  passphrase: string
 }
 
 export const Login = () => {
+  const { client } = useJsonRpcClient()
   const {
     control,
     register,
@@ -21,34 +23,35 @@ export const Login = () => {
     formState: { errors }
   } = useForm<FormFields>()
   const navigate = useNavigate()
-  const password = useWatch({ control, name: 'password' })
+  const passphrase = useWatch({ control, name: 'passphrase' })
   const submit = useCallback(
-    (fields: { password: string }) => {
-      if (fields.password === '123') {
-        // Navigate to home so it can redirect to the correct page
-        navigate(FULL_ROUTES.home)
-      } else {
-        setError('password', { message: 'Incorrect password' })
+    async (fields: { passphrase: string }) => {
+      try {
+        await client.request('admin.unlock', { passphrase: fields.passphrase })
+        navigate(FULL_ROUTES.wallets)
+      } catch (e) {
+        // TODO handle if error or if passphrase wrong
+        setError('passphrase', { message: 'Incorrect passphrase' })
       }
     },
-    [navigate, setError]
+    [client, navigate, setError]
   )
   useEffect(() => {
-    setFocus('password')
+    setFocus('passphrase')
   }, [setFocus])
   return (
     <StarsWrapper>
       <form className="text-left" onSubmit={handleSubmit(submit)}>
-        <FormGroup label="Password" labelFor="password">
+        <FormGroup label="passphrase" labelFor="passphrase">
           <Input
-            hasError={!!errors.password?.message}
-            data-testid={loginPassword}
-            type="password"
-            {...register('password', {
+            hasError={!!errors.passphrase?.message}
+            data-testid={loginPassphrase}
+            type="passphrase"
+            {...register('passphrase', {
               required: Validation.REQUIRED
             })}
           />
-          {errors.password?.message && <InputError forInput="passphrase">{errors.password.message}</InputError>}
+          {errors.passphrase?.message && <InputError forInput="passphrase">{errors.passphrase.message}</InputError>}
         </FormGroup>
         <Button
           data-testid={loginButton}
@@ -56,7 +59,7 @@ export const Login = () => {
           className="mt-2"
           variant="primary"
           type="submit"
-          disabled={!Boolean(password)}
+          disabled={!Boolean(passphrase)}
         >
           Login
         </Button>

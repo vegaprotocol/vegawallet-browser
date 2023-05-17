@@ -3,13 +3,13 @@
 export const getStartedButton = 'get-started-button'
 export const createNewWalletButton = 'create-new-wallet'
 
-export const loginPassword = 'login-password'
+export const loginPassphrase = 'login-passphrase'
 export const loginButton = 'login-button'
 
-export const passwordInput = 'password-input'
-export const confirmPasswordInput = 'confirm-password-input'
-export const passwordWarningCheckbox = 'acceptedTerms' // by id
-export const submitPasswordButton = 'submit-password'
+export const passphraseInput = 'passphrase-input'
+export const confirmPassphraseInput = 'confirm-passphrase-input'
+export const passphraseWarningCheckbox = 'acceptedTerms' // by id
+export const submitPassphraseButton = 'submit-passphrase-button'
 export const importWalletButton = 'import-wallet'
 export const saveMnemonicDescription = 'save-mnemonic-description'
 export const saveMnemonicButton = 'save-mnemonic-button'

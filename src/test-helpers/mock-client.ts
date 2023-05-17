@@ -132,6 +132,7 @@ export const mockClient = (
               listeners.map((fn) =>
                 fn({
                   jsonrpc: '2.0',
+                  // TODO ensure this error is correct
                   error: { code: -32600, message: 'Incorrect Passphrase' },
                   id: message.id
                 })

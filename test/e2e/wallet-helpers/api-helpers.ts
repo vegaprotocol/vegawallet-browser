@@ -17,7 +17,6 @@ export class APIHelper {
   async importWallet(recoveryPhrase: string) {
     return (
       await this.driver.executeScript<string>(async (recoveryPhrase: string) => {
-        console.log('here is the recovery phrase:', recoveryPhrase)
         // @ts-ignore
         const resp = await window.client.request('admin.import_wallet', {
           recoveryPhrase: recoveryPhrase,
@@ -32,7 +31,6 @@ export class APIHelper {
   async createPassphrase(passphrase: string) {
     return (
       await this.driver.executeScript<string>(async (passphrase: string) => {
-        console.log('here is the passphrase', passphrase)
         // @ts-ignore
         const resp = await window.client.request('admin.create_passphrase', { passphrase: passphrase })
         return resp

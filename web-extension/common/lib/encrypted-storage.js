@@ -133,6 +133,23 @@ export default class EncryptedStorage {
   }
 
   /**
+   * Create a new encrypted storage.
+   * @param {string} passphrase - The passphrase to use for encryption.
+   * @param {boolean} [overwrite=false] - Whether to overwrite an existing storage.
+   * @returns {Promise<EncryptedStorage>} - The storage instance.
+   */
+  async create(passphrase, overwrite = false) {
+    if (overwrite === false && await this.exists()) {
+      throw new Error('Storage already exists')
+    }
+
+    await this.unlock(passphrase)
+    await this._save()
+
+    return this
+  }
+
+  /**
    * Open the encrypted storage and decrypt into the in-memory cache.
    * If no storage exists, this creates a new one on the first save.
    * @param {string} passphrase - The passphrase to use for encryption.

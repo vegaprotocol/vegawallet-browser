@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "files": ["node_modules/jest-expect-message/types/index.d.ts"],
+  "files": ["node_modules/jest-expect-message/types/index.d.ts", "src/index.d.ts"],
   "include": ["src", "test/*"]
 }

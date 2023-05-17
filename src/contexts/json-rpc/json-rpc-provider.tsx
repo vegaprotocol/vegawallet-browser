@@ -15,6 +15,7 @@ const createClient = (logger: ReturnType<typeof useLogger>) => {
       backgroundPort.postMessage(msg)
     }
   })
+  window.client = background
   backgroundPort.onMessage.addListener((res: any) => {
     logger.info('Received message from background', res)
     background.onmessage(res)

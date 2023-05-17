@@ -8,7 +8,6 @@ export class APIHelper {
 
   async generateRecoveryPhrase() {
     return await this.driver.executeScript<string>(async () => {
-      // @ts-ignore
       const { recoveryPhrase } = await window.client.request('admin.generate_recovery_phrase', null)
       return recoveryPhrase
     })
@@ -17,7 +16,6 @@ export class APIHelper {
   async importWallet(recoveryPhrase: string) {
     return (
       await this.driver.executeScript<string>(async (recoveryPhrase: string) => {
-        // @ts-ignore
         const resp = await window.client.request('admin.import_wallet', {
           recoveryPhrase: recoveryPhrase,
           name: 'Wallet import'
@@ -31,7 +29,6 @@ export class APIHelper {
   async createPassphrase(passphrase: string) {
     return (
       await this.driver.executeScript<string>(async (passphrase: string) => {
-        // @ts-ignore
         const resp = await window.client.request('admin.create_passphrase', { passphrase: passphrase })
         return resp
       }, passphrase),
@@ -43,8 +40,7 @@ export class APIHelper {
     return (
       await this.driver.executeScript<string>(
         async (walletName: string, keyName: string) => {
-          // @ts-ignore
-          const resp = await client.request('admin.generate_key', {
+          const resp = await window.client.request('admin.generate_key', {
             wallet: walletName,
             name: keyName
           })

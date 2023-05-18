@@ -8,7 +8,7 @@ import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { NavPanel } from './page-objects/navpanel'
 
-describe('View wallet page', () => {
+describe('Settings test', () => {
   let driver: WebDriver
   let getStarted: GetStarted
   let password: Password

@@ -48,6 +48,12 @@ jobs:
           reporter: jest-junit
           output-to: step-summary
 
+      - name: output test screenshots from the final state of tests
+        uses: actions/upload-artifact@v3
+        with:
+          name: test screenshots chrome
+          path: ./test-screenshots
+
   firefox-e2e-tests:
     runs-on: ubuntu-latest
     steps:
@@ -85,5 +91,5 @@ jobs:
       - name: output test screenshots from the final state of tests
         uses: actions/upload-artifact@v3
         with:
-          name: test screenshots
+          name: test screenshots firefox
           path: ./test-screenshots

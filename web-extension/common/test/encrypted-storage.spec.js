@@ -7,7 +7,7 @@ describe('encrypted-storage', () => {
 
     await encryptedStorage.create('passphrase')
     await encryptedStorage.lock()
-    await expect(encryptedStorage.unlock('invalid')).rejects.toThrow('Unsupported state or unable to authenticate data')
+    await expect(encryptedStorage.unlock('invalid')).rejects.toThrow('Invalid passphrase or corrupted storage')
   })
 
   it('Storage is not open', async () => {

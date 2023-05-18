@@ -84,9 +84,16 @@ export default class EncryptedStorage {
       return []
     }
 
-    const plaintext = await decrypt(this._passphrase, fromBase64(ciphertext), fromBase64(salt), kdfParams)
+    try {
+      const plaintext = await decrypt(this._passphrase, fromBase64(ciphertext), fromBase64(salt), kdfParams)
+      return JSON.parse(toString(plaintext))
+    } catch (err) {
+      if (err.message === 'Unsupported state or unable to authenticate data') {
+        throw new Error('Invalid passphrase or corrupted storage')
+      }
 
-    return JSON.parse(toString(plaintext))
+      throw err
+    }
   }
 
   /**

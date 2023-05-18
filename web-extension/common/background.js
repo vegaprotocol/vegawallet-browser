@@ -88,7 +88,6 @@ const clientPorts = new PortServer({
 const server = init({
   encryptedStore,
   settings,
-  encryptedStore,
   wallets,
   networks,
   onerror: (...args) => console.error(args)

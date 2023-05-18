@@ -1,6 +1,6 @@
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 
-const defaultTimeoutMillis = 3000
+const defaultTimeoutMillis = 10000
 
 export async function clickElement(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   const element = await waitForElementToBeReady(driver, locator, timeout)

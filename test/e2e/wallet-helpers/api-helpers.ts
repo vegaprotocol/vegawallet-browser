@@ -13,7 +13,15 @@ export class APIHelper {
     })
   }
 
+  async login(passphrase: string) {
+    // TODO don't hardcode passphrase
+    return await this.driver.executeScript<string>(async () => {
+      await window.client.request('admin.unlock', { passphrase: 'password1' })
+    })
+  }
+
   async importWallet(recoveryPhrase: string) {
+    // TODO recoveryPhrase is not in scope for executeScript so this will fail
     return (
       await this.driver.executeScript<string>(async (recoveryPhrase: string) => {
         const resp = await window.client.request('admin.import_wallet', {

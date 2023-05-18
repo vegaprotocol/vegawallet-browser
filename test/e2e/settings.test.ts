@@ -1,19 +1,35 @@
 import { WebDriver } from 'selenium-webdriver'
 import { initDriver } from './driver'
+import { GetStarted } from './page-objects/get-started'
+import { Password } from './page-objects/password'
+import { SecureYourWallet } from './page-objects/secure-your-wallet'
+import { CreateAWallet } from './page-objects/create-a-wallet'
+import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { NavPanel } from './page-objects/navpanel'
-import { APIHelper } from './wallet-helpers/api-helpers'
 
-describe('Settings page', () => {
+describe('View wallet page', () => {
   let driver: WebDriver
+  let getStarted: GetStarted
+  let password: Password
+  let secureYourWallet: SecureYourWallet
+  let createAWallet: CreateAWallet
+  let viewWallet: ViewWallet
   const testPassword = 'password1'
 
   beforeEach(async () => {
+    //TODO- replace this set up with an api method to create a password and an api method importing a wallet. We should then be taken straight to the view wallet page
     driver = await initDriver()
-    const apiHelper = new APIHelper(driver)
+    password = new Password(driver)
+    getStarted = new GetStarted(driver)
+    secureYourWallet = new SecureYourWallet(driver)
+    createAWallet = new CreateAWallet(driver)
+    viewWallet = new ViewWallet(driver)
     await navigateToLandingPage(driver)
-    await apiHelper.setUpPasswordWalletAndKey(testPassword, 'Wallet 1', 'Key 1')
-    await navigateToLandingPage(driver)
+    await getStarted.getStarted()
+    await password.createPassword(testPassword)
+    await createAWallet.createNewWallet()
+    await secureYourWallet.revealRecoveryPhrase(true)
   })
 
   afterEach(async () => {

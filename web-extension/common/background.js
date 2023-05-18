@@ -30,6 +30,7 @@ const clientPorts = new PortServer({
     methods: {
       async 'client.connect_wallet'(params, context) {
         doValidate(clientValidation.connectWallet, params)
+
         return null
       },
       async 'client.disconnect_wallet'(params, context) {
@@ -85,6 +86,7 @@ const clientPorts = new PortServer({
 })
 
 const server = init({
+  encryptedStore,
   settings,
   encryptedStore,
   wallets,

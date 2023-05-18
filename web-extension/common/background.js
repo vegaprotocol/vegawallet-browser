@@ -1,5 +1,6 @@
 import { NetworkCollection } from './backend/network.js'
 import { WalletCollection } from './backend/wallets.js'
+import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from './lib/port-server.js'
 import JSONRPCServer from './lib/json-rpc-server.js'
 import * as clientValidation from './validation/client/index.js'
@@ -13,12 +14,17 @@ const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
 const encryptedStore = new EncryptedStorage(new ConcurrentStorage(new StorageLocalMap('wallets')))
+const publicKeyIndexStore = new ConcurrentStorage(new StorageLocalMap('public-key-index'))
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
 const wallets = new WalletCollection({
   walletsStore: encryptedStore,
-  publicKeyIndexStore: new StorageLocalMap('publicKeyIndex')
+  publicKeyIndexStore
 })
 const networks = new NetworkCollection(new ConcurrentStorage(new StorageLocalMap('networks')))
+const connections = new ConnectionsCollection({
+  connectionsStore: new ConcurrentStorage(new StorageLocalMap('connections')),
+  publicKeyIndexStore
+})
 
 const clientPorts = new PortServer({
   onbeforerequest: setPending,

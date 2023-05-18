@@ -1,10 +1,24 @@
 import assert from 'nanoassert'
 
 export class PortServer {
+  /**
+   * PortServer handles JSONRPCServer requests from a MessagePort as a FIFO queue.
+   * Multiple ports can be listened to at once, each getting their own queue.
+   * Each queue is processed sequentially, only allowing a single in-flight message at a time.
+   * Request handlers are passed the validated JSON RPC message and a context object containing the port and origin.
+   * Additional metadata can be assigned to the context object. The context object is unique to each port and persistent.
+   *
+   * @constructor
+   * @param {object} opts
+   * @param {function} opts.onerror - global error handler
+   * @param {function} opts.onbeforerequest - called before attempting to process a request (even if the queue is empty)
+   * @param {function} opts.onafterrequest - called after processing a request (both success and failure)
+   * @param {JSONRPCServer} opts.server - JSONRPCServer instance
+   */
   constructor({
-    onerror = (_) => {},
-    onbeforerequest = () => {},
-    onafterrequest = () => {},
+    onerror = (_) => { },
+    onbeforerequest = () => { },
+    onafterrequest = () => { },
     server
   }) {
     this.onerror = onerror
@@ -16,6 +30,10 @@ export class PortServer {
     this.ports = new Map()
   }
 
+  /**
+   * Calculate the total number of pending requests across all listening ports
+   * @returns {number}
+   */
   totalPending() {
     return Array.from(this.ports.values(), (v) => v.length).reduce(
       (sum, size) => sum + size,
@@ -23,6 +41,11 @@ export class PortServer {
     )
   }
 
+  /**
+   * Listen to a MessagePort
+   * @param {Port} port
+   * @returns {void}
+   */
   listen(port) {
     const self = this
 

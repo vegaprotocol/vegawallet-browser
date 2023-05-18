@@ -4,7 +4,8 @@ import {
   getByDataTestID,
   getElementText,
   waitForElementToBeReady,
-  isElementDisplayed
+  isElementDisplayed,
+  waitForChildElementsCount
 } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
@@ -43,7 +44,10 @@ export class ViewWallet {
   }
 
   async createNewKeyPair() {
+    const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
+    const keyElements = await keyList.findElements(getByDataTestID(locators.walletsKeyName))
     await clickElement(this.driver, this.createNewKeyPairButton)
+    await waitForChildElementsCount(this.driver, getByDataTestID(locators.walletsKeyName), keyElements.length + 1)
   }
 
   async copyPublicKeyToClipboard() {

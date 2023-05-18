@@ -57,9 +57,8 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
 
       async 'admin.create_passphrase'(params) {
         doValidate(adminValidation.createPassphrase, params)
-        // TODO: Is this a leaky hack?
-        if (await encryptedStore.exists()) throw new JSONRPCServer.Error('Encryption already initialised', 1)
-        await encryptedStore.unlock(params.passphrase)
+
+        await encryptedStore.create(params.passphrase)
 
         return null
       },

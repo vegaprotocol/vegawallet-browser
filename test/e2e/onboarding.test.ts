@@ -51,19 +51,13 @@ describe('Onboarding', () => {
     // 1101-BWAL-001 When I haven't submitted my password, I can go back to the previous step
     await password.createPassword(testPassword, testPassword, false)
     await password.goBack()
-    expect(await getStarted.isGetStartedPage(), 'expected to be able to navigate back to the Get Started', {
-      showPrefix: false
-    }).toBe(true)
+    await getStarted.checkOnGetStartedPage()
   })
 
   it('shows an error message when passwords differ', async () => {
     await password.createPassword(testPassword, testPassword + '2')
     expect(await password.getErrorMessageText()).toBe('Password does not match')
-    expect(
-      await password.isCreatePasswordPage(),
-      'expected to remain on the password page after failing password validation',
-      { showPrefix: false }
-    ).toBe(true)
+    await password.checkOnCreatePasswordPage()
   })
 
   it('recovery phrase can be revealed and hidden, cannot continue without revealing and acknowledging warning', async () => {
@@ -91,7 +85,7 @@ describe('Onboarding', () => {
   })
 
   async function checkOnWalletPageWithExpectedWalletAndKeys(expectedWalletName: string, expectedWalletKey: string) {
-    await viewWallet.checkOnViewWalletsPage()
+    await viewWallet.checkOnViewWalletPage()
     const walletName = await viewWallet.getWalletName()
     expect(
       await viewWallet.getWalletName(),

@@ -28,12 +28,12 @@ export class ViewWallet {
     return keys
   }
 
-  async checkOnViewWalletsPage() {
-    const walletHeaderText = await getElementText(this.driver, this.walletName)
+  async checkOnViewWalletPage() {
     expect(
-      walletHeaderText,
-      `Expected the name of the wallet to be on display as 'Wallet 1', instead it was ${walletHeaderText}`
-    ).toBe('Wallet 1')
+      await isElementDisplayed(this.driver, this.walletName),
+      "expected to be on the 'view wallet' page but could not locate the 'view wallets' header ",
+      { showPrefix: false }
+    ).toBe(true)
   }
 
   async createNewKeyPair() {

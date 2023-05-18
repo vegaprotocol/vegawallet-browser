@@ -43,7 +43,11 @@ export class Password {
     return el.getText()
   }
 
-  async isCreatePasswordPage() {
-    return await isElementDisplayed(this.driver, this.passwordInput)
+  async checkOnCreatePasswordPage() {
+    expect(
+      await isElementDisplayed(this.driver, this.passwordInput),
+      "expected to be on the 'password' page but could not locate the password input element",
+      { showPrefix: false }
+    ).toBe(true)
   }
 }

@@ -47,7 +47,11 @@ export class SecureYourWallet {
     return await isElementEnabled(this.driver, this.secureWalletContinueButton)
   }
 
-  async isSecureYourWalletPage() {
-    return await isElementDisplayed(this.driver, this.secureYourWalletPage)
+  async checkOnSecureYourWalletPage() {
+    expect(
+      await isElementDisplayed(this.driver, this.secureYourWalletPage),
+      "expected to be on the 'secure your wallet' page but could not locate the 'secure your wallet' header ",
+      { showPrefix: false }
+    ).toBe(true)
   }
 }

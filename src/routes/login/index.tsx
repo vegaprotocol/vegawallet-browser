@@ -7,6 +7,7 @@ import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
 import { loginButton, loginPassphrase } from '../../locator-ids'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
+import { useHomeStore } from '../home/store'
 
 interface FormFields {
   passphrase: string
@@ -22,19 +23,23 @@ export const Login = () => {
     setFocus,
     formState: { errors }
   } = useForm<FormFields>()
+  const { loadGlobals } = useHomeStore((state) => ({
+    loadGlobals: state.loadGlobals
+  }))
   const navigate = useNavigate()
   const passphrase = useWatch({ control, name: 'passphrase' })
   const submit = useCallback(
     async (fields: { passphrase: string }) => {
       try {
         await client.request('admin.unlock', { passphrase: fields.passphrase })
-        navigate(FULL_ROUTES.wallets)
+        await loadGlobals(client)
+        navigate(FULL_ROUTES.home)
       } catch (e) {
         // TODO handle if error or if passphrase wrong
         setError('passphrase', { message: 'Incorrect passphrase' })
       }
     },
-    [client, navigate, setError]
+    [client, loadGlobals, navigate, setError]
   )
   useEffect(() => {
     setFocus('passphrase')
@@ -42,11 +47,11 @@ export const Login = () => {
   return (
     <StarsWrapper>
       <form className="text-left" onSubmit={handleSubmit(submit)}>
-        <FormGroup label="passphrase" labelFor="passphrase">
+        <FormGroup label="Password" labelFor="passphrase">
           <Input
             hasError={!!errors.passphrase?.message}
             data-testid={loginPassphrase}
-            type="passphrase"
+            type="password"
             {...register('passphrase', {
               required: Validation.REQUIRED
             })}

@@ -130,23 +130,6 @@ export const mockClient = (
                 })
               )
             }
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: {
-                  publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-                  name: 'Key 2',
-                  index: 0,
-                  metadata: [
-                    {
-                      key: 'name',
-                      value: 'key 2'
-                    }
-                  ]
-                },
-                id: message.id
-              })
-            )
           } else {
             throw new Error('Message not handled')
           }

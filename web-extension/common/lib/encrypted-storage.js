@@ -99,9 +99,13 @@ export default class EncryptedStorage {
       throw new Error('Storage is locked')
     }
 
+    const passphraseBuf = fromString(passphrase)
+    // TODO: This is def not constant time
+    if (passphraseBuf.byteLength !== this._passphrase.byteLength) return false
+
     // TODO: Should we instead store a derived value in memory?
     // TODO: This may not be constant time, but does it matter?
-    return fromString(passphrase).every((b, i) => b === this._passphrase[i])
+    return passphraseBuf.every((b, i) => b === this._passphrase[i])
   }
 
   /**
@@ -144,7 +148,10 @@ export default class EncryptedStorage {
       throw new Error('Storage already exists')
     }
 
-    await this.unlock(passphrase)
+    // clear any existing state
+    if (this._passphrase) this._passphrase.fill(0)
+    this._passphrase = fromString(passphrase)
+    this._cache = new Map()
     await this._save()
 
     return this

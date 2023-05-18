@@ -12,6 +12,22 @@ export async function getElementText(driver: WebDriver, locator: By, timeout: nu
   return element.getText()
 }
 
+export async function waitForChildElementsCount(
+  driver: WebDriver,
+  childElementLocator: By,
+  expectedCount: number,
+  timeout = defaultTimeoutMillis
+): Promise<void> {
+  await driver.wait(
+    async () => {
+      const childElements = await driver.findElements(childElementLocator)
+      return childElements.length === expectedCount
+    },
+    timeout,
+    `Expected ${expectedCount} child elements, but found a different number.`
+  )
+}
+
 export async function sendKeysToElement(driver: WebDriver, locator: By, text: string): Promise<void> {
   const element = await waitForElementToBeReady(driver, locator)
   await element.sendKeys(text)

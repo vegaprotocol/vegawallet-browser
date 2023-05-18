@@ -5,7 +5,7 @@ import type { To } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import classnames from 'classnames'
 // import { LeftRightArrows } from '../icons/left-right-arrows'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../routes/route-names'
 // import { UpDownArrows } from '../icons/up-down-arrows'
 import locators from '../locators'
 

@@ -12,7 +12,7 @@ import {
 } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../../routes/route-names'
 
 export const Settings = () => {
   const { client } = useJsonRpcClient()

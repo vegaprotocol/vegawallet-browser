@@ -11,7 +11,7 @@ import {
   settingsVersionTitle
 } from '../../../locator-ids'
 import * as packageJson from '../../../../package.json'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../../routes/route-names'
 
 const mockedUsedNavigate = jest.fn()
 

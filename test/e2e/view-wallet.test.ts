@@ -41,7 +41,7 @@ describe('View wallet page', () => {
     // 1101-BWAL-029 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
     // 1101-BWAL-030 New key pairs are listed in order they were created - oldest first
     // 1101-BWAL-058 I can see a list of the keys in my wallet
-    await viewWallet.checkOnViewWalletsPage()
+    await viewWallet.checkOnViewWalletPage()
 
     await viewWallet.createNewKeyPair()
     expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2'])
@@ -56,7 +56,7 @@ describe('View wallet page', () => {
   it('can copy public key to clipboard and see where I am in the extension', async () => {
     // 1101-BWAL-059 I can copy the public key ID to my clipboard
     // 1101-BWAL-061 I can see where I am in the app when viewing my wallet and key pair(s)
-    await viewWallet.checkOnViewWalletsPage()
+    await viewWallet.checkOnViewWalletPage()
 
     const navPanel = new NavPanel(driver)
     await navPanel.checkOnExpectedNavigationTab('Wallets')

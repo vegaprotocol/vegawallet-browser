@@ -37,7 +37,8 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
         return {
           passphrase: hasPassphrase,
           wallet: hasWallet,
-          locked: isLocked,
+          // We don't consider the app locked if there is no passphrase
+          locked: hasPassphrase && isLocked,
           version: pkg.version,
 
           settings: Object.fromEntries(await settings.entries())

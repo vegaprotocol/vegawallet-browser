@@ -79,4 +79,34 @@ describe('admin-ns', () => {
 
     expect(listNetworks.result).toEqual({ networks: ['fairground'] })
   })
+
+  it('should create wallet', async () => {
+    const admin = await createAdmin()
+
+    const createPassphrase = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.create_passphrase',
+      params: { passphrase: 'foo' }
+    })
+
+    const generateRecoveryPhrase = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.generate_recovery_phrase',
+      params: null
+    })
+
+    const importWallet = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.import_wallet',
+      params: {
+        name: 'Wallet 1',
+        recoveryPhrase: generateRecoveryPhrase.result.recoveryPhrase
+      }
+    })
+
+    expect(importWallet.result).toEqual(null)
+  })
 })

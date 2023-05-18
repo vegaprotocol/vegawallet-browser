@@ -2,6 +2,8 @@ import { NetworkCollection } from './backend/network.js'
 import { WalletCollection } from './backend/wallets.js'
 import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from './lib/port-server.js'
+import { PopupClient } from './backend/popup-client.js'
+
 import JSONRPCServer from './lib/json-rpc-server.js'
 import * as clientValidation from './validation/client/index.js'
 import * as backend from './backend/index.js'
@@ -13,8 +15,11 @@ import init from './backend/admin-ns.js'
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
+const interactor = new PopupClient()
+
 const encryptedStore = new EncryptedStorage(new ConcurrentStorage(new StorageLocalMap('wallets')))
 const publicKeyIndexStore = new ConcurrentStorage(new StorageLocalMap('public-key-index'))
+
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
 const wallets = new WalletCollection({
   walletsStore: encryptedStore,
@@ -104,8 +109,11 @@ const popupPorts = new PortServer({
 })
 
 runtime.onConnect.addListener(async (port) => {
-  if (port.name === 'popup') return popupPorts.listen(port)
   if (port.name === 'content-script') return clientPorts.listen(port)
+  if (port.name === 'popup') {
+    popupPorts.listen(port)
+    interactor.connect(port)
+  }
 })
 
 runtime.onInstalled.addListener(async (details) => {

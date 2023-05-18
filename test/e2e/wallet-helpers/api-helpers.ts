@@ -15,33 +15,35 @@ export class APIHelper {
 
   async login(passphrase: string) {
     // TODO don't hardcode passphrase
-    return await this.driver.executeScript<string>(async () => {
-      await window.client.request('admin.unlock', { passphrase: 'password1' })
-    })
+    const response = await this.driver.executeScript<string>(async (passphrase: string) => {
+      const resp = await window.client.request('admin.unlock', { passphrase: passphrase })
+      return resp
+    }, passphrase)
+    return response
   }
 
-  async importWallet(recoveryPhrase: string) {
-    // TODO recoveryPhrase is not in scope for executeScript so this will fail
-    return (
-      await this.driver.executeScript<string>(async (recoveryPhrase: string) => {
+  async importWallet(walletName: string, recoveryPhrase: string) {
+    const response = await this.driver.executeScript<string>(
+      async (walletName: string, recoveryPhrase: string) => {
         const resp = await window.client.request('admin.import_wallet', {
           recoveryPhrase: recoveryPhrase,
-          name: 'Wallet import'
+          name: walletName
         })
         return resp
-      }, recoveryPhrase),
+      },
+      walletName,
       recoveryPhrase
     )
+
+    return response
   }
 
   async createPassphrase(passphrase: string) {
-    return (
-      await this.driver.executeScript<string>(async (passphrase: string) => {
-        const resp = await window.client.request('admin.create_passphrase', { passphrase: passphrase })
-        return resp
-      }, passphrase),
-      passphrase
-    )
+    const response = await this.driver.executeScript<string>(async (passphrase: string) => {
+      const resp = await window.client.request('admin.create_passphrase', { passphrase: passphrase })
+      return resp
+    }, passphrase)
+    return response
   }
 
   async createKey(walletName: string, keyName: string) {
@@ -60,5 +62,18 @@ export class APIHelper {
       walletName,
       keyName
     )
+  }
+
+  async setUpPasswordWalletAndKey(passphrase: string, walletName: string, keyName: string) {
+    const passphraseResponse = await this.createPassphrase(passphrase)
+    console.log('passphraseResponse', passphraseResponse)
+    const recoveryPhrase = await this.generateRecoveryPhrase()
+    console.log('recoveryPhrase', recoveryPhrase)
+    const importWalletResponse = await this.importWallet(walletName, recoveryPhrase)
+    console.log('importWalletResponse', importWalletResponse)
+    const createKeyResponse = await this.createKey(walletName, keyName)
+    console.log('createKeyResponse', createKeyResponse)
+    const loginResponse = await this.login(passphrase)
+    console.log('loginResponse', loginResponse)
   }
 }

@@ -19,9 +19,13 @@ export class SecureYourWallet {
     await clickElement(this.driver, this.revealRecoveryPhraseButton)
     await clickElement(this.driver, this.copyRecoveryPhraseToClipboardButton)
     if (acknwledgeWarningAndContinue) {
-      await clickElement(this.driver, this.acknowledgeRecoveryPhraseWarningCheckbox)
-      await clickElement(this.driver, this.secureWalletContinueButton)
+      await this.acceptRecoveryPhraseWarning()
     }
+  }
+
+  async acceptRecoveryPhraseWarning() {
+    await clickElement(this.driver, this.acknowledgeRecoveryPhraseWarningCheckbox)
+    await clickElement(this.driver, this.secureWalletContinueButton)
   }
 
   async hideRecoveryPhrase() {

@@ -67,7 +67,12 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
       async 'admin.update_passphrase'(params) {
         doValidate(adminValidation.updatePassphrase, params)
         if (await encryptedStore.exists() === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
-        await encryptedStore.changePassphrase(params.passphrase, params.newPassphrase)
+        try {
+          await encryptedStore.changePassphrase(params.passphrase, params.newPassphrase)
+        } catch (e) {
+          if (e.message === 'Invalid passphrase') throw new JSONRPCServer.Error('Invalid passphrase', 1)
+          throw e
+        }
 
         return null
       },
@@ -75,7 +80,12 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
       async 'admin.unlock'(params) {
         doValidate(adminValidation.unlock, params)
         if (await encryptedStore.exists() === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
-        await encryptedStore.unlock(params.passphrase)
+        try {
+          await encryptedStore.unlock(params.passphrase)
+        } catch (e) {
+          if (e.message === 'Invalid passphrase or corrupted storage') throw new JSONRPCServer.Error('Invalid passphrase or corrupted storage', 1)
+          throw e
+        }
 
         return null
       },

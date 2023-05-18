@@ -95,7 +95,7 @@ export default class EncryptedStorage {
    * @returns {Promise<boolean>} - Whether the passphrase is valid.
    */
   async verifyPassphrase(passphrase) {
-    if (this.isLocked === false) {
+    if (this.isLocked) {
       throw new Error('Storage is locked')
     }
 
@@ -111,7 +111,7 @@ export default class EncryptedStorage {
    * @returns {Promise<EncryptedStorage>} - The storage instance.
    */
   async changePassphrase(oldPassphrase, newPassphrase) {
-    if (this.isLocked === false) {
+    if (this.isLocked) {
       throw new Error('Storage is locked')
     }
 

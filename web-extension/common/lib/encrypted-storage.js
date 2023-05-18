@@ -22,12 +22,12 @@ export default class EncryptedStorage {
      */
     this._cache = null
 
-      // mutators
-      ;['set', 'delete', 'clear'].forEach((method) => {
-        this[method] = async (...args) => {
-          if (this.isLocked) {
-            throw new Error('Storage is locked')
-          }
+    // mutators
+    ;['set', 'delete', 'clear'].forEach((method) => {
+      this[method] = async (...args) => {
+        if (this.isLocked) {
+          throw new Error('Storage is locked')
+        }
 
         const result = await this._cache[method](...args)
 
@@ -40,7 +40,7 @@ export default class EncryptedStorage {
     // accessors
     ;['get', 'has', 'entries', 'keys', 'values'].forEach((method) => {
       this[method] = async (...args) => {
-        if (this.isLocked === false) {
+        if (this.isLocked) {
           throw new Error('Storage is locked')
         }
 
@@ -152,7 +152,7 @@ export default class EncryptedStorage {
    * @returns {Promise<EncryptedStorage>} - The storage instance.
    */
   async create(passphrase, overwrite = false) {
-    if (overwrite === false && await this.exists()) {
+    if (overwrite === false && (await this.exists())) {
       throw new Error('Storage already exists')
     }
 
@@ -185,7 +185,7 @@ export default class EncryptedStorage {
   async lock() {
     await this._save()
     this._cache = null
-    this._passphrase?.fill(0)
+    this._passphrase.fill(0)
     this._passphrase = null
     return
   }

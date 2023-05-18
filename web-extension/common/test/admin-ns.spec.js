@@ -5,7 +5,7 @@ import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 
 const createAdmin = async () => {
-  const enc = new EncryptedStorage(new Map())
+  const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   return initAdminServer({
     encryptedStore: enc,
     settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),

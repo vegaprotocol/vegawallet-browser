@@ -20,7 +20,6 @@ describe('View wallet page', () => {
   beforeEach(async () => {
     //TODO- replace this set up with an api method to create a password and an api method importing a wallet. We should then be taken straight to the view wallet page
     driver = await initDriver()
-    await navigateToLandingPage(driver)
     password = new Password(driver)
     getStarted = new GetStarted(driver)
     secureYourWallet = new SecureYourWallet(driver)

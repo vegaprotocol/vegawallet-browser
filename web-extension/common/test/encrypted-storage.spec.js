@@ -81,6 +81,8 @@ describe('encrypted-storage', () => {
 
     await encryptedStorage.create('passphrase')
 
-    await encryptedStorage.create('passphrase', true)
+    await encryptedStorage.create('passphrase2', true)
+
+    expect(await encryptedStorage.verifyPassphrase('passphrase')).toBe(false)
   })
 })

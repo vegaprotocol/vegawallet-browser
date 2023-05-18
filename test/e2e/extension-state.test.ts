@@ -49,7 +49,6 @@ describe('Check correct app state persists after closing the extension', () => {
     await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
     await getStarted.checkOnGetStartedPage()
-    console.log(1)
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
     await navigateToLandingPage(driver)
@@ -58,26 +57,24 @@ describe('Check correct app state persists after closing the extension', () => {
     await createAWallet.checkOnCreateWalletPage()
 
     await hackLoginFunction()
-
     await createAWallet.checkOnCreateWalletPage()
-    console.log(2)
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
     await createAWallet.createNewWallet()
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
     await secureYourWallet.revealRecoveryPhrase()
-    await hackLoginFunction()
 
+    await hackLoginFunction()
     // TODO this is the wrong behavior, we should be on the secure wallet page.
     await createAWallet.checkOnCreateWalletPage()
-    await createAWallet.createNewWallet()
-    await secureYourWallet.revealRecoveryPhrase(true)
-    console.log(3)
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
-    await hackLoginFunction()
-    await new Promise((resolve) => setTimeout(resolve, 100000))
+    await secureYourWallet.acceptRecoveryPhraseWarning()
     await viewWallet.checkOnViewWalletPage()
+
+    await hackLoginFunction()
+    await viewWallet.checkOnViewWalletPage()
+    await closeCurrentWindowAndSwitchToPrevious(driver)
   })
 })
 

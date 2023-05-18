@@ -12,7 +12,7 @@ import init from './backend/admin-ns.js'
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
-const encryptedStore = new EncryptedStorage(new StorageLocalMap('wallets'))
+const encryptedStore = new EncryptedStorage(new ConcurrentStorage(new StorageLocalMap('wallets')))
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
 const wallets = new WalletCollection({
   walletsStore: encryptedStore,

@@ -18,7 +18,7 @@ function doValidate(validator, params) {
  *
  * @param {Store} settings Map-like implementation to store settings.
  * @param {WalletCollection} wallets
- * @param {NetworkColleciton} networks
+ * @param {NetworkCollection} networks
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
@@ -33,7 +33,6 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
         const isLocked = encryptedStore.isLocked === true
         // TODO this is kinda indeterminate, as we don't know if the storage is empty
         const hasWallet = isLocked ? false : Array.from(await wallets.list()).length > 0
-
         return {
           passphrase: hasPassphrase,
           wallet: hasWallet,
@@ -66,7 +65,7 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
 
       async 'admin.update_passphrase'(params) {
         doValidate(adminValidation.updatePassphrase, params)
-        if (await encryptedStore.exists() === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
+        if ((await encryptedStore.exists()) === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
         try {
           await encryptedStore.changePassphrase(params.passphrase, params.newPassphrase)
         } catch (e) {
@@ -79,11 +78,12 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
 
       async 'admin.unlock'(params) {
         doValidate(adminValidation.unlock, params)
-        if (await encryptedStore.exists() === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
+        if ((await encryptedStore.exists()) === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
         try {
           await encryptedStore.unlock(params.passphrase)
         } catch (e) {
-          if (e.message === 'Invalid passphrase or corrupted storage') throw new JSONRPCServer.Error('Invalid passphrase or corrupted storage', 1)
+          if (e.message === 'Invalid passphrase or corrupted storage')
+            throw new JSONRPCServer.Error('Invalid passphrase or corrupted storage', 1)
           throw e
         }
 

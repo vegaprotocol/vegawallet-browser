@@ -126,29 +126,4 @@ describe('RedirectPath', () => {
     expect(view.error).toBeNull()
     expect(view.path).toBeNull()
   })
-
-  //   it('returns previously stored path if one exists', async () => {
-  //     ;(useHomeStore as unknown as jest.Mock).mockImplementationOnce(() => ({
-  //       loading: false,
-  //       error: null,
-  //       globals: {
-  //         passphrase: true,
-  //         locked: false,
-  //         wallet: false,
-  //         version: '0.0.1',
-  //         settings: {
-  //           telemetry: false
-  //         }
-  //       },
-  //       loadGlobals: mockLoadGlobals
-  //     }))
-  //     const {
-  //       result: { current }
-  //     } = renderHook(() => useGetRedirectPath(), {
-  //       initialProps: false
-  //     })
-  //     await waitFor(() => expect(current.loading).toBeFalsy())
-  //     expect(current.error).toBeNull()
-  //     expect(current.path).toBe('/foo')
-  //   })
 })

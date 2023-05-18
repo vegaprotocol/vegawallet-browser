@@ -7,7 +7,7 @@ import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
 
-describe('View wallet page', () => {
+describe('Network tests', () => {
   let driver: WebDriver
   let getStarted: GetStarted
   let password: Password

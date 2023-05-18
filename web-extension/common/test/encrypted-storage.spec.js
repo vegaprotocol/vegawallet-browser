@@ -52,6 +52,22 @@ describe('encrypted-storage', () => {
     await expect(encryptedStorage.get('foo')).rejects.toThrow('Storage is locked')
   })
 
+  test('Change passphrase', async () => {
+    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 1, iterations: 1 })
+
+    await encryptedStorage.create('passphrase')
+
+    await encryptedStorage.set('foo', 'bar')
+
+    await encryptedStorage.changePassphrase('passphrase', 'new-passphrase')
+
+    await encryptedStorage.lock()
+
+    await encryptedStorage.unlock('new-passphrase')
+
+    expect(await encryptedStorage.get('foo')).toBe('bar')
+  })
+
   test('Create storage twice', async () => {
     const encryptedStorage = new EncryptedStorage(new Map(), { memory: 1, iterations: 1 })
 

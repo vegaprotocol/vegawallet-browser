@@ -100,7 +100,8 @@ export default class EncryptedStorage {
     }
 
     // TODO: Should we instead store a derived value in memory?
-    return fromString(passphrase) === this._passphrase
+    // TODO: This may not be constant time, but does it matter?
+    return fromString(passphrase).every((b, i) => b === this._passphrase[i])
   }
 
   /**

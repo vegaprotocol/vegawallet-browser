@@ -6,6 +6,8 @@ import { GetStarted } from './page-objects/get-started'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
+import fs from 'fs'
+import { get } from 'http'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
@@ -16,49 +18,56 @@ describe('Check correct app state persists after closing the extension', () => {
   let viewWallet: ViewWallet
   const testPassword = 'password1'
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     driver = await initDriver()
     password = new Password(driver)
     getStarted = new GetStarted(driver)
     secureYourWallet = new SecureYourWallet(driver)
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
-    driver = await initDriver()
-  })
 
-  beforeEach(async () => {
     await navigateToLandingPage(driver)
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await driver.quit()
   })
 
   it('shows the Create a Wallet page after creating password and closing the app', async () => {
     await getStarted.getStarted()
-    await password.createPassword(testPassword)
-    await driver.close()
-    driver = await initDriver()
-    await navigateToLandingPage(driver)
-    expect(await createAWallet.isCreateWalletPage()).toBe(true)
-  })
+    await password.createPassword(testPassword, 'incorrectPassword')
 
-  it('shows the Get Started page if I unsuccessfully create a password and close the app', async () => {
-    await password.createPassword(testPassword, 'diffPassword')
-    await driver.close()
-    driver = await initDriver()
+    await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
     expect(await getStarted.isGetStartedPage()).toBe(true)
-  })
+    await closeCurrentWindowAndSwitchToPrevious(driver)
 
-  it('shows the View Wallet page if I successfully create a wallet and close the app', async () => {
-    await password.createPassword(testPassword, 'diffPassword')
+    await navigateToLandingPage(driver)
+    await getStarted.getStarted()
+    await password.createPassword(testPassword)
+
+    await openNewWindowAndSwitchToIt(driver)
+    await navigateToLandingPage(driver)
+    expect(await createAWallet.isCreateWalletPage()).toBe(true)
+    await closeCurrentWindowAndSwitchToPrevious(driver)
+
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
-    await viewWallet.checkOnViewWalletsPage()
-    await driver.close()
-    driver = await initDriver()
+
+    await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
     await viewWallet.checkOnViewWalletsPage()
   })
 })
+
+async function openNewWindowAndSwitchToIt(driver: WebDriver) {
+  await driver.executeScript('window.open();')
+  const handles = await driver.getAllWindowHandles()
+  await driver.switchTo().window(handles[1])
+}
+
+async function closeCurrentWindowAndSwitchToPrevious(driver: WebDriver) {
+  const handles = await driver.getAllWindowHandles()
+  await driver.close()
+  await driver.switchTo().window(handles[0])
+}

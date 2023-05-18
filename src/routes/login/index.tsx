@@ -9,6 +9,8 @@ import { loginButton, loginPassphrase } from '../../locator-ids'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { useHomeStore } from '../home/store'
 
+const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
+
 interface FormFields {
   passphrase: string
 }
@@ -35,8 +37,12 @@ export const Login = () => {
         await loadGlobals(client)
         navigate(FULL_ROUTES.home)
       } catch (e) {
-        // TODO handle if error or if passphrase wrong
-        setError('passphrase', { message: 'Incorrect passphrase' })
+        if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
+          setError('passphrase', { message: 'Incorrect passphrase' })
+        } else {
+          const message = e instanceof Error ? e.message : e?.toString() || 'Unexpected error'
+          setError('passphrase', { message })
+        }
       }
     },
     [client, loadGlobals, navigate, setError]

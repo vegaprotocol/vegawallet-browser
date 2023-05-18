@@ -3,7 +3,7 @@ import { SaveMnemonic } from '.'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import locators from '../../../components/locators'
 import { saveMnemonicButton, saveMnemonicDescription } from '../../../locator-ids'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../route-names'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 

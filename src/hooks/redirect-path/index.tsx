@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { useHomeStore } from '../../routes/home/store'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../routes/route-names'
 import { LOCATION_KEY } from '../persist-location'
 
 export const useGetRedirectPath = () => {
+  console.log('get redirect path')
   const { client } = useJsonRpcClient()
   const { loadGlobals, loading, error, globals } = useHomeStore((state) => ({
     loadGlobals: state.loadGlobals,
@@ -13,6 +14,7 @@ export const useGetRedirectPath = () => {
     globals: state.globals
   }))
   useEffect(() => {
+    console.log('loading globals')
     loadGlobals(client)
   }, [client, loadGlobals])
 

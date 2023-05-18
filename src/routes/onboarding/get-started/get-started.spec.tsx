@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { GetStarted } from '.'
 import componentLocators from '../../../components/locators'
 import { getStartedButton } from '../../../locator-ids'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../route-names'
 
 const mockedUsedNavigate = jest.fn()
 
@@ -20,15 +20,9 @@ describe('GetStarted', () => {
   })
   it('renders list of reasons to use vega wallet & get started button', () => {
     render(<GetStarted />)
-    expect(
-      screen.getByText('Securely connect to Vega dapps')
-    ).toBeInTheDocument()
-    expect(
-      screen.getByText('Instantly approve and reject transactions')
-    ).toBeInTheDocument()
-    expect(screen.getByTestId(getStartedButton)).toHaveTextContent(
-      'Get Started'
-    )
+    expect(screen.getByText('Securely connect to Vega dapps')).toBeInTheDocument()
+    expect(screen.getByText('Instantly approve and reject transactions')).toBeInTheDocument()
+    expect(screen.getByTestId(getStartedButton)).toHaveTextContent('Get Started')
   })
   it('Redirects to the create password route when button is clicked', () => {
     render(<GetStarted />)

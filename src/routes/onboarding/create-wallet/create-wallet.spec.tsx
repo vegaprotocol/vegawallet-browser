@@ -3,7 +3,7 @@ import { CreateWallet } from '.'
 import locators from '../../../components/locators'
 import { createNewWalletButton, importWalletButton } from '../../../locator-ids'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../route-names'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({

@@ -1,6 +1,6 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../route-names'
 import { Frame } from '../../../components/frame'
 import { Tick } from '../../../components/icons/tick'
 import { useMemo } from 'react'
@@ -8,13 +8,7 @@ import { StarsWrapper } from '../../../components/stars-wrapper'
 import { getStartedButton } from '../../../locator-ids'
 
 export const GetStarted = () => {
-  const items = useMemo(
-    () => [
-      'Securely connect to Vega dapps',
-      'Instantly approve and reject transactions'
-    ],
-    []
-  )
+  const items = useMemo(() => ['Securely connect to Vega dapps', 'Instantly approve and reject transactions'], [])
   const navigate = useNavigate()
   return (
     <StarsWrapper>

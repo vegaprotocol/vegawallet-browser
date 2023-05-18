@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { CreatePassword } from '.'
 import { MemoryRouter } from 'react-router-dom'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../route-names'
 import { confirmPasswordInput, passwordInput, submitPasswordButton } from '../../../locator-ids'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'

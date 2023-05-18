@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react'
 import { useGetRedirectPath } from '.'
-import { FULL_ROUTES } from '../../routes'
+import { FULL_ROUTES } from '../../routes/route-names'
 import { AppGlobals, useHomeStore } from '../../routes/home/store'
 
 jest.mock('../../contexts/json-rpc/json-rpc-context', () => ({

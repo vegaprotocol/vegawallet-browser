@@ -3,7 +3,7 @@ import { Button, FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../lib/form-validation'
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '..'
+import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
 import { loginButton, loginPassword } from '../../locator-ids'
 

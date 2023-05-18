@@ -81,3 +81,9 @@ jobs:
           path: ./test-reports/firefox-e2e-test-results.xml
           reporter: jest-junit
           output-to: step-summary
+
+      - name: output test screenshots from the final state of tests
+        uses: actions/upload-artifact@v3
+        with:
+          name: test screenshots
+          path: ./test-screenshots

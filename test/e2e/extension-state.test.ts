@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { initDriver } from './driver'
+import { captureScreenshot, initDriver } from './driver'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { Password } from './page-objects/password'
 import { GetStarted } from './page-objects/get-started'
@@ -16,7 +16,7 @@ describe.skip('Check correct app state persists after closing the extension', ()
   let viewWallet: ViewWallet
   const testPassword = 'password1'
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     driver = await initDriver()
     password = new Password(driver)
     getStarted = new GetStarted(driver)
@@ -24,14 +24,12 @@ describe.skip('Check correct app state persists after closing the extension', ()
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
     driver = await initDriver()
-  })
-
-  beforeEach(async () => {
     await navigateToLandingPage(driver)
     await getStarted.getStarted()
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
+    await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
   })
 

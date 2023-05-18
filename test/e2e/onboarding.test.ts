@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { initDriver } from './driver'
+import { captureScreenshot, initDriver } from './driver'
 import { GetStarted } from './page-objects/get-started'
 import { Password } from './page-objects/password'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
@@ -28,6 +28,7 @@ describe('Onboarding', () => {
   })
 
   afterEach(async () => {
+    await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
   })
 

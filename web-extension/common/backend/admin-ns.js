@@ -30,7 +30,7 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
         doValidate(adminValidation.appGlobals, params)
 
         const hasPassphrase = await encryptedStore.exists()
-        const isLocked = encryptedStore.isOpen === false
+        const isLocked = encryptedStore.isLocked === true
         // TODO this is kinda indeterminate, as we don't know if the storage is empty
         const hasWallet = isLocked ? false : Array.from(await wallets.list()).length > 0
 

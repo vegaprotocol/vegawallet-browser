@@ -4,9 +4,9 @@ import { NetworkCollection } from '../backend/network.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 
-const createAdmin = async () => {
+const createAdmin = async ({ passphrase } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
-  return initAdminServer({
+  const server = initAdminServer({
     encryptedStore: enc,
     settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
     wallets: new WalletCollection({
@@ -18,6 +18,17 @@ const createAdmin = async () => {
       throw err
     }
   })
+
+  if (passphrase) {
+    await server.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.create_passphrase',
+      params: { passphrase }
+    })
+  }
+
+  return server
 }
 
 describe('admin-ns', () => {
@@ -81,14 +92,7 @@ describe('admin-ns', () => {
   })
 
   it('should create wallet', async () => {
-    const admin = await createAdmin()
-
-    const createPassphrase = await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.create_passphrase',
-      params: { passphrase: 'foo' }
-    })
+    const admin = await createAdmin({ passphrase: 'foo' })
 
     const generateRecoveryPhrase = await admin.onrequest({
       jsonrpc: '2.0',
@@ -108,5 +112,78 @@ describe('admin-ns', () => {
     })
 
     expect(importWallet.result).toEqual(null)
+  })
+
+  it('should allow updating the passphase', async () => {
+    const admin = await createAdmin({ passphrase: 'foo' })
+
+    const updatePassphrase = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.update_passphrase',
+      params: {
+        passphrase: 'notfoo',
+        newPassphrase: 'bar'
+      }
+    })
+
+    expect(updatePassphrase.error.toJSON()).toEqual({ code: 1, message: 'Invalid passphrase' })
+
+    const updatePassphrase2 = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.update_passphrase',
+      params: {
+        passphrase: 'foo',
+        newPassphrase: 'bar'
+      }
+    })
+
+    expect(updatePassphrase2.result).toEqual(null)
+
+    // Lock the wallet
+    await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.lock',
+      params: null
+    })
+
+    const unlockFailure = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.unlock',
+      params: {
+        passphrase: 'foo'
+      }
+    })
+
+    expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Invalid passphrase or corrupted storage' })
+
+    const unlockSuccess = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.unlock',
+      params: {
+        passphrase: 'bar'
+      }
+    })
+
+    expect(unlockSuccess.result).toEqual(null)
+  })
+
+  it('should not be able to unlock an uninitialised wallet', async () => {
+    const admin = await createAdmin()
+
+    const unlockFailure = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.unlock',
+      params: {
+        passphrase: 'foo'
+      }
+    })
+
+    expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Encryption not initialised' })
   })
 })

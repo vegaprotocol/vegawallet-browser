@@ -186,4 +186,56 @@ describe('admin-ns', () => {
 
     expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Encryption not initialised' })
   })
+
+  it('app_globals should be true after creating a wallet, locking and unlocking', async () => {
+    const admin = await createAdmin({ passphrase: 'foo' })
+
+    const generateRecoveryPhrase = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.generate_recovery_phrase',
+      params: null
+    })
+
+    const importWallet = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.import_wallet',
+      params: {
+        name: 'Wallet 1',
+        recoveryPhrase: generateRecoveryPhrase.result.recoveryPhrase
+      }
+    })
+
+    expect(importWallet.result).toEqual(null)
+
+    // Lock the wallet
+    await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.lock',
+      params: null
+    })
+
+    const [unlockSuccess, appGlobals] = await Promise.all([
+      admin.onrequest({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'admin.unlock',
+        params: {
+          passphrase: 'foo'
+        }
+      }),
+
+      await admin.onrequest({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'admin.app_globals',
+        params: null
+      })
+    ])
+
+    expect(unlockSuccess.result).toEqual(null)
+    expect(appGlobals.result.wallet).toEqual(true)
+  })
 })

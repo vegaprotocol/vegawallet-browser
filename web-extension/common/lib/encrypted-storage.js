@@ -25,7 +25,7 @@ export default class EncryptedStorage {
       // mutators
       ;['set', 'delete', 'clear'].forEach((method) => {
         this[method] = async (...args) => {
-          if (this.isLocked === false) {
+          if (this.isLocked) {
             throw new Error('Storage is locked')
           }
 
@@ -40,7 +40,7 @@ export default class EncryptedStorage {
       // accessors
       ;['get', 'has', 'entries', 'keys', 'values'].forEach((method) => {
         this[method] = async (...args) => {
-          if (this.isLocked === false) {
+          if (this.isLocked) {
             throw new Error('Storage is locked')
           }
 
@@ -50,7 +50,7 @@ export default class EncryptedStorage {
   }
 
   get isLocked() {
-    return this._passphrase != null
+    return this._passphrase == null
   }
 
   /**

@@ -8,19 +8,19 @@ export class PopupClient {
 
     this.client = new JSONRPCClient({
       idPrefix: 'background-',
-      send(msg) {
+      send: (msg) => {
         this.persistentQueue.set(msg.id, msg)
-        this.ports.forEach(p => p.postMessage(msg))
+        this.ports.forEach((p) => p.postMessage(msg))
       }
     })
   }
 
   async reviewConnection(params) {
-    return this.client.send('popup.review_connection', params)
+    return this.client.request('popup.review_connection', params)
   }
 
   async reviewTransaction(params) {
-    return this.client.send('popup.review_transaction', params)
+    return this.client.request('popup.review_transaction', params)
   }
 
   async connect(port) {
@@ -40,6 +40,5 @@ export class PopupClient {
 
       assert(self.ports.delete(port), 'Removed unknown port. Possible leak')
     }
-
   }
 }

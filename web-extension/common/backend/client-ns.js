@@ -10,21 +10,14 @@ function doValidate(validator, params) {
       validator.errors.map((e) => e.message)
     )
 }
-export default function init({
-  onerror,
-  settings,
-  wallets,
-  networks,
-  connections,
-  interactor
-}) {
+export default function init({ onerror, settings, wallets, networks, connections, interactor }) {
   return new JSONRPCServer({
     onerror,
     methods: {
       async 'client.connect_wallet'(params, context) {
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.connectWallet, params)
-        if (await connections.has(context.origin) === false) {
+        if ((await connections.has(context.origin)) === false) {
           const approved = await interactor.reviewConnection({
             origin: context.origin,
             receivedAt
@@ -52,8 +45,7 @@ export default function init({
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.sendTransaction, params)
         if (context.isConnected === false) throw new JSONRPCServer.Error('Not connected', -32000)
-
-        if (await connections.isAllowed(context.origin, params.publicKey) === false) {
+        if ((await connections.isAllowed(context.origin, params.publicKey)) === false) {
           throw new JSONRPCServer.Error('Unknown public key', -32000)
         }
 
@@ -78,7 +70,6 @@ export default function init({
         const selectedNetwork = await settings.get('selectedNetwork')
         const network = await networks.get(selectedNetwork)
         const rpc = await network.rpc()
-
 
         return txHelpers.sendTransaction({
           keys: key.keyPair,

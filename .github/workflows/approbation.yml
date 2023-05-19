@@ -7,6 +7,31 @@ jobs:
   check-approbation:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository 'main'
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Checkout specs repository
+        uses: actions/checkout@v2
+        with:
+          repository: vegaprotocol/specs
+          ref: master
+          path: specs
+
+      - name: Run Approbation on main
+        id: approbation-main
+        run: |
+          echo "Starting Approbation"
+          npx --silent --yes github:vegaprotocol/approbation check-references \
+            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
+            --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
+            --categories="specs/user-interface/categories.json" \
+            --show-mystery --category-stats --output-jenkins
+          results=$(cat results/jenkins.txt)
+          echo "::set-output name=file-main::$results"
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -20,29 +45,56 @@ jobs:
           ref: master
           path: specs
 
-      - name: Run Approbation
+      - name: Run Approbation on PR
         id: approbation
         run: |
-          npm install -g github:vegaprotocol/approbation
           echo "Starting Approbation"
           npx --silent --yes github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
             --show-mystery --category-stats --output-jenkins
-          echo "showing files"
-          ls
-          echo "Jenkins file:"
           results=$(cat results/jenkins.txt)
           echo "::set-output name=file::$results"
 
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: 'Here is your approbation coverage **BEFORE** this PR'
+
       - name: Comment on Pull Request
-        if: github.event_name == 'pull_request'
+        if: steps.fc.outputs.comment-id == ''
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            Here is your approbation coverage after this PR:
+            Here is your approbation coverage **BEFORE** this PR:
+            ```
+            ${{ steps.approbation-main.outputs.file-main }}
+            ```
+
+            Here is your approbation coverage **AFTER** this PR:
             ```
             ${{ steps.approbation.outputs.file }}
             ```
           issue-number: ${{ github.event.pull_request.number }}
+
+      - name: Update comment on Pull Request
+        if: steps.fc.outputs.comment-id != ''
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          body: |
+            Here is your approbation coverage **BEFORE** this PR:
+            ```
+            ${{ steps.approbation-main.outputs.file-main }}
+            ```
+
+            Here is your approbation coverage **AFTER** this PR:
+            ```
+            ${{ steps.approbation.outputs.file }}
+            ```
+          issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace

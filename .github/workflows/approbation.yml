@@ -18,22 +18,17 @@ jobs:
         with:
           repository: vegaprotocol/specs
           ref: master
-          path: specs
+          path: ../specs
 
       - name: Run Approbation on main
         id: approbation-main
         run: |
-          echo "files: "
-          ls
           echo "Starting Approbation"
           npx --silent --yes github:vegaprotocol/approbation check-references \
-            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
+            --specs="../specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
-            --categories="specs/user-interface/categories.json" \
+            --categories="../specs/user-interface/categories.json" \
             --show-mystery --category-stats --output-jenkins
-          echo "showing files"
-          ls
-          echo "Jenkins file:"
           results=$(cat results/jenkins.txt)
           echo "::set-output name=file-main::$results-main"
 
@@ -46,16 +41,12 @@ jobs:
       - name: Run Approbation on PR
         id: approbation
         run: |
-          npm install -g github:vegaprotocol/approbation
           echo "Starting Approbation"
           npx --silent --yes github:vegaprotocol/approbation check-references \
-            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
+            --specs="../specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
-            --categories="specs/user-interface/categories.json" \
+            --categories="../specs/user-interface/categories.json" \
             --show-mystery --category-stats --output-jenkins
-          echo "showing files"
-          ls
-          echo "Jenkins file:"
           results=$(cat results/jenkins.txt)
           echo "::set-output name=file::$results"
 

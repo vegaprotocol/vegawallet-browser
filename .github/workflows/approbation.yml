@@ -30,7 +30,7 @@ jobs:
             --categories="specs/user-interface/categories.json" \
             --show-mystery --category-stats --output-jenkins
           results=$(cat results/jenkins.txt)
-          echo "::set-output name=file-main::$results-main"
+          echo "::set-output name=file-main::$results"
 
       - name: Checkout repository
         uses: actions/checkout@v2

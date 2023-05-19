@@ -10,7 +10,7 @@ jest.mock('react-router-dom', () => ({
 }))
 
 describe('Auth', () => {
-  it('renders outlet and navbar', () => {
+  it('renders outlet, header and navbar', () => {
     render(
       <MemoryRouter>
         <Auth />

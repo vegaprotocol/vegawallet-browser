@@ -85,6 +85,14 @@ export const mockClient = (
                 id: message.id
               })
             )
+          } else if (message.method === 'admin.lock') {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                result: null,
+                id: message.id
+              })
+            )
           } else if (message.method === RpcMethods.GenerateKey) {
             listeners.map((fn) =>
               fn({

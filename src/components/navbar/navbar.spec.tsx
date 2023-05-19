@@ -76,11 +76,12 @@ describe('NavButton', () => {
 })
 
 describe('NavBar', () => {
-  it('renders with all three NavButtons', () => {
+  it('renders with all four NavButtons', () => {
     renderNav({ isFairground: false })
     expect(screen.getByTestId('nav-bar')).toBeInTheDocument()
     expect(screen.getByTestId('nav-bar')).toHaveClass('bg-black')
-    expect(screen.getAllByTestId('nav-button')).toHaveLength(4)
+    // expect(screen.getAllByTestId('nav-button')).toHaveLength(4)
+    expect(screen.getAllByTestId('nav-button')).toHaveLength(2)
   })
 
   it('changes color if in fairground mode', () => {

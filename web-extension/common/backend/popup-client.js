@@ -31,6 +31,7 @@ export class PopupClient {
 
     const self = this
     function _onmessage(message) {
+      self.client.onmessage(message)
     }
 
     function _ondisconnect(port) {

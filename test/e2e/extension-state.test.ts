@@ -7,6 +7,8 @@ import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './wallet-helpers/api-helpers'
+import { Nav } from '@vegaprotocol/ui-toolkit'
+import { NavPanel } from './page-objects/navpanel'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
@@ -43,6 +45,7 @@ describe('Check correct app state persists after closing the extension', () => {
 
   it('shows the Create a Wallet page after creating password and closing the app', async () => {
     // 1101-BWAL-031 I can close the extension and when I reopen it it opens on the same page / view
+    // 1101-BWAL-067 I want to see the previous page I was on or my wallet page by default
     await getStarted.getStarted()
     await password.createPassword(testPassword, 'incorrectPassword')
 
@@ -74,6 +77,14 @@ describe('Check correct app state persists after closing the extension', () => {
 
     await hackLoginFunction()
     await viewWallet.checkOnViewWalletPage()
+    await closeCurrentWindowAndSwitchToPrevious(driver)
+
+    const navPanel = new NavPanel(driver)
+    const settings = await navPanel.goToSettings()
+    await settings.checkOnSettingsPage()
+
+    await hackLoginFunction()
+    await settings.checkOnSettingsPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
   })
 })

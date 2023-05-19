@@ -1,0 +1,48 @@
+name: Check Approbation
+
+on:
+  pull_request:
+
+jobs:
+  check-approbation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Checkout specs repository
+        uses: actions/checkout@v2
+        with:
+          repository: vegaprotocol/specs
+          ref: master
+          path: specs
+
+      - name: Run Approbation
+        id: approbation
+        run: |
+          npm install -g github:vegaprotocol/approbation
+          echo "Starting Approbation"
+          npx --silent --yes github:vegaprotocol/approbation check-references \
+            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
+            --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
+            --categories="specs/user-interface/categories.json" \
+            --show-mystery --category-stats --output-jenkins
+          echo "showing files"
+          ls
+          echo "Jenkins file:"
+          results=$(cat results/jenkins.txt)
+          echo "::set-output name=file::$results"
+
+      - name: Comment on Pull Request
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          body: |
+            Here is your approbation coverage after this PR:
+            ```
+            ${{ steps.approbation.outputs.file }}
+            ```
+          issue-number: ${{ github.event.pull_request.number }}

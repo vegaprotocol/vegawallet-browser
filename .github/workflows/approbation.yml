@@ -41,7 +41,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            The Jenkins file output is:
+            Here is your approbation coverage after this PR:
             ```
             ${{ steps.approbation.outputs.file }}
             ```

@@ -63,7 +63,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: 'Here is your approbation coverage'
+          body-includes: 'Here is your approbation coverage **BEFORE** this PR'
 
       - name: Comment on Pull Request
         if: steps.fc.outputs.comment-id == ''

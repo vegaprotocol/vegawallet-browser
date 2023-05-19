@@ -25,7 +25,8 @@ export class ConnectionsCollection {
     const allowList = await this.store.get(origin)
     if (allowList == null) return []
 
-    const keysFromIndex = await this.index.list()
+    const keysFromIndex = await this.index.values()
+    const keys = []
     for (const { publicKey, name, wallet } of keysFromIndex) {
       if (allowList.wallets.includes(wallet)) {
         keys.push({ publicKey, name })

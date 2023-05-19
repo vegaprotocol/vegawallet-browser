@@ -5,13 +5,18 @@ import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
-import { loginButton, loginPassword } from '../../locator-ids'
+import { loginButton, loginPassphrase } from '../../locator-ids'
+import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
+import { useHomeStore } from '../home/store'
+
+const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
 
 interface FormFields {
-  password: string
+  passphrase: string
 }
 
 export const Login = () => {
+  const { client } = useJsonRpcClient()
   const {
     control,
     register,
@@ -20,35 +25,43 @@ export const Login = () => {
     setFocus,
     formState: { errors }
   } = useForm<FormFields>()
+  const { loadGlobals } = useHomeStore((state) => ({
+    loadGlobals: state.loadGlobals
+  }))
   const navigate = useNavigate()
-  const password = useWatch({ control, name: 'password' })
+  const passphrase = useWatch({ control, name: 'passphrase' })
   const submit = useCallback(
-    (fields: { password: string }) => {
-      if (fields.password === '123') {
-        // Navigate to home so it can redirect to the correct page
+    async (fields: { passphrase: string }) => {
+      try {
+        await client.request('admin.unlock', { passphrase: fields.passphrase })
+        await loadGlobals(client)
         navigate(FULL_ROUTES.home)
-      } else {
-        setError('password', { message: 'Incorrect password' })
+      } catch (e) {
+        if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
+          setError('passphrase', { message: 'Incorrect passphrase' })
+        }
+        // Unexpected error, let the global error boundary catch this
+        throw e
       }
     },
-    [navigate, setError]
+    [client, loadGlobals, navigate, setError]
   )
   useEffect(() => {
-    setFocus('password')
+    setFocus('passphrase')
   }, [setFocus])
   return (
     <StarsWrapper>
       <form className="text-left" onSubmit={handleSubmit(submit)}>
-        <FormGroup label="Password" labelFor="password">
+        <FormGroup label="Password" labelFor="passphrase">
           <Input
-            hasError={!!errors.password?.message}
-            data-testid={loginPassword}
+            hasError={!!errors.passphrase?.message}
+            data-testid={loginPassphrase}
             type="password"
-            {...register('password', {
+            {...register('passphrase', {
               required: Validation.REQUIRED
             })}
           />
-          {errors.password?.message && <InputError forInput="passphrase">{errors.password.message}</InputError>}
+          {errors.passphrase?.message && <InputError forInput="passphrase">{errors.passphrase.message}</InputError>}
         </FormGroup>
         <Button
           data-testid={loginButton}
@@ -56,7 +69,7 @@ export const Login = () => {
           className="mt-2"
           variant="primary"
           type="submit"
-          disabled={!Boolean(password)}
+          disabled={!Boolean(passphrase)}
         >
           Login
         </Button>

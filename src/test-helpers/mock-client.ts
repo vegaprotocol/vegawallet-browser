@@ -119,6 +119,24 @@ export const mockClient = (
                 id: message.id
               })
             )
+          } else if (message.method === 'admin.unlock') {
+            if (message.params.passphrase === 'passphrase') {
+              listeners.map((fn) =>
+                fn({
+                  jsonrpc: '2.0',
+                  result: null,
+                  id: message.id
+                })
+              )
+            } else {
+              listeners.map((fn) =>
+                fn({
+                  jsonrpc: '2.0',
+                  error: { code: 1, message: 'Invalid passphrase or corrupted storage' },
+                  id: message.id
+                })
+              )
+            }
           } else {
             throw new Error('Message not handled')
           }

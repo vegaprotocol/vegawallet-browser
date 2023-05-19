@@ -21,7 +21,7 @@ export type HomeStore = {
   globals: AppGlobals | null
   loading: boolean
   error: string | null
-  loadGlobals: (client: JSONRPCClient) => void
+  loadGlobals: (client: JSONRPCClient) => Promise<void>
 }
 
 export const useHomeStore = create<HomeStore>()((set, get) => ({

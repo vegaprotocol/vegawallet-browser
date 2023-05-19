@@ -11,36 +11,37 @@ import { KeyIcon } from '../key-icon'
 import { TRANSACTION_TITLES, TransactionKeys } from '../../lib/transactions'
 import ReactTimeAgo from 'react-time-ago'
 
-const transaction = {
-  orderSubmission: {
-    marketId: '10c7d40afd910eeac0c2cad186d79cb194090d5d5f13bd31e14c49fd1bded7e2',
-    price: '0',
-    size: '64',
-    side: 'SIDE_SELL',
-    timeInForce: 'TIME_IN_FORCE_GTT',
-    expiresAt: '1678959957494396062',
-    type: 'TYPE_LIMIT',
-    reference: 'traderbot',
-    peggedOrder: {
-      reference: 'PEGGED_REFERENCE_BEST_ASK',
-      offset: '15'
-    }
-  }
-}
+// const transaction = {
+//   orderSubmission: {
+//     marketId: '10c7d40afd910eeac0c2cad186d79cb194090d5d5f13bd31e14c49fd1bded7e2',
+//     price: '0',
+//     size: '64',
+//     side: 'SIDE_SELL',
+//     timeInForce: 'TIME_IN_FORCE_GTT',
+//     expiresAt: '1678959957494396062',
+//     type: 'TYPE_LIMIT',
+//     reference: 'traderbot',
+//     peggedOrder: {
+//       reference: 'PEGGED_REFERENCE_BEST_ASK',
+//       offset: '15'
+//     }
+//   }
+// }
 
-const data = {
-  keyName: 'Key 1',
-  hostname: 'https://www.google.com',
-  wallet: 'test-wallet',
-  publicKey: '3fd42fd5ceb22d99ac45086f1d82d516118a5cb7ad9a2e096cd78ca2c8960c80',
-  transaction: transaction,
-  receivedAt: '2021-01-01T00:00:00.000Z'
-}
+// const data = {
+//   name: 'Key 1',
+//   origin: 'https://www.google.com',
+//   wallet: 'test-wallet',
+//   publicKey: '3fd42fd5ceb22d99ac45086f1d82d516118a5cb7ad9a2e096cd78ca2c8960c80',
+//   transaction: transaction,
+//   receivedAt: new Date().toISOString()
+// }
 
 export const TransactionModal = () => {
-  const { isOpen, setIsOpen } = useModalStore((store) => ({
+  const { isOpen, handleTransactionDecision, details } = useModalStore((store) => ({
     isOpen: store.transactionModalOpen,
-    setIsOpen: store.setTransactionModalOpen
+    handleTransactionDecision: store.handleTransactionDecision,
+    details: store.currentTransactionDetails
   }))
   const [isLoading, setIsLoading] = useState(false)
   const handleDecision = useCallback(
@@ -74,7 +75,7 @@ export const TransactionModal = () => {
             <div className="ml-4" data-testid={locators.transactionKey}>
               <div className="text-vega-dark-300">Signing with</div>
               <p>
-                {data.keyName}: <span className="text-vega-dark-300">{truncateMiddle(data.publicKey)}</span>
+                {details.name}: <span className="text-vega-dark-300">{truncateMiddle(details.publicKey)}</span>
               </p>
             </div>
           </div>
@@ -83,8 +84,8 @@ export const TransactionModal = () => {
             initiallyOpen={true}
             panelContent={
               <CodeWindow
-                text={JSON.stringify(data.transaction, null, '  ')}
-                content={JSON.stringify(data.transaction, null, '  ')}
+                text={JSON.stringify(details.transaction, null, '  ')}
+                content={JSON.stringify(details.transaction, null, '  ')}
               />
             }
           />
@@ -104,8 +105,7 @@ export const TransactionModal = () => {
         <Button
           data-testid={locators.transactionModalApproveButton}
           variant="primary"
-          disabled={!!isLoading}
-          onClick={() => handleDecision(true)}
+          onClick={() => handleTransactionDecision(true)}
         >
           Confirm
         </Button>

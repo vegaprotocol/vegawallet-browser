@@ -13,6 +13,12 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0
+
       - name: Checkout specs repository
         uses: actions/checkout@v2
         with:
@@ -20,7 +26,7 @@ jobs:
           ref: master
           path: specs
 
-      - name: Run Approbation
+      - name: Run Approbation on PR
         id: approbation
         run: |
           npm install -g github:vegaprotocol/approbation
@@ -36,12 +42,34 @@ jobs:
           results=$(cat results/jenkins.txt)
           echo "::set-output name=file::$results"
 
+      - name: Run Approbation on main
+        id: approbation-main
+        run: |
+          echo "files: "
+          ls
+          echo "Starting Approbation"
+          npx --silent --yes github:vegaprotocol/approbation check-references \
+            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
+            --tests="./main/{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
+            --categories="specs/user-interface/categories.json" \
+            --show-mystery --category-stats --output-jenkins
+          echo "showing files"
+          ls
+          echo "Jenkins file:"
+          results=$(cat results/jenkins.txt)
+          echo "::set-output name=file-main::$results-main"
+
       - name: Comment on Pull Request
         if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            Here is your approbation coverage after this PR:
+            Here is your approbation coverage **BEFORE** this PR:
+            ```
+            ${{ steps.approbation-main.outputs.file-main }}
+            ```
+
+            Here is your approbation coverage **AFTER** this PR:
             ```
             ${{ steps.approbation.outputs.file }}
             ```

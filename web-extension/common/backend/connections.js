@@ -8,6 +8,10 @@ export class ConnectionsCollection {
     return await this.store.set(origin, allowList)
   }
 
+  async has(origin) {
+    return await this.store.has(origin)
+  }
+
   async isAllowed(origin, publicKey) {
     const allowList = await this.store.get(origin)
     if (allowList == null) return false

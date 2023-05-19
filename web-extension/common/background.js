@@ -6,14 +6,16 @@ import * as clientValidation from './validation/client/index.js'
 import * as backend from './backend/index.js'
 import StorageLocalMap from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
+import EncryptedStorage from './lib/encrypted-storage.js'
 import init from './backend/admin-ns.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
+const encryptedStore = new EncryptedStorage(new ConcurrentStorage(new StorageLocalMap('wallets')))
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
 const wallets = new WalletCollection({
-  walletsStore: new StorageLocalMap('wallets'),
+  walletsStore: encryptedStore,
   publicKeyIndexStore: new StorageLocalMap('publicKeyIndex')
 })
 const networks = new NetworkCollection(new ConcurrentStorage(new StorageLocalMap('networks')))
@@ -28,6 +30,7 @@ const clientPorts = new PortServer({
     methods: {
       async 'client.connect_wallet'(params, context) {
         doValidate(clientValidation.connectWallet, params)
+
         return null
       },
       async 'client.disconnect_wallet'(params, context) {
@@ -83,6 +86,7 @@ const clientPorts = new PortServer({
 })
 
 const server = init({
+  encryptedStore,
   settings,
   wallets,
   networks,

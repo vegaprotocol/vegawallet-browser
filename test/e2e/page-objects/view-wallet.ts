@@ -1,5 +1,12 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, getElementText, waitForElementToBeReady } from '../selenium-util'
+import {
+  clickElement,
+  getByDataTestID,
+  getElementText,
+  waitForElementToBeReady,
+  isElementDisplayed,
+  waitForChildElementsCount
+} from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
 
@@ -28,16 +35,19 @@ export class ViewWallet {
     return keys
   }
 
-  async checkOnViewWalletsPage() {
-    const walletHeaderText = await getElementText(this.driver, this.walletName)
+  async checkOnViewWalletPage() {
     expect(
-      walletHeaderText,
-      `Expected the name of the wallet to be on display as 'Wallet 1', instead it was ${walletHeaderText}`
-    ).toBe('Wallet 1')
+      await isElementDisplayed(this.driver, this.walletName),
+      "expected to be on the 'view wallet' page but could not locate the 'view wallets' header ",
+      { showPrefix: false }
+    ).toBe(true)
   }
 
   async createNewKeyPair() {
+    const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
+    const keyElements = await keyList.findElements(getByDataTestID(locators.walletsKeyName))
     await clickElement(this.driver, this.createNewKeyPairButton)
+    await waitForChildElementsCount(this.driver, getByDataTestID(locators.walletsKeyName), keyElements.length + 1)
   }
 
   async copyPublicKeyToClipboard() {

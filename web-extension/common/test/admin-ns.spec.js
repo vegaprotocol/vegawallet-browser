@@ -2,12 +2,15 @@ import initAdminServer from '../backend/admin-ns.js'
 import { WalletCollection } from '../backend/wallets.js'
 import { NetworkCollection } from '../backend/network.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
+import EncryptedStorage from '../lib/encrypted-storage.js'
 
-const createAdmin = () => {
-  return initAdminServer({
+const createAdmin = async ({ passphrase } = {}) => {
+  const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+  const server = initAdminServer({
+    encryptedStore: enc,
     settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
     wallets: new WalletCollection({
-      walletsStore: new Map(),
+      walletsStore: enc,
       publicKeyIndexStore: new Map()
     }),
     networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground' }]])),
@@ -15,6 +18,17 @@ const createAdmin = () => {
       throw err
     }
   })
+
+  if (passphrase) {
+    await server.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.create_passphrase',
+      params: { passphrase }
+    })
+  }
+
+  return server
 }
 
 describe('admin-ns', () => {
@@ -75,5 +89,153 @@ describe('admin-ns', () => {
     })
 
     expect(listNetworks.result).toEqual({ networks: ['fairground'] })
+  })
+
+  it('should create wallet', async () => {
+    const admin = await createAdmin({ passphrase: 'foo' })
+
+    const generateRecoveryPhrase = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.generate_recovery_phrase',
+      params: null
+    })
+
+    const importWallet = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.import_wallet',
+      params: {
+        name: 'Wallet 1',
+        recoveryPhrase: generateRecoveryPhrase.result.recoveryPhrase
+      }
+    })
+
+    expect(importWallet.result).toEqual(null)
+  })
+
+  it('should allow updating the passphase', async () => {
+    const admin = await createAdmin({ passphrase: 'foo' })
+
+    const updatePassphrase = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.update_passphrase',
+      params: {
+        passphrase: 'notfoo',
+        newPassphrase: 'bar'
+      }
+    })
+
+    expect(updatePassphrase.error.toJSON()).toEqual({ code: 1, message: 'Invalid passphrase' })
+
+    const updatePassphrase2 = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.update_passphrase',
+      params: {
+        passphrase: 'foo',
+        newPassphrase: 'bar'
+      }
+    })
+
+    expect(updatePassphrase2.result).toEqual(null)
+
+    // Lock the wallet
+    await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.lock',
+      params: null
+    })
+
+    const unlockFailure = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.unlock',
+      params: {
+        passphrase: 'foo'
+      }
+    })
+
+    expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Invalid passphrase or corrupted storage' })
+
+    const unlockSuccess = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.unlock',
+      params: {
+        passphrase: 'bar'
+      }
+    })
+
+    expect(unlockSuccess.result).toEqual(null)
+  })
+
+  it('should not be able to unlock an uninitialised wallet', async () => {
+    const admin = await createAdmin()
+
+    const unlockFailure = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.unlock',
+      params: {
+        passphrase: 'foo'
+      }
+    })
+
+    expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Encryption not initialised' })
+  })
+
+  it('app_globals should be true after creating a wallet, locking and unlocking', async () => {
+    const admin = await createAdmin({ passphrase: 'foo' })
+
+    const generateRecoveryPhrase = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.generate_recovery_phrase',
+      params: null
+    })
+
+    const importWallet = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.import_wallet',
+      params: {
+        name: 'Wallet 1',
+        recoveryPhrase: generateRecoveryPhrase.result.recoveryPhrase
+      }
+    })
+
+    expect(importWallet.result).toEqual(null)
+
+    // Lock the wallet
+    await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.lock',
+      params: null
+    })
+
+    const [unlockSuccess, appGlobals] = await Promise.all([
+      admin.onrequest({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'admin.unlock',
+        params: {
+          passphrase: 'foo'
+        }
+      }),
+
+      await admin.onrequest({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'admin.app_globals',
+        params: null
+      })
+    ])
+
+    expect(unlockSuccess.result).toEqual(null)
+    expect(appGlobals.result.wallet).toEqual(true)
   })
 })

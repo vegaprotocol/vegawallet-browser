@@ -3,7 +3,7 @@ import { Button, FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../lib/form-validation'
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '..'
+import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
 import { loginButton, loginPassword } from '../../locator-ids'
 
@@ -25,7 +25,8 @@ export const Login = () => {
   const submit = useCallback(
     (fields: { password: string }) => {
       if (fields.password === '123') {
-        navigate(FULL_ROUTES.wallets)
+        // Navigate to home so it can redirect to the correct page
+        navigate(FULL_ROUTES.home)
       } else {
         setError('password', { message: 'Incorrect password' })
       }

@@ -1,20 +1,52 @@
 /* istanbul ignore file */
-export const mockClient = () => {
+import { RpcMethods } from '../lib/rpc-methods'
+import { Key } from '../routes/auth/wallets/store'
+import { AppGlobals } from '../routes/home/store'
+
+const defaultWallets = ['wallet 1']
+const defaultKeys = [
+  {
+    publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+    name: 'Key 1',
+    index: 0,
+    metadata: [
+      {
+        key: 'name',
+        value: 'key 1'
+      }
+    ]
+  }
+]
+const defaultGlobals = {
+  passphrase: true,
+  wallet: true,
+  version: '0.0.1',
+  locked: false,
+  settings: {
+    telemetry: false
+  }
+}
+
+export const mockClient = (
+  wallets: string[] = defaultWallets,
+  keys: Key[] = defaultKeys,
+  globals: AppGlobals = defaultGlobals
+) => {
   const listeners: Function[] = []
   // @ts-ignore
   global.browser = {
     runtime: {
       connect: () => ({
         postMessage: (message: any) => {
-          if (message.method === 'admin.list_wallets') {
+          if (message.method === RpcMethods.ListWallets) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
-                result: { wallets: ['wallet 1'] },
+                result: { wallets },
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.list_keys') {
+          } else if (message.method === RpcMethods.ListKeys) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -29,7 +61,7 @@ export const mockClient = () => {
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.create_passphrase') {
+          } else if (message.method === RpcMethods.CreatePassphrase) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -37,7 +69,7 @@ export const mockClient = () => {
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.generate_recovery_phrase') {
+          } else if (message.method === RpcMethods.GenerateRecoveryPhrase) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -45,7 +77,7 @@ export const mockClient = () => {
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.import_wallet') {
+          } else if (message.method === RpcMethods.ImportWallet) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -53,7 +85,7 @@ export const mockClient = () => {
                 id: message.id
               })
             )
-          } else if (message.method === 'admin.generate_key') {
+          } else if (message.method === RpcMethods.GenerateKey) {
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',
@@ -68,6 +100,14 @@ export const mockClient = () => {
                     }
                   ]
                 },
+                id: message.id
+              })
+            )
+          } else if (message.method === RpcMethods.AppGlobals) {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                result: globals,
                 id: message.id
               })
             )

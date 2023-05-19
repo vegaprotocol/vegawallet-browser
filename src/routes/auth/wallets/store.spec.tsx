@@ -1,3 +1,4 @@
+import { RpcMethods } from '../../../lib/rpc-methods'
 import { useWalletStore } from './store'
 
 const keys = [
@@ -16,13 +17,13 @@ const keys = [
 
 const client = {
   request(method: string) {
-    if (method === 'admin.list_wallets') {
+    if (method === RpcMethods.ListWallets) {
       return { wallets: ['Wallet 1'] }
-    } else if (method === 'admin.list_keys') {
+    } else if (method === RpcMethods.ListKeys) {
       return {
         keys
       }
-    } else if (method === 'admin.generate_key') {
+    } else if (method === RpcMethods.GenerateKey) {
       return {
         publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
         name: 'Key 2'

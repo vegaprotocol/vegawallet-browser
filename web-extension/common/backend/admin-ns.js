@@ -18,26 +18,26 @@ function doValidate(validator, params) {
  *
  * @param {Store} settings Map-like implementation to store settings.
  * @param {WalletCollection} wallets
- * @param {NetworkColleciton} networks
+ * @param {NetworkCollection} networks
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default function init({ settings, wallets, networks, onerror }) {
-  let storedPassphrase = null
-
+export default function init({ encryptedStore, settings, wallets, networks, onerror }) {
   return new JSONRPCServer({
     onerror,
     methods: {
       async 'admin.app_globals'(params) {
         doValidate(adminValidation.appGlobals, params)
 
-        const hasPassphrase = storedPassphrase != null
-        const hasWallet = Array.from(await wallets.list()).length > 0
-
+        const hasPassphrase = await encryptedStore.exists()
+        const isLocked = encryptedStore.isLocked === true
+        // TODO this is kinda indeterminate, as we don't know if the storage is empty
+        const hasWallet = isLocked ? false : Array.from(await wallets.list()).length > 0
         return {
           passphrase: hasPassphrase,
           wallet: hasWallet,
-          locked: false,
+          // We don't consider the app locked if there is no passphrase
+          locked: hasPassphrase && isLocked,
           version: pkg.version,
 
           settings: Object.fromEntries(await settings.entries())
@@ -57,18 +57,42 @@ export default function init({ settings, wallets, networks, onerror }) {
 
       async 'admin.create_passphrase'(params) {
         doValidate(adminValidation.createPassphrase, params)
-        if (storedPassphrase != null) throw new Error('Passphrase already exists')
-        storedPassphrase = params.passphrase
+
+        await encryptedStore.create(params.passphrase)
 
         return null
       },
 
       async 'admin.update_passphrase'(params) {
         doValidate(adminValidation.updatePassphrase, params)
-        if (storedPassphrase == null) throw new Error('Passphrase does not exist')
-        if (storedPassphrase !== params.passphrase) throw new Error('Passphrase does not match')
+        if ((await encryptedStore.exists()) === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
+        try {
+          await encryptedStore.changePassphrase(params.passphrase, params.newPassphrase)
+        } catch (e) {
+          if (e.message === 'Invalid passphrase') throw new JSONRPCServer.Error('Invalid passphrase', 1)
+          throw e
+        }
 
-        storedPassphrase = params.newPassphrase
+        return null
+      },
+
+      async 'admin.unlock'(params) {
+        doValidate(adminValidation.unlock, params)
+        if ((await encryptedStore.exists()) === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
+        try {
+          await encryptedStore.unlock(params.passphrase)
+        } catch (e) {
+          if (e.message === 'Invalid passphrase or corrupted storage')
+            throw new JSONRPCServer.Error('Invalid passphrase or corrupted storage', 1)
+          throw e
+        }
+
+        return null
+      },
+
+      async 'admin.lock'(params) {
+        doValidate(adminValidation.lock, params)
+        await encryptedStore.lock()
 
         return null
       },

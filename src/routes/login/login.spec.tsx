@@ -3,7 +3,7 @@ import { Login } from '.'
 import { MemoryRouter } from 'react-router-dom'
 import locators from '../../components/locators'
 import { loginButton, loginPassword } from '../../locator-ids'
-import { FULL_ROUTES } from '../routes'
+import { FULL_ROUTES } from '../route-names'
 
 const mockedUsedNavigate = jest.fn()
 
@@ -40,6 +40,6 @@ describe('Login', () => {
       target: { value: '123' }
     })
     fireEvent.click(screen.getByTestId(loginButton))
-    await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.wallets))
+    await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.home))
   })
 })

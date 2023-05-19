@@ -1,7 +1,7 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
 import { Wallet } from '../../../components/icons/wallet'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '../..'
+import { FULL_ROUTES } from '../../route-names'
 import { createNewWalletButton, importWalletButton } from '../../../locator-ids'
 
 export const CreateWallet = () => {

@@ -3,11 +3,12 @@ import { Page } from '../../../components/page'
 import { Button } from '@vegaprotocol/ui-toolkit'
 import { useForm, useWatch } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '../..'
+import { FULL_ROUTES } from '../../route-names'
 import { Checkbox } from '../../../components/checkbox'
 import { MnemonicContainer } from '../../../components/mnemonic-container'
 import { saveMnemonicButton, saveMnemonicDescription } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
+import { RpcMethods } from '../../../lib/rpc-methods'
 
 interface FormFields {
   acceptedTerms: boolean
@@ -21,7 +22,7 @@ export const SaveMnemonic = () => {
   const [mnemonic, setMnemonic] = useState<string | null>(null)
 
   const suggestMnemonic = useCallback(async () => {
-    const res = await client.request('admin.generate_recovery_phrase', null)
+    const res = await client.request(RpcMethods.GenerateRecoveryPhrase, null)
     const { recoveryPhrase } = res
     setMnemonic(recoveryPhrase)
   }, [client])
@@ -34,8 +35,8 @@ export const SaveMnemonic = () => {
   useEffect(() => {}, [])
   const submit = useCallback(async () => {
     const walletName = 'Wallet 1'
-    await client.request('admin.import_wallet', { recoveryPhrase: mnemonic, name: walletName })
-    await client.request('admin.generate_key', {
+    await client.request(RpcMethods.ImportWallet, { recoveryPhrase: mnemonic, name: walletName })
+    await client.request(RpcMethods.GenerateKey, {
       wallet: walletName,
       name: `Key 1`
     })

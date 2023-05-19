@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import JSONRPCClient from '../../../lib/json-rpc-client'
+import { RpcMethods } from '../../../lib/rpc-methods'
 
 export interface Wallet {
   name: string
@@ -37,7 +38,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       set({ error: 'Could not find wallet to create key for' })
       return
     }
-    const newKey = await client.request('admin.generate_key', {
+    const newKey = await client.request(RpcMethods.GenerateKey, {
       wallet: wallet.name,
       name: `Key ${wallet.keys.length + 1}`
     })
@@ -55,10 +56,10 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
   loadWallets: async (client: JSONRPCClient) => {
     try {
       set({ loading: true, error: null })
-      const { wallets } = await client.request('admin.list_wallets', null)
+      const { wallets } = await client.request(RpcMethods.ListWallets, null)
       const res = await Promise.all(
         wallets.map(async (w: string) => {
-          const keyList = await client.request('admin.list_keys', {
+          const keyList = await client.request(RpcMethods.ListKeys, {
             wallet: w
           })
           const { keys } = keyList

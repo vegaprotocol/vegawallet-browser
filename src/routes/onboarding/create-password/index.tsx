@@ -5,9 +5,10 @@ import { Validation } from '../../../lib/form-validation'
 import { useCallback, useEffect } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '../..'
+import { FULL_ROUTES } from '../../route-names'
 import { confirmPasswordInput, passwordInput, submitPasswordButton } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
+import { RpcMethods } from '../../../lib/rpc-methods'
 
 interface FormFields {
   password: string
@@ -30,7 +31,7 @@ export const CreatePassword = () => {
   const confirmPassword = useWatch({ control, name: 'confirmPassword' })
   const submit = useCallback(
     async ({ password }: FormFields) => {
-      await client.request('admin.create_passphrase', { passphrase: password })
+      await client.request(RpcMethods.CreatePassphrase, { passphrase: password })
       navigate(FULL_ROUTES.createWallet)
     },
     [client, navigate]

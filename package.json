@@ -99,14 +99,6 @@
     }
   },
   "watch": {
-    "build:firefox": {
-      "patterns": [
-        "web-extension",
-        "src"
-      ],
-      "ignore": "web-extension/common/validation/**/*.js",
-      "extensions": "js,jsx,ts,tsx"
-    },
     "build:chrome": {
       "patterns": [
         "web-extension",

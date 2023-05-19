@@ -7,11 +7,9 @@ import locators from '../locators'
 
 export const ConnectionDetails = ({
   handleDecision,
-  isLoading,
   hostname
 }: {
   handleDecision: (decision: boolean) => void
-  isLoading: boolean
   hostname: string
 }) => {
   return (
@@ -37,17 +35,12 @@ export const ConnectionDetails = ({
         </ul>
       </Frame>
       <div className="grid grid-cols-[1fr_1fr] justify-between gap-4 mt-5">
-        <Button
-          data-testid={locators.connectionModalDenyButton}
-          disabled={!!isLoading}
-          onClick={() => handleDecision(false)}
-        >
+        <Button data-testid={locators.connectionModalDenyButton} onClick={() => handleDecision(false)}>
           Deny
         </Button>
         <Button
           data-testid={locators.connectionModalApproveButton}
           variant="primary"
-          disabled={!!isLoading}
           onClick={() => handleDecision(true)}
         >
           Approve

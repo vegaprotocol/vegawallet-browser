@@ -1,24 +1,18 @@
-// TODO this is duplicated!
+import { JSONRPCError, isNotification, isResponse } from './json-rpc.js'
 
-/* istanbul ignore file */
 export default class JSONRPCClient {
-  static Error = class extends Error {
-    constructor(msg, code, data) {
-      super(msg)
-      this.code = code
-      this.data = data
-    }
+  static Error = JSONRPCError
 
-    toJSON() {
-      return { message: this.message, code: this.code, data: this.data }
-    }
-  }
-
-  constructor({ send, onnotification = (_) => {} }) {
+  constructor({
+    send,
+    onnotification = (_) => {},
+    idPrefix = Math.random().toString(36)
+  }) {
     this._send = send
     this._onnotification = onnotification ?? (() => {})
     this.inflight = new Map()
     this.id = 0
+    this._idPrefix = idPrefix
   }
 
   notify(method, params) {
@@ -32,12 +26,12 @@ export default class JSONRPCClient {
   }
 
   async request(method, params) {
-    const id = '' + ++this.id
+    const id = this._idPrefix + ++this.id
     const msg = {
       jsonrpc: '2.0',
       id,
       method,
-      params: params
+      params
     }
 
     return new Promise((resolve, reject) => {
@@ -55,9 +49,12 @@ export default class JSONRPCClient {
   async onmessage(data) {
     if (data == null) return // invalid response
 
-    const id = data?.id
-    if (id == null) return this._onnotification(data) // JSON-RPC notifications are not supported for now
+    if (isNotification(data)) return this._onnotification(data) // JSON-RPC notifications are not supported for now
 
+    // Only react to responses and notifications
+    if (!isResponse(data)) return
+
+    const id = data.id
     const p = this.inflight.get(id)
     if (p == null) return // duplicate or unknown response
 

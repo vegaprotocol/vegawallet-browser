@@ -4,12 +4,12 @@ import assert from 'nanoassert'
 export class PopupClient {
   constructor() {
     this.ports = new Set()
-    this.persistentQueue = new Map()
+    this.persistentQueue = []
 
     this.client = new JSONRPCClient({
       idPrefix: 'background-',
       send: (msg) => {
-        this.persistentQueue.set(msg.id, msg)
+        this.persistentQueue.push(msg)
         this.ports.forEach((p) => p.postMessage(msg))
       }
     })
@@ -37,7 +37,10 @@ export class PopupClient {
     const self = this
     function _onmessage(message) {
       if (message.id != null) {
-        self.persistentQueue.delete(message.id)
+        const idx = self.persistentQueue.findIndex(msg => msg.id === message.id)
+        if (idx !== -1) {
+          self.persistentQueue.splice(idx, 1)
+        }
       }
 
       self.client.onmessage(message)

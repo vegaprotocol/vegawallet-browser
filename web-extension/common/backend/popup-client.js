@@ -29,8 +29,17 @@ export class PopupClient {
     port.onMessage.addListener(_onmessage)
     port.onDisconnect.addListener(_ondisconnect)
 
+    // Send all pending messages
+    for (const msg of this.persistentQueue) {
+      port.postMessage(msg)
+    }
+
     const self = this
     function _onmessage(message) {
+      if (message.id != null) {
+        self.persistentQueue.delete(message.id)
+      }
+
       self.client.onmessage(message)
     }
 

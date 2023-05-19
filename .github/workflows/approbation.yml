@@ -2,7 +2,6 @@ name: Check Approbation
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   check-approbation:
@@ -30,25 +29,20 @@ jobs:
             --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
             --tests="{src,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-mystery --category-stats --output-jenkins | sed 's/\*//g;s/ \([a-zA-Z]\)/\n\1/g' > results/jenkins.txt
+            --show-mystery --category-stats --output-jenkins
           echo "showing files"
           ls
           echo "Jenkins file:"
           results=$(cat results/jenkins.txt)
           echo "::set-output name=file::$results"
 
-      - name: echo output
-        id: approbation-output
-        run: echo ${{steps.approbation.outputs.file}}
-
       - name: Comment on Pull Request
         if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            Here are the approbation results for this PR:
-
+            The Jenkins file output is:
             ```
-            ${{steps.approbation.outputs.file}}
+            ${{ steps.approbation.outputs.file }}
             ```
           issue-number: ${{ github.event.pull_request.number }}

@@ -34,8 +34,7 @@ export const Settings = () => {
         </div>
       </div>
       <form className="mt-6" onSubmit={handleSubmit(submit)}>
-        {/* TODO create a danger button in UI toolkit */}
-        <Button data-testid={settingsLockButton} fill={true} className="mt-2" variant="primary" type="submit">
+        <Button data-testid={settingsLockButton} fill={true} className="mt-2" variant="secondary" type="submit">
           Lock
         </Button>
       </form>

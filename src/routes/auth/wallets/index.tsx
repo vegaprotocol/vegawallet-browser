@@ -53,7 +53,7 @@ export const Wallets = () => {
   if (error) return <span data-testid={walletsError}>{error.toString()}</span>
 
   return (
-    <section data-testid={walletsPage} className="pt-3 px-5">
+    <section data-testid={walletsPage}>
       <h1 data-testid={walletsWalletName} className="flex justify-center flex-col text-2xl text-white">
         {wallet.name}
       </h1>

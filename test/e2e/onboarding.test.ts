@@ -64,7 +64,6 @@ describe('Onboarding', () => {
     // 1101-BWAL-013 - I am provided with a recovery phrase for my new wallet that is initially hidden from view
     // 1101-BWAL-015 - I can choose when to reveal/show the recovery phrase
     // 1101-BWAL-016 - I can copy the recovery phrase into my clipboard
-    // 1101-BWAL-056 TEST INCREMENT
     await password.createPassword(testPassword)
     await createAWallet.createNewWallet()
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)

@@ -97,3 +97,4 @@ jobs:
             ${{ steps.approbation.outputs.file }}
             ```
           issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace

@@ -7,31 +7,35 @@ import { ConnectionSuccess } from './connection-success'
 import { ConnectionDetails } from './connection-details'
 
 export const ConnectionModal = () => {
-  const hostname = 'https://www.google.com'
-  const { isOpen, setIsOpen } = useModalStore((store) => ({
+  const { isOpen, handleConnectionDecision, details } = useModalStore((store) => ({
     isOpen: store.connectionModalOpen,
-    setIsOpen: store.setConnectionModalOpen
+    handleConnectionDecision: store.handleConnectionDecision,
+    details: store.currentConnectionDetails
   }))
   const [hasConnected, setHasConnected] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const handleDecision = useCallback((decision: boolean) => {
-    setIsLoading(true)
-    setHasConnected(decision)
-  }, [])
+  const handleDecision = useCallback(
+    (decision: boolean) => {
+      if (!decision) {
+        handleConnectionDecision(decision)
+      }
+      setHasConnected(decision)
+    },
+    [handleConnectionDecision]
+  )
 
   if (!isOpen) return null
   return (
     <Splash data-testid={locators.connectionModal} centered={true}>
       {hasConnected ? (
         <ConnectionSuccess
-          hostname={hostname}
+          hostname={details.origin}
           onClose={() => {
             setHasConnected(false)
-            setIsOpen(false)
+            handleConnectionDecision(true)
           }}
         />
       ) : (
-        <ConnectionDetails hostname={hostname} isLoading={isLoading} handleDecision={handleDecision} />
+        <ConnectionDetails hostname={details.origin} handleDecision={handleDecision} />
       )}
     </Splash>
   )

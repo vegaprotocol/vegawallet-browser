@@ -16,7 +16,9 @@ export const GetStarted = () => {
         <ul className="list-none text-left">
           {items.map((i) => (
             <li key={i} className="flex">
-              <Tick className="w-3 mr-2 text-vega-green-550" />
+              <div>
+                <Tick className="w-3 mr-2 text-vega-green-550" />
+              </div>
               <p className="text-light-200">{i}</p>
             </li>
           ))}

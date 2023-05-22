@@ -8,6 +8,7 @@ import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { NavPanel } from './page-objects/navpanel'
+import { Login } from './page-objects/login'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
@@ -17,6 +18,7 @@ describe('Check correct app state persists after closing the extension', () => {
   let createAWallet: CreateAWallet
   let viewWallet: ViewWallet
   let apiHelper: APIHelper
+  let loginPage: Login
   const testPassword = 'password1'
 
   beforeEach(async () => {
@@ -27,6 +29,7 @@ describe('Check correct app state persists after closing the extension', () => {
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
     apiHelper = new APIHelper(driver)
+    loginPage = new Login(driver)
     await navigateToLandingPage(driver)
   })
 
@@ -35,11 +38,10 @@ describe('Check correct app state persists after closing the extension', () => {
     await driver.quit()
   })
 
-  const hackLoginFunction = async () => {
+  const switchToNewWindowAndLogin = async () => {
     await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
-    await apiHelper.login(testPassword)
-    await navigateToLandingPage(driver)
+    await loginPage.login(testPassword)
   }
 
   it('shows the previous completed step when opening the app in a new tab', async () => {
@@ -60,7 +62,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await password.createPassword(testPassword)
     await createAWallet.checkOnCreateWalletPage()
 
-    await hackLoginFunction()
+    await switchToNewWindowAndLogin()
     await createAWallet.checkOnCreateWalletPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
@@ -68,7 +70,7 @@ describe('Check correct app state persists after closing the extension', () => {
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
     await secureYourWallet.revealRecoveryPhrase()
 
-    await hackLoginFunction()
+    await switchToNewWindowAndLogin()
     // TODO this is the wrong behavior, we should be on the secure wallet page.
     await createAWallet.checkOnCreateWalletPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
@@ -76,7 +78,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await secureYourWallet.acceptRecoveryPhraseWarning()
     await viewWallet.checkOnViewWalletPage()
 
-    await hackLoginFunction()
+    await switchToNewWindowAndLogin()
     await viewWallet.checkOnViewWalletPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
@@ -84,7 +86,7 @@ describe('Check correct app state persists after closing the extension', () => {
     const settings = await navPanel.goToSettings()
     await settings.checkOnSettingsPage()
 
-    await hackLoginFunction()
+    await switchToNewWindowAndLogin()
     await settings.checkOnSettingsPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
   })

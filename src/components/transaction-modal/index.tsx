@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useModalStore } from '../../lib/modal-store'
 import { Splash } from '../splash'
 import { CodeWindow } from '../code-window'
@@ -8,6 +8,8 @@ import locators from '../locators'
 import { PageHeader } from '../page-header'
 import { HostImage } from '../host-image'
 import { KeyIcon } from '../key-icon'
+import { TRANSACTION_TITLES, TransactionKeys } from '../../lib/transactions'
+import ReactTimeAgo from 'react-time-ago'
 
 const transaction = {
   orderSubmission: {
@@ -32,7 +34,7 @@ const data = {
   wallet: 'test-wallet',
   publicKey: '3fd42fd5ceb22d99ac45086f1d82d516118a5cb7ad9a2e096cd78ca2c8960c80',
   transaction: transaction,
-  receivedAt: new Date().toISOString()
+  receivedAt: '2021-01-01T00:00:00.000Z'
 }
 
 export const TransactionModal = () => {
@@ -43,30 +45,33 @@ export const TransactionModal = () => {
   const [isLoading, setIsLoading] = useState(false)
   const handleDecision = useCallback(
     (decision: boolean) => {
-      if (decision) {
-        setIsLoading(true)
-      }
+      setIsLoading(true)
       setIsOpen(false)
     },
     [setIsOpen]
   )
-
+  const transactionTitle = useMemo(() => {
+    return TRANSACTION_TITLES[Object.keys(transaction)[0] as TransactionKeys]
+  }, [])
+  const date = useMemo(() => new Date(data.receivedAt), [])
   if (!isOpen) return null
   return (
     <>
       <Splash data-testid={locators.transactionWrapper}>
         <section className="pb-4">
           <PageHeader />
-          <h1 className="flex justify-center flex-col text-2xl text-white">Order submission</h1>
+          <h1 data-testid={locators.transactionType} className="flex justify-center flex-col text-2xl text-white">
+            {transactionTitle}
+          </h1>
           <div className="flex items-center mt-6">
             <HostImage size={9} hostname={data.hostname} />
-            <div className="ml-4">
+            <div data-testid={locators.transactionRequest} className="ml-4">
               <span className="text-vega-dark-300">Request from</span> {data.hostname}
             </div>
           </div>
           <div className="flex items-center mb-8">
             <KeyIcon publicKey={data.publicKey} />
-            <div className="ml-4">
+            <div className="ml-4" data-testid={locators.transactionKey}>
               <div className="text-vega-dark-300">Signing with</div>
               <p>
                 {data.keyName}: <span className="text-vega-dark-300">{truncateMiddle(data.publicKey)}</span>
@@ -83,19 +88,21 @@ export const TransactionModal = () => {
               />
             }
           />
-          <div className="text-sm text-vega-dark-300 mt-3 mb-20">Received 30 seconds ago</div>
+          <div data-testid={locators.transactionTimeAgo} className="text-sm text-vega-dark-300 mt-3 mb-20">
+            Received <ReactTimeAgo timeStyle="round" date={date} locale="en-US" />
+          </div>
         </section>
       </Splash>
       <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-4 bg-black z-20 px-5 border-t border-vega-dark-200">
         <Button
-          data-testid={locators.transactionModalApproveButton}
+          data-testid={locators.transactionModalDenyButton}
           disabled={!!isLoading}
           onClick={() => handleDecision(false)}
         >
           Deny
         </Button>
         <Button
-          data-testid={locators.transactionModalDenyButton}
+          data-testid={locators.transactionModalApproveButton}
           variant="primary"
           disabled={!!isLoading}
           onClick={() => handleDecision(true)}

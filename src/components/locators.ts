@@ -51,7 +51,11 @@ const locators = {
   upDownArrows: 'up-down-arrows-icon',
   vegaIcon: 'vega-icon',
   vega: 'vega',
-  walletIcon: 'wallet-icon'
+  walletIcon: 'wallet-icon',
+  transactionType: 'transaction-type',
+  transactionRequest: 'transaction-request',
+  transactionKey: 'transaction-key',
+  transactionTimeAgo: 'transaction-time-ago'
 }
 
 export default locators

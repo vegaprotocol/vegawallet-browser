@@ -35,6 +35,12 @@ export class ViewWallet {
     return keys
   }
 
+  async waitForExpectedNumberOfKeys(expectedNumber: number) {
+    const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
+    const keyElements = await keyList.findElements(getByDataTestID(locators.walletsKeyName))
+    expect(keyElements.length).toBe(expectedNumber)
+  }
+
   async checkOnViewWalletPage() {
     expect(
       await isElementDisplayed(this.driver, this.walletName),

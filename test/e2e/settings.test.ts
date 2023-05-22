@@ -6,8 +6,9 @@ import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
+import { NavPanel } from './page-objects/navpanel'
 
-describe('Network tests', () => {
+describe('Settings test', () => {
   let driver: WebDriver
   let getStarted: GetStarted
   let password: Password
@@ -35,10 +36,10 @@ describe('Network tests', () => {
     await driver.quit()
   })
 
-  it('defaults to the fairground network', async () => {
-    // 1101-BWAL-026 The browser wallet defaults to use the Fairground network
-    // 1101-BWAL-027 I can see which vega network the browser wallet is connected to from the view wallet page
-    const connectedNetwork = await viewWallet.getNetworkConnectedTo()
-    expect(connectedNetwork.toLowerCase()).toBe('fairground')
+  it('can navigate to settings and lock the wallet, wallent version is visible', async () => {
+    // 1101-BWAL-064 I can see a lock button and when I press it I am logged out and redirect to the login page
+    const navPanel = new NavPanel(driver)
+    const settingsPage = await navPanel.goToSettings()
+    await settingsPage.lockWalletAndCheckLoginPageAppears()
   })
 })

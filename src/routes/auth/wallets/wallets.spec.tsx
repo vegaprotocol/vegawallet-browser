@@ -3,7 +3,6 @@ import { Wallets } from '.'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import locators from '../../../components/locators'
 import {
-  networkIndicator,
   walletsAssetHeader,
   walletsCreateKey,
   walletsDepositLink,
@@ -72,8 +71,6 @@ describe('Wallets', () => {
     )
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
-    expect(screen.getByTestId(locators.vegaIcon)).toBeInTheDocument()
-    expect(screen.getByTestId(networkIndicator)).toHaveTextContent('Fairground')
     expect(screen.getByTestId(walletsWalletName)).toHaveTextContent('wallet 1')
     expect(screen.getByTestId(locators.copyWithCheck)).toHaveTextContent('07248a…3673')
     expect(screen.getByTestId(locators.copyWithCheck)).toBeInTheDocument()

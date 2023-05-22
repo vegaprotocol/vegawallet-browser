@@ -1,4 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
+import { RpcMethods } from '../../../src/lib/rpc-methods'
 export class APIHelper {
   private driver: WebDriver
 
@@ -8,7 +9,7 @@ export class APIHelper {
 
   async generateRecoveryPhrase() {
     return await this.driver.executeScript<string>(async () => {
-      const { recoveryPhrase } = await window.client.request('admin.generate_recovery_phrase', null)
+      const { recoveryPhrase } = await window.client.request(RpcMethods.GenerateRecoveryPhrase, null)
       return recoveryPhrase
     })
   }

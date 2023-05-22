@@ -22,7 +22,6 @@ const renderNav = ({ isFairground }: { isFairground: boolean }) =>
     </MemoryRouter>
   )
 
-// eslint-disable-next-line jest/no-disabled-tests
 describe('NavButton', () => {
   it('renders with text and icon', () => {
     const icon = <svg data-testid="test-icon" />
@@ -76,14 +75,15 @@ describe('NavButton', () => {
   })
 })
 
-// eslint-disable-next-line jest/no-disabled-tests
 describe('NavBar', () => {
-  it('renders with all four NavButtons', () => {
+  it('renders with all two NavButtons', () => {
     renderNav({ isFairground: false })
     expect(screen.getByTestId('nav-bar')).toBeInTheDocument()
     expect(screen.getByTestId('nav-bar')).toHaveClass('bg-black')
-    // expect(screen.getAllByTestId('nav-button')).toHaveLength(4)
     expect(screen.getAllByTestId('nav-button')).toHaveLength(2)
+    const [wallets, settings] = screen.getAllByTestId('nav-button')
+    expect(wallets).toHaveTextContent('Wallets')
+    expect(settings).toHaveTextContent('Settings')
   })
 
   it('changes color if in fairground mode', () => {

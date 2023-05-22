@@ -50,6 +50,7 @@ jobs:
 
       - name: output test screenshots from the final state of tests
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: test screenshots chrome
           path: ./test-screenshots
@@ -90,6 +91,7 @@ jobs:
 
       - name: output test screenshots from the final state of tests
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: test screenshots firefox
           path: ./test-screenshots

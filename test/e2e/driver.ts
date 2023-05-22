@@ -69,5 +69,4 @@ export const captureScreenshot = async (driver: WebDriver, testName: string) => 
   const screenshotPath = `./test-screenshots/${testName}.png`
   await fs.ensureDir(path.dirname(screenshotPath))
   fs.writeFileSync(screenshotPath, screenshotData, 'base64')
-  console.log(`Screenshot captured: ${screenshotPath}`)
 }

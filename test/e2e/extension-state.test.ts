@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { initDriver } from './driver'
+import { captureScreenshot, initDriver } from './driver'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { Password } from './page-objects/password'
 import { GetStarted } from './page-objects/get-started'
@@ -28,11 +28,11 @@ describe('Check correct app state persists after closing the extension', () => {
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
     apiHelper = new APIHelper(driver)
-
     await navigateToLandingPage(driver)
   })
 
   afterEach(async () => {
+    await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
   })
 

@@ -2,7 +2,8 @@ import { Builder, By, Capabilities, until, WebDriver } from 'selenium-webdriver'
 import chrome from 'selenium-webdriver/chrome'
 import * as firefox from 'selenium-webdriver/firefox'
 import archiver from 'archiver'
-import * as fs from 'fs'
+import * as fs from 'fs-extra'
+import path from 'path'
 
 const extensionPath = './build'
 
@@ -61,4 +62,12 @@ async function zipDirectory(source: string, out: string): Promise<void> {
     stream.on('close', () => resolve())
     archive.finalize()
   })
+}
+
+export const captureScreenshot = async (driver: WebDriver, testName: string) => {
+  const screenshotData = await driver.takeScreenshot()
+  const screenshotPath = `./test-screenshots/${testName}.png`
+  await fs.ensureDir(path.dirname(screenshotPath))
+  fs.writeFileSync(screenshotPath, screenshotData, 'base64')
+  console.log(`Screenshot captured: ${screenshotPath}`)
 }

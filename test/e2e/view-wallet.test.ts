@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { initDriver } from './driver'
+import { captureScreenshot, initDriver } from './driver'
 import { GetStarted } from './page-objects/get-started'
 import { Password } from './page-objects/password'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
@@ -33,10 +33,11 @@ describe('View wallet page', () => {
   })
 
   afterEach(async () => {
+    await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
   })
 
-  it('can create new key/pair in the view wallet screen', async () => {
+  it('can create new key pair in the view wallet screen', async () => {
     // 1101-BWAL-028  can create a new key pair from the wallet view
     // 1101-BWAL-029 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
     // 1101-BWAL-030 New key pairs are listed in order they were created - oldest first

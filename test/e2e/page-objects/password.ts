@@ -11,10 +11,10 @@ import 'jest-expect-message'
 
 export class Password {
   private readonly createPasswordBackButton: By = getByDataTestID('create-password-back')
-  private readonly passwordInput: By = getByDataTestID(locators.passwordInput)
-  private readonly confirmPasswordInput: By = getByDataTestID(locators.confirmPasswordInput)
-  private readonly acknowledgeWarningCheckbox: By = By.id(locators.passwordWarningCheckbox)
-  private readonly submitButton: By = getByDataTestID(locators.submitPasswordButton)
+  private readonly passwordInput: By = getByDataTestID(locators.passphraseInput)
+  private readonly confirmPasswordInput: By = getByDataTestID(locators.confirmPassphraseInput)
+  private readonly acknowledgeWarningCheckbox: By = By.id(locators.passphraseWarningCheckbox)
+  private readonly submitButton: By = getByDataTestID(locators.submitPassphraseButton)
   private readonly errorMessage: By = getByDataTestID(locators.errorMessage)
 
   constructor(private readonly driver: WebDriver) {}

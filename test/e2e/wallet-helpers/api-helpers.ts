@@ -1,3 +1,4 @@
+import { recoverPublicKey } from 'ethers/lib/utils'
 import { WebDriver } from 'selenium-webdriver'
 export class APIHelper {
   private driver: WebDriver
@@ -15,50 +16,75 @@ export class APIHelper {
 
   async login(passphrase: string) {
     // TODO don't hardcode passphrase
-    return await this.driver.executeScript<string>(async () => {
-      await window.client.request('admin.unlock', { passphrase: 'password1' })
-    })
+    return await this.driver.executeScript<string>(async (passphrase: string) => {
+      await window.client.request('admin.unlock', { passphrase: passphrase })
+    }, passphrase)
   }
 
-  async importWallet(recoveryPhrase: string) {
-    // TODO recoveryPhrase is not in scope for executeScript so this will fail
-    return (
-      await this.driver.executeScript<string>(async (recoveryPhrase: string) => {
+  async importWallet(walletName: string, recoveryPhrase: string) {
+    return await this.driver.executeScript<string>(
+      async (walletName: string, recoveryPhrase: string) => {
         const resp = await window.client.request('admin.import_wallet', {
           recoveryPhrase: recoveryPhrase,
-          name: 'Wallet import'
+          name: walletName
         })
         return resp
-      }, recoveryPhrase),
+      },
+      walletName,
       recoveryPhrase
     )
   }
 
   async createPassphrase(passphrase: string) {
-    return (
-      await this.driver.executeScript<string>(async (passphrase: string) => {
-        const resp = await window.client.request('admin.create_passphrase', { passphrase: passphrase })
-        return resp
-      }, passphrase),
-      passphrase
-    )
+    return await this.driver.executeScript<string>(async (passphrase: string) => {
+      const resp = await window.client.request('admin.create_passphrase', { passphrase: passphrase })
+      return resp
+    }, passphrase)
   }
 
   async createKey(walletName: string, keyName: string) {
-    return (
-      await this.driver.executeScript<string>(
-        async (walletName: string, keyName: string) => {
-          const resp = await window.client.request('admin.generate_key', {
-            wallet: walletName,
-            name: keyName
-          })
-          return resp
-        },
-        walletName,
-        keyName
-      ),
+    return await this.driver.executeScript<string>(
+      async (walletName: string, keyName: string) => {
+        const { publicKey } = await window.client.request('admin.generate_key', {
+          wallet: walletName,
+          name: keyName
+        })
+        return publicKey
+      },
       walletName,
       keyName
     )
+  }
+
+  async setUpWalletAndKey(passphrase: string, walletName: string, keyName: string) {
+    let resp: any
+    resp = await this.createPassphrase(passphrase)
+    expect(resp, `expected to create passphrase via the api but the response was not null, instead it was: ${resp}`, {
+      showPrefix: false
+    }).toBe(null)
+
+    const recoveryPhrase = await this.generateRecoveryPhrase()
+    expect(
+      recoveryPhrase,
+      `expected to generate recovery phrase via the api but response did not return a phrase, instead it was: ${recoveryPhrase}`,
+      { showPrefix: false }
+    ).toBeTruthy()
+
+    resp = await this.importWallet(walletName, recoveryPhrase)
+    expect(
+      resp,
+      `expected to be able to import wallet via the api but the response was not null, instead it was: ${resp}`,
+      { showPrefix: false }
+    ).toBe(null)
+
+    const publicKey = await this.createKey(walletName, keyName)
+    expect(
+      publicKey,
+      `expected to be able to create key for ${walletName} via the api. Expected to find a key in response but the value returned was falsy`,
+      { showPrefix: false }
+    ).toBeTruthy()
+
+    resp = await this.login(passphrase)
+    expect(resp, `expected to login via the api but the response was not null, instead it was: ${resp}`).toBe(null)
   }
 }

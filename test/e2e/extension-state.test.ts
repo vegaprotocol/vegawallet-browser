@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { initDriver } from './driver'
+import { captureScreenshot, initDriver } from './driver'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { Password } from './page-objects/password'
 import { GetStarted } from './page-objects/get-started'
@@ -7,6 +7,8 @@ import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './wallet-helpers/api-helpers'
+import { Nav } from '@vegaprotocol/ui-toolkit'
+import { NavPanel } from './page-objects/navpanel'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
@@ -26,11 +28,11 @@ describe('Check correct app state persists after closing the extension', () => {
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
     apiHelper = new APIHelper(driver)
-
     await navigateToLandingPage(driver)
   })
 
   afterEach(async () => {
+    await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
   })
 
@@ -45,6 +47,7 @@ describe('Check correct app state persists after closing the extension', () => {
     // 1101-BWAL-031 I can close the extension and when I reopen it it opens on the same page / view
     // 1101-BWAL-066 There is a way to determine if user has onboarded
     // 1101-BWAL-010 When I have submitted my new password, I can NOT go back to the previous step
+    // 1101-BWAL-067 I want to see the previous page I was on or my wallet page by default
     await getStarted.getStarted()
     await password.createPassword(testPassword, 'incorrectPassword')
 
@@ -76,6 +79,14 @@ describe('Check correct app state persists after closing the extension', () => {
 
     await hackLoginFunction()
     await viewWallet.checkOnViewWalletPage()
+    await closeCurrentWindowAndSwitchToPrevious(driver)
+
+    const navPanel = new NavPanel(driver)
+    const settings = await navPanel.goToSettings()
+    await settings.checkOnSettingsPage()
+
+    await hackLoginFunction()
+    await settings.checkOnSettingsPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
   })
 })

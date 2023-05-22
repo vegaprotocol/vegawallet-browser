@@ -10,7 +10,7 @@ export class Login {
   constructor(private readonly driver: WebDriver) {}
 
   async checkOnLoginPage() {
-    expect(this.isLoginPage(), "expected to be on the 'login' page but could not locate the login button", {
+    expect(await this.isLoginPage(), "expected to be on the 'login' page but could not locate the login button", {
       showPrefix: false
     }).toBe(true)
   }

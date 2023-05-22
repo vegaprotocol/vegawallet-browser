@@ -15,6 +15,7 @@
     "date-fns": "^2.29.3",
     "ethers": "5.7.1",
     "graphql": "15.8.0",
+    "javascript-time-ago": "^2.5.9",
     "lodash": "^4.17.21",
     "mutexify": "^1.4.0",
     "protobuf-codec": "^1.0.6",
@@ -100,14 +101,6 @@
     }
   },
   "watch": {
-    "build:firefox": {
-      "patterns": [
-        "web-extension",
-        "src"
-      ],
-      "ignore": "web-extension/common/validation/**/*.js",
-      "extensions": "js,jsx,ts,tsx"
-    },
     "build:chrome": {
       "patterns": [
         "web-extension",

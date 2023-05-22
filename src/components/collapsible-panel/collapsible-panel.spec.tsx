@@ -16,11 +16,14 @@ describe('Collapsible panel', () => {
     expect(screen.getByTestId(locators.collapsiblePanelContent)).toHaveClass('hidden')
     expect(screen.getByTestId(locators.dropdownArrow)).toBeInTheDocument()
   })
-  it('opens panel on click', () => {
+  it('opens and closes panel on click', () => {
     renderComponent({})
     fireEvent.click(screen.getByTestId(locators.collapsiblePanelButton))
     expect(screen.getByTestId(locators.collapsiblePanelContent)).not.toHaveClass('hidden')
     expect(screen.getByTestId(locators.dropdownArrow)).toHaveClass('rotate-180')
+    fireEvent.click(screen.getByTestId(locators.collapsiblePanelButton))
+    expect(screen.getByTestId(locators.collapsiblePanelContent)).toHaveClass('hidden')
+    expect(screen.getByTestId(locators.dropdownArrow)).not.toHaveClass('rotate-180')
   })
   it('renders panel as open when initially open is true', () => {
     renderComponent({ initiallyOpen: true })

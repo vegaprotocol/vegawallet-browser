@@ -1,7 +1,5 @@
 import { Outlet } from 'react-router-dom'
 import { NavBar } from '../../components/navbar'
-import { VegaIcon } from '../../components/icons/vega-icon'
-import { networkIndicator } from '../../locator-ids'
 
 import { ConnectionModal } from '../../components/connection-modal'
 import { TransactionModal } from '../../components/transaction-modal'

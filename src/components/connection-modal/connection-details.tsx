@@ -23,13 +23,17 @@ export const ConnectionDetails = ({
         </p>
         <ul className="list-none">
           <li className="flex">
-            <Tick className="w-3 mr-2 text-vega-green-550" />
+            <div>
+              <Tick className="w-3 mr-2 text-vega-green-550" />
+            </div>
             <p data-testid={locators.connectionModalAccessListAccess} className="text-light-200">
               See all of your wallet’s public keys
             </p>
           </li>
           <li className="flex">
-            <Tick className="w-3 mr-2 text-vega-green-550" />
+            <div>
+              <Tick className="w-3 mr-2 text-vega-green-550" />
+            </div>
             <p data-testid={locators.connectionModalAccessListAccess} className="text-light-200">
               Send transaction requests for you to sign
             </p>

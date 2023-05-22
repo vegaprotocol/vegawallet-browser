@@ -39,12 +39,12 @@ describe('Check correct app state persists after closing the extension', () => {
     await driver.quit()
   })
 
-  const switchToNewWindow = async (login = false) => {
+  const switchToNewWindow = async () => {
     await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
-    if (login) {
-      await loginPage.login(testPassword)
-    }
+    await apiHelper.lockWallet()
+    await navigateToLandingPage(driver)
+    await loginPage.login(testPassword)
   }
 
   it('shows the previous completed step when opening the app in a new tab', async () => {
@@ -65,7 +65,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await password.createPassword(testPassword)
     await createAWallet.checkOnCreateWalletPage()
 
-    await switchToNewWindow(true)
+    await switchToNewWindow()
     await createAWallet.checkOnCreateWalletPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
@@ -84,7 +84,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await secureYourWallet.revealRecoveryPhrase(true)
     await viewWallet.checkOnViewWalletPage()
 
-    await switchToNewWindow(true)
+    await switchToNewWindow()
     await viewWallet.checkOnViewWalletPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
 

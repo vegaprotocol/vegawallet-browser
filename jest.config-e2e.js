@@ -3,6 +3,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testTimeout: 60000,
+  setupFilesAfterEnv: ["jest-expect-message"],
   reporters: [
     'default',
     [

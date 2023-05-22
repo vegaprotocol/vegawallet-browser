@@ -85,6 +85,8 @@ export class APIHelper {
     ).toBeTruthy()
 
     resp = await this.login(passphrase)
-    expect(resp, `expected to login via the api but the response was not null, instead it was: ${resp}`).toBe(null)
+    expect(resp, `expected to login via the api but the response was not null, instead it was: ${resp}`, {
+      showPrefix: false
+    }).toBe(null)
   }
 }

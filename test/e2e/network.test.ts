@@ -11,9 +11,11 @@ describe('Network tests', () => {
 
   beforeEach(async () => {
     driver = await initDriver()
+    viewWallet = new ViewWallet(driver)
     await navigateToLandingPage(driver)
     const apiHelper = new APIHelper(driver)
     await apiHelper.setUpWalletAndKey(testPassword, 'Wallet 1', 'Key 1')
+    await navigateToLandingPage(driver)
   })
 
   afterEach(async () => {

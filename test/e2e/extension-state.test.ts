@@ -9,6 +9,8 @@ import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { NavPanel } from './page-objects/navpanel'
 import { Login } from './page-objects/login'
+import { promisify } from 'util'
+import { openNewWindowAndSwitchToIt } from './selenium-util'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
@@ -38,10 +40,12 @@ describe('Check correct app state persists after closing the extension', () => {
     await driver.quit()
   })
 
-  const switchToNewWindowAndLogin = async () => {
+  const switchToNewWindow = async (login = false) => {
     await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
-    await loginPage.login(testPassword)
+    if (login) {
+      await loginPage.login(testPassword)
+    }
   }
 
   it('shows the previous completed step when opening the app in a new tab', async () => {
@@ -62,23 +66,26 @@ describe('Check correct app state persists after closing the extension', () => {
     await password.createPassword(testPassword)
     await createAWallet.checkOnCreateWalletPage()
 
-    await switchToNewWindowAndLogin()
+    await switchToNewWindow(true)
     await createAWallet.checkOnCreateWalletPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
     await createAWallet.createNewWallet()
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
     await secureYourWallet.revealRecoveryPhrase()
+    expect(await secureYourWallet.isRecoveryPhraseDisplayed()).toBe(true)
 
-    await switchToNewWindowAndLogin()
+    await switchToNewWindow()
     // TODO this is the wrong behavior, we should be on the secure wallet page.
     await createAWallet.checkOnCreateWalletPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
-    await secureYourWallet.acceptRecoveryPhraseWarning()
+    await navigateToLandingPage(driver)
+    await createAWallet.createNewWallet()
+    await secureYourWallet.revealRecoveryPhrase(true)
     await viewWallet.checkOnViewWalletPage()
 
-    await switchToNewWindowAndLogin()
+    await switchToNewWindow(true)
     await viewWallet.checkOnViewWalletPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
 
@@ -86,17 +93,11 @@ describe('Check correct app state persists after closing the extension', () => {
     const settings = await navPanel.goToSettings()
     await settings.checkOnSettingsPage()
 
-    await switchToNewWindowAndLogin()
+    await switchToNewWindow()
     await settings.checkOnSettingsPage()
     await closeCurrentWindowAndSwitchToPrevious(driver)
   })
 })
-
-async function openNewWindowAndSwitchToIt(driver: WebDriver) {
-  await driver.executeScript('window.open();')
-  const handles = await driver.getAllWindowHandles()
-  await driver.switchTo().window(handles[1])
-}
 
 async function closeCurrentWindowAndSwitchToPrevious(driver: WebDriver) {
   const handles = await driver.getAllWindowHandles()

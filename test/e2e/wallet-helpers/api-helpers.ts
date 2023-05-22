@@ -14,9 +14,9 @@ export class APIHelper {
   }
 
   async login(passphrase: string) {
-    // TODO don't hardcode passphrase
     return await this.driver.executeScript<string>(async (passphrase: string) => {
-      await window.client.request('admin.unlock', { passphrase: passphrase })
+      const resp = await window.client.request('admin.unlock', { passphrase: passphrase })
+      return resp
     }, passphrase)
   }
 

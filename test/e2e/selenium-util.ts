@@ -96,3 +96,9 @@ export async function isElementEnabled(driver: WebDriver, locator: By, timeout: 
     return false
   }
 }
+
+export async function openNewWindowAndSwitchToIt(driver: WebDriver) {
+  await driver.executeScript('window.open();')
+  const handles = await driver.getAllWindowHandles()
+  await driver.switchTo().window(handles[1])
+}

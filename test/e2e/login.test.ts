@@ -1,10 +1,8 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
-import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { Login } from './page-objects/login'
-import { openNewWindowAndSwitchToIt } from './selenium-util'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 
 describe('Login', () => {
@@ -14,11 +12,10 @@ describe('Login', () => {
 
   beforeEach(async () => {
     driver = await initDriver()
-
-    await navigateToLandingPage(driver)
     apiHelper = new APIHelper(driver)
+    await navigateToLandingPage(driver)
     await apiHelper.createPassphrase(testPassword)
-    await openNewWindowAndSwitchToIt(driver)
+    await apiHelper.lockWallet()
     await navigateToLandingPage(driver)
   })
 
@@ -27,7 +24,9 @@ describe('Login', () => {
     await driver.quit()
   })
 
-  it('1101-BWAL-057 When I have quit my browser, and then reopened, I am asked to enter my browser extension password', async () => {
+  it('Check can log in via the login page', async () => {
+    //1101-BWAL-057 When I have quit my browser, and then reopened, I am asked to enter my browser extension password'
+    //TODO- add backend test that helps us test this by verifying the wallet gets locked when browser is closed
     const login = new Login(driver)
     await login.checkOnLoginPage()
     await login.login(testPassword)

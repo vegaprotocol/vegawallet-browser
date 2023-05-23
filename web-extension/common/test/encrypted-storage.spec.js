@@ -85,4 +85,14 @@ describe('encrypted-storage', () => {
 
     expect(await encryptedStorage.verifyPassphrase('passphrase')).toBe(false)
   })
+
+  it('Lock storage twice', async () => {
+    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+
+    await encryptedStorage.create('passphrase')
+
+    await encryptedStorage.lock()
+
+    expect(await encryptedStorage.lock()).toBe(null)
+  })
 })

@@ -22,31 +22,31 @@ export default class EncryptedStorage {
      */
     this._cache = null
 
-    // mutators
-    ;['set', 'delete', 'clear'].forEach((method) => {
-      this[method] = async (...args) => {
-        if (this.isLocked) {
-          throw new Error('Storage is locked')
+      // mutators
+      ;['set', 'delete', 'clear'].forEach((method) => {
+        this[method] = async (...args) => {
+          if (this.isLocked) {
+            throw new Error('Storage is locked')
+          }
+
+          const result = await this._cache[method](...args)
+
+          await this._save()
+
+          return result
         }
+      })
 
-        const result = await this._cache[method](...args)
+      // accessors
+      ;['get', 'has', 'entries', 'keys', 'values'].forEach((method) => {
+        this[method] = async (...args) => {
+          if (this.isLocked) {
+            throw new Error('Storage is locked')
+          }
 
-        await this._save()
-
-        return result
-      }
-    })
-
-    // accessors
-    ;['get', 'has', 'entries', 'keys', 'values'].forEach((method) => {
-      this[method] = async (...args) => {
-        if (this.isLocked) {
-          throw new Error('Storage is locked')
+          return this._cache[method](...args)
         }
-
-        return this._cache[method](...args)
-      }
-    })
+      })
   }
 
   get isLocked() {
@@ -183,6 +183,8 @@ export default class EncryptedStorage {
    * @returns {Promise<void>}
    */
   async lock() {
+    if (this.isLocked) return null
+
     await this._save()
     this._cache = null
     this._passphrase.fill(0)

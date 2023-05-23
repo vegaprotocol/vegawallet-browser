@@ -54,7 +54,7 @@ export const ConnectionDetails = ({
           disabled={!!isLoading}
           onClick={() => handleDecision(true)}
         >
-          Approve
+          Connect
         </Button>
       </div>
     </div>

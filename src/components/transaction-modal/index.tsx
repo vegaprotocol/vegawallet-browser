@@ -99,7 +99,7 @@ export const TransactionModal = () => {
           disabled={!!isLoading}
           onClick={() => handleDecision(false)}
         >
-          Deny
+          Reject
         </Button>
         <Button
           data-testid={locators.transactionModalApproveButton}

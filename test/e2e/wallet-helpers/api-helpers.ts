@@ -8,10 +8,10 @@ export class APIHelper {
   }
 
   async generateRecoveryPhrase() {
-    return await this.driver.executeScript<string>(async () => {
-      const { recoveryPhrase } = await window.client.request(RpcMethods.GenerateRecoveryPhrase, null)
+    return await this.driver.executeScript<string>(async (rpcMethod: string) => {
+      const { recoveryPhrase } = await window.client.request(rpcMethod, null)
       return recoveryPhrase
-    })
+    }, RpcMethods.GenerateRecoveryPhrase)
   }
 
   async login(passphrase: string) {
@@ -23,23 +23,28 @@ export class APIHelper {
 
   async importWallet(walletName: string, recoveryPhrase: string) {
     return await this.driver.executeScript<string>(
-      async (walletName: string, recoveryPhrase: string) => {
-        const resp = await window.client.request('admin.import_wallet', {
+      async (walletName: string, recoveryPhrase: string, rpcMethod: string) => {
+        const resp = await window.client.request(rpcMethod, {
           recoveryPhrase: recoveryPhrase,
           name: walletName
         })
         return resp
       },
       walletName,
-      recoveryPhrase
+      recoveryPhrase,
+      RpcMethods.ImportWallet
     )
   }
 
   async createPassphrase(passphrase: string) {
-    return await this.driver.executeScript<string>(async (passphrase: string) => {
-      const resp = await window.client.request('admin.create_passphrase', { passphrase: passphrase })
-      return resp
-    }, passphrase)
+    return await this.driver.executeScript<string>(
+      async (passphrase: string, rpcMethod: string) => {
+        const resp = await window.client.request(rpcMethod, { passphrase: passphrase })
+        return resp
+      },
+      passphrase,
+      RpcMethods.CreatePassphrase
+    )
   }
 
   async listConnections() {
@@ -51,15 +56,16 @@ export class APIHelper {
 
   async createKey(walletName: string, keyName: string) {
     return await this.driver.executeScript<string>(
-      async (walletName: string, keyName: string) => {
-        const { publicKey } = await window.client.request('admin.generate_key', {
+      async (walletName: string, keyName: string, rpcMethod: string) => {
+        const { publicKey } = await window.client.request(rpcMethod, {
           wallet: walletName,
           name: keyName
         })
         return publicKey
       },
       walletName,
-      keyName
+      keyName,
+      RpcMethods.GenerateKey
     )
   }
 

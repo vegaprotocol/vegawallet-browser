@@ -8,6 +8,14 @@ jest.mock('react-router-dom', () => ({
   Outlet: () => <div data-testid="outlet" />
 }))
 
+jest.mock('../../components/connection-modal', () => ({
+  ConnectionModal: () => <div data-testid="connection-modal" />
+}))
+
+jest.mock('../../components/transaction-modal', () => ({
+  TransactionModal: () => <div data-testid="transaction-modal" />
+}))
+
 describe('Auth', () => {
   it('renders outlet, header and navbar', () => {
     render(
@@ -17,5 +25,7 @@ describe('Auth', () => {
     )
     expect(screen.getByTestId(locators.navBar)).toBeInTheDocument()
     expect(screen.getByTestId('outlet')).toBeInTheDocument()
+    expect(screen.getByTestId('connection-modal')).toBeInTheDocument()
+    expect(screen.getByTestId('transaction-modal')).toBeInTheDocument()
   })
 })

@@ -28,8 +28,8 @@ describe('ConnectionModal', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('renders connection details when open but not yet connected', () => {
-    ;(useModalStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
-      const res = { isOpen: true }
+    ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
+      const res = { isOpen: true, details: {} }
       fn(res)
       return res
     })
@@ -38,7 +38,7 @@ describe('ConnectionModal', () => {
   })
   it('renders connection success when hasConnected is true', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, setIsOpen: jest.fn() }
+      const res = { isOpen: true, handleConnectionDecision: jest.fn(), details: {} }
       fn(res)
       return res
     })
@@ -48,7 +48,7 @@ describe('ConnectionModal', () => {
   })
   it('renders nothing if connection is not approved', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, setIsOpen: jest.fn() }
+      const res = { isOpen: true, handleConnectionDecision: jest.fn(), details: {} }
       fn(res)
       return res
     })
@@ -56,16 +56,16 @@ describe('ConnectionModal', () => {
     fireEvent.click(screen.getByTestId(locators.connectionModalDenyButton))
     expect(screen.queryByTestId('connection-success')).not.toBeInTheDocument()
   })
-  it('renders closes connection success when onClose is called', () => {
-    let open = true
+  it('handle the interaction decision when connection is approve after showing success state', () => {
+    const handleConnectionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: open, setIsOpen: (v: boolean) => (open = v) }
+      const res = { isOpen: true, handleConnectionDecision, details: {} }
       fn(res)
       return res
     })
-    const { container } = render(<ConnectionModal />)
+    render(<ConnectionModal />)
     fireEvent.click(screen.getByTestId(locators.connectionModalApproveButton))
     fireEvent.click(screen.getByTestId('connection-success'))
-    expect(container).toBeEmptyDOMElement()
+    expect(handleConnectionDecision).toBeCalledWith(true)
   })
 })

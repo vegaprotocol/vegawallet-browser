@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
+import { captureScreenshot, copyProfile, initDriver } from './driver'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { Login } from './page-objects/login'
@@ -11,11 +11,13 @@ describe('Login', () => {
   const testPassword = 'password1'
 
   beforeEach(async () => {
-    driver = await initDriver()
+    driver = await initDriver(true)
     apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
     await apiHelper.createPassphrase(testPassword)
-    await apiHelper.lockWallet()
+    await copyProfile(driver)
+    await driver.quit()
+    driver = await initDriver(true, false)
     await navigateToLandingPage(driver)
   })
 
@@ -26,7 +28,6 @@ describe('Login', () => {
 
   it('Check can log in via the login page', async () => {
     //1101-BWAL-058 When I have quit my browser, and then reopened, I am asked to enter my browser extension password'
-    //TODO- add backend test that helps us test this by verifying the wallet gets locked when browser is closed
     const login = new Login(driver)
     await login.checkOnLoginPage()
     await login.login(testPassword)

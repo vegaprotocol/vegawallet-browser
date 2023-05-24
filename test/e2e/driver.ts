@@ -4,13 +4,15 @@ import * as firefox from 'selenium-webdriver/firefox'
 import archiver from 'archiver'
 import * as fs from 'fs-extra'
 import path from 'path'
+import { clickElement } from './selenium-util'
 
 const extensionPath = './build'
+const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
 
-export async function initDriver() {
+export async function initDriver(useProfile: boolean = false, installExtension = true) {
   let driver: WebDriver | null = null
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {
-    driver = await initFirefoxDriver()
+    driver = await initFirefoxDriver(useProfile, installExtension)
   } else {
     driver = await initChromeDriver()
   }
@@ -37,16 +39,112 @@ async function initChromeDriver() {
   return new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
 }
 
-async function initFirefoxDriver() {
-  await zipDirectory(`${extensionPath}/firefox`, `${extensionPath}/firefox.zip`)
+function getMostRecentAddonFilePath(directory: string): string | null {
+  const addonFiles = fs
+    .readdirSync(directory)
+    .filter((file) => file.startsWith('addon-') && file.endsWith('.xpi'))
+    .map((file) => ({
+      name: file,
+      createdAt: fs.statSync(path.join(directory, file)).birthtimeMs
+    }))
+    .sort((a, b) => b.createdAt - a.createdAt)
+
+  if (addonFiles.length > 0) {
+    return path.join(directory, addonFiles[0].name)
+  }
+
+  return null
+}
+
+async function initFirefoxDriver(useProfile = false, installExtension = true) {
+  const firefoxExtensionPath = `${extensionPath}/firefox.zip`
+  await zipDirectory(`${extensionPath}/firefox`, `${firefoxExtensionPath}`)
+
   let firefoxOptions = new firefox.Options()
-  firefoxOptions.addExtensions(`${extensionPath}/firefox.zip`)
+
   if (process.env.HEADLESS) {
     firefoxOptions = firefoxOptions.headless()
   }
+
+  if (useProfile) {
+    createDirectoryIfNotExists(firefoxTestProfileDirectory)
+    firefoxOptions = firefoxOptions.setProfile(firefoxTestProfileDirectory)
+    firefoxOptions.setBinary('/usr/local/bin/firefox-dev')
+    firefoxOptions.addExtensions(firefoxExtensionPath)
+    firefoxOptions.setPreference('xpinstall.signatures.required', false)
+    firefoxOptions.setPreference('extensions.enabled', true)
+  } else {
+    firefoxOptions.addExtensions(firefoxExtensionPath)
+  }
+
   const driver = await new Builder().withCapabilities(Capabilities.firefox()).setFirefoxOptions(firefoxOptions).build()
-  await new firefox.Driver(driver.getSession(), driver.getExecutor()).installAddon(`${extensionPath}/firefox.zip`, true)
+
+  if (installExtension) {
+    await new firefox.Driver(driver.getSession(), driver.getExecutor()).installAddon(firefoxExtensionPath, true)
+  } else {
+    await driver.get('about:addons')
+    await clickElement(driver, By.css('[name="extension"]'))
+    await clickElement(driver, By.css('.extension-enable-button'))
+    await clickElement(driver, By.css('.extension-enable-button'))
+  }
+
   return driver
+}
+
+function createDirectoryIfNotExists(directoryPath: string) {
+  if (!fs.existsSync(directoryPath)) {
+    fs.mkdirSync(directoryPath, { recursive: true })
+  } else {
+    console.log(`Directory already exists: ${directoryPath}`)
+  }
+}
+
+export function wait(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, milliseconds)
+  })
+}
+
+function deleteDirectoryIfExists(directoryPath: string) {
+  if (fs.existsSync(directoryPath)) {
+    fs.rmdirSync(directoryPath, { recursive: true })
+    console.log(`Directory deleted: ${directoryPath}`)
+  } else {
+    console.log(`Directory does not exist: ${directoryPath}`)
+  }
+}
+
+export async function copyProfile(driver: WebDriver) {
+  let seleniumInstanceProfile: string
+
+  if (process.env.BROWSER?.toLowerCase() === 'firefox') {
+    seleniumInstanceProfile = (await (await driver.getCapabilities()).get('moz:profile')) as string
+    await copyDirectoryToNewLocation(seleniumInstanceProfile, firefoxTestProfileDirectory)
+  } else {
+    seleniumInstanceProfile = 'chrome logic will go here'
+  }
+}
+
+async function copyDirectoryToNewLocation(srcDir: string, targetDir: string) {
+  try {
+    const lockFilePath = path.join(srcDir, 'lock')
+    if (await fs.pathExists(lockFilePath)) {
+      await fs.unlink(lockFilePath)
+      console.log(`Deleted 'lock' file: ${lockFilePath}`)
+    }
+
+    const filter = (src: string, dest: string) => {
+      const fileName = path.basename(src)
+      return fileName !== 'lock'
+    }
+    await fs.emptyDir(targetDir)
+    await fs.copy(srcDir, targetDir, { filter })
+    console.log('Directory copied successfully!')
+  } catch (err) {
+    console.error('Error copying directory:', err)
+  }
 }
 
 async function zipDirectory(source: string, out: string): Promise<void> {

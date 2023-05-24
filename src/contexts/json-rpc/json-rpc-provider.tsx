@@ -40,13 +40,11 @@ const createServer = (
       async 'popup.review_connection'(params: any, context: any) {
         logger.info('Message pushed from background', params, context)
         const res = await handleConnection(params)
-        console.log(res)
         return res
       },
       async 'popup.review_transaction'(params: any, context: any) {
         logger.info('Message pushed from background', params, context)
         const res = await handleTransaction(params)
-        console.log(res)
         return res
       }
     }

@@ -150,9 +150,7 @@ export const mockClient = (
           }
         },
         onDisconnect: {
-          addListener: (fn: any) => {
-            listeners.push(fn)
-          }
+          addListener: (fn: any) => {}
         }
       })
     }

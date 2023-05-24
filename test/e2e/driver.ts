@@ -9,10 +9,10 @@ import { clickElement } from './selenium-util'
 const extensionPath = './build'
 const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
 
-export async function initDriver(useProfile: boolean = false, installExtension = true) {
+export async function initDriver() {
   let driver: WebDriver | null = null
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {
-    driver = await initFirefoxDriver(useProfile, installExtension)
+    driver = await initFirefoxDriver()
   } else {
     driver = await initChromeDriver()
   }
@@ -39,7 +39,7 @@ async function initChromeDriver() {
   return new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
 }
 
-async function initFirefoxDriver(useProfile = false, installExtension = true) {
+export async function initFirefoxDriver(useProfile = false, installExtension = true) {
   const firefoxExtensionPath = `${extensionPath}/firefox.zip`
   await zipDirectory(`${extensionPath}/firefox`, `${firefoxExtensionPath}`)
 
@@ -77,25 +77,12 @@ async function initFirefoxDriver(useProfile = false, installExtension = true) {
 function createDirectoryIfNotExists(directoryPath: string) {
   if (!fs.existsSync(directoryPath)) {
     fs.mkdirSync(directoryPath, { recursive: true })
-  } else {
-    console.log(`Directory already exists: ${directoryPath}`)
   }
 }
 
-export function wait(milliseconds: number): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve()
-    }, milliseconds)
-  })
-}
-
-function deleteDirectoryIfExists(directoryPath: string) {
-  if (fs.existsSync(directoryPath)) {
-    fs.rmdirSync(directoryPath, { recursive: true })
-    console.log(`Directory deleted: ${directoryPath}`)
-  } else {
-    console.log(`Directory does not exist: ${directoryPath}`)
+export function deleteAutomationFirefoxProfile() {
+  if (fs.existsSync(firefoxTestProfileDirectory)) {
+    fs.rmdirSync(firefoxTestProfileDirectory, { recursive: true })
   }
 }
 
@@ -106,25 +93,14 @@ export async function copyProfile(driver: WebDriver) {
     seleniumInstanceProfile = (await (await driver.getCapabilities()).get('moz:profile')) as string
     await copyDirectoryToNewLocation(seleniumInstanceProfile, firefoxTestProfileDirectory)
   } else {
-    seleniumInstanceProfile = 'chrome logic will go here'
+    console.log('Copying profile is only supported for Firefox. Skipping this step for Chrome.')
   }
 }
 
 async function copyDirectoryToNewLocation(srcDir: string, targetDir: string) {
   try {
-    const lockFilePath = path.join(srcDir, 'lock')
-    if (await fs.pathExists(lockFilePath)) {
-      await fs.unlink(lockFilePath)
-      console.log(`Deleted 'lock' file: ${lockFilePath}`)
-    }
-
-    const filter = (src: string, dest: string) => {
-      const fileName = path.basename(src)
-      return fileName !== 'lock'
-    }
     await fs.emptyDir(targetDir)
-    await fs.copy(srcDir, targetDir, { filter })
-    console.log('Directory copied successfully!')
+    await fs.copy(srcDir, targetDir)
   } catch (err) {
     console.error('Error copying directory:', err)
   }

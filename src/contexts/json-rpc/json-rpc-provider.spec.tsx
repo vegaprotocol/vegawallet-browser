@@ -22,6 +22,9 @@ describe('JsonRpcProvider', () => {
           onmessage: () => {},
           onMessage: {
             addListener: () => {}
+          },
+          onDisconnect: {
+            addListener: (fn: any) => {}
           }
         })
       }
@@ -49,6 +52,10 @@ describe('JsonRpcProvider', () => {
           // @ts-ignore
           onMessage: {
             addListener: () => {}
+          },
+          // @ts-ignore
+          onDisconnect: {
+            addListener: (fn: any) => {}
           }
         })
       }
@@ -69,6 +76,9 @@ describe('JsonRpcProvider', () => {
           onmessage: () => {},
           onMessage: {
             addListener: () => {}
+          },
+          onDisconnect: {
+            addListener: (fn: any) => {}
           }
         })
       }

@@ -39,23 +39,6 @@ async function initChromeDriver() {
   return new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
 }
 
-function getMostRecentAddonFilePath(directory: string): string | null {
-  const addonFiles = fs
-    .readdirSync(directory)
-    .filter((file) => file.startsWith('addon-') && file.endsWith('.xpi'))
-    .map((file) => ({
-      name: file,
-      createdAt: fs.statSync(path.join(directory, file)).birthtimeMs
-    }))
-    .sort((a, b) => b.createdAt - a.createdAt)
-
-  if (addonFiles.length > 0) {
-    return path.join(directory, addonFiles[0].name)
-  }
-
-  return null
-}
-
 async function initFirefoxDriver(useProfile = false, installExtension = true) {
   const firefoxExtensionPath = `${extensionPath}/firefox.zip`
   await zipDirectory(`${extensionPath}/firefox`, `${firefoxExtensionPath}`)

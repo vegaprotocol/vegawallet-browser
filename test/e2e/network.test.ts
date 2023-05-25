@@ -3,6 +3,7 @@ import { captureScreenshot, initDriver } from './driver'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
+import { assert } from 'console'
 
 describe('Network tests', () => {
   let driver: WebDriver
@@ -16,7 +17,16 @@ describe('Network tests', () => {
     const apiHelper = new APIHelper(driver)
     await apiHelper.setUpWalletAndKey(testPassword, 'Wallet 1', 'Key 1')
     await navigateToLandingPage(driver)
+    await openNewWindowAndSwitchToIt(driver)
+    const connection = await apiHelper.connectWallet()
+    console.log(connection)
   })
+
+  async function openNewWindowAndSwitchToIt(driver: WebDriver) {
+    await driver.executeScript('window.open();')
+    const handles = await driver.getAllWindowHandles()
+    await driver.switchTo().window(handles[1])
+  }
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)

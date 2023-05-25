@@ -7,6 +7,16 @@ export class APIHelper {
     this.driver = driver
   }
 
+  async connectWallet() {
+    return await this.driver.executeScript<string>(async () => {
+      if (!window.vega) {
+        throw new Error('Vega wallet not found')
+      }
+      const connectWallet = await window.vega.connectWallet()
+      return connectWallet
+    })
+  }
+
   async generateRecoveryPhrase() {
     return await this.driver.executeScript<string>(async () => {
       const { recoveryPhrase } = await window.client.request('admin.generate_recovery_phrase', null)

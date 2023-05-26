@@ -1,13 +1,39 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { useModalStore } from '../../lib/modal-store'
 import locators from '../locators'
 import { TransactionModal } from '.'
+
+const transaction = {
+  orderSubmission: {
+    marketId: '10c7d40afd910eeac0c2cad186d79cb194090d5d5f13bd31e14c49fd1bded7e2',
+    price: '0',
+    size: '64',
+    side: 'SIDE_SELL',
+    timeInForce: 'TIME_IN_FORCE_GTT',
+    expiresAt: '1678959957494396062',
+    type: 'TYPE_LIMIT',
+    reference: 'traderbot',
+    peggedOrder: {
+      reference: 'PEGGED_REFERENCE_BEST_ASK',
+      offset: '15'
+    }
+  }
+}
+
+const data = {
+  name: 'Key 1',
+  origin: 'https://www.google.com',
+  wallet: 'test-wallet',
+  publicKey: '3fd42fd5ceb22d99ac45086f1d82d516118a5cb7ad9a2e096cd78ca2c8960c80',
+  transaction: transaction,
+  receivedAt: new Date('2021-01-01T00:00:00.000Z')
+}
 
 jest.mock('../../lib/modal-store', () => ({
   useModalStore: jest.fn()
 }))
 
-describe('ConnectionModal', () => {
+describe('TransactionModal', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.useFakeTimers()
@@ -15,8 +41,9 @@ describe('ConnectionModal', () => {
   })
 
   it('renders nothing when isOpen is false', () => {
-    ;(useModalStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
-      const res = { isOpen: false }
+    const handleTransactionDecision = jest.fn()
+    ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
+      const res = { isOpen: false, details: data, handleTransactionDecision }
       fn(res)
       return res
     })
@@ -25,8 +52,9 @@ describe('ConnectionModal', () => {
   })
 
   it('renders page header, transaction type, hostname and key', () => {
-    ;(useModalStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
-      const res = { isOpen: true }
+    const handleTransactionDecision = jest.fn()
+    ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
+      const res = { isOpen: true, details: data, handleTransactionDecision }
       fn(res)
       return res
     })
@@ -41,27 +69,27 @@ describe('ConnectionModal', () => {
     expect(screen.getByTestId(locators.transactionModalDenyButton)).toBeInTheDocument()
   })
 
-  it('renders nothing after denying', async () => {
-    let open = true
+  it('calls handleTransactionDecision with false if denying', async () => {
+    const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: open, setIsOpen: (v: boolean) => (open = v) }
+      const res = { isOpen: true, details: data, handleTransactionDecision }
       fn(res)
       return res
     })
-    const { container } = render(<TransactionModal />)
+    render(<TransactionModal />)
     fireEvent.click(screen.getByTestId(locators.transactionModalDenyButton))
-    await waitFor(() => expect(container).toBeEmptyDOMElement())
+    expect(handleTransactionDecision).toHaveBeenCalledWith(false)
   })
 
   it('renders nothing after approving', async () => {
-    let open = true
+    const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: open, setIsOpen: (v: boolean) => (open = v) }
+      const res = { isOpen: true, details: data, handleTransactionDecision }
       fn(res)
       return res
     })
-    const { container } = render(<TransactionModal />)
+    render(<TransactionModal />)
     fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))
-    await waitFor(() => expect(container).toBeEmptyDOMElement())
+    expect(handleTransactionDecision).toHaveBeenCalledWith(true)
   })
 })

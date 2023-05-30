@@ -43,7 +43,7 @@ describe('TransactionModal', () => {
   it('renders nothing when isOpen is false', () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: false, details: data, handleTransactionDecision }
+      const res = { isOpen: false, details: null, handleTransactionDecision }
       fn(res)
       return res
     })

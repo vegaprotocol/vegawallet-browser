@@ -1,20 +1,9 @@
-import { recoverPublicKey } from 'ethers/lib/utils'
 import { WebDriver } from 'selenium-webdriver'
 export class APIHelper {
   private driver: WebDriver
 
   constructor(driver: WebDriver) {
     this.driver = driver
-  }
-
-  async connectWallet() {
-    return await this.driver.executeScript<string>(async () => {
-      if (!window.vega) {
-        throw new Error('Vega wallet not found')
-      }
-      const connectWallet = await window.vega.connectWallet()
-      return connectWallet
-    })
   }
 
   async generateRecoveryPhrase() {

@@ -26,9 +26,13 @@ export const TransactionModal = () => {
     [handleTransactionDecision]
   )
   const transactionTitle = useMemo(() => {
+    if (!details) return ''
     return TRANSACTION_TITLES[Object.keys(details.transaction)[0] as TransactionKeys]
   }, [details])
-  const date = useMemo(() => new Date(details.receivedAt), [details.receivedAt])
+  const date = useMemo(() => {
+    if (!details) return new Date()
+    return new Date(details.receivedAt)
+  }, [details])
   if (!isOpen) return null
   return (
     <>

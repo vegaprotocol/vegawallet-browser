@@ -41,6 +41,13 @@ export class APIHelper {
     }, passphrase)
   }
 
+  async listConnections() {
+    return await this.driver.executeScript<string>(async () => {
+      const { connections } = await window.client.request('admin.list_connections', {})
+      return connections
+    })
+  }
+
   async createKey(walletName: string, keyName: string) {
     return await this.driver.executeScript<string>(
       async (walletName: string, keyName: string) => {

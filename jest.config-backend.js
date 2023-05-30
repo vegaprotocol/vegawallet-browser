@@ -11,5 +11,6 @@ module.exports = {
       }
     ]
   ],
-  roots: ['./web-extension/']
+  roots: ['./web-extension/'],
+  transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/']
 }

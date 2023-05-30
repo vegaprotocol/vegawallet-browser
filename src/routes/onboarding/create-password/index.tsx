@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
 import { confirmPassphraseInput, passphraseInput, submitPassphraseButton } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { RpcMethods } from '../../../lib/rpc-methods'
+import { RpcMethods } from '../../../lib/client-rpc-methods'
 
 interface FormFields {
   password: string

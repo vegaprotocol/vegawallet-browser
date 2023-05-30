@@ -8,7 +8,7 @@ import { Checkbox } from '../../../components/checkbox'
 import { MnemonicContainer } from '../../../components/mnemonic-container'
 import { saveMnemonicButton, saveMnemonicDescription } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { RpcMethods } from '../../../lib/rpc-methods'
+import { RpcMethods } from '../../../lib/client-rpc-methods'
 
 interface FormFields {
   acceptedTerms: boolean

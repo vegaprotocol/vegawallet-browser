@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import JSONRPCClient from '../../lib/json-rpc-client'
-import { RpcMethods } from '../../lib/rpc-methods'
+import { RpcMethods } from '../../lib/client-rpc-methods'
 
 export interface AppGlobals {
   // Has the user set a passphrase

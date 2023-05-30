@@ -58,11 +58,8 @@ export class VegaAPI {
     return await this.sendTransaction(publicKey, voteSubmission)
   }
 
-  async sendDelegateStakeTransaction(publicKey: string, delegateSubmission: DelegateSubmission) {
-    const submission = {
-      delegateSubmission
-    }
-
+  async sendDelegateStakeTransaction(publicKey: string, delegate: DelegateSubmission) {
+    const submission = { delegateSubmission: delegate }
     return await this.sendTransaction(publicKey, submission)
   }
 
@@ -75,7 +72,7 @@ export class VegaAPI {
         const { chainID } = await window.vega.sendTransaction({
           sendingMode: 'TYPE_SYNC',
           publicKey: publicKey,
-          transaction: { delegateSubmission: transaction }
+          transaction: transaction
         })
         return chainID
       },

@@ -7,14 +7,13 @@ import { APIHelper } from './wallet-helpers/api-helpers'
 describe('Network tests', () => {
   let driver: WebDriver
   let viewWallet: ViewWallet
-  const testPassword = 'password1'
 
   beforeEach(async () => {
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
     await navigateToLandingPage(driver)
     const apiHelper = new APIHelper(driver)
-    await apiHelper.setUpWalletAndKey(testPassword, 'Wallet 1', 'Key 1')
+    await apiHelper.setUpWalletAndKey()
     await navigateToLandingPage(driver)
   })
 

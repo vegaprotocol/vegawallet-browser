@@ -7,7 +7,6 @@ import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './wallet-helpers/api-helpers'
-import { Nav } from '@vegaprotocol/ui-toolkit'
 import { NavPanel } from './page-objects/navpanel'
 
 describe('Check correct app state persists after closing the extension', () => {

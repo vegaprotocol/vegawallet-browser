@@ -5,5 +5,6 @@ export const RpcMethods = {
   CreatePassphrase: 'admin.create_passphrase',
   GenerateRecoveryPhrase: 'admin.generate_recovery_phrase',
   ImportWallet: 'admin.import_wallet',
-  GenerateKey: 'admin.generate_key'
+  GenerateKey: 'admin.generate_key',
+  Lock: 'admin.lock'
 }

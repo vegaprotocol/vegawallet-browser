@@ -1,24 +1,42 @@
 import { NetworkCollection } from './backend/network.js'
 import { WalletCollection } from './backend/wallets.js'
+import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from './lib/port-server.js'
+import { PopupClient } from './backend/popup-client.js'
+
 import JSONRPCServer from './lib/json-rpc-server.js'
-import * as clientValidation from './validation/client/index.js'
-import * as backend from './backend/index.js'
 import StorageLocalMap from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
 import EncryptedStorage from './lib/encrypted-storage.js'
-import init from './backend/admin-ns.js'
+import initAdmin from './backend/admin-ns.js'
+import initClient from './backend/client-ns.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
+const interactor = new PopupClient()
+
 const encryptedStore = new EncryptedStorage(new ConcurrentStorage(new StorageLocalMap('wallets')))
+const publicKeyIndexStore = new ConcurrentStorage(new StorageLocalMap('public-key-index'))
+
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
 const wallets = new WalletCollection({
   walletsStore: encryptedStore,
-  publicKeyIndexStore: new StorageLocalMap('publicKeyIndex')
+  publicKeyIndexStore
 })
 const networks = new NetworkCollection(new ConcurrentStorage(new StorageLocalMap('networks')))
+const connections = new ConnectionsCollection({
+  connectionsStore: new ConcurrentStorage(new StorageLocalMap('connections')),
+  publicKeyIndexStore
+})
+const clientServer = initClient({
+  settings,
+  wallets,
+  networks,
+  connections,
+  interactor,
+  onerror: (...args) => console.error(args)
+})
 
 const clientPorts = new PortServer({
   onbeforerequest: setPending,
@@ -26,66 +44,10 @@ const clientPorts = new PortServer({
   onerror(err) {
     console.error(err)
   },
-  server: new JSONRPCServer({
-    methods: {
-      async 'client.connect_wallet'(params, context) {
-        doValidate(clientValidation.connectWallet, params)
-
-        return null
-      },
-      async 'client.disconnect_wallet'(params, context) {
-        doValidate(clientValidation.disconnectWallet, params)
-        return null
-      },
-      async 'client.send_transaction'(params, context) {
-        doValidate(clientValidation.sendTransaction, params)
-
-        const selectedNetwork = await settings.get('selectedNetwork')
-        const network = await networks.get(selectedNetwork)
-        const rpc = await network.rpc()
-
-        const keys = await wallets.getKeyByPublicKey({
-          publicKey: params.publicKey
-        })
-        if (keys == null) throw new Error('Unknown public key')
-
-        return backend.sendTransaction({
-          keys,
-          rpc,
-          sendingMode: params.sendingMode,
-          transaction: params.transaction
-        })
-      },
-      async 'client.sign_transaction'(params, context) {
-        throw new JSONRPCServer.Error('Not Implemented', -32601)
-      },
-      async 'client.get_chain_id'(params, context) {
-        doValidate(clientValidation.getChainId, params)
-
-        const selectedNetwork = await settings.get('selectedNetwork')
-        const network = await networks.get(selectedNetwork)
-        const rpc = await network.rpc()
-
-        const chainID = await backend.getChainId({ rpc })
-        return { chainID }
-      },
-
-      async 'client.list_keys'(params, context) {
-        doValidate(clientValidation.listKeys, params)
-
-        const ws = await wallets.list()
-        const keys = (await Promise.all(ws.map((w) => wallets.listKeys({ wallet: w })))).flat()
-
-        return { keys }
-      }
-    },
-    onerror(err) {
-      console.error(err)
-    }
-  })
+  server: clientServer
 })
 
-const server = init({
+const server = initAdmin({
   encryptedStore,
   settings,
   wallets,
@@ -98,8 +60,11 @@ const popupPorts = new PortServer({
 })
 
 runtime.onConnect.addListener(async (port) => {
-  if (port.name === 'popup') return popupPorts.listen(port)
   if (port.name === 'content-script') return clientPorts.listen(port)
+  if (port.name === 'popup') {
+    popupPorts.listen(port)
+    interactor.connect(port)
+  }
 })
 
 runtime.onInstalled.addListener(async (details) => {

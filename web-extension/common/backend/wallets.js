@@ -14,7 +14,7 @@ export class WalletCollection {
 
   async getKeyByPublicKey({ publicKey }) {
     return this.store.transaction(async (store) => {
-      const { wallet } = this.index.get(publicKey)
+      const { wallet } = await this.index.get(publicKey)
       if (wallet == null) return
 
       const walletConfig = await store.get(wallet)
@@ -26,7 +26,11 @@ export class WalletCollection {
       const walletInst = await VegaWallet.fromSeed(new Uint8Array(walletConfig.seed))
       const keyPair = await walletInst.keyPair(keyConfig.index)
 
-      return keyPair
+      return {
+        keyPair,
+        wallet,
+        ...keyConfig
+      }
     })
   }
 
@@ -91,7 +95,7 @@ export class WalletCollection {
       walletConfig.keys.push(key)
       await store.set(walletName, walletConfig)
 
-      await this.index.set(key.publicKey, { name: key.name, wallet: walletName })
+      await this.index.set(key.publicKey, { name: key.name, wallet: walletName, publicKey: key.publicKey })
 
       return key
     })

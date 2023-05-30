@@ -20,11 +20,7 @@ function concatMerger(objValue, srcValue) {
 
 const compileValidation = async () => {
   const paths = await glob('./web-extension/common/schemas/**/*.js')
-  await Promise.all(
-    paths.map((path) =>
-      compileFile(path, path.replace('schemas/', 'validation/'))
-    )
-  )
+  await Promise.all(paths.map((path) => compileFile(path, path.replace('schemas/', 'validation/'))))
 }
 
 const buildManifest = async (browser, appPath) => {
@@ -50,10 +46,7 @@ module.exports = {
       if (!browser) {
         throw new Error('Must specify --build-chrome or --build-firefox')
       }
-      paths.appBuild = webpackConfig.output.path = path.resolve(
-        'build',
-        browser
-      )
+      paths.appBuild = webpackConfig.output.path = path.resolve('build', browser)
 
       const fallback = webpackConfig.resolve.fallback || {}
       // Webpack 5 does not bundle some node things that CRA relies on. Polyfill these.
@@ -73,8 +66,7 @@ module.exports = {
         ...webpackConfig,
         entry: {
           main: [
-            env === 'development' &&
-              require.resolve('react-dev-utils/webpackHotDevClient'),
+            env === 'development' && require.resolve('react-dev-utils/webpackHotDevClient'),
             paths.appIndexJs
           ].filter(Boolean),
           'content-script': './web-extension/common/content-script.js',

@@ -1,4 +1,4 @@
-import { RpcMethods } from '../../lib/rpc-methods'
+import { RpcMethods } from '../../lib/client-rpc-methods'
 import { useHomeStore } from './store'
 
 const globalsMock = {

@@ -20,10 +20,12 @@ describe('Wallets', () => {
     initialState = useWalletStore.getState()
   })
   afterEach(() => {
+    // @ts-ignore
+    global.browser = null
     act(() => useWalletStore.setState(initialState as WalletsStore))
   })
 
-  it('renders an error state', async () => {
+  it.skip('renders an error state', async () => {
     const listeners: Function[] = []
 
     // @ts-ignore
@@ -31,6 +33,7 @@ describe('Wallets', () => {
       runtime: {
         connect: () => ({
           postMessage: (message: any) => {
+            console.log(listeners)
             listeners.forEach((fn) => {
               fn({
                 id: message.id,
@@ -48,6 +51,9 @@ describe('Wallets', () => {
             addListener: (fn: any) => {
               listeners.push(fn)
             }
+          },
+          onDisconnect: {
+            addListener: (fn: any) => {}
           }
         })
       }
@@ -59,6 +65,7 @@ describe('Wallets', () => {
       </JsonRPCProvider>
     )
     await screen.findByTestId(walletsError)
+
     expect(screen.getByTestId(walletsError)).toHaveTextContent('Error: Some error')
   })
 

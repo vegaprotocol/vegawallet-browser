@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { RpcMethods } from '../lib/rpc-methods'
+import { RpcMethods } from '../lib/client-rpc-methods'
 import { Key } from '../routes/auth/wallets/store'
 import { AppGlobals } from '../routes/home/store'
 

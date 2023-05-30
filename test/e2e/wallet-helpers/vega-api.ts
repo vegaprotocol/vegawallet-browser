@@ -23,6 +23,11 @@ export class VegaAPI {
     })
   }
 
+  async connectWalletAndCheckSuccess() {
+    const resp = await this.connectWallet()
+    expect(resp, `expected null response to indicate a successful connection but instead it was ${resp}`).toBe(null)
+  }
+
   async getConnectedNetwork() {
     return await this.driver.executeScript<string>(async () => {
       const { chainID } = await window.vega.getChainId()

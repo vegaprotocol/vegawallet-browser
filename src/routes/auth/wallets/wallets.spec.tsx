@@ -25,7 +25,7 @@ describe('Wallets', () => {
     act(() => useWalletStore.setState(initialState as WalletsStore))
   })
 
-  it.skip('renders an error state', async () => {
+  it('renders an error state', async () => {
     const listeners: Function[] = []
 
     // @ts-ignore
@@ -33,17 +33,14 @@ describe('Wallets', () => {
       runtime: {
         connect: () => ({
           postMessage: (message: any) => {
-            console.log(listeners)
-            listeners.forEach((fn) => {
-              fn({
-                id: message.id,
-                jsonrpc: '2.0',
-                error: {
-                  message: 'Some error',
-                  code: 1,
-                  data: {}
-                }
-              })
+            listeners[0]({
+              id: message.id,
+              jsonrpc: '2.0',
+              error: {
+                message: 'Some error',
+                code: 1,
+                data: {}
+              }
             })
           },
           onmessage: () => {},

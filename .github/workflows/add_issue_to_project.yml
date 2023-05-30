@@ -8,10 +8,8 @@ name: 'Add Issues To Project Board'
 env:
   GH_TOKEN: ${{ secrets.GH_NEW_CARD_TO_PROJECT }}
   PROJECT_ID_FE: ${{ secrets.FRONT_END_PROJECT_ID }}
-  PROJECT_ID_WW: ${{ secrets.WEBWALLET_PROJECT_ID }}
   ISSUE_ID: ${{ github.event.issue.node_id }}
   USER: ${{ github.actor }}
-  LABEL_ID: 'LA_kwDOGNxtx878Y-Cl'
 
 jobs:
   add_issue_frontend:
@@ -27,23 +25,3 @@ jobs:
                 }
               }
             }' -f project=$PROJECT_ID_FE -f issue=$ISSUE_ID -f user=$USER
-
-      - name: 'Add to web wallet project board'
-        run: |
-          gh api graphql -f query='
-            mutation($user:String!, $project:ID!, $issue:ID!) {
-              addProjectV2ItemById(input: {clientMutationId: $user, projectId: $project, contentId: $issue}) {
-                item {
-                  id
-                }
-              }
-            }' -f project=$PROJECT_ID_WW -f issue=$ISSUE_ID -f user=$USER
-
-      - name: 'Add repo identifier label'
-        run: |
-          gh api graphql -f query='
-            mutation($user:String!, $issue:ID!, $label:[ID!]!) {
-              addLabelsToLabelable(input: {clientMutationId: $user, labelableId: $issue, labelIds: $label}) {
-                clientMutationId
-              }
-            }' -f label=$LABEL_ID -f issue=$ISSUE_ID -f user=$USER

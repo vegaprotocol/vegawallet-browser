@@ -50,19 +50,6 @@ export class VegaAPI {
     return keysArray
   }
 
-  async sendTransferRequestTransaction(publicKey: string, transferRequest: TransferRequest) {
-    return await this.sendTransaction(publicKey, transferRequest)
-  }
-
-  async sendVoteSubmissionTransaction(publicKey: string, voteSubmission: VoteSubmission) {
-    return await this.sendTransaction(publicKey, voteSubmission)
-  }
-
-  async sendDelegateStakeTransaction(publicKey: string, delegate: DelegateSubmission) {
-    const submission = { delegateSubmission: delegate }
-    return await this.sendTransaction(publicKey, submission)
-  }
-
   private async sendTransaction(publicKey: string, transaction: any) {
     return await this.driver.executeScript<string>(
       async (publicKey: string, transaction: any) => {
@@ -79,5 +66,20 @@ export class VegaAPI {
       publicKey,
       transaction
     )
+  }
+
+  async sendTransferRequestTransaction(publicKey: string, transferRequest: TransferRequest) {
+    const transfer = { transfer: transferRequest }
+    return await this.sendTransaction(publicKey, transfer)
+  }
+
+  async sendVoteSubmissionTransaction(publicKey: string, vote: VoteSubmission) {
+    const submission = { voteSubmission: vote }
+    return await this.sendTransaction(publicKey, submission)
+  }
+
+  async sendDelegateStakeTransaction(publicKey: string, delegate: DelegateSubmission) {
+    const submission = { delegateSubmission: delegate }
+    return await this.sendTransaction(publicKey, submission)
   }
 }

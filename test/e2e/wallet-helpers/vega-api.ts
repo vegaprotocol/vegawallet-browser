@@ -45,7 +45,6 @@ export class VegaAPI {
     })
 
     const keysArray = JSON.parse(keysString).keys as Key[]
-    console.log('publicKey', keysArray[0].publicKey)
 
     return keysArray
   }

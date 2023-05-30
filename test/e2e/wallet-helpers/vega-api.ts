@@ -1,7 +1,5 @@
-import { TransferRequest } from '@vegaprotocol/protos/dist/vega/TransferRequest'
 import { WebDriver } from 'selenium-webdriver'
-import { VoteSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/VoteSubmission'
-import { DelegateSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/DelegateSubmission'
+
 interface Key {
   index: number
   name: string
@@ -18,7 +16,7 @@ export class VegaAPI {
   async connectWallet() {
     return await this.driver.executeScript<string>(async () => {
       if (!window.vega) {
-        throw new Error('Vega wallet not found')
+        throw new Error('content script not found')
       }
       const connectWallet = await window.vega.connectWallet()
       return connectWallet
@@ -27,9 +25,6 @@ export class VegaAPI {
 
   async getConnectedNetwork() {
     return await this.driver.executeScript<string>(async () => {
-      if (!window.vega) {
-        throw new Error('Vega wallet not found')
-      }
       const { chainID } = await window.vega.getChainId()
       return chainID
     })
@@ -37,9 +32,6 @@ export class VegaAPI {
 
   async listKeys() {
     const keysString = await this.driver.executeScript<string>(async () => {
-      if (!window.vega) {
-        throw new Error('Vega wallet not found')
-      }
       const keys = await window.vega.listKeys()
       return JSON.stringify(keys)
     })
@@ -49,12 +41,9 @@ export class VegaAPI {
     return keysArray
   }
 
-  private async sendTransaction(publicKey: string, transaction: any) {
+  async sendTransaction(publicKey: string, transaction: any) {
     return await this.driver.executeScript<string>(
       async (publicKey: string, transaction: any) => {
-        if (!window.vega) {
-          throw new Error('Vega wallet not found')
-        }
         const { chainID } = await window.vega.sendTransaction({
           sendingMode: 'TYPE_SYNC',
           publicKey: publicKey,
@@ -65,20 +54,5 @@ export class VegaAPI {
       publicKey,
       transaction
     )
-  }
-
-  async sendTransferRequestTransaction(publicKey: string, transferRequest: TransferRequest) {
-    const transfer = { transfer: transferRequest }
-    return await this.sendTransaction(publicKey, transfer)
-  }
-
-  async sendVoteSubmissionTransaction(publicKey: string, vote: VoteSubmission) {
-    const submission = { voteSubmission: vote }
-    return await this.sendTransaction(publicKey, submission)
-  }
-
-  async sendDelegateStakeTransaction(publicKey: string, delegate: DelegateSubmission) {
-    const submission = { delegateSubmission: delegate }
-    return await this.sendTransaction(publicKey, submission)
   }
 }

@@ -73,5 +73,27 @@ describe.skip('Connect wallet', () => {
     await driver.get('https://google.co.uk')
     await navigateToLandingPage(driver)
     const connections = await apiHelper.listConnections()
+    expect(
+      connections.length,
+      `expected to still have 1 active connection to the wallet, but found ${connections.length}`
+    ).toBe(1)
+    await assertNumberOfKeys(1)
+    await viewWallet.checkOnViewWalletPage()
   })
+
+  it('dapp can see any wallet keys I add after connecting', async () => {
+    // 1101-BWAL-037 All new connections are for all keys in a wallet and all future keys added to the wallet
+    await apiHelper.setUpWalletAndKey()
+    await vegaAPI.connectWallet()
+    await connectWallet.approveConnectionAndCheckSuccess()
+    await assertNumberOfKeys(1)
+    await viewWallet.createNewKeyPair()
+    await assertNumberOfKeys(2)
+    await viewWallet.checkOnViewWalletPage()
+  })
+
+  async function assertNumberOfKeys(expectedNumber: number) {
+    const keys = await vegaAPI.listKeys()
+    expect(keys.length, `expected to be able to view 2 wallet keys, instead found ${keys.length}`).toBe(expectedNumber)
+  }
 })

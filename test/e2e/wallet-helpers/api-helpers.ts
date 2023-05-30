@@ -43,7 +43,7 @@ export class APIHelper {
 
   async listConnections() {
     return await this.driver.executeScript<string>(async () => {
-      const { connections } = await window.client.request('admin.list_connections', {})
+      const { connections } = await window.client.request('admin.list_connections', null)
       return connections
     })
   }

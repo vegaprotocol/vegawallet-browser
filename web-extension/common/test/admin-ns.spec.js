@@ -3,15 +3,21 @@ import { WalletCollection } from '../backend/wallets.js'
 import { NetworkCollection } from '../backend/network.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
+import { ConnectionsCollection } from '../backend/connections.js'
 
 const createAdmin = async ({ passphrase } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+  const publicKeyIndexStore = new ConcurrentStorage(new Map())
   const server = initAdminServer({
     encryptedStore: enc,
     settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
     wallets: new WalletCollection({
       walletsStore: enc,
-      publicKeyIndexStore: new Map()
+      publicKeyIndexStore
+    }),
+    connections: new ConnectionsCollection({
+      connectionsStore: new ConcurrentStorage(new Map()),
+      publicKeyIndexStore
     }),
     networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground' }]])),
     onerror(err) {
@@ -237,5 +243,18 @@ describe('admin-ns', () => {
 
     expect(unlockSuccess.result).toEqual(null)
     expect(appGlobals.result.wallet).toEqual(true)
+  })
+
+  it('should list connections', async () => {
+    const admin = await createAdmin()
+
+    const listConnections = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.list_connections',
+      params: null
+    })
+
+    expect(listConnections.result).toEqual({ connections: [] })
   })
 })

@@ -5,16 +5,24 @@ export class ConnectionsCollection {
   }
 
   async set(origin, allowList) {
-    return await this.store.set(origin, allowList)
+    return await this.store.set(origin, {
+      origin,
+      allowList
+    })
   }
 
   async has(origin) {
     return await this.store.has(origin)
   }
 
+  async list() {
+    return Array.from(await this.store.values())
+  }
+
   async isAllowed(origin, publicKey) {
-    const allowList = await this.store.get(origin)
-    if (allowList == null) return false
+    const conn = await this.store.get(origin)
+    if (conn?.allowList == null) return false
+    const { allowList } = conn
 
     const explicitKey = allowList.publicKeys.includes(publicKey)
     if (explicitKey) return true
@@ -26,8 +34,10 @@ export class ConnectionsCollection {
   }
 
   async listAllowedKeys(origin) {
-    const allowList = await this.store.get(origin)
-    if (allowList == null) return []
+    const conn = await this.store.get(origin)
+    if (conn?.allowList == null) return []
+
+    const { allowList } = conn
 
     const keysFromIndex = await this.index.values()
     const keys = []

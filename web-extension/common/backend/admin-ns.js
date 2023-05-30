@@ -22,7 +22,7 @@ function doValidate(validator, params) {
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default function init({ encryptedStore, settings, wallets, networks, onerror }) {
+export default function init({ encryptedStore, settings, wallets, networks, connections, onerror }) {
   return new JSONRPCServer({
     onerror,
     methods: {
@@ -131,6 +131,12 @@ export default function init({ encryptedStore, settings, wallets, networks, oner
         doValidate(adminValidation.generateKey, params)
 
         return await wallets.generateKey(params)
+      },
+
+      async 'admin.list_connections'(params) {
+        doValidate(adminValidation.listConnections, params)
+
+        return { connections: await connections.list() }
       }
     }
   })

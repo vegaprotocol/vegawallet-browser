@@ -35,7 +35,7 @@ export class VegaAPI {
     })
   }
 
-  async listKeys(): Promise<Key[]> {
+  async listKeys() {
     const keysString = await this.driver.executeScript<string>(async () => {
       if (!window.vega) {
         throw new Error('Vega wallet not found')

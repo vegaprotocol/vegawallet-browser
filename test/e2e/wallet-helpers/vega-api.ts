@@ -59,12 +59,10 @@ export class VegaAPI {
   }
 
   async sendDelegateStakeTransaction(publicKey: string, delegateSubmission: DelegateSubmission) {
-    console.log('delegateSubmission is this: \n', delegateSubmission)
     const submission = {
       delegateSubmission
     }
 
-    console.log('submission is this: \n', submission)
     return await this.sendTransaction(publicKey, submission)
   }
 
@@ -74,7 +72,6 @@ export class VegaAPI {
         if (!window.vega) {
           throw new Error('Vega wallet not found')
         }
-        console.log('your public key is: ' + publicKey)
         const { chainID } = await window.vega.sendTransaction({
           sendingMode: 'TYPE_SYNC',
           publicKey: publicKey,

@@ -1,18 +1,18 @@
 ---
 name: User Story
 about:
-  A template to describe a features or enhancements we want to make from a users
+  A template to describe a feature or enhancements we want to make from a users
   perspective to ensure we understand what is needed and the value it would add
 title: ''
-labels: 
+labels: ''
 assignees: ''
 ---
 
 ## Story
 
-As a
-I want
-So that
+**As a**
+**I want**
+**So that**
 
 ## Acceptance Criteria
 
@@ -24,11 +24,15 @@ So that
 
 - [ ] Detailed sketch
 - [ ] Visual design
-- [ ] Implement UI & Integrate with backend
-- [ ] Write unit tests
+- [ ] Frontend tasks:
+    - [ ] Implement UI
+    - [ ] Integrate with backend
+    - [ ] Write unit tests
+- [ ] Backend tasks:
+    - [ ] TBC
+    - [ ] Write unit tests
 - [ ] Write end to end tests
 - [ ] Code review
-- [ ] Team verify acceptance criteria met
 - [ ] Team verify acceptance criteria met
 - [ ] Exploratory QA testing 
 - [ ] Capture bugs and new edge cases in tickets (this one or new TBD) 

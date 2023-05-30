@@ -45,9 +45,9 @@ describe('Check correct app state persists after closing the extension', () => {
 
   it('shows the previous completed step when opening the app in a new tab', async () => {
     // 1101-BWAL-032 I can close the extension and when I reopen it it opens on the same page / view
-    // 1101-BWAL-068 There is a way to determine if user has onboarded
+    // 1101-BWAL-070 There is a way to determine if user has onboarded
     // 1101-BWAL-010 When I have submitted my new password, I can NOT go back to the previous step
-    // 1101-BWAL-069 I want to see the previous page I was on or my wallet page by default
+    // 1101-BWAL-071 I want to see the previous page I was on or my wallet page by default
     await getStarted.getStarted()
     await password.createPassword(testPassword, 'incorrectPassword')
 

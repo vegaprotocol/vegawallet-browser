@@ -52,6 +52,7 @@ const server = initAdmin({
   settings,
   wallets,
   networks,
+  connections,
   onerror: (...args) => console.error(args)
 })
 

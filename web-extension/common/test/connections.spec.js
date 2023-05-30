@@ -15,7 +15,7 @@ describe('ConnectionsCollection', () => {
     await publicKeyIndexStore.set('321', { publicKey: '321', wallet: 'w1', name: 'k2' })
     await publicKeyIndexStore.set('443', { publicKey: '443', wallet: 'w2', name: 'k3' })
 
-    await connectionsStore.set('https://example.com', {
+    await connections.set('https://example.com', {
       wallets: ['w2'],
       publicKeys: []
     })
@@ -27,7 +27,7 @@ describe('ConnectionsCollection', () => {
       { publicKey: '443', name: 'k3' }
     ])
 
-    await connectionsStore.set('https://example.com', {
+    await connections.set('https://example.com', {
       wallets: ['w1'],
       publicKeys: []
     })
@@ -40,7 +40,7 @@ describe('ConnectionsCollection', () => {
       { publicKey: '321', name: 'k2' }
     ])
 
-    await connectionsStore.set('https://example.com', {
+    await connections.set('https://example.com', {
       wallets: [],
       publicKeys: ['123', '443']
     })
@@ -53,7 +53,7 @@ describe('ConnectionsCollection', () => {
       { publicKey: '443', name: 'k3' }
     ])
 
-    await connectionsStore.set('https://example.com', {
+    await connections.set('https://example.com', {
       wallets: [],
       publicKeys: []
     })
@@ -63,7 +63,7 @@ describe('ConnectionsCollection', () => {
     expect(await connections.isAllowed('https://example.com', '443')).toBe(false)
     expect(await connections.listAllowedKeys('https://example.com')).toEqual([])
 
-    await connectionsStore.set('https://example.com', {
+    await connections.set('https://example.com', {
       wallets: ['w1', 'w2'],
       publicKeys: []
     })
@@ -89,7 +89,7 @@ describe('ConnectionsCollection', () => {
 
     await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
 
-    await connectionsStore.set('https://example.com', {
+    await connections.set('https://example.com', {
       wallets: ['w1'],
       publicKeys: []
     })

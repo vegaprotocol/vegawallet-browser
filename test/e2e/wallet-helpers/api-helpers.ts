@@ -1,4 +1,3 @@
-import { recoverPublicKey } from 'ethers/lib/utils'
 import { WebDriver } from 'selenium-webdriver'
 export class APIHelper {
   private driver: WebDriver

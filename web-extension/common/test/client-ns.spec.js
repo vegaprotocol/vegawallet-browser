@@ -22,10 +22,13 @@ describe('client-ns', () => {
       }
     }
 
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create()
+
     const server = initClientServer({
       settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
       wallets: new WalletCollection({
-        walletsStore: new EncryptedStorage(new Map(), { memory: 10, iterations: 1 }),
+        walletsStore: enc,
         publicKeyIndexStore
       }),
       networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: [] }]])),
@@ -50,7 +53,11 @@ describe('client-ns', () => {
       context
     )
 
-    expect(res).toBe(null)
+    expect(res).toMatchObject({
+      jsonrpc: '2.0',
+      id: 1,
+      result: null
+    })
     expect(context.isConnected).toBe(true)
     expect(await connections.has(context.origin)).toBe(true)
 
@@ -64,7 +71,11 @@ describe('client-ns', () => {
       context
     )
 
-    expect(res2).toBe(null)
+    expect(res2).toMatchObject({
+      jsonrpc: '2.0',
+      id: 2,
+      result: null
+    })
     expect(context.isConnected).toBe(false)
     expect(await connections.has(context.origin)).toBe(true)
   })

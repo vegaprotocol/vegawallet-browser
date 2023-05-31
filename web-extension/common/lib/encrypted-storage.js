@@ -89,7 +89,10 @@ export default class EncryptedStorage {
       const plaintext = await decrypt(this._passphrase, fromBase64(ciphertext), fromBase64(salt), kdfParams)
       return JSON.parse(toString(plaintext))
     } catch (err) {
-      if (err.message === 'Unsupported state or unable to authenticate data') {
+      const isOperationError = err.name === 'OperationError'
+      const isInvalidState = err.message === 'Unsupported state or unable to authenticate data'
+
+      if (isOperationError || isInvalidState) {
         throw new Error('Invalid passphrase or corrupted storage')
       }
 

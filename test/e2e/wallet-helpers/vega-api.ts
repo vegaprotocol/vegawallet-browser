@@ -48,8 +48,8 @@ export class VegaAPI {
 
   //TODO- move to be in a more generic helper - maybe use dev code? This must exist somewhere
   async generateEncodedHexPublicKey() {
-    const publicKeyBytes = randomBytes(32) // Generate 32 bytes of random data
-    const hexPublicKey = publicKeyBytes.toString('hex') // Convert the random bytes to hex string
+    const publicKeyBytes = randomBytes(32)
+    const hexPublicKey = publicKeyBytes.toString('hex')
     return hexPublicKey
   }
 
@@ -70,7 +70,7 @@ export class VegaAPI {
   async getTransactionResult() {
     return await this.driver.executeScript<string>(async () => {
       try {
-        return await window.sendTransactionResult // Assuming window.sendTransactionResult is an asynchronous operation
+        return await window.sendTransactionResult
       } catch (error: any) {
         return error.message
       }
@@ -80,7 +80,7 @@ export class VegaAPI {
   async getConnectionResult() {
     return await this.driver.executeScript<string>(async () => {
       try {
-        return await window.connectWalletResult // Assuming window.sendTransactionResult is an asynchronous operation
+        return await window.connectWalletResult
       } catch (error: any) {
         return error.message
       }

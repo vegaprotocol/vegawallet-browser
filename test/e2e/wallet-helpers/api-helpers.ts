@@ -14,6 +14,13 @@ export class APIHelper {
     }, RpcMethods.GenerateRecoveryPhrase)
   }
 
+  async lockWallet() {
+    return await this.driver.executeScript<string>(async () => {
+      const resp = await window.client.request('admin.lock', null)
+      return resp
+    })
+  }
+
   async login(passphrase: string) {
     return await this.driver.executeScript<string>(async (passphrase: string) => {
       const resp = await window.client.request('admin.unlock', { passphrase: passphrase })

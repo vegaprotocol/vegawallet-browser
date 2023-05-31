@@ -15,14 +15,11 @@ export class VegaAPI {
 
   async connectWallet() {
     return await this.driver.executeScript(async () => {
-      console.log('I have been called')
       if (!window.vega) {
         throw new Error('content script not found')
       }
       window.vega.connectWallet()
-
-      console.log('connected!')
-      // return connectWallet
+      // return connectWallet - re-enable this before merging this PR after backend bugfix
     })
   }
 

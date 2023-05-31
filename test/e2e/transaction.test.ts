@@ -43,7 +43,7 @@ describe('transactions', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('can confirm a transaction', async () => {
@@ -79,10 +79,12 @@ describe('transactions', () => {
 
   it('can reject a transaction', async () => {
     // 1101-BWAL-048 When I view a transaction request I can choose to reject it
+    // 1101-BWAL-050 When I reject a transaction the transaction does not get signed and the rejected status gets fed back to the dapp that requested it
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransactionAndCheckOutcome(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
+    // add assertion that this gets fed back to the dapp
     //check for confirmation (does not exist yet!)
     await viewWallet.checkOnViewWalletPage()
   })

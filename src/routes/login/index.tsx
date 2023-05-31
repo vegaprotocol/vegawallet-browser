@@ -39,6 +39,7 @@ export const Login = () => {
       } catch (e) {
         if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
           setError('passphrase', { message: 'Incorrect passphrase' })
+          return
         }
         // Unexpected error, let the global error boundary catch this
         throw e

@@ -5,5 +5,7 @@ declare global {
     client: JSONRPCClient
     server: JSONRPCServer
     vega: any
+    sendTransactionResult: any
+    connectWalletResult: any
   }
 }

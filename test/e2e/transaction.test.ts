@@ -71,8 +71,6 @@ describe('transactions', () => {
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
-    const resp = await vegaAPI.getTransactionResult()
-    console.log('response = ', resp)
     await viewWallet.checkOnViewWalletPage()
   })
 

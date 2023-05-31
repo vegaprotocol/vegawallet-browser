@@ -64,6 +64,9 @@ export class APIHelper {
   async listConnections() {
     return await this.driver.executeScript<string>(async () => {
       const { connections } = await window.client.request('admin.list_connections', null)
+      console.log('connections first call', connections)
+      const connections2 = await window.client.request('admin.list_connections', null)
+      console.log('connections second call', connections2)
       return connections
     })
   }

@@ -22,6 +22,7 @@ describe('Login', () => {
     login = new Login(driver)
     await navigateToLandingPage(driver)
     await apiHelper.setUpWalletAndKey()
+    await navigateToLandingPage(driver)
   })
 
   afterEach(async () => {
@@ -36,8 +37,10 @@ describe('Login', () => {
     // 1101-BWAL-058 When I have quit my browser, and then reopened, I am asked to enter my browser extension password'
     // 1101-BWAL-062 When entering a correct password decrypts my wallets
     await openNewInstanceOfVegaWallet()
+    login = new Login(driver)
     await login.checkOnLoginPage()
     await login.login(testPassword)
+    viewWallet = new ViewWallet(driver)
     await viewWallet.checkOnViewWalletPage()
     const keys = await viewWallet.getWalletKeys()
     expect(keys.length, `expected to be able to view 1 wallet key, instead found ${keys.length}`).toBe(1)

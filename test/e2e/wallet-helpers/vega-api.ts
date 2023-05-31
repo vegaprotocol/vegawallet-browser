@@ -15,12 +15,11 @@ export class VegaAPI {
   }
 
   async connectWallet() {
-    return this.driver.executeAsyncScript(async (callback: (arg0: any) => void) => {
+    return this.driver.executeScript(async () => {
       if (!window.vega) {
         throw new Error('content script not found')
       }
-      const response = await window.vega.connectWallet()
-      callback(response)
+      window.connectWalletResult = window.vega.connectWallet()
     })
   }
 
@@ -55,47 +54,36 @@ export class VegaAPI {
   }
 
   async sendTransaction(publicKey: string, transaction: any) {
-    try {
-      const response = await this.driver.executeScript<string>(
-        async (publicKey: string, transaction: any) => {
-          return await window.vega.sendTransaction({
-            sendingMode: 'TYPE_SYNC',
-            publicKey: publicKey,
-            transaction: transaction
-          })
-        },
-        publicKey,
-        transaction
-      )
-      return {
-        success: true,
-        response: response
-      }
-    } catch (error: any) {
-      return {
-        success: false,
-        response: error.message
-      }
-    }
+    await this.driver.executeScript<string>(
+      async (publicKey: string, transaction: any) => {
+        window.sendTransactionResult = window.vega.sendTransaction({
+          sendingMode: 'TYPE_SYNC',
+          publicKey: publicKey,
+          transaction: transaction
+        })
+      },
+      publicKey,
+      transaction
+    )
   }
 
-  async sendTransactionAndCheckOutcome(
-    publicKey: string,
-    transaction: any,
-    expectSuccess = true,
-    expectedError?: string
-  ) {
-    const outcome = await this.sendTransaction(publicKey, transaction)
-    expect(
-      outcome.success,
-      `the sendTransaction request was not successful, here is the response: \n"${outcome.response}`
-    ).toBe(expectSuccess)
+  async getTransactionResult() {
+    return await this.driver.executeScript<string>(async () => {
+      try {
+        return await window.sendTransactionResult // Assuming window.sendTransactionResult is an asynchronous operation
+      } catch (error: any) {
+        return error.message
+      }
+    })
+  }
 
-    if (expectedError) {
-      expect(
-        outcome.response,
-        `the sendTransaction request did not return the expected error: ${expectedError}`
-      ).toContain(expectedError)
-    }
+  async getConnectionResult() {
+    return await this.driver.executeScript<string>(async () => {
+      try {
+        return await window.connectWalletResult // Assuming window.sendTransactionResult is an asynchronous operation
+      } catch (error: any) {
+        return error.message
+      }
+    })
   }
 }

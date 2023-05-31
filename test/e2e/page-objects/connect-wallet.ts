@@ -11,14 +11,12 @@ export class ConnectWallet {
   constructor(private readonly driver: WebDriver) {}
 
   async approveConnectionAndCheckSuccess() {
-    console.log('about to click approve')
     await clickElement(this.driver, this.approve)
-    console.log('clicked it')
-    // expect(
-    //   await isElementDisplayed(this.driver, this.successModal),
-    //   'expected to see the success modal after approving a connection',
-    //   { showPrefix: false }
-    // ).toBe(true)
+    expect(
+      await isElementDisplayed(this.driver, this.successModal),
+      'expected to see the success modal after approving a connection',
+      { showPrefix: false }
+    ).toBe(true)
   }
 
   async denyConnection() {

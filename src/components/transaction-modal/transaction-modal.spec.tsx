@@ -67,6 +67,7 @@ describe('TransactionModal', () => {
     })
     render(<TransactionModal />)
     expect(screen.getByTestId(locators.transactionWrapper)).toBeVisible()
+    expect(screen.getByTestId(locators.hostImage)).toBeVisible()
     expect(screen.getByTestId(locators.pageHeader)).toBeVisible()
     expect(screen.getByTestId(locators.transactionType)).toHaveTextContent('Order submission')
     expect(screen.getByTestId(locators.codeWindow)).toBeVisible()

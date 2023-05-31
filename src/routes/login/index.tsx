@@ -41,8 +41,7 @@ export const Login = () => {
           setError('passphrase', { message: 'Incorrect passphrase' })
           return
         }
-        // Unexpected error, let the global error boundary catch this
-        throw e
+        setError('passphrase', { message: `Unknown error occurred ${e}` })
       }
     },
     [client, loadGlobals, navigate, setError]

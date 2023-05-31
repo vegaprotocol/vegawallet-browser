@@ -49,4 +49,37 @@ describe('Login', () => {
     fireEvent.click(screen.getByTestId(loginButton))
     await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.home))
   })
+  it('renders error if unknown error occurs', async () => {
+    const listeners: Function[] = []
+    // @ts-ignore
+    global.browser = {
+      runtime: {
+        connect: () => ({
+          postMessage: (message: any) => {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                error: { code: 1, message: 'Some error' },
+                id: message.id
+              })
+            )
+          },
+          onmessage: (...args: any[]) => {
+            console.log('om', args)
+          },
+          onMessage: {
+            addListener: (fn: any) => {
+              listeners.push(fn)
+            }
+          }
+        })
+      }
+    }
+    renderComponent()
+    fireEvent.change(screen.getByTestId(loginPassphrase), {
+      target: { value: 'incorrect-passphrase' }
+    })
+    fireEvent.click(screen.getByTestId(loginButton))
+    await screen.findByText('Unknown error occurred Error: Some error')
+  })
 })

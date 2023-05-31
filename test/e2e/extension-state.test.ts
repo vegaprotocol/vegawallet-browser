@@ -9,7 +9,7 @@ import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { NavPanel } from './page-objects/navpanel'
 import { Login } from './page-objects/login'
-import { openNewWindowAndSwitchToIt } from './selenium-util'
+import { closeCurrentWindowAndSwitchToPrevious, openNewWindowAndSwitchToIt } from './selenium-util'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver

@@ -61,6 +61,13 @@ export class APIHelper {
     })
   }
 
+  async lockWallet() {
+    return await this.driver.executeScript<string>(async () => {
+      const resp = await window.client.request('admin.lock', null)
+      return resp
+    })
+  }
+
   async listConnections() {
     return await this.driver.executeScript<string>(async () => {
       const { connections } = await window.client.request('admin.list_connections', null)

@@ -52,6 +52,13 @@ describe('TransactionModal', () => {
   })
 
   it('renders page header, transaction type, hostname and key', () => {
+    /* 1101-BWAL-056 For transactions that are not orders or withdraw / transfers, there is a standard template with the minimum information required i.e. (1101-BWAL-056)
+-- [ ] Transaction title
+-- [ ] Where it is from e.g. console.vega.xyz with a favicon
+-- [ ] The key you are using to sign with a visual identifier
+-- [ ] When it was received
+-- [ ] Raw JSON details
+*/
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: true, details: data, handleTransactionDecision }
@@ -59,14 +66,15 @@ describe('TransactionModal', () => {
       return res
     })
     render(<TransactionModal />)
-    expect(screen.getByTestId(locators.transactionWrapper)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.pageHeader)).toBeInTheDocument()
+    expect(screen.getByTestId(locators.transactionWrapper)).toBeVisible()
+    expect(screen.getByTestId(locators.pageHeader)).toBeVisible()
     expect(screen.getByTestId(locators.transactionType)).toHaveTextContent('Order submission')
+    expect(screen.getByTestId(locators.codeWindow)).toBeVisible()
     expect(screen.getByTestId(locators.transactionRequest)).toHaveTextContent('Request from https://www.google.com')
     expect(screen.getByTestId(locators.transactionKey)).toHaveTextContent('Signing with')
     expect(screen.getByTestId(locators.transactionTimeAgo)).toHaveTextContent('Received just now')
-    expect(screen.getByTestId(locators.transactionModalApproveButton)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.transactionModalDenyButton)).toBeInTheDocument()
+    expect(screen.getByTestId(locators.transactionModalApproveButton)).toBeVisible()
+    expect(screen.getByTestId(locators.transactionModalDenyButton)).toBeVisible()
   })
 
   it('calls handleTransactionDecision with false if denying', async () => {

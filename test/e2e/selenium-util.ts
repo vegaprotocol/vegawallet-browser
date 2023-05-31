@@ -107,3 +107,9 @@ export async function openNewWindowAndSwitchToIt(driver: WebDriver) {
   const handles = await driver.getAllWindowHandles()
   await driver.switchTo().window(handles[1])
 }
+
+export async function closeCurrentWindowAndSwitchToPrevious(driver: WebDriver) {
+  const handles = await driver.getAllWindowHandles()
+  await driver.close()
+  await driver.switchTo().window(handles[0])
+}

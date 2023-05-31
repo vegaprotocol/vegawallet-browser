@@ -9,7 +9,6 @@ import {
 } from '../selenium-util'
 import 'jest-expect-message'
 import { errorMessage, loginButton, loginPassphrase } from '../../../src/locator-ids'
-import { clear } from 'console'
 
 export class Login {
   private readonly loginButton: By = getByDataTestID(loginButton)

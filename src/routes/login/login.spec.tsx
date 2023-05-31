@@ -31,7 +31,7 @@ describe('Login', () => {
     expect(screen.getByTestId(loginPassphrase)).toBeInTheDocument()
     expect(screen.getByTestId(loginButton)).toBeInTheDocument()
   })
-  it.skip('renders error message if the passphrase is incorrect', async () => {
+  it('renders error message if the passphrase is incorrect', async () => {
     mockClient()
     renderComponent()
     fireEvent.change(screen.getByTestId(loginPassphrase), {

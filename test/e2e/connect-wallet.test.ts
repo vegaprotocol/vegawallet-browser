@@ -29,7 +29,7 @@ describe('Connect wallet', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    //await driver.quit()
+    await driver.quit()
   })
 
   it('can approve a connection to the wallet and return to previously active view', async () => {

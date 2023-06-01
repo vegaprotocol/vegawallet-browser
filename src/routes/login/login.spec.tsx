@@ -71,6 +71,9 @@ describe('Login', () => {
             addListener: (fn: any) => {
               listeners.push(fn)
             }
+          },
+          onDisconnect: {
+            addListener: (fn: any) => {}
           }
         })
       }

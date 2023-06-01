@@ -33,6 +33,8 @@ jobs:
 
       - name: Build
         run: yarn build:chrome
+        env:
+          TEST: true
 
       - name: Run E2E tests using Xvfb
         uses: coactions/setup-xvfb@v1

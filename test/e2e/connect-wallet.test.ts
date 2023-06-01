@@ -77,11 +77,13 @@ describe('Connect wallet', () => {
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
     await viewWallet.checkOnViewWalletPage()
+    expect(await vegaAPI.getConnectionResult()).toBe(null)
     let connections = await apiHelper.listConnections()
     expect(
       connections.length,
       `expected to have 1 active connection to the wallet, but found ${connections.length}`
     ).toBe(1)
+
     await driver.get('https://google.co.uk')
     await navigateToLandingPage(driver)
     connections = await apiHelper.listConnections()
@@ -89,6 +91,9 @@ describe('Connect wallet', () => {
       connections.length,
       `expected to still have 1 active connection to the wallet, but found ${connections.length}`
     ).toBe(1)
+    await vegaAPI.connectWallet()
+    await viewWallet.checkOnViewWalletPage()
+    expect(await vegaAPI.getConnectionResult()).toBe(null)
     await assertNumberOfKeysVisibleToDApp(1)
     await viewWallet.checkOnViewWalletPage()
   })

@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { RpcMethods } from '../../../src/lib/rpc-methods'
+import { RpcMethods } from '../../../src/lib/client-rpc-methods'
 export class APIHelper {
   private driver: WebDriver
 
@@ -55,23 +55,9 @@ export class APIHelper {
   }
 
   async listConnections() {
-    return await this.driver.executeScript<string>(async () => {
+    return await this.driver.executeAsyncScript<string>(async (callback: (arg0: any) => void) => {
       const { connections } = await window.client.request('admin.list_connections', null)
-      return connections
-    })
-  }
-
-  async lockWallet() {
-    return await this.driver.executeScript<string>(async () => {
-      const resp = await window.client.request('admin.lock', null)
-      return resp
-    })
-  }
-
-  async listConnections() {
-    return await this.driver.executeScript<string>(async () => {
-      const { connections } = await window.client.request('admin.list_connections', null)
-      return connections
+      callback(connections)
     })
   }
 

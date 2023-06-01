@@ -98,8 +98,3 @@ describe('Check correct app state persists after closing the extension', () => {
   })
 })
 
-async function closeCurrentWindowAndSwitchToPrevious(driver: WebDriver) {
-  const handles = await driver.getAllWindowHandles()
-  await driver.close()
-  await driver.switchTo().window(handles[0])
-}

@@ -73,7 +73,7 @@ describe('transactions', () => {
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
     const res = await vegaAPI.getTransactionResult()
-    expect(res).toHaveErrorMessage('Internal error')
+    expect(res).toBe('Internal error')
   })
 
   it('queues transactions when there is more than one', async () => {

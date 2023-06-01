@@ -1,5 +1,5 @@
 import { encrypt, decrypt } from '@vegaprotocol/crypto/encryption'
-import { base64 as toBase64, fromBase64, string as fromString, toString } from '@vegaprotocol/crypto/buf'
+import { toBase64, base64 as fromBase64, string as fromString, toString } from '@vegaprotocol/crypto/buf'
 
 export default class EncryptedStorage {
   constructor(storage, kdfSettings = undefined) {

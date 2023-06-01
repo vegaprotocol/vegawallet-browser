@@ -1,6 +1,7 @@
 import * as InputData from '@vegaprotocol/protos/vega/commands/v1/InputData/encode'
 import * as Transaction from '@vegaprotocol/protos/vega/commands/v1/Transaction/encode'
 import { TX_VERSION_V3 } from '@vegaprotocol/protos/vega/commands/v1/TxVersion'
+import { toBase64, toHex } from '@vegaprotocol/crypto/buf'
 
 import solvePoW from './pow.js'
 
@@ -29,7 +30,7 @@ export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
   const tx = Transaction.encode({
     inputData,
     signature: {
-      value: Buffer.from(await keys.sign(inputData, chainId)).toString('hex'),
+      value: toHex(await keys.sign(inputData, chainId)),
       algo: keys.algorithm.name,
       version: keys.algorithm.version
     },
@@ -41,7 +42,7 @@ export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
   })
 
   return await rpc.submitRawTransaction(
-    Buffer.from(tx).toString('base64'),
+    toBase64(tx),
     sendingMode
   )
 }

@@ -56,13 +56,11 @@ describe('Login', () => {
       runtime: {
         connect: () => ({
           postMessage: (message: any) => {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                error: { code: 1, message: 'Some error' },
-                id: message.id
-              })
-            )
+            listeners[0]({
+              jsonrpc: '2.0',
+              error: { code: 1, message: 'Some error' },
+              id: message.id
+            })
           },
           onmessage: (...args: any[]) => {
             console.log('om', args)

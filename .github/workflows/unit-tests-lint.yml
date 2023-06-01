@@ -31,7 +31,7 @@ jobs:
         run: yarn test:ci
 
       - name: Test Report
-        uses: phoenix-actions/test-reporting@v9
+        uses: phoenix-actions/test-reporting@v12
         if: always()
         with:
           name: JEST Unit Tests (FE)
@@ -62,7 +62,7 @@ jobs:
         run: yarn test:backend
 
       - name: Test Report
-        uses: phoenix-actions/test-reporting@v9
+        uses: phoenix-actions/test-reporting@v12
         if: always()
         with:
           name: JEST Unit Tests (BE)

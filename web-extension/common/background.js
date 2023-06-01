@@ -16,15 +16,7 @@ const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
 const interactor = new PopupClient()
 
-const encryptedStore = new EncryptedStorage(
-  new ConcurrentStorage(new StorageLocalMap('wallets')),
-  process.env.TEST
-    ? {
-        memory: 10,
-        iterations: 1
-      }
-    : undefined
-)
+const encryptedStore = new EncryptedStorage(new ConcurrentStorage(new StorageLocalMap('wallets')))
 const publicKeyIndexStore = new ConcurrentStorage(new StorageLocalMap('public-key-index'))
 
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))

@@ -9,6 +9,7 @@ import { MnemonicContainer } from '../../../components/mnemonic-container'
 import { saveMnemonicButton, saveMnemonicDescription } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
+import { createWallet } from '../../../lib/create-wallet'
 
 interface FormFields {
   acceptedTerms: boolean
@@ -34,12 +35,7 @@ export const SaveMnemonic = () => {
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
   useEffect(() => {}, [])
   const submit = useCallback(async () => {
-    const walletName = 'Wallet 1'
-    await client.request(RpcMethods.ImportWallet, { recoveryPhrase: mnemonic, name: walletName })
-    await client.request(RpcMethods.GenerateKey, {
-      wallet: walletName,
-      name: `Key 1`
-    })
+    await createWallet(mnemonic as string, client)
     navigate(FULL_ROUTES.wallets)
   }, [client, mnemonic, navigate])
   // While loading, render nothing

@@ -5,10 +5,8 @@ import { navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
-import { TransferRequest } from '@vegaprotocol/protos/dist/vega/TransferRequest'
 import { Transaction } from './page-objects/transaction'
 import { openNewWindowAndSwitchToIt } from './selenium-util'
-import { Account } from '@vegaprotocol/protos/dist/vega/Account'
 
 describe('transactions', () => {
   let driver: WebDriver
@@ -18,31 +16,16 @@ describe('transactions', () => {
   let apiHelper: APIHelper
   let transaction: Transaction
 
-  const accountFrom: Account = {
-    id: '123',
-    owner: 'bob',
-    balance: '7777',
-    asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
-    marketId: '123',
-    type: 4
-  }
-
-  const accountTo: Account = {
-    id: '123',
-    owner: 'dave',
-    balance: '7777',
-    asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
-    marketId: '123',
-    type: 4
-  }
-
-  const transferReq: TransferRequest = {
-    fromAccount: [accountFrom],
-    toAccount: [accountTo],
+  // TODO better typing
+  const transferReq = {
+    fromAccountType: 4,
+    toAccountType: 4,
     amount: '1',
-    minAmount: '1',
     asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
-    type: 0
+    to: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+    kind: {
+      oneOff: {}
+    }
   }
 
   beforeEach(async () => {
@@ -62,7 +45,7 @@ describe('transactions', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    // await driver.quit()
   })
 
   it('can confirm a transaction', async () => {
@@ -72,6 +55,25 @@ describe('transactions', () => {
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
     await viewWallet.checkOnViewWalletPage()
+  })
+
+  it('a bad transaction request results in an error', async () => {
+    // 1101-BWAL-053 When the dapp requests a transaction type / or includes transaction details that we don't recognise, we don't present the transaction request in the wallet but provide an error to the dapp that feeds back that the transaction can not be processed
+    const keys = await vegaAPI.listKeys()
+    await vegaAPI.sendTransaction(keys[0].publicKey, { aCommandThatDoesNotExist: {} })
+    const res = await vegaAPI.getTransactionResult()
+    expect(res).toBe('`transaction` must contain only one of the valid commands')
+  })
+
+  it('the result of the transaction request is fed back to the UI', async () => {
+    // TODO intercept this request and validate that a good result is fed back
+    // 1101-BWAL-046 When I approve a transaction the transaction gets signed and the approved status gets fed back to the dapp that requested it
+    const keys = await vegaAPI.listKeys()
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await transaction.checkOnTransactionPage()
+    await transaction.confirmTransaction()
+    const res = await vegaAPI.getTransactionResult()
+    expect(res).toHaveErrorMessage('Internal error')
   })
 
   it('queues transactions when there is more than one', async () => {
@@ -122,6 +124,19 @@ describe('transactions', () => {
     await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
     await apiHelper.lockWallet()
+    await apiHelper.login('password1')
+    await navigateToLandingPage(driver)
+    await transaction.checkOnTransactionPage()
+  })
+
+  it('the transaction persists when the extension is closed or locked out', async () => {
+    // 1101-BWAL-055 If the browser extension is closed during a transaction request, the request persists
+    const keys = await vegaAPI.listKeys()
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await transaction.checkOnTransactionPage()
+    await apiHelper.lockWallet()
+    await openNewWindowAndSwitchToIt(driver)
+    await navigateToLandingPage(driver)
     await apiHelper.login('password1')
     await navigateToLandingPage(driver)
     await transaction.checkOnTransactionPage()

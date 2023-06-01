@@ -22,8 +22,13 @@ export const CreateWallet = () => {
       >
         Create a wallet
       </Button>
-      <Button data-testid={importWalletButton} disabled={true}>
-        Import - Coming Soon
+      <Button
+        data-testid={importWalletButton}
+        onClick={() => {
+          navigate(FULL_ROUTES.importWallet)
+        }}
+      >
+        Import
       </Button>
     </div>
   )

@@ -3,13 +3,17 @@ import { Routing } from './routes'
 import { MemoryRouter } from 'react-router-dom'
 import { usePersistLocation } from '../hooks/persist-location'
 
-jest.mock('./home')
 jest.mock('../hooks/persist-location')
+
+jest.mock('./home')
+jest.mock('./login')
+
 jest.mock('./onboarding/get-started')
 jest.mock('./onboarding/create-password')
-jest.mock('./login')
+jest.mock('./onboarding/import-wallet')
 jest.mock('./onboarding/create-wallet')
 jest.mock('./onboarding/save-mnemonic')
+
 jest.mock('./auth')
 jest.mock('./auth/wallets')
 

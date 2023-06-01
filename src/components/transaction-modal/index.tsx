@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useModalStore } from '../../lib/modal-store'
 import { Splash } from '../splash'
 import { CodeWindow } from '../code-window'
@@ -17,10 +17,8 @@ export const TransactionModal = () => {
     handleTransactionDecision: store.handleTransactionDecision,
     details: store.currentTransactionDetails
   }))
-  const [isLoading, setIsLoading] = useState(false)
   const handleDecision = useCallback(
     (decision: boolean) => {
-      setIsLoading(true)
       handleTransactionDecision(decision)
     },
     [handleTransactionDecision]
@@ -73,11 +71,7 @@ export const TransactionModal = () => {
         </section>
       </Splash>
       <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-4 bg-black z-20 px-5 border-t border-vega-dark-200">
-        <Button
-          data-testid={locators.transactionModalDenyButton}
-          disabled={!!isLoading}
-          onClick={() => handleDecision(false)}
-        >
+        <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleDecision(false)}>
           Reject
         </Button>
         <Button

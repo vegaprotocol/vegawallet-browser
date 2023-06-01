@@ -14,13 +14,13 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Checkout repository 'main'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: main
           fetch-depth: 0
 
       - name: Checkout specs repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: vegaprotocol/specs
           ref: master
@@ -39,13 +39,13 @@ jobs:
           echo "file-main=$results" >> "$GITHUB_OUTPUT"
 
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
       - name: Checkout specs repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: vegaprotocol/specs
           ref: master
@@ -64,7 +64,7 @@ jobs:
           echo "file=$results" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
-        uses: peter-evans/find-comment@v1
+        uses: peter-evans/find-comment@v2
         id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -73,7 +73,7 @@ jobs:
 
       - name: Comment on Pull Request
         if: steps.fc.outputs.comment-id == ''
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v3
         with:
           body: |
             Here is your approbation coverage **BEFORE** this PR:
@@ -89,7 +89,7 @@ jobs:
 
       - name: Update comment on Pull Request
         if: steps.fc.outputs.comment-id != ''
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           body: |

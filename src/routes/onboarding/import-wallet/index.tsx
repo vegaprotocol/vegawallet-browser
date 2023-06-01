@@ -68,7 +68,7 @@ export const ImportWallet = () => {
             className="mt-2"
             variant="primary"
             type="submit"
-            disabled={!Boolean(mnemonic)}
+            disabled={!Boolean(mnemonic) || !!errors.mnemonic?.message}
           >
             Import wallet
           </Button>

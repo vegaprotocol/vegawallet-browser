@@ -87,7 +87,7 @@ describe('ImportWallet', () => {
       target: { value: 'bad mnemonic' }
     })
     fireEvent.click(screen.getByTestId(importMnemonicSubmit))
-    await screen.findByText('Invalid recovery phrase')
+    await screen.findByText('Error: Invalid recovery phrase')
     expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
   })
 })

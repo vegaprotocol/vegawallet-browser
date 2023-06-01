@@ -23,15 +23,16 @@ describe('Create wallet', () => {
     renderComponent()
     expect(screen.getByTestId(locators.walletIcon)).toBeInTheDocument()
     expect(screen.getByTestId(createNewWalletButton)).toHaveTextContent('Create a wallet')
-    expect(screen.getByTestId(importWalletButton)).toHaveTextContent('Import - Coming Soon')
+    expect(screen.getByTestId(importWalletButton)).toHaveTextContent('Import')
   })
 
-  it('renders import wallet as disabled', () => {
+  it('navigates to import wallet page when import button is pressed', () => {
     renderComponent()
-    expect(screen.getByTestId(importWalletButton)).toBeDisabled()
+    fireEvent.click(screen.getByTestId(importWalletButton))
+    expect(mockNavigate).toBeCalledWith(FULL_ROUTES.importWallet)
   })
 
-  it('navigates to create wallet route when create wallet button is pressed', async () => {
+  it('navigates to save mnemonic route when create wallet button is pressed', async () => {
     renderComponent()
     fireEvent.click(screen.getByTestId(createNewWalletButton))
     expect(mockNavigate).toBeCalledWith(FULL_ROUTES.saveMnemonic)

@@ -40,7 +40,7 @@ jobs:
           run: yarn test:e2e:chrome
 
       - name: Test Report
-        uses: phoenix-actions/test-reporting@v9
+        uses: phoenix-actions/test-reporting@v12
         if: always()
         with:
           name: JEST E2E Tests - Chrome
@@ -88,7 +88,7 @@ jobs:
         run: yarn test:e2e:firefox:ci
 
       - name: Test Report
-        uses: phoenix-actions/test-reporting@v9
+        uses: phoenix-actions/test-reporting@v12
         if: always()
         with:
           name: JEST E2E Tests - Firefox

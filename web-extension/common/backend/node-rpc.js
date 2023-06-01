@@ -1,4 +1,5 @@
 import assert from 'nanoassert'
+import { hex as fromHex, toString } from '@vegaprotocol/crypto/buf'
 
 // TODO: Improve this "fetch" shim to handle TCP and HTTP errors
 async function getJson(url) {
@@ -178,7 +179,7 @@ export default class NodeRPC {
 
       // AbciSpamError code is returned when CheckTx or DeliverTx fail spam protection tests.
       case 89:
-        throw new Error(Buffer.from(res.data, 'hex').toString())
+        throw new Error(toString(fromHex(res.data)))
       /* eslint-enable no-fallthrough */
     }
   }

@@ -7,6 +7,12 @@ jobs:
   check-approbation:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Checkout repository 'main'
         uses: actions/checkout@v2
         with:

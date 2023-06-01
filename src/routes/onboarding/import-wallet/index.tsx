@@ -1,31 +1,43 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { Page } from '../../../components/page'
 import { useCallback, useEffect } from 'react'
-import { FULL_ROUTES } from '../..'
 import { useNavigate } from 'react-router-dom'
 import { Button, FormGroup, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../../lib/form-validation'
 import { importMnemonic, importMnemonicDescription, importMnemonicSubmit } from '../../../locator-ids'
+import { FULL_ROUTES } from '../../route-names'
+import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
+import { createWallet } from '../../../lib/create-wallet'
 
 interface FormFields {
   mnemonic: string
 }
 
 export const ImportWallet = () => {
+  const { client } = useJsonRpcClient()
   const {
     control,
     register,
     handleSubmit,
     setFocus,
+    setError,
     formState: { errors }
   } = useForm<FormFields>()
   const navigate = useNavigate()
   const submit = useCallback(
-    (fields: FormFields) => {
-      console.log(fields)
-      navigate(FULL_ROUTES.wallets)
+    async (fields: FormFields) => {
+      try {
+        await createWallet(fields.mnemonic, client)
+        navigate(FULL_ROUTES.wallets)
+      } catch (e) {
+        if (e instanceof Error) {
+          setError('mnemonic', { message: e.message })
+        } else {
+          setError('mnemonic', { message: 'Unknown error' })
+        }
+      }
     },
-    [navigate]
+    [client, navigate, setError]
   )
   const mnemonic = useWatch({ control, name: 'mnemonic' })
 

@@ -42,7 +42,6 @@ describe('Connect wallet', () => {
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess() // Perform the necessary user interaction
     const response = await responsePromise
-    console.log(response)
     expect(response).toBe(null)
     await settings.checkOnSettingsPage()
   })
@@ -70,8 +69,6 @@ describe('Connect wallet', () => {
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
   })
-
-  const wait = (milliseconds: number) => new Promise<void>((resolve) => setTimeout(resolve, milliseconds))
 
   it('does not need to reconnect to the wallet if I navigate away from my current page, api still shows connection and dapp can still see public key', async () => {
     // 1101-BWAL-039 When I go away from the extension and come back to the connected site, the browser extension remembers the connection and does not ask me to reconnect

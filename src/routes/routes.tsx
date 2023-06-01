@@ -11,6 +11,7 @@ import { Auth } from './auth'
 import { Wallets } from './auth/wallets'
 import { FULL_ROUTES, ROUTES } from './route-names'
 import { Settings } from './auth/settings'
+import { ImportWallet } from './onboarding/import-wallet'
 
 export const Routing = () => {
   usePersistLocation()
@@ -34,7 +35,7 @@ export const Routing = () => {
           <Route path={ROUTES.createWallet} element={<CreateWallet />} />
           <Route path={ROUTES.saveMnemonic} element={<SaveMnemonic />} />
           <Route path={ROUTES.telemetry} element={<ComingSoon />} />
-          <Route path={ROUTES.importWallet} element={<ComingSoon />} />
+          <Route path={ROUTES.importWallet} element={<ImportWallet />} />
         </Route>
         <Route path={ROUTES.login} element={<Login />} />
       </Route>

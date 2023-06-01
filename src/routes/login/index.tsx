@@ -39,9 +39,9 @@ export const Login = () => {
       } catch (e) {
         if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
           setError('passphrase', { message: 'Incorrect passphrase' })
-          return
+        } else {
+          setError('passphrase', { message: `Unknown error occurred ${e}` })
         }
-        setError('passphrase', { message: `Unknown error occurred ${e}` })
       }
     },
     [client, loadGlobals, navigate, setError]

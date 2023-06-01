@@ -30,11 +30,7 @@ export const ImportWallet = () => {
         await createWallet(fields.mnemonic, client)
         navigate(FULL_ROUTES.wallets)
       } catch (e) {
-        if (e instanceof Error) {
-          setError('mnemonic', { message: e.message })
-        } else {
-          setError('mnemonic', { message: 'Unknown error' })
-        }
+        setError('mnemonic', { message: e?.toString() })
       }
     },
     [client, navigate, setError]

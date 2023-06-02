@@ -23,7 +23,7 @@ describe('Create wallet', () => {
     renderComponent()
     expect(screen.getByTestId(locators.walletIcon)).toBeInTheDocument()
     expect(screen.getByTestId(createNewWalletButton)).toHaveTextContent('Create a wallet')
-    expect(screen.getByTestId(importWalletButton)).toHaveTextContent('Import')
+    expect(screen.getByTestId(importWalletButton)).toHaveTextContent('Import a Wallet')
   })
 
   it('navigates to import wallet page when import button is pressed', () => {

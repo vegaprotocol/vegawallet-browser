@@ -53,7 +53,10 @@ export const ImportWallet = () => {
               hasError={!!errors.mnemonic?.message}
               placeholder="24 word recovery phrase"
               {...register('mnemonic', {
-                required: Validation.REQUIRED
+                required: Validation.REQUIRED,
+                validate: (value: string) => {
+                  if (value.toString().split(' ').length !== 24) return 'Mnemonic must be 24 words'
+                }
               })}
             />
             {errors.mnemonic?.message && <InputError forInput="mnemonic">{errors.mnemonic.message}</InputError>}

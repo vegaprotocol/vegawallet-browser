@@ -18,7 +18,7 @@ const interactor = new PopupClient()
 
 const encryptedStore = new EncryptedStorage(
   new ConcurrentStorage(new StorageLocalMap('wallets')),
-  process.env.TEST
+  process.env.REACT_APP_TEST
     ? {
         memory: 10,
         iterations: 1

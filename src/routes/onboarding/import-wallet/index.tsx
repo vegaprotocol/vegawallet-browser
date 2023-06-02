@@ -55,7 +55,7 @@ export const ImportWallet = () => {
               {...register('mnemonic', {
                 required: Validation.REQUIRED,
                 validate: (value: string) => {
-                  if (value.toString().split(' ').length !== 24) return 'Mnemonic must be 24 words'
+                  if (value.toString().split(' ').length !== 24) return 'Recovery phrase must be 24 words'
                 }
               })}
             />

@@ -58,7 +58,7 @@ describe('transactions', () => {
   })
 
   it('a bad transaction request results in an error', async () => {
-    // 1101-BWAL-053 When the dapp requests a transaction type / or includes transaction details that we don't recognise, we don't present the transaction request in the wallet but provide an error to the dapp that feeds back that the transaction can not be processed
+    // 1101-BWAL-051 When the dapp requests a transaction type / or includes transaction details that we don't recognise, we don't present the transaction request in the wallet but provide an error to the dapp that feeds back that the transaction can not be processed
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { aCommandThatDoesNotExist: {} })
     const res = await vegaAPI.getTransactionResult()
@@ -67,7 +67,7 @@ describe('transactions', () => {
 
   it('the result of the transaction request is fed back to the UI', async () => {
     // TODO intercept this request and validate that a good result is fed back
-    // 1101-BWAL-046 When I approve a transaction the transaction gets signed and the approved status gets fed back to the dapp that requested it
+    // 1101-BWAL-045 When I approve a transaction the transaction gets signed and the approved status gets fed back to the dapp that requested it
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()
@@ -77,8 +77,8 @@ describe('transactions', () => {
   })
 
   it('queues transactions when there is more than one', async () => {
-    // 1101-BWAL-047 When I approve a transaction after I have approved it we revert to the next transaction if there's a queue OR we revert to the key view (the front / homepage)
-    // 1101-BWAL-051 When I reject a transaction after I have rejected it we revert to the next transaction if there's a queue OR we revert to the key view (start / home page)
+    // 1101-BWAL-046 When I approve a transaction after I have approved it we revert to the next transaction if there's a queue OR we revert to the key view (the front / homepage)
+    // 1101-BWAL-049 When I reject a transaction after I have rejected it we revert to the next transaction if there's a queue OR we revert to the key view (start / home page)
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
@@ -97,8 +97,8 @@ describe('transactions', () => {
   })
 
   it('can reject a transaction', async () => {
-    // 1101-BWAL-048 When I view a transaction request I can choose to reject it
-    // 1101-BWAL-050 When I reject a transaction the transaction does not get signed and the rejected status gets fed back to the dapp that requested it
+    // 1101-BWAL-047 When I view a transaction request I can choose to reject it
+    // 1101-BWAL-048 When I reject a transaction the transaction does not get signed and the rejected status gets fed back to the dapp that requested it
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()
@@ -117,7 +117,7 @@ describe('transactions', () => {
   })
 
   it('the transaction persists when the extension is opened', async () => {
-    // 1101-BWAL-054 When the user opens the extension (or it has automatically opened) they can immediately see a transaction request
+    // 1101-BWAL-052 When the user opens the extension (or it has automatically opened) they can immediately see a transaction request
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()
@@ -130,7 +130,7 @@ describe('transactions', () => {
   })
 
   it('the transaction persists when the extension is closed or locked out', async () => {
-    // 1101-BWAL-055 If the browser extension is closed during a transaction request, the request persists
+    // 1101-BWAL-053 If the browser extension is closed during a transaction request, the request persists
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()

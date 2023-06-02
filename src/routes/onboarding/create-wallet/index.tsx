@@ -28,7 +28,7 @@ export const CreateWallet = () => {
           navigate(FULL_ROUTES.importWallet)
         }}
       >
-        Import
+        Import a Wallet
       </Button>
     </div>
   )

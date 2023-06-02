@@ -52,6 +52,17 @@ describe('ImportWallet', () => {
     await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.wallets))
   })
 
+  it('requires mnemonic should be 24 words', async () => {
+    mockClient()
+    renderComponent()
+    fireEvent.change(screen.getByTestId(importMnemonic), {
+      target: { value: 'bad mnemonic' }
+    })
+    fireEvent.click(screen.getByTestId(importMnemonicSubmit))
+    await screen.findByText('Recovery phrase must be 24 words')
+    expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
+  })
+
   it('renders error message if recovery phrase is invalid', async () => {
     const listeners: Function[] = []
     // @ts-ignore
@@ -59,17 +70,15 @@ describe('ImportWallet', () => {
       runtime: {
         connect: () => ({
           postMessage: (message: any) => {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                error: {
-                  message: 'Invalid recovery phrase',
-                  // TODO correct error code
-                  code: -32602
-                },
-                id: message.id
-              })
-            )
+            listeners[0]({
+              jsonrpc: '2.0',
+              error: {
+                message: 'Invalid recovery phrase',
+                // TODO correct error code
+                code: -32602
+              },
+              id: message.id
+            })
           },
           onmessage: (...args: any[]) => {
             console.log('om', args)
@@ -78,13 +87,18 @@ describe('ImportWallet', () => {
             addListener: (fn: any) => {
               listeners.push(fn)
             }
+          },
+          onDisconnect: {
+            addListener: (fn: any) => {}
           }
         })
       }
     }
     renderComponent()
     fireEvent.change(screen.getByTestId(importMnemonic), {
-      target: { value: 'bad mnemonic' }
+      target: {
+        value: 'bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad'
+      }
     })
     fireEvent.click(screen.getByTestId(importMnemonicSubmit))
     await screen.findByText('Error: Invalid recovery phrase')

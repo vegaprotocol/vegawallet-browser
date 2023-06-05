@@ -46,3 +46,4 @@ export const settingsFeedbackLink = 'settings-feedback-link'
 
 export const connectionsConnection = 'connections-connection'
 export const connectionsNoConnections = 'connections-no-connections'
+export const connectionsHeader = 'connections-header'

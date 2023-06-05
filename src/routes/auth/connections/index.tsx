@@ -5,6 +5,7 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { useConnectionStore } from './store'
 import { useEffect } from 'react'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
+import { connectionsHeader } from '../../../locator-ids'
 
 export const Connections = () => {
   const { client } = useJsonRpcClient()
@@ -22,7 +23,9 @@ export const Connections = () => {
 
   return (
     <section>
-      <h1 className="flex justify-center flex-col text-2xl text-white mb-6">Connections</h1>
+      <h1 data-testid={connectionsHeader} className="flex justify-center flex-col text-2xl text-white mb-6">
+        Connections
+      </h1>
       {connections.length === 0 ? <NoAppsConnected /> : <ConnectionsList connections={connections} />}
       <div className="mt-6">
         <Frame>

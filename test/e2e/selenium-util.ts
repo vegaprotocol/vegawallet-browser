@@ -28,6 +28,11 @@ export async function waitForChildElementsCount(
   )
 }
 
+export async function getElements(driver: WebDriver, childElementLocator: By, timeout = defaultTimeoutMillis) {
+  await waitForElementToBeReady(driver, childElementLocator, timeout)
+  return await driver.findElements(childElementLocator)
+}
+
 export async function sendKeysToElement(driver: WebDriver, locator: By, text: string): Promise<void> {
   const element = await waitForElementToBeReady(driver, locator)
   await element.sendKeys(text)

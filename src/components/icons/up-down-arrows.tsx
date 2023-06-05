@@ -1,7 +1,10 @@
+import locators from '../locators'
+
 export const UpDownArrows = ({ className }: { className: string }) => {
   return (
     <svg
       className={className}
+      data-testid={locators.connectionsIcon}
       width="22"
       height="22"
       viewBox="0 0 22 22"

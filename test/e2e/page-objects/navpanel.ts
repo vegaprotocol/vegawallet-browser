@@ -1,13 +1,16 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, getElementText } from '../selenium-util'
 import 'jest-expect-message'
+import locators from '../../../src/components/locators'
 
 import { Settings } from './settings'
+import { Connections } from './connections'
 
 export class NavPanel {
   private readonly activeNavPanelButton: By = By.css('[data-testid="nav-button"].text-center.active')
-  private readonly wallet: By = getByDataTestID('wallet-icon')
-  private readonly settings: By = getByDataTestID('settings-icon')
+  private readonly wallet: By = getByDataTestID(locators.walletIcon)
+  private readonly settings: By = getByDataTestID(locators.settingsIcon)
+  private readonly connections: By = getByDataTestID(locators.connectionsIcon)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -27,5 +30,16 @@ export class NavPanel {
       { showPrefix: false }
     ).toBe(true)
     return new Settings(this.driver)
+  }
+
+  async goToConnections() {
+    clickElement(this.driver, this.connections)
+    const connections = new Connections(this.driver)
+    expect(
+      await connections.isConnectionsPage(),
+      'expected to be able to navigate to connections via the nav panel but was not on the connections page',
+      { showPrefix: false }
+    ).toBe(true)
+    return new Connections(this.driver)
   }
 }

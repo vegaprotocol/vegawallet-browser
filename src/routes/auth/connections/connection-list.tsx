@@ -1,6 +1,7 @@
 import { List } from '../../../components/list'
 import { HostImage } from '../../../components/host-image'
 import { Connection } from './store'
+import { connectionsConnection } from '../../../locator-ids'
 
 export const ConnectionsList = ({ connections }: { connections: Connection[] }) => {
   return (
@@ -15,7 +16,7 @@ export const ConnectionsList = ({ connections }: { connections: Connection[] }) 
               <div className="flex flex-col justify-center">
                 <HostImage size={10} hostname={i.origin} />
               </div>
-              <div data-testid="connection" className="ml-4 flex flex-col justify-center">
+              <div data-testid={connectionsConnection} className="ml-4 flex flex-col justify-center">
                 {i.origin}
               </div>
             </div>

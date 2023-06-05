@@ -22,7 +22,7 @@ export const Connections = () => {
 
   return (
     <section>
-      <h1 className="flex justify-center flex-col text-2xl text-white mb-6">Settings</h1>
+      <h1 className="flex justify-center flex-col text-2xl text-white mb-6">Connections</h1>
       {connections.length === 0 ? <NoAppsConnected /> : <ConnectionsList connections={connections} />}
       <div className="mt-6">
         <Frame>

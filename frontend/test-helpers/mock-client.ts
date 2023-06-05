@@ -137,6 +137,29 @@ export const mockClient = (
                 })
               )
             }
+          } else if (message.method === RpcMethods.ListConnections) {
+            listeners[0]({
+              jsonrpc: '2.0',
+              id: message.id,
+              result: {
+                connections: [
+                  {
+                    allowList: {
+                      publicKeys: [],
+                      wallets: ['Wallet 1']
+                    },
+                    origin: 'https://vega.xyz'
+                  },
+                  {
+                    allowList: {
+                      publicKeys: [],
+                      wallets: ['Wallet 1']
+                    },
+                    origin: 'foo.com'
+                  }
+                ]
+              }
+            })
           } else {
             throw new Error('Message not handled')
           }

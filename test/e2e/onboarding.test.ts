@@ -60,17 +60,19 @@ describe('Onboarding', () => {
     const apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()
+    await navigateToLandingPage(driver)
     const importWallet = await createAWallet.importWallet()
     await importWallet.fillInRecoveryPhraseAndSubmit(recoveryPhrase)
     await viewWallet.checkOnViewWalletPage()
   })
 
-  it('show an error when recovery phrase is incorrect', async () => {
+  it('shows an error when recovery phrase is incorrect', async () => {
     //TODO- add ac to specs and update the code here
     // If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again)
     const apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()
+    await navigateToLandingPage(driver)
     const importWallet = await createAWallet.importWallet()
     await importWallet.fillInRecoveryPhraseAndSubmit(incorrectRecoveryPhrase)
     const errorText = await importWallet.getErrorMessageText()

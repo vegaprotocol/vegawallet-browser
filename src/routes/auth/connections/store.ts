@@ -17,7 +17,6 @@ export type ConnectionsStore = {
   loading: boolean
   error: string | null
   loadConnections: (client: JSONRPCClient) => void
-  removeConnection: (client: JSONRPCClient, connection: Connection) => void
 }
 
 export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
@@ -34,6 +33,5 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
     } finally {
       set({ loading: false })
     }
-  },
-  removeConnection: async (client: JSONRPCClient, connection: Connection) => {}
+  }
 }))

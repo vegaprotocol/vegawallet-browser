@@ -27,6 +27,8 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
     try {
       set({ loading: true, error: null })
       const { connections } = await client.request(RpcMethods.ListConnections, null)
+      console.log('************************')
+      console.log(connections)
       set({ connections })
     } catch (e) {
       set({ error: e?.toString() || 'Something went wrong' })

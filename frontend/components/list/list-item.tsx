@@ -14,7 +14,7 @@ export function ListItem<T>({
   return (
     <li
       data-testid={locators.listItem}
-      className={classNames('border-b border-1 border-vega-dark-200 py-4', {
+      className={classNames('border-b border-1 border-vega-dark-200 py-4 last:border-0', {
         'hover:bg-vega-dark-150': clickable
       })}
     >

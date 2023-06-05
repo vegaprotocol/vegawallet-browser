@@ -15,7 +15,9 @@ export const ConnectionsList = ({ connections }: { connections: Connection[] }) 
               <div className="flex flex-col justify-center">
                 <HostImage size={10} hostname={i.origin} />
               </div>
-              <div className="ml-4 flex flex-col justify-center">{i.origin}</div>
+              <div data-testid="connection" className="ml-4 flex flex-col justify-center">
+                {i.origin}
+              </div>
             </div>
           </div>
         )}

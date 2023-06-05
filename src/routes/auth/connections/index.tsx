@@ -8,11 +8,10 @@ import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 
 export const Connections = () => {
   const { client } = useJsonRpcClient()
-  const { connections, loading, error, removeConnection, loadConnections } = useConnectionStore((state) => ({
+  const { connections, loading, error, loadConnections } = useConnectionStore((state) => ({
     connections: state.connections,
     loading: state.loading,
     error: state.error,
-    removeConnection: state.removeConnection,
     loadConnections: state.loadConnections
   }))
   useEffect(() => {
@@ -24,11 +23,7 @@ export const Connections = () => {
   return (
     <section>
       <h1 className="flex justify-center flex-col text-2xl text-white mb-6">Settings</h1>
-      {connections.length === 0 ? (
-        <NoAppsConnected />
-      ) : (
-        <ConnectionsList connections={connections} removeConnection={(c) => removeConnection(client, c)} />
-      )}
+      {connections.length === 0 ? <NoAppsConnected /> : <ConnectionsList connections={connections} />}
       <div className="mt-6">
         <Frame>
           <p>

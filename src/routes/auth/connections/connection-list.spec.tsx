@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { ConnectionsList } from './connection-list'
 import locators from '../../../components/locators'
+import { connectionsConnection } from '../../../locator-ids'
 
 describe('ConnectionList', () => {
   it('renders list of connections passed in with image', () => {
@@ -24,7 +25,7 @@ describe('ConnectionList', () => {
         ]}
       />
     )
-    const connections = screen.getAllByTestId('connection')
+    const connections = screen.getAllByTestId(connectionsConnection)
     expect(connections).toHaveLength(2)
     const [vega, foo] = connections
     expect(vega).toHaveTextContent('https://vega.xyz')

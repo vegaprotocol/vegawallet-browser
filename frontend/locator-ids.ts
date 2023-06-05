@@ -43,3 +43,5 @@ export const settingsVersionNumber = 'settings-version-number'
 export const settingsLockButton = 'settings-lock-button'
 export const settingsFeedbackDescription = 'settings-feedback-description'
 export const settingsFeedbackLink = 'settings-feedback-link'
+
+export const connectionsConnection = 'connections-connection'

@@ -16,6 +16,7 @@ jest.mock('./onboarding/save-mnemonic')
 
 jest.mock('./auth')
 jest.mock('./auth/wallets')
+jest.mock('./auth/connections')
 
 describe('Routes', () => {
   it('calls persist location', () => {

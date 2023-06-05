@@ -52,6 +52,7 @@ const locators = {
   vegaIcon: 'vega-icon',
   vega: 'vega',
   walletIcon: 'wallet-icon',
+  connectionsIcon: 'connections-icon',
   transactionType: 'transaction-type',
   transactionRequest: 'transaction-request',
   transactionKey: 'transaction-key',

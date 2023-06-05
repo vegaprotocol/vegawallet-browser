@@ -1,15 +1,8 @@
-// import { Cross } from '../../../components/icons/cross'
 import { List } from '../../../components/list'
 import { HostImage } from '../../../components/host-image'
 import { Connection } from './store'
 
-export const ConnectionsList = ({
-  connections,
-  removeConnection
-}: {
-  connections: Connection[]
-  removeConnection: (connection: Connection) => void
-}) => {
+export const ConnectionsList = ({ connections }: { connections: Connection[] }) => {
   return (
     <>
       <p className="mb-6">Your wallet is connected to these dApps.</p>
@@ -24,9 +17,6 @@ export const ConnectionsList = ({
               </div>
               <div className="ml-4 flex flex-col justify-center">{i.origin}</div>
             </div>
-            {/* <button onClick={() => removeConnection(i)}>
-              <Cross className="w-8 h-8" />
-            </button> */}
           </div>
         )}
       />

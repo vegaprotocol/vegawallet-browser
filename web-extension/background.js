@@ -13,6 +13,8 @@ import config from '@config'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
+const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
+const extension = globalThis.browser?.extension ?? globalThis.chrome?.extension
 
 const interactor = new PopupClient({
   onbeforerequest: setPending,

@@ -1,0 +1,45 @@
+import { Frame } from '../../../components/frame'
+import { ConnectionsList } from './connection-list'
+import { NoAppsConnected } from './no-dapps-connected'
+import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
+import { useConnectionStore } from './store'
+import { useEffect } from 'react'
+import { ExternalLink } from '@vegaprotocol/ui-toolkit'
+
+export const Connections = () => {
+  const { client } = useJsonRpcClient()
+  const { connections, loading, error, removeConnection, loadConnections } = useConnectionStore((state) => ({
+    connections: state.connections,
+    loading: state.loading,
+    error: state.error,
+    removeConnection: state.removeConnection,
+    loadConnections: state.loadConnections
+  }))
+  useEffect(() => {
+    loadConnections(client)
+  }, [client, loadConnections])
+
+  if (error || loading) return null
+
+  return (
+    <section>
+      <h1 className="flex justify-center flex-col text-2xl text-white mb-6">Settings</h1>
+      {connections.length === 0 ? (
+        <NoAppsConnected />
+      ) : (
+        <ConnectionsList connections={connections} removeConnection={(c) => removeConnection(client, c)} />
+      )}
+      <div className="mt-6">
+        <Frame>
+          <p>
+            Trying to connect to a{' '}
+            <ExternalLink className="underline" href="https://vega.xyz/use">
+              <span>Vega dApp</span>
+            </ExternalLink>
+            ? Look for the "Connect Wallet" button and press it to create a connection.
+          </p>
+        </Frame>
+      </div>
+    </section>
+  )
+}

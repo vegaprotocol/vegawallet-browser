@@ -76,12 +76,16 @@ export class APIHelper {
     )
   }
 
-  async setUpWalletAndKey(passphrase = 'password1', walletName = 'Wallet 1', keyName = 'Key 1') {
-    let resp: any
-    resp = await this.createPassphrase(passphrase)
+  async createPassphraseAndCheckSuccess(passphrase = 'password1') {
+    const resp = await this.createPassphrase(passphrase)
     expect(resp, `expected to create passphrase via the api but the response was not null, instead it was: ${resp}`, {
       showPrefix: false
     }).toBe(null)
+  }
+
+  async setUpWalletAndKey(passphrase = 'password1', walletName = 'Wallet 1', keyName = 'Key 1') {
+    let resp: any
+    await this.createPassphraseAndCheckSuccess(passphrase)
 
     const recoveryPhrase = await this.generateRecoveryPhrase()
     expect(

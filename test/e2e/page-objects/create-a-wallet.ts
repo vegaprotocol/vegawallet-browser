@@ -2,14 +2,23 @@ import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
+import { ImportAWallet } from './import-a-wallet'
 
 export class CreateAWallet {
   private readonly createNewWalletButton: By = getByDataTestID(locators.createNewWalletButton)
+  private readonly importWalletButton: By = getByDataTestID(locators.importWalletButton)
 
   constructor(private readonly driver: WebDriver) {}
 
   async createNewWallet() {
+    this.checkOnCreateWalletPage
     await clickElement(this.driver, this.createNewWalletButton)
+  }
+
+  async importWallet() {
+    this.checkOnCreateWalletPage
+    await clickElement(this.driver, this.importWalletButton)
+    return new ImportAWallet(this.driver)
   }
 
   async checkOnCreateWalletPage() {

@@ -6,6 +6,13 @@ import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
+import { APIHelper } from './wallet-helpers/api-helpers'
+
+const recoveryPhrase =
+  'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
+
+const incorrectRecoveryPhrase =
+  'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic bob'
 
 describe('Onboarding', () => {
   let driver: WebDriver
@@ -46,6 +53,30 @@ describe('Onboarding', () => {
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
     await navigateToLandingPage(driver)
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
+  })
+
+  it('can successfully import a wallet', async () => {
+    // 1101-BWAL-013 I can choose to import an existing wallet
+    const apiHelper = new APIHelper(driver)
+    await navigateToLandingPage(driver)
+    await apiHelper.createPassphraseAndCheckSuccess()
+    const importWallet = await createAWallet.importWallet()
+    await importWallet.fillInRecoveryPhraseAndSubmit(recoveryPhrase)
+    await viewWallet.checkOnViewWalletPage()
+  })
+
+  it('show an error when recovery phrase is incorrect', async () => {
+    //TODO- add ac to specs and update the code here
+    // If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again)
+    const apiHelper = new APIHelper(driver)
+    await navigateToLandingPage(driver)
+    await apiHelper.createPassphraseAndCheckSuccess()
+    const importWallet = await createAWallet.importWallet()
+    await importWallet.fillInRecoveryPhraseAndSubmit(incorrectRecoveryPhrase)
+    const errorText = await importWallet.getErrorMessageText()
+    expect(errorText).toBeTruthy() //Improve this assertion before merging! Once validation is added.
+    await importWallet.fillInRecoveryPhraseAndSubmit(recoveryPhrase)
+    await viewWallet.checkOnViewWalletPage()
   })
 
   it('can navigate back to the getting started page if no password submitted', async () => {

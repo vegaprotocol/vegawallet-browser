@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   type: 'null',
   errorMessage: '`client.get_chain_id` does not take any parameters'
 }

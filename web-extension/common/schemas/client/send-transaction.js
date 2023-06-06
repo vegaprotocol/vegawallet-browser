@@ -1,9 +1,8 @@
-module.exports = {
+export default {
   type: 'object',
   required: ['publicKey', 'transaction', 'sendingMode'],
   additionalProperties: false,
-  errorMessage:
-    '`client.send_transaction` must only be given `publicKey`, `transaction` and `sendingMode`',
+  errorMessage: '`client.send_transaction` must only be given `publicKey`, `transaction` and `sendingMode`',
   properties: {
     publicKey: {
       type: 'string',

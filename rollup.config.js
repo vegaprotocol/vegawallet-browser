@@ -9,6 +9,8 @@ import replace from '@rollup/plugin-replace'
 import dotenv from 'dotenv'
 import tailwindcss from 'tailwindcss'
 import copy from 'rollup-plugin-copy'
+import { folderInput } from 'rollup-plugin-folder-input'
+import { compileFile } from './scripts/compile-ajv-schema.js'
 
 // Config dotenv to pick up environment variables from .env
 dotenv.config()
@@ -26,7 +28,48 @@ const envVars = Object.entries(process.env)
     {}
   )
 
+// function concatMerger(objValue, srcValue) {
+//   if (_.isArray(objValue)) {
+//     return objValue.concat(srcValue)
+//   }
+//   return _.merge(srcValue, objValue)
+// }
+
+// const compileValidation = async () => {
+//   const paths = await glob('./web-extension/common/schemas/**/*.js')
+//   await Promise.all(paths.map((path) => compileFile(path, path.replace('schemas/', 'validation/'))))
+// }
+
+// const buildManifest = async (browser, appPath) => {
+//   const manifest = await import('./web-extension/common/manifest.json')
+
+//   const packageJson = await import('./package.json')
+//   const destinationPath = `${appPath}/manifest.json`
+//   const browserManifest = await import(`./web-extension/${browser}/manifest.json`)
+//   const mergedManifest = _.mergeWith(manifest, browserManifest, concatMerger)
+//   mergedManifest.version = packageJson.version
+//   await fs.mkdir(path.dirname(destinationPath), { recursive: true })
+//   await fs.writeFile(destinationPath, JSON.stringify(mergedManifest, null, 2))
+// }
+
 const config = [
+  {
+    input: 'web-extension/common/schemas/**/*.js',
+    output: {
+      dir: 'web-extension/common/schemas/validation'
+    },
+    plugins: [
+      folderInput(),
+      {
+        name: 'avj-compile', // this name will show up in warnings and errors
+        async transform(content, path) {
+          const schema = await import(path)
+          const compiled = await compileFile(schema.default)
+          return compiled
+        }
+      }
+    ]
+  },
   ...['background', 'content-script', 'in-page', 'pow-worker'].map((name) => ({
     input: `web-extension/common/${name}.js`,
     output: {

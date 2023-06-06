@@ -2,10 +2,7 @@ import { By, WebDriver } from 'selenium-webdriver'
 import { getByDataTestID, getElements, isElementDisplayed } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
-import { get } from 'http'
-import { elementsLocated } from 'selenium-webdriver/lib/until'
-
-export class Connections {
+export class ListConnections {
   private readonly noConnections: By = getByDataTestID(locators.connectionsNoConnections)
   private readonly connectionsEl: By = getByDataTestID(locators.connectionsConnection)
   private readonly connectionsHeader: By = getByDataTestID(locators.connectionsHeader)
@@ -13,10 +10,10 @@ export class Connections {
 
   constructor(private readonly driver: WebDriver) {}
 
-  async checkOnConnectionsPage() {
+  async checkOnListConnectionsPage() {
     expect(
-      await this.isConnectionsPage(),
-      "expected to be on the 'connections' page but could not locate the connections header",
+      await this.isListConnectionsPage(),
+      "expected to be on the 'list connections' page but could not locate the connections header",
       { showPrefix: false }
     ).toBe(true)
   }
@@ -41,7 +38,7 @@ export class Connections {
     ).toBe(false)
   }
 
-  async isConnectionsPage() {
+  async isListConnectionsPage() {
     return await isElementDisplayed(this.driver, this.connectionsHeader)
   }
 }

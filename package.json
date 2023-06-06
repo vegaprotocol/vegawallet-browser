@@ -102,15 +102,5 @@
     "selenium-webdriver": "^4.8.2",
     "ts-jest": "^29.1.0",
     "web-ext": "^7.6.1"
-  },
-  "watch": {
-    "build:chrome": {
-      "patterns": [
-        "web-extension",
-        "src"
-      ],
-      "ignore": "web-extension/common/validation/**/*.js",
-      "extensions": "js,jsx,ts,tsx"
-    }
   }
 }

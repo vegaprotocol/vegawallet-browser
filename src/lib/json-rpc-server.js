@@ -1,4 +1,4 @@
-import { JSONRPCError, isNotification, isRequest } from './json-rpc.js'
+import { JSONRPCError, isNotification, isRequest } from './json-rpc'
 
 const Errors = {
   JSONRPC_PARSE_ERROR: { code: -32700, message: 'Parse error' },
@@ -10,7 +10,7 @@ const Errors = {
 export default class JSONRPCServer {
   static Error = JSONRPCError
 
-  constructor({ methods, onnotification = (method, params, context) => { }, onerror = (ex, req, context) => { } }) {
+  constructor({ methods, onnotification = (method, params, context) => {}, onerror = (ex, req, context) => {} }) {
     this.onerror = onerror
     this.onnotification = onnotification
     this._dispatch = new Map(Object.entries(methods))

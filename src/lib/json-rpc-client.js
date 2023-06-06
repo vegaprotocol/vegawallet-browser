@@ -1,13 +1,9 @@
-import { JSONRPCError, isNotification, isResponse } from './json-rpc.js'
+import { JSONRPCError, isNotification, isResponse } from './json-rpc'
 
 export default class JSONRPCClient {
   static Error = JSONRPCError
 
-  constructor({
-    send,
-    onnotification = (_) => {},
-    idPrefix = Math.random().toString(36)
-  }) {
+  constructor({ send, onnotification = (_) => {}, idPrefix = Math.random().toString(36) }) {
     this._send = send
     this._onnotification = onnotification ?? (() => {})
     this.inflight = new Map()
@@ -61,11 +57,7 @@ export default class JSONRPCClient {
     this.inflight.delete(id)
 
     if (data.error) {
-      const err = new JSONRPCClient.Error(
-        data.error.message,
-        data.error.code,
-        data.error.data
-      )
+      const err = new JSONRPCClient.Error(data.error.message, data.error.code, data.error.data)
       p[1](err)
       return
     }

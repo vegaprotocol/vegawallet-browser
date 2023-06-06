@@ -43,7 +43,7 @@ export const Settings = () => {
         <ExternalLink
           data-testid={settingsFeedbackLink}
           className="text-white mt-1 underline"
-          href={process.env['REACT_APP_FEEDBACK_LINK']}
+          href={process.env.REACT_APP_FEEDBACK_LINK}
         >
           Provide feedback
         </ExternalLink>

@@ -10,8 +10,7 @@ const U64_MAX = 2n ** 64n - 1n
 // Use all but two cores for solving
 // FIXME: Chrome does not support Workers in ServiceWorkers (ie the background page)
 // so as a workaround we set concurrency to 0 and handle this in the solver
-const NUM_WORKERS =
-  globalThis.Worker == null ? 0 : Math.max(navigator.hardwareConcurrency - 2, 1)
+const NUM_WORKERS = globalThis.Worker == null ? 0 : Math.max(navigator.hardwareConcurrency - 2, 1)
 
 // Increase to make buckets twice as big, which will make
 // the amount of wasted work grow by a factor of NUM_WORKERS - 1, but
@@ -21,7 +20,7 @@ const BUCKET_SIZE = 14n
 const PARTITION_DIV = U64_MAX >> BUCKET_SIZE
 
 const workers = Array.from({ length: NUM_WORKERS }, (_) => {
-  const worker = new Worker(runtime.getURL('/static/js/pow-worker.js'))
+  const worker = new Worker(runtime.getURL('pow-worker.js'))
 
   const client = new JSONRPCClient({
     send(req) {
@@ -40,8 +39,7 @@ const lock = mutex()
 export default async function (args) {
   // FIXME: Workaround for chrome which doens't support workers. See the note above for
   // NUM_WORKERS
-  if (NUM_WORKERS === 0)
-    return PoW.solve(args.difficulty, args.blockHash, args.tid)
+  if (NUM_WORKERS === 0) return PoW.solve(args.difficulty, args.blockHash, args.tid)
 
   const release = await lock()
 

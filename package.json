@@ -44,8 +44,9 @@
     "eject": "react-scripts eject",
     "watch": "npm-watch",
     "test:backend": "jest --config=jest.config-backend.js",
-    "test:e2e:chrome": "BROWSER=chrome jest ./test/e2e --config=jest.config-e2e.js --maxWorkers=1",
-    "test:e2e:firefox": "BROWSER=firefox jest ./test/e2e --config=jest.config-e2e.js --maxWorkers=1",
+    "test:e2e": "jest ./test/e2e --config=jest.config-e2e.js --maxWorkers=1",
+    "test:e2e:chrome": "BROWSER=chrome yarn test:e2e",
+    "test:e2e:firefox": "BROWSER=firefox yarn test:e2e",
     "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox"
   },
   "browserslist": {

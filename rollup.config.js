@@ -5,7 +5,26 @@ import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
 import postcss from 'rollup-plugin-postcss'
 import html, { makeHtmlAttributes } from '@rollup/plugin-html'
+import replace from '@rollup/plugin-replace'
+import dotenv from 'dotenv'
+import tailwindcss from 'tailwindcss'
+import copy from 'rollup-plugin-copy'
+
+// Config dotenv to pick up environment variables from .env
+dotenv.config()
+
 const isProduction = process.env.NODE_ENV === 'production'
+
+// Replace `process.env.REACT_APP_*` with the actual values from the environment
+const envVars = Object.entries(process.env)
+  .filter(([key]) => key.startsWith('REACT_APP_'))
+  .reduce(
+    (prev, [key, value]) => ({
+      ...prev,
+      [`process.env.${key}`]: JSON.stringify(value)
+    }),
+    {}
+  )
 
 const config = [
   ...['background', 'content-script', 'in-page', 'pow-worker'].map((name) => ({
@@ -15,7 +34,19 @@ const config = [
       format: 'iife',
       entryFileNames: `${name}.js`
     },
-    plugins: [nodeResolve({ browser: true }), json({ compact: isProduction }), commonjs(), isProduction && terser()]
+    plugins: [
+      nodeResolve({ browser: true }),
+      json({ compact: isProduction }),
+      commonjs(),
+      isProduction && terser(),
+      // Replace `process.env.REACT_APP_*` with the actual values from the environment
+      replace({
+        preventAssignment: true,
+        values: {
+          ...envVars
+        }
+      })
+    ]
   })),
   {
     input: './src/index.tsx',
@@ -25,10 +56,23 @@ const config = [
       entryFileNames: 'popup.js'
     },
     plugins: [
+      nodeResolve({ browser: true }),
+      json({ compact: isProduction }),
+      commonjs(),
+      // The below plugin is required to make css imports work, however I'm not sure
+      // if it will work with tailwindcss as the rollup plugin is a few versions old?
+      postcss({
+        extensions: ['.css'],
+        plugins: [tailwindcss()]
+      }),
+
+      // Are the above plugins needed? I guess rollup needs to know how to resolve imports
+      // but you'd also think all of this is handled by typescript anyway?
+      typescript(),
       html({
         outputDir: 'build/common',
         title: 'Vega browser wallet',
-        template: ({ attributes, bundle, files, publicPath, title, meta }) => {
+        template: ({ attributes, files, publicPath, title, meta }) => {
           const scripts = (files.js || [])
             .map(({ fileName }) => {
               const attrs = makeHtmlAttributes(attributes.script)
@@ -63,20 +107,23 @@ const config = [
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     ${scripts}
+    <!-- TODO there must be better way to do this -->
+    <script src="background.js"></script> 
   </body>
 </html>`
         }
       }),
-      nodeResolve({ browser: true }),
-      json({ compact: isProduction }),
-      commonjs(),
-      // The below plugin is required to make css imports work, however I'm not sure
-      // if it will work with tailwindcss as the rollup plugin is a few versions old?
-      postcss(),
-
-      // Are the above plugins needed? I guess rollup needs to know how to resolve imports
-      // but you'd also think all of this is handled by typescript anyway?
-      typescript()
+      replace({
+        preventAssignment: true,
+        values: {
+          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+          ...envVars
+        }
+      }),
+      // Copy static assets
+      copy({
+        targets: [{ src: 'public/**/*', dest: 'build/common' }]
+      })
     ]
   }
 ]

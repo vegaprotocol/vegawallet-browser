@@ -77,7 +77,7 @@ export const Wallets = () => {
           <ExternalLink
             data-testid={walletsDepositLink}
             className="break-word"
-            href={process.env['REACT_APP_DEPOSIT_LINK']}
+            href={process.env.REACT_APP_DEPOSIT_LINK}
           >
             a Vega dapp.
           </ExternalLink>

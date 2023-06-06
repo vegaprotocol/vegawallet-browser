@@ -7,7 +7,7 @@ const doc = document.head ?? document.documentElement
 const script = document.createElement('script')
 script.setAttribute('async', 'false')
 // This also works in firefox!
-script.src = runtime.getURL('/static/js/in-page.js')
+script.src = runtime.getURL('in-page.js')
 doc.insertBefore(script, doc.children[0])
 doc.removeChild(script)
 

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   testEnvironment: 'jest-environment-node',
   testTimeout: 30000,
   reporters: [

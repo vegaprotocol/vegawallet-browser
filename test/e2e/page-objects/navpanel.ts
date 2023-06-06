@@ -4,7 +4,7 @@ import 'jest-expect-message'
 import locators from '../../../src/components/locators'
 
 import { Settings } from './settings'
-import { Connections } from './connections'
+import { ListConnections } from './list-connections'
 
 export class NavPanel {
   private readonly activeNavPanelButton: By = By.css('[data-testid="nav-button"].text-center.active')
@@ -32,14 +32,14 @@ export class NavPanel {
     return new Settings(this.driver)
   }
 
-  async goToConnections() {
+  async goToListConnections() {
     clickElement(this.driver, this.connections)
-    const connections = new Connections(this.driver)
+    const connections = new ListConnections(this.driver)
     expect(
-      await connections.isConnectionsPage(),
+      await connections.isListConnectionsPage(),
       'expected to be able to navigate to connections via the nav panel but was not on the connections page',
       { showPrefix: false }
     ).toBe(true)
-    return new Connections(this.driver)
+    return new ListConnections(this.driver)
   }
 }

@@ -54,9 +54,26 @@ const envVars = Object.entries(process.env)
 
 const config = [
   {
-    input: 'web-extension/common/schemas/**/*.js',
+    input: 'web-extension/common/schemas/client/*.js',
     output: {
-      dir: 'web-extension/common/schemas/validation'
+      dir: 'web-extension/common/validation/client'
+    },
+    plugins: [
+      folderInput(),
+      {
+        name: 'avj-compile', // this name will show up in warnings and errors
+        async transform(content, path) {
+          const schema = await import(path)
+          const compiled = await compileFile(schema.default)
+          return compiled
+        }
+      }
+    ]
+  },
+  {
+    input: 'web-extension/common/schemas/admin/*.js',
+    output: {
+      dir: 'web-extension/common/validation/admin'
     },
     plugins: [
       folderInput(),

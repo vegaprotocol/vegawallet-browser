@@ -57,6 +57,7 @@ describe('Onboarding', () => {
 
   it('can successfully import a wallet', async () => {
     // 1101-BWAL-013 I can choose to import an existing wallet
+    // I am redirected to the next step (<a name="1101-BWAL-075
     const apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()
@@ -67,8 +68,6 @@ describe('Onboarding', () => {
   })
 
   it('shows an error when recovery phrase is incorrect', async () => {
-    //TODO- add ac to specs and update the code here
-    // If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again)
     const apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()

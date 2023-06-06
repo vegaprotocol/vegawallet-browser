@@ -5,6 +5,7 @@ import { importMnemonic, importMnemonicDescription, importMnemonicSubmit } from 
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { FULL_ROUTES } from '../../route-names'
+import { validRecoveryPhrase } from '../../../../test/e2e/wallet-helpers/common'
 
 const mockedUsedNavigate = jest.fn()
 
@@ -25,11 +26,13 @@ const renderComponent = () => {
 
 describe('ImportWallet', () => {
   it('renders description, input and submit button', () => {
+    // 1101-BWAL-070 I can see an explanation of what I am being asked to do
     mockClient()
     renderComponent()
     expect(screen.getByTestId(importMnemonicDescription)).toHaveTextContent(
       "Enter or paste in your Vega wallet's recovery phrase."
     )
+    expect(screen.getByTestId(importMnemonicDescription)).toBeVisible()
     expect(screen.getByTestId(importMnemonic)).toBeInTheDocument()
     expect(screen.getByTestId(importMnemonicSubmit)).toHaveTextContent('Import wallet')
   })
@@ -53,17 +56,26 @@ describe('ImportWallet', () => {
   })
 
   it('requires mnemonic should be 24 words', async () => {
+    // 1101-BWAL-073 I can not hit submit until I have entered 24 words (and given feedback that I haven't met the min number of words)
     mockClient()
+    const twentyThreeWords =
+      'one two three four five six seven eight nine ten eleven twelve thirteen fouteen fifteen sixteen seventeen eighteen ninteen twenty twenty-one twenty-two twenty-three'
     renderComponent()
     fireEvent.change(screen.getByTestId(importMnemonic), {
-      target: { value: 'bad mnemonic' }
+      target: { value: twentyThreeWords }
     })
-    fireEvent.click(screen.getByTestId(importMnemonicSubmit))
     await screen.findByText('Recovery phrase must be 24 words')
     expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
+    fireEvent.change(screen.getByTestId(importMnemonic), {
+      target: { value: twentyThreeWords + ' twenty-four' }
+    })
+    expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
+
+    fireEvent.click(screen.getByTestId(importMnemonicSubmit))
   })
 
   it('renders error message if recovery phrase is invalid', async () => {
+    // 1101-BWAL-074 If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again)
     const listeners: Function[] = []
     // @ts-ignore
     global.browser = {
@@ -97,7 +109,7 @@ describe('ImportWallet', () => {
     renderComponent()
     fireEvent.change(screen.getByTestId(importMnemonic), {
       target: {
-        value: 'bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad bad'
+        value: validRecoveryPhrase.slice(0, -1)
       }
     })
     fireEvent.click(screen.getByTestId(importMnemonicSubmit))

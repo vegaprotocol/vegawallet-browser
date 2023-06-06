@@ -35,6 +35,17 @@ module.exports = {
     }
   },
 
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: './test-reports',
+        outputName: 'unit-test-results.xml'
+      }
+    ]
+  ],
+
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
 }

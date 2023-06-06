@@ -2,6 +2,8 @@ import { WebDriver, until } from 'selenium-webdriver'
 import * as fs from 'fs'
 
 const chromeExtensionURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
+export const validRecoveryPhrase =
+  'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
 
 async function getLandingPageURL(driver: WebDriver) {
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {

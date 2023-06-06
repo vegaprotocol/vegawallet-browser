@@ -24,6 +24,17 @@ module.exports = {
 
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 
+  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
+  coverageReporters: ['html'],
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100
+    }
+  },
+
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
 }

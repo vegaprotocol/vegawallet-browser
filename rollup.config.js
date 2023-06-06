@@ -35,11 +35,6 @@ const envVars = Object.entries(process.env)
 //   return _.merge(srcValue, objValue)
 // }
 
-// const compileValidation = async () => {
-//   const paths = await glob('./web-extension/common/schemas/**/*.js')
-//   await Promise.all(paths.map((path) => compileFile(path, path.replace('schemas/', 'validation/'))))
-// }
-
 // const buildManifest = async (browser, appPath) => {
 //   const manifest = await import('./web-extension/common/manifest.json')
 
@@ -62,7 +57,7 @@ const config = [
       folderInput(),
       {
         name: 'avj-compile', // this name will show up in warnings and errors
-        async transform(content, path) {
+        async transform(_, path) {
           const schema = await import(path)
           const compiled = await compileFile(schema.default)
           return compiled
@@ -79,7 +74,7 @@ const config = [
       folderInput(),
       {
         name: 'avj-compile', // this name will show up in warnings and errors
-        async transform(content, path) {
+        async transform(_, path) {
           const schema = await import(path)
           const compiled = await compileFile(schema.default)
           return compiled

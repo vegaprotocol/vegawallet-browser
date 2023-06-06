@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   type: 'null',
   errorMessage: '`admin.list_wallets` does not take any parameters'
 }

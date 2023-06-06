@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   type: 'object',
   required: ['name', 'api', 'apps'],
   additionalProperties: false,

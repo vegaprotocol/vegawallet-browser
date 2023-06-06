@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   type: 'null',
   errorMessage: '`client.connect_wallet` does not take any parameters'
 }

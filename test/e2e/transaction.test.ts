@@ -46,7 +46,7 @@ describe('transactions', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    //await driver.quit()
+    await driver.quit()
   })
 
   it('can confirm a transaction', async () => {

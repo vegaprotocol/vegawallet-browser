@@ -164,23 +164,65 @@ export default class NodeRPC {
       case 0:
         return res
 
-      /* eslint-disable no-fallthrough */
-      // AbciTxnValidationFailure ...
       case 51:
+        throw new NodeRPC.TxErrors.AbciTxnValidationFailure(toString(fromHex(res.data)), res.code)
 
       // AbciTxnDecodingFailure code is returned when CheckTx or DeliverTx fail to decode the Txn.
       case 60:
+        throw new NodeRPC.TxErrors.AbciTxnDecodingFailure(toString(fromHex(res.data)), res.code)
 
       // AbciTxnInternalError code is returned when CheckTx or DeliverTx fail to process the Txn.
       case 70:
+        throw new NodeRPC.TxErrors.AbciTxnInternalError(toString(fromHex(res.data)), res.code)
 
       // AbciUnknownCommandError code is returned when the app doesn't know how to handle a given command.
       case 80:
+        throw new NodeRPC.TxErrors.AbciUnknownCommandError(toString(fromHex(res.data)), res.code)
 
       // AbciSpamError code is returned when CheckTx or DeliverTx fail spam protection tests.
       case 89:
-        throw new Error(toString(fromHex(res.data)))
-      /* eslint-enable no-fallthrough */
+        throw new NodeRPC.TxErrors.AbciSpamError(toString(fromHex(res.data)), res.code)
     }
+  }
+
+  static isTxError(err) {
+    return err instanceof NodeRPC.TxErrors.AbciTxnValidationFailure ||
+      err instanceof NodeRPC.TxErrors.AbciTxnDecodingFailure ||
+      err instanceof NodeRPC.TxErrors.AbciTxnInternalError ||
+      err instanceof NodeRPC.TxErrors.AbciUnknownCommandError ||
+      err instanceof NodeRPC.TxErrors.AbciSpamError
+  }
+
+  static TxErrors = {
+    AbciTxnValidationFailure: class extends Error {
+      constructor(msg, code) {
+        super(msg)
+        this.code = code
+      }
+    },
+    AbciTxnDecodingFailure: class extends Error {
+      constructor(msg, code) {
+        super(msg)
+        this.code = code
+      }
+    },
+    AbciTxnInternalError: class extends Error {
+      constructor(msg, code) {
+        super(msg)
+        this.code = code
+      }
+    },
+    AbciUnknownCommandError: class extends Error {
+      constructor(msg, code) {
+        super(msg)
+        this.code = code
+      }
+    },
+    AbciSpamError: class extends Error {
+      constructor(msg, code) {
+        super(msg)
+        this.code = code
+      }
+    },
   }
 }

@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto'
-import { WebDriver } from 'selenium-webdriver'
+import { TouchSequence, WebDriver } from 'selenium-webdriver'
 import { Page } from '../../../src/components/page/page'
 import { closeCurrentWindowAndSwitchToPrevious, openNewWindowAndSwitchToIt } from '../selenium-util'
 
@@ -13,15 +13,17 @@ export class VegaAPI {
   private driver: WebDriver
   private vegaDappWindowHandle = ''
   private vegaExtensionWindowHandle: string
+  private dappUrl: string
 
-  constructor(driver: WebDriver, vegaExtensionWindowHandle: string) {
+  constructor(driver: WebDriver, vegaExtensionWindowHandle: string, dappUrl: 'https://google.co.uk') {
     this.driver = driver
     this.vegaExtensionWindowHandle = vegaExtensionWindowHandle
+    this.dappUrl = dappUrl
   }
 
-  async openNewWindow(newPageURL = 'https://google.co.uk') {
+  async openNewWindow() {
     this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver)
-    this.driver.get(newPageURL)
+    this.driver.get(this.dappUrl)
   }
 
   async connectWallet(withNewTab = true, closeTab = false) {

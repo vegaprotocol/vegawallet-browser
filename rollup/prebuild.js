@@ -1,4 +1,4 @@
-import ajvPlugin from './plugins/ajv/ajv-plugin.js'
+import ajvPlugin from './helpers/ajv/ajv-plugin.js'
 import { folderInput } from 'rollup-plugin-folder-input'
 
 export default () => [

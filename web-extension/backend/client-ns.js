@@ -1,6 +1,16 @@
 import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
+const Errors = {
+  NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],
+  CONNECTION_DENIED: ['Connection denied', -2, 'The user denied the connection request'],
+
+  UNKNOWN_PUBLIC_KEY: ['Unknown public key', -3, 'The public key is not known to the wallet'],
+  TRANSACTION_DENIED: ['Transaction denied', -4, 'The user denied the transaction request'],
+
+  TRANSACTION_FAILED: ['Transaction failed', -5 /* This is filled in by the error thrown */],
+
+}
 
 function doValidate(validator, params) {
   if (!validator(params))
@@ -23,7 +33,7 @@ export default function init({ onerror, settings, wallets, networks, connections
             receivedAt
           })
 
-          if (approved === false) throw new JSONRPCServer.Error('Connection denied', -32000)
+          if (approved === false) throw new JSONRPCServer.Error(...Errors.CONNECTION_DENIED)
 
           await connections.set(context.origin, {
             publicKeys: [],
@@ -44,16 +54,16 @@ export default function init({ onerror, settings, wallets, networks, connections
       async 'client.send_transaction'(params, context) {
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.sendTransaction, params)
-        if (context.isConnected === false) throw new JSONRPCServer.Error('Not connected', -32000)
+        if (context.isConnected === false) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)
         if ((await connections.isAllowed(context.origin, params.publicKey)) === false) {
-          throw new JSONRPCServer.Error('Unknown public key', -32000)
+          throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
         }
 
         const key = await wallets.getKeyByPublicKey({
           publicKey: params.publicKey
         })
 
-        if (key == null) throw new JSONRPCServer.Error('Unknown public key')
+        if (key == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
 
         const approved = await interactor.reviewTransaction({
           transaction: params.transaction,
@@ -65,7 +75,7 @@ export default function init({ onerror, settings, wallets, networks, connections
           receivedAt
         })
 
-        if (approved === false) throw new JSONRPCServer.Error('Transaction denied', -32000)
+        if (approved === false) throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
 
         const selectedNetwork = await settings.get('selectedNetwork')
         const network = await networks.get(selectedNetwork)
@@ -94,7 +104,7 @@ export default function init({ onerror, settings, wallets, networks, connections
 
       async 'client.list_keys'(params, context) {
         doValidate(clientValidation.listKeys, params)
-        if (context.isConnected === false) throw new JSONRPCServer.Error('Not connected', -32000)
+        if (context.isConnected === false) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)
 
         const keys = await connections.listAllowedKeys(context.origin)
 

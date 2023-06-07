@@ -117,13 +117,13 @@ describe('transactions', () => {
     expect(response).toBe('Unknown public key')
   })
 
-  it('the transaction persists when the extension is opened', async () => {
+  it('the transaction persists when the extension is re-opened and locked', async () => {
     // 1101-BWAL-052 When the user opens the extension (or it has automatically opened) they can immediately see a transaction request
     // 1101-BWAL-053 If the browser extension is closed during a transaction request, the request persists
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()
-    await openNewWindowAndSwitchToIt(driver)
+    await openNewWindowAndSwitchToIt(driver, true)
     await navigateToLandingPage(driver)
     await apiHelper.lockWallet()
     await apiHelper.login()

@@ -8,6 +8,11 @@ dotenv.config()
 
 const isProduction = process.env.NODE_ENV === 'production'
 
+const browsers = ['chrome', 'firefox']
+
+const destination = 'build'
+const commonPath = `${destination}/common`
+
 // Replace `process.env.REACT_APP_*` with the actual values from the environment
 const envVars = Object.entries(process.env)
   .filter(([key]) => key.startsWith('REACT_APP_'))
@@ -19,6 +24,10 @@ const envVars = Object.entries(process.env)
     {}
   )
 
-const config = [...prebuild(), ...backend(envVars, isProduction), ...frontend(envVars, isProduction)]
+const config = [
+  ...prebuild(),
+  ...backend(envVars, isProduction, commonPath),
+  ...frontend(envVars, isProduction, commonPath, browsers)
+]
 
 export default config

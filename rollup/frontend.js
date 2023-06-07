@@ -8,9 +8,9 @@ import replace from '@rollup/plugin-replace'
 import tailwindcss from 'tailwindcss'
 import copy from 'rollup-plugin-copy'
 
-const htmlPlugin = () => {
+const htmlPlugin = (outputPath) => {
   return html({
-    outputDir: 'build/common',
+    outputDir: outputPath,
     title: 'Vega browser wallet',
     template: ({ attributes, files, publicPath, title, meta }) => {
       const scripts = (files.js || [])
@@ -55,11 +55,17 @@ const htmlPlugin = () => {
   })
 }
 
-export default (envVars, isProduction) => [
+/**
+ * Builds the frontend JS, CSS, HTML and assets.
+ * @param {object} envVars - The environment variables to replace
+ * @param {boolean} isProduction - Whether or not this is a production build
+ * @param {string} outputPath - The path to output the build to
+ */
+export default (envVars, isProduction, outputPath) => [
   {
     input: './src/index.tsx',
     output: {
-      dir: 'build/common',
+      dir: outputPath,
       format: 'iife',
       entryFileNames: 'popup.js'
     },
@@ -67,17 +73,16 @@ export default (envVars, isProduction) => [
       nodeResolve({ browser: true }),
       json({ compact: isProduction }),
       commonjs(),
-      // The below plugin is required to make css imports work, however I'm not sure
-      // if it will work with tailwindcss as the rollup plugin is a few versions old?
+      // Process CSS
       postcss({
         extensions: ['.css'],
         plugins: [tailwindcss()]
       }),
-
-      // Are the above plugins needed? I guess rollup needs to know how to resolve imports
-      // but you'd also think all of this is handled by typescript anyway?
+      // Process typescript
       typescript(),
-      htmlPlugin(),
+      // Generate HTML
+      htmlPlugin(outputPath),
+      // Replace env vars with static values
       replace({
         preventAssignment: true,
         values: {
@@ -87,7 +92,7 @@ export default (envVars, isProduction) => [
       }),
       // Copy static assets
       copy({
-        targets: [{ src: 'public/**/*', dest: 'build/common' }]
+        targets: [{ src: 'public/**/*', dest: outputPath }]
       })
     ]
   }

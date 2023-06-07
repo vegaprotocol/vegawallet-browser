@@ -113,8 +113,13 @@ async function waitForTextFieldToBeEmpty(driver: WebDriver, locator: By, timeout
   )
 }
 
-export async function openNewWindowAndSwitchToIt(driver: WebDriver) {
+export async function openNewWindowAndSwitchToIt(driver: WebDriver, closeOld = false) {
+  let currentWindowHandle: string
   await driver.executeScript('window.open();')
+  if (closeOld) {
+    currentWindowHandle = await driver.getWindowHandle()
+    await driver.close()
+  }
   const handles = await driver.getAllWindowHandles()
   const latestHandle = handles[handles.length - 1]
   await driver.switchTo().window(latestHandle)

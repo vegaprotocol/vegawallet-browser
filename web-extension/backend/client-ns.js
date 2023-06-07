@@ -1,6 +1,8 @@
 import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
+import NodeRPC from './node-rpc.js'
+
 const Errors = {
   NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],
   CONNECTION_DENIED: ['Connection denied', -2, 'The user denied the connection request'],
@@ -27,6 +29,7 @@ export default function init({ onerror, settings, wallets, networks, connections
       async 'client.connect_wallet'(params, context) {
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.connectWallet, params)
+        if (context.isConnected === true) return null
         if ((await connections.has(context.origin)) === false) {
           const approved = await interactor.reviewConnection({
             origin: context.origin,
@@ -81,12 +84,26 @@ export default function init({ onerror, settings, wallets, networks, connections
         const network = await networks.get(selectedNetwork)
         const rpc = await network.rpc()
 
-        return txHelpers.sendTransaction({
-          keys: key.keyPair,
-          rpc,
-          sendingMode: params.sendingMode,
-          transaction: params.transaction
-        })
+        try {
+
+          const res = await txHelpers.sendTransaction({
+            keys: key.keyPair,
+            rpc,
+            sendingMode: params.sendingMode,
+            transaction: params.transaction
+          })
+
+          res.receivedAt = receivedAt
+
+          return res
+        } catch (e) {
+          if (NodeRPC.isTxError(e)) {
+            throw new JSONRPCServer.Error(...Errors.TRANSACTION_FAILED, {
+              message: e.message,
+              code: e.code
+            })
+          }
+        }
       },
       async 'client.sign_transaction'(params, context) {
         throw new JSONRPCServer.Error('Not Implemented', -32601)

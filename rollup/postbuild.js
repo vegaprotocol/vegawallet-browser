@@ -12,11 +12,18 @@ export default (browser, commonFolder, build) => {
     {
       // Not actually used, but required by rollup. We're just using thr copy plugin.
       // Using content script as it has no deps & no dep tree to process.
-      input: 'web-extension/common/content-script.js',
+      input: 'web-extension/common/in-page.js',
       // Not actually used, but required by rollup. We're just using thr copy plugin.
       output: {
         dir: commonFolder,
-        entryFileNames: 'I_SHOULD_NOT_EXIST.js'
+        plugins: [
+          {
+            name: 'kill-output',
+            generateBundle() {
+              return []
+            }
+          }
+        ]
       },
       plugins: [
         copy({

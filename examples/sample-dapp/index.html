@@ -276,8 +276,8 @@
                   'p',
                   { style: { color: 'red' } },
                   `Error: ${Transfer.error.message} (${
-                    Transfer.error.code
-                  }) - ${Transfer.error.data ?? ''}`
+                    Transfer.error.data?.code ?? ''
+                  }) - ${Transfer.error.data?.message ?? ''}`
                 ),
             Transfer.txHash == null
               ? null

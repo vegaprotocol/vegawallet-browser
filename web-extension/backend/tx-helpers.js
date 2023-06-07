@@ -32,7 +32,7 @@ export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
 
   const chainId = latestBlock.chainId
 
-  const tx = Transaction.encode({
+  const txData = {
     inputData,
     signature: {
       value: toHex(await keys.sign(inputData, chainId)),
@@ -44,10 +44,36 @@ export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
     },
     version: TX_VERSION_V3,
     pow
-  })
+  }
 
-  return await rpc.submitRawTransaction(
+  const tx = Transaction.encode(txData)
+
+  const txJSON = {
+    inputData: toBase64(inputData),
+    signature: {
+      value: txData.signature.value,
+      algo: txData.signature.algo,
+      version: txData.signature.version
+    },
+    from: {
+      pubKey: txData.from.pubKey
+    },
+    version: txData.version,
+    pow: {
+      tid: toHex(tid),
+      nonce: pow.nonce.toString()
+    }
+  }
+
+  const sentAt = new Date().toISOString()
+  const res = await rpc.submitRawTransaction(
     toBase64(tx),
     sendingMode
   )
+
+  return {
+    sentAt,
+    transactionHash: res.txHash,
+    transaction: txJSON
+  }
 }

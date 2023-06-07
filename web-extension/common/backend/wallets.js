@@ -1,7 +1,6 @@
 import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 import { generate as generateMnemonic, wordlist, validate } from '@vegaprotocol/crypto/bip-0039/mnemonic'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
-import JSONRPCServer from '../lib/json-rpc-server.js'
 
 export class WalletCollection {
   constructor({ walletsStore, publicKeyIndexStore }) {
@@ -57,8 +56,11 @@ export class WalletCollection {
   async import({ name, recoveryPhrase }) {
     try {
       await validate(recoveryPhrase)
+
+      const words = recoveryPhrase.split(/\s+/)
+      if (words.length !== 24) throw new Error('Recovery phrase must be 24 words')
     } catch (err) {
-      throw new JSONRPCServer.Error(err.message, 1)
+      throw new Error(err.message)
     }
 
     return await this.store.transaction(async (store) => {

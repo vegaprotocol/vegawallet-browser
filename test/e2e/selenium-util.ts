@@ -125,6 +125,7 @@ export async function closeCurrentWindowAndSwitchToPrevious(driver: WebDriver, w
   await driver.close()
   if (windowHandle === '') {
     driver.switchTo().window((await driver.getAllWindowHandles())[0])
+  } else {
+    await driver.switchTo().window(windowHandle)
   }
-  await driver.switchTo().window(windowHandle)
 }

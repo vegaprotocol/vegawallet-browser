@@ -111,7 +111,12 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
       async 'admin.import_wallet'(params) {
         doValidate(adminValidation.importWallet, params)
 
-        await wallets.import(params)
+        try {
+          await wallets.import(params)
+        } catch (e) {
+          throw new JSONRPCServer.Error(e.message, 1)
+        }
+
         return null
       },
 

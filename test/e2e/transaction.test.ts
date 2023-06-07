@@ -40,12 +40,13 @@ describe('transactions', () => {
     await vegaAPI.connectWalletAndCheckSuccess()
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
+    expect(await vegaAPI.getConnectionResult()).toBe(null)
     await viewWallet.checkOnViewWalletPage()
   })
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('can confirm a transaction', async () => {

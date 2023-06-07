@@ -15,7 +15,7 @@ export class VegaAPI {
   private vegaExtensionWindowHandle: string
   private dappUrl: string
 
-  constructor(driver: WebDriver, vegaExtensionWindowHandle: string, dappUrl: 'https://google.co.uk') {
+  constructor(driver: WebDriver, vegaExtensionWindowHandle: string, dappUrl = 'https://google.co.uk') {
     this.driver = driver
     this.vegaExtensionWindowHandle = vegaExtensionWindowHandle
     this.dappUrl = dappUrl
@@ -56,7 +56,7 @@ export class VegaAPI {
     } else {
       expect(
         this.vegaDappWindowHandle,
-        'there was no window handle defined for the dapp. Try executing the api method with the withNewTab param set to create one'
+        'there was no window handle defined for the dapp. Try executing the api method with the withNewTab param set to true'
       ).toBeTruthy()
       await this.driver.switchTo().window(this.vegaDappWindowHandle)
     }

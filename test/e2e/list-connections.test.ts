@@ -24,11 +24,10 @@ describe('list connections tests', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('shows no connections when no dapp connected, updates and shows connections after approving one', async () => {
-    // 1101-BWAL-080 When I have no connections I can see that and still see instructions on how to connect to a Vega dapp
     // 1101-BWAL-076 I can see which dapps have permission to access my keys
     // 1101-BWAL-083 If I have the extension open on the Connections view AND I approve a request to connect to a dapp (and the connection is successful), the connections view should update to show the new connection
     const connections = await navPanel.goToListConnections()
@@ -45,7 +44,7 @@ describe('list connections tests', () => {
     // assert on the connection name
   })
 
-  it('can disconnect from a dap from the wallet', async () => {
+  it('can disconnect from a dap via the wallet', async () => {
     // 1101-BWAL-081 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
     const vegaAPI = new VegaAPI(driver)
     await vegaAPI.connectWallet()

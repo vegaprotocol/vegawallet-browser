@@ -128,9 +128,9 @@ export async function openNewWindowAndSwitchToIt(driver: WebDriver, closeOld = f
 
 export async function closeCurrentWindowAndSwitchToPrevious(driver: WebDriver, windowHandle = '') {
   await driver.close()
-  if (windowHandle === '') {
-    driver.switchTo().window((await driver.getAllWindowHandles())[0])
-  } else {
+  if (windowHandle) {
     await driver.switchTo().window(windowHandle)
+  } else {
+    await driver.switchTo().window((await driver.getAllWindowHandles())[0])
   }
 }

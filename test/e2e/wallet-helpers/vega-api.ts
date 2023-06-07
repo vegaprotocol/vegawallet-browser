@@ -1,6 +1,5 @@
 import { randomBytes } from 'crypto'
-import { TouchSequence, WebDriver } from 'selenium-webdriver'
-import { Page } from '../../../src/components/page/page'
+import { WebDriver } from 'selenium-webdriver'
 import { closeCurrentWindowAndSwitchToPrevious, openNewWindowAndSwitchToIt } from '../selenium-util'
 
 interface Key {
@@ -131,7 +130,7 @@ export class VegaAPI {
     })
   }
 
-  async connectWalletAndCheckSuccess(withNewTab = false, closeTab = false) {
+  async connectWalletAndCheckSuccess(withNewTab = true, closeTab = false) {
     const resp = await this.connectWallet(withNewTab, closeTab)
     expect(resp, `expected null response to indicate a successful connection but instead it was ${resp}`).toBe(null)
   }

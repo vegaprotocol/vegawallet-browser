@@ -20,7 +20,7 @@ describe('Connect wallet', () => {
   beforeEach(async () => {
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
-    vegaAPI = new VegaAPI(driver)
+    vegaAPI = new VegaAPI(driver, await driver.getWindowHandle())
     connectWallet = new ConnectWallet(driver)
     apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
@@ -72,7 +72,7 @@ describe('Connect wallet', () => {
   it('does not need to reconnect to the wallet if I navigate away from my current page, api still shows connection and dapp can still see public key', async () => {
     // 1101-BWAL-039 When I go away from the extension and come back to the connected site, the browser extension remembers the connection and does not ask me to reconnect
     await setUpWalletAndKey()
-    await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
+    await vegaAPI.connectWallet()
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
     await viewWallet.checkOnViewWalletPage()
@@ -82,7 +82,6 @@ describe('Connect wallet', () => {
       connections.length,
       `expected to have 1 active connection to the wallet, but found ${connections.length}`
     ).toBe(1)
-
     await driver.get('https://google.co.uk')
     await navigateToLandingPage(driver)
     connections = await apiHelper.listConnections()

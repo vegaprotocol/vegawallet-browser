@@ -1,5 +1,10 @@
 import { create } from 'zustand'
 
+export interface ConnectionMessage {
+  origin: string
+  receivedAt: string
+}
+
 export type ModalStore = {
   transactionModalOpen: boolean
   handleTransaction: (params: any) => Promise<boolean>
@@ -9,11 +14,10 @@ export type ModalStore = {
   currentTransactionDetails: any | null
 
   connectionModalOpen: boolean
-  handleConnection: (params: any) => Promise<boolean>
+  handleConnection: (params: ConnectionMessage) => Promise<boolean>
   handleConnectionDecision: (decision: boolean) => void
   connectionPromise: [Function, Function] | null
-  // TODO this should not be any
-  currentConnectionDetails: any | null
+  currentConnectionDetails: ConnectionMessage | null
 }
 
 export const useModalStore = create<ModalStore>()((set, get) => ({
@@ -53,7 +57,7 @@ export const useModalStore = create<ModalStore>()((set, get) => ({
       connectionModalOpen: false
     })
   },
-  handleConnection: async (params: any) => {
+  handleConnection: async (params: ConnectionMessage) => {
     set({
       connectionModalOpen: true
     })

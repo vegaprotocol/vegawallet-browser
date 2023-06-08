@@ -27,6 +27,5 @@ export class CreateAWallet {
       "expected to be on the 'create wallet' page but could not locate the create wallet button",
       { showPrefix: false }
     ).toBe(true)
-    return await isElementDisplayed(this.driver, this.createNewWalletButton)
   }
 }

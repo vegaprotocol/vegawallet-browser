@@ -27,35 +27,30 @@ describe('list connections tests', () => {
     //await driver.quit()
   })
 
-  it('shows no connections when no dapp connected, updates and shows connections after approving one', async () => {
+  it('shows no connections when no dapp connected, updates and shows connections after approving one or more', async () => {
     // 1101-BWAL-076 I can see which dapps have permission to access my keys
     // 1101-BWAL-083 If I have the extension open on the Connections view AND I approve a request to connect to a dapp (and the connection is successful), the connections view should update to show the new connection
     const connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
-    const vegaAPI = new VegaAPI(driver)
-    await vegaAPI.connectWallet()
+    const firstDapp = new VegaAPI(driver)
+    await firstDapp.connectWallet()
     const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    const numConnections = await connections.getNumberOfConnections()
+    let numConnections = await connections.getNumberOfConnections()
     expect(
       numConnections,
       `expected a connection to be present after approving, found ${numConnections} connection(s)`
     ).toBe(1)
     // assert on the connection name
-  })
-
-  it('can disconnect from a dap via the wallet', async () => {
-    // 1101-BWAL-081 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
-    const vegaAPI = new VegaAPI(driver)
-    await vegaAPI.connectWallet()
-    const connectWalletModal = new ConnectWallet(driver)
+    // update the second instance of VegaAPI to be a different dapp when we pull in the tab switching
+    const secondDapp = new VegaAPI(driver)
+    await secondDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    const connections = await navPanel.goToListConnections()
-    const numConnections = await connections.getNumberOfConnections()
+    numConnections = await connections.getNumberOfConnections()
     expect(
       numConnections,
       `expected a connection to be present after approving, found ${numConnections} connection(s)`
-    ).toBe(1)
-    // remove the connection, assert none left
+    ).toBe(2)
+    // assert on the two connection names and the order
   })
 })

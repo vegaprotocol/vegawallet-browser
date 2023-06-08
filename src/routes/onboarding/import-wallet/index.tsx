@@ -38,7 +38,6 @@ export const ImportWallet = () => {
     [client, navigate, setError]
   )
   const mnemonic = useWatch({ control, name: 'mnemonic' })
-
   useEffect(() => {
     setFocus('mnemonic')
   }, [setFocus])

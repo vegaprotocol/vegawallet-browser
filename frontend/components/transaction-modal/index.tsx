@@ -31,7 +31,7 @@ export const TransactionModal = () => {
     if (!details) return new Date()
     return new Date(details.receivedAt)
   }, [details])
-  if (!isOpen) return null
+  if (!isOpen || !details) return null
   return (
     <>
       <Splash data-testid={locators.transactionWrapper}>

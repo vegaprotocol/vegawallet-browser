@@ -90,7 +90,8 @@
   "jest": {
     "collectCoverageFrom": [
       "**/*.{ts,tsx}",
-      "!**/node_modules/**"
+      "!**/node_modules/**",
+      "!test/**"
     ],
     "coverageReporters": [
       "html"

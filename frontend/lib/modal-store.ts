@@ -5,6 +5,7 @@ export interface ConnectionMessage {
   receivedAt: string
 }
 
+// TODO type this
 export type Transaction = any
 
 export interface TransactionMessage {

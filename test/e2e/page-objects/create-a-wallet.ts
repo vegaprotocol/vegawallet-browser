@@ -11,7 +11,7 @@ export class CreateAWallet {
   constructor(private readonly driver: WebDriver) {}
 
   async createNewWallet() {
-    this.checkOnCreateWalletPage
+    await this.checkOnCreateWalletPage()
     await clickElement(this.driver, this.createNewWalletButton)
   }
 

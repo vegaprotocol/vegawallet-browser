@@ -67,11 +67,10 @@ describe('ImportWallet', () => {
     await screen.findByText('Recovery phrase must be 24 words')
     expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
     fireEvent.change(screen.getByTestId(importMnemonic), {
-      target: { value: twentyThreeWords + ' twenty-four' }
+      target: { value: twentyThreeWords + ' twentyfour' }
     })
-    expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
 
-    fireEvent.click(screen.getByTestId(importMnemonicSubmit))
+    await waitFor(() => expect(screen.getByTestId(importMnemonicSubmit)).not.toBeDisabled())
   })
 
   it('renders error message if recovery phrase is invalid', async () => {

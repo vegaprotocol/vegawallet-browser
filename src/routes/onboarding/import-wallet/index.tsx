@@ -22,7 +22,9 @@ export const ImportWallet = () => {
     setFocus,
     setError,
     formState: { errors }
-  } = useForm<FormFields>()
+  } = useForm<FormFields>({
+    mode: 'onChange'
+  })
   const navigate = useNavigate()
   const submit = useCallback(
     async (fields: FormFields) => {

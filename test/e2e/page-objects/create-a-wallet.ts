@@ -16,7 +16,7 @@ export class CreateAWallet {
   }
 
   async importWallet() {
-    this.checkOnCreateWalletPage
+    await this.checkOnCreateWalletPage()
     await clickElement(this.driver, this.importWalletButton)
     return new ImportAWallet(this.driver)
   }

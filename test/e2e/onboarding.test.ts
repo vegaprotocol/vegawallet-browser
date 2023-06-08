@@ -7,9 +7,7 @@ import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
-
-const recoveryPhrase =
-  'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
+import { validRecoveryPhrase } from './wallet-helpers/common'
 
 const incorrectRecoveryPhrase =
   'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic bob'
@@ -65,7 +63,7 @@ describe('Onboarding', () => {
     await apiHelper.createPassphraseAndCheckSuccess()
     await navigateToLandingPage(driver)
     const importWallet = await createAWallet.importWallet()
-    await importWallet.fillInRecoveryPhraseAndSubmit(recoveryPhrase)
+    await importWallet.fillInRecoveryPhraseAndSubmit(validRecoveryPhrase)
     await viewWallet.checkOnViewWalletPage()
   })
 
@@ -78,7 +76,7 @@ describe('Onboarding', () => {
     await importWallet.fillInRecoveryPhraseAndSubmit(incorrectRecoveryPhrase)
     const errorText = await importWallet.getErrorMessageText()
     expect(errorText).toBeTruthy() //Improve this assertion before merging! Once validation is added.
-    await importWallet.fillInRecoveryPhraseAndSubmit(recoveryPhrase)
+    await importWallet.fillInRecoveryPhraseAndSubmit(validRecoveryPhrase)
     await viewWallet.checkOnViewWalletPage()
   })
 

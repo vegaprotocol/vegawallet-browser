@@ -1,6 +1,12 @@
 import { useMemo } from 'react'
 import { JsonRpcContext } from './json-rpc-context'
+<<<<<<< main:frontend/contexts/json-rpc/json-rpc-provider.tsx
 import { useModalStore } from '../../lib/modal-store'
+=======
+import { PortServer } from '../../lib/port-server'
+import JSONRPCServer from '../../lib/json-rpc-server'
+import { ConnectionMessage, useModalStore } from '../../lib/modal-store'
+>>>>>>> chore: type connection messages:src/contexts/json-rpc/json-rpc-provider.tsx
 import { ServerRpcMethods } from '../../lib/server-rpc-methods'
 import JSONRPCClient from '../../../lib/json-rpc-client'
 import JSONRPCServer from '../../../lib/json-rpc-server'
@@ -28,7 +34,7 @@ const createClient = () => {
 }
 
 const createServer = (
-  handleConnection: (params: any) => Promise<boolean>,
+  handleConnection: (params: ConnectionMessage) => Promise<boolean>,
   handleTransaction: (params: any) => Promise<boolean>
 ) => {
   // @ts-ignore

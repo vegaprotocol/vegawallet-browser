@@ -5,13 +5,24 @@ export interface ConnectionMessage {
   receivedAt: string
 }
 
+export type Transaction = any
+
+export interface TransactionMessage {
+  transaction: Transaction
+  publicKey: string
+  name: string
+  wallet: string
+  sendingMode: string
+  origin: string
+  receivedAt: string
+}
+
 export type ModalStore = {
   transactionModalOpen: boolean
-  handleTransaction: (params: any) => Promise<boolean>
+  handleTransaction: (params: TransactionMessage) => Promise<boolean>
   handleTransactionDecision: (decision: boolean) => void
   transactionPromise: [Function, Function] | null
-  // TODO this should not be any
-  currentTransactionDetails: any | null
+  currentTransactionDetails: TransactionMessage | null
 
   connectionModalOpen: boolean
   handleConnection: (params: ConnectionMessage) => Promise<boolean>

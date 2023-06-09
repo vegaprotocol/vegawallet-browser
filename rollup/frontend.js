@@ -63,7 +63,7 @@ const htmlPlugin = (outputPath) => {
  */
 export default (envVars, isProduction, outputPath) => [
   {
-    input: './src/index.tsx',
+    input: './frontend/index.tsx',
     output: {
       dir: outputPath,
       format: 'iife',

@@ -1,6 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
-import { settingsLockButton, settingsPage } from '../../../src/locator-ids'
+import { settingsLockButton, settingsPage } from '../../../frontend/locator-ids'
 import { Login } from './login'
 
 export class Settings {

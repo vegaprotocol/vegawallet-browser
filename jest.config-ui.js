@@ -1,7 +1,5 @@
 export default {
-  // The root of your source code, typically /src
-  // `<rootDir>` is a token Jest substitutes
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/frontend'],
 
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
@@ -22,7 +20,7 @@ export default {
   // should contain `test` or `spec`.
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
 
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
 
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
   coverageReporters: ['html'],

@@ -1,7 +1,7 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
 import 'jest-expect-message'
-import locators from '../../../src/components/locators'
+import locators from '../../../frontend/components/locators'
 
 export class Transaction {
   private readonly confirm: By = getByDataTestID(locators.transactionModalApproveButton)

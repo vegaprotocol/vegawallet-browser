@@ -17,12 +17,8 @@
     "default_popup": "index.html"
   },
   "background": {
-    "scripts": [
-      "./static/js/background.js"
-    ]
+    "scripts": ["./background.js"]
   },
   "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
-  "web_accessible_resources": [
-    "/static/js/in-page.js"
-  ]
+  "web_accessible_resources": ["/in-page.js"]
 }

@@ -4,7 +4,7 @@ import vegaCustomClasses from '@vegaprotocol/tailwindcss-config/src/vega-custom-
 
 export default {
   content: [
-    join(__dirname, 'src/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, 'frontend/**/*.{js,ts,jsx,tsx}'),
     join(__dirname, './node_modules/@vegaprotocol/ui-toolkit/index.js')
   ],
   darkMode: 'class',

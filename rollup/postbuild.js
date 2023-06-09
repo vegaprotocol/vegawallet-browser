@@ -2,6 +2,8 @@ import copy from 'rollup-plugin-copy'
 import mainfest from './plugins/mainfest/index.js'
 import pkg from '../package.json' assert { type: 'json' }
 
+const fileName = 'I_SHOULD_NOT_EXIST.js'
+
 /**
  * Copies the common files to the browser-specific build folder
  * and copies the appropriate manifest file to the browser-specific build folder
@@ -17,21 +19,19 @@ export default (browser, commonFolder, build) => {
       input: 'web-extension/common/in-page.js',
       // Not actually used, but required by rollup. We're just using thr copy plugin.
       output: {
-        dir: `${build}/${browser}`
+        dir: `${build}/${browser}`,
+        entryFileNames: fileName
       },
       plugins: [
         {
           name: 'kill-output',
-          generateBundle() {
-            return []
+          generateBundle(_, bundle) {
+            delete bundle[fileName]
           }
         },
 
         mainfest({
-          manifests: [
-            `web-extension/common/manifest.json`,
-            `web-extension/${browser}/manifest.json`
-          ],
+          manifests: [`web-extension/common/manifest.json`, `web-extension/${browser}/manifest.json`],
           overrides: {
             version: pkg.version
           }

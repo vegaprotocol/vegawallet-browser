@@ -83,6 +83,7 @@ The project is built with `webpack`, `create-react-app` and `craco`:
 - `build`: Builds the extension in production mode for both chrome and firefox. Outputs to `build/[BROWSER]`.
 - `dev:chrome` / `dev:firefox`: Serves the `build/[BROWSER]` directory to develop against the extension. First run `build:[BROWSER]` to build the extension _before_ running this command.
 - `format` / `lint`: Formats / lints the source code
+- `watch` Watch for changes in the source code and rebuild the extension in development mode for both firefox and chrome. Can be used with `dev:chrome` / `dev:firefox` to automatically reload the extension when changes are made.
 
 ### Testing
 

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import JSONRPCClient from '../../../lib/json-rpc-client'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
+import JSONRPCClient from '../../../../json-rpc/json-rpc-client'
 
 export interface Wallet {
   name: string

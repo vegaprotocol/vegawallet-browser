@@ -8,7 +8,7 @@ import {
   sendKeysToElement
 } from '../selenium-util'
 import 'jest-expect-message'
-import { errorMessage, loginButton, loginPassphrase } from '../../../src/locator-ids'
+import { errorMessage, loginButton, loginPassphrase } from '../../../frontend/locator-ids'
 import { defaultPassword } from '../wallet-helpers/common'
 
 export class Login {

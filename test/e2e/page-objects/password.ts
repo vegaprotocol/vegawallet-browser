@@ -6,7 +6,7 @@ import {
   sendKeysToElement,
   waitForElementToBeReady
 } from '../selenium-util'
-import * as locators from '../../../src/locator-ids'
+import * as locators from '../../../frontend/locator-ids'
 import 'jest-expect-message'
 import { defaultPassword } from '../wallet-helpers/common'
 

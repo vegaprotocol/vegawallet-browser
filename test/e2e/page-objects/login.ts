@@ -9,6 +9,7 @@ import {
 } from '../selenium-util'
 import 'jest-expect-message'
 import { errorMessage, loginButton, loginPassphrase } from '../../../src/locator-ids'
+import { defaultPassword } from '../wallet-helpers/common'
 
 export class Login {
   private readonly loginButton: By = getByDataTestID(loginButton)
@@ -31,9 +32,10 @@ export class Login {
     return await isElementDisplayed(this.driver, this.loginButton)
   }
 
-  async login(password: string) {
+  async login(password = defaultPassword) {
     await this.checkOnLoginPage()
     await clearTextField(this.driver, this.passwordField)
+    expect(getElementText(this.driver, this.passwordField)).resolves.toBe('')
     await sendKeysToElement(this.driver, this.passwordField, password)
     await clickElement(this.driver, this.loginButton)
   }

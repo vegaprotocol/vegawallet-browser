@@ -80,24 +80,25 @@ The project is built with `webpack`, `create-react-app` and `craco`:
 
 ### Development + building
 
-- `build:chrome` / `build:firefox`: Builds the extension in production mode for the respective browser. Outputs to `build/[BROWSER]`.
-- `dev:chrome` / `dev:firefox`: Serves the `build/[BROWSER]` directory to develop against the extension. First run `build:[BROWSER]` to build the extension _before_ running this command, or use the `watch` command.
-- `watch` Watch for changes in the source code and rebuild the extension in development mode. Can be used with `dev:chrome` / `dev:firefox` to automatically reload the extension when changes are made. You can change the browser this builds for in package.json. Default is `build:chrome`.
+- `build`: Builds the extension in production mode for both chrome and firefox. Outputs to `build/[BROWSER]`.
+- `dev:chrome` / `dev:firefox`: Serves the `build/[BROWSER]` directory to develop against the extension. First run `build:[BROWSER]` to build the extension _before_ running this command.
 - `format` / `lint`: Formats / lints the source code
 
 ### Testing
 
-- `test` Runs the unit tests on UI components
+- `test:frontend` Runs the unit tests on UI components
 - `test:backend` Runs the unit tests on the backend
 - `test:e2e:chrome` Runs the e2e tests through `selenium` on Chrome (headed)
 - `test:e2e:chrome:ci` Runs the e2e tests through `selenium` on Chrome (headless)
+- `test:e2e:firefox` Runs the e2e tests through `selenium` on firefox
+- `test:e2e:firefox:ci` Runs the e2e tests through `selenium` on firefox (headless)
 
 The web extension source code lives in `web-extension/common` with platform
 specific artifacts in respectively `web-extension/firefox` and `web-extension/chrome`. All UI components exist in the `frontend` directory.
 
 The web extension has 4 components:
 
-- `index.html` / `index.js`: This is the source code for the extension popup, rendered using `react`.
+- `index.html` / `index.tsx`: This is the source code for the extension popup, rendered using `react`.
 - `background.js`: This is the background script that handles all core logic
 - `content-script.js`: This script intermediates communication between the web
   page and the background script

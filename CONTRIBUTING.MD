@@ -7,4 +7,4 @@ To watch for changes in the `frontend` and `web-extension` fire up two terminals
 
 # Building
 
-`yarn build:chrome` or `yarn build:firefox`
+`yarn build`

@@ -1,5 +1,5 @@
 import copy from 'rollup-plugin-copy'
-import mainfest from './plugins/mainfest/index.js'
+import mainfest from './plugins/manifest/index.js'
 import pkg from '../package.json' assert { type: 'json' }
 
 const fileName = 'I_SHOULD_NOT_EXIST.js'

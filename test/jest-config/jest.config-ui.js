@@ -1,4 +1,5 @@
 export default {
+  rootDir: '../..',
   roots: ['<rootDir>/frontend'],
 
   // Jest transformations -- this adds support for TypeScript

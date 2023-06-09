@@ -32,24 +32,22 @@
     "webextension-polyfill-ts": "^0.26.0"
   },
   "scripts": {
-    "dev:chrome": "web-ext run --source-dir=build/chrome --target=chromium --start-url=examples/sample-dapp/index.html",
-    "dev:firefox": "web-ext run --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition --start-url=examples/sample-dapp/index.html",
-    "build": "INLINE_RUNTIME_CHUNK=false craco build",
-    "build:chrome": "yarn build --build-chrome",
-    "build:firefox": "yarn build --build-firefox",
+    "build": "rollup -c",
+    "dev": "web-ext run --start-url=examples/sample-dapp/index.html",
+    "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium",
+    "dev:firefox": "yarn dev --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition",
     "format": "prettier frontend --check",
     "format:write": "prettier frontend --write",
     "lint": "eslint --ext js,ts,tsx frontend",
-    "test:frontend": "jest --config=test/jest-config/jest.config-ui.js",
-    "test:frontend:ci": "yarn test:frontend --coverage",
-    "eject": "react-scripts eject",
-    "watch": "npm-watch",
     "test:backend": "jest --config=test/jest-config/jest.config-backend.js",
     "test:backend:ci": "yarn test:backend --coverage",
     "test:e2e": "jest ./test/e2e --config=test/jest-config/jest.config-e2e.js --maxWorkers=1",
     "test:e2e:chrome": "BROWSER=chrome yarn test:e2e",
     "test:e2e:firefox": "BROWSER=firefox yarn test:e2e",
-    "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox"
+    "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox",
+    "test:frontend": "jest --config=test/jest-config/jest.config-ui.js",
+    "test:frontend:ci": "yarn test:frontend --coverage",
+    "watch": "yarn build -w"
   },
   "browserslist": {
     "production": [

@@ -3,8 +3,6 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
 import replace from '@rollup/plugin-replace'
-import mainfest from './plugins/mainfest/index.js'
-import pkg from '../package.json' assert { type: 'json' }
 
 /**
  * Builds the backend JS
@@ -22,15 +20,6 @@ export default (envVars, isProduction, outputPath) => [
       entryFileNames: `${name}.js`
     },
     plugins: [
-      mainfest({
-        manifests: [
-          'web-extension/common/manifest.json',
-          'web-extension/firefox/manifest.json'
-        ],
-        overrides: {
-          version: pkg.version
-        }
-      }),
       nodeResolve({ browser: true }),
       json({ compact: isProduction }),
       commonjs(),

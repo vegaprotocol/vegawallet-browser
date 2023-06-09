@@ -7,8 +7,8 @@
 
 # testing
 /coverage
-/test-reports
-/test-screenshots
+/test/test-reports
+/test/test-screenshots
 /test/e2e/firefox-profile
 
 # production

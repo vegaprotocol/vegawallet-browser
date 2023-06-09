@@ -11,7 +11,7 @@ export default {
     [
       'jest-junit',
       {
-        outputDirectory: './test-reports',
+        outputDirectory: './test/test-reports',
         outputName: `${process.env.BROWSER}-e2e-test-results.xml`
       }
     ]

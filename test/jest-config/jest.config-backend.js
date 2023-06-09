@@ -8,7 +8,7 @@ export default {
     [
       'jest-junit',
       {
-        outputDirectory: './test-reports',
+        outputDirectory: './test/test-reports',
         outputName: 'backend-test-results.xml'
       }
     ]

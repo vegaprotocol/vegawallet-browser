@@ -39,7 +39,7 @@ export default {
     [
       'jest-junit',
       {
-        outputDirectory: './test-reports',
+        outputDirectory: './test/test-reports',
         outputName: 'unit-test-results.xml'
       }
     ]

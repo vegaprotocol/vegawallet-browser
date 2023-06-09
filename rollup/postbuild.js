@@ -25,6 +25,7 @@ export default (browser, commonFolder, build) => {
       plugins: [
         {
           name: 'kill-output',
+          // Removes the output file from the bundle, as we are just looking to use the copy plugin
           generateBundle(_, bundle) {
             delete bundle[fileName]
           }

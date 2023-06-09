@@ -100,6 +100,17 @@ export async function isElementEnabled(driver: WebDriver, locator: By, timeout: 
 export async function clearTextField(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   const element = await waitForElementToBeReady(driver, locator, timeout)
   await element.clear()
+  await waitForTextFieldToBeEmpty(driver, locator, timeout)
+}
+
+async function waitForTextFieldToBeEmpty(driver: WebDriver, locator: By, timeout: number = 2000) {
+  await driver.wait(
+    async () => {
+      return (await getElementText(driver, locator)) === ''
+    },
+    timeout,
+    `Expected ${locator.toString()} field value to be empty but it was not`
+  )
 }
 
 export async function openNewWindowAndSwitchToIt(driver: WebDriver) {

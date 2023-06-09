@@ -20,7 +20,6 @@ describe('Check correct app state persists after closing the extension', () => {
   let viewWallet: ViewWallet
   let apiHelper: APIHelper
   let loginPage: Login
-  const testPassword = 'password1'
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -44,7 +43,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await navigateToLandingPage(driver)
     await apiHelper.lockWallet()
     await navigateToLandingPage(driver)
-    await loginPage.login(testPassword)
+    await loginPage.login()
   }
 
   it('shows the previous completed step when opening the app in a new tab', async () => {
@@ -53,7 +52,7 @@ describe('Check correct app state persists after closing the extension', () => {
     // 1101-BWAL-010 When I have submitted my new password, I can NOT go back to the previous step
     // 1101-BWAL-068 I want to see the previous page I was on or my wallet page by default
     await getStarted.getStarted()
-    await password.createPassword(testPassword, 'incorrectPassword')
+    await password.createPassword('Password', 'password')
 
     await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
@@ -62,7 +61,7 @@ describe('Check correct app state persists after closing the extension', () => {
 
     await navigateToLandingPage(driver)
     await getStarted.getStarted()
-    await password.createPassword(testPassword)
+    await password.createPassword()
     await createAWallet.checkOnCreateWalletPage()
 
     await switchToNewWindow()

@@ -3,7 +3,6 @@ import { captureScreenshot, copyProfile, deleteAutomationFirefoxProfile, initDri
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { Login } from './page-objects/login'
-import { CreateAWallet } from './page-objects/create-a-wallet'
 import { openNewWindowAndSwitchToIt } from './selenium-util'
 import { ViewWallet } from './page-objects/view-wallet'
 

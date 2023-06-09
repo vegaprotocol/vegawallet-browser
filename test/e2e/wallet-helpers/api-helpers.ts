@@ -1,5 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { RpcMethods } from '../../../src/lib/client-rpc-methods'
+import { defaultPassword } from './common'
 export class APIHelper {
   private driver: WebDriver
 
@@ -21,7 +22,7 @@ export class APIHelper {
     })
   }
 
-  async login(passphrase: string) {
+  async login(passphrase = defaultPassword) {
     return await this.driver.executeScript<string>(async (passphrase: string) => {
       const resp = await window.client.request('admin.unlock', { passphrase: passphrase })
       return resp

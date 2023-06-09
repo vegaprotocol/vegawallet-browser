@@ -8,6 +8,7 @@ import {
 } from '../selenium-util'
 import * as locators from '../../../src/locator-ids'
 import 'jest-expect-message'
+import { defaultPassword } from '../wallet-helpers/common'
 
 export class Password {
   private readonly createPasswordBackButton: By = getByDataTestID('create-password-back')
@@ -29,7 +30,11 @@ export class Password {
    * @param confirmPassword - The confirmation password to access the app.
    * @param acknowledgeWarning - Whether to acknowledge the warning about password recovery.
    */
-  async createPassword(password: string, confirmPassword: string = password, acknowledgeWarning: boolean = true) {
+  async createPassword(
+    password = defaultPassword,
+    confirmPassword: string = password,
+    acknowledgeWarning: boolean = true
+  ) {
     await sendKeysToElement(this.driver, this.passwordInput, password)
     await sendKeysToElement(this.driver, this.confirmPasswordInput, confirmPassword)
     if (acknowledgeWarning) {

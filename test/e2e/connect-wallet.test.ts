@@ -16,7 +16,6 @@ describe('Connect wallet', () => {
   let vegaAPI: VegaAPI
   let connectWallet: ConnectWallet
   let apiHelper: APIHelper
-  const testPassword = 'password1'
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -61,7 +60,7 @@ describe('Connect wallet', () => {
     await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
     const getStarted = new GetStarted(driver)
     const passwordPage = await getStarted.getStarted()
-    await passwordPage.createPassword(testPassword)
+    await passwordPage.createPassword()
     const creatWallet = new CreateAWallet(driver)
     await creatWallet.createNewWallet()
     const secureYouWallet = new SecureYourWallet(driver)

@@ -5,7 +5,7 @@ import { Password } from './page-objects/password'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { defaultPassword, navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { validRecoveryPhrase } from './wallet-helpers/common'
 
@@ -19,7 +19,6 @@ describe('Onboarding', () => {
   let secureYourWallet: SecureYourWallet
   let createAWallet: CreateAWallet
   let viewWallet: ViewWallet
-  const testPassword = 'password1'
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -39,7 +38,7 @@ describe('Onboarding', () => {
 
   it('can create a new wallet and remember that a wallet has been created when I navigate back to the landing page', async () => {
     // 1101-BWAL-007 I can submit the password I entered
-    await password.createPassword(testPassword)
+    await password.createPassword()
     // 1101-BWAL-009 When I have submitted my new password, I am taken to the next step
     // 1101-BWAL-012 I can choose to create a wallet
     // 1101-BWAL-019 I am given feedback that my wallet was successfully created
@@ -82,13 +81,13 @@ describe('Onboarding', () => {
 
   it('can navigate back to the getting started page if no password submitted', async () => {
     // 1101-BWAL-001 When I haven't submitted my password, I can go back to the previous step
-    await password.createPassword(testPassword, testPassword, false)
+    await password.createPassword(defaultPassword, defaultPassword, false)
     await password.goBack()
     await getStarted.checkOnGetStartedPage()
   })
 
   it('shows an error message when passwords differ', async () => {
-    await password.createPassword(testPassword, testPassword + '2')
+    await password.createPassword(defaultPassword, defaultPassword + '2')
     expect(await password.getErrorMessageText()).toBe('Password does not match')
     await password.checkOnCreatePasswordPage()
   })
@@ -97,7 +96,7 @@ describe('Onboarding', () => {
     // 1101-BWAL-014 - I am provided with a recovery phrase for my new wallet that is initially hidden from view
     // 1101-BWAL-016 - I can choose when to reveal/show the recovery phrase
     // 1101-BWAL-017 - I can copy the recovery phrase into my clipboard
-    await password.createPassword(testPassword)
+    await password.createPassword()
     await createAWallet.createNewWallet()
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
     expect(

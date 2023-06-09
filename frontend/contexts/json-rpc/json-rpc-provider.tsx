@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 import { JsonRpcContext } from './json-rpc-context'
 import { useModalStore } from '../../lib/modal-store'
 import { ServerRpcMethods } from '../../lib/server-rpc-methods'
-import JSONRPCClient from '../../../json-rpc/json-rpc-client'
-import JSONRPCServer from '../../../json-rpc/json-rpc-server'
-import { PortServer } from '../../../json-rpc/port-server'
+import JSONRPCClient from '../../../lib/json-rpc-client'
+import JSONRPCServer from '../../../lib/json-rpc-server'
+import { PortServer } from '../../../lib/port-server'
 
 const createClient = () => {
   // @ts-ignore

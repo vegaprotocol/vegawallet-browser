@@ -1,4 +1,4 @@
-import { isRequest, isNotification } from '../json-rpc/json-rpc.js'
+import { isRequest, isNotification } from '../lib/json-rpc.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import JSONRPCClient from '../../../json-rpc/json-rpc-client'
-import JSONRPCServer from '../../../json-rpc/json-rpc-server'
+import JSONRPCClient from '../../../lib/json-rpc-client'
+import JSONRPCServer from '../../../lib/json-rpc-server'
 
 export interface JsonRpcContextShape {
   client: JSONRPCClient

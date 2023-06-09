@@ -1,10 +1,10 @@
 import { NetworkCollection } from './backend/network.js'
 import { WalletCollection } from './backend/wallets.js'
 import { ConnectionsCollection } from './backend/connections.js'
-import { PortServer } from '../json-rpc/port-server.js'
+import { PortServer } from '../lib/port-server.js'
 import { PopupClient } from './backend/popup-client.js'
 
-import JSONRPCServer from '../json-rpc/json-rpc-server.js'
+import JSONRPCServer from '../lib/json-rpc-server.js'
 import StorageLocalMap from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
 import EncryptedStorage from './lib/encrypted-storage.js'

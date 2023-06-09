@@ -1,4 +1,4 @@
-import JSONRPCClient from '../../json-rpc/json-rpc-client'
+import JSONRPCClient from '../../lib/json-rpc-client'
 import { RpcMethods } from './client-rpc-methods'
 
 export const createWallet = async (mnemonic: string, client: JSONRPCClient) => {

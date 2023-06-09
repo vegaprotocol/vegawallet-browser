@@ -1,4 +1,4 @@
-import JSONRPCServer from '../../json-rpc/json-rpc-server.js'
+import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../package.json'
 

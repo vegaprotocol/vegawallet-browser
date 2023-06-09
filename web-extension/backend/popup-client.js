@@ -1,4 +1,4 @@
-import JSONRPCClient from '../../json-rpc/json-rpc-client.js'
+import JSONRPCClient from '../../lib/json-rpc-client.js'
 import assert from 'nanoassert'
 
 export class PopupClient {

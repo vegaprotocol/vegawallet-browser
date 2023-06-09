@@ -92,7 +92,7 @@ export default (envVars, isProduction, outputPath) => [
       }),
       // Copy static assets
       copy({
-        targets: [{ src: 'public/**/*', dest: outputPath }]
+        targets: [{ src: 'assets/**/*', dest: outputPath }]
       })
     ]
   }

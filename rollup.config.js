@@ -8,6 +8,7 @@ import postbuild from './rollup/postbuild.js'
 dotenv.config()
 
 const isProduction = process.env.NODE_ENV === 'production'
+const isTestBuild = ['1', 'true'].includes(process.env.REACT_APP_TEST)
 
 const browsers = ['chrome', 'firefox']
 
@@ -29,7 +30,7 @@ const config = [
   ...prebuild(),
   ...backend(envVars, isProduction, commonPath),
   ...frontend(envVars, isProduction, commonPath),
-  ...browsers.flatMap((b) => postbuild(b, commonPath, destination))
+  ...browsers.flatMap((b) => postbuild(b, commonPath, destination, isTestBuild))
 ]
 
 export default config

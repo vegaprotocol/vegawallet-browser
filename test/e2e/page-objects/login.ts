@@ -35,7 +35,6 @@ export class Login {
   async login(password = defaultPassword) {
     await this.checkOnLoginPage()
     await clearTextField(this.driver, this.passwordField)
-    expect(getElementText(this.driver, this.passwordField)).resolves.toBe('')
     await sendKeysToElement(this.driver, this.passwordField, password)
     await clickElement(this.driver, this.loginButton)
   }

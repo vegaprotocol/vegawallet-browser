@@ -1,5 +1,5 @@
-import JsonRpcClient from './lib/json-rpc-client'
-import { isNotification, isResponse } from './lib/json-rpc.js'
+import JsonRpcClient from '../json-rpc/json-rpc-client.js'
+import { isNotification, isResponse } from '../json-rpc/json-rpc.js'
 
 // Wrap in a closure to protect scope
 ;(() => {

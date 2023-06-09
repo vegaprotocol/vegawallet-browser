@@ -1,4 +1,4 @@
-import JSONRPCClient from '../lib/json-rpc-client.js'
+import JSONRPCClient from '../../json-rpc/json-rpc-client.js'
 import assert from 'nanoassert'
 
 export class PopupClient {
@@ -37,7 +37,7 @@ export class PopupClient {
     const self = this
     function _onmessage(message) {
       if (message.id != null) {
-        const idx = self.persistentQueue.findIndex(msg => msg.id === message.id)
+        const idx = self.persistentQueue.findIndex((msg) => msg.id === message.id)
         if (idx !== -1) {
           self.persistentQueue.splice(idx, 1)
         }

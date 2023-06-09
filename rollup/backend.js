@@ -13,7 +13,7 @@ import replace from '@rollup/plugin-replace'
 export default (envVars, isProduction, outputPath) => [
   // The files that need to each be built for the backend
   ...['background', 'content-script', 'in-page', 'pow-worker'].map((name) => ({
-    input: `web-extension/common/${name}.js`,
+    input: `web-extension/${name}.js`,
     output: {
       dir: outputPath,
       format: 'iife',

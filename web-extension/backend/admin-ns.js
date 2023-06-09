@@ -1,6 +1,6 @@
 import JSONRPCServer from '../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
-import pkg from '../../../package.json'
+import pkg from '../../package.json'
 
 function doValidate(validator, params) {
   if (!validator(params))

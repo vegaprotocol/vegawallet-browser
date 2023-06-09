@@ -7,16 +7,16 @@ import { folderInput } from 'rollup-plugin-folder-input'
  */
 export default () => [
   {
-    input: 'web-extension/common/schemas/client/*.js',
+    input: 'web-extension/schemas/client/*.js',
     output: {
-      dir: 'web-extension/common/validation/client'
+      dir: 'web-extension/validation/client'
     },
     plugins: [folderInput(), ajvPlugin()]
   },
   {
-    input: 'web-extension/common/schemas/admin/*.js',
+    input: 'web-extension/schemas/admin/*.js',
     output: {
-      dir: 'web-extension/common/validation/admin'
+      dir: 'web-extension/validation/admin'
     },
     plugins: [folderInput(), ajvPlugin()]
   }

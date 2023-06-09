@@ -15,12 +15,7 @@ export class PortServer {
    * @param {function} opts.onafterrequest - called after processing a request (both success and failure)
    * @param {JSONRPCServer} opts.server - JSONRPCServer instance
    */
-  constructor({
-    onerror = (_) => { },
-    onbeforerequest = () => { },
-    onafterrequest = () => { },
-    server
-  }) {
+  constructor({ onerror = (_) => {}, onbeforerequest = () => {}, onafterrequest = () => {}, server }) {
     this.onerror = onerror
     this.onbeforerequest = onbeforerequest
     this.onafterrequest = onafterrequest
@@ -35,10 +30,7 @@ export class PortServer {
    * @returns {number}
    */
   totalPending() {
-    return Array.from(this.ports.values(), (v) => v.length).reduce(
-      (sum, size) => sum + size,
-      0
-    )
+    return Array.from(this.ports.values(), (v) => v.length).reduce((sum, size) => sum + size, 0)
   }
 
   /**
@@ -49,7 +41,7 @@ export class PortServer {
   listen(port) {
     const self = this
 
-    const origin = new URL(port.sender.url).origin
+    const origin = port.sender && new URL(port.sender.url).origin
     const messageQueue = []
     let busy = false
 

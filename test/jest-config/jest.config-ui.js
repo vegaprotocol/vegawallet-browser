@@ -24,6 +24,7 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
 
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
+  coverageDirectory: 'coverage/frontend',
   coverageReporters: ['html'],
   coverageThreshold: {
     global: {

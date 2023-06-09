@@ -8,7 +8,7 @@ import {
   sendKeysToElement
 } from '../selenium-util'
 import 'jest-expect-message'
-import { errorMessage, importMnemonic, importMnemonicSubmit } from '../../../src/locator-ids'
+import { errorMessage, importMnemonic, importMnemonicSubmit } from '../../../frontend/locator-ids'
 
 export class ImportAWallet {
   private readonly recoveryPhraseField: By = getByDataTestID(importMnemonic)

@@ -6,6 +6,7 @@ import postcss from 'rollup-plugin-postcss'
 import html, { makeHtmlAttributes } from '@rollup/plugin-html'
 import replace from '@rollup/plugin-replace'
 import tailwindcss from 'tailwindcss'
+import autoprefixer from 'autoprefixer'
 import copy from 'rollup-plugin-copy'
 
 const htmlPlugin = (outputPath) => {
@@ -76,7 +77,7 @@ export default (envVars, isProduction, outputPath) => [
       // Process CSS
       postcss({
         extensions: ['.css'],
-        plugins: [tailwindcss()]
+        plugins: [tailwindcss(), autoprefixer()]
       }),
       // Process typescript
       typescript(),

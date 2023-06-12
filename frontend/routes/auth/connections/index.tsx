@@ -32,9 +32,9 @@ export const Connections = () => {
           <p>
             Trying to connect to a{' '}
             <ExternalLink className="underline" href="https://vega.xyz/use">
-              <span>Vega dApp</span>
+              <span>Vega dApp?</span>
             </ExternalLink>
-            ? Look for the "Connect Wallet" button and press it to create a connection.
+            Look for the "Connect Wallet" button and press it to create a connection.
           </p>
         </Frame>
       </div>

@@ -25,9 +25,9 @@ function doValidate(validator, params) {
 export default function init({ encryptedStore, settings, wallets, networks, connections, onerror }) {
   connections.listen((ev, origin) => {
     server.notify('admin.connections_change', {
-      add: {
-        origin
-      }
+      add: [{ origin }],
+      update: [],
+      delete: []
     })
   })
 

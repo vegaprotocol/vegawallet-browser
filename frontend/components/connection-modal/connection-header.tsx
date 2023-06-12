@@ -35,7 +35,7 @@ export const ConnectionHeader = ({ hostname, title }: { hostname: string; title:
         <h1 data-testid={locators.modalHeaderTitle} className="mb-1 text-2xl">
           {title}
         </h1>
-        <p data-testid={locators.dAppHostname} className="text-neutral-light text-vega-dark-400">
+        <p data-testid={locators.dAppHostname} className="break-all text-neutral-light text-vega-dark-400">
           {hostname}
         </p>
       </div>

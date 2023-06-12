@@ -2,7 +2,7 @@ import { compileFile } from './compile-ajv-schema.js'
 
 const ajvPlugin = () => ({
   name: 'ajv-compile',
-  async transform(code, path) {
+  async transform(code) {
     const parsed = JSON.parse(code)
     const compiled = await compileFile(parsed)
     return compiled

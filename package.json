@@ -101,7 +101,6 @@
     "prettier": "^2.8.8",
     "rollup": "^3.23.1",
     "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-folder-input": "^1.0.1",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-replace": "^2.2.0",
     "selenium-webdriver": "^4.8.2",

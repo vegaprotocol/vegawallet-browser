@@ -12,13 +12,14 @@ export const ConnectionsList = ({ connections }: { connections: Connection[] }) 
         items={connections}
         renderItem={(i) => (
           <div className="flex justify-between">
-            <div className="flex">
-              <div className="flex flex-col justify-center">
-                <HostImage size={10} hostname={i.origin} />
-              </div>
-              <div data-testid={connectionsConnection} className="ml-4 flex flex-col justify-center">
-                {i.origin}
-              </div>
+            <div className="flex flex-col justify-center">
+              <HostImage size={10} hostname={i.origin} />
+            </div>
+            <div
+              data-testid={connectionsConnection}
+              className="ml-4 flex-1 flex flex-col justify-center overflow-hidden break-all"
+            >
+              {i.origin}
             </div>
           </div>
         )}

@@ -1,6 +1,7 @@
 import copy from 'rollup-plugin-copy'
 import mainfest from './plugins/manifest/index.js'
 import pkg from '../package.json' assert { type: 'json' }
+import { globSync } from 'glob'
 
 const fileName = 'I_SHOULD_NOT_EXIST.js'
 
@@ -24,7 +25,7 @@ export default (browser, commonFolder, build, isTestBuild) => {
       input: 'web-extension/in-page.js',
       // Not actually used, but required by rollup. We're just using thr copy plugin.
       output: {
-        dir: `${build}/${browser}`,
+        dir: `${build}`,
         entryFileNames: fileName
       },
       plugins: [
@@ -33,6 +34,10 @@ export default (browser, commonFolder, build, isTestBuild) => {
           // Removes the output file from the bundle, as we are just looking to use the copy plugin
           generateBundle(_, bundle) {
             delete bundle[fileName]
+          },
+          buildStart() {
+            const files = globSync(`${commonFolder}/**`)
+            files.forEach((f) => this.addWatchFile(f))
           }
         },
 

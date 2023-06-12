@@ -1,7 +1,7 @@
 import copy from 'rollup-plugin-copy'
 import mainfest from './plugins/manifest/index.js'
 import pkg from '../package.json' assert { type: 'json' }
-import { globSync } from 'glob'
+import { glob } from 'glob'
 
 const fileName = 'I_SHOULD_NOT_EXIST.js'
 
@@ -35,8 +35,8 @@ export default (browser, commonFolder, build, isTestBuild) => {
           generateBundle(_, bundle) {
             delete bundle[fileName]
           },
-          buildStart() {
-            const files = globSync(`${commonFolder}/**`)
+          async buildStart() {
+            const files = await glob(`${commonFolder}/**`)
             files.forEach((f) => this.addWatchFile(f))
           }
         },

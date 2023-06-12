@@ -48,8 +48,6 @@ const htmlPlugin = (outputPath) => {
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
         ${scripts}
-        <!-- TODO there must be better way to do this -->
-        <script src="background.js"></script> 
       </body>
     </html>`
     }

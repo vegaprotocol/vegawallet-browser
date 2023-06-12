@@ -123,7 +123,7 @@ async function zipDirectory(source: string, out: string): Promise<void> {
 
 export const captureScreenshot = async (driver: WebDriver, testName: string) => {
   const screenshotData = await driver.takeScreenshot()
-  const screenshotPath = `./test-screenshots/${testName}.png`
+  const screenshotPath = `./test/test-screenshots/${testName}.png`
   await fs.ensureDir(path.dirname(screenshotPath))
   fs.writeFileSync(screenshotPath, screenshotData, 'base64')
 }

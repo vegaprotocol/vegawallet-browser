@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import JSONRPCClient from '../../../lib/json-rpc-client'
+import JSONRPCClient from '../../../../lib/json-rpc-client'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 
 export interface Connection {
@@ -27,8 +27,6 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
     try {
       set({ loading: true, error: null })
       const { connections } = await client.request(RpcMethods.ListConnections, null)
-      console.log('************************')
-      console.log(connections)
       set({ connections })
     } catch (e) {
       set({ error: e?.toString() || 'Something went wrong' })

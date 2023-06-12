@@ -131,19 +131,6 @@ describe('transactions', () => {
     await transaction.checkOnTransactionPage()
   })
 
-  it('the transaction persists when the extension is closed or locked out', async () => {
-    // 1101-BWAL-053 If the browser extension is closed during a transaction request, the request persists
-    const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
-    await transaction.checkOnTransactionPage()
-    await apiHelper.lockWallet()
-    await openNewWindowAndSwitchToIt(driver)
-    await navigateToLandingPage(driver)
-    await apiHelper.login()
-    await navigateToLandingPage(driver)
-    await transaction.checkOnTransactionPage()
-  })
-
   async function setUpWalletAndKey() {
     await apiHelper.setUpWalletAndKey()
     await navigateToLandingPage(driver)

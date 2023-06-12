@@ -28,6 +28,8 @@ export class ConnectionsCollection {
     })
 
     this._emit('set', origin, allowList)
+
+    return res
   }
 
   async has(origin) {

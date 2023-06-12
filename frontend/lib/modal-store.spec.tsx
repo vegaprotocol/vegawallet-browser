@@ -2,6 +2,16 @@ import { useModalStore } from './modal-store'
 
 const initialState = useModalStore.getState()
 
+const mockMessage = {
+  transaction: {},
+  publicKey: 'foo',
+  name: 'bar',
+  wallet: 'baz',
+  sendingMode: 'TYPE_SYNC',
+  origin: 'qux',
+  receivedAt: new Date().toISOString()
+}
+
 describe('ModalStore', () => {
   beforeEach(() => {
     useModalStore.setState(initialState)
@@ -9,7 +19,7 @@ describe('ModalStore', () => {
   it('transaction modal sets modal as open and resolves promise with value', () => {
     expect(useModalStore.getState().transactionModalOpen).toBe(false)
     expect(useModalStore.getState().transactionPromise).toBe(null)
-    const promise = useModalStore.getState().handleTransaction({})
+    const promise = useModalStore.getState().handleTransaction(mockMessage)
     expect(useModalStore.getState().transactionModalOpen).toBe(true)
     expect(useModalStore.getState().transactionPromise).not.toBe(null)
     useModalStore.getState().handleTransactionDecision(true)
@@ -20,7 +30,7 @@ describe('ModalStore', () => {
   it('transaction resolves with false if not approved', () => {
     expect(useModalStore.getState().transactionModalOpen).toBe(false)
     expect(useModalStore.getState().transactionPromise).toBe(null)
-    const promise = useModalStore.getState().handleTransaction({})
+    const promise = useModalStore.getState().handleTransaction(mockMessage)
     expect(useModalStore.getState().transactionModalOpen).toBe(true)
     expect(useModalStore.getState().transactionPromise).not.toBe(null)
     useModalStore.getState().handleTransactionDecision(false)
@@ -31,7 +41,7 @@ describe('ModalStore', () => {
   it('connection modal sets modal as open and resolves promise with value', () => {
     expect(useModalStore.getState().connectionModalOpen).toBe(false)
     expect(useModalStore.getState().connectionPromise).toBe(null)
-    const promise = useModalStore.getState().handleConnection({})
+    const promise = useModalStore.getState().handleConnection(mockMessage)
     expect(useModalStore.getState().connectionModalOpen).toBe(true)
     expect(useModalStore.getState().connectionPromise).not.toBe(null)
     useModalStore.getState().handleConnectionDecision(true)
@@ -42,7 +52,7 @@ describe('ModalStore', () => {
   it('connection resolves with false if not approved', () => {
     expect(useModalStore.getState().connectionModalOpen).toBe(false)
     expect(useModalStore.getState().connectionPromise).toBe(null)
-    const promise = useModalStore.getState().handleConnection({})
+    const promise = useModalStore.getState().handleConnection(mockMessage)
     expect(useModalStore.getState().connectionModalOpen).toBe(true)
     expect(useModalStore.getState().connectionPromise).not.toBe(null)
     useModalStore.getState().handleConnectionDecision(false)

@@ -7,6 +7,7 @@ import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { Transaction } from './page-objects/transaction'
 import { openNewWindowAndSwitchToIt } from './selenium-util'
+import { successResponse } from './wallet-helpers/http-server'
 
 describe('transactions', () => {
   let driver: WebDriver
@@ -69,6 +70,7 @@ describe('transactions', () => {
   it('the result of the transaction request is fed back to the UI', async () => {
     // TODO intercept this request and validate that a good result is fed back
     // 1101-BWAL-045 When I approve a transaction the transaction gets signed and the approved status gets fed back to the dapp that requested it
+    const addSuccessResponse 
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()

@@ -33,6 +33,7 @@
   },
   "scripts": {
     "build": "rollup -c",
+    "build:test": "REACT_APP_TEST=true yarn build",
     "dev": "web-ext run --start-url=examples/sample-dapp/index.html",
     "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium",
     "dev:firefox": "yarn dev --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition",

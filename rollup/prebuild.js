@@ -1,4 +1,5 @@
 import ajvPlugin from './plugins/ajv/index.js'
+import { globSync } from 'glob'
 
 /**
  * Generates the validation files for the client and admin schemas

@@ -1,6 +1,7 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { getByDataTestID, getElements, isElementDisplayed } from '../selenium-util'
-import * as locators from '../../../src/locator-ids'
+import * as locators from '../../../frontend/locator-ids'
+
 import 'jest-expect-message'
 export class ListConnections {
   private readonly noConnections: By = getByDataTestID(locators.connectionsNoConnections)

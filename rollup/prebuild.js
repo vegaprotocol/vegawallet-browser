@@ -1,5 +1,4 @@
 import ajvPlugin from './plugins/ajv/index.js'
-import { folderInput } from 'rollup-plugin-folder-input'
 
 /**
  * Generates the validation files for the client and admin schemas
@@ -11,13 +10,13 @@ export default () => [
     output: {
       dir: 'web-extension/validation/client'
     },
-    plugins: [folderInput(), ajvPlugin()]
+    plugins: [ajvPlugin()]
   },
   {
     input: globSync('web-extension/schemas/admin/*.json'),
     output: {
       dir: 'web-extension/validation/admin'
     },
-    plugins: [folderInput(), ajvPlugin()]
+    plugins: [ajvPlugin()]
   }
 ]

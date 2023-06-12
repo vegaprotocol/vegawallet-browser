@@ -2,13 +2,32 @@ export class ConnectionsCollection {
   constructor({ connectionsStore, publicKeyIndexStore }) {
     this.store = connectionsStore
     this.index = publicKeyIndexStore
+
+    this.listeners = new Set()
   }
 
+  listen(listener) {
+    this.listeners.add(listener)
+
+    return () => this.listeners.delete(listener)
+  }
+
+  _emit(event, ...args) {
+    for (const listener of this.listeners) {
+      try {
+        listener(event, ...args)
+      } catch (_) { }
+    }
+  }
+
+
   async set(origin, allowList) {
-    return await this.store.set(origin, {
+    const res = await this.store.set(origin, {
       origin,
       allowList
     })
+
+    this._emit('set', origin, allowList)
   }
 
   async has(origin) {

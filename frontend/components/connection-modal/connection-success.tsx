@@ -42,7 +42,7 @@ export const ConnectionSuccess = ({ onClose, hostname }: ConnectionSuccessProps)
       <h1 data-testid={locators.connectionSuccessTitle} className="text-3xl text-center mb-1">
         Connected
       </h1>
-      <h2 data-testid={locators.connectionSuccessHostname} className="text-center text-vega-dark-400">
+      <h2 data-testid={locators.connectionSuccessHostname} className="break-all text-center text-vega-dark-400">
         {hostname}
       </h2>
     </div>

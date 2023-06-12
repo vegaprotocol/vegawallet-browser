@@ -76,8 +76,6 @@ runtime.onConnect.addListener(async (port) => {
 })
 
 runtime.onInstalled.addListener(async (details) => {
-  await StorageLocalMap.permanentClearAll()
-
   await Promise.allSettled([
     networks.set('fairground', {
       name: 'Fairground',

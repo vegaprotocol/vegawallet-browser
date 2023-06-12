@@ -32,7 +32,7 @@ describe('list connections tests', () => {
     // 1101-BWAL-083 If I have the extension open on the Connections view AND I approve a request to connect to a dapp (and the connection is successful), the connections view should update to show the new connection
     const connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
-    const firstDapp = new VegaAPI(driver)
+    const firstDapp = new VegaAPI(driver, await driver.getWindowHandle())
     await firstDapp.connectWallet()
     const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
@@ -43,7 +43,7 @@ describe('list connections tests', () => {
     ).toBe(1)
     // assert on the connection name
     // update the second instance of VegaAPI to be a different dapp when we pull in the tab switching
-    const secondDapp = new VegaAPI(driver)
+    const secondDapp = new VegaAPI(driver, await driver.getWindowHandle())
     await secondDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
     numConnections = await connections.getNumberOfConnections()

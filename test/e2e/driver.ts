@@ -33,7 +33,8 @@ async function initChromeDriver() {
   chromeOptions.setUserPreferences({
     'profile.default_content_setting_values': {
       clipboard: 1
-    }
+    },
+    'extensions.ui.developer_mode': true
   })
 
   return new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()

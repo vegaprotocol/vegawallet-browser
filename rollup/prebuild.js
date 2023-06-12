@@ -1,25 +1,23 @@
 import ajvPlugin from './plugins/ajv/index.js'
-import { globSync } from 'glob'
+import { folderInput } from 'rollup-plugin-folder-input'
 
 /**
  * Generates the validation files for the client and admin schemas
  * @returns {object[]} - The rollup configs for client and admin
  */
-const prebuild = () => [
+export default () => [
   {
     input: globSync('web-extension/schemas/client/*.json'),
     output: {
       dir: 'web-extension/validation/client'
     },
-    plugins: [ajvPlugin()]
+    plugins: [folderInput(), ajvPlugin()]
   },
   {
     input: globSync('web-extension/schemas/admin/*.json'),
     output: {
       dir: 'web-extension/validation/admin'
     },
-    plugins: [ajvPlugin()]
+    plugins: [folderInput(), ajvPlugin()]
   }
 ]
-
-export default prebuild

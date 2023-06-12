@@ -11,6 +11,7 @@ import { ImportWallet } from './onboarding/import-wallet'
 import { Auth } from './auth'
 import { Wallets } from './auth/wallets'
 import { Settings } from './auth/settings'
+import { Connections } from './auth/connections'
 
 import { usePersistLocation } from '../hooks/persist-location'
 import { ComingSoon } from '../components/coming-soon'
@@ -28,7 +29,7 @@ export const Routing = () => {
             <Route index element={<ComingSoon />} />
             <Route path={':id'} element={<ComingSoon />} />
           </Route>
-          <Route path={ROUTES.connections} element={<ComingSoon />} />
+          <Route path={ROUTES.connections} element={<Connections />} />
           <Route path={ROUTES.settings} element={<Settings />} />
         </Route>
         <Route path={ROUTES.onboarding} element={<Outlet />}>

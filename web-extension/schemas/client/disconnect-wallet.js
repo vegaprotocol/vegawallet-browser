@@ -1,4 +1,0 @@
-export default {
-  type: 'null',
-  errorMessage: '`client.disconnect_wallet` does not take any parameters'
-}

@@ -23,7 +23,7 @@ export default (opts) => {
       type: 'asset',
       name: 'manifest',
       needsCodeReference: false,
-      fileName: 'manifest.json',
+      fileName: opts.outputFile,
       source: JSON.stringify(deepmerge.all([...manifests, opts.overrides]), null, 2)
     })
   }

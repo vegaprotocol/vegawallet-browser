@@ -43,6 +43,7 @@ export default (browser, commonFolder, build, isTestBuild) => {
 
         mainfest({
           manifests: [`manifests/common.json`, `manifests/${browser}.json`],
+          outputFile: `${browser}/manifest.json`,
           overrides: {
             version: pkg.version,
             ...testReplacements

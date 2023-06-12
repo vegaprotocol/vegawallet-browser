@@ -23,7 +23,7 @@ export const ConnectionModal = () => {
     [handleConnectionDecision]
   )
 
-  if (!isOpen) return null
+  if (!isOpen || !details) return null
   return (
     <Splash data-testid={locators.connectionModal} centered={true}>
       {hasConnected ? (

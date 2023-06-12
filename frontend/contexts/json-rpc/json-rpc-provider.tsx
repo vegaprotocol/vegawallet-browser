@@ -1,25 +1,18 @@
 import { useMemo } from 'react'
 import { JsonRpcContext } from './json-rpc-context'
-<<<<<<< main:frontend/contexts/json-rpc/json-rpc-provider.tsx
-import { useModalStore } from '../../lib/modal-store'
-=======
-import { PortServer } from '../../lib/port-server'
-import JSONRPCServer from '../../lib/json-rpc-server'
-<<<<<<< main:frontend/contexts/json-rpc/json-rpc-provider.tsx
-import { ConnectionMessage, useModalStore } from '../../lib/modal-store'
->>>>>>> chore: type connection messages:src/contexts/json-rpc/json-rpc-provider.tsx
-=======
 import { ConnectionMessage, TransactionMessage, useModalStore } from '../../lib/modal-store'
->>>>>>> chore: type transaction modal requests:src/contexts/json-rpc/json-rpc-provider.tsx
 import { ServerRpcMethods } from '../../lib/server-rpc-methods'
 import JSONRPCClient from '../../../lib/json-rpc-client'
 import JSONRPCServer from '../../../lib/json-rpc-server'
 import { PortServer } from '../../../lib/port-server'
 
-const createClient = () => {
+const getRuntime = () => {
   // @ts-ignore
-  const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
+  return globalThis.browser?.runtime ?? globalThis.chrome?.runtime
+}
 
+const createClient = () => {
+  const runtime = getRuntime()
   const backgroundPort = runtime.connect({ name: 'popup' })
 
   const background = new JSONRPCClient({
@@ -41,8 +34,7 @@ const createServer = (
   handleConnection: (params: ConnectionMessage) => Promise<boolean>,
   handleTransaction: (params: TransactionMessage) => Promise<boolean>
 ) => {
-  // @ts-ignore
-  const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
+  const runtime = getRuntime()
   const backgroundPort = runtime.connect({ name: 'popup' })
   const server = new JSONRPCServer({
     methods: {

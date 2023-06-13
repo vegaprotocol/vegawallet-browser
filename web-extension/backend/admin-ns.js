@@ -23,15 +23,7 @@ function doValidate(validator, params) {
  * @returns {JSONRPCServer}
  */
 export default function init({ encryptedStore, settings, wallets, networks, connections, onerror }) {
-  connections.listen((ev, origin) => {
-    server.notify('admin.connections_change', {
-      add: [{ origin }],
-      update: [],
-      delete: []
-    })
-  })
-
-  var server = new JSONRPCServer({
+  const server = new JSONRPCServer({
     onerror,
     methods: {
       async 'admin.app_globals'(params) {
@@ -152,6 +144,14 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         return { connections: await connections.list() }
       }
     }
+  })
+
+  connections.listen((ev, connection) => {
+    server.notify('admin.connections_change', {
+      add: [connection],
+      update: [],
+      delete: []
+    })
   })
 
   return server

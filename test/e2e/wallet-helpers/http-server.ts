@@ -23,7 +23,7 @@ export const server = http.createServer((req, res) => {
         spamPowNumberOfPastBlocks: 100,
         spamPowNumberOfTxPerBlock: 2,
         spamPowIncreasingDifficulty: false,
-        chainId: 'fairground'
+        chainId: 'testnet'
       })
     )
 

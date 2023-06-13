@@ -39,6 +39,43 @@ describe('Store', () => {
       }
     ])
   })
+  it('adds connections from backend uniquely', () => {
+    expect(useConnectionStore.getState().error).toBe(null)
+    expect(useConnectionStore.getState().loading).toBe(true)
+    expect(useConnectionStore.getState().connections).toStrictEqual([])
+    useConnectionStore.getState().addConnection({
+      allowList: {
+        publicKeys: [],
+        wallets: ['Wallet 1']
+      },
+      origin: 'https://vega.xyz'
+    })
+    expect(useConnectionStore.getState().connections).toStrictEqual([
+      {
+        allowList: {
+          publicKeys: [],
+          wallets: ['Wallet 1']
+        },
+        origin: 'https://vega.xyz'
+      }
+    ])
+    useConnectionStore.getState().addConnection({
+      allowList: {
+        publicKeys: [],
+        wallets: ['Wallet 1']
+      },
+      origin: 'https://vega.xyz'
+    })
+    expect(useConnectionStore.getState().connections).toStrictEqual([
+      {
+        allowList: {
+          publicKeys: [],
+          wallets: ['Wallet 1']
+        },
+        origin: 'https://vega.xyz'
+      }
+    ])
+  })
   it('renders error if error is present', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {})
     await useConnectionStore.getState().loadConnections({

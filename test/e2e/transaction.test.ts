@@ -20,7 +20,7 @@ describe('transactions', () => {
   const transferReq = {
     fromAccountType: 4,
     toAccountType: 4,
-    amount: '1000',
+    amount: '1',
     asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
     to: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
     kind: {
@@ -49,11 +49,8 @@ describe('transactions', () => {
     await driver.quit()
   })
 
-  afterAll(() => {})
-
   it('can confirm a transaction', async () => {
     // 1101-BWAL-044 When I view a transaction request I can choose to approve it
-
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()

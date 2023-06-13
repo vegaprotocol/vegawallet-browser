@@ -26,7 +26,7 @@ const renderComponent = () => {
 
 describe('ImportWallet', () => {
   it('renders description, input and submit button', () => {
-    // 1101-BWAL-070 I can see an explanation of what I am being asked to do
+    // 1101-BWAL-069 I can see an explanation of what I am being asked to do
     mockClient()
     renderComponent()
     expect(screen.getByTestId(importMnemonicDescription)).toHaveTextContent(
@@ -56,7 +56,7 @@ describe('ImportWallet', () => {
   })
 
   it('requires mnemonic should be 24 words', async () => {
-    // 1101-BWAL-073 I can not hit submit until I have entered 24 words (and given feedback that I haven't met the min number of words)
+    // 1101-BWAL-072 I can not hit submit until I have entered 24 words (and given feedback that I haven't met the min number of words)
     mockClient()
     const twentyThreeWords =
       'one two three four five six seven eight nine ten eleven twelve thirteen fouteen fifteen sixteen seventeen eighteen ninteen twenty twenty-one twenty-two twenty-three'
@@ -75,7 +75,7 @@ describe('ImportWallet', () => {
   })
 
   it('renders error message if recovery phrase is invalid', async () => {
-    // 1101-BWAL-074 If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again)
+    // 1101-BWAL-073 If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again)
     const listeners: Function[] = []
     // @ts-ignore
     global.browser = {

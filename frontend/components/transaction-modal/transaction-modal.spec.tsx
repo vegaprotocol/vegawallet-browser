@@ -52,12 +52,14 @@ describe('TransactionModal', () => {
   })
 
   it('renders page header, transaction type, hostname and key', () => {
-    /* 1101-BWAL-056 For transactions that are not orders or withdraw / transfers, there is a standard template with the minimum information required i.e. (1101-BWAL-056)
+    /* 1101-BWAL-054 For transactions that are not orders or withdraw / transfers, there is a standard template with the minimum information required i.e. 
 -- [ ] Transaction title
 -- [ ] Where it is from e.g. console.vega.xyz with a favicon
 -- [ ] The key you are using to sign with a visual identifier
 -- [ ] When it was received
 -- [ ] Raw JSON details
+
+    1101-BWAL-055 I can copy the raw json to my clipboard
 */
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
@@ -76,6 +78,7 @@ describe('TransactionModal', () => {
     expect(screen.getByTestId(locators.transactionTimeAgo)).toHaveTextContent('Received just now')
     expect(screen.getByTestId(locators.transactionModalApproveButton)).toBeVisible()
     expect(screen.getByTestId(locators.transactionModalDenyButton)).toBeVisible()
+    expect(screen.getByTestId(locators.copyWithCheck)).toBeVisible()
   })
 
   it('calls handleTransactionDecision with false if denying', async () => {

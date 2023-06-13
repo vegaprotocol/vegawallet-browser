@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import JSONRPCClient from '../../lib/json-rpc-client'
 import { RpcMethods } from '../lib/client-rpc-methods'
-import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 
 export interface Connection {
@@ -28,7 +28,7 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
   loading: true,
   error: null,
   setConnections: (connections: Connection[]) => {
-    set({ connections: sortBy(uniq(connections), 'origin') })
+    set({ connections: sortBy(uniqBy(connections, 'origin'), 'origin') })
   },
   addConnection: (connection: Connection) => {
     const newConnections = [...get().connections, connection]

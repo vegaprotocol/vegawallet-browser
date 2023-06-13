@@ -28,6 +28,17 @@ export async function waitForChildElementsCount(
   )
 }
 
+export async function hasTotalNumElements(expectedElements: number, locator: By, driver: WebDriver) {
+  try {
+    await waitForChildElementsCount(driver, locator, expectedElements)
+    return true
+  } catch (error) {
+    const err = error as Error
+    console.log(err.message)
+    return false
+  }
+}
+
 export async function getElements(driver: WebDriver, childElementLocator: By, timeout = defaultTimeoutMillis) {
   await waitForElementToBeReady(driver, childElementLocator, timeout)
   return await driver.findElements(childElementLocator)

@@ -1,8 +1,8 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { getByDataTestID, getElements, isElementDisplayed } from '../selenium-util'
+import { getByDataTestID, getElements, hasTotalNumElements, isElementDisplayed } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
-
 import 'jest-expect-message'
+
 export class ListConnections {
   private readonly noConnections: By = getByDataTestID(locators.connectionsNoConnections)
   private readonly connectionsEl: By = getByDataTestID(locators.connectionsConnection)
@@ -22,6 +22,24 @@ export class ListConnections {
   async getNumberOfConnections() {
     const listOfConnectionElements = await getElements(this.driver, this.connections)
     return listOfConnectionElements.length
+  }
+
+  async getConnectionNames() {
+    const connectionsList = await getElements(this.driver, this.connections)
+    let connectionNames: string[] = []
+
+    for (const connection of connectionsList) {
+      connectionNames.push(await connection.getText())
+    }
+
+    return connectionNames
+  }
+
+  async checkNumConnections(expectedConnections: number) {
+    expect(
+      await hasTotalNumElements(expectedConnections, this.connections, this.driver),
+      `expected ${expectedConnections} connection(s), instead found ${await this.getNumberOfConnections()}`
+    ).toBe(true)
   }
 
   async connectionsExist() {

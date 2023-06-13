@@ -36,21 +36,22 @@ describe('list connections tests', () => {
     await firstDapp.connectWallet()
     const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    let numConnections = await connections.getNumberOfConnections()
-    expect(
-      numConnections,
-      `expected a connection to be present after approving, found ${numConnections} connection(s)`
-    ).toBe(1)
-    // assert on the connection name
-    // update the second instance of VegaAPI to be a different dapp when we pull in the tab switching
-    const secondDapp = new VegaAPI(driver, await driver.getWindowHandle())
+    await connections.checkNumConnections(1)
+    let connectionNames = await connections.getConnectionNames()
+    expect(connectionNames[0]).toContain('google.co.uk')
+
+    const secondDapp = new VegaAPI(driver, await driver.getWindowHandle(), 'https://yahoo.com')
     await secondDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    numConnections = await connections.getNumberOfConnections()
+    await connections.checkNumConnections(2)
+    connectionNames = await connections.getConnectionNames()
     expect(
-      numConnections,
-      `expected a connection to be present after approving, found ${numConnections} connection(s)`
-    ).toBe(2)
-    // assert on the two connection names and the order
+      connectionNames.some((name) => name.includes('yahoo.com')),
+      'expected yahoo.com to be present'
+    ).toBe(true)
+    expect(
+      connectionNames.some((name) => name.includes('google.co.uk')),
+      'expected google.co.uk to be present'
+    ).toBe(true)
   })
 })

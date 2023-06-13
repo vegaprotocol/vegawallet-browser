@@ -3,7 +3,7 @@ import { Connections } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { connectionsConnection, connectionsNoConnections } from '../../../locator-ids'
-import { ConnectionsStore, useConnectionStore } from './store'
+import { ConnectionsStore, useConnectionStore } from '../../../stores/connections'
 
 const renderComponent = () =>
   render(

@@ -1,4 +1,4 @@
-import { useConnectionStore } from './store'
+import { useConnectionStore } from './connections'
 
 const client = {
   request() {

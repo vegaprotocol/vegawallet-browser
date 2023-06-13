@@ -2,10 +2,10 @@ import { Frame } from '../../../components/frame'
 import { ConnectionsList } from './connection-list'
 import { NoAppsConnected } from './no-dapps-connected'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { useConnectionStore } from './store'
 import { useEffect } from 'react'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { connectionsHeader } from '../../../locator-ids'
+import { useConnectionStore } from '../../../stores/connections'
 
 export const Connections = () => {
   const { client } = useJsonRpcClient()

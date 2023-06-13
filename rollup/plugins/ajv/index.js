@@ -1,10 +1,12 @@
 import { compileFile } from './compile-ajv-schema.js'
 
-export default () => ({
+const ajvPlugin = () => ({
   name: 'ajv-compile',
-  async transform(_, path) {
-    const schema = await import(path)
-    const compiled = await compileFile(schema.default)
+  async transform(code) {
+    const parsed = JSON.parse(code)
+    const compiled = await compileFile(parsed)
     return compiled
   }
 })
+
+export default ajvPlugin

@@ -65,6 +65,7 @@ describe('Login', () => {
       await driver.quit()
       driver = await initFirefoxDriver(true, false)
     } else {
+      await apiHelper.lockWallet()
       await openNewWindowAndSwitchToIt(driver)
     }
     await navigateToLandingPage(driver)

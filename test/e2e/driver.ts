@@ -33,7 +33,8 @@ async function initChromeDriver() {
   chromeOptions.setUserPreferences({
     'profile.default_content_setting_values': {
       clipboard: 1
-    }
+    },
+    'extensions.ui.developer_mode': true
   })
 
   return new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
@@ -123,7 +124,7 @@ async function zipDirectory(source: string, out: string): Promise<void> {
 
 export const captureScreenshot = async (driver: WebDriver, testName: string) => {
   const screenshotData = await driver.takeScreenshot()
-  const screenshotPath = `./test-screenshots/${testName}.png`
+  const screenshotPath = `./test/test-screenshots/${testName}.png`
   await fs.ensureDir(path.dirname(screenshotPath))
   fs.writeFileSync(screenshotPath, screenshotData, 'base64')
 }

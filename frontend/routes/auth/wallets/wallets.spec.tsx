@@ -103,7 +103,7 @@ describe('Wallets', () => {
   })
 
   it('gives information of where to deposit and manage assets', async () => {
-    // 1101-BWAL-060 I can see information of where to go to deposit and manage my assets
+    // 1101-BWAL-061 I can see information of where to go to deposit and manage my assets
     mockClient()
     render(
       <JsonRPCProvider>

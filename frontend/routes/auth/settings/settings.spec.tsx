@@ -29,8 +29,8 @@ const renderComponent = () =>
 
 describe('Settings', () => {
   it('renders version, feedback link and lock button', () => {
-    // 1101-BWAL-062 I can see the version # of the browser extension
-    // 1101-BWAL-063 I can see the feedback link
+    // 1101-BWAL-063 I can see the version # of the browser extension
+    // 1101-BWAL-064 I can see the feedback link
     mockClient()
     renderComponent()
     expect(screen.getByTestId(settingsPage)).toBeInTheDocument()

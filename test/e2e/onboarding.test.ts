@@ -53,10 +53,10 @@ describe('Onboarding', () => {
 
   it('can successfully import a wallet', async () => {
     // 1101-BWAL-013 I can choose to import an existing wallet
-    // 1101-BWAL-069 I can choose to import an existing vega wallet TODO- remove duplicate AC from specs
-    // 1101-BWAL-071 I can enter the recovery phrase to import my existing vega wallet
-    // 1101-BWAL-072 I can submit the recovery phrase I have entered to import the wallet
-    // 1101-BWAL-075 I am redirected to the next step 1101-BWAL-075
+    // 1101-BWAL-068 I can choose to import an existing vega wallet TODO- remove duplicate AC from specs
+    // 1101-BWAL-070 I can enter the recovery phrase to import my existing vega wallet
+    // 1101-BWAL-071 I can submit the recovery phrase I have entered to import the wallet
+    // 1101-BWAL-074 I am redirected to the next step
     const apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()

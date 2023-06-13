@@ -7,5 +7,6 @@ export const RpcMethods = {
   ImportWallet: 'admin.import_wallet',
   GenerateKey: 'admin.generate_key',
   Lock: 'admin.lock',
-  ListConnections: 'admin.list_connections'
+  ListConnections: 'admin.list_connections',
+  ConnectionsChange: 'admin.connections_change'
 }

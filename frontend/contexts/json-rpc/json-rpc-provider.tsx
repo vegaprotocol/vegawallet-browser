@@ -1,33 +1,44 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { JsonRpcContext } from './json-rpc-context'
 import { ConnectionMessage, TransactionMessage, useModalStore } from '../../lib/modal-store'
 import { ServerRpcMethods } from '../../lib/server-rpc-methods'
 import JSONRPCClient from '../../../lib/json-rpc-client'
 import JSONRPCServer from '../../../lib/json-rpc-server'
 import { PortServer } from '../../../lib/port-server'
+import { Connection, useConnectionStore } from '../../stores/connections'
+import { RpcMethods } from '../../lib/client-rpc-methods'
+
+export interface JsonRpcNotification {
+  method: string
+  params: any
+  jsonrpc: '2.0'
+}
 
 const getRuntime = () => {
   // @ts-ignore
   return globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 }
 
-const createClient = () => {
+const createClient = (notificationHandler: Function) => {
   const runtime = getRuntime()
   const backgroundPort = runtime.connect({ name: 'popup' })
 
-  const background = new JSONRPCClient({
+  const client = new JSONRPCClient({
+    onnotification: (...args) => {
+      notificationHandler(...args)
+    },
     idPrefix: 'vega-popup-',
     send(msg: any) {
       console.info('Sending message to background', msg)
       backgroundPort.postMessage(msg)
     }
   })
-  window.client = background
+  window.client = client
   backgroundPort.onMessage.addListener((res: any) => {
     console.info('Received message from background', res)
-    background.onmessage(res)
+    client.onmessage(res)
   })
-  return background
+  return client
 }
 
 const createServer = (
@@ -63,11 +74,22 @@ const createServer = (
  * Provides Vega Ethereum contract instances to its children.
  */
 export const JsonRPCProvider = ({ children }: { children: JSX.Element }) => {
+  const { addConnection } = useConnectionStore((store) => ({
+    addConnection: store.addConnection
+  }))
+  const notificationHandler = useCallback(
+    (message: JsonRpcNotification) => {
+      if (message.method === RpcMethods.ConnectionsChange) {
+        message.params.add.forEach((m: Connection) => addConnection(m))
+      }
+    },
+    [addConnection]
+  )
   const { handleConnection, handleTransaction } = useModalStore((store) => ({
     handleConnection: store.handleConnection,
     handleTransaction: store.handleTransaction
   }))
-  const client = useMemo(() => createClient(), [])
+  const client = useMemo(() => createClient(notificationHandler), [notificationHandler])
   const server = useMemo(() => createServer(handleConnection, handleTransaction), [handleConnection, handleTransaction])
   return (
     <JsonRpcContext.Provider

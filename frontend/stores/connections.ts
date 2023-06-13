@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import JSONRPCClient from '../../../../lib/json-rpc-client'
-import { RpcMethods } from '../../../lib/client-rpc-methods'
+import JSONRPCClient from '../../lib/json-rpc-client'
+import { RpcMethods } from '../lib/client-rpc-methods'
 
 export interface Connection {
   allowList: AllowList
@@ -17,12 +17,16 @@ export type ConnectionsStore = {
   loading: boolean
   error: string | null
   loadConnections: (client: JSONRPCClient) => void
+  addConnection: (connection: Connection) => void
 }
 
 export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
   connections: [],
   loading: true,
   error: null,
+  addConnection: (connection: Connection) => {
+    set({ connections: [...get().connections, connection] })
+  },
   loadConnections: async (client: JSONRPCClient) => {
     try {
       set({ loading: true, error: null })

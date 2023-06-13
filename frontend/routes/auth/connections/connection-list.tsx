@@ -1,7 +1,7 @@
 import { List } from '../../../components/list'
 import { HostImage } from '../../../components/host-image'
-import { Connection } from './store'
 import { connectionsConnection } from '../../../locator-ids'
+import { Connection } from '../../../stores/connections'
 
 export const ConnectionsList = ({ connections }: { connections: Connection[] }) => {
   return (

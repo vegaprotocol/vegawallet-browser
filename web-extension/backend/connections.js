@@ -16,10 +16,9 @@ export class ConnectionsCollection {
     for (const listener of this.listeners) {
       try {
         listener(event, ...args)
-      } catch (_) { }
+      } catch (_) {}
     }
   }
-
 
   async set(origin, allowList) {
     const res = await this.store.set(origin, {
@@ -27,7 +26,7 @@ export class ConnectionsCollection {
       allowList
     })
 
-    this._emit('set', origin, allowList)
+    this._emit('set', { origin, allowList })
 
     return res
   }

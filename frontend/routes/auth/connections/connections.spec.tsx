@@ -1,4 +1,4 @@
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, act, waitFor } from '@testing-library/react'
 import { Connections } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
@@ -23,10 +23,10 @@ describe('Connections', () => {
     global.browser = null
     act(() => useConnectionStore.setState(initialState as ConnectionsStore))
   })
-  it('renders list of connections', async () => {
+  it('renders sorted list of connections', async () => {
     mockClient()
     renderComponent()
-    const [vega, foo] = await screen.findAllByTestId(connectionsConnection)
+    const [foo, vega] = await screen.findAllByTestId(connectionsConnection)
     expect(vega).toHaveTextContent('https://vega.xyz')
     expect(foo).toHaveTextContent('foo.com')
   })
@@ -91,6 +91,6 @@ describe('Connections', () => {
       }
     }
     const { container } = renderComponent()
-    expect(container).toBeEmptyDOMElement()
+    await waitFor(() => expect(container).toBeEmptyDOMElement())
   })
 })

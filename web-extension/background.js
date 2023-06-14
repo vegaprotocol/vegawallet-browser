@@ -79,12 +79,12 @@ runtime.onConnect.addListener(async (port) => {
 
 runtime.onInstalled.addListener(async (details) => {
   await Promise.allSettled([
-    networks.set('fairground', {
-      name: 'Fairground',
-      rest: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
-      explorer: 'https://explorer.fairground.wtf/'
+    networks.set(config.ENV_ID, {
+      name: config.ENV_NAME,
+      rest: config.NODES,
+      explorer: config.EXPLORER_URL
     }),
-    settings.set('selectedNetwork', 'fairground')
+    settings.set('selectedNetwork', config.ENV_ID)
   ])
 })
 

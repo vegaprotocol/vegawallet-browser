@@ -13,6 +13,7 @@ import {
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../routes/route-names'
+import config from '../../../lib/config'
 
 export const Settings = () => {
   const { client } = useJsonRpcClient()
@@ -43,7 +44,7 @@ export const Settings = () => {
         <ExternalLink
           data-testid={settingsFeedbackLink}
           className="text-white mt-1 underline"
-          href={process.env.REACT_APP_FEEDBACK_LINK}
+          href={config.FEEDBACK_LINK}
         >
           Provide feedback
         </ExternalLink>

@@ -16,5 +16,8 @@ export default {
   collectCoverageFrom: ['**/*.js', '!**/node_modules/**'],
   coverageDirectory: 'coverage/backend',
   coverageReporters: ['html'],
-  transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/']
+  transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/'],
+  moduleNameMapper: {
+    '@config': '<rootDir>/config/test.js'
+  }
 }

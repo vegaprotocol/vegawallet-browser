@@ -5,10 +5,6 @@
 import '@testing-library/jest-dom'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
-import dotenv from 'dotenv'
-
-// Config dotenv to pick up environment variables from .env
-dotenv.config()
 
 TimeAgo.addDefaultLocale(en)
 class ResizeObserver {

@@ -103,6 +103,8 @@ export default function init({ onerror, settings, wallets, networks, connections
               code: e.code
             })
           }
+
+          throw e
         }
       },
       async 'client.sign_transaction'(params, context) {

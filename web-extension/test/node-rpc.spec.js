@@ -121,7 +121,7 @@ describe('findHealthyNode', () => {
     await Promise.all(servers.map((s) => s.close()))
   })
 
-  test('findHealthyNode - only faulty nodes', async () => {
+  test('check error is thrown on only faulty nodes', async () => {
     const servers = await Promise.all([createFaultyServer(), createFaultyServer()])
 
     await expect(NodeRPC.findHealthyNode(servers.map((s) => s.url))).rejects.toThrow('No healthy node found')

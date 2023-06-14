@@ -1,36 +1,32 @@
-import dotenv from 'dotenv'
 import prebuild from './rollup/prebuild.js'
 import backend from './rollup/backend.js'
 import frontend from './rollup/frontend.js'
 import postbuild from './rollup/postbuild.js'
-
-// Config dotenv to pick up environment variables from .env
-dotenv.config()
+import fs from 'fs'
+import path from 'path'
 
 const isProduction = process.env.NODE_ENV === 'production'
-const isTestBuild = ['1', 'true'].includes(process.env.REACT_APP_TEST)
 
 const browsers = ['chrome', 'firefox']
 
 const destination = 'build'
 const commonPath = `${destination}/common`
 
-// Replace `process.env.REACT_APP_*` with the actual values from the environment
-const envVars = Object.entries(process.env)
-  .filter(([key]) => key.startsWith('REACT_APP_'))
-  .reduce(
-    (prev, [key, value]) => ({
-      ...prev,
-      [`process.env.${key}`]: JSON.stringify(value)
-    }),
-    {}
-  )
+const config = (cliArgs) => {
+  const { vegaEnv } = cliArgs
+  if (!fs.existsSync(path.resolve('.', 'config', `${vegaEnv}.js`))) {
+    throw new Error('Could not find config file for environment: ' + vegaEnv)
+  }
+  const isTestBuild = vegaEnv === 'test'
 
-const config = [
-  ...prebuild(),
-  ...backend(envVars, isProduction, commonPath),
-  ...frontend(envVars, isProduction, commonPath),
-  ...browsers.flatMap((b) => postbuild(b, commonPath, destination, isTestBuild))
-]
-
+  // Remove custom CLI args to prevent errors.
+  // https://github.com/rollup/rollup/issues/2694#issuecomment-463915954
+  delete cliArgs.vegaEnv
+  return [
+    ...prebuild(),
+    ...backend(isProduction, commonPath, vegaEnv),
+    ...frontend(isProduction, commonPath, vegaEnv),
+    ...browsers.flatMap((b) => postbuild(b, commonPath, destination, isTestBuild))
+  ]
+}
 export default config

@@ -4,10 +4,12 @@ import json from '@rollup/plugin-json'
 import typescript from '@rollup/plugin-typescript'
 import postcss from 'rollup-plugin-postcss'
 import html, { makeHtmlAttributes } from '@rollup/plugin-html'
-import replace from '@rollup/plugin-replace'
 import tailwindcss from 'tailwindcss'
 import autoprefixer from 'autoprefixer'
 import copy from 'rollup-plugin-copy'
+import alias from '@rollup/plugin-alias'
+import path from 'path'
+import replace from '@rollup/plugin-replace'
 
 const htmlPlugin = (outputPath) => {
   return html({
@@ -60,7 +62,7 @@ const htmlPlugin = (outputPath) => {
  * @param {boolean} isProduction - Whether or not this is a production build
  * @param {string} outputPath - The path to output the build to
  */
-export default (envVars, isProduction, outputPath) => [
+const frontend = (isProduction, outputPath, vegaEnv) => [
   {
     input: './frontend/index.tsx',
     output: {
@@ -82,11 +84,13 @@ export default (envVars, isProduction, outputPath) => [
       // Generate HTML
       htmlPlugin(outputPath),
       // Replace env vars with static values
+      alias({
+        entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${vegaEnv}.js`) }]
+      }),
       replace({
         preventAssignment: true,
         values: {
-          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-          ...envVars
+          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }
       }),
       // Copy static assets
@@ -96,3 +100,5 @@ export default (envVars, isProduction, outputPath) => [
     ]
   }
 ]
+
+export default frontend

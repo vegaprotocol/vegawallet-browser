@@ -107,7 +107,6 @@ export class VegaAPI {
     const keysString = await this.driver.executeScript<string>(async () => {
       try {
         const keys = await window.vega.listKeys()
-        console.log('KEYS: ', keys)
         return JSON.stringify(keys)
       } catch (error: any) {
         return `Error: ${error.message}`

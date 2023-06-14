@@ -51,8 +51,6 @@ const createServer = (
   window.server = server
   const portServer = new PortServer({
     onerror: () => {},
-    onbeforerequest: () => {},
-    onafterrequest: () => {},
     server
   })
   portServer.listen(backgroundPort)

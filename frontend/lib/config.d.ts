@@ -1,4 +1,4 @@
-declare module 'config' {
+declare module '@config' {
   interface Config {
     ENV_ID: string
     ENV_NAME: string

@@ -22,7 +22,7 @@ export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
     tid
   })
 
-  const nonce = new DataView(await randomFill(new Uint8Array(8))).getBigUint64(0, false)
+  const nonce = new DataView(await randomFill(new Uint8Array(8)).buffer).getBigUint64(0, false)
 
   const inputData = InputData.encode({
     blockHeight: BigInt(latestBlock.height),

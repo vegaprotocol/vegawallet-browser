@@ -15,6 +15,7 @@ import {
   walletsWalletName
 } from '../../../locator-ids'
 import { KeyIcon } from '../../../components/key-icon'
+import config from '../../../lib/config'
 
 export const Wallets = () => {
   const { client } = useJsonRpcClient()
@@ -74,11 +75,7 @@ export const Wallets = () => {
         </h1>
         <Frame>
           Deposit and manage your assets directly in &nbsp;
-          <ExternalLink
-            data-testid={walletsDepositLink}
-            className="break-word"
-            href={process.env.REACT_APP_DEPOSIT_LINK}
-          >
+          <ExternalLink data-testid={walletsDepositLink} className="break-word" href={config.DEPOSIT_LINK}>
             a Vega dapp.
           </ExternalLink>
         </Frame>

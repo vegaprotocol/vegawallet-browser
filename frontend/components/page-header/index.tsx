@@ -1,6 +1,7 @@
 import { networkIndicator } from '../../locator-ids'
 import { VegaIcon } from '../icons/vega-icon'
 import locators from '../locators'
+import config from '../../lib/config'
 
 export const PageHeader = () => {
   return (
@@ -11,7 +12,7 @@ export const PageHeader = () => {
           data-testid={networkIndicator}
           className="flex flex-col justify-center border rounded-md border-vega-dark-300 text-sm px-2 h-6"
         >
-          {process.env.REACT_APP_ENV_NAME}
+          {config.ENV_NAME}
         </div>
       </div>
     </>

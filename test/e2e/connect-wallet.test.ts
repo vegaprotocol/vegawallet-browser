@@ -55,6 +55,35 @@ describe('Connect wallet', () => {
     await settings.checkOnSettingsPage()
   })
 
+  it('I can call client.disconnect_wallet with no prior connection and get a null response', async () => {
+    // 1101-BWAL-084 can call client.disconnect_wallet with no prior connection and get a null response
+    const disconnectWalletResponse = await vegaAPI.disconnectWallet()
+    expect(disconnectWalletResponse).toBe(null)
+  })
+
+  it('can disconnect wallet via dapp and reconnect without needing approval', async () => {
+    // 1101-BWAL-083 I can call client.disconnect_wallet after successfully calling client.connect_wallet
+    // 1101-BWAL-085 A dapp can disconnect the current active connection (not it's pre-approved status i.e. the dapp can re-instate the connection without further approval)
+    await setUpWalletAndKey()
+    const navPanel = new NavPanel(driver)
+    const settings = await navPanel.goToSettings()
+    await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
+    await connectWallet.checkOnConnectWallet()
+    await connectWallet.approveConnectionAndCheckSuccess()
+    const connectionResult = await vegaAPI.getConnectionResult()
+    expect(connectionResult).toBe(null)
+    let originalKeys = await vegaAPI.listKeys()
+    expect(originalKeys.length).toBe(1)
+    const disconnectResponse = await vegaAPI.disconnectWallet()
+    expect(disconnectResponse).toBe(null)
+    const keysAfterDisconnect = await vegaAPI.listKeys()
+    expect(keysAfterDisconnect.length).toBe(0)
+    await vegaAPI.connectWallet()
+    const keysAfterReconnect = await vegaAPI.listKeys()
+    expect(keysAfterReconnect).toEqual(originalKeys)
+    await settings.checkOnSettingsPage()
+  })
+
   it('queues a connection request for when I have finished onboarding', async () => {
     // 1101-BWAL-043 When I try to connect to the wallet I've made during onboarding but have not "completed" onboarding, I cannot see the connection request until I've completed onboarding (it is queued in the background)
     await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed

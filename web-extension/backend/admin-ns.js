@@ -31,9 +31,32 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
     })
   })
 
+  let popout = null
   var server = new JSONRPCServer({
     onerror,
     methods: {
+      async 'admin.open_popout'(params) {
+        doValidate(adminValidation.openPopout, params)
+        if (popout == null) {
+          popout = windows.create({
+            url: extension.getURL('/index.html'),
+            type: 'popup',
+            width: 360,
+            height: 600
+          })
+
+          const handle = await popout
+          handle.onRemoved.addEventListener(() => {
+            popout = null
+          })
+          handle.alwaysOnTop = true
+        }
+
+        // Await if there is an existing pending window
+        await popout
+
+        return null
+      },
       async 'admin.app_globals'(params) {
         doValidate(adminValidation.appGlobals, params)
 

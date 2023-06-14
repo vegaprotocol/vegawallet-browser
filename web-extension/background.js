@@ -13,7 +13,10 @@ import initClient from './backend/client-ns.js'
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
-const interactor = new PopupClient()
+const interactor = new PopupClient({
+  onbeforerequest: setPending,
+  onafterrequest: setPending
+})
 
 const encryptedStore = new EncryptedStorage(
   new ConcurrentStorage(new StorageLocalMap('wallets')),
@@ -46,8 +49,6 @@ const clientServer = initClient({
 })
 
 const clientPorts = new PortServer({
-  onbeforerequest: setPending,
-  onafterrequest: setPending,
   onerror(err) {
     console.error(err)
   },
@@ -86,8 +87,9 @@ runtime.onInstalled.addListener(async (details) => {
   ])
 })
 
-function setPending() {
-  const pending = clientPorts.totalPending()
+async function setPending() {
+  const pending = interactor.totalPending()
+  try { if (pending > 0 && clientPorts.ports.size < 1) await action.openPopup() } catch (_) { }
   action.setBadgeText({
     text: pending === 0 ? '' : pending.toString()
   })

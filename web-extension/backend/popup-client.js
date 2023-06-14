@@ -2,7 +2,10 @@ import JSONRPCClient from '../../lib/json-rpc-client.js'
 import assert from 'nanoassert'
 
 export class PopupClient {
-  constructor() {
+  constructor({ onbeforerequest, onafterrequest }) {
+    this.onbeforerequest = onbeforerequest
+    this.onafterrequest = onafterrequest
+
     this.ports = new Set()
     this.persistentQueue = []
 
@@ -15,12 +18,23 @@ export class PopupClient {
     })
   }
 
+  totalPending() {
+    return this.persistentQueue.length
+  }
+
   async reviewConnection(params) {
-    return this.client.request('popup.review_connection', params)
+    return this._send('popup.review_connection', params)
   }
 
   async reviewTransaction(params) {
-    return this.client.request('popup.review_transaction', params)
+    return this._send('popup.review_transaction', params)
+  }
+
+  async _send(method, params) {
+    const res = this.client.request(method, params)
+    // Wait for the request to be added to the send queue
+    this.onbeforerequest?.()
+    return res
   }
 
   async connect(port) {
@@ -44,6 +58,7 @@ export class PopupClient {
       }
 
       self.client.onmessage(message)
+      self.onafterrequest?.()
     }
 
     function _ondisconnect(port) {

@@ -2,7 +2,7 @@ import { PopupClient } from '../backend/popup-client.js'
 
 describe('PopupClient', () => {
   it('should be able to send messages to the background', async () => {
-    const client = new PopupClient()
+    const client = new PopupClient({})
     const port = {
       postMessage: jest.fn(),
       onMessage: {
@@ -18,6 +18,7 @@ describe('PopupClient', () => {
     expect(port.onDisconnect.addListener).toHaveBeenCalledTimes(1)
     expect(client.ports.size).toBe(1)
     expect(client.persistentQueue.length).toBe(0)
+    expect(client.totalPending()).toBe(0)
 
     const prom = client.reviewConnection({})
     expect(port.postMessage).toHaveBeenCalledTimes(1)
@@ -28,6 +29,7 @@ describe('PopupClient', () => {
       id: expect.any(String)
     })
     expect(client.persistentQueue.length).toBe(1)
+    expect(client.totalPending()).toBe(1)
 
     port.onMessage.addListener.mock.calls[0][0]({
       jsonrpc: '2.0',
@@ -38,10 +40,11 @@ describe('PopupClient', () => {
   })
 
   it('should queue messages until a port is connected', async () => {
-    const client = new PopupClient()
+    const client = new PopupClient({})
 
     client.reviewConnection({})
     expect(client.persistentQueue.length).toBe(1)
+    expect(client.totalPending()).toBe(1)
 
     const port = {
       postMessage: jest.fn(),
@@ -64,7 +67,7 @@ describe('PopupClient', () => {
   })
 
   it('should fan out to all connected ports', async () => {
-    const client = new PopupClient()
+    const client = new PopupClient({})
 
     client.reviewConnection({ origin: 'a' })
 

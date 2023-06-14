@@ -29,6 +29,10 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeConnectWallet())
   }
 
+  async disconnectWallet(withNewTab = true, closeTab = false) {
+    return await this.controlTabs(withNewTab, closeTab, () => this.executeDisconnectWallet())
+  }
+
   async getConnectedNetwork(withNewTab = false, closeTab = false) {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeGetConnectedNetwork())
   }
@@ -78,6 +82,19 @@ export class VegaAPI {
     })
   }
 
+  private async executeDisconnectWallet() {
+    return await this.driver.executeScript<string>(async () => {
+      if (!window.vega) {
+        throw new Error('content script not found')
+      }
+      try {
+        return await window.vega.disconnectWallet()
+      } catch (error: any) {
+        return `Error: ${error.message}`
+      }
+    })
+  }
+
   private async executeGetConnectedNetwork() {
     return await this.driver.executeScript<string>(async () => {
       const { chainID } = await window.vega.getChainId()
@@ -86,13 +103,21 @@ export class VegaAPI {
   }
 
   private async executeListKeys() {
+    let keysArray: Key[] = []
     const keysString = await this.driver.executeScript<string>(async () => {
-      const keys = await window.vega.listKeys()
-      return JSON.stringify(keys)
+      try {
+        const keys = await window.vega.listKeys()
+        return JSON.stringify(keys)
+      } catch (error: any) {
+        return `Error: ${error.message}`
+      }
     })
+    if (keysString.includes('Error:')) {
+      console.log(keysString)
+      return keysArray
+    }
 
-    const keysArray = JSON.parse(keysString).keys as Key[]
-
+    keysArray = JSON.parse(keysString).keys as Key[]
     return keysArray
   }
 

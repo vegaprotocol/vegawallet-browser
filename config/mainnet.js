@@ -12,7 +12,7 @@ const mainnet = {
     'https://vega.aurora-edge.com',
     'https://darling.network'
   ],
-  LIGHT_ENCRYPTION: false
+  ENCRYPTION_SETTINGS: undefined
 }
 
 export default mainnet

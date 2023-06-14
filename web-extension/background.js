@@ -21,13 +21,9 @@ const interactor = new PopupClient({
 
 const encryptedStore = new EncryptedStorage(
   new ConcurrentStorage(new StorageLocalMap('wallets')),
-  config.LIGHT_ENCRYPTION
-    ? {
-        memory: 10,
-        iterations: 1
-      }
-    : undefined
+  config.ENCRYPTION_SETTINGS
 )
+
 const publicKeyIndexStore = new ConcurrentStorage(new StorageLocalMap('public-key-index'))
 
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
@@ -95,4 +91,3 @@ async function setPending() {
     text: pending === 0 ? '' : pending.toString()
   })
 }
-

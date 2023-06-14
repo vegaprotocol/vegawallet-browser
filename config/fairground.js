@@ -5,7 +5,7 @@ const fairground = {
   EXPLORER_URL: 'https://explorer.fairground.wtf',
   FEEDBACK_LINK: 'https://github.com/vegaprotocol/feedback/discussions',
   NODES: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
-  LIGHT_ENCRYPTION: false
+  ENCRYPTION_SETTINGS: undefined
 }
 
 export default fairground

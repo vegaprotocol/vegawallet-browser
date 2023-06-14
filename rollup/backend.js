@@ -2,15 +2,10 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
-import replace from '@rollup/plugin-replace'
+import alias from '@rollup/plugin-alias'
+import path from 'path'
 
-/**
- * Builds the backend JS
- * @param {object} envVars - The environment variables to replace
- * @param {boolean} isProduction - Whether to build for production
- * @param {string} outputPath - The path to the output folder
- */
-export default (envVars, isProduction, outputPath) => [
+const backend = (isProduction, outputPath, vegaEnv) => [
   // The files that need to each be built for the backend
   ...['background', 'content-script', 'in-page', 'pow-worker'].map((name) => ({
     input: `web-extension/${name}.js`,
@@ -24,13 +19,17 @@ export default (envVars, isProduction, outputPath) => [
       json({ compact: isProduction }),
       commonjs(),
       isProduction && terser(),
-      // Replace env vars with static values
-      replace({
-        preventAssignment: true,
-        values: {
-          ...envVars
-        }
+      alias({
+        entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${vegaEnv}.js`) }]
       })
     ]
   }))
 ]
+
+/**
+ * Builds the backend JS
+ * @param {object} envVars - The environment variables to replace
+ * @param {boolean} isProduction - Whether to build for production
+ * @param {string} outputPath - The path to the output folder
+ */
+export default backend

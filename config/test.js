@@ -1,4 +1,4 @@
-const fairground = {
+const test = {
   ENV_ID: 'test',
   ENV_NAME: 'Test',
   DEPOSIT_LINK: 'https://console.fairground.wtf', // TODO @Dale: update this
@@ -8,4 +8,4 @@ const fairground = {
   LIGHT_ENCRYPTION: true
 }
 
-export default fairground
+export default test

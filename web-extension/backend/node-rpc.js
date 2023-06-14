@@ -43,15 +43,19 @@ export default class NodeRPC {
    *  - Don't reply
    *  - Return a HTTP status code outside 2xx
    *  - Have a difference between their core block height and data node block height larger than `maxDrift`
+   *  - Are `maxDelay` ms slower than the fastest node
    * 3. Group nodes into buckets of 3 blocks within each other
    * 4. Pick a random node from the largest bucket
    *
    * @returns URL
    */
-  static async findHealthyNode(urls, maxDrift = 2, bucketSize = 3) {
+  static async findHealthyNode(urls, maxDrift = 2, bucketSize = 3, maxDelay = 800) {
+    const timeout = new AbortController()
+
     const nodesHeights = await promiseAllResolved(
       urls.map(async (u) => {
         const res = await fetch(new URL('/blockchain/height', u), {
+          signal: timeout.signal,
           headers: {
             Accept: 'application/json'
           }
@@ -98,6 +102,14 @@ export default class NodeRPC {
     }
 
     async function promiseAllResolved(promises) {
+      promises.forEach((p) => {
+        p.then(res => {
+          setTimeout(() => {
+            timeout.abort()
+          }, maxDelay)
+        }, () => { })
+      })
+
       return Promise.allSettled(promises).then((results) => {
         return results.filter(({ status }) => status === 'fulfilled').map(({ value }) => value)
       })

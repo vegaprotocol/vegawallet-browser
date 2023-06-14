@@ -33,7 +33,9 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "build:test": "REACT_APP_TEST=true yarn build",
+    "build:test": "yarn build --vegaEnv=test",
+    "build:fairground": "yarn build --vegaEnv=fairground",
+    "build:mainnet": "yarn build --vegaEnv=mainnet",
     "dev": "web-ext run --start-url=examples/sample-dapp/index.html",
     "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium",
     "dev:firefox": "yarn dev --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition",

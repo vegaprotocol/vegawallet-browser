@@ -1,7 +1,14 @@
+const mockPort = 9090
+
 const test = {
+  // See below comment why i have put this here
+  test: {
+     // Renamed to remove node as node doesn't really add any extra description
+     mockPort,
+  },
   network: {
     name: 'Test',
-    rest: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
+    rest: [`http://localhost:${mockPort}`],
     console: 'https://console.fairground.wtf',
     explorer: 'https://explorer.fairground.wtf',
     mockNodePort: 9090

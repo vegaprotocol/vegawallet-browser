@@ -44,7 +44,7 @@ export const Settings = () => {
         <ExternalLink
           data-testid={settingsFeedbackLink}
           className="text-white mt-1 underline"
-          href={config.FEEDBACK_LINK}
+          href={config.feedbackLink}
         >
           Provide feedback
         </ExternalLink>

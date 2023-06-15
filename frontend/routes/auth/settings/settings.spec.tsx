@@ -37,7 +37,7 @@ describe('Settings', () => {
     expect(screen.getByTestId(settingsPage)).toBeInTheDocument()
     expect(screen.getByTestId(settingsFeedbackDescription)).toHaveTextContent('Spotted any issues or bugs?')
     expect(screen.getByTestId(settingsFeedbackLink)).toHaveTextContent('Provide feedback')
-    expect(screen.getByTestId(settingsFeedbackLink)).toHaveAttribute('href', config.FEEDBACK_LINK)
+    expect(screen.getByTestId(settingsFeedbackLink)).toHaveAttribute('href', config.feedbackLink)
     expect(screen.getByTestId(settingsLockButton)).toHaveTextContent('Lock')
     expect(screen.getByTestId(settingsVersionNumber)).toHaveTextContent(packageJson.version)
     expect(screen.getByTestId(settingsVersionTitle)).toHaveTextContent('Vega wallet version')

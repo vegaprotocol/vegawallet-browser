@@ -8,11 +8,11 @@ async function wait(ms) {
 async function createHTTPServer(fn) {
   const server = http.createServer(fn)
 
-  await server.listen()
+  await new Promise(res => server.listen(res))
 
   return {
     url: new URL(`http://localhost:${server.address().port}/`),
-    close: () => server.close()
+    close: () => new Promise(res => server.close(res))
   }
 }
 

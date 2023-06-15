@@ -9,7 +9,6 @@ const test = {
     rest: [`http://localhost:${mockPort}`],
     console: 'https://console.fairground.wtf',
     explorer: 'https://explorer.fairground.wtf',
-    mockNodePort: 9090
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   encryptionSettings: {

@@ -3,10 +3,17 @@ import { HostImage } from '../../../components/host-image'
 import { connectionsConnection } from '../../../locator-ids'
 import { Connection } from '../../../stores/connections'
 
+export const locators = {
+  connectionDetails: 'connection-details',
+  connectionOrigin: connectionsConnection
+}
+
 export const ConnectionsList = ({ connections }: { connections: Connection[] }) => {
   return (
     <>
-      <p className="mb-6">Your wallet is connected to these dApps.</p>
+      <p className="mb-6" data-testid={locators.connectionDetails}>
+        These dapps have access to your public keys and permission to send transaction requests.
+      </p>
       <List<Connection>
         idProp="origin"
         items={connections}

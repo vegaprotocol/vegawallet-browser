@@ -3,7 +3,7 @@ import { connectionsNoConnections } from '../../../locator-ids'
 export const NoAppsConnected = () => {
   return (
     <div data-testid={connectionsNoConnections}>
-      <p>These dapps have access to your public keys and permission to send transaction requests.</p>
+      <p>Your wallet is not connected to any dapps.</p>
     </div>
   )
 }

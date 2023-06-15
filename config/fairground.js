@@ -1,11 +1,12 @@
 const fairground = {
-  ENV_ID: 'fairground',
-  ENV_NAME: 'Fairground',
-  DEPOSIT_LINK: 'https://console.fairground.wtf',
-  EXPLORER_URL: 'https://explorer.fairground.wtf',
-  FEEDBACK_LINK: 'https://github.com/vegaprotocol/feedback/discussions',
-  NODES: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
-  ENCRYPTION_SETTINGS: undefined
+  network: {
+    name: 'Fairground',
+    rest: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
+    console: 'https://console.fairground.wtf',
+    explorer: 'https://explorer.fairground.wtf'
+  },
+  feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
+  encryptionSettings: undefined
 }
 
 export default fairground

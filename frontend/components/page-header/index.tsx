@@ -12,7 +12,7 @@ export const PageHeader = () => {
           data-testid={networkIndicator}
           className="flex flex-col justify-center border rounded-md border-vega-dark-300 text-sm px-2 h-6"
         >
-          {config.ENV_NAME}
+          {config.network.name}
         </div>
       </div>
     </>

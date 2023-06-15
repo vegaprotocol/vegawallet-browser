@@ -21,7 +21,7 @@ const interactor = new PopupClient({
 
 const encryptedStore = new EncryptedStorage(
   new ConcurrentStorage(new StorageLocalMap('wallets')),
-  config.ENCRYPTION_SETTINGS
+  config.encryptionSettings
 )
 
 const publicKeyIndexStore = new ConcurrentStorage(new StorageLocalMap('public-key-index'))
@@ -74,19 +74,22 @@ runtime.onConnect.addListener(async (port) => {
 })
 
 runtime.onInstalled.addListener(async (details) => {
+  const id = config.network.name.toLowerCase()
   await Promise.allSettled([
-    networks.set(config.ENV_ID, {
-      name: config.ENV_NAME,
-      rest: config.NODES,
-      explorer: config.EXPLORER_URL
+    networks.set(id, {
+      name: config.network,
+      rest: config.network.rest,
+      explorer: config.network.explorer
     }),
-    settings.set('selectedNetwork', config.ENV_ID)
+    settings.set('selectedNetwork', id)
   ])
 })
 
 async function setPending() {
   const pending = interactor.totalPending()
-  try { if (pending > 0 && clientPorts.ports.size < 1) await action.openPopup() } catch (_) { }
+  try {
+    if (pending > 0 && clientPorts.ports.size < 1) await action.openPopup()
+  } catch (_) {}
   action.setBadgeText({
     text: pending === 0 ? '' : pending.toString()
   })

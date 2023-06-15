@@ -1,7 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed, isElementEnabled } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
-import 'jest-expect-message'
 import componentLocators from '../../../frontend/components/locators'
 
 export class SecureYourWallet {

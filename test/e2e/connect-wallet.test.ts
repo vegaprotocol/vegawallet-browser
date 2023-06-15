@@ -37,7 +37,7 @@ describe('Connect wallet', () => {
     await setUpWalletAndKey()
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
-    const responsePromise = vegaAPI.connectWallet()
+    const responsePromise = await vegaAPI.connectWallet()
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess() // Perform the necessary user interaction
     const response = await responsePromise

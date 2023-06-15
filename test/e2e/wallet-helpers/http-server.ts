@@ -33,3 +33,23 @@ export const server = http.createServer((req, res) => {
 
   res.end('Not found')
 })
+
+const closeServer = () => {
+  return new Promise<void>((resolve, reject) => {
+    server.close((err) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve()
+      }
+    })
+  })
+}
+
+export async function closeServerAndWait() {
+  try {
+    await closeServer()
+  } catch (error) {
+    console.error('Error while closing the server:', error)
+  }
+}

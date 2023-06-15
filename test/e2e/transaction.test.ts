@@ -7,7 +7,7 @@ import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { Transaction } from './page-objects/transaction'
 import { openNewWindowAndSwitchToIt } from './selenium-util'
-import { server } from './wallet-helpers/http-server'
+import { closeServerAndWait, server } from './wallet-helpers/http-server'
 import test from '../../config/test'
 
 describe('transactions', () => {
@@ -56,7 +56,7 @@ describe('transactions', () => {
   })
 
   afterAll(async () => {
-    server.close()
+    await closeServerAndWait()
   })
 
   it('can confirm a transaction', async () => {

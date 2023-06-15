@@ -17,12 +17,18 @@ import config from '../../../lib/config'
 
 export const Settings = () => {
   const { client } = useJsonRpcClient()
-  const { handleSubmit } = useForm()
   const navigate = useNavigate()
-  const submit = useCallback(async () => {
+  const { handleSubmit: handleLock } = useForm()
+  const lock = useCallback(async () => {
     await client.request('admin.lock', null)
     navigate(FULL_ROUTES.login)
   }, [client, navigate])
+
+  const { handleSubmit: handlePopout } = useForm()
+  const popout = useCallback(async () => {
+    await client.request('admin.open_popout', null)
+    window.close()
+  }, [client])
   return (
     <section data-testid={settingsPage}>
       <h1 className="flex justify-center flex-col text-2xl text-white">Settings</h1>
@@ -34,9 +40,14 @@ export const Settings = () => {
           {packageJson.version}
         </div>
       </div>
-      <form className="mt-6" onSubmit={handleSubmit(submit)}>
+      <form className="mt-6" onSubmit={handleLock(lock)}>
         <Button data-testid={settingsLockButton} fill={true} className="mt-2" variant="secondary" type="submit">
           Lock
+        </Button>
+      </form>
+      <form className="mt-6" onSubmit={handlePopout(popout)}>
+        <Button data-testid={settingsLockButton} fill={true} className="mt-2" type="submit">
+          Do the thing (absolutely copy genius)
         </Button>
       </form>
       <div className="mt-8">

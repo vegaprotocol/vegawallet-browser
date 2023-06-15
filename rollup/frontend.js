@@ -62,7 +62,7 @@ const htmlPlugin = (outputPath) => {
  * @param {boolean} isProduction - Whether or not this is a production build
  * @param {string} outputPath - The path to output the build to
  */
-const frontend = (isProduction, outputPath, vegaEnv) => [
+const frontend = (isProduction, outputPath, walletConfig) => [
   {
     input: './frontend/index.tsx',
     output: {
@@ -85,7 +85,7 @@ const frontend = (isProduction, outputPath, vegaEnv) => [
       htmlPlugin(outputPath),
       // Replace env vars with static values
       alias({
-        entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${vegaEnv}.js`) }]
+        entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
       }),
       replace({
         preventAssignment: true,

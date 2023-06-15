@@ -2,6 +2,9 @@ import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../package.json'
 
+const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
+const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
+
 function doValidate(validator, params) {
   if (!validator(params))
     throw new JSONRPCServer.Error(
@@ -39,7 +42,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         doValidate(adminValidation.openPopout, params)
         if (popout == null) {
           popout = windows.create({
-            url: extension.getURL('/index.html'),
+            url: runtime.getURL('/index.html'),
             type: 'popup',
             width: 360,
             height: 600

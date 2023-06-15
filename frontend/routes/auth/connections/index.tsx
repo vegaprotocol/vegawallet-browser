@@ -7,6 +7,11 @@ import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { connectionsHeader } from '../../../locator-ids'
 import { useConnectionStore } from '../../../stores/connections'
 
+export const locators = {
+  connectionInstructions: 'connection-instructions',
+  connectionInstructionsLink: 'connection-instructions-link'
+}
+
 export const Connections = () => {
   const { client } = useJsonRpcClient()
   const { connections, loading, error, loadConnections } = useConnectionStore((state) => ({
@@ -29,11 +34,15 @@ export const Connections = () => {
       {connections.length === 0 ? <NoAppsConnected /> : <ConnectionsList connections={connections} />}
       <div className="mt-6">
         <Frame>
-          <p>
+          <p data-testid={locators.connectionInstructions}>
             Trying to connect to a{' '}
-            <ExternalLink className="underline" href="https://vega.xyz/use">
+            <ExternalLink
+              data-testid={locators.connectionInstructionsLink}
+              className="underline"
+              href="https://vega.xyz/use"
+            >
               <span>Vega dApp?</span>
-            </ExternalLink>
+            </ExternalLink>{' '}
             Look for the "Connect Wallet" button and press it to create a connection.
           </p>
         </Frame>

@@ -1,9 +1,10 @@
 import { render, screen, act, waitFor } from '@testing-library/react'
-import { Connections } from '.'
+import { Connections, locators as connectionsLocators } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { connectionsConnection, connectionsNoConnections } from '../../../locator-ids'
 import { ConnectionsStore, useConnectionStore } from '../../../stores/connections'
+import { locators as connectionListLocators } from './connection-list'
 
 const renderComponent = () =>
   render(
@@ -23,14 +24,27 @@ describe('Connections', () => {
     global.browser = null
     act(() => useConnectionStore.setState(initialState as ConnectionsStore))
   })
-  it('renders sorted list of connections', async () => {
+  it('renders sorted list of connections with instructions on how to connect', async () => {
     mockClient()
     renderComponent()
     const [foo, vega] = await screen.findAllByTestId(connectionsConnection)
     expect(vega).toHaveTextContent('https://vega.xyz')
     expect(foo).toHaveTextContent('foo.com')
+    // 1101-BWAL-077 I can see an explanation of what it means i.e. these dapps have permission to access my keys and connect to my wallet
+    expect(screen.getByTestId(connectionListLocators.connectionDetails)).toHaveTextContent(
+      'These dapps have access to your public keys and permission to send transaction requests.'
+    )
+    // 1101-BWAL-078 I can see instructions how to connect to a Vega dapp
+    // 1101-BWAL-079 There is a way to see the dapps I could connect with (e.g. a link to https://vega.xyz/use)
+    expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toHaveTextContent(
+      'Trying to connect to a Vega dApp? Look for the "Connect Wallet" button and press it to create a connection.'
+    )
+    expect(screen.getByTestId(connectionsLocators.connectionInstructionsLink)).toHaveAttribute(
+      'href',
+      'https://vega.xyz/use'
+    )
   })
-  it('renders empty state', async () => {
+  it('renders empty state with instructions on how to connect', async () => {
     let listeners: Function[] = []
     // @ts-ignore
     global.browser = {
@@ -60,6 +74,8 @@ describe('Connections', () => {
     renderComponent()
     await screen.findByTestId(connectionsNoConnections)
     expect(screen.getByTestId(connectionsNoConnections)).toBeInTheDocument()
+    // 1101-BWAL-080 When I have no connections I can see that and still see instructions on how to connect to a Vega dapp
+    expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toBeVisible()
   })
   it('renders nothing if there is an error', async () => {
     let listeners: Function[] = []

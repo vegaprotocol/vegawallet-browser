@@ -5,8 +5,6 @@ import { connectionsNoConnections } from '../../../locator-ids'
 describe('NoDappsConnected', () => {
   it('renders message', () => {
     render(<NoAppsConnected />)
-    expect(screen.getByTestId(connectionsNoConnections)).toHaveTextContent(
-      'These dapps have access to your public keys and permission to send transaction requests.'
-    )
+    expect(screen.getByTestId(connectionsNoConnections)).toHaveTextContent('Your wallet is not connected to any dapps.')
   })
 })

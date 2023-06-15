@@ -35,6 +35,10 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
   })
 
   let popout = null
+  windows.onRemoved.addListener(() => {
+    popout = null
+  })
+
   var server = new JSONRPCServer({
     onerror,
     methods: {
@@ -44,15 +48,15 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
           popout = windows.create({
             url: runtime.getURL('/index.html'),
             type: 'popup',
+            // Approximate dimension. The client figures out exactly how big it should be as this height/width
+            // includes the frame and different OSes have different sizes
             width: 360,
             height: 600
           })
 
           const handle = await popout
-          handle.onRemoved.addEventListener(() => {
-            popout = null
-          })
           handle.alwaysOnTop = true
+          handle.focused = true
         }
 
         // Await if there is an existing pending window

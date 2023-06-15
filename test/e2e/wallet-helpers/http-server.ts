@@ -1,7 +1,7 @@
 import http from 'node:http'
 
 export const server = http.createServer((req, res) => {
-  if (req.url === '/transaction/raw')
+  if (req.url === '/transaction/raw') {
     res.end(
       JSON.stringify({
         code: 0,
@@ -12,8 +12,10 @@ export const server = http.createServer((req, res) => {
         txHash: '33B3608EF89CDD64078BD64B2F3DC61AFC3082B9BF638828838D0B0E811EC533'
       })
     )
+    return
+  }
 
-  if (req.url === '/blockchain/height')
+  if (req.url === '/blockchain/height') {
     res.end(
       JSON.stringify({
         height: '3144128',
@@ -26,6 +28,8 @@ export const server = http.createServer((req, res) => {
         chainId: 'testnet'
       })
     )
+    return
+  }
 
-  return res.end('Not found')
+  res.end('Not found')
 })

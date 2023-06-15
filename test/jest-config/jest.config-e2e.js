@@ -2,6 +2,10 @@
 export default {
   rootDir: '../..',
   roots: ['<rootDir>/test'],
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.jsx?$': 'ts-jest'
+  },
   preset: 'ts-jest',
   testEnvironment: 'node',
   testTimeout: 120000,
@@ -15,5 +19,6 @@ export default {
         outputName: `${process.env.BROWSER}-e2e-test-results.xml`
       }
     ]
-  ]
+  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
 }

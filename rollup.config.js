@@ -13,19 +13,25 @@ const destination = 'build'
 const commonPath = `${destination}/common`
 
 const config = (cliArgs) => {
-  const { vegaEnv } = cliArgs
-  if (!fs.existsSync(path.resolve('.', 'config', `${vegaEnv}.js`))) {
-    throw new Error('Could not find config file for environment: ' + vegaEnv)
+  const walletConfig = cliArgs['wallet-config']
+  const configDirectory = path.resolve('.', 'config')
+  const configPath = path.resolve(configDirectory, `${walletConfig}.js`)
+  if (!walletConfig) {
+    throw new Error(
+      `Build arg --wallet-config must be specified. Valid values are the names of the files in the ${configDirectory} directory.`
+    )
+  } else if (!fs.existsSync(configPath)) {
+    throw new Error('Could not find config file for environment: ' + walletConfig + '. At location ' + configPath)
   }
-  const isTestBuild = vegaEnv === 'test'
+  const isTestBuild = walletConfig === 'test'
 
   // Remove custom CLI args to prevent errors.
   // https://github.com/rollup/rollup/issues/2694#issuecomment-463915954
-  delete cliArgs.vegaEnv
+  delete cliArgs['wallet-config']
   return [
     ...prebuild(),
-    ...backend(isProduction, commonPath, vegaEnv),
-    ...frontend(isProduction, commonPath, vegaEnv),
+    ...backend(isProduction, commonPath, walletConfig),
+    ...frontend(isProduction, commonPath, walletConfig),
     ...browsers.flatMap((b) => postbuild(b, commonPath, destination, isTestBuild))
   ]
 }

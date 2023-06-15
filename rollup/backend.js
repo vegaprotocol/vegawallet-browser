@@ -5,7 +5,7 @@ import terser from '@rollup/plugin-terser'
 import alias from '@rollup/plugin-alias'
 import path from 'path'
 
-const backend = (isProduction, outputPath, vegaEnv) => [
+const backend = (isProduction, outputPath, walletConfig) => [
   // The files that need to each be built for the backend
   ...['background', 'content-script', 'in-page', 'pow-worker'].map((name) => ({
     input: `web-extension/${name}.js`,
@@ -20,7 +20,7 @@ const backend = (isProduction, outputPath, vegaEnv) => [
       commonjs(),
       isProduction && terser(),
       alias({
-        entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${vegaEnv}.js`) }]
+        entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
       })
     ]
   }))

@@ -8,7 +8,6 @@ import {
   waitForChildElementsCount
 } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
-import 'jest-expect-message'
 
 export class ViewWallet {
   private readonly viewWalletsHeader: By = getByDataTestID(locators.viewWalletsHeader)

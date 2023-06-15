@@ -7,7 +7,6 @@ import {
   isElementDisplayed,
   sendKeysToElement
 } from '../selenium-util'
-import 'jest-expect-message'
 import { errorMessage, loginButton, loginPassphrase } from '../../../frontend/locator-ids'
 import { defaultPassword } from '../wallet-helpers/common'
 

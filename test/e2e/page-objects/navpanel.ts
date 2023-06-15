@@ -1,6 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, getElementText } from '../selenium-util'
-import 'jest-expect-message'
 import locators from '../../../frontend/components/locators'
 
 import { Settings } from './settings'

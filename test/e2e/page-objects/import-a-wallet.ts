@@ -7,7 +7,6 @@ import {
   isElementDisplayed,
   sendKeysToElement
 } from '../selenium-util'
-import 'jest-expect-message'
 import { errorMessage, importMnemonic, importMnemonicSubmit } from '../../../frontend/locator-ids'
 
 export class ImportAWallet {

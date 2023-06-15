@@ -31,7 +31,6 @@ describe('transactions', () => {
   }
 
   beforeEach(async () => {
-    server.listen(test.network.mockNodePort)
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
     vegaAPI = new VegaAPI(driver, await driver.getWindowHandle())
@@ -47,10 +46,17 @@ describe('transactions', () => {
     await viewWallet.checkOnViewWalletPage()
   })
 
+  beforeAll(async () => {
+    server.listen(test.test.mockPort)
+  })
+
   afterEach(async () => {
-    server.close()
     await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
+  })
+
+  afterAll(async () => {
+    server.close()
   })
 
   it('can confirm a transaction', async () => {

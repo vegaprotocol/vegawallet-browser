@@ -45,21 +45,21 @@ jobs:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
-        run: npm install
+        run: yarn install
       - name: Build app
-        run: yarn build
+        run: NODE_ENV=production yarn run build
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r build/chrome.zip build/chrome
+          args: zip -qq -r build/vega-browserwallet-chrome-${{ inputs.tag || 'latest' }}.zip build/chrome
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r build/firefox.zip build/firefox
+          args: zip -qq -r build/vega-browserwallet-firefox-${{ inputs.tag || 'latest'}}.zip build/firefox
 
       - name: Upload to Github Releases
         if: ${{ inputs.publish }}
         uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
         with:
-          files: 'dist/*.zip'
+          files: 'build/*.zip'
           name: ${{ inputs.tag || 'Latest' }}
           tag_name: ${{ inputs.tag || 'latest' }}
           prerelease: true

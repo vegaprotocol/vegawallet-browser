@@ -104,6 +104,7 @@
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-visualizer": "^5.9.2",
     "selenium-webdriver": "^4.8.2",
     "ts-jest": "^29.1.0",
     "web-ext": "^7.6.1"

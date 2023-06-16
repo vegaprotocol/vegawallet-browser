@@ -5,6 +5,8 @@ import postbuild from './rollup/postbuild.js'
 import fs from 'fs'
 import path from 'path'
 
+console.log(process.env.ANALYZE)
+
 const isProduction = process.env.NODE_ENV === 'production'
 
 const browsers = ['chrome', 'firefox']
@@ -14,6 +16,8 @@ const commonPath = `${destination}/common`
 
 const config = (cliArgs) => {
   const walletConfig = cliArgs['wallet-config']
+  const analyze = cliArgs['analyze']
+
   const configDirectory = path.resolve('.', 'config')
   const configPath = path.resolve(configDirectory, `${walletConfig}.js`)
   if (!walletConfig) {
@@ -28,10 +32,11 @@ const config = (cliArgs) => {
   // Remove custom CLI args to prevent errors.
   // https://github.com/rollup/rollup/issues/2694#issuecomment-463915954
   delete cliArgs['wallet-config']
+  delete cliArgs['analyze']
   return [
     ...prebuild(),
-    ...backend(isProduction, commonPath, walletConfig),
-    ...frontend(isProduction, commonPath, walletConfig),
+    ...backend(isProduction, commonPath, walletConfig, analyze),
+    ...frontend(isProduction, commonPath, walletConfig, analyze),
     ...browsers.flatMap((b) => postbuild(b, commonPath, destination, isTestBuild))
   ]
 }

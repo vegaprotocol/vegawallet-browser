@@ -10,6 +10,7 @@ import copy from 'rollup-plugin-copy'
 import alias from '@rollup/plugin-alias'
 import path from 'path'
 import replace from '@rollup/plugin-replace'
+import terser from '@rollup/plugin-terser'
 
 const htmlPlugin = (outputPath) => {
   return html({
@@ -83,6 +84,7 @@ const frontend = (isProduction, outputPath, walletConfig) => [
       typescript(),
       // Generate HTML
       htmlPlugin(outputPath),
+      isProduction && terser(),
       // Replace env vars with static values
       alias({
         entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]

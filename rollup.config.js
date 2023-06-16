@@ -5,8 +5,6 @@ import postbuild from './rollup/postbuild.js'
 import fs from 'fs'
 import path from 'path'
 
-console.log(process.env.ANALYZE)
-
 const isProduction = process.env.NODE_ENV === 'production'
 
 const browsers = ['chrome', 'firefox']

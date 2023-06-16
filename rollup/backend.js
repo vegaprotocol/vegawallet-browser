@@ -4,8 +4,9 @@ import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
 import alias from '@rollup/plugin-alias'
 import path from 'path'
+import { visualizer } from 'rollup-plugin-visualizer'
 
-const backend = (isProduction, outputPath, walletConfig) => [
+const backend = (isProduction, outputPath, walletConfig, analyze) => [
   // The files that need to each be built for the backend
   ...['background', 'content-script', 'in-page', 'pow-worker'].map((name) => ({
     input: `web-extension/${name}.js`,
@@ -21,7 +22,11 @@ const backend = (isProduction, outputPath, walletConfig) => [
       isProduction && terser(),
       alias({
         entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
-      })
+      }),
+      analyze &&
+        visualizer({
+          filename: `./build/analyze/${name}.html`
+        })
     ]
   }))
 ]

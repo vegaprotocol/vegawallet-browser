@@ -11,6 +11,7 @@ import alias from '@rollup/plugin-alias'
 import path from 'path'
 import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const htmlPlugin = (outputPath) => {
   return html({
@@ -63,7 +64,7 @@ const htmlPlugin = (outputPath) => {
  * @param {boolean} isProduction - Whether or not this is a production build
  * @param {string} outputPath - The path to output the build to
  */
-const frontend = (isProduction, outputPath, walletConfig) => [
+const frontend = (isProduction, outputPath, walletConfig, analyze) => [
   {
     input: './frontend/index.tsx',
     output: {
@@ -98,7 +99,11 @@ const frontend = (isProduction, outputPath, walletConfig) => [
       // Copy static assets
       copy({
         targets: [{ src: 'assets/**/*', dest: outputPath }]
-      })
+      }),
+      analyze &&
+        visualizer({
+          filename: './build/analyze/frontend.html'
+        })
     ]
   }
 ]

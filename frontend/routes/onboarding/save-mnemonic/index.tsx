@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Page } from '../../../components/page'
-import { Button } from '@vegaprotocol/ui-toolkit'
 import { useForm, useWatch } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
@@ -10,12 +9,14 @@ import { saveMnemonicButton, saveMnemonicDescription } from '../../../locator-id
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 import { createWallet } from '../../../lib/create-wallet'
+import { LoadingButton } from '../../../components/loading-button'
 
 interface FormFields {
   acceptedTerms: boolean
 }
 
 export const SaveMnemonic = () => {
+  const [loading, setLoading] = useState(false)
   const { client } = useJsonRpcClient()
   const navigate = useNavigate()
   const { control, handleSubmit } = useForm<FormFields>()
@@ -35,7 +36,12 @@ export const SaveMnemonic = () => {
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
   useEffect(() => {}, [])
   const submit = useCallback(async () => {
-    await createWallet(mnemonic as string, client)
+    try {
+      setLoading(true)
+      await createWallet(mnemonic as string, client)
+    } finally {
+      setLoading(false)
+    }
     navigate(FULL_ROUTES.wallets)
   }, [client, mnemonic, navigate])
   // While loading, render nothing
@@ -57,15 +63,16 @@ export const SaveMnemonic = () => {
               control={control}
             />
           )}
-          <Button
+          <LoadingButton
+            loading={loading}
+            text="Continue"
+            loadingText="Creating wallet"
             data-testid={saveMnemonicButton}
             fill={true}
             type="submit"
             variant="primary"
             disabled={!Boolean(acceptedTerms)}
-          >
-            Continue
-          </Button>
+          />
         </form>
       </>
     </Page>

@@ -1,19 +1,21 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { Page } from '../../../components/page'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, FormGroup, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
+import { FormGroup, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../../lib/form-validation'
 import { importMnemonic, importMnemonicDescription, importMnemonicSubmit } from '../../../locator-ids'
 import { FULL_ROUTES } from '../../route-names'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { createWallet } from '../../../lib/create-wallet'
+import { LoadingButton } from '../../../components/loading-button'
 
 interface FormFields {
   mnemonic: string
 }
 
 export const ImportWallet = () => {
+  const [loading, setLoading] = useState(false)
   const { client } = useJsonRpcClient()
   const {
     control,
@@ -29,10 +31,13 @@ export const ImportWallet = () => {
   const submit = useCallback(
     async (fields: FormFields) => {
       try {
+        setLoading(true)
         await createWallet(fields.mnemonic, client)
         navigate(FULL_ROUTES.wallets)
       } catch (e) {
         setError('mnemonic', { message: e?.toString() })
+      } finally {
+        setLoading(false)
       }
     },
     [client, navigate, setError]
@@ -62,16 +67,17 @@ export const ImportWallet = () => {
             />
             {errors.mnemonic?.message && <InputError forInput="mnemonic">{errors.mnemonic.message}</InputError>}
           </FormGroup>
-          <Button
+          <LoadingButton
             data-testid={importMnemonicSubmit}
             fill={true}
             className="mt-2"
             variant="primary"
             type="submit"
+            loading={loading}
             disabled={!Boolean(mnemonic) || !!errors.mnemonic?.message}
-          >
-            Import wallet
-          </Button>
+            text="Import wallet"
+            loadingText="Importing"
+          />
         </form>
       </div>
     </Page>

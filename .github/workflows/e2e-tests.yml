@@ -33,7 +33,7 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn build:test
+        run: yarn build:e2e-test
         env:
           REACT_APP_TEST: true
 
@@ -79,7 +79,7 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn build:test
+        run: yarn build:e2e-test
 
       - name: Install dev version of firefox
         run: |

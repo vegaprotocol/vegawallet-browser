@@ -1,4 +1,4 @@
-const fairground = {
+const testnet = {
   network: {
     name: 'Fairground',
     rest: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
@@ -9,4 +9,4 @@ const fairground = {
   encryptionSettings: undefined
 }
 
-export default fairground
+export default testnet

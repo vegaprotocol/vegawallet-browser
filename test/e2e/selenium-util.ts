@@ -13,6 +13,14 @@ export async function getElementText(driver: WebDriver, locator: By, timeout: nu
   return element.getText()
 }
 
+export async function waitForElementToDisappear(
+  driver: WebDriver,
+  element: WebElement,
+  timeout: number = defaultTimeoutMillis
+) {
+  await driver.wait(until.stalenessOf(element), timeout, 'Success modal did not disappear')
+}
+
 export async function waitForChildElementsCount(
   driver: WebDriver,
   childElementLocator: By,

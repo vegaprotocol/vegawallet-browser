@@ -7,11 +7,28 @@ import { staticWait, switchWindowHandles } from './selenium-util'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { Transaction } from './page-objects/transaction'
 import { ConnectWallet } from './page-objects/connect-wallet'
-import { connect } from 'http2'
 import { ViewWallet } from './page-objects/view-wallet'
+import { Settings } from './page-objects/settings'
+import { stat } from 'fs'
 
 describe('Settings test', () => {
   let driver: WebDriver
+  let connectWalletModal: ConnectWallet
+  let navPanel: NavPanel
+  let viewWallet: ViewWallet
+  let settingsPage: Settings
+  let transaction: Transaction
+
+  const transferReq = {
+    fromAccountType: 4,
+    toAccountType: 4,
+    amount: '1',
+    asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+    to: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+    kind: {
+      oneOff: {}
+    }
+  }
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -19,6 +36,11 @@ describe('Settings test', () => {
     const apiHelper = new APIHelper(driver)
     await apiHelper.setUpWalletAndKey()
     await navigateToLandingPage(driver)
+    connectWalletModal = new ConnectWallet(driver)
+    navPanel = new NavPanel(driver)
+    viewWallet = new ViewWallet(driver)
+    transaction = new Transaction(driver)
+    settingsPage = await navPanel.goToSettings()
   })
 
   afterEach(async () => {
@@ -40,18 +62,19 @@ describe('Settings test', () => {
     // 1101-BWAL-089 If I reject the transaction the pop-up window stays open (on the last view I was on)
     // 1101-BWAL-091 If I have the new window open but then open the extension pop up I see the same thing on both views (<a name="1101-BWAL-091" href="#1101-BWAL-091">1101-BWAL-091</a>)
     const windowHandles = await driver.getAllWindowHandles()
-    const vegaAPI = new VegaAPI(driver, windowHandles[0])
+    const extensionWindowHandle = windowHandles[0]
+    const vegaAPI = new VegaAPI(driver, extensionWindowHandle)
+
     await vegaAPI.connectWallet()
-    const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    const viewWallet = new ViewWallet(driver)
-    await viewWallet.checkOnViewWalletPage()
-    const navPanel = new NavPanel(driver)
-    await staticWait(5000)
-    const settingsPage = await navPanel.goToSettings()
     const popoutWindowHandle = await settingsPage.openAppInNewWindowAndSwitchToIt()
     expect(await settingsPage.isSettingsPage()).toBe(true)
-    await vegaAPI.connectWallet(false)
+
+    const keys = await vegaAPI.listKeys()
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+
     await driver.switchTo().window(popoutWindowHandle)
+    await transaction.checkOnTransactionPage()
+    await transaction.confirmTransaction()
   })
 })

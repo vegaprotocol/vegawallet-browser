@@ -8,6 +8,7 @@ import {
   waitForChildElementsCount
 } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
+import { walletsCreateKey } from '../../../frontend/locator-ids'
 
 export class ViewWallet {
   private readonly viewWalletsHeader: By = getByDataTestID(locators.viewWalletsHeader)
@@ -42,7 +43,7 @@ export class ViewWallet {
 
   async checkOnViewWalletPage() {
     expect(
-      await isElementDisplayed(this.driver, this.walletName),
+      await isElementDisplayed(this.driver, this.createNewKeyPairButton),
       "expected to be on the 'view wallet' page but could not locate the 'view wallets' header ",
       { showPrefix: false }
     ).toBe(true)

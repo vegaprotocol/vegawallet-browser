@@ -41,6 +41,7 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
     methods: {
       async 'admin.open_popout'(params) {
         doValidate(adminValidation.openPopout, params)
+        console.log(popout)
         if (popout == null) {
           popout = windows.create({
             url: runtime.getURL('/index.html'),

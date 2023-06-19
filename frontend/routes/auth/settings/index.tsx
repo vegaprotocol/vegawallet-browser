@@ -13,7 +13,8 @@ export const locators = {
   settingsVersionTitle: 'settings-version-title',
   settingsVersionNumber: 'settings-version-number',
   settingsFeedbackDescription: 'settings-feedback-description',
-  settingsFeedbackLink: 'settings-feedback-link'
+  settingsFeedbackLink: 'settings-feedback-link',
+  settingsOpenPopoutButton: 'settings-open-popout-button'
 }
 
 export const Settings = () => {
@@ -33,7 +34,7 @@ export const Settings = () => {
   return (
     <section data-testid={locators.settingsPage}>
       <h1 className="flex justify-center flex-col text-2xl text-white">Settings</h1>
-      <div className="mt-6">
+      <div className="pt-6 border-b border-1 border-vega-dark-150 pb-6">
         <div className="text-dark-300 text-sm uppercase" data-testid={locators.settingsVersionTitle}>
           Vega wallet version
         </div>
@@ -41,23 +42,13 @@ export const Settings = () => {
           {packageJson.version}
         </div>
       </div>
-      <form className="mt-6" onSubmit={handleLock(lock)}>
-        <Button
-          data-testid={locators.settingsLockButton}
-          fill={true}
-          className="mt-2"
-          variant="secondary"
-          type="submit"
-        >
+      <form className="pt-6" onSubmit={handleLock(lock)}>
+        <Button data-testid={locators.settingsLockButton} fill={true} variant="secondary" type="submit">
           Lock
         </Button>
       </form>
-      <form className="mt-6" onSubmit={handlePopout(popout)}>
-        <Button data-testid={locators.settingsLockButton} fill={true} className="mt-2" type="submit">
-          Do the thing (absolutely copy genius)
-        </Button>
-      </form>
-      <div className="mt-8">
+
+      <div className="pt-6 border-b border-1 border-vega-dark-150 pb-6">
         <div data-testid={locators.settingsFeedbackDescription}>Spotted any issues or bugs?</div>
         <ExternalLink
           data-testid={locators.settingsFeedbackLink}
@@ -67,6 +58,14 @@ export const Settings = () => {
           Provide feedback
         </ExternalLink>
       </div>
+      <ExternalLink
+        onClick={handlePopout(popout)}
+        data-testid={locators.settingsOpenPopoutButton}
+        className="text-white mt-6"
+        type="submit"
+      >
+        Open wallet in a new window
+      </ExternalLink>
     </section>
   )
 }

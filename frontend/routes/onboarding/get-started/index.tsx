@@ -6,12 +6,14 @@ import { Tick } from '../../../components/icons/tick'
 import { useMemo } from 'react'
 import { StarsWrapper } from '../../../components/stars-wrapper'
 import { getStartedButton } from '../../../locator-ids'
+import { VegaHeader } from '../../../components/vega-header'
 
 export const GetStarted = () => {
   const items = useMemo(() => ['Securely connect to Vega dapps', 'Instantly approve and reject transactions'], [])
   const navigate = useNavigate()
   return (
     <StarsWrapper>
+      <VegaHeader />
       <Frame>
         <ul className="list-none text-left">
           {items.map((i) => (

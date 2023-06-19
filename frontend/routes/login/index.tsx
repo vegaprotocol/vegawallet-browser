@@ -1,13 +1,14 @@
 import { useForm, useWatch } from 'react-hook-form'
-import { Button, FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
+import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../lib/form-validation'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
 import { loginButton, loginPassphrase } from '../../locator-ids'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { useHomeStore } from '../home/store'
+import { LoadingButton } from '../../components/loading-button'
 
 const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
 
@@ -16,6 +17,7 @@ interface FormFields {
 }
 
 export const Login = () => {
+  const [loading, setLoading] = useState(false)
   const { client } = useJsonRpcClient()
   const {
     control,
@@ -33,6 +35,7 @@ export const Login = () => {
   const submit = useCallback(
     async (fields: { passphrase: string }) => {
       try {
+        setLoading(true)
         await client.request('admin.unlock', { passphrase: fields.passphrase })
         await loadGlobals(client)
         navigate(FULL_ROUTES.home)
@@ -42,6 +45,8 @@ export const Login = () => {
         } else {
           setError('passphrase', { message: `Unknown error occurred ${e}` })
         }
+      } finally {
+        setLoading(false)
       }
     },
     [client, loadGlobals, navigate, setError]
@@ -63,16 +68,17 @@ export const Login = () => {
           />
           {errors.passphrase?.message && <InputError forInput="passphrase">{errors.passphrase.message}</InputError>}
         </FormGroup>
-        <Button
+        <LoadingButton
+          loading={loading}
+          loadingText="Logging in"
+          text="Login"
           data-testid={loginButton}
           fill={true}
           className="mt-2"
           variant="primary"
           type="submit"
           disabled={!Boolean(passphrase)}
-        >
-          Login
-        </Button>
+        />
       </form>
     </StarsWrapper>
   )

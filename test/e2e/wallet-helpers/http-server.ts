@@ -1,6 +1,17 @@
 import http from 'node:http'
 
 export const server = http.createServer((req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*') /* @dev First, read about security */
+  res.setHeader('Access-Control-Allow-Methods', '*')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader('Access-Control-Max-Age', 2592000) // 30 days
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204)
+    res.end()
+    return
+  }
+
   if (req.url === '/transaction/raw') {
     res.end(
       JSON.stringify({
@@ -31,6 +42,7 @@ export const server = http.createServer((req, res) => {
     return
   }
 
+  res.writeHead(404)
   res.end('Not found')
 })
 

@@ -53,9 +53,6 @@ const createAdmin = async ({ passphrase } = {}) => {
 }
 
 describe('admin-ns', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
   it('should return app globals', async () => {
     const admin = await createAdmin()
     const appGlobals = await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.app_globals', params: null }, {})

@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { RpcMethods } from '../../../frontend/lib/client-rpc-methods'
+@frontend/lib/client-rpc-methods'
 import { defaultPassword } from './common'
 export class APIHelper {
   private driver: WebDriver

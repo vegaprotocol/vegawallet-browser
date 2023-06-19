@@ -7,7 +7,7 @@ import {
   isElementDisplayed,
   sendKeysToElement
 } from '../selenium-util'
-import { errorMessage, importMnemonic, importMnemonicSubmit } from '../../../frontend/locator-ids'
+@frontend/locator-ids'
 
 export class ImportAWallet {
   private readonly recoveryPhraseField: By = getByDataTestID(importMnemonic)

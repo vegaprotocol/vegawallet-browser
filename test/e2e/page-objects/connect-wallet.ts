@@ -1,6 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
-import locators from '../../../frontend/components/locators'
+import locators from '@frontend/components/locators'
 
 export class ConnectWallet {
   private readonly approve: By = getByDataTestID(locators.connectionModalApproveButton)

@@ -8,5 +8,6 @@ export const RpcMethods = {
   GenerateKey: 'admin.generate_key',
   Lock: 'admin.lock',
   ListConnections: 'admin.list_connections',
-  ConnectionsChange: 'admin.connections_change'
+  ConnectionsChange: 'admin.connections_change',
+  OpenPopout: 'admin.open_popout'
 }

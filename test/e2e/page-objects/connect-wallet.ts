@@ -1,5 +1,11 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
+import {
+  clickElement,
+  getByDataTestID,
+  isElementDisplayed,
+  waitForElementToBeReady,
+  waitForElementToDisappear
+} from '../selenium-util'
 import locators from '../../../frontend/components/locators'
 
 export class ConnectWallet {
@@ -11,11 +17,14 @@ export class ConnectWallet {
 
   async approveConnectionAndCheckSuccess() {
     await clickElement(this.driver, this.approve)
+    const successElement = await waitForElementToBeReady(this.driver, this.successModal)
     expect(
       await isElementDisplayed(this.driver, this.successModal),
       'expected to see the success modal after approving a connection',
       { showPrefix: false }
     ).toBe(true)
+
+    await waitForElementToDisappear(this.driver, successElement)
   }
 
   async denyConnection() {

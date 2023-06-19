@@ -22,7 +22,7 @@ export class Settings {
   async openAppInNewWindowAndSwitchToIt() {
     await this.openAppInNewWindow()
     await openLatestWindowHandle(this.driver)
-    return this.driver.getWindowHandle()
+    return await this.driver.getWindowHandle()
   }
 
   async openAppInNewWindow() {

@@ -15,20 +15,7 @@ export const StarsWrapper = ({ children }: { children: ReactNode }) => {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      <div className="h-full w-full py-6 px-5">
-        <div className="flex justify-center mt-16">
-          <VegaIcon />
-        </div>
-        <div className="flex justify-center mt-5 mb-10">
-          <div className="px-3 mt-1 border-r border-vega-dark-200 flex flex-col justify-center">
-            <Vega />
-          </div>
-          <div className="calt text-white px-3 text-3xl flex flex-col justify-center">
-            wallet
-          </div>
-        </div>
-        {children}
-      </div>
+      <div className="h-full w-full py-6 px-5">{children}</div>
     </section>
   )
 }

@@ -9,6 +9,7 @@ import { loginButton, loginPassphrase } from '../../locator-ids'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { useHomeStore } from '../home/store'
 import { LoadingButton } from '../../components/loading-button'
+import { VegaHeader } from '../../components/vega-header'
 
 const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
 
@@ -56,6 +57,7 @@ export const Login = () => {
   }, [setFocus])
   return (
     <StarsWrapper>
+      <VegaHeader />
       <form className="text-left" onSubmit={handleSubmit(submit)}>
         <FormGroup label="Password" labelFor="passphrase">
           <Input

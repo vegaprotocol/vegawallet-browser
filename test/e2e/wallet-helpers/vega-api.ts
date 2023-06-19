@@ -30,7 +30,6 @@ export class VegaAPI {
   async openNewWindow() {
     this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver)
     await this.driver.get(this.dappUrl)
-    await this.driver.wait(until.urlContains(this.dappUrl))
     await this.waitForVegaDefined()
   }
 

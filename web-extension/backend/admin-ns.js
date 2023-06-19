@@ -31,9 +31,12 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
     })
   })
 
-  let popout = null
-  windows.onRemoved.addListener(() => {
-    popout = null
+  let handle = null
+
+  windows.onRemoved.addListener((windowId) => {
+    if (windowId === handle?.id) {
+      handle = null
+    }
   })
 
   var server = new JSONRPCServer({
@@ -41,9 +44,8 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
     methods: {
       async 'admin.open_popout'(params) {
         doValidate(adminValidation.openPopout, params)
-        console.log(popout)
-        if (popout == null) {
-          popout = windows.create({
+        if (handle == null) {
+          const popout = windows.create({
             url: runtime.getURL('/index.html'),
             type: 'popup',
             // Approximate dimension. The client figures out exactly how big it should be as this height/width
@@ -52,13 +54,10 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
             height: 600
           })
 
-          const handle = await popout
+          handle = await popout
           handle.alwaysOnTop = true
           handle.focused = true
         }
-
-        // Await if there is an existing pending window
-        await popout
 
         return null
       },

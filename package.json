@@ -33,8 +33,8 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "build:test": "yarn build --wallet-config=test",
-    "build:fairground": "yarn build --wallet-config=fairground",
+    "build:e2e-test": "yarn build --wallet-config=test",
+    "build:testnet": "yarn build --wallet-config=testnet",
     "build:mainnet": "yarn build --wallet-config=mainnet",
     "build:analyze": "NODE_ENV=production yarn build:mainnet --analyze",
     "dev": "web-ext run --start-url=examples/sample-dapp/index.html",

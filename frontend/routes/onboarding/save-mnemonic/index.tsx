@@ -41,10 +41,10 @@ export const SaveMnemonic = () => {
     try {
       setLoading(true)
       await createWallet(mnemonic as string, client)
+    setShowSuccess(true)
     } finally {
       setLoading(false)
     }
-  }, [client, mnemonic, navigate, setLoading])
   // While loading, render nothing
   if (!mnemonic) return null
   if (showSuccess)

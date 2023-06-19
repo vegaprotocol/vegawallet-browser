@@ -26,7 +26,7 @@ export const WalletCreated = ({ onClose }: WalletCreatedProps) => {
         className="w-full h-full flex flex-col py-24 justify-center items-center"
       >
         <SuccessTick />
-        <h1 data-testid={locators.title} className="text-3xl text-center mb-1">
+        <h1 data-testid={locators.title} className="text-2xl text-center text-white mb-1">
           Your new wallet is ready.
         </h1>
       </div>

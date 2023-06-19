@@ -10,12 +10,14 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 import { createWallet } from '../../../lib/create-wallet'
 import { LoadingButton } from '../../../components/loading-button'
+import { WalletCreated } from './wallet-created'
 
 interface FormFields {
   acceptedTerms: boolean
 }
 
 export const SaveMnemonic = () => {
+  const [showSuccess, setShowSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const { client } = useJsonRpcClient()
   const navigate = useNavigate()
@@ -42,11 +44,18 @@ export const SaveMnemonic = () => {
     } finally {
       setLoading(false)
     }
-    navigate(FULL_ROUTES.wallets)
   }, [client, mnemonic, navigate, setLoading])
-
   // While loading, render nothing
   if (!mnemonic) return null
+  if (showSuccess)
+    return (
+      <WalletCreated
+        onClose={() => {
+          navigate(FULL_ROUTES.wallets)
+          setShowSuccess(false)
+        }}
+      />
+    )
   return (
     <Page name="Secure your wallet">
       <>

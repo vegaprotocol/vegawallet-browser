@@ -1,11 +1,12 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
-import { locators } from '../../../frontend/routes/auth/settings'
+import { clickElement, getByDataTestID, isElementDisplayed, openLatestWindowHandle } from '../selenium-util'
+import { settingsLockButton, settingsOpenInNewWindow, settingsPage } from '../../../frontend/locator-ids'
 import { Login } from './login'
 
 export class Settings {
-  private readonly lockWalletButton: By = getByDataTestID(locators.settingsLockButton)
-  private readonly settingsPageContent: By = getByDataTestID(locators.settingsPage)
+  private readonly lockWalletButton: By = getByDataTestID(settingsLockButton)
+  private readonly settingsPageContent: By = getByDataTestID(settingsPage)
+  private readonly openInNewWindow: By = getByDataTestID(settingsOpenInNewWindow)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -16,6 +17,17 @@ export class Settings {
       true
     )
     return loginPage
+  }
+
+  async openAppInNewWindowAndSwitchToIt() {
+    await this.openAppInNewWindow()
+    await openLatestWindowHandle(this.driver)
+    return this.driver.getWindowHandle()
+  }
+
+  async openAppInNewWindow() {
+    expect(await this.isSettingsPage(), 'expected to be on the settings page but was not').toBe(true)
+    await clickElement(this.driver, this.openInNewWindow)
   }
 
   async isSettingsPage() {

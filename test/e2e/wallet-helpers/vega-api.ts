@@ -1,6 +1,6 @@
 import { randomBytes } from 'crypto'
-import { WebDriver, until } from 'selenium-webdriver'
-import { closeCurrentWindowAndSwitchToPrevious, openNewWindowAndSwitchToIt } from '../selenium-util'
+import { WebDriver } from 'selenium-webdriver'
+import { switchWindowHandles, openNewWindowAndSwitchToIt } from '../selenium-util'
 
 interface Key {
   index: number
@@ -74,7 +74,7 @@ export class VegaAPI {
 
     const result = await func()
     if (closeTab) {
-      await closeCurrentWindowAndSwitchToPrevious(this.driver, this.vegaDappWindowHandle)
+      await switchWindowHandles(this.driver, true, this.vegaDappWindowHandle)
     } else {
       this.driver.switchTo().window(this.vegaExtensionWindowHandle)
     }

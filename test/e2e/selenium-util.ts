@@ -1,4 +1,5 @@
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
+import { elementIsDisabled } from 'selenium-webdriver/lib/until'
 
 const defaultTimeoutMillis = 10000
 
@@ -103,6 +104,12 @@ export async function isElementDisplayed(driver: WebDriver, locator: By, timeout
   }
 }
 
+export function staticWait(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds)
+  })
+}
+
 export async function isElementEnabled(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   try {
     await driver.wait(until.elementLocated(locator), timeout)
@@ -136,14 +143,20 @@ export async function openNewWindowAndSwitchToIt(driver: WebDriver, closeOld = f
     currentWindowHandle = await driver.getWindowHandle()
     await driver.close()
   }
+  return await openLatestWindowHandle(driver)
+}
+
+export async function openLatestWindowHandle(driver: WebDriver) {
   const handles = await driver.getAllWindowHandles()
   const latestHandle = handles[handles.length - 1]
   await driver.switchTo().window(latestHandle)
   return await driver.getWindowHandle()
 }
 
-export async function closeCurrentWindowAndSwitchToPrevious(driver: WebDriver, windowHandle = '') {
-  await driver.close()
+export async function switchWindowHandles(driver: WebDriver, closeCurrent = true, windowHandle = '') {
+  if (closeCurrent) {
+    await driver.close()
+  }
   if (windowHandle) {
     await driver.switchTo().window(windowHandle)
   } else {

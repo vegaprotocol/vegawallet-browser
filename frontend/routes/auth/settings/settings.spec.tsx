@@ -35,10 +35,17 @@ describe('Settings', () => {
     expect(screen.getByTestId(locators.settingsVersionNumber)).toHaveTextContent(packageJson.version)
     expect(screen.getByTestId(locators.settingsVersionTitle)).toHaveTextContent('Vega wallet version')
   })
-  it('calls admin.lock on lock button click', async () => {
+  it('navigates after lock button click', async () => {
     mockClient()
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.settingsLockButton))
     await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.login))
+  })
+  it('closes the window after opening in a new window', async () => {
+    global.close = jest.fn()
+    mockClient()
+    renderComponent()
+    fireEvent.click(screen.getByTestId(locators.settingsOpenPopoutButton))
+    await waitFor(() => expect(global.close).toBeCalled())
   })
 })

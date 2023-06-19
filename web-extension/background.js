@@ -13,6 +13,7 @@ import config from '@config'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
+const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 
 const interactor = new PopupClient({
   onbeforerequest: setPending,
@@ -53,6 +54,8 @@ const clientPorts = new PortServer({
 })
 
 const server = initAdmin({
+  runtime,
+  windows,
   encryptedStore,
   settings,
   wallets,

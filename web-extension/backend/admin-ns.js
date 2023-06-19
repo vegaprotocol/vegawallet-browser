@@ -2,9 +2,6 @@ import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../package.json'
 
-const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
-const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
-
 function doValidate(validator, params) {
   if (!validator(params))
     throw new JSONRPCServer.Error(
@@ -25,7 +22,7 @@ function doValidate(validator, params) {
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default function init({ encryptedStore, settings, wallets, networks, connections, onerror }) {
+export default function init({ runtime, windows, encryptedStore, settings, wallets, networks, connections, onerror }) {
   connections.listen((ev, connection) => {
     server.notify('admin.connections_change', {
       add: [connection],

@@ -1,12 +1,12 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed, openLatestWindowHandle } from '../selenium-util'
-import { settingsLockButton, settingsOpenInNewWindow, settingsPage } from '../../../frontend/locator-ids'
 import { Login } from './login'
+import { locators } from '../../../frontend/routes/auth/settings'
 
 export class Settings {
-  private readonly lockWalletButton: By = getByDataTestID(settingsLockButton)
-  private readonly settingsPageContent: By = getByDataTestID(settingsPage)
-  private readonly openInNewWindow: By = getByDataTestID(settingsOpenInNewWindow)
+  private readonly lockWalletButton: By = getByDataTestID(locators.settingsLockButton)
+  private readonly settingsPageContent: By = getByDataTestID(locators.settingsPage)
+  private readonly openInNewWindow: By = getByDataTestID(locators.settingsOpenPopoutButton)
 
   constructor(private readonly driver: WebDriver) {}
 

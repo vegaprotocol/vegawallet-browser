@@ -32,26 +32,27 @@ describe('list connections tests', () => {
     // 1101-BWAL-082 If I have the extension open on the Connections view AND I approve a request to connect to a dapp (and the connection is successful), the connections view should update to show the new connection
     const connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
-    const firstDapp = new VegaAPI(driver, await driver.getWindowHandle())
+    const windowHandle = await driver.getWindowHandle()
+    const firstDapp = new VegaAPI(driver, windowHandle, 'https://vegaprotocol.github.io/vegawallet-browser/')
     await firstDapp.connectWallet()
     const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(1)
     let connectionNames = await connections.getConnectionNames()
-    expect(connectionNames[0]).toContain('google.co.uk')
+    expect(connectionNames[0]).toContain('https://vegaprotocol')
 
-    const secondDapp = new VegaAPI(driver, await driver.getWindowHandle(), 'https://yahoo.com')
+    const secondDapp = new VegaAPI(driver, await driver.getWindowHandle(), 'https://vega.xyz')
     await secondDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(2)
     connectionNames = await connections.getConnectionNames()
     expect(
-      connectionNames.some((name) => name.includes('yahoo.com')),
-      'expected yahoo.com to be present'
+      connectionNames.some((name) => name.includes('https://vegaprotocol')),
+      'expected the example dapp be present'
     ).toBe(true)
     expect(
-      connectionNames.some((name) => name.includes('google.co.uk')),
-      'expected google.co.uk to be present'
+      connectionNames.some((name) => name.includes('vega.xyz')),
+      'expected vega.xyz to be present'
     ).toBe(true)
   })
 })

@@ -84,7 +84,7 @@ describe('transactions', () => {
     await transaction.confirmTransaction()
     const res = await vegaAPI.getTransactionResult()
     const result = JSON.parse(JSON.stringify(res))
-    expect(await result.transactionHash).toBeTruthy()
+    expect(await result.transactionHash).toMatch(/[0-9A-F]{64}/)
   })
 
   it('queues transactions when there is more than one', async () => {

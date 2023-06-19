@@ -20,5 +20,9 @@ export default {
       }
     ]
   ],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleNameMapper: {
+    '@config': '<rootDir>/config/test.js',
+    '@frontend/*': '<rootDir>/frontend/*'
+  }
 }

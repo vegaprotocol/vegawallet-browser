@@ -5,21 +5,22 @@ import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 import { ConnectionsCollection } from '../backend/connections.js'
 
+let windowsMock = null
+
+let runtimeMock = null
+
 const createAdmin = async ({ passphrase } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-  const windowsMock = {
+  windowsMock = {
     create: jest.fn(() => new Promise((resolve) => resolve({ alwaysOnTop: true, focused: true }))),
     onRemoved: {
       addListener: jest.fn()
     }
   }
-
-  const runtimeMock = {
+  runtimeMock = {
     getURL: jest.fn(() => 'http://localhost:8080/index.html')
   }
-
   const server = initAdminServer({
     encryptedStore: enc,
     windows: windowsMock,
@@ -52,6 +53,9 @@ const createAdmin = async ({ passphrase } = {}) => {
 }
 
 describe('admin-ns', () => {
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
   it('should return app globals', async () => {
     const admin = await createAdmin()
     const appGlobals = await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.app_globals', params: null }, {})
@@ -270,5 +274,23 @@ describe('admin-ns', () => {
     })
 
     expect(listConnections.result).toEqual({ connections: [] })
+  })
+  it('should open popout', async () => {
+    const admin = await createAdmin()
+    await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
+    expect(windowsMock.create).toBeCalledWith({
+      url: 'http://localhost:8080/index.html',
+      type: 'popup',
+      width: 360,
+      height: 600
+    })
+  })
+
+  it('should not open pop out if one is already open', async () => {
+    const admin = await createAdmin()
+    await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
+    expect(windowsMock.create).toBeCalled()
+    await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
+    expect(windowsMock.create).toBeCalledTimes(1)
   })
 })

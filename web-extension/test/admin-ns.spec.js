@@ -8,8 +8,22 @@ import { ConnectionsCollection } from '../backend/connections.js'
 const createAdmin = async ({ passphrase } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   const publicKeyIndexStore = new ConcurrentStorage(new Map())
+
+  const windowsMock = {
+    create: jest.fn(() => new Promise((resolve) => resolve({ alwaysOnTop: true, focused: true }))),
+    onRemoved: {
+      addListener: jest.fn()
+    }
+  }
+
+  const runtimeMock = {
+    getURL: jest.fn(() => 'http://localhost:8080/index.html')
+  }
+
   const server = initAdminServer({
     encryptedStore: enc,
+    windows: windowsMock,
+    runtime: runtimeMock,
     settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
     wallets: new WalletCollection({
       walletsStore: enc,

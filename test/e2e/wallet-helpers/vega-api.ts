@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto'
-import { WebDriver } from 'selenium-webdriver'
+import { WebDriver, until } from 'selenium-webdriver'
 import { closeCurrentWindowAndSwitchToPrevious, openNewWindowAndSwitchToIt } from '../selenium-util'
 
 interface Key {
@@ -20,9 +20,18 @@ export class VegaAPI {
     this.dappUrl = dappUrl
   }
 
+  async waitForVegaDefined() {
+    await this.driver.wait(async () => {
+      const result = await this.driver.executeScript('return typeof window.vega !== "undefined";')
+      return result === true
+    })
+  }
+
   async openNewWindow() {
     this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver)
-    this.driver.get(this.dappUrl)
+    await this.driver.get(this.dappUrl)
+    await this.driver.wait(until.urlContains(this.dappUrl))
+    await this.waitForVegaDefined()
   }
 
   async connectWallet(withNewTab = true, closeTab = false) {

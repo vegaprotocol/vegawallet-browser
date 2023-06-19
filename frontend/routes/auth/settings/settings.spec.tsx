@@ -2,14 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { Settings } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
-import {
-  settingsFeedbackDescription,
-  settingsFeedbackLink,
-  settingsLockButton,
-  settingsPage,
-  settingsVersionNumber,
-  settingsVersionTitle
-} from '../../../locator-ids'
+import { locators } from '../../../../frontend/routes/auth/settings'
 import * as packageJson from '../../../../package.json'
 import { FULL_ROUTES } from '../../../routes/route-names'
 import config from '../../../lib/config'
@@ -34,18 +27,18 @@ describe('Settings', () => {
     // 1101-BWAL-067 I can see the feedback link
     mockClient()
     renderComponent()
-    expect(screen.getByTestId(settingsPage)).toBeInTheDocument()
-    expect(screen.getByTestId(settingsFeedbackDescription)).toHaveTextContent('Spotted any issues or bugs?')
-    expect(screen.getByTestId(settingsFeedbackLink)).toHaveTextContent('Provide feedback')
-    expect(screen.getByTestId(settingsFeedbackLink)).toHaveAttribute('href', config.feedbackLink)
-    expect(screen.getByTestId(settingsLockButton)).toHaveTextContent('Lock')
-    expect(screen.getByTestId(settingsVersionNumber)).toHaveTextContent(packageJson.version)
-    expect(screen.getByTestId(settingsVersionTitle)).toHaveTextContent('Vega wallet version')
+    expect(screen.getByTestId(locators.settingsPage)).toBeInTheDocument()
+    expect(screen.getByTestId(locators.settingsFeedbackDescription)).toHaveTextContent('Spotted any issues or bugs?')
+    expect(screen.getByTestId(locators.settingsFeedbackLink)).toHaveTextContent('Provide feedback')
+    expect(screen.getByTestId(locators.settingsFeedbackLink)).toHaveAttribute('href', config.feedbackLink)
+    expect(screen.getByTestId(locators.settingsLockButton)).toHaveTextContent('Lock')
+    expect(screen.getByTestId(locators.settingsVersionNumber)).toHaveTextContent(packageJson.version)
+    expect(screen.getByTestId(locators.settingsVersionTitle)).toHaveTextContent('Vega wallet version')
   })
   it('calls admin.lock on lock button click', async () => {
     mockClient()
     renderComponent()
-    fireEvent.click(screen.getByTestId(settingsLockButton))
+    fireEvent.click(screen.getByTestId(locators.settingsLockButton))
     await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.login))
   })
 })

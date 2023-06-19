@@ -37,13 +37,6 @@ export const errorMessage = 'input-error-text'
 export const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
 export const viewWalletsHeader = 'view-wallets-header'
 
-export const settingsPage = 'settings-page'
-export const settingsVersionTitle = 'settings-version-title'
-export const settingsVersionNumber = 'settings-version-number'
-export const settingsLockButton = 'settings-lock-button'
-export const settingsFeedbackDescription = 'settings-feedback-description'
-export const settingsFeedbackLink = 'settings-feedback-link'
-
 export const connectionsConnection = 'connections-connection'
 export const connectionsNoConnections = 'connections-no-connections'
 export const connectionsHeader = 'connections-header'

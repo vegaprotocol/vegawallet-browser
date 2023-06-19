@@ -51,7 +51,7 @@
     "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox",
     "test:frontend": "jest --config=test/jest-config/jest.config-ui.js",
     "test:frontend:ci": "yarn test:frontend --coverage",
-    "watch": "yarn build -w"
+    "watch": "yarn build:testnet -w"
   },
   "browserslist": {
     "production": [

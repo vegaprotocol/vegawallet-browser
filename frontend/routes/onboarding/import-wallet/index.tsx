@@ -8,6 +8,7 @@ import { importMnemonic, importMnemonicDescription, importMnemonicSubmit } from 
 import { FULL_ROUTES } from '../../route-names'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { createWallet } from '../../../lib/create-wallet'
+import { WalletImported } from './wallet-imported'
 import { LoadingButton } from '../../../components/loading-button'
 
 interface FormFields {
@@ -15,6 +16,7 @@ interface FormFields {
 }
 
 export const ImportWallet = () => {
+  const [showSuccess, setShowSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const { client } = useJsonRpcClient()
   const {
@@ -33,19 +35,28 @@ export const ImportWallet = () => {
       try {
         setLoading(true)
         await createWallet(fields.mnemonic, client)
-        navigate(FULL_ROUTES.wallets)
+        setShowSuccess(true)
       } catch (e) {
         setError('mnemonic', { message: e?.toString() })
       } finally {
         setLoading(false)
       }
     },
-    [client, navigate, setError]
+    [client, setError]
   )
   const mnemonic = useWatch({ control, name: 'mnemonic' })
   useEffect(() => {
     setFocus('mnemonic')
   }, [setFocus])
+  if (showSuccess)
+    return (
+      <WalletImported
+        onClose={() => {
+          navigate(FULL_ROUTES.wallets)
+          setShowSuccess(false)
+        }}
+      />
+    )
   return (
     <Page name="Import wallet" backLocation={FULL_ROUTES.createWallet}>
       <div>

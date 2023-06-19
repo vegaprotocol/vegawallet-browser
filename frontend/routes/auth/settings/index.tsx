@@ -6,6 +6,7 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../routes/route-names'
 import config from '../../../lib/config'
+import { RpcMethods } from '../../../lib/client-rpc-methods'
 
 export const locators = {
   settingsLockButton: 'settings-lock-button',
@@ -28,7 +29,7 @@ export const Settings = () => {
 
   const { handleSubmit: handlePopout } = useForm()
   const popout = useCallback(async () => {
-    await client.request('admin.open_popout', null)
+    await client.request(RpcMethods.OpenPopout, null)
     window.close()
   }, [client])
   return (

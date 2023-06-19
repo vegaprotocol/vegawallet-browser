@@ -124,6 +124,14 @@ export const mockClient = (
                 id: message.id
               })
             }
+          } else if (message.method === RpcMethods.OpenPopout) {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                result: null,
+                id: message.id
+              })
+            )
           } else if (message.method === RpcMethods.ListConnections) {
             listeners[0]({
               jsonrpc: '2.0',

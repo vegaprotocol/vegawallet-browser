@@ -98,6 +98,7 @@ describe('Save mnemonic', () => {
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
     fireEvent.click(screen.getByLabelText(checkboxDescription))
     fireEvent.click(screen.getByTestId(saveMnemonicButton))
-    await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.wallets))
+    // Needs longer timeout as this shows for 1 full second
+    await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.wallets), { timeout: 1200 })
   })
 })

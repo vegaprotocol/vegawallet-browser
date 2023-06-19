@@ -21,7 +21,7 @@ export class NavPanel {
   }
 
   async goToSettings() {
-    clickElement(this.driver, this.settings)
+    await clickElement(this.driver, this.settings)
     const settings = new Settings(this.driver)
     expect(
       await settings.isSettingsPage(),
@@ -32,7 +32,7 @@ export class NavPanel {
   }
 
   async goToListConnections() {
-    clickElement(this.driver, this.connections)
+    await clickElement(this.driver, this.connections)
     const connections = new ListConnections(this.driver)
     expect(
       await connections.isListConnectionsPage(),

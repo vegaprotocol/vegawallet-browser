@@ -9,7 +9,7 @@ import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { NavPanel } from './page-objects/navpanel'
 import { Login } from './page-objects/login'
-import { closeCurrentWindowAndSwitchToPrevious, openNewWindowAndSwitchToIt } from './selenium-util'
+import { switchWindowHandles, openNewWindowAndSwitchToIt } from './selenium-util'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
@@ -57,7 +57,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await openNewWindowAndSwitchToIt(driver)
     await navigateToLandingPage(driver)
     await getStarted.checkOnGetStartedPage()
-    await closeCurrentWindowAndSwitchToPrevious(driver)
+    await switchWindowHandles(driver)
 
     await navigateToLandingPage(driver)
     await getStarted.getStarted()
@@ -66,7 +66,7 @@ describe('Check correct app state persists after closing the extension', () => {
 
     await switchToNewWindow()
     await createAWallet.checkOnCreateWalletPage()
-    await closeCurrentWindowAndSwitchToPrevious(driver)
+    await switchWindowHandles(driver)
 
     await createAWallet.createNewWallet()
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
@@ -76,7 +76,7 @@ describe('Check correct app state persists after closing the extension', () => {
     await switchToNewWindow()
     // TODO this is the wrong behavior, we should be on the secure wallet page.
     await createAWallet.checkOnCreateWalletPage()
-    await closeCurrentWindowAndSwitchToPrevious(driver)
+    await switchWindowHandles(driver)
 
     await navigateToLandingPage(driver)
     await createAWallet.createNewWallet()
@@ -85,7 +85,7 @@ describe('Check correct app state persists after closing the extension', () => {
 
     await switchToNewWindow()
     await viewWallet.checkOnViewWalletPage()
-    await closeCurrentWindowAndSwitchToPrevious(driver)
+    await switchWindowHandles(driver)
 
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
@@ -93,6 +93,6 @@ describe('Check correct app state persists after closing the extension', () => {
 
     await switchToNewWindow()
     await settings.checkOnSettingsPage()
-    await closeCurrentWindowAndSwitchToPrevious(driver)
+    await switchWindowHandles(driver)
   })
 })

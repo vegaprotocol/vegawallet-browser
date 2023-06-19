@@ -1,14 +1,15 @@
-import { Button, FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
+import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Page } from '../../../components/page'
 import { useForm, useWatch } from 'react-hook-form'
 import { Validation } from '../../../lib/form-validation'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
 import { confirmPassphraseInput, passphraseInput, submitPassphraseButton } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
+import { LoadingButton } from '../../../components/loading-button'
 
 interface FormFields {
   password: string
@@ -17,6 +18,7 @@ interface FormFields {
 }
 
 export const CreatePassword = () => {
+  const [loading, setLoading] = useState(false)
   const { client } = useJsonRpcClient()
   const {
     control,
@@ -31,8 +33,13 @@ export const CreatePassword = () => {
   const confirmPassword = useWatch({ control, name: 'confirmPassword' })
   const submit = useCallback(
     async ({ password }: FormFields) => {
-      await client.request(RpcMethods.CreatePassphrase, { passphrase: password })
-      navigate(FULL_ROUTES.createWallet)
+      try {
+        setLoading(true)
+        await client.request(RpcMethods.CreatePassphrase, { passphrase: password })
+        navigate(FULL_ROUTES.createWallet)
+      } finally {
+        setLoading(false)
+      }
     },
     [client, navigate]
   )
@@ -80,7 +87,7 @@ export const CreatePassword = () => {
             label="I understand that Vega Wallet cannot recover this password if I lose it"
             control={control}
           />
-          <Button
+          <LoadingButton
             fill={true}
             data-testid={submitPassphraseButton}
             className="mt-8"
@@ -92,9 +99,10 @@ export const CreatePassword = () => {
               !Boolean(confirmPassword) ||
               !acceptedTerms
             }
-          >
-            Submit
-          </Button>
+            loading={loading}
+            loadingText="Creating password"
+            text="Create password"
+          />
         </form>
       </>
     </Page>

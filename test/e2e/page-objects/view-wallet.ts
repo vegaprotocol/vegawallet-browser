@@ -7,7 +7,7 @@ import {
   isElementDisplayed,
   waitForChildElementsCount
 } from '../selenium-util'
-@frontend/locator-ids'
+import * as locators from '../../../frontend/locator-ids'
 
 export class ViewWallet {
   private readonly viewWalletsHeader: By = getByDataTestID(locators.viewWalletsHeader)

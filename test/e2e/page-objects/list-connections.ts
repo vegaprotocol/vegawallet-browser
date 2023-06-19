@@ -1,6 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { getByDataTestID, getElements, hasTotalNumElements, isElementDisplayed } from '../selenium-util'
-@frontend/locator-ids'
+import * as locators from '../../../frontend/locator-ids'
 
 export class ListConnections {
   private readonly noConnections: By = getByDataTestID(locators.connectionsNoConnections)

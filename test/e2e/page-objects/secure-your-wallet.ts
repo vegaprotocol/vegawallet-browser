@@ -1,7 +1,7 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed, isElementEnabled } from '../selenium-util'
-@frontend/locator-ids'
-@frontend/components/locators'
+import * as locators from '../../../frontend/locator-ids'
+import componentLocators from '../../../frontend/components/locators'
 
 export class SecureYourWallet {
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)

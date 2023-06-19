@@ -7,7 +7,7 @@ import {
   isElementDisplayed,
   sendKeysToElement
 } from '../selenium-util'
-@frontend/locator-ids'
+import { errorMessage, loginButton, loginPassphrase } from '../../../frontend/locator-ids'
 import { defaultPassword } from '../wallet-helpers/common'
 
 export class Login {

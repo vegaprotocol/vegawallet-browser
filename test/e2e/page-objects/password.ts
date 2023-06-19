@@ -6,7 +6,7 @@ import {
   sendKeysToElement,
   waitForElementToBeReady
 } from '../selenium-util'
-@frontend/locator-ids'
+import * as locators from '../../../frontend/locator-ids'
 import { defaultPassword } from '../wallet-helpers/common'
 
 export class Password {

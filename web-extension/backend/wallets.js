@@ -12,7 +12,11 @@ export class WalletCollection {
     return this.store.get(name)
   }
 
-  async getKeyByPublicKey({ publicKey }) {
+  async getKeyInfo({ publicKey }) {
+    return this.index.get(publicKey)
+  }
+
+  async getKeypair({ publicKey }) {
     return this.store.transaction(async (store) => {
       const { wallet } = await this.index.get(publicKey)
       if (wallet == null) return

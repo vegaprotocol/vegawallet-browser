@@ -40,7 +40,7 @@ describe('Save mnemonic', () => {
     expect(screen.getByTestId('secure-your-wallet')).toHaveTextContent('Secure your wallet')
     expect(screen.getByTestId(locators.mnemonicContainerHidden)).toBeInTheDocument()
     expect(screen.getByTestId(saveMnemonicDescription)).toHaveTextContent(saveMnemonicDescriptionText)
-    expect(screen.getByTestId(saveMnemonicButton)).toHaveTextContent('Continue')
+    expect(screen.getByTestId(saveMnemonicButton)).toHaveTextContent('Create wallet')
   })
   it('mnemonic and checkbox are shown when clicked', async () => {
     // 1101-BWAL-015 I can see an explanation of what the recovery phrase is for and that it cannot be recovered itself
@@ -79,6 +79,16 @@ describe('Save mnemonic', () => {
     fireEvent.click(screen.getByTestId('acceptedTerms'))
     expect(screen.getByTestId('acceptedTerms')).not.toBeChecked()
     expect(screen.getByTestId(saveMnemonicButton)).toBeDisabled()
+  })
+  it('renders loading state when button is clicked', async () => {
+    renderComponent()
+    await screen.findByTestId(locators.mnemonicContainerHidden)
+    fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
+    fireEvent.click(screen.getByLabelText(checkboxDescription))
+    fireEvent.click(screen.getByTestId(saveMnemonicButton))
+    await waitFor(() => expect(screen.queryByTestId(saveMnemonicButton)).toHaveTextContent('Creating wallet…'), {
+      timeout: 1000
+    })
   })
   it('redirects to the wallets page when button is clicked', async () => {
     renderComponent()

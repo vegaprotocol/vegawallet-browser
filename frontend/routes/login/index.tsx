@@ -49,7 +49,7 @@ export const Login = () => {
         setLoading(false)
       }
     },
-    [client, loadGlobals, navigate, setError]
+    [client, loadGlobals, navigate, setError, setLoading]
   )
   useEffect(() => {
     setFocus('passphrase')

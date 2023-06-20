@@ -81,6 +81,7 @@ describe('Save mnemonic', () => {
     expect(screen.getByTestId(saveMnemonicButton)).toBeDisabled()
   })
   it('renders loading state when button is clicked', async () => {
+    // 1101-BWAL-021 - I can see the button is disabled and a loading state after submitting
     renderComponent()
     await screen.findByTestId(locators.mnemonicContainerHidden)
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))

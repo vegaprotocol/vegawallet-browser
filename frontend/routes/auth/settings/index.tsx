@@ -30,7 +30,9 @@ export const Settings = () => {
   const { handleSubmit: handlePopout } = useForm()
   const popout = useCallback(async () => {
     await client.request(RpcMethods.OpenPopout, null)
-    window.close()
+    if (config.closeWindowOnPopupOpen) {
+      window.close()
+    }
   }, [client])
   return (
     <section data-testid={locators.settingsPage}>

@@ -6,7 +6,8 @@ const testnet = {
     explorer: 'https://explorer.fairground.wtf'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
-  encryptionSettings: undefined
+  encryptionSettings: undefined,
+  closeWindowOnPopupOpen: true
 }
 
 export default testnet

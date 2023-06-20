@@ -13,7 +13,8 @@ const mainnet = {
     explorer: 'https://explorer.vega.xyz'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
-  encryptionSettings: undefined
+  encryptionSettings: undefined,
+  closeWindowOnPopupOpen: true
 }
 
 export default mainnet

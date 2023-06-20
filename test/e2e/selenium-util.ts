@@ -1,5 +1,4 @@
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
-import { elementIsDisabled } from 'selenium-webdriver/lib/until'
 
 const defaultTimeoutMillis = 10000
 
@@ -106,6 +105,7 @@ export async function isElementDisplayed(driver: WebDriver, locator: By, timeout
   try {
     await driver.wait(until.elementLocated(locator), timeout)
     const element = await driver.findElement(locator)
+    await driver.wait(until.elementIsVisible(element), timeout)
     return await element.isDisplayed()
   } catch (error) {
     return false

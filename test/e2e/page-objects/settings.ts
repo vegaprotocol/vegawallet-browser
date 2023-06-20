@@ -1,5 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed, openLatestWindowHandle } from '../selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed, openLatestWindowHandle, staticWait } from '../selenium-util'
 import { Login } from './login'
 import { locators } from '../../../frontend/routes/auth/settings'
 
@@ -20,18 +20,18 @@ export class Settings {
   }
 
   async openAppInNewWindowAndSwitchToIt() {
-    await this.openAppInNewWindow()
+    await this.checkOnSettingsPage()
+    const windowHandles = await this.driver.getAllWindowHandles()
+    await clickElement(this.driver, this.openInNewWindow)
+    await this.driver.wait(async () => {
+      return (await this.driver.getAllWindowHandles()).length === windowHandles.length + 1
+    }, 10000)
     await openLatestWindowHandle(this.driver)
     return await this.driver.getWindowHandle()
   }
 
-  async openAppInNewWindow() {
-    expect(await this.isSettingsPage(), 'expected to be on the settings page but was not').toBe(true)
-    await clickElement(this.driver, this.openInNewWindow)
-  }
-
   async isSettingsPage() {
-    return await isElementDisplayed(this.driver, this.settingsPageContent)
+    return await isElementDisplayed(this.driver, this.lockWalletButton)
   }
 
   async checkOnSettingsPage() {

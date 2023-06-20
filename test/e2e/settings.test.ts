@@ -55,26 +55,38 @@ describe('Settings test', () => {
     await settingsPage.lockWalletAndCheckLoginPageAppears()
   })
 
-  it('can open the wallet extension in a pop out window', async () => {
+  it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
     // 1101-BWAL-092 There is a way for me to open the browser wallet in a new window
     // 1101-BWAL-087 If I have a new window open, if there is a transaction for me to approve or reject this is shown in the new window
     // 1101-BWAL-088 If I approve the transaction the new window stays open (on the last view I was on)
     // 1101-BWAL-089 If I reject the transaction the pop-up window stays open (on the last view I was on)
     // 1101-BWAL-091 If I have the new window open but then open the extension pop up I see the same thing on both views (<a name="1101-BWAL-091" href="#1101-BWAL-091">1101-BWAL-091</a>)
-    const windowHandles = await driver.getAllWindowHandles()
-    const extensionWindowHandle = windowHandles[0]
-    const vegaAPI = new VegaAPI(driver, extensionWindowHandle)
+    const originalExtensionInstance = await driver.getWindowHandle()
+    const vegaAPI = new VegaAPI(driver, originalExtensionInstance)
 
     await vegaAPI.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
     const popoutWindowHandle = await settingsPage.openAppInNewWindowAndSwitchToIt()
-    expect(await settingsPage.isSettingsPage()).toBe(true)
+    await settingsPage.checkOnSettingsPage()
 
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
 
-    await driver.switchTo().window(popoutWindowHandle)
+    await switchWindowHandles(driver, false, popoutWindowHandle)
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
+    await settingsPage.checkOnSettingsPage()
+
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await switchWindowHandles(driver, false, originalExtensionInstance)
+    await transaction.checkOnTransactionPage()
+    await switchWindowHandles(driver, false, popoutWindowHandle)
+    await transaction.rejectTransaction()
+    await settingsPage.checkOnSettingsPage()
+    await switchWindowHandles(driver, false, originalExtensionInstance)
+
+    await navigateToLandingPage(driver)
+    await settingsPage.checkOnSettingsPage()
+    await switchWindowHandles(driver, false, originalExtensionInstance)
   })
 })

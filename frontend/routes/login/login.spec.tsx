@@ -57,6 +57,7 @@ describe('Login', () => {
     })
     fireEvent.click(screen.getByTestId(loginButton))
     await waitFor(() => expect(screen.getByTestId(loginButton)).toHaveTextContent('Logging in…'))
+    expect(screen.getByTestId(loginButton)).toBeDisabled()
   })
   it('renders error if unknown error occurs', async () => {
     const listeners: Function[] = []

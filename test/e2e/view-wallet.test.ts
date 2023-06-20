@@ -24,10 +24,10 @@ describe('View wallet page', () => {
   })
 
   it('can create new key pair in the view wallet screen', async () => {
-    // 1101-BWAL-031  can create a new key pair from the wallet view
-    // 1101-BWAL-032 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
-    // 1101-BWAL-033 New key pairs are listed in order they were created - oldest first
-    // 1101-BWAL-062 I can see a list of the keys in my wallet
+    // 1101-BWAL-029  can create a new key pair from the wallet view
+    // 1101-BWAL-030 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
+    // 1101-BWAL-031 New key pairs are listed in order they were created - oldest first
+    // 1101-BWAL-059 I can see a list of the keys in my wallet
     await viewWallet.checkOnViewWalletPage()
 
     await viewWallet.createNewKeyPair()
@@ -41,8 +41,8 @@ describe('View wallet page', () => {
   })
 
   it('can copy public key to clipboard and see where I am in the extension', async () => {
-    // 1101-BWAL-063 I can copy the public key ID to my clipboard
-    // 1101-BWAL-065 I can see where I am in the app when viewing my wallet and key pair(s)
+    // 1101-BWAL-060 I can copy the public key ID to my clipboard
+    // 1101-BWAL-062 I can see where I am in the app when viewing my wallet and key pair(s)
     await viewWallet.checkOnViewWalletPage()
 
     const navPanel = new NavPanel(driver)

@@ -9,6 +9,8 @@ import { Transaction } from './page-objects/transaction'
 import { openNewWindowAndSwitchToIt } from './selenium-util'
 import { closeServerAndWait, server } from './wallet-helpers/http-server'
 import test from '../../config/test'
+import { Login } from './page-objects/login'
+import { loginButton } from '../../frontend/locator-ids'
 
 describe('transactions', () => {
   let driver: WebDriver
@@ -116,6 +118,18 @@ describe('transactions', () => {
     await transaction.rejectTransaction()
     const resp = await vegaAPI.getTransactionResult()
     expect(resp).toBe('Transaction denied')
+    await viewWallet.checkOnViewWalletPage()
+  })
+
+  it('can send a transaction to a locked wallet and respond on unlock', async () => {
+    const keys = await vegaAPI.listKeys()
+    await apiHelper.lockWallet()
+    await navigateToLandingPage(driver)
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    const login = new Login(driver)
+    await login.login()
+    await transaction.checkOnTransactionPage()
+    await transaction.rejectTransaction()
     await viewWallet.checkOnViewWalletPage()
   })
 

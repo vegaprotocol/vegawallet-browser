@@ -6,9 +6,9 @@ export interface LoadingButtonProps extends ButtonProps {
   loading: boolean
 }
 
-export const LoadingButton = ({ text, loading, loadingText, ...rest }: LoadingButtonProps) => {
+export const LoadingButton = ({ text, loading, loadingText, disabled, ...rest }: LoadingButtonProps) => {
   return (
-    <Button {...rest}>
+    <Button {...rest} disabled={disabled || loading}>
       <div className="flex items-center justify-center">
         <span className="mr-2">{loading ? `${loadingText}…` : text}</span>
         {loading && <Loader size="small" forceTheme="light" />}

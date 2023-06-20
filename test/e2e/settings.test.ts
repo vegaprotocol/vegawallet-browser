@@ -3,13 +3,12 @@ import { captureScreenshot, initDriver } from './driver'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { NavPanel } from './page-objects/navpanel'
 import { APIHelper } from './wallet-helpers/api-helpers'
-import { staticWait, switchWindowHandles } from './selenium-util'
+import { switchWindowHandles } from './selenium-util'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { Transaction } from './page-objects/transaction'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { Settings } from './page-objects/settings'
-import { stat } from 'fs'
 
 describe('Settings test', () => {
   let driver: WebDriver

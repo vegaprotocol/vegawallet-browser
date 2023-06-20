@@ -62,23 +62,25 @@ export default function init({ onerror, settings, wallets, networks, connections
           throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
         }
 
-        const key = await wallets.getKeyByPublicKey({
+        const keyInfo = await wallets.getKeyInfo({
           publicKey: params.publicKey
         })
 
-        if (key == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
+        if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
 
         const approved = await interactor.reviewTransaction({
           transaction: params.transaction,
           publicKey: params.publicKey,
-          name: key.name,
-          wallet: key.wallet,
+          name: keyInfo.name,
+          wallet: keyInfo.wallet,
           sendingMode: params.sendingMode,
           origin: context.origin,
           receivedAt
         })
 
         if (approved === false) throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
+
+        const key = await wallets.getKeypair({ publicKey: params.publicKey })
 
         const selectedNetwork = await settings.get('selectedNetwork')
         const network = await networks.get(selectedNetwork)

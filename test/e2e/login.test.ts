@@ -33,8 +33,8 @@ describe('Login', () => {
   })
 
   it('Check can log in via the login page after quitting the browser(firefox) or loading in a new tab(chrome)', async () => {
-    // 1101-BWAL-056 When I have quit my browser, and then reopened, I am asked to enter my browser extension password'
-    // 1101-BWAL-058 When entering a correct password decrypts my wallets
+    // 1101-BWAL-058 When I have quit my browser, and then reopened, I am asked to enter my browser extension password'
+    // 1101-BWAL-060 When entering a correct password decrypts my wallets
     await openNewInstanceOfVegaWallet()
     login = new Login(driver)
     await login.checkOnLoginPage()
@@ -48,7 +48,7 @@ describe('Login', () => {
   })
 
   it('shows error if password entered incorrectly, I can log in after fixing the error', async () => {
-    // 1101-BWAL-057 I am informed if I enter my password incorrectly
+    // 1101-BWAL-059 I am informed if I enter my password incorrectly
     await apiHelper.lockWallet()
     await navigateToLandingPage(driver)
     await login.checkOnLoginPage()

@@ -20,7 +20,7 @@ describe('Settings test', () => {
   })
 
   it('can navigate to settings and lock the wallet, wallent version is visible', async () => {
-    // 1101-BWAL-065 I can see a lock button and when I press it I am logged out and redirect to the login page
+    // 1101-BWAL-068 I can see a lock button and when I press it I am logged out and redirect to the login page
     const navPanel = new NavPanel(driver)
     const settingsPage = await navPanel.goToSettings()
     await settingsPage.lockWalletAndCheckLoginPageAppears()

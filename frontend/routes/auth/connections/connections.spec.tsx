@@ -30,12 +30,12 @@ describe('Connections', () => {
     const [foo, vega] = await screen.findAllByTestId(connectionsConnection)
     expect(vega).toHaveTextContent('https://vega.xyz')
     expect(foo).toHaveTextContent('foo.com')
-    // 1101-BWAL-077 I can see an explanation of what it means i.e. these dapps have permission to access my keys and connect to my wallet
+    // 1101-BWAL-085 I can see an explanation of what it means i.e. these dapps have permission to access my keys and connect to my wallet
     expect(screen.getByTestId(connectionListLocators.connectionDetails)).toHaveTextContent(
       'These dapps have access to your public keys and permission to send transaction requests.'
     )
-    // 1101-BWAL-078 I can see instructions how to connect to a Vega dapp
-    // 1101-BWAL-079 There is a way to see the dapps I could connect with (e.g. a link to https://vega.xyz/use)
+    // 1101-BWAL-086 I can see instructions how to connect to a Vega dapp
+    // 1101-BWAL-087 There is a way to see the dapps I could connect with (e.g. a link to https://vega.xyz/use)
     expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toHaveTextContent(
       'Trying to connect to a Vega dApp? Look for the "Connect Wallet" button and press it to create a connection.'
     )
@@ -74,7 +74,7 @@ describe('Connections', () => {
     renderComponent()
     await screen.findByTestId(connectionsNoConnections)
     expect(screen.getByTestId(connectionsNoConnections)).toBeInTheDocument()
-    // 1101-BWAL-080 When I have no connections I can see that and still see instructions on how to connect to a Vega dapp
+    // 1101-BWAL-088 When I have no connections I can see that and still see instructions on how to connect to a Vega dapp
     expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toBeVisible()
   })
   it('renders nothing if there is an error', async () => {

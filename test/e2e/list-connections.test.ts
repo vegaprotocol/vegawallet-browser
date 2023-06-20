@@ -28,8 +28,8 @@ describe('list connections tests', () => {
   })
 
   it('shows no connections when no dapp connected, updates and shows connections after approving one or more', async () => {
-    // 1101-BWAL-075 I can see which dapps have permission to access my keys
-    // 1101-BWAL-082 If I have the extension open on the Connections view AND I approve a request to connect to a dapp (and the connection is successful), the connections view should update to show the new connection
+    // 1101-BWAL-079 I can see which dapps have permission to access my keys
+    // 1101-BWAL-086 If I have the extension open on the Connections view AND I approve a request to connect to a dapp (and the connection is successful), the connections view should update to show the new connection
     const connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
     const windowHandle = await driver.getWindowHandle()

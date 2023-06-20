@@ -38,7 +38,6 @@ describe('ImportWallet', () => {
   })
 
   it('renders loading state while wallet is being imported', async () => {
-    // 1101-BWAL-078 - I can see the button is disabled and a loading state after submitting
     mockClient()
     renderComponent()
 

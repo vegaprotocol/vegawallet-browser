@@ -14,7 +14,8 @@ const test = {
   encryptionSettings: {
     memory: 10,
     iterations: 1
-  }
+  },
+  closeWindowOnPopupOpen: false
 }
 
 export default test

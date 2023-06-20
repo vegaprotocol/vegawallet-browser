@@ -100,6 +100,7 @@ describe('CreatePassword', () => {
   })
 
   it('should render loading state once the create button is pressed', async () => {
+    // 1101-BWAL-012 - I can see the button is disabled and a loading state after submitting
     renderComponent()
 
     fireEvent.change(screen.getByTestId(passphraseInput), {

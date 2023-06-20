@@ -99,6 +99,23 @@ describe('CreatePassword', () => {
     expect(await screen.findByText('Password does not match')).toBeInTheDocument()
   })
 
+  it('should render loading state once the create button is pressed', async () => {
+    renderComponent()
+
+    fireEvent.change(screen.getByTestId(passphraseInput), {
+      target: { value: 'test1234' }
+    })
+    fireEvent.change(screen.getByTestId(confirmPassphraseInput), {
+      target: { value: 'test1234' }
+    })
+
+    const checkbox = screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it')
+    fireEvent.click(checkbox)
+    expect(checkbox).toBeChecked()
+    fireEvent.click(screen.getByTestId(submitPassphraseButton))
+    await waitFor(() => expect(screen.getByTestId(submitPassphraseButton)).toHaveTextContent('Creating password…'))
+  })
+
   it('should navigate to create wallet page when form is submitted with valid data', async () => {
     // 1101-BWAL-003 I can enter a password for the browser wallet
     // 1101-BWAL-005 I can verify that I understand that Vega doesn't store and therefore can't recover this password if I lose it

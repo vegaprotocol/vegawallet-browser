@@ -34,7 +34,7 @@ export const SaveMnemonic = () => {
   }, [suggestMnemonic])
 
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
-  useEffect(() => {}, [])
+
   const submit = useCallback(async () => {
     try {
       setLoading(true)
@@ -43,7 +43,8 @@ export const SaveMnemonic = () => {
       setLoading(false)
     }
     navigate(FULL_ROUTES.wallets)
-  }, [client, mnemonic, navigate])
+  }, [client, mnemonic, navigate, setLoading])
+
   // While loading, render nothing
   if (!mnemonic) return null
   return (
@@ -65,7 +66,7 @@ export const SaveMnemonic = () => {
           )}
           <LoadingButton
             loading={loading}
-            text="Continue"
+            text="Create wallet"
             loadingText="Creating wallet"
             data-testid={saveMnemonicButton}
             fill={true}

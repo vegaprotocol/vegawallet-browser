@@ -49,6 +49,15 @@ describe('Login', () => {
     fireEvent.click(screen.getByTestId(loginButton))
     await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.home))
   })
+  it('renders loading state on login button', async () => {
+    mockClient()
+    renderComponent()
+    fireEvent.change(screen.getByTestId(loginPassphrase), {
+      target: { value: 'passphrase' }
+    })
+    fireEvent.click(screen.getByTestId(loginButton))
+    await waitFor(() => expect(screen.getByTestId(loginButton)).toHaveTextContent('Logging in…'))
+  })
   it('renders error if unknown error occurs', async () => {
     const listeners: Function[] = []
     // @ts-ignore

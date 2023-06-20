@@ -37,6 +37,24 @@ describe('ImportWallet', () => {
     expect(screen.getByTestId(importMnemonicSubmit)).toHaveTextContent('Import wallet')
   })
 
+  it('renders loading state while wallet is being imported', async () => {
+    mockClient()
+    renderComponent()
+
+    expect(screen.getByTestId(importMnemonicDescription)).toHaveTextContent(
+      "Enter or paste in your Vega wallet's recovery phrase."
+    )
+    fireEvent.change(screen.getByTestId(importMnemonic), {
+      target: {
+        value:
+          'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
+      }
+    })
+    fireEvent.click(screen.getByTestId(importMnemonicSubmit))
+
+    await waitFor(() => expect(screen.getByTestId(importMnemonicSubmit)).toHaveTextContent('Importing…'))
+  })
+
   it('after successfully importing a wallet it redirects to wallets page', async () => {
     mockClient()
     renderComponent()

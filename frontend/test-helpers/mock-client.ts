@@ -33,109 +33,96 @@ export const mockClient = (
   globals: AppGlobals = defaultGlobals
 ) => {
   const listeners: Function[] = []
+
+  const pushMessage = (message: any) => {
+    // Set timeout to simulate async
+    setTimeout(() => {
+      listeners.map((fn) => fn(message))
+    }, 0)
+  }
   // @ts-ignore
   global.browser = {
     runtime: {
       connect: () => ({
         postMessage: (message: any) => {
           if (message.method === RpcMethods.ListWallets) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: { wallets },
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: { wallets },
+              id: message.id
+            })
           } else if (message.method === RpcMethods.ListKeys) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: {
-                  keys: [
-                    {
-                      publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-                      name: 'Key 1'
-                    }
-                  ]
-                },
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: {
+                keys: [
+                  {
+                    publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+                    name: 'Key 1'
+                  }
+                ]
+              },
+              id: message.id
+            })
           } else if (message.method === RpcMethods.CreatePassphrase) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: null,
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: null,
+              id: message.id
+            })
           } else if (message.method === RpcMethods.GenerateRecoveryPhrase) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: { recoveryPhrase: 'Word '.repeat(24) },
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: { recoveryPhrase: 'Word '.repeat(24) },
+              id: message.id
+            })
           } else if (message.method === RpcMethods.ImportWallet) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: null,
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: null,
+              id: message.id
+            })
           } else if (message.method === RpcMethods.Lock) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: null,
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: null,
+              id: message.id
+            })
           } else if (message.method === RpcMethods.GenerateKey) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: {
-                  publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-                  name: 'Key 2',
-                  index: 0,
-                  metadata: [
-                    {
-                      key: 'name',
-                      value: 'key 2'
-                    }
-                  ]
-                },
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: {
+                publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+                name: 'Key 2',
+                index: 0,
+                metadata: [
+                  {
+                    key: 'name',
+                    value: 'key 2'
+                  }
+                ]
+              },
+              id: message.id
+            })
           } else if (message.method === RpcMethods.AppGlobals) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: globals,
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: globals,
+              id: message.id
+            })
           } else if (message.method === 'admin.unlock') {
             if (message.params.passphrase === 'passphrase') {
-              listeners.map((fn) =>
-                fn({
-                  jsonrpc: '2.0',
-                  result: null,
-                  id: message.id
-                })
-              )
+              pushMessage({
+                jsonrpc: '2.0',
+                result: null,
+                id: message.id
+              })
             } else {
-              listeners.map((fn) =>
-                fn({
-                  jsonrpc: '2.0',
-                  error: { code: 1, message: 'Invalid passphrase or corrupted storage' },
-                  id: message.id
-                })
-              )
+              pushMessage({
+                jsonrpc: '2.0',
+                error: { code: 1, message: 'Invalid passphrase or corrupted storage' },
+                id: message.id
+              })
             }
           } else if (message.method === RpcMethods.ListConnections) {
             listeners[0]({

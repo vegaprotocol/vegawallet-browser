@@ -89,6 +89,7 @@ describe('Save mnemonic', () => {
     await waitFor(() => expect(screen.queryByTestId(saveMnemonicButton)).toHaveTextContent('Creating wallet…'), {
       timeout: 1000
     })
+    expect(screen.getByTestId(saveMnemonicButton)).toBeDisabled()
   })
   it('redirects to the wallets page when button is clicked', async () => {
     renderComponent()

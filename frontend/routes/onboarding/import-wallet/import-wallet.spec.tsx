@@ -53,6 +53,7 @@ describe('ImportWallet', () => {
     fireEvent.click(screen.getByTestId(importMnemonicSubmit))
 
     await waitFor(() => expect(screen.getByTestId(importMnemonicSubmit)).toHaveTextContent('Importing…'))
+    expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
   })
 
   it('after successfully importing a wallet it redirects to wallets page', async () => {

@@ -52,7 +52,7 @@ export const ImportWallet = () => {
     return (
       <WalletImported
         onClose={() => {
-          navigate(FULL_ROUTES.wallets)
+          navigate(FULL_ROUTES.telemetry)
           setShowSuccess(false)
         }}
       />

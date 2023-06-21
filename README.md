@@ -105,3 +105,11 @@ The web extension has 4 components:
   page and the background script
 - `in-page.js`: This script is injected in the web page to provide a
   higher-level, promise-based API for end-users
+
+### Running the extension
+
+To run the extension, first build it using `NODE_ENV=production yarn build:[NETWORK]` and then load it into chrome or firefox.
+
+For chrome follow [the instructions are here](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) the directory you need to select after pressing load unpacked should be `./build/chrome`.
+
+For firefox [the instructions are here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing) the director you need to select after pressing the "load temporary addon" button should be `./build/firefox`.

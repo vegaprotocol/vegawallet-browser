@@ -9,20 +9,24 @@ import { Tick } from '../../../components/icons/tick'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 import config from '@config'
+import { useHomeStore } from '../../home/store'
 
 export const Telemetry = () => {
   const { handleSubmit } = useForm<{}>()
   const { client } = useJsonRpcClient()
   const navigate = useNavigate()
-  // TODO why are we using a dodgy form that does not conform to html?
+  const { loadGlobals } = useHomeStore((state) => ({
+    loadGlobals: state.loadGlobals
+  }))
   const submit = useCallback(
     async (value: boolean) => {
-      navigate(FULL_ROUTES.wallets)
       await client.request(RpcMethods.UpdateSettings, {
-        params: { telemetry: value }
+        telemetry: value
       })
+      await loadGlobals(client)
+      navigate(FULL_ROUTES.wallets)
     },
-    [client, navigate]
+    [client, loadGlobals, navigate]
   )
 
   return (

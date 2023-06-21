@@ -181,5 +181,11 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
     }
   })
 
+  Object.defineProperty(server, 'isWindowFocused', {
+    get: function() {
+      return handle?.focused || false;
+    }
+  });
+
   return server
 }

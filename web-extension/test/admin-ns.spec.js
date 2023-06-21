@@ -273,6 +273,7 @@ describe('admin-ns', () => {
     expect(listConnections.result).toEqual({ connections: [] })
   })
   it('should open popout', async () => {
+    // 1101-BWAL-090 When the browser wallet is open in a new window, the window stays on top
     const admin = await createAdmin()
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
     expect(windowsMock.create).toBeCalledWith({
@@ -281,6 +282,7 @@ describe('admin-ns', () => {
       width: 360,
       height: 600
     })
+    expect(admin.isWindowFocused).toBe(true)
   })
 
   it('should not open pop out if one is already open', async () => {

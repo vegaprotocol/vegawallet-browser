@@ -52,7 +52,7 @@ export const SaveMnemonic = () => {
     return (
       <WalletCreated
         onClose={() => {
-          navigate(FULL_ROUTES.wallets)
+          navigate(FULL_ROUTES.telemetry)
           setShowSuccess(false)
         }}
       />

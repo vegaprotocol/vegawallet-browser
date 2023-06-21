@@ -112,4 +112,4 @@ To run the extension, first build it using `NODE_ENV=production yarn build:[NETW
 
 For chrome follow [the instructions here](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked), the directory you need to select after pressing load unpacked should be `./build/chrome`.
 
-For firefox [the instructions are here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing) the director you need to select after pressing the "load temporary addon" button should be `./build/firefox`.
+For firefox follow [the instructions here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing), the directory you need to select after pressing the "load temporary addon" button should be `./build/firefox`.

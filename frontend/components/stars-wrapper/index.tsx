@@ -1,7 +1,5 @@
-import { VegaIcon } from '../icons/vega-icon'
 import { ReactNode } from 'react'
 import locators from '../locators'
-import { Vega } from '../icons/vega'
 
 export const StarsWrapper = ({ children }: { children: ReactNode }) => {
   return (

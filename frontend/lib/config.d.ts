@@ -6,6 +6,7 @@ declare module '@/config' {
     closeWindowOnPopupOpen: boolean
     sentryDsn: string | undefined
     logging: boolean
+    userDataPolicy: string
   }
 
   export interface Network {

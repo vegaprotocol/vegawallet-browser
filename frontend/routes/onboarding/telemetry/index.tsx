@@ -10,20 +10,20 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 import config from '@config'
 
-// TODO this should be dynamic based on the button pressed
-const VALUE = true
-
 export const Telemetry = () => {
   const { handleSubmit } = useForm<{}>()
   const { client } = useJsonRpcClient()
   const navigate = useNavigate()
   // TODO why are we using a dodgy form that does not conform to html?
-  const submit = useCallback(async () => {
-    navigate(FULL_ROUTES.wallets)
-    await client.request(RpcMethods.UpdateSettings, {
-      params: { telemetry: VALUE }
-    })
-  }, [client, navigate])
+  const submit = useCallback(
+    async (value: boolean) => {
+      navigate(FULL_ROUTES.wallets)
+      await client.request(RpcMethods.UpdateSettings, {
+        params: { telemetry: value }
+      })
+    },
+    [client, navigate]
+  )
 
   return (
     <Page name="Help improve Vega Wallet">
@@ -48,11 +48,13 @@ export const Telemetry = () => {
         <ExternalLink className="text-white" href={config.userDataPolicy}>
           Read Vega Wallet's user data policy
         </ExternalLink>
-        <form onSubmit={handleSubmit(submit)} className="mt-8">
+        <form onSubmit={handleSubmit(() => submit(true))} className="mt-8">
           <Button fill={true} type="submit" variant="primary">
             Report Bugs & Crashes
           </Button>
-          <Button fill={true} type="submit" className="mt-4">
+        </form>
+        <form onSubmit={handleSubmit(() => submit(false))} className="mt-4">
+          <Button fill={true} type="submit">
             No thanks
           </Button>
         </form>

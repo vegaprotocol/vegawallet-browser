@@ -22,7 +22,7 @@ export const Routing = () => {
   usePersistLocation()
   return (
     <Routes>
-      <Route element={<Telemetry />}>
+      <Route element={<Outlet />}>
         <Route index path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.auth} element={<Auth />}>
           <Route path={ROUTES.wallets} element={<Wallets />} />

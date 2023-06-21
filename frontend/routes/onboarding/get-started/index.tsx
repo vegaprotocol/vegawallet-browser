@@ -21,7 +21,7 @@ export const GetStarted = () => {
               <div>
                 <Tick className="w-3 mr-2 text-vega-green-550" />
               </div>
-              <p className="text-light-200">{i}</p>
+              <p className="text-white">{i}</p>
             </li>
           ))}
         </ul>

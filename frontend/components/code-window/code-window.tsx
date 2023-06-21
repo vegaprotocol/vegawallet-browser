@@ -10,7 +10,7 @@ export const CodeWindow = ({ content, text }: { content: ReactNode; text: string
     >
       <code
         data-testid={locators.codeWindowContent}
-        className="text-left overflow-y-scroll overflow-x-scroll w-full scrollbar-hide"
+        className="text-left overflow-y-auto overflow-x-auto w-full scrollbar-hide"
       >
         {content}
       </code>

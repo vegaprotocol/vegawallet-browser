@@ -10,7 +10,7 @@ export const MnemonicContainer = ({ mnemonic, onChange }: { mnemonic: string; on
     <div data-testid={locators.mnemonicContainerShown}>
       <code
         data-testid={locators.mnemonicContainerMnemonic}
-        className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6 text-left overflow-y-scroll overflow-x-scroll w-full scrollbar-hide"
+        className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6 text-left overflow-y-auto overflow-x-auto w-full scrollbar-hide"
       >
         {mnemonic}
       </code>

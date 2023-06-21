@@ -9,7 +9,7 @@ body,
   height: 100%;
   min-height: 600px;
   margin: 0;
-  overflow: scroll;
+  overflow: auto;
   padding: 0;
   width: 360px;
 }

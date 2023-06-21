@@ -11,6 +11,7 @@ const test = {
     explorer: 'https://explorer.fairground.wtf'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
+  userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',
   encryptionSettings: {
     memory: 10,
     iterations: 1

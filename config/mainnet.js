@@ -16,6 +16,7 @@ const mainnet = {
   encryptionSettings: undefined,
   closeWindowOnPopupOpen: true,
   sentryDsn: 'https://7f7577b2eefe43a58dc25d2eda9b1a74@o286262.ingest.sentry.io/4505199579758592',
+  userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',
   logging: false
 }
 

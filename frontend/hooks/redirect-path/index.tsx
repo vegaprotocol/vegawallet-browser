@@ -51,6 +51,12 @@ export const useGetRedirectPath = () => {
       error: null,
       path: FULL_ROUTES.createWallet
     }
+  } else if (globals.settings.telemetry === undefined) {
+    return {
+      loading: false,
+      error: null,
+      path: FULL_ROUTES.telemetry
+    }
   } else {
     // If the user has a path they were previously on then redirect to that
     const path = localStorage.getItem(LOCATION_KEY)

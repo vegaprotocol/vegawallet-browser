@@ -38,7 +38,7 @@ export const mockClient = (
     // Set timeout to simulate async
     setTimeout(() => {
       listeners.map((fn) => fn(message))
-    }, 0)
+    }, 50)
   }
   // @ts-ignore
   global.browser = {

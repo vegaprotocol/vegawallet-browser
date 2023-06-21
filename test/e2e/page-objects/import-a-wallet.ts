@@ -8,11 +8,13 @@ import {
   sendKeysToElement
 } from '../selenium-util'
 import { errorMessage, importMnemonic, importMnemonicSubmit } from '../../../frontend/locator-ids'
+import { locators } from '../../../frontend/routes/onboarding/import-wallet/wallet-imported'
 
 export class ImportAWallet {
   private readonly recoveryPhraseField: By = getByDataTestID(importMnemonic)
   private readonly errorText: By = getByDataTestID(errorMessage)
   private readonly recoveryPhraseSubmitButton: By = getByDataTestID(importMnemonicSubmit)
+  private readonly walletImportedSuccess: By = getByDataTestID(locators.walletImported)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -39,6 +41,13 @@ export class ImportAWallet {
 
   async getErrorMessageText() {
     return await getElementText(this.driver, this.errorText)
+  }
+
+  async checkImportWalletSuccessful() {
+    expect(
+      await isElementDisplayed(this.driver, this.walletImportedSuccess),
+      'expected import wallet to be successful but did not locate the success view'
+    ).toBe(true)
   }
 
   async isImportAWalletPage() {

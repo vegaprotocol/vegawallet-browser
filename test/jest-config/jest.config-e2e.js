@@ -9,7 +9,7 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testTimeout: 120000,
-  setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts', 'jest-expect-message'],
   reporters: [
     'default',
     [

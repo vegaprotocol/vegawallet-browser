@@ -13,7 +13,7 @@ const createAdmin = async ({ passphrase } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   const publicKeyIndexStore = new ConcurrentStorage(new Map())
   windowsMock = {
-    create: jest.fn(() => new Promise((resolve) => resolve({ alwaysOnTop: true, focused: true }))),
+    create: jest.fn().mockReturnValue(new Promise((resolve) => resolve({ alwaysOnTop: false, focused: false }))),
     onRemoved: {
       addListener: jest.fn()
     }
@@ -53,6 +53,9 @@ const createAdmin = async ({ passphrase } = {}) => {
 }
 
 describe('admin-ns', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should return app globals', async () => {
     const admin = await createAdmin()
     const appGlobals = await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.app_globals', params: null }, {})
@@ -272,17 +275,27 @@ describe('admin-ns', () => {
 
     expect(listConnections.result).toEqual({ connections: [] })
   })
+
   it('should open popout', async () => {
     // 1101-BWAL-090 When the browser wallet is open in a new window, the window stays on top
     const admin = await createAdmin()
+    const create = await windowsMock.create()
+
+    expect(create.alwaysOnTop).toBe(false)
+    expect(create.focused).toBe(false)
+
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
+
     expect(windowsMock.create).toBeCalledWith({
       url: 'http://localhost:8080/index.html',
       type: 'popup',
       width: 360,
       height: 600
     })
-    expect(admin.isWindowFocused).toBe(true)
+    expect(windowsMock.create).toBeCalledTimes(2) // Once for the above call for guard assertions, once for the actual call
+
+    expect(create.alwaysOnTop).toBe(true)
+    expect(create.focused).toBe(true)
   })
 
   it('should not open pop out if one is already open', async () => {

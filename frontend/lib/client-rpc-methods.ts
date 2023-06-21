@@ -9,5 +9,6 @@ export const RpcMethods = {
   Lock: 'admin.lock',
   ListConnections: 'admin.list_connections',
   ConnectionsChange: 'admin.connections_change',
-  OpenPopout: 'admin.open_popout'
+  OpenPopout: 'admin.open_popout',
+  UpdateSettings: 'admin.update_app_settings'
 }

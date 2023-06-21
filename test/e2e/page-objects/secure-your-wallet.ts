@@ -2,6 +2,7 @@ import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed, isElementEnabled } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
 import componentLocators from '../../../frontend/components/locators'
+import * as walletCreated from '../../../frontend/routes/onboarding/save-mnemonic/wallet-created'
 
 export class SecureYourWallet {
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)
@@ -11,6 +12,7 @@ export class SecureYourWallet {
   private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(componentLocators.copyWithCheck)
   private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(locators.recoveryPhraseWarningCheckbox)
   private readonly secureWalletContinueButton: By = getByDataTestID(locators.saveMnemonicButton)
+  private readonly walletCreatedIcon: By = getByDataTestID(walletCreated.locators.walletCreated)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -48,6 +50,13 @@ export class SecureYourWallet {
 
   async isContinueEnabled() {
     return await isElementEnabled(this.driver, this.secureWalletContinueButton)
+  }
+
+  async checkCreateWalletSuccessful() {
+    expect(
+      await isElementDisplayed(this.driver, this.walletCreatedIcon),
+      'expected wallet to be created but could not locate the success icon'
+    ).toBe(true)
   }
 
   async checkOnSecureYourWalletPage() {

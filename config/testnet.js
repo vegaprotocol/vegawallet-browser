@@ -7,7 +7,8 @@ const testnet = {
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   encryptionSettings: undefined,
-  closeWindowOnPopupOpen: true
+  closeWindowOnPopupOpen: true,
+  userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/'
 }
 
 export default testnet

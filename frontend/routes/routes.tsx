@@ -7,6 +7,7 @@ import { CreateWallet } from './onboarding/create-wallet'
 import { CreatePassword } from './onboarding/create-password'
 import { SaveMnemonic } from './onboarding/save-mnemonic'
 import { ImportWallet } from './onboarding/import-wallet'
+import { Telemetry } from './onboarding/telemetry'
 
 import { Auth } from './auth'
 import { Wallets } from './auth/wallets'
@@ -21,7 +22,7 @@ export const Routing = () => {
   usePersistLocation()
   return (
     <Routes>
-      <Route element={<Outlet />}>
+      <Route element={<Telemetry />}>
         <Route index path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.auth} element={<Auth />}>
           <Route path={ROUTES.wallets} element={<Wallets />} />
@@ -38,7 +39,7 @@ export const Routing = () => {
           <Route path={ROUTES.createPassword} element={<CreatePassword />} />
           <Route path={ROUTES.createWallet} element={<CreateWallet />} />
           <Route path={ROUTES.saveMnemonic} element={<SaveMnemonic />} />
-          <Route path={ROUTES.telemetry} element={<ComingSoon />} />
+          <Route path={ROUTES.telemetry} element={<Telemetry />} />
           <Route path={ROUTES.importWallet} element={<ImportWallet />} />
         </Route>
         <Route path={ROUTES.login} element={<Login />} />

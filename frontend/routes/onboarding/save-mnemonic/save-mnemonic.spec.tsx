@@ -43,7 +43,7 @@ describe('Save mnemonic', () => {
     expect(screen.getByTestId(saveMnemonicButton)).toHaveTextContent('Create wallet')
   })
   it('mnemonic and checkbox are shown when clicked', async () => {
-    // 1101-BWAL-016 I can see an explanation of what the recovery phrase is for and that it cannot be recovered itself
+    // 1101-ONBD-017 I can see an explanation of what the recovery phrase is for and that it cannot be recovered itself
     renderComponent()
     await screen.findByTestId(locators.mnemonicContainerHidden)
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
@@ -64,7 +64,7 @@ describe('Save mnemonic', () => {
     expect(screen.queryByTestId(locators.mnemonicContainerMnemonic)).not.toBeInTheDocument()
   })
   it('submit button is disabled if checkbox or recovery phrase is not revealed and checked, enabled if revealed and checked', async () => {
-    // 1101-BWAL-019 I can verify that I understand that Vega doesn't store and therefore can't recover this recovery phrase if I lose it
+    // 1101-ONBD-020 I can verify that I understand that Vega doesn't store and therefore can't recover this recovery phrase if I lose it
     renderComponent()
     await screen.findByTestId(locators.mnemonicContainerHidden)
     expect(screen.getByTestId(saveMnemonicButton)).toBeDisabled()
@@ -81,7 +81,7 @@ describe('Save mnemonic', () => {
     expect(screen.getByTestId(saveMnemonicButton)).toBeDisabled()
   })
   it('renders loading state when button is clicked', async () => {
-    // 1101-BWAL-021 - I can see the button is disabled and a loading state after submitting
+    // 1101-ONBD-022 - I can see the button is disabled and a loading state after submitting
     renderComponent()
     await screen.findByTestId(locators.mnemonicContainerHidden)
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))

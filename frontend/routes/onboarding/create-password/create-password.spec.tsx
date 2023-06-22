@@ -38,7 +38,7 @@ describe('CreatePassword', () => {
   })
 
   it('should contain information and warnings about the wallet password', () => {
-    // 1101-BWAL-002 I can see an explanation of what the password is for and that it cannot be used to recover my keys or recover itself
+    // 1101-ONBD-002 I can see an explanation of what the password is for and that it cannot be used to recover my keys or recover itself
     renderComponent()
     expect(
       screen.getByText(
@@ -65,7 +65,7 @@ describe('CreatePassword', () => {
   })
 
   it('should keep button disabled if no passwords are filled in', async () => {
-    // 1101-BWAL-006 I can NOT submit an empty password
+    // 1101-ONBD-006 I can NOT submit an empty password
     renderComponent()
     fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
 
@@ -84,7 +84,7 @@ describe('CreatePassword', () => {
   })
 
   it('should show error message when passwords do not match', async () => {
-    // 1101-BWAL-004 I can verify the password I set for my browser wallet (to help ensure I typed it correctly and can replicate it)
+    // 1101-ONBD-004 I can verify the password I set for my browser wallet (to help ensure I typed it correctly and can replicate it)
     renderComponent()
     fireEvent.change(screen.getByTestId(passphraseInput), {
       target: { value: 'password1' }
@@ -100,7 +100,7 @@ describe('CreatePassword', () => {
   })
 
   it('should render loading state once the create button is pressed', async () => {
-    // 1101-BWAL-012 - I can see the button is disabled and a loading state after submitting
+    // 1101-ONBD-011 - I can see the button is disabled and a loading state after submitting
     renderComponent()
 
     fireEvent.change(screen.getByTestId(passphraseInput), {
@@ -119,8 +119,8 @@ describe('CreatePassword', () => {
   })
 
   it('should navigate to create wallet page when form is submitted with valid data', async () => {
-    // 1101-BWAL-003 I can enter a password for the browser wallet
-    // 1101-BWAL-005 I can verify that I understand that Vega doesn't store and therefore can't recover this password if I lose it
+    // 1101-ONBD-003 I can enter a password for the browser wallet
+    // 1101-ONBD-005 I can verify that I understand that Vega doesn't store and therefore can't recover this password if I lose it
     renderComponent()
 
     fireEvent.change(screen.getByTestId(passphraseInput), {

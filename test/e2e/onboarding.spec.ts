@@ -37,14 +37,14 @@ describe('Onboarding', () => {
   })
 
   it('can create a new wallet and remember that a wallet has been created when I navigate back to the landing page', async () => {
-    // 1101-BWAL-007 I can submit the password I entered
+    // 1101-ONBD-007 I can submit the password I entered
     await password.createPassword()
-    // 1101-BWAL-009 When I have submitted my new password, I am taken to the next step
-    // 1101-BWAL-013 I can choose to create a wallet
-    // 1101-BWAL-020 I am given feedback that my wallet was successfully created
-    // 1101-BWAL-023 The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" #
-    // 1101-BWAL-024 When I have already created a wallet, I am redirected to the landing page where I can view that wallet
-    // 1101-BWAL-097 I am given visual feedback that my wallet was successfully created
+    // 1101-ONBD-008 When I have submitted my new password, I am taken to the next step
+    // 1101-ONBD-012 I can choose to create a wallet
+    // 1101-ONBD-021 I am given feedback that my wallet was successfully created
+    // 1101-ONBD-024 The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" #
+    // 1101-ONBD-025 When I have already created a wallet, I am redirected to the landing page where I can view that wallet
+    // 1101-ONBD-014 I am given visual feedback that my wallet was successfully created
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
     await secureYourWallet.checkCreateWalletSuccessful()
@@ -54,12 +54,11 @@ describe('Onboarding', () => {
   })
 
   it('can successfully import a wallet', async () => {
-    // 1101-BWAL-014 I can choose to import an existing wallet
-    // 1101-BWAL-071 I can choose to import an existing vega wallet TODO- remove duplicate AC from specs
-    // 1101-BWAL-073 I can enter the recovery phrase to import my existing vega wallet
-    // 1101-BWAL-074 I can submit the recovery phrase I have entered to import the wallet
-    // 1101-BWAL-077 I am redirected to the next step
-    // 1101-BWAL-098 I am given visual feedback that my wallet was successfully imported
+    // 1101-ONBD-013 I can choose to import an existing wallet
+    // 1101-ONBD-031 I can enter the recovery phrase to import my existing vega wallet
+    // 1101-ONBD-032 I can submit the recovery phrase I have entered to import the wallet
+    // 1101-ONBD-035 I am redirected to the next step
+    // 1101-ONBD-015 I am given visual feedback that my wallet was successfully imported
     const apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()
@@ -84,7 +83,7 @@ describe('Onboarding', () => {
   })
 
   it('can navigate back to the getting started page if no password submitted', async () => {
-    // 1101-BWAL-001 When I haven't submitted my password, I can go back to the previous step
+    // 1101-ONBD-001 When I haven't submitted my password, I can go back to the previous step
     await password.createPassword(defaultPassword, defaultPassword, false)
     await password.goBack()
     await getStarted.checkOnGetStartedPage()
@@ -97,9 +96,9 @@ describe('Onboarding', () => {
   })
 
   it('recovery phrase can be revealed and hidden, cannot continue without revealing and acknowledging warning', async () => {
-    // 1101-BWAL-015 - I am provided with a recovery phrase for my new wallet that is initially hidden from view
-    // 1101-BWAL-017 - I can choose when to reveal/show the recovery phrase
-    // 1101-BWAL-018 - I can copy the recovery phrase into my clipboard
+    // 1101-ONBD-016 - I am provided with a recovery phrase for my new wallet that is initially hidden from view
+    // 1101-ONBD-018 - I can choose when to reveal/show the recovery phrase
+    // 1101-ONBD-019 - I can copy the recovery phrase into my clipboard
     await password.createPassword()
     await createAWallet.createNewWallet()
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)

@@ -277,7 +277,7 @@ describe('admin-ns', () => {
   })
 
   it('should open popout', async () => {
-    // 1101-BWAL-090 When the browser wallet is open in a new window, the window stays on top
+    // 1107-SETT-001 When the browser wallet is open in a new window, the window stays on top
     const admin = await createAdmin()
     const create = await windowsMock.create()
 

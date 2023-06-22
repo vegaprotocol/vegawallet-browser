@@ -32,8 +32,8 @@ describe('Connect wallet', () => {
   })
 
   it('can approve a connection to the wallet and return to previously active view', async () => {
-    // 1101-BWAL-042 There is a visual way to understand that a connection has been successful
-    // 1101-BWAL-044 If the had the browser wallet open when I instigated the connection request, the browser wallet returns your view to where you were before the request came in
+    // 1103-CONN-008 There is a visual way to understand that a connection has been successful
+    // 1103-CONN-009 If the had the browser wallet open when I instigated the connection request, the browser wallet returns your view to where you were before the request came in
     await setUpWalletAndKey()
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
@@ -56,14 +56,14 @@ describe('Connect wallet', () => {
   })
 
   it('I can call client.disconnect_wallet with no prior connection and get a null response', async () => {
-    // 1101-BWAL-088 can call client.disconnect_wallet with no prior connection and get a null response
+    // 1104-DCON-002 can call client.disconnect_wallet with no prior connection and get a null response
     const disconnectWalletResponse = await vegaAPI.disconnectWallet()
     expect(disconnectWalletResponse).toBe(null)
   })
 
   it('can disconnect wallet via dapp and reconnect without needing approval', async () => {
-    // 1101-BWAL-087 I can call client.disconnect_wallet after successfully calling client.connect_wallet
-    // 1101-BWAL-089 A dapp can disconnect the current active connection (not it's pre-approved status i.e. the dapp can re-instate the connection without further approval)
+    // 1104-DCON-001 I can call client.disconnect_wallet after successfully calling client.connect_wallet
+    // 1104-DCON-003 A dapp can disconnect the current active connection (not it's pre-approved status i.e. the dapp can re-instate the connection without further approval)
     await setUpWalletAndKey()
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
@@ -85,7 +85,7 @@ describe('Connect wallet', () => {
   })
 
   it('queues a connection request for when I have finished onboarding', async () => {
-    // 1101-BWAL-045 When I try to connect to the wallet I've made during onboarding but have not "completed" onboarding, I cannot see the connection request until I've completed onboarding (it is queued in the background)
+    // 1103-CONN-010 When I try to connect to the wallet I've made during onboarding but have not "completed" onboarding, I cannot see the connection request until I've completed onboarding (it is queued in the background)
     await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
     const getStarted = new GetStarted(driver)
     const passwordPage = await getStarted.getStarted()
@@ -99,7 +99,7 @@ describe('Connect wallet', () => {
   })
 
   it('does not need to reconnect to the wallet if I navigate away from my current page, api still shows connection and dapp can still see public key', async () => {
-    // 1101-BWAL-041 When I go away from the extension and come back to the connected site, the browser extension remembers the connection and does not ask me to reconnect
+    // 1103-CONN-007 When I go away from the extension and come back to the connected site, the browser extension remembers the connection and does not ask me to reconnect
     await setUpWalletAndKey()
     await vegaAPI.connectWallet()
     await connectWallet.checkOnConnectWallet()
@@ -126,7 +126,7 @@ describe('Connect wallet', () => {
   })
 
   it('dapp can see any wallet keys I add after connecting', async () => {
-    // 1101-BWAL-039 All new connections are for all keys in a wallet and all future keys added to the wallet
+    // 1103-CONN-005 All new connections are for all keys in a wallet and all future keys added to the wallet
     await setUpWalletAndKey()
     await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
     await connectWallet.approveConnectionAndCheckSuccess()

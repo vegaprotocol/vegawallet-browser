@@ -1,6 +1,6 @@
 import { Button, ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { Page } from '../../../components/page'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
@@ -11,7 +11,17 @@ import { RpcMethods } from '../../../lib/client-rpc-methods'
 import config from '@config'
 import { useHomeStore } from '../../home/store'
 
+export const locators = {
+  description: 'description',
+  scopeContainer: 'scope-container',
+  scope: 'scope',
+  userDataPolicy: 'user-data-policy',
+  reportBugsAndCrashes: 'report-bugs-and-crashes',
+  noThanks: 'no-thanks'
+}
+
 export const Telemetry = () => {
+  const [loading, setLoading] = useState(false)
   const { handleSubmit } = useForm<{}>()
   const { client } = useJsonRpcClient()
   const navigate = useNavigate()
@@ -20,10 +30,15 @@ export const Telemetry = () => {
   }))
   const submit = useCallback(
     async (value: boolean) => {
-      await client.request(RpcMethods.UpdateSettings, {
-        telemetry: value
-      })
-      await loadGlobals(client)
+      setLoading(true)
+      try {
+        await client.request(RpcMethods.UpdateSettings, {
+          telemetry: value
+        })
+        await loadGlobals(client)
+      } finally {
+        setLoading(false)
+      }
       navigate(FULL_ROUTES.wallets)
     },
     [client, loadGlobals, navigate]
@@ -32,33 +47,45 @@ export const Telemetry = () => {
   return (
     <Page name="Help improve Vega Wallet">
       <>
-        <p className="mb-6">Improve Vega Wallet by automatically reporting bugs and crashes.</p>
+        <p className="mb-6" data-testid={locators.description}>
+          Improve Vega Wallet by automatically reporting bugs and crashes.
+        </p>
         <Frame>
-          <ul className="list-none">
+          <ul className="list-none" data-testid={locators.scopeContainer}>
             <li className="flex">
               <div>
                 <Tick className="w-3 mr-2 text-vega-green-550" />
               </div>
-              <p className="text-white">Your identity and keys will remain anonymous</p>
+              <p data-testid={locators.scope} className="text-white">
+                Your identity and keys will remain anonymous
+              </p>
             </li>
             <li className="flex">
               <div>
                 <Tick className="w-3 mr-2 text-vega-green-550" />
               </div>
-              <p className="text-white">You can change this anytime via settings</p>
+              <p data-testid={locators.scope} className="text-white">
+                You can change this anytime via settings
+              </p>
             </li>
           </ul>
         </Frame>
-        <ExternalLink className="text-white" href={config.userDataPolicy}>
+        <ExternalLink data-testid={locators.userDataPolicy} className="text-white" href={config.userDataPolicy}>
           Read Vega Wallet's user data policy
         </ExternalLink>
         <form onSubmit={handleSubmit(() => submit(true))} className="mt-8">
-          <Button fill={true} type="submit" variant="primary">
+          <Button
+            data-testid={locators.reportBugsAndCrashes}
+            disabled={loading}
+            fill={true}
+            type="submit"
+            variant="primary"
+          >
             Report Bugs & Crashes
           </Button>
         </form>
         <form onSubmit={handleSubmit(() => submit(false))} className="mt-4">
-          <Button fill={true} type="submit">
+          <Button data-testid={locators.noThanks} disabled={loading} fill={true} type="submit">
             No thanks
           </Button>
         </form>

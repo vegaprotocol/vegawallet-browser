@@ -2,6 +2,9 @@ import { render, screen } from '@testing-library/react'
 import App from './App'
 import { ReactNode } from 'react'
 
+jest.mock('./components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
+  <div data-testid="global-error-boundary">{children}</div>
+))
 jest.mock('./hooks/prevent-window-resize')
 
 jest.mock('./components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
@@ -18,6 +21,8 @@ jest.mock('./routes', () => ({
 
 describe('App', () => {
   it('renders routing, error boundary and jsonrpcprovider', () => {
+    Object.defineProperty(window, 'resizeTo', { value: jest.fn() })
+
     render(<App />)
     expect(screen.getByTestId('global-error-boundary')).toBeInTheDocument()
     expect(screen.getByTestId('routing')).toBeInTheDocument()

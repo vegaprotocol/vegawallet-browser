@@ -13,7 +13,7 @@ export interface AppGlobals {
   locked: boolean
   // Mutable settings, see below
   settings: {
-    telemetry: boolean
+    [key: string]: any | undefined
   }
 }
 

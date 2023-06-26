@@ -8,7 +8,12 @@ import { RpcMethods } from '../../../lib/client-rpc-methods'
 const mockLoadGlobals = jest.fn()
 
 jest.mock('../../home/store', () => ({
-  useHomeStore: jest.fn((store) => ({ loadGlobals: mockLoadGlobals }))
+  useHomeStore: jest.fn((fn) => {
+    fn({})
+    return {
+      loadGlobals: mockLoadGlobals
+    }
+  })
 }))
 
 const mockedClient = {

@@ -16,29 +16,29 @@ export const useGetRedirectPath = () => {
     loadGlobals(client)
   }, [client, loadGlobals])
 
-  // If loading then we do not know where to redirect to yet
-  if (loading) {
-    return {
-      loading: true,
-      error: null,
-      path: null
-    }
+  if (error) {
     // If there is an error handle this case
-  } else if (error) {
     return {
       loading: false,
       error: error,
       path: null
     }
+  } else if (loading || !globals) {
+    // If loading then we do not know where to redirect to yet
+    return {
+      loading: true,
+      error: null,
+      path: null
+    }
+  } else if (!globals.passphrase) {
     // If the user has no passphrase set redirect to the get started page
-  } else if (!globals?.passphrase) {
     return {
       loading: false,
       error: null,
       path: FULL_ROUTES.getStarted
     }
     // If the user has a passphrase but the wallet is locked then redirect to the login page
-  } else if (globals?.locked) {
+  } else if (globals.locked) {
     return {
       loading: false,
       error: null,
@@ -51,7 +51,7 @@ export const useGetRedirectPath = () => {
       error: null,
       path: FULL_ROUTES.createWallet
     }
-  } else if (globals.settings.telemetry === undefined) {
+  } else if ([null, undefined].includes(globals.settings.telemetry)) {
     return {
       loading: false,
       error: null,

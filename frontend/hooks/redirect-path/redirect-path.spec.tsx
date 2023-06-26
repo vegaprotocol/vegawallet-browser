@@ -72,6 +72,7 @@ describe('RedirectPath', () => {
     expect(view.loading).toBeFalsy()
     expect(view.path).toBe(FULL_ROUTES.login)
   })
+
   it('returns create wallet if no wallets exist', async () => {
     const view = renderRedirectHook({
       passphrase: true,
@@ -85,6 +86,20 @@ describe('RedirectPath', () => {
     expect(view.loading).toBeFalsy()
     expect(view.path).toBe(FULL_ROUTES.createWallet)
   })
+
+  it('returns telemetry if telemetry settings are undefined', async () => {
+    const view = renderRedirectHook({
+      passphrase: true,
+      locked: false,
+      wallet: true,
+      version: '0.0.1',
+      settings: {}
+    })
+    expect(view.loading).toBeFalsy()
+    expect(view.error).toBeNull()
+    expect(view.path).toBe(FULL_ROUTES.telemetry)
+  })
+
 
   it('returns no path if loading', async () => {
     const view = renderRedirectHook(

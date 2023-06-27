@@ -1,6 +1,6 @@
 import { ButtonLink, ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { CopyWithCheckmark } from '../../../components/copy-with-check'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { Key, useWalletStore } from './store'
 import { Frame } from '../../../components/frame'
@@ -19,17 +19,14 @@ import config from '../../../lib/config'
 
 export const Wallets = () => {
   const { client } = useJsonRpcClient()
-  const { wallets, loadWallets, loading, error, createNewKey } = useWalletStore((store) => ({
+  // Wallet loading is handled in auth, when the user is redirected to the auth page
+  const { wallets, loading, error, createNewKey } = useWalletStore((store) => ({
     wallets: store.wallets,
-    loadWallets: store.loadWallets,
     loading: store.loading,
     error: store.error,
     createNewKey: store.createKey
   }))
   const [creatingKey, setCreatingKey] = useState(false)
-  useEffect(() => {
-    loadWallets(client)
-  }, [client, loadWallets])
   const createKey = useCallback(async () => {
     setCreatingKey(true)
     await createNewKey(client, wallets[0].name)

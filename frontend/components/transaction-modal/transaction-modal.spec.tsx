@@ -34,6 +34,10 @@ jest.mock('../../stores/modal-store', () => ({
   useModalStore: jest.fn()
 }))
 
+jest.mock('../page-header', () => ({
+  PageHeader: () => <div data-testid="page-header" />
+}))
+
 describe('TransactionModal', () => {
   beforeEach(() => {
     jest.clearAllMocks()

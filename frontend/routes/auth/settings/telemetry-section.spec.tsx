@@ -5,9 +5,7 @@ import { useSaveSettings } from '../../../hooks/save-settings'
 import { useHomeStore } from '../../home/store'
 import { silenceErrors } from '../../../test-helpers/silence-errors'
 
-jest.mock('../../home/store', () => ({
-  useHomeStore: jest.fn()
-}))
+jest.mock('../../home/store')
 
 jest.mock('../../../hooks/save-settings', () => ({
   useSaveSettings: jest.fn().mockReturnValue({
@@ -18,12 +16,14 @@ jest.mock('../../../hooks/save-settings', () => ({
 
 describe('TelemetrySection', () => {
   it('renders the section header correctly', () => {
-    ;(useHomeStore as unknown as jest.Mock).mockReturnValue({
-      globals: {
-        settings: {
-          telemetry: true
+    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        globals: {
+          settings: {
+            telemetry: true
+          }
         }
-      }
+      })
     })
     render(<TelemetrySection />)
     const headerElement = screen.getByText('Vega wallet version')
@@ -32,20 +32,25 @@ describe('TelemetrySection', () => {
 
   it('throws error if globals cannot be loaded', () => {
     silenceErrors()
-    ;(useHomeStore as unknown as jest.Mock).mockReturnValue({
-      globals: null
+    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        globals: null
+      })
     })
     expect(() => render(<TelemetrySection />)).toThrowError('Tried to render settings page without globals defined')
   })
 
   it('renders the description text correctly', () => {
-    ;(useHomeStore as unknown as jest.Mock).mockReturnValue({
-      globals: {
-        settings: {
-          telemetry: true
+    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        globals: {
+          settings: {
+            telemetry: true
+          }
         }
-      }
+      })
     })
+
     render(<TelemetrySection />)
     const descriptionElement = screen.getByTestId(locators.settingsDescription)
     expect(descriptionElement).toBeInTheDocument()
@@ -53,12 +58,14 @@ describe('TelemetrySection', () => {
   })
 
   it('renders the telemetry options correctly', () => {
-    ;(useHomeStore as unknown as jest.Mock).mockReturnValue({
-      globals: {
-        settings: {
-          telemetry: true
+    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        globals: {
+          settings: {
+            telemetry: true
+          }
         }
-      }
+      })
     })
     render(<TelemetrySection />)
     const telemetryNoOption = screen.getByLabelText('No')
@@ -68,12 +75,14 @@ describe('TelemetrySection', () => {
   })
 
   it('calls save function on telemetry option change', async () => {
-    ;(useHomeStore as unknown as jest.Mock).mockReturnValue({
-      globals: {
-        settings: {
-          telemetry: true
+    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        globals: {
+          settings: {
+            telemetry: true
+          }
         }
-      }
+      })
     })
     render(<TelemetrySection />)
     const telemetryNoOption = screen.getByLabelText('No')
@@ -85,12 +94,14 @@ describe('TelemetrySection', () => {
   })
 
   it('renders the data policy link correctly', () => {
-    ;(useHomeStore as unknown as jest.Mock).mockReturnValue({
-      globals: {
-        settings: {
-          telemetry: true
+    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        globals: {
+          settings: {
+            telemetry: true
+          }
         }
-      }
+      })
     })
     render(<TelemetrySection />)
     const dataPolicyLink = screen.getByTestId(locators.settingsDataPolicy)

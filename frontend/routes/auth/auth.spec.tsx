@@ -5,6 +5,10 @@ import locators from '../../components/locators'
 
 import { useWalletStore } from '../../stores/wallets'
 
+jest.mock('../../components/page-header', () => ({
+  PageHeader: () => <div data-testid="page-header" />
+}))
+
 jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as any),
   Outlet: () => <div data-testid="outlet" />
@@ -47,6 +51,7 @@ describe('Auth', () => {
     expect(screen.getByTestId('outlet')).toBeInTheDocument()
     expect(screen.getByTestId('connection-modal')).toBeInTheDocument()
     expect(screen.getByTestId('transaction-modal')).toBeInTheDocument()
+    expect(screen.getByTestId('page-header')).toBeInTheDocument()
   })
   it('loads the users wallets', () => {
     const mockLoad = jest.fn()

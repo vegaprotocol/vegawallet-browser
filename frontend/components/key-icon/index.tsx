@@ -1,4 +1,3 @@
-import { colors } from '@vegaprotocol/tailwindcss-config/src/theme-lite'
 import { useEffect, useRef } from 'react'
 
 function getBitsFromByte(byte: number) {
@@ -52,9 +51,8 @@ export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
     const context = canvas.getContext('2d')
     if (!context) return
     const colorsList = getColorList(publicKey)
-    console.log(colorsList)
-    const squareSize = 7
     const height = 42
+    const squareSize = height / 6
     canvas.width = height
     canvas.height = height
     let colorIndex = 0

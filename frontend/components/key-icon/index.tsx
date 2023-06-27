@@ -41,8 +41,6 @@ const getColorList = (publicKey: string) => {
 }
 
 export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
-  getColorList(publicKey)
-
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
   useEffect(() => {

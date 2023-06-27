@@ -5,6 +5,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "@sentry/react": "^7.56.0",
     "@vegaprotocol/crypto": "0.11.0",
     "@vegaprotocol/protos": "0.5.0",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",

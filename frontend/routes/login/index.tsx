@@ -7,9 +7,9 @@ import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
 import { loginButton, loginPassphrase } from '../../locator-ids'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
-import { useHomeStore } from '../home/store'
 import { LoadingButton } from '../../components/loading-button'
 import { VegaHeader } from '../../components/vega-header'
+import { useGlobalsStore } from '../../stores/globals'
 
 const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
 
@@ -28,7 +28,7 @@ export const Login = () => {
     setFocus,
     formState: { errors }
   } = useForm<FormFields>()
-  const { loadGlobals } = useHomeStore((state) => ({
+  const { loadGlobals } = useGlobalsStore((state) => ({
     loadGlobals: state.loadGlobals
   }))
   const navigate = useNavigate()

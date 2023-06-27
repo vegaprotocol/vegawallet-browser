@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { RpcMethods } from '../../lib/client-rpc-methods'
-import JSONRPCClient from '../../../lib/json-rpc-client'
+import { RpcMethods } from '../lib/client-rpc-methods'
+import JSONRPCClient from '../../lib/json-rpc-client'
 
 export interface AppGlobals {
   // Has the user set a passphrase
@@ -17,14 +17,14 @@ export interface AppGlobals {
   }
 }
 
-export type HomeStore = {
+export type GlobalsStore = {
   globals: AppGlobals | null
   loading: boolean
   error: string | null
   loadGlobals: (client: JSONRPCClient) => Promise<void>
 }
 
-export const useHomeStore = create<HomeStore>()((set, get) => ({
+export const useGlobalsStore = create<GlobalsStore>()((set, get) => ({
   globals: null,
   loading: true,
   error: null,

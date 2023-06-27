@@ -1,9 +1,9 @@
 export const locators = {
-  settingsVersionTitle: 'settings-version-title'
+  settingsHeader: 'settings-header'
 }
 
 export const SettingsHeader = ({ text }: { text: string }) => (
-  <div className="text-vega-dark-300 text-sm uppercase" data-testid={locators.settingsVersionTitle}>
+  <div className="text-vega-dark-300 text-sm uppercase" data-testid={locators.settingsHeader}>
     {text}
   </div>
 )

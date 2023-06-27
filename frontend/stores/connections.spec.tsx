@@ -1,3 +1,4 @@
+import { silenceErrors } from '../test-helpers/silence-errors'
 import { useConnectionStore } from './connections'
 
 const request = () => {

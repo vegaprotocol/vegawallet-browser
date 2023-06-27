@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import { useConnectionStore } from '../../stores/connections'
 import { useErrorStore } from '../../stores/error'
 import { mockClient } from '../../test-helpers/mock-client'
+import { silenceErrors } from '../../test-helpers/silence-errors'
 
 jest.mock('../../stores/modal-store')
 jest.mock('../../stores/error')
@@ -93,7 +94,7 @@ describe('JsonRpcProvider', () => {
     mockModalStore()
     mockConnectionStore()
     mockErrorStore()
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     expect(() => render(<TestComponent expect={expect} />)).toThrow(
       'useJsonRpcClient must be used within JsonRPCProvider'
     )

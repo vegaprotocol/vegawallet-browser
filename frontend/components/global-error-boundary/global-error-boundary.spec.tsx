@@ -3,6 +3,7 @@ import GlobalErrorBoundary from '.'
 import { MemoryRouter } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useErrorStore } from '../../stores/error'
+import { silenceErrors } from '../../test-helpers/silence-errors'
 
 const mockedUsedNavigate = jest.fn()
 
@@ -46,7 +47,7 @@ const SetErrorComponent = () => {
 
 describe('GlobalErrorBoundary', () => {
   it('renders error modal when there is an error', () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     render(
       <MemoryRouter>
         <GlobalErrorBoundary>

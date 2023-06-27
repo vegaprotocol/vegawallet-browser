@@ -3,6 +3,7 @@ import { TelemetrySection, locators } from './telemetry-section'
 import config from '@config'
 import { useSaveSettings } from '../../../hooks/save-settings'
 import { useHomeStore } from '../../home/store'
+import { silenceErrors } from '../../../test-helpers/silence-errors'
 
 jest.mock('../../home/store', () => ({
   useHomeStore: jest.fn()
@@ -30,7 +31,7 @@ describe('TelemetrySection', () => {
   })
 
   it('throws error if globals cannot be loaded', () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     ;(useHomeStore as unknown as jest.Mock).mockReturnValue({
       globals: null
     })

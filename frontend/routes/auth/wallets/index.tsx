@@ -2,7 +2,6 @@ import { ButtonLink, ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolk
 import { CopyWithCheckmark } from '../../../components/copy-with-check'
 import { useCallback, useState } from 'react'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { Key, useWalletStore } from './store'
 import { Frame } from '../../../components/frame'
 import { List } from '../../../components/list'
 import {
@@ -16,6 +15,7 @@ import {
 } from '../../../locator-ids'
 import { KeyIcon } from '../../../components/key-icon'
 import config from '../../../lib/config'
+import { useWalletStore, Key } from '../../../stores/wallets'
 
 export const Wallets = () => {
   const { client } = useJsonRpcClient()

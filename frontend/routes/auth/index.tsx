@@ -4,9 +4,9 @@ import { NavBar } from '../../components/navbar'
 import { ConnectionModal } from '../../components/connection-modal'
 import { TransactionModal } from '../../components/transaction-modal'
 import { PageHeader } from '../../components/page-header'
-import { useWalletStore } from './wallets/store'
 import { useEffect } from 'react'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
+import { useWalletStore } from '../../stores/wallets'
 
 export const Auth = () => {
   const { client } = useJsonRpcClient()

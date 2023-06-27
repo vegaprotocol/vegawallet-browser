@@ -1,7 +1,6 @@
 import { VersionSection } from './version-section'
 import { TelemetrySection } from './telemetry-section'
 import { LockSection } from './lock-section'
-import { FooterSection } from './footer-section'
 
 export const locators = {
   settingsPage: 'settings-page'
@@ -17,8 +16,6 @@ export const Settings = () => {
       <TelemetrySection />
 
       <LockSection />
-
-      <FooterSection />
     </section>
   )
 }

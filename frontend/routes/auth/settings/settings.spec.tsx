@@ -13,9 +13,6 @@ jest.mock('./telemetry-section', () => ({
 jest.mock('./lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
-jest.mock('./footer-section', () => ({
-  FooterSection: () => <div data-testid="footer-section" />
-}))
 
 jest.mock('@/config', () => ({
   ...jest.requireActual('../../../../config/test').default,
@@ -39,6 +36,5 @@ describe('Settings', () => {
     expect(screen.getByTestId('version-section')).toBeVisible()
     expect(screen.getByTestId('telemetry-section')).toBeVisible()
     expect(screen.getByTestId('lock-section')).toBeVisible()
-    expect(screen.getByTestId('footer-section')).toBeVisible()
   })
 })

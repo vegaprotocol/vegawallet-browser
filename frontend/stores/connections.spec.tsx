@@ -1,3 +1,4 @@
+import { silenceErrors } from '../test-helpers/silence-errors'
 import { useConnectionStore } from './connections'
 
 const client = {
@@ -77,7 +78,7 @@ describe('Store', () => {
     ])
   })
   it('renders error if error is present', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     await useConnectionStore.getState().loadConnections({
       request() {
         throw new Error('Something sideways')
@@ -88,7 +89,7 @@ describe('Store', () => {
     expect(useConnectionStore.getState().connections).toStrictEqual([])
   })
   it('renders generic error if error message is not present', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     await useConnectionStore.getState().loadConnections({
       request() {
         // eslint-disable-next-line no-throw-literal

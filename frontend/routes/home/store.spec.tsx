@@ -1,4 +1,5 @@
 import { RpcMethods } from '../../lib/client-rpc-methods'
+import { silenceErrors } from '../../test-helpers/silence-errors'
 import { useHomeStore } from './store'
 
 const globalsMock = {
@@ -35,7 +36,7 @@ describe('Store', () => {
     expect(useHomeStore.getState().globals).toStrictEqual(globalsMock)
   })
   it('renders error if error is present', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     await useHomeStore.getState().loadGlobals({
       request(method: string) {
         throw new Error('Something sideways')
@@ -46,7 +47,7 @@ describe('Store', () => {
     expect(useHomeStore.getState().globals).toBeNull()
   })
   it('renders generic error if error message is not present', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     await useHomeStore.getState().loadGlobals({
       request(method: string) {
         // eslint-disable-next-line no-throw-literal

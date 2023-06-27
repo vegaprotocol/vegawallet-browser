@@ -1,4 +1,5 @@
 import { RpcMethods } from '../../../lib/client-rpc-methods'
+import { silenceErrors } from '../../../test-helpers/silence-errors'
 import { useWalletStore } from './store'
 
 const keys = [
@@ -53,7 +54,7 @@ describe('Store', () => {
     ])
   })
   it('renders error if error is present', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     await useWalletStore.getState().loadWallets({
       request(method: string) {
         throw new Error('Something sideways')
@@ -64,7 +65,7 @@ describe('Store', () => {
     expect(useWalletStore.getState().wallets).toStrictEqual([])
   })
   it('renders generic error if error message is not present', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     await useWalletStore.getState().loadWallets({
       request(method: string) {
         // eslint-disable-next-line no-throw-literal
@@ -76,7 +77,7 @@ describe('Store', () => {
     expect(useWalletStore.getState().wallets).toStrictEqual([])
   })
   it('renders error if the wallet we are trying to create a key for could not be found', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     await useWalletStore.getState().createKey(
       {
         request(method: string) {
@@ -89,7 +90,7 @@ describe('Store', () => {
     expect(useWalletStore.getState().error).toStrictEqual('Could not find wallet to create key for')
   })
   it('adds a new key onto wallet when creating a new key for that wallet', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     await useWalletStore.getState().loadWallets(client as unknown as any)
     await useWalletStore.getState().createKey(client as unknown as any, 'Wallet 1')
     expect(useWalletStore.getState().wallets[0].keys).toHaveLength(2)

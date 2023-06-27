@@ -6,6 +6,7 @@ import { ServerRpcMethods } from '../../lib/server-rpc-methods'
 import { RpcMethods } from '../../lib/client-rpc-methods'
 import { useEffect } from 'react'
 import { useConnectionStore } from '../../stores/connections'
+import { silenceErrors } from '../../test-helpers/silence-errors'
 
 jest.mock('../../lib/modal-store')
 jest.mock('../../stores/connections')
@@ -75,7 +76,7 @@ describe('JsonRpcProvider', () => {
   it('throws error if hook is called outside context', () => {
     mockUseModalStore()
     mockConnectionStore()
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     expect(() => render(<TestComponent expect={expect} />)).toThrow(
       'useJsonRpcClient must be used within JsonRPCProvider'
     )

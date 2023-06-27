@@ -4,6 +4,7 @@ declare module '@config' {
     feedbackLink: string
     encryptionSettings: EncryptionSettings
     closeWindowOnPopupOpen: boolean
+    sentryDsn: string | undefined
   }
 
   export interface Network {

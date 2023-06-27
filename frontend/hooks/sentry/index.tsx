@@ -2,7 +2,7 @@ import { init, close, setTag } from '@sentry/react'
 import { useEffect } from 'react'
 import { useHomeStore } from '../../routes/home/store'
 import config from '@config'
-import { useWalletStore } from '../../routes/auth/wallets/store'
+import { useWalletStore } from '../../stores/wallets'
 
 export const useSentry = () => {
   const { globals } = useHomeStore((state) => ({

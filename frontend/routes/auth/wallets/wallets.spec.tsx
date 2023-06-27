@@ -11,7 +11,7 @@ import {
   walletsWalletName
 } from '../../../locator-ids'
 import { mockClient } from '../../../test-helpers/mock-client'
-import { WalletsStore, useWalletStore } from './store'
+import { WalletsStore, useWalletStore } from '../../../stores/wallets'
 
 describe('Wallets', () => {
   let initialState: WalletsStore | null = null

@@ -13,6 +13,27 @@ import {
 import { mockClient } from '../../../test-helpers/mock-client'
 import { WalletsStore, useWalletStore } from '../../../stores/wallets'
 
+const mockLoadedState = () => {
+  const state = useWalletStore.getState()
+
+  useWalletStore.setState({
+    ...state,
+    loading: false,
+    wallets: [
+      {
+        name: 'wallet 1',
+        keys: [
+          {
+            publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+            name: 'Key 1',
+            index: 2147483650
+          }
+        ]
+      }
+    ]
+  })
+}
+
 describe('Wallets', () => {
   let initialState: WalletsStore | null = null
   const informationText = 'Deposit and manage your assets directly in the Vega Console dapp.'
@@ -26,35 +47,15 @@ describe('Wallets', () => {
   })
 
   it('renders an error state', async () => {
-    const listeners: Function[] = []
+    mockClient()
+    const state = useWalletStore.getState()
 
-    // @ts-ignore
-    global.browser = {
-      runtime: {
-        connect: () => ({
-          postMessage: (message: any) => {
-            listeners[0]({
-              id: message.id,
-              jsonrpc: '2.0',
-              error: {
-                message: 'Some error',
-                code: 1,
-                data: {}
-              }
-            })
-          },
-          onmessage: () => {},
-          onMessage: {
-            addListener: (fn: any) => {
-              listeners.push(fn)
-            }
-          },
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
+    useWalletStore.setState({
+      ...state,
+      loading: false,
+      wallets: [],
+      error: 'Error: Some error'
+    })
 
     render(
       <JsonRPCProvider>
@@ -68,6 +69,7 @@ describe('Wallets', () => {
 
   it('renders the wallet page', async () => {
     mockClient()
+    mockLoadedState()
     render(
       <JsonRPCProvider>
         <Wallets />
@@ -88,6 +90,8 @@ describe('Wallets', () => {
 
   it('allows you to create another key', async () => {
     mockClient()
+    mockLoadedState()
+
     render(
       <JsonRPCProvider>
         <Wallets />
@@ -105,6 +109,8 @@ describe('Wallets', () => {
   it('gives information of where to deposit and manage assets', async () => {
     // 1106-KEYS-003 I can see information of where to go to deposit and manage my assets
     mockClient()
+    mockLoadedState()
+
     render(
       <JsonRPCProvider>
         <Wallets />

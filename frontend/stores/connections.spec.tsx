@@ -18,7 +18,7 @@ const client = {
 
 const initialState = useConnectionStore.getState()
 
-describe('Store', () => {
+describe('ConnectionsStore', () => {
   beforeEach(() => {
     useConnectionStore.setState(initialState)
   })

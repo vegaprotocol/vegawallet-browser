@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import { useGetRedirectPath } from '.'
 import { FULL_ROUTES } from '../../routes/route-names'
-import { AppGlobals, useHomeStore } from '../../routes/home/store'
+import { AppGlobals, useGlobalsStore } from '../../stores/globals'
 
 jest.mock('../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({ client: {} })
@@ -9,12 +9,12 @@ jest.mock('../../contexts/json-rpc/json-rpc-context', () => ({
 
 const mockLoadGlobals = jest.fn()
 
-jest.mock('../../routes/home/store', () => ({
-  useHomeStore: jest.fn()
+jest.mock('../../stores/globals', () => ({
+  useGlobalsStore: jest.fn()
 }))
 
 const renderRedirectHook = (globals: AppGlobals, loading: boolean = false, error: string | null = null) => {
-  ;(useHomeStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
+  ;(useGlobalsStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
     const result = {
       loading,
       error,

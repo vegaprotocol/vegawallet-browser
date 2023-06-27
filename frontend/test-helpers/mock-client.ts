@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import { RpcMethods } from '../lib/client-rpc-methods'
-import { Key } from '../routes/auth/wallets/store'
-import { AppGlobals } from '../routes/home/store'
+import { AppGlobals } from '../stores/globals'
+import { Key } from '../stores/wallets'
 
 const defaultWallets = ['wallet 1']
 const defaultKeys = [

@@ -34,7 +34,7 @@ const client = {
 
 const initialState = useWalletStore.getState()
 
-describe('Store', () => {
+describe('WalletsStore', () => {
   beforeEach(() => {
     useWalletStore.setState(initialState)
   })

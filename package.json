@@ -112,5 +112,8 @@
     "web-ext": "^7.6.1",
     "web-vitals": "^2.1.4",
     "webextension-polyfill-ts": "^0.26.0"
+  },
+  "resolutions": {
+    "tslib": "^2.3.1"
   }
 }

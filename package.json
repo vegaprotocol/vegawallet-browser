@@ -9,9 +9,6 @@
     "@vegaprotocol/protos": "0.5.0",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
     "@vegaprotocol/ui-toolkit": "0.12.5",
-    "date-fns": "^2.29.3",
-    "immer": "^10.0.2",
-    "javascript-time-ago": "^2.5.9",
     "lodash": "^4.17.21",
     "mutexify": "^1.4.0",
     "protobuf-codec": "^1.0.6",
@@ -21,7 +18,8 @@
     "react-hook-form": "7.39.1",
     "react-router-dom": "^6.10.0",
     "react-time-ago": "^7.2.1",
-    "tailwindcss": "^3.3.2"
+    "tailwindcss": "^3.3.2",
+    "zustand": "^4.3.2"
   },
   "scripts": {
     "build": "rollup -c",

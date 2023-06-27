@@ -11,12 +11,14 @@ export const locators = {
 
 export const FooterSection = () => {
   const { client } = useJsonRpcClient()
+
   const popout = useCallback(async () => {
     await client.request(RpcMethods.OpenPopout, null)
     if (config.closeWindowOnPopupOpen) {
       window.close()
     }
   }, [client])
+
   return (
     <SettingsSection>
       <ExternalLink

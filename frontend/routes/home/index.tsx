@@ -1,8 +1,10 @@
 import { Navigate } from 'react-router-dom'
 import { useGetRedirectPath } from '../../hooks/redirect-path'
+import { useSentry } from '../../hooks/sentry'
 
 export const Home = () => {
   const { loading, error, path } = useGetRedirectPath()
+  useSentry()
   // If loading then we do not know where to redirect to yet
   if (error) {
     // TODO handle error state better!

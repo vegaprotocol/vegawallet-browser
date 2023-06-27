@@ -6,6 +6,13 @@ import { useCallback } from 'react'
 import config from '@config'
 import { useSaveSettings } from '../../../hooks/save-settings'
 
+export const locators = {
+  settingsDescription: 'settings-description',
+  settingsDataPolicy: 'settings-data-policy',
+  settingsTelemetryYes: 'settings-telemetry-yes',
+  settingsTelemetryNo: 'settings-telemetry-no'
+}
+
 export const TelemetrySection = () => {
   const { save, loading } = useSaveSettings()
   const { globals } = useHomeStore((state) => ({
@@ -28,14 +35,28 @@ export const TelemetrySection = () => {
   return (
     <SettingsSection>
       <SettingsHeader text="Vega wallet version" />
-      <p className="my-4">Improve Vega Wallet by automatically reporting bugs and crashes.</p>
+      <p data-testid={locators.settingsDescription} className="my-4">
+        Improve Vega Wallet by automatically reporting bugs and crashes.
+      </p>
       <form>
         <RadioGroup onChange={handleChange} value={globals.settings.telemetry.toString()}>
-          <Radio disabled={loading} id="associate-radio-contract" label="Yes" value="true" />
-          <Radio disabled={loading} id="associate-radio-wallet" label="No" value="false" />
+          <Radio
+            data-testid={locators.settingsTelemetryYes}
+            disabled={loading}
+            id="associate-radio-contract"
+            label="Yes"
+            value="true"
+          />
+          <Radio
+            data-testid={locators.settingsTelemetryNo}
+            disabled={loading}
+            id="associate-radio-wallet"
+            label="No"
+            value="false"
+          />
         </RadioGroup>
       </form>
-      <ExternalLink className="text-white mt-4" href={config.userDataPolicy}>
+      <ExternalLink data-testid={locators.settingsDataPolicy} className="text-white mt-4" href={config.userDataPolicy}>
         Read Vega Wallet's user data policy
       </ExternalLink>
     </SettingsSection>

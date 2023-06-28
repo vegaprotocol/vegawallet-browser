@@ -69,6 +69,7 @@ describe('list connections tests', () => {
   it('allows disconnecting of a dapp', async () => {
     // TODO this opens 4 windows rather than reusing the same ones for dApp 1 and 2
     // this should be fixed
+    // TODO open multiple instances of first dApp and ensure both are disconnected
     // 1109-VCON-006 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
     const connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()

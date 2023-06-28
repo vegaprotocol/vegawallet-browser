@@ -5,7 +5,8 @@ import { Cross } from '../../../components/icons/cross'
 
 export const locators = {
   connectionDetails: 'connection-details',
-  connectionOrigin: 'connections-connection'
+  connectionOrigin: 'connections-connection',
+  connectionRemoveConnection: 'connections-remove-connection'
 }
 
 export const ConnectionsList = ({
@@ -34,7 +35,7 @@ export const ConnectionsList = ({
             >
               {i.origin}
             </div>
-            <button onClick={() => removeConnection(i)}>
+            <button data-testid={locators.connectionRemoveConnection} onClick={() => removeConnection(i)}>
               <Cross className="w-8 h-8" />
             </button>
           </div>

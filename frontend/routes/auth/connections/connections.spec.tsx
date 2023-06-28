@@ -2,7 +2,7 @@ import { render, screen, act } from '@testing-library/react'
 import { Connections, locators as connectionsLocators } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
-import { connectionsConnection, connectionsNoConnections } from '../../../locator-ids'
+import { connectionsNoConnections } from '../../../locator-ids'
 import { ConnectionsStore, useConnectionStore } from '../../../stores/connections'
 import { locators as connectionListLocators } from './connection-list'
 
@@ -27,7 +27,7 @@ describe('Connections', () => {
   it('renders sorted list of connections with instructions on how to connect', async () => {
     mockClient()
     renderComponent()
-    const [foo, vega] = await screen.findAllByTestId(connectionsConnection)
+    const [foo, vega] = await screen.findAllByTestId(connectionListLocators.connectionOrigin)
     expect(vega).toHaveTextContent('https://vega.xyz')
     expect(foo).toHaveTextContent('foo.com')
     // 1109-VCON-002 I can see an explanation of what it means i.e. these dapps have permission to access my keys and connect to my wallet

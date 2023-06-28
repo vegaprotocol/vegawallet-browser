@@ -1,10 +1,11 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { getByDataTestID, getElements, hasTotalNumElements, isElementDisplayed } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
+import { locators as connectionsListLocators } from '../../../frontend/routes/auth/connections/connection-list'
 
 export class ListConnections {
   private readonly noConnections: By = getByDataTestID(locators.connectionsNoConnections)
-  private readonly connectionsEl: By = getByDataTestID(locators.connectionsConnection)
+  private readonly connectionsEl: By = getByDataTestID(connectionsListLocators.connectionOrigin)
   private readonly connectionsHeader: By = getByDataTestID(locators.connectionsHeader)
   private readonly connections: By = getByDataTestID('list-item')
 

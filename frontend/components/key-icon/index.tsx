@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react'
 
+export const locators = {
+  keyIcon: 'key-icon'
+}
+
 function getBitsFromByte(byte: number) {
   let bits = []
   for (let i = 0; i < 8; i++) {
@@ -45,9 +49,8 @@ export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
-    const context = canvas.getContext('2d')
-    if (!context) return
+    const context = canvas?.getContext('2d')
+    if (!context || !canvas) return
     const colorsList = getColorList(publicKey)
     const height = 42
     const squareSize = height / 6
@@ -90,7 +93,7 @@ export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
 
   return (
     <div className="rounded-sm overflow-hidden">
-      <canvas ref={canvasRef} />
+      <canvas data-testid={locators.keyIcon} ref={canvasRef} />
     </div>
   )
 }

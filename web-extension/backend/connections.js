@@ -39,6 +39,14 @@ export class ConnectionsCollection {
     return Array.from(await this.store.values())
   }
 
+  async delete(origin) {
+    const res = await this.store.delete(origin)
+
+    this._emit('delete', { origin })
+
+    return res
+  }
+
   async isAllowed(origin, publicKey) {
     const conn = await this.store.get(origin)
     if (conn?.allowList == null) return false

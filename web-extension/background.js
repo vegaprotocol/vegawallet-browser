@@ -68,6 +68,12 @@ const popupPorts = new PortServer({
   server
 })
 
+connections.listen((ev, connection) => {
+  if (ev === 'delete') {
+    clientPorts.disconnect(connection.origin)
+  }
+})
+
 runtime.onConnect.addListener(async (port) => {
   if (port.name === 'content-script') return clientPorts.listen(port)
   if (port.name === 'popup') {

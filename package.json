@@ -16,6 +16,7 @@
     "lodash": "^4.17.21",
     "mutexify": "^1.4.0",
     "nanoassert": "^2.0.0",
+    "parse-domain": "^7.0.1",
     "protobuf-codec": "^1.0.6",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",

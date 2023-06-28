@@ -50,7 +50,7 @@ import { isNotification, isResponse } from '../lib/json-rpc.js'
   )
 
   // Define end-use API
-  globalThis.vega = {
+  globalThis.vega = Object.freeze({
     async connectWallet () {
       return client.request('client.connect_wallet', null)
     },
@@ -75,5 +75,5 @@ import { isNotification, isResponse } from '../lib/json-rpc.js'
     off,
     addEventListener: on,
     removeEventListener: off
-  }
+  })
 })()

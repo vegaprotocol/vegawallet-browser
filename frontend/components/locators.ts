@@ -30,7 +30,6 @@ const locators = {
   mnemonicContainerHidden: 'mnemonic-container-hidden',
   mnemonicContainerMnemonic: 'mnemonic-container-mnemonic',
   pageBack: 'page-back',
-  hostImage: 'host-image',
   dropdownArrow: 'dropdown-arrow',
   lockIcon: 'lock-icon',
   openLockIcon: 'open-lock-icon',

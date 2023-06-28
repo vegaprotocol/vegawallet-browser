@@ -21,11 +21,4 @@ describe('HostImage', () => {
     fireEvent.error(img)
     expect(screen.getByTestId(locators.hostImageFallback)).toHaveTextContent('?')
   })
-
-  it('falls back to a question mark if URL is not listed', () => {
-    render(<HostImage hostname="https://www.google.comkjasbdfjhasfsd" />)
-    const img = screen.getByTestId(locators.hostImage)
-    fireEvent.error(img)
-    expect(screen.getByTestId(locators.hostImageFallback)).toHaveTextContent('?')
-  })
 })

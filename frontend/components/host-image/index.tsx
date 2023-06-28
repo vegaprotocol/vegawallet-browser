@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import classnames from 'classnames'
-import { parseDomain, ParseResultType } from 'parse-domain'
+import { parse } from 'tldts'
 
 export const locators = {
   hostImage: 'host-image',
@@ -34,13 +34,13 @@ export interface HostImageProps {
   size?: number
 }
 
-const FallbackImage = ({ hostname, size = 16 }: HostImageProps) => {
+const FallbackImage = ({ hostname, size }: HostImageProps) => {
   const colorIndex = getRemainder(hostname)
   let letter = '?'
   try {
     const host = new URL(hostname).host
-    const parseResult = parseDomain(host)
-    letter = parseResult.type === ParseResultType.Listed ? parseResult.domain?.charAt(0) || '?' : '?'
+    const parseResult = parse(host)
+    letter = parseResult.domain?.charAt(0) || '?'
   } catch (e) {}
 
   return (

@@ -6,7 +6,6 @@ import '@testing-library/jest-dom'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import 'jest-canvas-mock'
-import { TextEncoder, TextDecoder } from 'util'
 
 TimeAgo.addDefaultLocale(en)
 class ResizeObserver {
@@ -15,6 +14,3 @@ class ResizeObserver {
 }
 // @ts-ignore
 window.ResizeObserver = ResizeObserver
-
-global.TextEncoder = TextEncoder
-// global.TextDecoder = TextDecoder

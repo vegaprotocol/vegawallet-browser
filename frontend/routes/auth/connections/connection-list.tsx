@@ -1,12 +1,11 @@
 import { List } from '../../../components/list'
 import { HostImage } from '../../../components/host-image'
-import { connectionsConnection } from '../../../locator-ids'
 import { Connection } from '../../../stores/connections'
 import { Cross } from '../../../components/icons/cross'
 
 export const locators = {
   connectionDetails: 'connection-details',
-  connectionOrigin: connectionsConnection
+  connectionOrigin: 'connections-connection'
 }
 
 export const ConnectionsList = ({
@@ -30,7 +29,7 @@ export const ConnectionsList = ({
               <HostImage size={42} hostname={i.origin} />
             </div>
             <div
-              data-testid={connectionsConnection}
+              data-testid={locators.connectionOrigin}
               className="ml-4 flex-1 flex flex-col justify-center overflow-hidden break-all"
             >
               {i.origin}

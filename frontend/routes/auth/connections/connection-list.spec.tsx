@@ -1,7 +1,6 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { ConnectionsList, locators } from './connection-list'
 import { locators as hostImageLocators } from '../../../components/host-image'
-import { mockClient } from '../../../test-helpers/mock-client'
 
 describe('ConnectionList', () => {
   it('renders list of connections passed in with image', () => {

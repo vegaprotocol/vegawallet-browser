@@ -81,6 +81,7 @@ describe('Connections', () => {
   it('remove the connection', async () => {
     mockClient()
     renderComponent()
+    await waitFor(() => expect(screen.queryAllByTestId(connectionListLocators.connectionOrigin)).toHaveLength(2))
     fireEvent.click(screen.getAllByTestId(connectionListLocators.connectionRemoveConnection)[0])
     await waitFor(() => expect(screen.queryAllByTestId(connectionListLocators.connectionOrigin)).toHaveLength(1))
   })

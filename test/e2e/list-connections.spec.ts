@@ -59,6 +59,7 @@ describe('list connections tests', () => {
   })
 
   it('allows disconnecting of a dapp', async () => {
+    // 1109-VCON-006 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
     const connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
     const windowHandle = await driver.getWindowHandle()

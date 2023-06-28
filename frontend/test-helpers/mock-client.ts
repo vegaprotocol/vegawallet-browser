@@ -176,6 +176,14 @@ export const mockClient = (
                 id: message.id
               })
             )
+          } else if (message.method === RpcMethods.RemoveConnection) {
+            listeners.map((fn) =>
+              fn({
+                jsonrpc: '2.0',
+                result: null,
+                id: message.id
+              })
+            )
           } else {
             pushMessage({
               jsonrpc: '2.0',

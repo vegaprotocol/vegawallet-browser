@@ -11,12 +11,14 @@ describe('list connections tests', () => {
   let driver: WebDriver
   let viewWallet: ViewWallet
   let navPanel: NavPanel
+  let connectWallet: ConnectWallet
 
   beforeEach(async () => {
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
     await navigateToLandingPage(driver)
     navPanel = new NavPanel(driver)
+    connectWallet = new ConnectWallet(driver)
     const apiHelper = new APIHelper(driver)
     await apiHelper.setUpWalletAndKey()
     await navigateToLandingPage(driver)
@@ -54,5 +56,20 @@ describe('list connections tests', () => {
       connectionNames.some((name) => name.includes('vega.xyz')),
       'expected vega.xyz to be present'
     ).toBe(true)
+  })
+
+  it('allows disconnecting of a dapp', async () => {
+    const connections = await navPanel.goToListConnections()
+    await connections.checkNoConnectionsExist()
+    const windowHandle = await driver.getWindowHandle()
+    const firstDapp = new VegaAPI(driver, windowHandle, 'https://vegaprotocol.github.io/vegawallet-browser/')
+    await firstDapp.connectWallet()
+    const connectWalletModal = new ConnectWallet(driver)
+    await connectWalletModal.approveConnectionAndCheckSuccess()
+    await connections.checkNumConnections(1)
+    await connections.disconnectConnection('https://vegaprotocol.github.io')
+    await connections.checkNoConnectionsExist()
+    await firstDapp.connectWallet()
+    await connectWallet.checkOnConnectWallet()
   })
 })

@@ -31,8 +31,9 @@ export interface HostImageProps {
 }
 
 const FallbackImage = ({ hostname, size = 16 }: HostImageProps) => {
-  const colorIndex = getRemainder(hostname)
-  const parseResult = parseDomain(new URL(hostname).host)
+  const host = new URL(hostname).host
+  const colorIndex = getRemainder(host)
+  const parseResult = parseDomain(host)
 
   const letter = parseResult.type === ParseResultType.Listed ? parseResult.domain?.charAt(0) || '?' : '?'
 

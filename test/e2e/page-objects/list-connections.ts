@@ -8,6 +8,7 @@ export class ListConnections {
   private readonly connectionsEl: By = getByDataTestID(connectionsListLocators.connectionOrigin)
   private readonly connectionsHeader: By = getByDataTestID(locators.connectionsHeader)
   private readonly connections: By = getByDataTestID('list-item')
+  private readonly connectionsRemoveConnection: By = getByDataTestID(connectionsListLocators.connectionRemoveConnection)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -59,5 +60,16 @@ export class ListConnections {
 
   async isListConnectionsPage() {
     return await isElementDisplayed(this.driver, this.connectionsHeader)
+  }
+
+  async disconnectConnection(connectionName: string) {
+    const connectionsList = await getElements(this.driver, this.connections)
+    for (const connection of connectionsList) {
+      console.log(await connection.findElement(this.connectionsEl).getText(), connectionName)
+      if ((await connection.findElement(this.connectionsEl).getText()) === connectionName) {
+        await connection.findElement(this.connectionsRemoveConnection).click()
+        break
+      }
+    }
   }
 }

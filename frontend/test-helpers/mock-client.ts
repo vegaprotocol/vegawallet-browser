@@ -118,7 +118,7 @@ export const mockClient = (
               },
               id: message.id
             })
-          } else if (message.method === 'admin.unlock') {
+          } else if (message.method === RpcMethods.Unlock) {
             if (message.params.passphrase === 'passphrase') {
               pushMessage({
                 jsonrpc: '2.0',

@@ -50,6 +50,5 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '@config': '<rootDir>/config/test.js'
-  },
-  transformIgnorePatterns: ['/node_modules/(?!parse-domain)/']
+  }
 }

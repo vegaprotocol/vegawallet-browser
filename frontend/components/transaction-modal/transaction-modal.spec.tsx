@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { useModalStore } from '../../lib/modal-store'
 import locators from '../locators'
 import { TransactionModal } from '.'
+import { locators as hostImageLocators } from '../../components/host-image'
 
 const transaction = {
   orderSubmission: {
@@ -69,7 +70,7 @@ describe('TransactionModal', () => {
     })
     render(<TransactionModal />)
     expect(screen.getByTestId(locators.transactionWrapper)).toBeVisible()
-    expect(screen.getByTestId(locators.hostImage)).toBeVisible()
+    expect(screen.getByTestId(hostImageLocators.hostImage)).toBeVisible()
     expect(screen.getByTestId(locators.pageHeader)).toBeVisible()
     expect(screen.getByTestId(locators.transactionType)).toHaveTextContent('Order submission')
     expect(screen.getByTestId(locators.codeWindow)).toBeVisible()

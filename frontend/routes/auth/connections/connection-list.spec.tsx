@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { ConnectionsList } from './connection-list'
-import locators from '../../../components/locators'
 import { connectionsConnection } from '../../../locator-ids'
+import { locators as hostImageLocators } from '../../../components/host-image'
 
 describe('ConnectionList', () => {
   it('renders list of connections passed in with image', () => {
@@ -30,7 +30,7 @@ describe('ConnectionList', () => {
     const [vega, foo] = connections
     expect(vega).toHaveTextContent('https://vega.xyz')
     expect(foo).toHaveTextContent('foo.com')
-    const images = screen.getAllByTestId(locators.hostImage)
+    const images = screen.getAllByTestId(hostImageLocators.hostImage)
     expect(images).toHaveLength(2)
   })
 })

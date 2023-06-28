@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { ConnectionDetails } from './connection-details'
 import locators from '../locators'
+import { locators as hostImageLocators } from '../../components/host-image'
 
 describe('ConnectionDetails', () => {
   it('should render header, hostname, keys and permissions', () => {
@@ -11,7 +12,7 @@ describe('ConnectionDetails', () => {
     render(<ConnectionDetails handleDecision={() => {}} hostname="https://www.google.com" />)
     expect(screen.getByTestId(locators.modalHeaderTitle)).toHaveTextContent('Connected to dApp')
     expect(screen.getByTestId(locators.dAppHostname)).toHaveTextContent('https://www.google.com')
-    expect(screen.getByTestId(locators.hostImage)).toBeVisible()
+    expect(screen.getByTestId(hostImageLocators.hostImage)).toBeVisible()
     expect(screen.getByTestId(locators.connectionModalAccessListTitle)).toHaveTextContent('Allow this site to:')
     const permissions = screen.getAllByTestId(locators.connectionModalAccessListAccess)
     expect(permissions).toHaveLength(2)

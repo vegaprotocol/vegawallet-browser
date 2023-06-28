@@ -92,7 +92,7 @@ export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
   }, [publicKey])
 
   return (
-    <div className="rounded-sm overflow-hidden">
+    <div className="rounded-md overflow-hidden">
       <canvas data-testid={locators.keyIcon} ref={canvasRef} />
     </div>
   )

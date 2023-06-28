@@ -1,7 +1,11 @@
 import { useState } from 'react'
-import locators from '../locators'
 import classnames from 'classnames'
 import { parseDomain, ParseResultType } from 'parse-domain'
+
+export const locators = {
+  hostImage: 'host-image',
+  hostImageFallback: 'host-image-fallback'
+}
 
 function toHex(str: string) {
   var result = ''
@@ -31,14 +35,17 @@ export interface HostImageProps {
 }
 
 const FallbackImage = ({ hostname, size = 16 }: HostImageProps) => {
-  const host = new URL(hostname).host
-  const colorIndex = getRemainder(host)
-  const parseResult = parseDomain(host)
-
-  const letter = parseResult.type === ParseResultType.Listed ? parseResult.domain?.charAt(0) || '?' : '?'
+  const colorIndex = getRemainder(hostname)
+  let letter = '?'
+  try {
+    const host = new URL(hostname).host
+    const parseResult = parseDomain(host)
+    letter = parseResult.type === ParseResultType.Listed ? parseResult.domain?.charAt(0) || '?' : '?'
+  } catch (e) {}
 
   return (
     <div
+      data-testid={locators.hostImageFallback}
       className={classnames(
         COLORS_MAP[colorIndex].textColor,
         COLORS_MAP[colorIndex].backgroundColor,

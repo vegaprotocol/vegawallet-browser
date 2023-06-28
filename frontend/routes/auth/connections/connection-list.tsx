@@ -20,7 +20,7 @@ export const ConnectionsList = ({ connections }: { connections: Connection[] }) 
         renderItem={(i) => (
           <div className="flex justify-between">
             <div className="flex flex-col justify-center">
-              <HostImage size={10} hostname={i.origin} />
+              <HostImage size={42} hostname={i.origin} />
             </div>
             <div
               data-testid={connectionsConnection}

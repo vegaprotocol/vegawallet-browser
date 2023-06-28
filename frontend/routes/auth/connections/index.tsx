@@ -14,10 +14,11 @@ export const locators = {
 
 export const Connections = () => {
   const { request } = useJsonRpcClient()
-  const { connections, loading, loadConnections } = useConnectionStore((state) => ({
+  const { connections, loading, error, loadConnections, removeConnection } = useConnectionStore((state) => ({
     connections: state.connections,
     loading: state.loading,
-    loadConnections: state.loadConnections
+    loadConnections: state.loadConnections,
+    removeConnection: state.removeConnection
   }))
   useEffect(() => {
     loadConnections(request)
@@ -30,7 +31,14 @@ export const Connections = () => {
       <h1 data-testid={connectionsHeader} className="flex justify-center flex-col text-2xl text-white mb-6">
         Connections
       </h1>
-      {connections.length === 0 ? <NoAppsConnected /> : <ConnectionsList connections={connections} />}
+      {connections.length === 0 ? (
+        <NoAppsConnected />
+      ) : (
+        <ConnectionsList
+          connections={connections}
+          removeConnection={(connection) => removeConnection(client, connection)}
+        />
+      )}
       <div className="mt-6">
         <Frame>
           <p data-testid={locators.connectionInstructions}>

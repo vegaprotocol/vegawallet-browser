@@ -36,7 +36,11 @@ const renderComponent = () => {
 
 describe('Auth', () => {
   it('renders outlet, header and navbar', () => {
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({ loadWallets: jest.fn() })
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        loadWallets: jest.fn()
+      })
+    })
     renderComponent()
 
     expect(screen.getByTestId(locators.navBar)).toBeInTheDocument()
@@ -46,7 +50,11 @@ describe('Auth', () => {
   })
   it('loads the users wallets', () => {
     const mockLoad = jest.fn()
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({ loadWallets: mockLoad })
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        loadWallets: mockLoad
+      })
+    })
     renderComponent()
 
     expect(mockLoad).toBeCalledTimes(1)

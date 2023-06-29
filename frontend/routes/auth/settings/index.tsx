@@ -19,21 +19,21 @@ export const locators = {
 }
 
 export const Settings = () => {
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   const navigate = useNavigate()
   const { handleSubmit: handleLock } = useForm()
   const lock = useCallback(async () => {
-    await client.request('admin.lock', null)
+    await request('admin.lock')
     navigate(FULL_ROUTES.login)
-  }, [client, navigate])
+  }, [request, navigate])
 
   const { handleSubmit: handlePopout } = useForm()
   const popout = useCallback(async () => {
-    await client.request(RpcMethods.OpenPopout, null)
+    await request(RpcMethods.OpenPopout)
     if (config.closeWindowOnPopupOpen) {
       window.close()
     }
-  }, [client])
+  }, [request])
   return (
     <section data-testid={locators.settingsPage}>
       <h1 className="flex justify-center flex-col text-2xl text-white">Settings</h1>

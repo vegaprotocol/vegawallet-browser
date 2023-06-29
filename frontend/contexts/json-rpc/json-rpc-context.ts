@@ -1,9 +1,11 @@
 import React from 'react'
 import JSONRPCClient from '../../../lib/json-rpc-client'
 import JSONRPCServer from '../../../lib/json-rpc-server'
+
 export interface JsonRpcContextShape {
   client: JSONRPCClient
   server: JSONRPCServer
+  request: (method: string, params?: any, propagateError?: boolean) => Promise<any>
 }
 
 export const JsonRpcContext = React.createContext<JsonRpcContextShape | undefined>(undefined)

@@ -19,7 +19,7 @@ interface FormFields {
 
 export const Login = () => {
   const [loading, setLoading] = useState(false)
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   const {
     control,
     register,
@@ -37,8 +37,8 @@ export const Login = () => {
     async (fields: { passphrase: string }) => {
       try {
         setLoading(true)
-        await client.request('admin.unlock', { passphrase: fields.passphrase })
-        await loadGlobals(client)
+        await request('admin.unlock', { passphrase: fields.passphrase })
+        await loadGlobals(request)
         navigate(FULL_ROUTES.home)
       } catch (e) {
         if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
@@ -50,7 +50,7 @@ export const Login = () => {
         setLoading(false)
       }
     },
-    [client, loadGlobals, navigate, setError, setLoading]
+    [request, loadGlobals, navigate, setError, setLoading]
   )
   useEffect(() => {
     setFocus('passphrase')

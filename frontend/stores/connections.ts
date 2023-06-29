@@ -3,6 +3,7 @@ import JSONRPCClient from '../../lib/json-rpc-client'
 import { RpcMethods } from '../lib/client-rpc-methods'
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
+import { SendMessage } from '../contexts/json-rpc/json-rpc-provider'
 
 export interface Connection {
   allowList: AllowList
@@ -18,11 +19,13 @@ export type ConnectionsStore = {
   connections: Connection[]
   loading: boolean
   error: string | null
-  loadConnections: (client: JSONRPCClient) => void
+  loadConnections: (request: SendMessage) => void
   addConnection: (connection: Connection) => void
   setConnections: (connections: Connection[]) => void
 }
 
+// TODO what should we do about the error handling here?
+// Probably generic error page
 export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
   connections: [],
   loading: true,
@@ -34,13 +37,11 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
     const newConnections = [...get().connections, connection]
     get().setConnections(newConnections)
   },
-  loadConnections: async (client: JSONRPCClient) => {
+  loadConnections: async (request: SendMessage) => {
     try {
       set({ loading: true, error: null })
-      const { connections } = await client.request(RpcMethods.ListConnections, null)
+      const { connections } = await request(RpcMethods.ListConnections)
       get().setConnections(connections)
-    } catch (e) {
-      set({ error: e?.toString() || 'Something went wrong' })
     } finally {
       set({ loading: false })
     }

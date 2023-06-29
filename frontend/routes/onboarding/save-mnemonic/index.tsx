@@ -19,17 +19,17 @@ interface FormFields {
 export const SaveMnemonic = () => {
   const [showSuccess, setShowSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   const navigate = useNavigate()
   const { control, handleSubmit } = useForm<FormFields>()
   const [mnemonicShown, setMnemonicShown] = useState<boolean>(false)
   const [mnemonic, setMnemonic] = useState<string | null>(null)
 
   const suggestMnemonic = useCallback(async () => {
-    const res = await client.request(RpcMethods.GenerateRecoveryPhrase, null)
+    const res = await request(RpcMethods.GenerateRecoveryPhrase, null)
     const { recoveryPhrase } = res
     setMnemonic(recoveryPhrase)
-  }, [client])
+  }, [request])
 
   useEffect(() => {
     suggestMnemonic()
@@ -40,12 +40,12 @@ export const SaveMnemonic = () => {
   const submit = useCallback(async () => {
     try {
       setLoading(true)
-      await createWallet(mnemonic as string, client)
+      await createWallet(mnemonic as string, request)
       setShowSuccess(true)
     } finally {
       setLoading(false)
     }
-  }, [client, mnemonic, setLoading, setShowSuccess])
+  }, [request, mnemonic, setLoading, setShowSuccess])
   // While loading, render nothing
   if (!mnemonic) return null
   if (showSuccess)

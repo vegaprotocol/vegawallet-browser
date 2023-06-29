@@ -74,7 +74,7 @@ export const Wallets = () => {
           Assets
         </h1>
         <Frame>
-          Deposit and manage your assets directly in&nbsp;
+          Deposit and manage your assets directly in the&nbsp;
           <ExternalLink
             data-testid={walletsDepositLink}
             className="break-word text-white"

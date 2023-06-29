@@ -74,9 +74,13 @@ export const Wallets = () => {
           Assets
         </h1>
         <Frame>
-          Deposit and manage your assets directly in &nbsp;
-          <ExternalLink data-testid={walletsDepositLink} className="break-word" href={config.network.console}>
-            a Vega dapp.
+          Deposit and manage your assets directly in&nbsp;
+          <ExternalLink
+            data-testid={walletsDepositLink}
+            className="break-word text-white"
+            href={config.network.console}
+          >
+            Vega Console dapp.
           </ExternalLink>
         </Frame>
       </section>

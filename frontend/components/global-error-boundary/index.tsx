@@ -26,10 +26,10 @@ function withRouter<P extends RouterProps>(Component: ComponentType<P>) {
 
 function withErrorStore<P extends ErrorProps>(Component: ComponentType<P>) {
   const Wrapper = (props: Omit<P, keyof ErrorProps>) => {
-    const setError = useErrorStore((state) => ({
-      setError: state.setError
+    const errorProps = useErrorStore((state) => ({
+      setError: state.setError,
+      error: state.error
     }))
-    const errorProps = { setError }
 
     return <Component {...errorProps} {...(props as P)} />
   }
@@ -66,11 +66,12 @@ class GlobalErrorBoundary extends Component<Props, State> {
     // This error is reported from backend interactions, which are async
     // and as such not caught by the global error boundary
     const { error: storeError } = this.props
-    if (error || storeError) {
-      const err = error || storeError
+    const err = error || storeError
+
+    if (err) {
       // If this is a reported error then ensure this component is also aware of it
-      this.setState({ error: err })
-      this.props.setError(err)
+      if (!error) this.setState({ error: err })
+      if (!storeError) this.props.setError(err)
       return (
         <ErrorModal
           error={err}

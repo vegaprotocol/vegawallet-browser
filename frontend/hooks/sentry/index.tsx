@@ -1,8 +1,21 @@
 import { init, close, setTag } from '@sentry/react'
 import { useEffect } from 'react'
 import config from '@config'
-import { useWalletStore } from '../../stores/wallets'
+import { Wallet, useWalletStore } from '../../stores/wallets'
 import { useGlobalsStore } from '../../stores/globals'
+import { ErrorEvent } from '@sentry/types'
+
+export const sanitizeEvent = (event: ErrorEvent, wallets: Wallet[]) => {
+  const eventString = JSON.stringify(event)
+  wallets.forEach((wallet) => {
+    eventString.replace(wallet.name, '[WALLET_NAME]')
+    wallet.keys.forEach((key) => {
+      eventString.replace(key.publicKey, '[VEGA_KEY]')
+    })
+  })
+  const sanitizedEvent = JSON.parse(eventString)
+  return sanitizedEvent
+}
 
 export const useSentry = () => {
   const { globals } = useGlobalsStore((state) => ({
@@ -19,15 +32,11 @@ export const useSentry = () => {
         integrations: [],
         tracesSampleRate: 1.0,
         environment: config.network.name,
+        /* istanbul ignore next */
+
         beforeSend(event) {
-          const eventString = JSON.stringify(event)
-          wallets.forEach((wallet) => {
-            wallet.keys.forEach((key) => {
-              eventString.replace(key.publicKey, '[VEGA_KEY]')
-            })
-          })
-          const sanitizedEvent = JSON.parse(eventString)
-          return sanitizedEvent
+          /* istanbul ignore next */
+          return sanitizeEvent(event, wallets)
         }
       })
       setTag('version', globals.version)

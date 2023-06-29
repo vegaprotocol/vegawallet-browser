@@ -15,7 +15,7 @@ import { WalletsStore, useWalletStore } from './store'
 
 describe('Wallets', () => {
   let initialState: WalletsStore | null = null
-  const informationText = 'Deposit and manage your assets directly in a Vega dapp.'
+  const informationText = 'Deposit and manage your assets directly in the Vega Console dapp.'
   beforeEach(() => {
     initialState = useWalletStore.getState()
   })
@@ -82,7 +82,7 @@ describe('Wallets', () => {
     expect(screen.getByTestId(walletsCreateKey)).toHaveTextContent('Create new key/pair')
     expect(screen.getByTestId(walletsAssetHeader)).toHaveTextContent('Assets')
     expect(screen.getByTestId(locators.frame)).toHaveTextContent(informationText)
-    expect(screen.getByTestId(walletsDepositLink)).toHaveTextContent('a Vega dapp.')
+    expect(screen.getByTestId(walletsDepositLink)).toHaveTextContent('Vega Console dapp.')
     expect(screen.getByTestId(walletsDepositLink)).toHaveAttribute('href', 'https://console.fairground.wtf')
   })
 

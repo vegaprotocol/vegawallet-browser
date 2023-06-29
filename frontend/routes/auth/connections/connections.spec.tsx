@@ -37,7 +37,7 @@ describe('Connections', () => {
     // 1109-VCON-003 I can see instructions how to connect to a Vega dapp
     // 1109-VCON-004 There is a way to see the dapps I could connect with (e.g. a link to https://vega.xyz/use)
     expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toHaveTextContent(
-      'Trying to connect to a Vega dApp? Look for the "Connect Wallet" button and press it to create a connection.'
+      'Trying to connect to a Vega dapp? Look for the "Connect Wallet" button and press it to create a connection.'
     )
     expect(screen.getByTestId(connectionsLocators.connectionInstructionsLink)).toHaveAttribute(
       'href',

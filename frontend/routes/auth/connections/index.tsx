@@ -41,7 +41,7 @@ export const Connections = () => {
               className="underline"
               href="https://vega.xyz/use"
             >
-              <span>Vega dApp?</span>
+              <span>Vega dapp?</span>
             </ExternalLink>{' '}
             Look for the "Connect Wallet" button and press it to create a connection.
           </p>

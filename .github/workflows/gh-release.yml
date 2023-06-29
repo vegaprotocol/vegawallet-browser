@@ -34,6 +34,9 @@ jobs:
     environment:
       name: github-releases
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        network: [testnet, mainnet]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -47,13 +50,13 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Build app
-        run: NODE_ENV=production yarn run build
+        run: NODE_ENV=production yarn run build:${{ matrix.network }}
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r build/vega-browserwallet-chrome-${{ inputs.tag || 'latest' }}.zip build/chrome
+          args: zip -qq -r build/vega-browserwallet-${{ matrix.network }}-chrome-${{ inputs.tag || 'latest' }}.zip build/chrome
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r build/vega-browserwallet-firefox-${{ inputs.tag || 'latest'}}.zip build/firefox
+          args: zip -qq -r build/vega-browserwallet-firefox-${{ matrix.network }}-${{ inputs.tag || 'latest'}}.zip build/firefox
 
       - name: Upload to Github Releases
         if: ${{ inputs.publish }}

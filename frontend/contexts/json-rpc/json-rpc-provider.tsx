@@ -8,6 +8,9 @@ import { PortServer } from '../../../lib/port-server'
 import { Connection, useConnectionStore } from '../../stores/connections'
 import { RpcMethods } from '../../lib/client-rpc-methods'
 import { log } from '../../lib/logging'
+import { useErrorStore } from '../../stores/error'
+
+export type SendMessage = (method: string, params?: any, propagate?: boolean) => Promise<any>
 
 export interface JsonRpcNotification {
   method: string
@@ -71,13 +74,15 @@ const createServer = (
   return server
 }
 
-/**
- * Provides Vega Ethereum contract instances to its children.
- */
-export const JsonRPCProvider = ({ children }: { children: JSX.Element }) => {
+const useCreateClient = () => {
+  const { setError } = useErrorStore((store) => ({
+    setError: store.setError
+  }))
   const { addConnection } = useConnectionStore((store) => ({
     addConnection: store.addConnection
   }))
+
+  // TODO better pattern for this
   const notificationHandler = useCallback(
     (message: JsonRpcNotification) => {
       if (message.method === RpcMethods.ConnectionsChange) {
@@ -86,17 +91,45 @@ export const JsonRPCProvider = ({ children }: { children: JSX.Element }) => {
     },
     [addConnection]
   )
+  const client = useMemo(() => createClient(notificationHandler), [notificationHandler])
+  const request = useCallback(
+    async (method: string, params: any = null, propagate: boolean = false) => {
+      try {
+        const result = await client.request(method, params)
+        return result
+      } catch (e) {
+        if (!propagate) {
+          setError(e as unknown as Error)
+        } else {
+          throw e
+        }
+      }
+    },
+    [client, setError]
+  )
+
+  return {
+    client,
+    request
+  }
+}
+
+/**
+ * Provides Vega Ethereum contract instances to its children.
+ */
+export const JsonRPCProvider = ({ children }: { children: JSX.Element }) => {
+  const { client, request } = useCreateClient()
   const { handleConnection, handleTransaction } = useModalStore((store) => ({
     handleConnection: store.handleConnection,
     handleTransaction: store.handleTransaction
   }))
-  const client = useMemo(() => createClient(notificationHandler), [notificationHandler])
   const server = useMemo(() => createServer(handleConnection, handleTransaction), [handleConnection, handleTransaction])
   return (
     <JsonRpcContext.Provider
       value={{
         client,
-        server
+        server,
+        request
       }}
     >
       {children}

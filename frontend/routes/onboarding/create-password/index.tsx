@@ -19,7 +19,7 @@ interface FormFields {
 
 export const CreatePassword = () => {
   const [loading, setLoading] = useState(false)
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   const {
     control,
     register,
@@ -35,13 +35,13 @@ export const CreatePassword = () => {
     async ({ password }: FormFields) => {
       try {
         setLoading(true)
-        await client.request(RpcMethods.CreatePassphrase, { passphrase: password })
+        await request(RpcMethods.CreatePassphrase, { passphrase: password })
         navigate(FULL_ROUTES.createWallet)
       } finally {
         setLoading(false)
       }
     },
-    [client, navigate]
+    [request, navigate]
   )
 
   useEffect(() => {

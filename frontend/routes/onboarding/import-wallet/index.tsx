@@ -18,7 +18,7 @@ interface FormFields {
 export const ImportWallet = () => {
   const [showSuccess, setShowSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   const {
     control,
     register,
@@ -34,7 +34,7 @@ export const ImportWallet = () => {
     async (fields: FormFields) => {
       try {
         setLoading(true)
-        await createWallet(fields.mnemonic, client)
+        await createWallet(fields.mnemonic, request, true)
         setShowSuccess(true)
       } catch (e) {
         setError('mnemonic', { message: e?.toString() })
@@ -42,7 +42,7 @@ export const ImportWallet = () => {
         setLoading(false)
       }
     },
-    [client, setError]
+    [request, setError]
   )
   const mnemonic = useWatch({ control, name: 'mnemonic' })
   useEffect(() => {

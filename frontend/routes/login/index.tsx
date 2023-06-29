@@ -33,11 +33,12 @@ export const Login = () => {
   }))
   const navigate = useNavigate()
   const passphrase = useWatch({ control, name: 'passphrase' })
+  // TODO decide what to do about error handling here
   const submit = useCallback(
     async (fields: { passphrase: string }) => {
       try {
         setLoading(true)
-        await request('admin.unlock', { passphrase: fields.passphrase })
+        await request('admin.unlock', { passphrase: fields.passphrase }, true)
         await loadGlobals(request)
         navigate(FULL_ROUTES.home)
       } catch (e) {

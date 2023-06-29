@@ -5,7 +5,7 @@ import { LOCATION_KEY } from '../persist-location'
 import { useGlobalsStore } from '../../stores/globals'
 
 export const useGetRedirectPath = () => {
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   const { loadGlobals, loading, error, globals } = useGlobalsStore((state) => ({
     loadGlobals: state.loadGlobals,
     loading: state.loading,
@@ -13,8 +13,8 @@ export const useGetRedirectPath = () => {
     globals: state.globals
   }))
   useEffect(() => {
-    loadGlobals(client)
-  }, [client, loadGlobals])
+    loadGlobals(request)
+  }, [request, loadGlobals])
 
   // If loading then we do not know where to redirect to yet
   if (loading) {

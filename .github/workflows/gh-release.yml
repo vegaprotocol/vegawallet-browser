@@ -47,16 +47,16 @@ jobs:
         with:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
+
       - name: Install dependencies
         run: yarn install
       - name: Build app
         run: NODE_ENV=production yarn run build:${{ matrix.network }}
-      - uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r build/vega-browserwallet-${{ matrix.network }}-chrome-${{ inputs.tag || 'latest' }}.zip build/chrome
-      - uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r build/vega-browserwallet-firefox-${{ matrix.network }}-${{ inputs.tag || 'latest'}}.zip build/firefox
+
+      - name: Zip Chrome
+        run: cd build/chrome && zip -qq -r ../vega-browserwallet-${{ matrix.network }}-chrome-${{ inputs.tag || 'latest' }}.zip .
+      - name: Zip Firefox
+        run: cd build/firefox && zip -qq -r ../vega-browserwallet-${{ matrix.network }}-firefox-${{ inputs.tag || 'latest' }}.zip .
 
       - name: Upload to Github Releases
         if: ${{ inputs.publish }}

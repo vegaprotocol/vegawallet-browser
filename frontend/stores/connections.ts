@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import JSONRPCClient from '../../lib/json-rpc-client'
 import { RpcMethods } from '../lib/client-rpc-methods'
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'

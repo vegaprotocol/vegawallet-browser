@@ -31,6 +31,7 @@
   "scripts": {
     "build": "rollup -c",
     "build:e2e-test": "yarn build --wallet-config=test",
+    "build:dev": "yarn build --wallet-config=dev",
     "build:testnet": "yarn build --wallet-config=testnet",
     "build:mainnet": "yarn build --wallet-config=mainnet",
     "build:analyze": "NODE_ENV=production yarn build:mainnet --analyze",
@@ -48,7 +49,7 @@
     "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox",
     "test:frontend": "jest --config=test/jest-config/jest.config-ui.js",
     "test:frontend:ci": "yarn test:frontend --coverage",
-    "watch": "yarn build:testnet -w"
+    "watch": "yarn build:dev -w"
   },
   "browserslist": {
     "production": [

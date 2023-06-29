@@ -18,7 +18,7 @@ import config from '../../../lib/config'
 import { useWalletStore, Key } from '../../../stores/wallets'
 
 export const Wallets = () => {
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   // Wallet loading is handled in auth, when the user is redirected to the auth page
   const { wallets, loading, error, createNewKey } = useWalletStore((store) => ({
     wallets: store.wallets,
@@ -29,9 +29,9 @@ export const Wallets = () => {
   const [creatingKey, setCreatingKey] = useState(false)
   const createKey = useCallback(async () => {
     setCreatingKey(true)
-    await createNewKey(client, wallets[0].name)
+    await createNewKey(request, wallets[0].name)
     setCreatingKey(false)
-  }, [client, createNewKey, wallets])
+  }, [request, createNewKey, wallets])
   const [wallet] = wallets
 
   if (loading) return null

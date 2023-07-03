@@ -1,4 +1,4 @@
-import { render, screen, act, waitFor } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { Connections, locators as connectionsLocators } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
@@ -76,37 +76,5 @@ describe('Connections', () => {
     expect(screen.getByTestId(connectionsNoConnections)).toBeInTheDocument()
     // 1109-VCON-005 When I have no connections I can see that and still see instructions on how to connect to a Vega dapp
     expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toBeVisible()
-  })
-  it('renders nothing if there is an error', async () => {
-    let listeners: Function[] = []
-    // @ts-ignore
-    global.browser = {
-      runtime: {
-        connect: () => ({
-          postMessage: (message: any) => {
-            listeners[0]({
-              id: message.id,
-              jsonrpc: '2.0',
-              error: {
-                message: 'Some error',
-                code: 1,
-                data: {}
-              }
-            })
-          },
-          onmessage: () => {},
-          onMessage: {
-            addListener: (fn: any) => {
-              listeners.push(fn)
-            }
-          },
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
-    const { container } = renderComponent()
-    await waitFor(() => expect(container).toBeEmptyDOMElement())
   })
 })

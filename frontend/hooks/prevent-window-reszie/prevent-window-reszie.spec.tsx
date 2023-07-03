@@ -21,7 +21,6 @@ describe('usePreventWindowResize', () => {
   it('should add resize event listener and call resetSize on mount', () => {
     const resizeToMock = jest.fn()
     const addEventListenerMock = jest.fn()
-    const resetSizeMock = jest.fn()
 
     global.window.resizeTo = resizeToMock
     global.window.addEventListener = addEventListenerMock

@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import GlobalErrorBoundary from '.'
 import { MemoryRouter } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useErrorStore } from '../../stores/error'
 
 const mockedUsedNavigate = jest.fn()
 
@@ -31,6 +32,18 @@ const BrokenComponent = () => {
   return <div data-testid="successful-render" />
 }
 
+const SetErrorComponent = () => {
+  const { setError } = useErrorStore()
+  const [errorThrown, setErrorThrown] = useState(false)
+  useEffect(() => {
+    if (!errorThrown) {
+      setErrorThrown(true)
+      setError(new Error('Somethings sideways'))
+    }
+  }, [errorThrown, setError])
+  return <div data-testid="successful-render" />
+}
+
 describe('GlobalErrorBoundary', () => {
   it('renders error modal when there is an error', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {})
@@ -38,6 +51,20 @@ describe('GlobalErrorBoundary', () => {
       <MemoryRouter>
         <GlobalErrorBoundary>
           <BrokenComponent />
+        </GlobalErrorBoundary>
+      </MemoryRouter>
+    )
+    expect(screen.getByTestId('error-modal')).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('close'))
+    expect(mockedUsedNavigate).toBeCalled()
+  })
+
+  it('renders error modal when there is an async error', () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+    render(
+      <MemoryRouter>
+        <GlobalErrorBoundary>
+          <SetErrorComponent />
         </GlobalErrorBoundary>
       </MemoryRouter>
     )

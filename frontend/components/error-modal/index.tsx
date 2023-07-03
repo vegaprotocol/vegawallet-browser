@@ -1,16 +1,18 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
 import { CodeWindow } from '../code-window'
-import { Warning } from '../icons/warning'
 import { Splash } from '../splash'
 import locators from '../locators'
+import { ErrorIcon } from '../icons/error'
 
 export const ErrorModal = ({ error, onClose }: { error: Error | null; onClose: () => void }) => {
   return (
     <Splash data-testid={locators.errorModal}>
-      <section className="text-center">
-        <h1 className="text-3xl mb-4">Something's gone wrong 🙃</h1>
-        <Warning className="w-12 text-vega-pink" />
-        <div className="my-5">
+      <section className="h-full text-center flex flex-col justify-center">
+        <div className="text-center mx-auto">
+          <ErrorIcon />
+        </div>
+        <h1 className="text-2xl mb-6">Something's gone wrong</h1>
+        <div className="mb-8">
           {error ? (
             <CodeWindow content={error.message} text={error.message} />
           ) : (

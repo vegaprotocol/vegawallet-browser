@@ -59,9 +59,7 @@ jobs:
             --specs="specs/user-interface/11[0-9][0-9]*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-mystery --category-stats --output-jenkins
-          results=$(cat results/jenkins.txt)
-          echo "file=$results" >> "$GITHUB_OUTPUT"
+            --show-mystery --category-stats
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2

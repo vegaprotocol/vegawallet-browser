@@ -30,7 +30,7 @@ jobs:
         id: approbation-main
         run: |
           echo "Starting Approbation"
-          docker run ghcr.io/vegaprotocol/approbation:latest check-references \
+          docker run -v "$(pwd):/run" ghcr.io/vegaprotocol/approbation:latest check-references \
             --specs="specs/user-interface/11[0-9][0-9]*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
@@ -55,7 +55,7 @@ jobs:
         id: approbation
         run: |
           echo "Starting Approbation"
-          npx --silent --yes github:vegaprotocol/approbation check-references \
+          docker run -v "$(pwd):/run" ghcr.io/vegaprotocol/approbation:latest check-references \
             --specs="specs/user-interface/11[0-9][0-9]*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \

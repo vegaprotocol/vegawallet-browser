@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react'
 import App from './App'
 import { ReactNode } from 'react'
 
+jest.mock('./hooks/prevent-window-reszie')
+
 jest.mock('./components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
   <div data-testid="global-error-boundary">{children}</div>
 ))

@@ -59,11 +59,10 @@ export const CreatePassword = () => {
           <FormGroup label="Password" labelFor="password" className="mb-6">
             <Input
               id="password"
-              hasError={!!errors.password?.message}
               placeholder="Enter a password"
               data-testid={passphraseInput}
               type="password"
-              {...register('password', { required: Validation.REQUIRED })}
+              {...register('password')}
             />
           </FormGroup>
           <FormGroup label="Confirm password" labelFor="confirmPassword" className="mb-6">

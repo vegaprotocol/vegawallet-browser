@@ -5,7 +5,6 @@ import { APIHelper } from './wallet-helpers/api-helpers'
 import { NavPanel } from './page-objects/navpanel'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
-import { openNewWindowAndSwitchToIt, staticWait } from './selenium-util'
 
 const transferReq = {
   fromAccountType: 4,
@@ -35,7 +34,7 @@ describe('list connections tests', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    //await driver.quit()
+    await driver.quit()
   })
 
   it('shows no connections when no dapp connected, updates and shows connections after approving one or more', async () => {
@@ -89,10 +88,8 @@ describe('list connections tests', () => {
 
     await connections.disconnectConnection('https://vegaprotocol.github.io')
     await connections.checkNumConnections(1)
-    await staticWait(5000)
     let connectionNames = await connections.getConnectionNames()
     expect(connectionNames[0]).toContain('https://vega.xyz')
-    await staticWait(5000)
 
     // Check that the disconnected dapp cannot send a transaction
     await firstDapp.sendTransaction(keys[0].publicKey, { transfer: transferReq })
@@ -100,12 +97,12 @@ describe('list connections tests', () => {
     expect(res).toBe('Not connected')
 
     // Check the first dApp needs to reconnect
-    // await firstDapp.connectWallet()
-    // await connectWallet.checkOnConnectWallet()
-    // await connectWallet.denyConnection()
+    await firstDapp.connectWallet()
+    await connectWallet.checkOnConnectWallet()
+    await connectWallet.denyConnection()
 
     // // Check the second dApp does not need to reconnect
-    // await secondDapp.connectWallet()
-    // await connections.checkOnListConnectionsPage()
+    await secondDapp.connectWallet()
+    await connections.checkOnListConnectionsPage()
   })
 })

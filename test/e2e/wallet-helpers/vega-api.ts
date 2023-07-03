@@ -14,7 +14,7 @@ export class VegaAPI {
   private vegaExtensionWindowHandle: string
   private dappUrl: string
 
-  constructor(driver: WebDriver, vegaExtensionWindowHandle: string, dappUrl = 'https://google.co.uk') {
+  constructor(driver: WebDriver, dappUrl = 'https://google.co.uk', vegaExtensionWindowHandle = '') {
     this.driver = driver
     this.vegaExtensionWindowHandle = vegaExtensionWindowHandle
     this.dappUrl = dappUrl
@@ -34,6 +34,9 @@ export class VegaAPI {
   }
 
   async connectWallet(withNewTab = true, closeTab = false) {
+    if (!this.vegaExtensionWindowHandle) {
+      this.vegaExtensionWindowHandle = await this.driver.getWindowHandle()
+    }
     return await this.controlTabs(withNewTab, closeTab, () => this.executeConnectWallet())
   }
 
@@ -62,6 +65,10 @@ export class VegaAPI {
   }
 
   private async controlTabs<T>(withNewTab: boolean, closeTab: boolean, func: () => Promise<T>): Promise<T> {
+    expect(
+      this.vegaExtensionWindowHandle,
+      'there was no window handle defined for the browser extension, this should be explicitly declared in the constructor or automatically assigned when calling connectWallet()'
+    ).toBeTruthy()
     if (withNewTab) {
       await this.openNewWindow()
     } else {
@@ -69,6 +76,7 @@ export class VegaAPI {
         this.vegaDappWindowHandle,
         'there was no window handle defined for the dapp. Try executing the api method with the withNewTab param set to true'
       ).toBeTruthy()
+      console.log('switching to dapp window with handle', this.vegaDappWindowHandle)
       await this.driver.switchTo().window(this.vegaDappWindowHandle)
     }
 

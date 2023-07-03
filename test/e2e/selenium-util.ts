@@ -1,3 +1,4 @@
+import { difference } from 'lodash'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 
 const defaultTimeoutMillis = 10000
@@ -232,12 +233,21 @@ async function waitForTextFieldToBeEmpty(driver: WebDriver, locator: By, timeout
 
 export async function openNewWindowAndSwitchToIt(driver: WebDriver, closeOld = false) {
   let currentWindowHandle: string
+  const currentHandles = await driver.getAllWindowHandles()
   await driver.executeScript('window.open();')
+  const handlesAfterOpen = await driver.getAllWindowHandles()
+  const newTab = getDifference(handlesAfterOpen, currentHandles)
+  expect(newTab.length).toBe(1)
   if (closeOld) {
     currentWindowHandle = await driver.getWindowHandle()
     await driver.close()
   }
-  return await openLatestWindowHandle(driver)
+  await switchWindowHandles(driver, false, newTab[0])
+  return newTab[0]
+}
+
+function getDifference(listA: any[], listB: any[]): any[] {
+  return listA.filter((item) => !listB.includes(item))
 }
 
 export async function openLatestWindowHandle(driver: WebDriver) {

@@ -10,7 +10,7 @@ describe('ErrorModal', () => {
     render(<ErrorModal error={error} onClose={onCloseMock} />)
     const errorMessage = screen.getByTestId(locators.codeWindowContent)
     expect(errorMessage).toBeInTheDocument()
-    const title = screen.getByText("Something's gone wrong 🙃")
+    const title = screen.getByText("Something's gone wrong")
     expect(title).toBeInTheDocument()
   })
 

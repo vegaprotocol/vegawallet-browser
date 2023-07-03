@@ -39,11 +39,9 @@ describe('WalletsStore', () => {
     useWalletStore.setState(initialState)
   })
   it('loads wallets from backend', async () => {
-    expect(useWalletStore.getState().error).toBe(null)
     expect(useWalletStore.getState().loading).toBe(true)
     expect(useWalletStore.getState().wallets).toStrictEqual([])
     await useWalletStore.getState().loadWallets(client as unknown as any)
-    expect(useWalletStore.getState().error).toBe(null)
     expect(useWalletStore.getState().loading).toBe(false)
     expect(useWalletStore.getState().wallets).toStrictEqual([
       {
@@ -52,41 +50,20 @@ describe('WalletsStore', () => {
       }
     ])
   })
-  it('renders error if error is present', async () => {
+  it('throws error if the wallet we are trying to create a key for could not be found', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {})
-    await useWalletStore.getState().loadWallets({
-      request(method: string) {
-        throw new Error('Something sideways')
-      }
-    } as unknown as any)
-    expect(useWalletStore.getState().error).toStrictEqual('Error: Something sideways')
-    expect(useWalletStore.getState().loading).toBe(false)
-    expect(useWalletStore.getState().wallets).toStrictEqual([])
-  })
-  it('renders generic error if error message is not present', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
-    await useWalletStore.getState().loadWallets({
-      request(method: string) {
-        // eslint-disable-next-line no-throw-literal
-        throw null
-      }
-    } as unknown as any)
-    expect(useWalletStore.getState().error).toStrictEqual('Something went wrong')
-    expect(useWalletStore.getState().loading).toBe(false)
-    expect(useWalletStore.getState().wallets).toStrictEqual([])
-  })
-  it('renders error if the wallet we are trying to create a key for could not be found', async () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
-    await useWalletStore.getState().createKey(
-      {
-        request(method: string) {
-          // eslint-disable-next-line no-throw-literal
-          throw null
-        }
-      } as unknown as any,
-      'this wallet name does not exist'
-    )
-    expect(useWalletStore.getState().error).toStrictEqual('Could not find wallet to create key for')
+    expect(
+      async () =>
+        await useWalletStore.getState().createKey(
+          {
+            request(method: string) {
+              // eslint-disable-next-line no-throw-literal
+              throw null
+            }
+          } as unknown as any,
+          'this wallet name does not exist'
+        )
+    ).toThrowError('Could not find wallet to create key for')
   })
   it('adds a new key onto wallet when creating a new key for that wallet', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {})

@@ -8,7 +8,6 @@ import {
   walletsAssetHeader,
   walletsCreateKey,
   walletsDepositLink,
-  walletsError,
   walletsKeyName,
   walletsPage,
   walletsWalletName
@@ -20,10 +19,9 @@ import { useWalletStore, Key } from '../../../stores/wallets'
 export const Wallets = () => {
   const { request } = useJsonRpcClient()
   // Wallet loading is handled in auth, when the user is redirected to the auth page
-  const { wallets, loading, error, createNewKey } = useWalletStore((store) => ({
+  const { wallets, loadWallets, loading, createNewKey } = useWalletStore((store) => ({
     wallets: store.wallets,
     loading: store.loading,
-    error: store.error,
     createNewKey: store.createKey
   }))
   const [creatingKey, setCreatingKey] = useState(false)
@@ -35,8 +33,6 @@ export const Wallets = () => {
   const [wallet] = wallets
 
   if (loading) return null
-  // TODO make this better
-  if (error) return <span data-testid={walletsError}>{error.toString()}</span>
 
   return (
     <section data-testid={walletsPage}>

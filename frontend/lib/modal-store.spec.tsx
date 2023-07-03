@@ -25,6 +25,7 @@ describe('ModalStore', () => {
     useModalStore.getState().handleTransactionDecision(true)
     expect(useModalStore.getState().transactionModalOpen).toBe(false)
     expect(useModalStore.getState().transactionPromise).toBe(null)
+    expect(useModalStore.getState().currentTransactionDetails).toBe(null)
     return expect(promise).resolves.toBe(true)
   })
   it('transaction resolves with false if not approved', () => {
@@ -36,7 +37,19 @@ describe('ModalStore', () => {
     useModalStore.getState().handleTransactionDecision(false)
     expect(useModalStore.getState().transactionModalOpen).toBe(false)
     expect(useModalStore.getState().transactionPromise).toBe(null)
+    expect(useModalStore.getState().currentTransactionDetails).toBe(null)
     return expect(promise).resolves.toBe(false)
+  })
+  it('transaction clears state when promise could not be found', () => {
+    useModalStore.setState({
+      transactionModalOpen: true,
+      transactionPromise: null,
+      currentTransactionDetails: {} as any
+    })
+    useModalStore.getState().handleTransactionDecision(false)
+    expect(useModalStore.getState().transactionModalOpen).toBe(false)
+    expect(useModalStore.getState().transactionPromise).toBe(null)
+    expect(useModalStore.getState().currentTransactionDetails).toBe(null)
   })
   it('connection modal sets modal as open and resolves promise with value', () => {
     expect(useModalStore.getState().connectionModalOpen).toBe(false)
@@ -47,6 +60,7 @@ describe('ModalStore', () => {
     useModalStore.getState().handleConnectionDecision(true)
     expect(useModalStore.getState().connectionModalOpen).toBe(false)
     expect(useModalStore.getState().connectionPromise).toBe(null)
+    expect(useModalStore.getState().currentConnectionDetails).toBe(null)
     return expect(promise).resolves.toBe(true)
   })
   it('connection resolves with false if not approved', () => {
@@ -58,6 +72,18 @@ describe('ModalStore', () => {
     useModalStore.getState().handleConnectionDecision(false)
     expect(useModalStore.getState().connectionModalOpen).toBe(false)
     expect(useModalStore.getState().connectionPromise).toBe(null)
+    expect(useModalStore.getState().currentConnectionDetails).toBe(null)
     return expect(promise).resolves.toBe(false)
+  })
+  it('connection clears state when promise could not be found', () => {
+    useModalStore.setState({
+      connectionModalOpen: true,
+      connectionPromise: null,
+      currentConnectionDetails: {} as any
+    })
+    useModalStore.getState().handleTransactionDecision(false)
+    expect(useModalStore.getState().transactionModalOpen).toBe(false)
+    expect(useModalStore.getState().transactionPromise).toBe(null)
+    expect(useModalStore.getState().currentTransactionDetails).toBe(null)
   })
 })

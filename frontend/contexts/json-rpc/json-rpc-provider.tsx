@@ -74,6 +74,7 @@ const createServer = (
   return server
 }
 
+// TODO move into own file with own tests
 const useCreateClient = () => {
   const { setError } = useErrorStore((store) => ({
     setError: store.setError

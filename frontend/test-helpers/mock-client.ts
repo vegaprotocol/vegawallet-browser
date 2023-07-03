@@ -37,7 +37,8 @@ export const mockClient = (
   const pushMessage = (message: any) => {
     // Set timeout to simulate async
     setTimeout(() => {
-      listeners.map((fn) => fn(message))
+      // TODO this is a hack
+      listeners[0](message)
     }, 50)
   }
   // @ts-ignore
@@ -125,15 +126,13 @@ export const mockClient = (
               })
             }
           } else if (message.method === RpcMethods.OpenPopout) {
-            listeners.map((fn) =>
-              fn({
-                jsonrpc: '2.0',
-                result: null,
-                id: message.id
-              })
-            )
+            pushMessage({
+              jsonrpc: '2.0',
+              result: null,
+              id: message.id
+            })
           } else if (message.method === RpcMethods.ListConnections) {
-            listeners[0]({
+            pushMessage({
               jsonrpc: '2.0',
               id: message.id,
               result: {
@@ -156,7 +155,11 @@ export const mockClient = (
               }
             })
           } else {
-            throw new Error('Message not handled')
+            pushMessage({
+              jsonrpc: '2.0',
+              error: { code: -32601, message: 'Method not found' },
+              id: message.id
+            })
           }
         },
         onmessage: (...args: any[]) => {

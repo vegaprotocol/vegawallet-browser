@@ -13,11 +13,10 @@ jest.mock('../../stores/globals', () => ({
   useGlobalsStore: jest.fn()
 }))
 
-const renderRedirectHook = (globals: AppGlobals, loading: boolean = false, error: string | null = null) => {
+const renderRedirectHook = (globals: AppGlobals, loading: boolean = false) => {
   ;(useGlobalsStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
     const result = {
       loading,
-      error,
       globals,
       loadGlobals: mockLoadGlobals
     }
@@ -44,7 +43,6 @@ describe('RedirectPath', () => {
       }
     })
     expect(view.loading).toBeFalsy()
-    expect(view.error).toBeNull()
     expect(view.path).toBe(FULL_ROUTES.wallets)
   })
 
@@ -59,7 +57,6 @@ describe('RedirectPath', () => {
       }
     })
     expect(view.loading).toBeFalsy()
-    expect(view.error).toBeNull()
     expect(view.path).toBe(FULL_ROUTES.getStarted)
   })
   it('returns login if locked', async () => {
@@ -73,7 +70,6 @@ describe('RedirectPath', () => {
       }
     })
     expect(view.loading).toBeFalsy()
-    expect(view.error).toBeNull()
     expect(view.path).toBe(FULL_ROUTES.login)
   })
   it('returns create wallet if no wallets exist', async () => {
@@ -87,26 +83,7 @@ describe('RedirectPath', () => {
       }
     })
     expect(view.loading).toBeFalsy()
-    expect(view.error).toBeNull()
     expect(view.path).toBe(FULL_ROUTES.createWallet)
-  })
-  it('returns no path if there is an error present', async () => {
-    const view = renderRedirectHook(
-      {
-        passphrase: true,
-        locked: false,
-        wallet: true,
-        version: '0.0.1',
-        settings: {
-          telemetry: false
-        }
-      },
-      false,
-      'Something went wrong'
-    )
-    expect(view.loading).toBeFalsy()
-    expect(view.error).toBe('Something went wrong')
-    expect(view.path).toBeNull()
   })
 
   it('returns no path if loading', async () => {
@@ -123,7 +100,6 @@ describe('RedirectPath', () => {
       true
     )
     expect(view.loading).toBeTruthy()
-    expect(view.error).toBeNull()
     expect(view.path).toBeNull()
   })
 })

@@ -6,10 +6,9 @@ import { useGlobalsStore } from '../../stores/globals'
 
 export const useGetRedirectPath = () => {
   const { request } = useJsonRpcClient()
-  const { loadGlobals, loading, error, globals } = useGlobalsStore((state) => ({
+  const { loadGlobals, loading, globals } = useHomeStore((state) => ({
     loadGlobals: state.loadGlobals,
     loading: state.loading,
-    error: state.error,
     globals: state.globals
   }))
   useEffect(() => {
@@ -20,35 +19,24 @@ export const useGetRedirectPath = () => {
   if (loading) {
     return {
       loading: true,
-      error: null,
       path: null
     }
-    // If there is an error handle this case
-  } else if (error) {
-    return {
-      loading: false,
-      error: error,
-      path: null
-    }
-    // If the user has no passphrase set redirect to the get started page
   } else if (!globals?.passphrase) {
+    // If the user has no passphrase set redirect to the get started page
     return {
       loading: false,
-      error: null,
       path: FULL_ROUTES.getStarted
     }
     // If the user has a passphrase but the wallet is locked then redirect to the login page
   } else if (globals?.locked) {
     return {
       loading: false,
-      error: null,
       path: FULL_ROUTES.login
     }
     // If the user has a passphrase and the app is unlocked but has no wallets redirect to the create wallets page
   } else if (!globals.wallet) {
     return {
       loading: false,
-      error: null,
       path: FULL_ROUTES.createWallet
     }
   } else {
@@ -56,7 +44,6 @@ export const useGetRedirectPath = () => {
     const path = localStorage.getItem(LOCATION_KEY)
     return {
       loading: false,
-      error: null,
       path: path || FULL_ROUTES.wallets
     }
   }

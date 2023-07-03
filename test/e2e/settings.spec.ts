@@ -72,7 +72,7 @@ describe('Settings test', () => {
     // 1107-SETT-004 If I reject the transaction the pop-up window stays open (on the last view I was on)
     // 1107-SETT-006 If I have the new window open but then open the extension pop up I see the same thing on both views
     const originalExtensionInstance = await driver.getWindowHandle()
-    const vegaAPI = new VegaAPI(driver, originalExtensionInstance)
+    const vegaAPI = new VegaAPI(driver)
 
     await vegaAPI.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()

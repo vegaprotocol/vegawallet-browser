@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { navigateToLandingPage, testDAppUrl } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { NavPanel } from './page-objects/navpanel'
 import { VegaAPI } from './wallet-helpers/vega-api'
@@ -43,7 +43,7 @@ describe('list connections tests', () => {
     const connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
     const windowHandle = await driver.getWindowHandle()
-    const firstDapp = new VegaAPI(driver, windowHandle, 'https://vegaprotocol.github.io/vegawallet-browser/')
+    const firstDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
     const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
@@ -51,7 +51,7 @@ describe('list connections tests', () => {
     let connectionNames = await connections.getConnectionNames()
     expect(connectionNames[0]).toContain('https://vegaprotocol')
 
-    const secondDapp = new VegaAPI(driver, await driver.getWindowHandle(), 'https://vega.xyz')
+    const secondDapp = new VegaAPI(driver, 'https://vega.xyz')
     await secondDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(2)
@@ -74,7 +74,7 @@ describe('list connections tests', () => {
     const connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
 
-    const firstDapp = new VegaAPI(driver, 'https://vegaprotocol.github.io/vegawallet-browser/')
+    const firstDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
     const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()

@@ -78,7 +78,7 @@ class GlobalErrorBoundary extends Component<Props, State> {
           onClose={() => {
             this.setState({ error: null })
             this.props.setError(null)
-            this.props.navigate(FULL_ROUTES.home)
+            this.props.navigate(FULL_ROUTES.wallets)
           }}
         />
       )

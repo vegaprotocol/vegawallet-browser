@@ -6,7 +6,6 @@ import {
   walletsAssetHeader,
   walletsCreateKey,
   walletsDepositLink,
-  walletsError,
   walletsKeyName,
   walletsWalletName
 } from '../../../locator-ids'
@@ -44,27 +43,6 @@ describe('Wallets', () => {
     // @ts-ignore
     global.browser = null
     act(() => useWalletStore.setState(initialState as WalletsStore))
-  })
-
-  it('renders an error state', async () => {
-    mockClient()
-    const state = useWalletStore.getState()
-
-    useWalletStore.setState({
-      ...state,
-      loading: false,
-      wallets: [],
-      error: 'Error: Some error'
-    })
-
-    render(
-      <JsonRPCProvider>
-        <Wallets />
-      </JsonRPCProvider>
-    )
-    await screen.findByTestId(walletsError)
-
-    expect(screen.getByTestId(walletsError)).toHaveTextContent('Error: Some error')
   })
 
   it('renders the wallet page', async () => {

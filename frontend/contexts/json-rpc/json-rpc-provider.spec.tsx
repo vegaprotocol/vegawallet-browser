@@ -290,7 +290,7 @@ describe('JsonRpcProvider', () => {
     )
     expect(handleTransaction).toHaveBeenCalled()
   })
-  it.skip('sets error message if a request fails when using the request methods', async () => {
+  it('sets error message if a request fails when using the request methods', async () => {
     mockClient()
     mockModalStore()
     mockConnectionStore()
@@ -311,7 +311,7 @@ describe('JsonRpcProvider', () => {
     await waitFor(() => expect(setError).toBeCalledTimes(1))
     expect(setError).toBeCalledWith(new Error('Method not found'))
   })
-  it.skip('throws error message if a request fails when using the request methods and propagate is true', async () => {
+  it('throws error message if a request fails when using the request methods and propagate is true', async () => {
     mockClient()
     mockModalStore()
     mockConnectionStore()

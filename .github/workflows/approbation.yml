@@ -31,8 +31,8 @@ jobs:
         run: |
           echo "Starting Approbation"
           npx --silent --yes github:vegaprotocol/approbation@latest check-references \
-            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
-            --tests="{frontend,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
+          --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
+          --tests="{frontend,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
             --show-mystery --category-stats --output-jenkins
           results=$(cat results/jenkins.txt)
@@ -56,8 +56,8 @@ jobs:
         run: |
           echo "Starting Approbation"
           npx --silent --yes github:vegaprotocol/approbation@latest check-references \
-            --specs="specs/user-interface/1101-BWAL-browser_wallet.md" \
-            --tests="{frontend,test}/**/*.{spec,test}.{ts,js,tsx,jsx}" \
+          --specs="specs/user-interface/11[0-9][0-9]*.md" \
+          --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
             --show-mystery --category-stats --output-jenkins
           results=$(cat results/jenkins.txt)

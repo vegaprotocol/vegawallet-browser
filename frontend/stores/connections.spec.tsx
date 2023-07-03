@@ -1,18 +1,16 @@
 import { useConnectionStore } from './connections'
 
-const client = {
-  request() {
-    return {
-      connections: [
-        {
-          allowList: {
-            publicKeys: [],
-            wallets: ['Wallet 1']
-          },
-          origin: 'https://vega.xyz'
-        }
-      ]
-    }
+const request = () => {
+  return {
+    connections: [
+      {
+        allowList: {
+          publicKeys: [],
+          wallets: ['Wallet 1']
+        },
+        origin: 'https://vega.xyz'
+      }
+    ]
   }
 }
 
@@ -25,7 +23,7 @@ describe('ConnectionsStore', () => {
   it('loads connections from backend', async () => {
     expect(useConnectionStore.getState().loading).toBe(true)
     expect(useConnectionStore.getState().connections).toStrictEqual([])
-    await useConnectionStore.getState().loadConnections(client as unknown as any)
+    await useConnectionStore.getState().loadConnections(request as unknown as any)
     expect(useConnectionStore.getState().loading).toBe(false)
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {

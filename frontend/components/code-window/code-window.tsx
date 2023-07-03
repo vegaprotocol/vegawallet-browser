@@ -6,7 +6,7 @@ export const CodeWindow = ({ content, text }: { content: ReactNode; text: string
   return (
     <div
       data-testid={locators.codeWindow}
-      className="mt-3 whitespace-pre max-h-60 flex p-4 rounded-md w-full border bg-black border-vega-dark-200"
+      className="whitespace-pre max-h-60 flex p-4 rounded-md w-full bg-vega-dark-150"
     >
       <code
         data-testid={locators.codeWindowContent}

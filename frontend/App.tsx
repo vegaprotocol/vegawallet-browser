@@ -5,7 +5,19 @@ import GlobalErrorBoundary from './components/global-error-boundary'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'
 
+function useListenForPopups() {
+  const { setup, teardown } = useWindowStore((state) => ({
+    setup: state.setup,
+    teardown: state.teardown
+  }))
+  useEffect(() => {
+    setup()
+    return teardown
+  }, [setup, teardown])
+}
+
 function App() {
+  useListenForPopups()
   usePreventWindowResize()
   usePing()
   return (

@@ -27,13 +27,16 @@ jobs:
           path: specs
 
       - name: Run Approbation on main
+        id: approbation-main
         run: |
-          npm install --global github:vegaprotocol/approbation
           echo "Starting Approbation"
-          npx approbation check-references \
+          docker run ghcr.io/vegaprotocol/approbation:latest check-references \
             --specs="specs/user-interface/11[0-9][0-9]*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
-            --categories="specs/user-interface/categories.json"
+            --categories="specs/user-interface/categories.json" \
+            --show-mystery --category-stats --output-jenkins
+          results=$(cat results/jenkins.txt)
+          echo "file-main=$results" >> "$GITHUB_OUTPUT"
 
       - name: Checkout repository
         uses: actions/checkout@v3

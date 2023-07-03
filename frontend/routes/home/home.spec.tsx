@@ -15,7 +15,6 @@ describe('Home', () => {
   it('renders error if an error is present', () => {
     ;(useGetRedirectPath as jest.Mock).mockReturnValue({
       loading: false,
-      error: 'Error',
       path: null
     })
     render(<Home />)
@@ -24,7 +23,6 @@ describe('Home', () => {
   it('renders nothing if loading', () => {
     ;(useGetRedirectPath as jest.Mock).mockReturnValue({
       loading: true,
-      error: null,
       path: null
     })
     const { container } = render(<Home />)
@@ -33,7 +31,6 @@ describe('Home', () => {
   it('renders nothing if path is undefined', () => {
     ;(useGetRedirectPath as jest.Mock).mockReturnValue({
       loading: false,
-      error: null,
       path: null
     })
     const { container } = render(<Home />)
@@ -42,7 +39,6 @@ describe('Home', () => {
   it('renders navigate to the path specified', () => {
     ;(useGetRedirectPath as jest.Mock).mockReturnValue({
       loading: false,
-      error: null,
       path: '/foo'
     })
     render(<Home />)

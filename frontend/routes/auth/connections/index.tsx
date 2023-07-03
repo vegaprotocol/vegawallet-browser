@@ -14,17 +14,16 @@ export const locators = {
 
 export const Connections = () => {
   const { request } = useJsonRpcClient()
-  const { connections, loading, error, loadConnections } = useConnectionStore((state) => ({
+  const { connections, loading, loadConnections } = useConnectionStore((state) => ({
     connections: state.connections,
     loading: state.loading,
-    error: state.error,
     loadConnections: state.loadConnections
   }))
   useEffect(() => {
     loadConnections(request)
   }, [request, loadConnections])
 
-  if (error || loading) return null
+  if (loading) return null
 
   return (
     <section>

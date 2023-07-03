@@ -28,8 +28,9 @@ jobs:
 
       - name: Run Approbation on main
         run: |
+          npm install --global github:vegaprotocol/approbation
           echo "Starting Approbation"
-          npx github:vegaprotocol/approbation check-references \
+          npx approbation check-references \
             --specs="specs/user-interface/11[0-9][0-9]*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json"

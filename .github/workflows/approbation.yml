@@ -30,11 +30,11 @@ jobs:
         id: approbation-main
         run: |
           echo "Starting Approbation"
-          echo npx github:vegaprotocol/approbation check-references \
+          npx github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/11[0-9][0-9]*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            
+
           echo "file-main=$results" >> "$GITHUB_OUTPUT"
 
       - name: Checkout repository

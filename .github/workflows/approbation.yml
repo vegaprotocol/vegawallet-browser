@@ -13,32 +13,26 @@ jobs:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
 
-      # - name: Checkout repository 'main'
-      #   uses: actions/checkout@v3
-      #   with:
-      #     ref: main
+      - name: Checkout repository 'main'
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0
 
-      # - name: Checkout specs repository
-      #   uses: actions/checkout@v3
-      #   with:
-      #     repository: vegaprotocol/specs
-      #     ref: master
-      #     path: specs
+      - name: Checkout specs repository
+        uses: actions/checkout@v3
+        with:
+          repository: vegaprotocol/specs
+          ref: master
+          path: specs
 
-      # - name: Run Approbation on main
-      #   id: approbation-main
-      #   run: |
-      #     echo "directory contents:"
-      #     ls
-      #     echo "Starting Approbation"
-      #     npm install -g github:vegaprotocol/approbation
-      #     npx --silent --yes github:vegaprotocol/approbation check-references \
-      #       --specs="specs/user-interface/11[0-9][0-9]*.md" \
-      #       --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
-      #       --categories="specs/user-interface/categories.json" \
-      #       --show-mystery --category-stats --output-jenkins
-      #     results=$(cat results/jenkins.txt)
-      #     echo "file-main=$results" >> "$GITHUB_OUTPUT"
+      - name: Run Approbation on main
+        run: |
+          echo "Starting Approbation"
+          npx github:vegaprotocol/approbation check-references \
+            --specs="specs/user-interface/11[0-9][0-9]*.md" \
+            --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
+            --categories="specs/user-interface/categories.json"
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -57,11 +51,13 @@ jobs:
         id: approbation
         run: |
           echo "Starting Approbation"
-          npx --yes github:vegaprotocol/approbation check-references \
+          npx --silent --yes github:vegaprotocol/approbation check-references \
             --specs="specs/user-interface/11[0-9][0-9]*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
-            --show-mystery --category-stats
+            --show-mystery --category-stats --output-jenkins
+          results=$(cat results/jenkins.txt)
+          echo "file=$results" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2

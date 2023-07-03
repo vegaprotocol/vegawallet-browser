@@ -17,18 +17,14 @@ export interface AllowList {
 export type ConnectionsStore = {
   connections: Connection[]
   loading: boolean
-  error: string | null
   loadConnections: (request: SendMessage) => void
   addConnection: (connection: Connection) => void
   setConnections: (connections: Connection[]) => void
 }
 
-// TODO what should we do about the error handling here?
-// Probably generic error page
 export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
   connections: [],
   loading: true,
-  error: null,
   setConnections: (connections: Connection[]) => {
     set({ connections: sortBy(uniqBy(connections, 'origin'), 'origin') })
   },
@@ -38,7 +34,7 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
   },
   loadConnections: async (request: SendMessage) => {
     try {
-      set({ loading: true, error: null })
+      set({ loading: true })
       const { connections } = await request(RpcMethods.ListConnections)
       get().setConnections(connections)
     } finally {

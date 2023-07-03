@@ -35,8 +35,6 @@ jobs:
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/user-interface/categories.json" \
 
-          echo "file-main=$results" >> "$GITHUB_OUTPUT"
-
       - name: Checkout repository
         uses: actions/checkout@v3
         with:

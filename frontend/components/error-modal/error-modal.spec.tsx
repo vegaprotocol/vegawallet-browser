@@ -9,9 +9,18 @@ describe('ErrorModal', () => {
   it('renders error message', () => {
     render(<ErrorModal error={error} onClose={onCloseMock} />)
     const errorMessage = screen.getByTestId(locators.codeWindowContent)
-    expect(errorMessage).toBeInTheDocument()
+    expect(errorMessage).toBeVisible()
     const title = screen.getByText("Something's gone wrong")
-    expect(title).toBeInTheDocument()
+    expect(title).toBeVisible()
+  })
+
+  it('renders generic error message is error is null', () => {
+    render(<ErrorModal error={null} onClose={onCloseMock} />)
+    const errorMessage = screen.getByTestId(locators.codeWindowContent)
+    expect(errorMessage).toBeVisible()
+    const title = screen.getByText("Something's gone wrong")
+    expect(title).toBeVisible()
+    expect(screen.getByText('An unknown error occurred')).toBeVisible()
   })
 
   it('calls onClose when Close button is clicked', () => {

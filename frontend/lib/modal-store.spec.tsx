@@ -40,6 +40,7 @@ describe('ModalStore', () => {
     expect(useModalStore.getState().currentTransactionDetails).toBe(null)
     return expect(promise).resolves.toBe(false)
   })
+  // TODO this should throw an error but until sync across windows is implemented it will not
   it('transaction clears state when promise could not be found', () => {
     useModalStore.setState({
       transactionModalOpen: true,
@@ -75,6 +76,7 @@ describe('ModalStore', () => {
     expect(useModalStore.getState().currentConnectionDetails).toBe(null)
     return expect(promise).resolves.toBe(false)
   })
+  // TODO this should throw an error but until sync across windows is implemented it will not
   it('connection clears state when promise could not be found', () => {
     useModalStore.setState({
       connectionModalOpen: true,

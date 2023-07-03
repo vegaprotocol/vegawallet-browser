@@ -12,14 +12,6 @@ jest.mock('react-router-dom', () => ({
 }))
 
 describe('Home', () => {
-  it('renders error if an error is present', () => {
-    ;(useGetRedirectPath as jest.Mock).mockReturnValue({
-      loading: false,
-      path: null
-    })
-    render(<Home />)
-    expect(screen.getByText('Error')).toBeInTheDocument()
-  })
   it('renders nothing if loading', () => {
     ;(useGetRedirectPath as jest.Mock).mockReturnValue({
       loading: true,

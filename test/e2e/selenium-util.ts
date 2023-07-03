@@ -7,6 +7,78 @@ export async function clickElement(driver: WebDriver, locator: By, timeout: numb
   await element.click()
 }
 
+export async function getWebElementContainingText(
+  desiredText: string,
+  driver: WebDriver,
+  locator: By,
+  timeout: number = defaultTimeoutMillis
+) {
+  const elements = await getElements(driver, locator, timeout)
+  for (const element of elements) {
+    const text = await getWebElementText(driver, element, timeout)
+    if (text.includes(desiredText)) {
+      return element
+    }
+  }
+
+  throw new Error(`Could not find element containing text: ${desiredText}`)
+}
+
+export async function clickDescendantOfWebElement(
+  driver: WebDriver,
+  parentElement: WebElement,
+  descendantLocator: By,
+  timeout: number = defaultTimeoutMillis
+) {
+  await waitForElementToBeReady(driver, descendantLocator, timeout)
+  const descendantElement = await parentElement.findElement(descendantLocator)
+  await clickWebElement(driver, descendantElement, timeout)
+}
+
+export async function clickWebElement(driver: WebDriver, element: WebElement, timeout: number = defaultTimeoutMillis) {
+  await waitForWebElementToBeReady(driver, element, timeout)
+  await element.click()
+}
+
+export async function getWebElementText(
+  driver: WebDriver,
+  element: WebElement,
+  timeout: number = defaultTimeoutMillis
+) {
+  await waitForWebElementToBeReady(driver, element, timeout)
+  return await element.getText()
+}
+
+async function waitForWebElementToBeReady(
+  driver: WebDriver,
+  element: WebElement,
+  timeout: number = defaultTimeoutMillis
+) {
+  await driver.wait(until.elementIsVisible(element), timeout, 'WebElement not visible')
+  await driver.wait(until.elementIsEnabled(element), timeout, 'WebElement not enabled')
+  await waitForWebElementNotStale(driver, element, timeout)
+  return element
+}
+
+async function waitForWebElementNotStale(
+  driver: WebDriver,
+  element: WebElement,
+  timeout: number = defaultTimeoutMillis
+) {
+  await driver.wait(
+    async () => {
+      try {
+        await element.getTagName()
+        return true
+      } catch (error) {
+        return false
+      }
+    },
+    timeout,
+    `Element ${element} is stale`
+  )
+}
+
 export async function getElementText(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   const element = await waitForElementToBeReady(driver, locator, timeout)
   return element.getText()

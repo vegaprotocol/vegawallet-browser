@@ -37,7 +37,10 @@ export const useModalStore = create<ModalStore>()((set, get) => ({
   currentTransactionDetails: null,
   transactionPromise: null,
   handleTransactionDecision: (decision: boolean) => {
-    get().transactionPromise?.[0](decision)
+    const promise = get().transactionPromise
+    if (promise) {
+      promise[0](decision)
+    }
     set({
       transactionPromise: null,
       currentTransactionDetails: null,
@@ -62,7 +65,10 @@ export const useModalStore = create<ModalStore>()((set, get) => ({
   connectionPromise: null,
   connectionModalOpen: false,
   handleConnectionDecision: (decision: boolean) => {
-    get().connectionPromise?.[0](decision)
+    const promise = get().connectionPromise
+    if (promise) {
+      promise[0](decision)
+    }
     set({
       connectionPromise: null,
       currentConnectionDetails: null,

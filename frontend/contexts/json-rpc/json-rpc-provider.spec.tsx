@@ -8,7 +8,6 @@ import { useEffect } from 'react'
 import { useConnectionStore } from '../../stores/connections'
 import { useErrorStore } from '../../stores/error'
 import { mockClient } from '../../test-helpers/mock-client'
-import { ca } from 'date-fns/locale'
 
 jest.mock('../../lib/modal-store')
 jest.mock('../../stores/error')
@@ -331,6 +330,7 @@ describe('JsonRpcProvider', () => {
           }
         }
         run()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [request])
       return <div>Content</div>
     }

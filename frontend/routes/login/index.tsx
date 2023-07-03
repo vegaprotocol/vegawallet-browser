@@ -33,7 +33,6 @@ export const Login = () => {
   }))
   const navigate = useNavigate()
   const passphrase = useWatch({ control, name: 'passphrase' })
-  // TODO decide what to do about error handling here
   const submit = useCallback(
     async (fields: { passphrase: string }) => {
       try {

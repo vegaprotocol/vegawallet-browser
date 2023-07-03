@@ -1,6 +1,7 @@
 import { randomBytes } from 'crypto'
 import { WebDriver } from 'selenium-webdriver'
 import { switchWindowHandles, openNewWindowAndSwitchToIt } from '../selenium-util'
+import { testDAppUrl } from './common'
 
 interface Key {
   index: number
@@ -14,7 +15,7 @@ export class VegaAPI {
   private vegaExtensionWindowHandle: string
   private dappUrl: string
 
-  constructor(driver: WebDriver, dappUrl = 'https://google.co.uk', vegaExtensionWindowHandle = '') {
+  constructor(driver: WebDriver, dappUrl = testDAppUrl, vegaExtensionWindowHandle = '') {
     this.driver = driver
     this.vegaExtensionWindowHandle = vegaExtensionWindowHandle
     this.dappUrl = dappUrl
@@ -76,7 +77,6 @@ export class VegaAPI {
         this.vegaDappWindowHandle,
         'there was no window handle defined for the dapp. Try executing the api method with the withNewTab param set to true'
       ).toBeTruthy()
-      console.log('switching to dapp window with handle', this.vegaDappWindowHandle)
       await this.driver.switchTo().window(this.vegaDappWindowHandle)
     }
 

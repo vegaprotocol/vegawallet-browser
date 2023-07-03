@@ -10,7 +10,6 @@ import { openNewWindowAndSwitchToIt } from './selenium-util'
 import { closeServerAndWait, server } from './wallet-helpers/http-server'
 import test from '../../config/test'
 import { Login } from './page-objects/login'
-import { loginButton } from '../../frontend/locator-ids'
 
 describe('transactions', () => {
   let driver: WebDriver
@@ -35,7 +34,7 @@ describe('transactions', () => {
   beforeEach(async () => {
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
-    vegaAPI = new VegaAPI(driver, await driver.getWindowHandle())
+    vegaAPI = new VegaAPI(driver)
     connectWallet = new ConnectWallet(driver)
     apiHelper = new APIHelper(driver)
     transaction = new Transaction(driver)

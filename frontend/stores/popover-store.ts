@@ -27,7 +27,8 @@ export const createStore = () =>
       focusPopover: () => {
         const { popoverId: popupId } = get()
         if (popupId) {
-          windows.update(popupId, { focused: true, drawAttention: true })
+          windows.remove(popupId)
+          set({ popoverOpen: false, popoverId: null })
         } else {
           throw new Error('Tried to focus popup but none existed')
         }

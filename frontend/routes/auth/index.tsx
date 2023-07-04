@@ -9,13 +9,13 @@ import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { useWalletStore } from '../../stores/wallets'
 
 export const Auth = () => {
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   const { loadWallets } = useWalletStore((state) => ({
     loadWallets: state.loadWallets
   }))
   useEffect(() => {
-    loadWallets(client)
-  }, [client, loadWallets])
+    loadWallets(request)
+  }, [request, loadWallets])
   return (
     <div className="h-full w-full grid grid-rows-[1fr_min-content] overflow-y-auto">
       <ConnectionModal />

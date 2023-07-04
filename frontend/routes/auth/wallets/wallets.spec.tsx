@@ -25,7 +25,8 @@ const mockLoadedState = () => {
           {
             publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
             name: 'Key 1',
-            index: 2147483650
+            index: 2147483650,
+            metadata: []
           }
         ]
       }

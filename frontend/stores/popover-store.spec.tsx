@@ -1,4 +1,4 @@
-import { createStore } from './window-store'
+import { createStore } from './popover-store'
 
 const mockBrowser = () => {
   // @ts-ignore

@@ -9,7 +9,7 @@ import ConcurrentStorage from './lib/concurrent-storage.js'
 import EncryptedStorage from './lib/encrypted-storage.js'
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'
-import config from '@config'
+import config from '@/config'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
@@ -47,7 +47,7 @@ const clientServer = initClient({
 })
 
 const clientPorts = new PortServer({
-  onerror (err) {
+  onerror(err) {
     console.error(err)
   },
   server: clientServer
@@ -88,11 +88,11 @@ runtime.onInstalled.addListener(async () => {
   ])
 })
 
-async function setPending () {
+async function setPending() {
   const pending = interactor.totalPending()
   try {
     if (pending > 0 && popupPorts.ports.size < 1) await action.openPopup()
-  } catch (_) { }
+  } catch (_) {}
   action.setBadgeText({
     text: pending === 0 ? '' : pending.toString()
   })

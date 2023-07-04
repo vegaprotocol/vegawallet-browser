@@ -63,6 +63,9 @@ jobs:
       - name: Test
         run: yarn test:backend:ci
 
+      - name: Format
+        run: yarn format
+
       - name: Test Report
         uses: phoenix-actions/test-reporting@v12
         if: always()

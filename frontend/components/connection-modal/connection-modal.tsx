@@ -1,7 +1,7 @@
 import { Splash } from '../splash'
 import { useCallback, useState } from 'react'
 
-import { useModalStore } from '../../lib/modal-store'
+import { useModalStore } from '../../stores/modal-store'
 import locators from '../locators'
 import { ConnectionSuccess } from './connection-success'
 import { ConnectionDetails } from './connection-details'

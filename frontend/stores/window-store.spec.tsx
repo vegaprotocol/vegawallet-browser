@@ -53,21 +53,21 @@ describe('useWindowStore', () => {
     mockBrowser()
     const windowStore = createStore()
     windowStore.getState().setup()
-    expect(windowStore.getState().popupOpen).toBe(false)
-    expect(windowStore.getState().popupId).toBe(null)
+    expect(windowStore.getState().popoverOpen).toBe(false)
+    expect(windowStore.getState().popoverId).toBe(null)
   })
   it('uses chrome if browser is not defined', () => {
     mockChrome()
     const windowStore = createStore()
     windowStore.getState().setup()
-    expect(windowStore.getState().popupOpen).toBe(false)
-    expect(windowStore.getState().popupId).toBe(null)
+    expect(windowStore.getState().popoverOpen).toBe(false)
+    expect(windowStore.getState().popoverId).toBe(null)
   })
   it('initially sets popupId and popupOpen are falsey', () => {
     mockChrome()
     const windowStore = createStore()
-    expect(windowStore.getState().popupId).toBe(null)
-    expect(windowStore.getState().popupOpen).toBe(false)
+    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().popoverOpen).toBe(false)
   })
 
   it('setup sets up listeners', async () => {

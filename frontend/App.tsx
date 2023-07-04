@@ -4,9 +4,11 @@ import { JsonRPCProvider } from './contexts/json-rpc/json-rpc-provider'
 import GlobalErrorBoundary from './components/global-error-boundary'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'
+import { useEffect, useLayoutEffect, useMemo } from 'react'
+import { usePopoverStore } from './stores/window-store'
 
 function useListenForPopups() {
-  const { setup, teardown } = useWindowStore((state) => ({
+  const { setup, teardown } = usePopoverStore((state) => ({
     setup: state.setup,
     teardown: state.teardown
   }))

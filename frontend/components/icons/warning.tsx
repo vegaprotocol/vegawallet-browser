@@ -4,10 +4,7 @@ import { className as defaultClassName } from './style'
 
 export function Warning({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 16 16"
-      className={classnames(defaultClassName, className)}
-    >
+    <svg viewBox="0 0 16 16" className={classnames(defaultClassName, className)}>
       <path
         d="M15.84,13.5l0.01-0.01l-7-12L8.84,1.5c-0.17-0.3-0.48-0.5-0.85-0.5
 			S7.32,1.2,7.14,1.5c0,0-0.01-0.01-0.01-0.01l-7,12l0.01,0.01c-0.09,0.15-0.15,0.31-0.15,0.5c0,0.55,0.45,1,1,1h14

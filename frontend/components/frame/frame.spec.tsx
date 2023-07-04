@@ -5,9 +5,7 @@ import locators from '../locators'
 describe('Frame', () => {
   it('renders border', () => {
     render(<Frame>Content</Frame>)
-    expect(screen.getByTestId(locators.frame)).toHaveClass(
-      'border border-vega-dark-200 rounded-lg'
-    )
+    expect(screen.getByTestId(locators.frame)).toHaveClass('border border-vega-dark-200 rounded-lg')
   })
 
   it('renders content', () => {

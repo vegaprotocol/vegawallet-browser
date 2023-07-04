@@ -4,10 +4,10 @@ import { create } from 'zustand'
 const getWindows = () => globalThis.browser?.windows ?? globalThis.chrome?.windows
 
 export type WindowStore = {
-  popupOpen: boolean
-  popupId: number | null
+  popoverOpen: boolean
+  popoverId: number | null
 
-  focusPopup: () => void
+  focusPopover: () => void
 
   onCreated: (window: chrome.windows.Window) => void
   onRemoved: (windowId: number) => void
@@ -22,10 +22,10 @@ export const createStore = () =>
   create<WindowStore>()((set, get) => {
     const windows = getWindows()
     return {
-      popupOpen: false,
-      popupId: null,
-      focusPopup: () => {
-        const { popupId } = get()
+      popoverOpen: false,
+      popoverId: null,
+      focusPopover: () => {
+        const { popoverId: popupId } = get()
         if (popupId) {
           windows.update(popupId, { focused: true, drawAttention: true })
         } else {
@@ -33,11 +33,11 @@ export const createStore = () =>
         }
       },
       onCreated: (window) => {
-        set({ popupOpen: true, popupId: window.id })
+        set({ popoverOpen: true, popoverId: window.id })
       },
       onRemoved: (windowId) => {
-        if (get().popupId === windowId) {
-          set({ popupOpen: false, popupId: null })
+        if (get().popoverId === windowId) {
+          set({ popoverOpen: false, popoverId: null })
         }
       },
       setup: async () => {
@@ -51,7 +51,7 @@ export const createStore = () =>
           windowTypes: ['popup']
         })
         if (wins.length === 1) {
-          set({ popupOpen: true, popupId: wins[0].id })
+          set({ popoverOpen: true, popoverId: wins[0].id })
         } else if (wins.length > 1) {
           throw new Error('Multiple popups open, this should not happen')
         }
@@ -60,11 +60,11 @@ export const createStore = () =>
         windows.onCreated.removeListener(get().onCreated)
         windows.onRemoved.removeListener(get().onRemoved)
         set({
-          popupOpen: false,
-          popupId: null
+          popoverOpen: false,
+          popoverId: null
         })
       }
     }
   })
 
-export const useWindowStore = createStore()
+export const usePopoverStore = createStore()

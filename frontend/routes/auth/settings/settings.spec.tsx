@@ -7,7 +7,7 @@ import * as packageJson from '../../../../package.json'
 import { FULL_ROUTES } from '../../../routes/route-names'
 import config from '../../../lib/config'
 
-jest.mock('@config', () => ({
+jest.mock('@/config', () => ({
   ...jest.requireActual('../../../../config/test').default,
   closeWindowOnPopupOpen: true
 }))

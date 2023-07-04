@@ -88,7 +88,7 @@ const frontend = (isProduction, outputPath, walletConfig, analyze) => [
       isProduction && terser(),
       // Replace env vars with static values
       alias({
-        entries: [{ find: '@config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
+        entries: [{ find: '@/config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
       }),
       replace({
         preventAssignment: true,

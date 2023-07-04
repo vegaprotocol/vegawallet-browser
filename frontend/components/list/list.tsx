@@ -21,12 +21,7 @@ export function List<T>({
   return (
     <ul data-testid={locators.list}>
       {items.map((item) => (
-        <ListItem
-          clickable={clickable}
-          key={item[idProp]?.toString()}
-          item={item}
-          renderItem={renderItem}
-        />
+        <ListItem clickable={clickable} key={item[idProp]?.toString()} item={item} renderItem={renderItem} />
       ))}
     </ul>
   )

@@ -30,10 +30,9 @@ body,
 }
 
 @font-face {
-  font-family: "AlphaLyrae";
-  src: url("./AlphaLyrae-Medium.woff2") format("woff2");
+  font-family: 'AlphaLyrae';
+  src: url('./AlphaLyrae-Medium.woff2') format('woff2');
 }
-
 
 .loader-item:nth-child(0) {
   animation-delay: 0ms;
@@ -145,14 +144,14 @@ body,
 @keyframes flickering {
   0% {
     opacity: 1;
- }
+  }
   25% {
     opacity: 1;
- }
+  }
   26% {
     opacity: 0;
- }
+  }
   100% {
     opacity: 0;
- }
+  }
 }

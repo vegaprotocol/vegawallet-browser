@@ -6,13 +6,7 @@ interface Item {
   id: string
 }
 
-const renderComponent = ({
-  items,
-  clickable
-}: {
-  items: Item[]
-  clickable?: boolean
-}) =>
+const renderComponent = ({ items, clickable }: { items: Item[]; clickable?: boolean }) =>
   render(
     <List<Item>
       items={items}

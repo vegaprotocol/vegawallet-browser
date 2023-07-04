@@ -4,13 +4,7 @@ import { Warning } from '../icons/warning'
 import { Splash } from '../splash'
 import locators from '../locators'
 
-export const ErrorModal = ({
-  error,
-  onClose
-}: {
-  error: Error
-  onClose: () => void
-}) => {
+export const ErrorModal = ({ error, onClose }: { error: Error; onClose: () => void }) => {
   return (
     <Splash data-testid={locators.errorModal}>
       <section className="text-center">

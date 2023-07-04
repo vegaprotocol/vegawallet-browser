@@ -1,1 +1,1 @@
-export * from "./copy-with-check";
+export * from './copy-with-check'

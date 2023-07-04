@@ -65,7 +65,6 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
           return { name: w, keys }
         })
       )
-      console.log(res)
       set({ wallets: res })
     } catch (e) {
       set({ error: e?.toString() || 'Something went wrong' })

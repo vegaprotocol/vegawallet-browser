@@ -2,7 +2,7 @@ import { HashRouter as Router } from 'react-router-dom'
 import { Routing } from './routes'
 import { JsonRPCProvider } from './contexts/json-rpc/json-rpc-provider'
 import GlobalErrorBoundary from './components/global-error-boundary'
-import { usePreventWindowResize } from './hooks/prevent-window-reszie'
+import { usePreventWindowResize } from './hooks/prevent-window-resize'
 
 function App() {
   usePreventWindowResize()

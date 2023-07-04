@@ -7,6 +7,7 @@ import JSONRPCServer from '../../../lib/json-rpc-server'
 import { PortServer } from '../../../lib/port-server'
 import { Connection, useConnectionStore } from '../../stores/connections'
 import { RpcMethods } from '../../lib/client-rpc-methods'
+import { log } from '../../lib/logging'
 
 export interface JsonRpcNotification {
   method: string
@@ -29,13 +30,13 @@ const createClient = (notificationHandler: Function) => {
     },
     idPrefix: 'vega-popup-',
     send(msg: any) {
-      console.info('Sending message to background', msg)
+      log('info', 'Sending message to background', msg)
       backgroundPort.postMessage(msg)
     }
   })
   window.client = client
   backgroundPort.onMessage.addListener((res: any) => {
-    console.info('Received message from background', res)
+    log('info', 'Received message from background', res)
     client.onmessage(res)
   })
   return client
@@ -50,12 +51,12 @@ const createServer = (
   const server = new JSONRPCServer({
     methods: {
       async [ServerRpcMethods.Connection](params: any, context: any) {
-        console.info('Message pushed from background', params, context)
+        log('info', 'Message pushed from background', params, context)
         const res = await handleConnection(params)
         return res
       },
       async [ServerRpcMethods.Transaction](params: any, context: any) {
-        console.info('Message pushed from background', params, context)
+        log('info', 'Message pushed from background', params, context)
         const res = await handleTransaction(params)
         return res
       }

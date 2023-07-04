@@ -1,6 +1,9 @@
 import testnet from './testnet'
 
-export default {
+const dev = {
   ...testnet,
+  logging: true,
   sentryDsn: undefined
 }
+
+export default dev

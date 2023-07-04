@@ -16,7 +16,8 @@ const test = {
     iterations: 1
   },
   closeWindowOnPopupOpen: false,
-  sentryDsn: undefined
+  sentryDsn: undefined,
+  logging: false
 }
 
 export default test

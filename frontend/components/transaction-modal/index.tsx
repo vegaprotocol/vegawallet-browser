@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { useModalStore } from '../../lib/modal-store'
+import { useModalStore } from '../../stores/modal-store'
 import { Splash } from '../splash'
 import { CodeWindow } from '../code-window'
 import { Button, truncateMiddle } from '@vegaprotocol/ui-toolkit'

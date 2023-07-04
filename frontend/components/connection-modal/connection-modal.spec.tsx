@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { ConnectionModal } from './connection-modal'
-import { useModalStore } from '../../lib/modal-store'
+import { useModalStore } from '../../stores/modal-store'
 import locators from '../locators'
 import { ConnectionSuccessProps } from './connection-success'
 
-jest.mock('../../lib/modal-store', () => ({
+jest.mock('../../stores/modal-store', () => ({
   useModalStore: jest.fn()
 }))
 

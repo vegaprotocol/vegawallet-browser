@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { useModalStore } from '../../lib/modal-store'
+import { useModalStore } from '../../stores/modal-store'
 import locators from '../locators'
 import { TransactionModal } from '.'
 import { locators as hostImageLocators } from '../../components/host-image'
@@ -30,7 +30,7 @@ const data = {
   receivedAt: new Date('2021-01-01T00:00:00.000Z')
 }
 
-jest.mock('../../lib/modal-store', () => ({
+jest.mock('../../stores/modal-store', () => ({
   useModalStore: jest.fn()
 }))
 

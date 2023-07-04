@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { JsonRPCProvider } from './json-rpc-provider'
 import { useJsonRpcClient } from './json-rpc-context'
-import { useModalStore } from '../../lib/modal-store'
+import { useModalStore } from '../../stores/modal-store'
 import { ServerRpcMethods } from '../../lib/server-rpc-methods'
 import { RpcMethods } from '../../lib/client-rpc-methods'
 import { useEffect } from 'react'
@@ -9,7 +9,7 @@ import { useConnectionStore } from '../../stores/connections'
 import { useErrorStore } from '../../stores/error'
 import { mockClient } from '../../test-helpers/mock-client'
 
-jest.mock('../../lib/modal-store')
+jest.mock('../../stores/modal-store')
 jest.mock('../../stores/error')
 jest.mock('../../stores/connections')
 

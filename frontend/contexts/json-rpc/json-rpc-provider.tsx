@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import { JsonRpcContext } from './json-rpc-context'
-import { ConnectionMessage, TransactionMessage, useModalStore } from '../../lib/modal-store'
+import { ConnectionMessage, TransactionMessage, useModalStore } from '../../stores/modal-store'
 import { ServerRpcMethods } from '../../lib/server-rpc-methods'
 import JSONRPCClient from '../../../lib/json-rpc-client'
 import JSONRPCServer from '../../../lib/json-rpc-server'

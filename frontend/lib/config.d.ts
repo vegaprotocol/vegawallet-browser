@@ -5,6 +5,7 @@ declare module '@config' {
     encryptionSettings: EncryptionSettings
     closeWindowOnPopupOpen: boolean
     sentryDsn: string | undefined
+    logging: boolean
   }
 
   export interface Network {

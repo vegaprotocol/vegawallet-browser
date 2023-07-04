@@ -9,12 +9,13 @@ export const locators = {
 }
 
 export const PopoverOpenModal = () => {
-  const { focusPopover, popoverOpen } = usePopoverStore((state) => ({
+  const { focusPopover, popoverOpen, isPopoverInstance } = usePopoverStore((state) => ({
     popoverOpen: state.popoverOpen,
-    focusPopover: state.focusPopover
+    focusPopover: state.focusPopover,
+    isPopoverInstance: state.isPopoverInstance
   }))
 
-  if (!popoverOpen) return null
+  if (!popoverOpen || isPopoverInstance) return null
   return (
     <Splash data-testid={locators.popoverModal} centered={true}>
       <Frame>

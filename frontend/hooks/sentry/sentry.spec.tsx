@@ -97,11 +97,11 @@ describe('useSentry', () => {
       {
         name: 'name1',
         keys: [
-          { index: 0, name: 'Key 1', publicKey: 'publicKey1' },
-          { index: 1, name: 'Key 2', publicKey: 'publicKey2' }
+          { index: 0, name: 'Key 1', publicKey: 'publicKey1', metadata: [] },
+          { index: 1, name: 'Key 2', publicKey: 'publicKey2', metadata: [] }
         ]
       },
-      { name: 'name2', keys: [{ index: 0, name: 'Key 1', publicKey: 'publicKey3' }] }
+      { name: 'name2', keys: [{ index: 0, name: 'Key 1', publicKey: 'publicKey3', metadata: [] }] }
     ]
     const event = sanitizeEvent(
       {

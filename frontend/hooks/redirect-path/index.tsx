@@ -6,7 +6,7 @@ import { useGlobalsStore } from '../../stores/globals'
 
 export const useGetRedirectPath = () => {
   const { request } = useJsonRpcClient()
-  const { loadGlobals, loading, globals } = useHomeStore((state) => ({
+  const { loadGlobals, loading, globals } = useGlobalsStore((state) => ({
     loadGlobals: state.loadGlobals,
     loading: state.loading,
     globals: state.globals

@@ -16,7 +16,7 @@ const request = () => {
 
 const initialState = useConnectionStore.getState()
 
-describe('ConnectionsStore', () => {
+describe('Store', () => {
   beforeEach(() => {
     useConnectionStore.setState(initialState)
   })

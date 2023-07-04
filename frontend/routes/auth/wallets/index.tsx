@@ -19,7 +19,7 @@ import { useWalletStore, Key } from '../../../stores/wallets'
 export const Wallets = () => {
   const { request } = useJsonRpcClient()
   // Wallet loading is handled in auth, when the user is redirected to the auth page
-  const { wallets, loadWallets, loading, createNewKey } = useWalletStore((store) => ({
+  const { wallets, loading, createNewKey } = useWalletStore((store) => ({
     wallets: store.wallets,
     loading: store.loading,
     createNewKey: store.createKey

@@ -32,7 +32,7 @@ const request = (method: string) => {
 
 const initialState = useWalletStore.getState()
 
-describe('WalletsStore', () => {
+describe('Store', () => {
   beforeEach(() => {
     useWalletStore.setState(initialState)
   })

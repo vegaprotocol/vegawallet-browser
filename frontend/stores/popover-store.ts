@@ -6,6 +6,7 @@ const getWindows = () => globalThis.browser?.windows ?? globalThis.chrome?.windo
 export type WindowStore = {
   popoverOpen: boolean
   popoverId: number | null
+  isPopoverInstance: boolean
 
   focusPopover: () => void
 
@@ -22,6 +23,7 @@ export const createStore = () =>
   create<WindowStore>()((set, get) => {
     const windows = getWindows()
     return {
+      isPopoverInstance: false,
       popoverOpen: false,
       popoverId: null,
       focusPopover: () => {
@@ -48,11 +50,15 @@ export const createStore = () =>
         windows.onRemoved.addListener(get().onRemoved, {
           windowTypes: ['popup']
         })
-        const wins = await windows.getAll({
-          windowTypes: ['popup']
-        })
+        const [wins, currentWindow] = await Promise.all([
+          windows.getAll({
+            windowTypes: ['popup']
+          }),
+          windows.getCurrent()
+        ])
+
         if (wins.length === 1) {
-          set({ popoverOpen: true, popoverId: wins[0].id })
+          set({ popoverOpen: true, popoverId: wins[0].id, isPopoverInstance: wins[0].id === currentWindow.id })
         } else if (wins.length > 1) {
           throw new Error('Multiple popups open, this should not happen')
         }

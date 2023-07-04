@@ -316,7 +316,7 @@ describe('JsonRpcProvider', () => {
     mockConnectionStore()
     const { setError } = mockErrorStore()
 
-    const resolved = jest.fn()
+    let errorCaught = false
     const TestComponent = ({ expect }: { expect: jest.Expect }) => {
       const { request } = useJsonRpcClient()
       useEffect(() => {
@@ -327,7 +327,7 @@ describe('JsonRpcProvider', () => {
           try {
             await req
           } catch (e) {
-            resolved()
+            errorCaught = true
           }
         }
         run()
@@ -340,7 +340,7 @@ describe('JsonRpcProvider', () => {
         <TestComponent expect={expect} />
       </JsonRPCProvider>
     )
-    await waitFor(() => expect(resolved).toBeCalledTimes(1))
+    await waitFor(() => expect(errorCaught).toBe(true))
     expect(setError).toBeCalledTimes(0)
   })
 })

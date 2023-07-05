@@ -25,7 +25,7 @@ methods exposed on `window`/`globalThis`:
 - `await vega.listKeys()`
 - `await vega.sendTransaction({ publicKey, transaction, sendingMode })`
 
-A sample dApp is provided in `[examples/sample-dapp/index.html](https://vegaprotocol.github.io/vegawallet-browser/)`, and is also
+A sample dApp is provided in [examples/sample-dapp/index.html](https://vegaprotocol.github.io/vegawallet-browser/), and is also
 published to Github Pages (see the repo website for a live demo).
 
 Alternatively, end-users can also communicate with the content script directly

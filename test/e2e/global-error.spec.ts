@@ -21,7 +21,7 @@ describe('Global error', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    // await driver.quit()
+    await driver.quit()
   })
 
   it('shows global error page when an unhandled error comes from the backend', async () => {

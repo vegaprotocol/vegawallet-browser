@@ -21,7 +21,6 @@ const transferReq = {
 describe('list connections tests', () => {
   let driver: WebDriver
   let navPanel: NavPanel
-  let connectWallet: ConnectWallet
   let connections: ListConnections
   let firstDapp: VegaAPI
   let secondDapp: VegaAPI

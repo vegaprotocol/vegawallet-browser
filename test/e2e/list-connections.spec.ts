@@ -1,12 +1,11 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
-import { navigateToLandingPage, testDAppUrl } from './wallet-helpers/common'
+import { navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { NavPanel } from './page-objects/navpanel'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { ListConnections } from './page-objects/list-connections'
-import { staticWait } from './selenium-util'
 
 const transferReq = {
   fromAccountType: 4,
@@ -24,13 +23,19 @@ describe('list connections tests', () => {
   let navPanel: NavPanel
   let connectWallet: ConnectWallet
   let connections: ListConnections
+  let firstDapp: VegaAPI
+  let secondDapp: VegaAPI
+  let connectWalletModal: ConnectWallet
 
   beforeEach(async () => {
     driver = await initDriver()
-    await navigateToLandingPage(driver)
     navPanel = new NavPanel(driver)
-    connectWallet = new ConnectWallet(driver)
     const apiHelper = new APIHelper(driver)
+    firstDapp = new VegaAPI(driver)
+    secondDapp = new VegaAPI(driver, 'https://vega.xyz')
+    connectWalletModal = new ConnectWallet(driver)
+
+    await navigateToLandingPage(driver)
     await apiHelper.setUpWalletAndKey()
     await navigateToLandingPage(driver)
     connections = await navPanel.goToListConnections()
@@ -45,18 +50,16 @@ describe('list connections tests', () => {
   it('shows no connections when no dapp connected, updates and shows connections after approving one or more', async () => {
     // 1109-VCON-001 I can see which dapps have permission to access my keys
     // 1109-VCON-008 If I have the extension open on the Connections view AND I approve a request to connect to a dapp (and the connection is successful), the connections view should update to show the new connection
-    const firstDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
-    const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(1)
     let connectionNames = await connections.getConnectionNames()
     expect(connectionNames[0]).toContain('https://vegaprotocol')
 
-    const secondDapp = new VegaAPI(driver, 'https://vega.xyz')
     await secondDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(2)
+
     connectionNames = await connections.getConnectionNames()
     expect(
       connectionNames.some((name) => name.includes('https://vegaprotocol')),
@@ -68,16 +71,12 @@ describe('list connections tests', () => {
     ).toBe(true)
   })
 
-  it('allows disconnecting of a dapp', async () => {
+  it('allows disconnecting of a dapp, check disconnected dapps cannot send a transaction without reconnecting', async () => {
     // TODO open multiple instances of first dApp and ensure both are disconnected
     // 1109-VCON-006 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
-
-    const firstDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
-    const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
 
-    const secondDapp = new VegaAPI(driver, 'https://vega.xyz')
     await secondDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(2)
@@ -89,28 +88,22 @@ describe('list connections tests', () => {
     let connectionNames = await connections.getConnectionNames()
     expect(connectionNames[0]).toContain('https://vega.xyz')
 
-    // Check that the disconnected dapp cannot send a transaction
     await firstDapp.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     const res = await firstDapp.getTransactionResult()
     expect(res).toBe('Not connected')
 
-    // Check the first dApp needs to reconnect
     await firstDapp.connectWallet(false)
-    await connectWallet.checkOnConnectWallet()
-    await connectWallet.denyConnection()
+    await connectWalletModal.checkOnConnectWallet()
+    await connectWalletModal.denyConnection()
 
-    // // Check the second dApp does not need to reconnect
     await secondDapp.connectWallet(false)
     await connections.checkOnListConnectionsPage()
   })
 
   it('disconnects all instances of a dapp when I have more than one instance when I click disonnect', async () => {
-    const firstDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
-    const connectWalletModal = new ConnectWallet(driver)
     await connectWalletModal.approveConnectionAndCheckSuccess()
 
-    const secondDapp = new VegaAPI(driver)
     await secondDapp.connectWallet()
     await connections.checkOnListConnectionsPage()
     await connections.checkNumConnections(1)

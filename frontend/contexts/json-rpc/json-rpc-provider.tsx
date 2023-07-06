@@ -108,6 +108,7 @@ const useCreateClient = () => {
     },
     [client, setError]
   )
+  window.request = request
 
   return {
     client,

@@ -5,6 +5,7 @@ declare global {
   interface Window {
     client: JSONRPCClient
     server: JSONRPCServer
+    request: SendMessage
     vega: any
     sendTransactionResult: any
     connectWalletResult: any

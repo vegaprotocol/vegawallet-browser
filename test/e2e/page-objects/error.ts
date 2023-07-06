@@ -1,11 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import {
-  clickElement,
-  getByDataTestID,
-  isElementDisplayed,
-  waitForElementToBeReady,
-  waitForElementToDisappear
-} from '../selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
 import { locators } from '../../../frontend/components/error-modal'
 
 export class ErrorModal {

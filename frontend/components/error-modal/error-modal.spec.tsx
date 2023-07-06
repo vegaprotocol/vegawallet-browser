@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { ErrorModal } from '.'
-import locators from '../locators'
+import { ErrorModal, locators } from '.'
+import componentLocators from '../locators'
 
 describe('ErrorModal', () => {
   const error = new Error('Test error')
@@ -8,7 +8,7 @@ describe('ErrorModal', () => {
 
   it('renders error message', () => {
     render(<ErrorModal error={error} onClose={onCloseMock} />)
-    const errorMessage = screen.getByTestId(locators.codeWindowContent)
+    const errorMessage = screen.getByTestId(componentLocators.codeWindowContent)
     expect(errorMessage).toBeVisible()
     const title = screen.getByText("Something's gone wrong")
     expect(title).toBeVisible()
@@ -16,7 +16,7 @@ describe('ErrorModal', () => {
 
   it('renders generic error message is error is null', () => {
     render(<ErrorModal error={null} onClose={onCloseMock} />)
-    const errorMessage = screen.getByTestId(locators.codeWindowContent)
+    const errorMessage = screen.getByTestId(componentLocators.codeWindowContent)
     expect(errorMessage).toBeVisible()
     const title = screen.getByText("Something's gone wrong")
     expect(title).toBeVisible()

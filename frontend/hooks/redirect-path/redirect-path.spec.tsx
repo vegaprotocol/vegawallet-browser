@@ -100,7 +100,6 @@ describe('RedirectPath', () => {
     expect(view.path).toBe(FULL_ROUTES.telemetry)
   })
 
-
   it('returns no path if loading', async () => {
     const view = renderRedirectHook(
       {

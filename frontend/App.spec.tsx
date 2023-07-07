@@ -10,11 +10,13 @@ jest.mock('./hooks/ping')
 jest.mock('./components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
   <div data-testid="global-error-boundary">{children}</div>
 ))
-jest.mock('./stores/window-store', () => ({
-  useWindowStore: () => ({
-    setup: jest.fn(),
-    teardown: jest.fn()
-  })
+jest.mock('./stores/popover-store', () => ({
+  usePopoverStore: (fn: any) => {
+    return fn({
+      setup: jest.fn(),
+      teardown: jest.fn()
+    })
+  }
 }))
 
 

@@ -13,7 +13,8 @@ const mockBrowser = () => {
         addListener: jest.fn(),
         removeListener: jest.fn()
       },
-      getAll: jest.fn().mockReturnValue([])
+      getAll: jest.fn().mockReturnValue([]),
+      getCurrent: jest.fn().mockReturnValue({ id: 1 })
     }
   }
 }
@@ -32,7 +33,8 @@ const mockChrome = () => {
         addListener: jest.fn(),
         removeListener: jest.fn()
       },
-      getAll: jest.fn().mockReturnValue([])
+      getAll: jest.fn().mockReturnValue([]),
+      getCurrent: jest.fn().mockReturnValue({ id: 1 })
     }
   }
 }

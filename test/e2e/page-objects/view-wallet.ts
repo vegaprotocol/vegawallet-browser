@@ -8,12 +8,11 @@ import {
   waitForChildElementsCount
 } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
-import { walletsCreateKey } from '../../../frontend/locator-ids'
+import { locators as walletLocators } from '../../../frontend/routes/auth/wallets'
 
 export class ViewWallet {
-  private readonly viewWalletsHeader: By = getByDataTestID(locators.viewWalletsHeader)
-  private readonly walletName: By = getByDataTestID(locators.walletsWalletName)
-  private readonly createNewKeyPairButton: By = getByDataTestID(locators.walletsCreateKey)
+  private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
+  private readonly createNewKeyPairButton: By = getByDataTestID(walletLocators.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly networkIndicator: By = getByDataTestID(locators.networkIndicator)
   private readonly copyIcon: By = getByDataTestID('copy-icon')
@@ -27,7 +26,7 @@ export class ViewWallet {
 
   async getWalletKeys() {
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(locators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(walletLocators.walletsKeyName))
     const keys: string[] = []
     for (const key of keyElements) {
       keys.push(await key.getText())
@@ -37,7 +36,7 @@ export class ViewWallet {
 
   async waitForExpectedNumberOfKeys(expectedNumber: number) {
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(locators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(walletLocators.walletsKeyName))
     expect(keyElements.length).toBe(expectedNumber)
   }
 
@@ -51,9 +50,9 @@ export class ViewWallet {
 
   async createNewKeyPair() {
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(locators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(walletLocators.walletsKeyName))
     await clickElement(this.driver, this.createNewKeyPairButton)
-    await waitForChildElementsCount(this.driver, getByDataTestID(locators.walletsKeyName), keyElements.length + 1)
+    await waitForChildElementsCount(this.driver, getByDataTestID(walletLocators.walletsKeyName), keyElements.length + 1)
   }
 
   async copyPublicKeyToClipboard() {

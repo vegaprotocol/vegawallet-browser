@@ -14,7 +14,7 @@ export const ConnectionDetails = ({
 }) => {
   return (
     <div data-testid={locators.connectionModalApprove}>
-      <ConnectionHeader hostname={hostname} title="Connected to dapp" />
+      <ConnectionHeader hostname={hostname} title="Connect to dapp" />
       <Frame>
         <p className="text-vega-dark-300 mb-3" data-testid={locators.connectionModalAccessListTitle}>
           Allow this site to:

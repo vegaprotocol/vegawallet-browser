@@ -10,7 +10,7 @@ describe('ConnectionDetails', () => {
     // 1103-CONN-004 I can see the URL of the site / dapp requesting access
     // 1103-CONN-006 There is a way to understand that i.e. this connection request gives access to ALL my keys now and in the future
     render(<ConnectionDetails handleDecision={() => {}} hostname="https://www.google.com" />)
-    expect(screen.getByTestId(locators.modalHeaderTitle)).toHaveTextContent('Connected to dapp')
+    expect(screen.getByTestId(locators.modalHeaderTitle)).toHaveTextContent('Connect to dapp')
     expect(screen.getByTestId(locators.dAppHostname)).toHaveTextContent('https://www.google.com')
     expect(screen.getByTestId(hostImageLocators.hostImage)).toBeVisible()
     expect(screen.getByTestId(locators.connectionModalAccessListTitle)).toHaveTextContent('Allow this site to:')

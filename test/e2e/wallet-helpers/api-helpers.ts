@@ -69,6 +69,17 @@ export class APIHelper {
     })
   }
 
+  async setTelemetry(optIn: boolean = false) {
+    return await this.driver.executeScript<string>(
+      async (optIn: boolean, rpcMethod: string) => {
+        const resp = await window.client.request(rpcMethod, { telemetry: optIn })
+        return resp
+      },
+      optIn,
+      RpcMethods.UpdateSettings
+    )
+  }
+
   async createKey(walletName: string, keyName: string) {
     return await this.driver.executeScript<string>(
       async (walletName: string, keyName: string, rpcMethod: string) => {
@@ -118,6 +129,11 @@ export class APIHelper {
 
     resp = await this.login(passphrase)
     expect(resp, `expected to login via the api but the response was not null, instead it was: ${resp}`, {
+      showPrefix: false
+    }).toBe(null)
+
+    resp = await this.setTelemetry(false)
+    expect(resp, `telemetry api response was not null, instead it was: ${resp}`, {
       showPrefix: false
     }).toBe(null)
   }

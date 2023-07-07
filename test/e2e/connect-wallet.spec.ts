@@ -9,6 +9,7 @@ import { NavPanel } from './page-objects/navpanel'
 import { GetStarted } from './page-objects/get-started'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
+import { Telemetry } from './page-objects/telemetry-opt-in'
 
 describe('Connect wallet', () => {
   let driver: WebDriver
@@ -16,12 +17,14 @@ describe('Connect wallet', () => {
   let vegaAPI: VegaAPI
   let connectWallet: ConnectWallet
   let apiHelper: APIHelper
+  let telemetry: Telemetry
 
   beforeEach(async () => {
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
     vegaAPI = new VegaAPI(driver, await driver.getWindowHandle())
     connectWallet = new ConnectWallet(driver)
+    telemetry = new Telemetry(driver)
     apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
   })
@@ -94,6 +97,7 @@ describe('Connect wallet', () => {
     await creatWallet.createNewWallet()
     const secureYouWallet = new SecureYourWallet(driver)
     await secureYouWallet.revealRecoveryPhrase(true)
+    await telemetry.optOut()
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
   })

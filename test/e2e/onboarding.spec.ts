@@ -8,6 +8,7 @@ import { ViewWallet } from './page-objects/view-wallet'
 import { defaultPassword, navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { validRecoveryPhrase } from './wallet-helpers/common'
+import { Telemetry } from './page-objects/telemetry-opt-in'
 
 const incorrectRecoveryPhrase =
   'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic bob'
@@ -19,6 +20,7 @@ describe('Onboarding', () => {
   let secureYourWallet: SecureYourWallet
   let createAWallet: CreateAWallet
   let viewWallet: ViewWallet
+  let telemetry: Telemetry
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -27,6 +29,7 @@ describe('Onboarding', () => {
     secureYourWallet = new SecureYourWallet(driver)
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
+    telemetry = new Telemetry(driver)
     await navigateToLandingPage(driver)
     await getStarted.getStarted()
   })
@@ -38,16 +41,17 @@ describe('Onboarding', () => {
 
   it('can create a new wallet and remember that a wallet has been created when I navigate back to the landing page', async () => {
     // 1101-ONBD-007 I can submit the password I entered
-    await password.createPassword()
     // 1101-ONBD-008 When I have submitted my new password, I am taken to the next step
     // 1101-ONBD-012 I can choose to create a wallet
     // 1101-ONBD-021 I am given feedback that my wallet was successfully created
     // 1101-ONBD-024 The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" #
     // 1101-ONBD-025 When I have already created a wallet, I am redirected to the landing page where I can view that wallet
     // 1101-ONBD-014 I am given visual feedback that my wallet was successfully created
+    await password.createPassword()
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
     await secureYourWallet.checkCreateWalletSuccessful()
+    await telemetry.optIn()
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
     await navigateToLandingPage(driver)
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
@@ -66,6 +70,7 @@ describe('Onboarding', () => {
     const importWallet = await createAWallet.importWallet()
     await importWallet.fillInRecoveryPhraseAndSubmit(validRecoveryPhrase)
     await importWallet.checkImportWalletSuccessful()
+    await telemetry.optOut()
     await viewWallet.checkOnViewWalletPage()
   })
 
@@ -79,6 +84,7 @@ describe('Onboarding', () => {
     const errorText = await importWallet.getErrorMessageText()
     expect(errorText).toBeTruthy() //Improve this assertion before merging! Once validation is added.
     await importWallet.fillInRecoveryPhraseAndSubmit(validRecoveryPhrase)
+    await telemetry.optOut()
     await viewWallet.checkOnViewWalletPage()
   })
 

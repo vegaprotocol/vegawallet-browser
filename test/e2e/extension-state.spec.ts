@@ -10,6 +10,7 @@ import { APIHelper } from './wallet-helpers/api-helpers'
 import { NavPanel } from './page-objects/navpanel'
 import { Login } from './page-objects/login'
 import { switchWindowHandles, openNewWindowAndSwitchToIt } from './selenium-util'
+import { Telemetry } from './page-objects/telemetry-opt-in'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
@@ -20,6 +21,7 @@ describe('Check correct app state persists after closing the extension', () => {
   let viewWallet: ViewWallet
   let apiHelper: APIHelper
   let loginPage: Login
+  let telemetry: Telemetry
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -30,6 +32,7 @@ describe('Check correct app state persists after closing the extension', () => {
     viewWallet = new ViewWallet(driver)
     apiHelper = new APIHelper(driver)
     loginPage = new Login(driver)
+    telemetry = new Telemetry(driver)
     await navigateToLandingPage(driver)
   })
 
@@ -81,6 +84,13 @@ describe('Check correct app state persists after closing the extension', () => {
     await navigateToLandingPage(driver)
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
+    await telemetry.checkOnTelemetryPage()
+
+    await switchToNewWindow()
+    await telemetry.checkOnTelemetryPage()
+
+    await switchWindowHandles(driver)
+    await telemetry.optOut()
     await viewWallet.checkOnViewWalletPage()
 
     await switchToNewWindow()

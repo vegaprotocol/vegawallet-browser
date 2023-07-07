@@ -15,7 +15,7 @@ export class ErrorModal {
   async checkOnErrorPage() {
     expect(
       await isElementDisplayed(this.driver, this.errorPage),
-      "expected to be on the connect wallet page but couldn't find the approve button",
+      "expected to be on the error page but couldn't find error modal container",
       { showPrefix: false }
     ).toBe(true)
   }

@@ -15,31 +15,13 @@ export const useGetRedirectPath = () => {
     loadGlobals(request)
   }, [request, loadGlobals])
 
-<<<<<<< main
   // If loading then we do not know where to redirect to yet
-  if (loading) {
+  if (loading || !globals) {
     return {
       loading: true,
-      path: null
-    }
-  } else if (!globals?.passphrase) {
-=======
-  if (error) {
-    // If there is an error handle this case
-    return {
-      loading: false,
-      error: error,
-      path: null
-    }
-  } else if (loading || !globals) {
-    // If loading then we do not know where to redirect to yet
-    return {
-      loading: true,
-      error: null,
       path: null
     }
   } else if (!globals.passphrase) {
->>>>>>> test: add tests for mising cases
     // If the user has no passphrase set redirect to the get started page
     return {
       loading: false,

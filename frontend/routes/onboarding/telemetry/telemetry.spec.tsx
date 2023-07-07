@@ -7,21 +7,18 @@ import { RpcMethods } from '../../../lib/client-rpc-methods'
 
 const mockLoadGlobals = jest.fn()
 
-jest.mock('../../home/store', () => ({
-  useHomeStore: jest.fn((fn) => {
-    fn({})
-    return {
+jest.mock('../../../stores/globals', () => ({
+  useGlobalsStore: jest.fn((fn) => {
+    return fn({
       loadGlobals: mockLoadGlobals
-    }
+    })
   })
 }))
 
-const mockedClient = {
-  request: jest.fn()
-}
+const mockedRequest = jest.fn()
 
 jest.mock('../../../contexts/json-rpc/json-rpc-context', () => ({
-  useJsonRpcClient: () => ({ client: mockedClient })
+  useJsonRpcClient: () => ({ request: mockedRequest })
 }))
 
 const mockedUsedNavigate = jest.fn()
@@ -65,8 +62,8 @@ describe('Telemetry', () => {
     fireEvent.click(screen.getByTestId(locators.reportBugsAndCrashes))
     await waitFor(() => expect(screen.getByTestId(locators.reportBugsAndCrashes)).toBeEnabled())
     expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.wallets)
-    expect(mockedClient.request).toHaveBeenCalledWith(RpcMethods.UpdateSettings, { telemetry: true })
-    expect(mockedClient.request).toBeCalledTimes(1)
+    expect(mockedRequest).toHaveBeenCalledWith(RpcMethods.UpdateSettings, { telemetry: true })
+    expect(mockedRequest).toBeCalledTimes(1)
     expect(mockLoadGlobals).toHaveBeenCalled()
   })
 
@@ -75,8 +72,8 @@ describe('Telemetry', () => {
     fireEvent.click(screen.getByTestId(locators.noThanks))
     await waitFor(() => expect(screen.getByTestId(locators.noThanks)).toBeEnabled())
     expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.wallets)
-    expect(mockedClient.request).toHaveBeenCalledWith(RpcMethods.UpdateSettings, { telemetry: false })
-    expect(mockedClient.request).toBeCalledTimes(1)
+    expect(mockedRequest).toHaveBeenCalledWith(RpcMethods.UpdateSettings, { telemetry: false })
+    expect(mockedRequest).toBeCalledTimes(1)
     expect(mockLoadGlobals).toHaveBeenCalled()
   })
 })

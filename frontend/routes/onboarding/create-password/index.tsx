@@ -2,7 +2,7 @@ import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Page } from '../../../components/page'
 import { useForm, useWatch } from 'react-hook-form'
 import { Validation } from '../../../lib/form-validation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
@@ -24,7 +24,6 @@ export const CreatePassword = () => {
     control,
     register,
     handleSubmit,
-    setFocus,
     formState: { errors }
   } = useForm<FormFields>()
   const navigate = useNavigate()
@@ -44,10 +43,6 @@ export const CreatePassword = () => {
     [request, navigate]
   )
 
-  useEffect(() => {
-    setFocus('password')
-  }, [setFocus])
-
   return (
     <Page name="Create Password" backLocation={FULL_ROUTES.getStarted}>
       <>
@@ -58,6 +53,7 @@ export const CreatePassword = () => {
         <form onSubmit={handleSubmit(submit)}>
           <FormGroup label="Password" labelFor="password" className="mb-6">
             <Input
+              autoFocus
               id="password"
               placeholder="Enter a password"
               data-testid={passphraseInput}

@@ -1,7 +1,7 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../lib/form-validation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
@@ -25,7 +25,6 @@ export const Login = () => {
     register,
     handleSubmit,
     setError,
-    setFocus,
     formState: { errors }
   } = useForm<FormFields>()
   const { loadGlobals } = useGlobalsStore((state) => ({
@@ -52,15 +51,13 @@ export const Login = () => {
     },
     [request, loadGlobals, navigate, setError, setLoading]
   )
-  useEffect(() => {
-    setFocus('passphrase')
-  }, [setFocus])
   return (
     <StarsWrapper>
       <VegaHeader />
       <form className="text-left" onSubmit={handleSubmit(submit)}>
         <FormGroup label="Password" labelFor="passphrase">
           <Input
+            autoFocus
             hasError={!!errors.passphrase?.message}
             data-testid={loginPassphrase}
             type="password"

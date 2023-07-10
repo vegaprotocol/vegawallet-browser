@@ -26,7 +26,7 @@ describe('TelemetrySection', () => {
       })
     })
     render(<TelemetrySection />)
-    const headerElement = screen.getByText('Vega wallet version')
+    const headerElement = screen.getByText('Report bugs and crashes')
     expect(headerElement).toBeInTheDocument()
   })
 

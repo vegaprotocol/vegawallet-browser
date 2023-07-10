@@ -13,6 +13,7 @@ export const CreateWallet = () => {
       </div>
       <h1 className="text-2xl text-white pb-6">Create a wallet</h1>
       <Button
+        autoFocus
         data-testid={createNewWalletButton}
         onClick={() => {
           navigate(FULL_ROUTES.saveMnemonic)

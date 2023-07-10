@@ -75,6 +75,7 @@ export const Telemetry = () => {
         </ExternalLink>
         <form onSubmit={handleSubmit(() => submit(true))} className="mt-8">
           <Button
+            autoFocus
             data-testid={locators.reportBugsAndCrashes}
             disabled={loading}
             fill={true}

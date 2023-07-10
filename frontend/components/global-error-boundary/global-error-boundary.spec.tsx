@@ -61,7 +61,7 @@ describe('GlobalErrorBoundary', () => {
   })
 
   it('renders error modal when there is an async error', () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {})
+    silenceErrors()
     render(
       <MemoryRouter>
         <GlobalErrorBoundary>

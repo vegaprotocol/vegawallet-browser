@@ -40,18 +40,8 @@ export const TelemetrySection = () => {
       </p>
       <form>
         <RadioGroup onChange={handleChange} value={globals.settings.telemetry.toString()}>
-          <Radio
-            disabled={loading}
-            id= {locators.settingsTelemetryYes}
-            label="Yes"
-            value="true"
-          />
-          <Radio
-            disabled={loading}
-            id={locators.settingsTelemetryNo}
-            label="No"
-            value="false"
-          />
+          <Radio disabled={loading} id={locators.settingsTelemetryYes} label="Yes" value="true" />
+          <Radio disabled={loading} id={locators.settingsTelemetryNo} label="No" value="false" />
         </RadioGroup>
       </form>
       <ExternalLink data-testid={locators.settingsDataPolicy} className="text-white mt-4" href={config.userDataPolicy}>

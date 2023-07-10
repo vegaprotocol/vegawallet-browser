@@ -43,8 +43,8 @@ describe('Telemetry', () => {
     jest.clearAllMocks()
   })
   it('renders description, scope of data, user data policy and buttons', () => {
-    // I can see an explanation of what I am being asked to opt in/out to and why
-    // I can click a link to read more details about vega user data policy
+    // 1111-TELE-001 I can see an explanation of what I am being asked to opt in/out to and why
+    // 1111-TELE-002 I can click a link to read more details about vega user data policy
     renderComponent()
     expect(screen.getByTestId(locators.description)).toHaveTextContent(
       'Improve Vega Wallet by automatically reporting bugs and crashes.'

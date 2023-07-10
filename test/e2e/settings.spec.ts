@@ -7,14 +7,13 @@ import { switchWindowHandles } from './selenium-util'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { Transaction } from './page-objects/transaction'
 import { ConnectWallet } from './page-objects/connect-wallet'
-import { ViewWallet } from './page-objects/view-wallet'
 import { Settings } from './page-objects/settings'
+import { ExtensionHeader } from './page-objects/extension-header'
 
 describe('Settings test', () => {
   let driver: WebDriver
   let connectWalletModal: ConnectWallet
   let navPanel: NavPanel
-  let viewWallet: ViewWallet
   let settingsPage: Settings
   let transaction: Transaction
 
@@ -37,7 +36,6 @@ describe('Settings test', () => {
     await navigateToLandingPage(driver)
     connectWalletModal = new ConnectWallet(driver)
     navPanel = new NavPanel(driver)
-    viewWallet = new ViewWallet(driver)
     transaction = new Transaction(driver)
     settingsPage = await navPanel.goToSettings()
   })
@@ -65,7 +63,8 @@ describe('Settings test', () => {
 
     await vegaAPI.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    const popoutWindowHandle = await settingsPage.openAppInNewWindowAndSwitchToIt()
+    const header = new ExtensionHeader(driver)
+    const popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
     await settingsPage.checkOnSettingsPage()
 
     const keys = await vegaAPI.listKeys()

@@ -1,17 +1,17 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
-import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import test from '../../config/test'
+import { ExtensionHeader } from './page-objects/extension-header'
 
 describe('Network tests', () => {
   let driver: WebDriver
-  let viewWallet: ViewWallet
+  let extensionHeader: ExtensionHeader
 
   beforeEach(async () => {
     driver = await initDriver()
-    viewWallet = new ViewWallet(driver)
+    extensionHeader = new ExtensionHeader(driver)
     await navigateToLandingPage(driver)
     const apiHelper = new APIHelper(driver)
     await apiHelper.setUpWalletAndKey()
@@ -26,7 +26,7 @@ describe('Network tests', () => {
   it('defaults to the fairground network', async () => {
     // 1108-NTWK-001 The browser wallet defaults to use the network declared in config
     // 1108-NTWK-002 I can see which vega network the browser wallet is connected to from the view wallet page
-    const connectedNetwork = await viewWallet.getNetworkConnectedTo()
+    const connectedNetwork = await extensionHeader.getNetworkConnectedTo()
     expect(connectedNetwork.toLowerCase()).toBe(test.network.name.toLowerCase())
   })
 })

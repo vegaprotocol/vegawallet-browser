@@ -34,7 +34,7 @@ export const TelemetrySection = () => {
 
   return (
     <SettingsSection>
-      <SettingsHeader text="Vega wallet version" />
+      <SettingsHeader text="Report bugs and crashes" />
       <p data-testid={locators.settingsDescription} className="my-4">
         Improve Vega Wallet by automatically reporting bugs and crashes.
       </p>

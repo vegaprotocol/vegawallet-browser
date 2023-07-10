@@ -54,6 +54,7 @@ describe('Check correct app state persists after closing the extension', () => {
     // 1110-RMST-001 There is a way to determine if user has onboarded
     // 1101-ONBD-009 When I have submitted my new password, I can NOT go back to the previous step
     // 1110-RMST-002 I want to see the previous page I was on or my wallet page by default
+    // 1111-TELE-009 If I leave the app during onboarding I am taken back to the telemetry page
     await getStarted.getStarted()
     await password.createPassword('Password', 'password')
 

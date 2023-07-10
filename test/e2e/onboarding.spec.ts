@@ -47,6 +47,7 @@ describe('Onboarding', () => {
     // 1101-ONBD-024 The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" #
     // 1101-ONBD-025 When I have already created a wallet, I am redirected to the landing page where I can view that wallet
     // 1101-ONBD-014 I am given visual feedback that my wallet was successfully created
+    // 1111-TELE-003 I can opt in to reporting bugs and crashes
     await password.createPassword()
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
@@ -63,6 +64,7 @@ describe('Onboarding', () => {
     // 1101-ONBD-032 I can submit the recovery phrase I have entered to import the wallet
     // 1101-ONBD-035 I am redirected to the next step
     // 1101-ONBD-015 I am given visual feedback that my wallet was successfully imported
+    // 1111-TELE-004 I can opt out of reporting bugs and crashes
     const apiHelper = new APIHelper(driver)
     await navigateToLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()

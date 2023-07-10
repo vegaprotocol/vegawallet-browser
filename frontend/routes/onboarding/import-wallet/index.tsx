@@ -1,6 +1,6 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { Page } from '../../../components/page'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FormGroup, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../../lib/form-validation'
@@ -23,7 +23,6 @@ export const ImportWallet = () => {
     control,
     register,
     handleSubmit,
-    setFocus,
     setError,
     formState: { errors }
   } = useForm<FormFields>({
@@ -45,9 +44,6 @@ export const ImportWallet = () => {
     [request, setError]
   )
   const mnemonic = useWatch({ control, name: 'mnemonic' })
-  useEffect(() => {
-    setFocus('mnemonic')
-  }, [setFocus])
   if (showSuccess)
     return (
       <WalletImported

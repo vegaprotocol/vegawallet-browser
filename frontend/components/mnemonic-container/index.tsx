@@ -18,8 +18,7 @@ export const MnemonicContainer = ({ mnemonic, onChange }: { mnemonic: string; on
         <CopyWithCheckmark text={mnemonic} iconSide="left">
           Copy to clipboard
         </CopyWithCheckmark>
-        <div
-          role="button"
+        <button
           onClick={() => {
             setShowMnemonic(false)
             onChange(false)
@@ -28,13 +27,13 @@ export const MnemonicContainer = ({ mnemonic, onChange }: { mnemonic: string; on
         >
           <Hide />
           <span className="ml-3">Hide</span>
-        </div>
+        </button>
       </div>
     </div>
   ) : (
-    <div
+    <button
+      autoFocus
       data-testid={locators.mnemonicContainerHidden}
-      role="button"
       onClick={() => {
         setShowMnemonic(true)
         onChange(true)
@@ -45,6 +44,6 @@ export const MnemonicContainer = ({ mnemonic, onChange }: { mnemonic: string; on
         <Show />
         Reveal recovery phrase
       </div>
-    </div>
+    </button>
   )
 }

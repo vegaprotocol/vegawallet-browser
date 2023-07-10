@@ -15,13 +15,13 @@ export const locators = {
 }
 
 export const LockSection = () => {
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
   const navigate = useNavigate()
   const { handleSubmit: handleLock } = useForm()
   const lock = useCallback(async () => {
-    await client.request(RpcMethods.Lock, null)
+    await request(RpcMethods.Lock, null)
     navigate(FULL_ROUTES.login)
-  }, [client, navigate])
+  }, [request, navigate])
   return (
     <SettingsSection>
       <form className="pb-6" onSubmit={handleLock(lock)}>

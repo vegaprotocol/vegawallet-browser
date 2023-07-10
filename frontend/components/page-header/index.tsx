@@ -12,14 +12,14 @@ export const locators = {
 }
 
 const useOpenInNewWindow = () => {
-  const { client } = useJsonRpcClient()
+  const { request } = useJsonRpcClient()
 
   return useCallback(async () => {
-    await client.request(RpcMethods.OpenPopout, null)
+    await request(RpcMethods.OpenPopout, null)
     if (config.closeWindowOnPopupOpen) {
       window.close()
     }
-  }, [client])
+  }, [request])
 }
 
 export const PageHeader = () => {

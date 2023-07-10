@@ -27,11 +27,13 @@ export const GetStarted = () => {
         </ul>
       </Frame>
       <Button
-        data-testid={getStartedButton}
-        variant="primary"
+        autoFocus
         onClick={() => {
           navigate(FULL_ROUTES.createPassword)
         }}
+        type="submit"
+        data-testid={getStartedButton}
+        variant="primary"
         fill={true}
       >
         Get Started

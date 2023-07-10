@@ -66,6 +66,7 @@ export const ImportWallet = () => {
         <form onSubmit={handleSubmit(submit)}>
           <FormGroup label="" labelFor="mnemonic" className="mb-6">
             <TextArea
+              autoFocus
               data-testid={importMnemonic}
               hasError={!!errors.mnemonic?.message}
               placeholder="24 word recovery phrase"

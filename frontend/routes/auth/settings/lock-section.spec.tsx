@@ -8,9 +8,7 @@ const mockRequest = jest.fn()
 const mockNavigate = jest.fn()
 jest.mock('../../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
-    client: {
-      request: mockRequest
-    }
+    request: mockRequest
   })
 }))
 

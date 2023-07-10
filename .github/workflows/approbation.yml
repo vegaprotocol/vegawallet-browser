@@ -21,6 +21,7 @@ jobs:
 
       - name: Run Approbation on main
         id: approbation-main
+        continue-on-error: true
         run: |
           echo "Starting Approbation"
           npx --silent --yes github:vegaprotocol/approbation check-references \

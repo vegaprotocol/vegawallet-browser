@@ -102,7 +102,7 @@ export class APIHelper {
     }).toBe(null)
   }
 
-  async setUpWalletAndKey(passphrase = 'password1', walletName = 'Wallet 1', keyName = 'Key 1') {
+  async setUpWalletAndKey(passphrase = 'password1', walletName = 'Wallet 1', keyName = 'Key 1', telemetryOptIn = false) {
     let resp: any
     await this.createPassphraseAndCheckSuccess(passphrase)
 
@@ -132,7 +132,7 @@ export class APIHelper {
       showPrefix: false
     }).toBe(null)
 
-    resp = await this.setTelemetry(false)
+    resp = await this.setTelemetry(telemetryOptIn)
     expect(resp, `telemetry api response was not null, instead it was: ${resp}`, {
       showPrefix: false
     }).toBe(null)

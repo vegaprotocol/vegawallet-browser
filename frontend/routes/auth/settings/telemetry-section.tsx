@@ -41,16 +41,14 @@ export const TelemetrySection = () => {
       <form>
         <RadioGroup onChange={handleChange} value={globals.settings.telemetry.toString()}>
           <Radio
-            data-testid={locators.settingsTelemetryYes}
             disabled={loading}
-            id="associate-radio-contract"
+            id= {locators.settingsTelemetryYes}
             label="Yes"
             value="true"
           />
           <Radio
-            data-testid={locators.settingsTelemetryNo}
             disabled={loading}
-            id="associate-radio-wallet"
+            id={locators.settingsTelemetryNo}
             label="No"
             value="false"
           />

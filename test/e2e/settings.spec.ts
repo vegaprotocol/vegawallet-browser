@@ -52,6 +52,21 @@ describe('Settings test', () => {
     await settingsPage.lockWalletAndCheckLoginPageAppears()
   })
 
+  const expectedTelemetryDisabledMessage = "expected telemetry to be disabled initially but it was not"
+  const expectedTelemetryEnabledMessage = "expected telemetry to be enabled initially but it was not"
+  it('can navigate to settings and update telemetry opt in/out preference', async () => {
+    // 1111-TELE-008 There is a way to change whether I want to opt in / out of error reporting later (e.g. in settings)
+    const navPanel = new NavPanel(driver)
+    const settingsPage = await navPanel.goToSettings()
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
+    await settingsPage.selectTelemetryYes()
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+    await navigateToLandingPage(driver)
+    expect (await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+    await settingsPage.selectTelemetryNo()
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
+  })
+
   it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
     // 1107-SETT-007 There is a way for me to open the browser wallet in a new window
     // 1107-SETT-002 If I have a new window open, if there is a transaction for me to approve or reject this is shown in the new window

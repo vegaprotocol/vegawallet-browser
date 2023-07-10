@@ -112,6 +112,20 @@ export async function isElementDisplayed(driver: WebDriver, locator: By, timeout
   }
 }
 
+//This is a work around as the ui toolkit elements do noT Ccorrectly reflect the selected state through the isSelected method
+export async function isElementSelected(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
+  try {
+    const element = await waitForElementToBeReady(driver, locator, timeout)
+    return await element.getAttribute('aria-checked') === 'true'
+  } catch (error) {
+    return false
+  }
+}
+
+export async function waitForElementToBeSelected(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
+  await driver.wait( async () => {return await isElementSelected(driver, locator)}, timeout)
+}
+
 export function staticWait(milliseconds: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(resolve, milliseconds)

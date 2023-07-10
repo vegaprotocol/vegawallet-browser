@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
 import { Frame } from '../../../components/frame'
 import { Tick } from '../../../components/icons/tick'
-import config from '@config'
+import config from '@/config'
 import { useSaveSettings } from '../../../hooks/save-settings'
 
 export const locators = {

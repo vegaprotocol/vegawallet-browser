@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { TelemetrySection, locators } from './telemetry-section'
-import config from '@config'
+import config from '@/config'
 import { useSaveSettings } from '../../../hooks/save-settings'
-import { useHomeStore } from '../../home/store'
 import { silenceErrors } from '../../../test-helpers/silence-errors'
+import { useGlobalsStore } from '../../../stores/globals'
 
-jest.mock('../../home/store')
+jest.mock('../../../stores/globals')
 
 jest.mock('../../../hooks/save-settings', () => ({
   useSaveSettings: jest.fn().mockReturnValue({
@@ -16,7 +16,7 @@ jest.mock('../../../hooks/save-settings', () => ({
 
 describe('TelemetrySection', () => {
   it('renders the section header correctly', () => {
-    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
         globals: {
           settings: {
@@ -32,7 +32,7 @@ describe('TelemetrySection', () => {
 
   it('throws error if globals cannot be loaded', () => {
     silenceErrors()
-    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
         globals: null
       })
@@ -41,7 +41,7 @@ describe('TelemetrySection', () => {
   })
 
   it('renders the description text correctly', () => {
-    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
         globals: {
           settings: {
@@ -58,7 +58,7 @@ describe('TelemetrySection', () => {
   })
 
   it('renders the telemetry options correctly', () => {
-    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
         globals: {
           settings: {
@@ -75,7 +75,7 @@ describe('TelemetrySection', () => {
   })
 
   it('calls save function on telemetry option change', async () => {
-    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
         globals: {
           settings: {
@@ -94,7 +94,7 @@ describe('TelemetrySection', () => {
   })
 
   it('renders the data policy link correctly', () => {
-    ;(useHomeStore as unknown as jest.Mock).mockImplementation((fn) => {
+    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
         globals: {
           settings: {

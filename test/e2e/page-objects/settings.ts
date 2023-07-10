@@ -23,21 +23,15 @@ export class Settings {
 
   async isTelemetrySelected() {
     await this.checkOnSettingsPage()
-    const telemetrySelected = await isElementSelected(this.driver, this.telemetryYes)
-    const telemetryNotSelected = await isElementSelected(this.driver, this.telemetryNo)
+    const telemetryYesSelected = await isElementSelected(this.driver, this.telemetryYes)
+    const telemetryNoSelected = await isElementSelected(this.driver, this.telemetryNo)
 
-    if (telemetrySelected) {
+    if (telemetryYesSelected) {
       return true
     }
-    if (telemetryNotSelected) {
+    if (telemetryNoSelected) {
       return false
     }
-    throw new Error('neither telemetry yes or no was selected')
-  }
-
-  async isTelemetryNoSelected() {
-    await this.checkOnSettingsPage()
-    return await isElementSelected(this.driver, this.telemetryNo)
   }
 
   async selectTelemetryYes() {

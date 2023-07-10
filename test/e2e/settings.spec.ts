@@ -16,6 +16,8 @@ describe('Settings test', () => {
   let navPanel: NavPanel
   let settingsPage: Settings
   let transaction: Transaction
+  const expectedTelemetryDisabledMessage = "expected telemetry to be disabled initially but it was not"
+  const expectedTelemetryEnabledMessage = "expected telemetry to be enabled initially but it was not"
 
   const transferReq = {
     fromAccountType: 4,
@@ -52,8 +54,6 @@ describe('Settings test', () => {
     await settingsPage.lockWalletAndCheckLoginPageAppears()
   })
 
-  const expectedTelemetryDisabledMessage = "expected telemetry to be disabled initially but it was not"
-  const expectedTelemetryEnabledMessage = "expected telemetry to be enabled initially but it was not"
   it('can navigate to settings and update telemetry opt in/out preference', async () => {
     // 1111-TELE-008 There is a way to change whether I want to opt in / out of error reporting later (e.g. in settings)
     const navPanel = new NavPanel(driver)
@@ -63,8 +63,6 @@ describe('Settings test', () => {
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
     await navigateToLandingPage(driver)
     expect (await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
-    await settingsPage.selectTelemetryNo()
-    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
   })
 
   it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {

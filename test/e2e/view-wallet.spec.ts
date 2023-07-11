@@ -24,9 +24,9 @@ describe('View wallet page', () => {
   })
 
   it('can create new key pair in the view wallet screen', async () => {
-    // 1106-KEYS-005 can create a new key pair from the wallet view
-    // 1106-KEYS-006 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
-    // 1106-KEYS-007 New key pairs are listed in order they were created - oldest first
+    // 1106-KEYS-006 can create a new key pair from the wallet view
+    // 1106-KEYS-007 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
+    // 1106-KEYS-008 New key pairs are listed in order they were created - oldest first
     // 1106-KEYS-001 I can see a list of the keys in my wallet
     await viewWallet.checkOnViewWalletPage()
 

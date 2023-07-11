@@ -14,3 +14,7 @@ class ResizeObserver {
 }
 // @ts-ignore
 window.ResizeObserver = ResizeObserver
+afterEach(() => {
+  // @ts-ignore
+  delete global.browser
+})

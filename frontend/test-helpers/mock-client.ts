@@ -32,6 +32,10 @@ export const mockClient = (
   keys: Key[] = defaultKeys,
   globals: AppGlobals = defaultGlobals
 ) => {
+  // @ts-ignore
+  if (global.browser) {
+    throw new Error('Tried to mock client, but client already exists.')
+  }
   const listeners: Function[] = []
 
   const pushMessage = (message: any) => {

@@ -42,6 +42,8 @@ describe('Wallets', () => {
   })
 
   it('renders the wallet page', async () => {
+    // 1106-KEYS-005 rom a key, there is a link from a key to the Block Explorer filtered transaction view
+
     mockClient()
     mockLoadedState()
     render(

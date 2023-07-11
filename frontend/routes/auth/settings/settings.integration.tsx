@@ -2,9 +2,9 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { Settings } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
-import { locators } from '../../../../frontend/routes/auth/settings'
+import { locators } from '.'
 import * as packageJson from '../../../../package.json'
-import { FULL_ROUTES } from '../../../routes/route-names'
+import { FULL_ROUTES } from '../../route-names'
 import config from '../../../lib/config'
 
 jest.mock('@/config', () => ({

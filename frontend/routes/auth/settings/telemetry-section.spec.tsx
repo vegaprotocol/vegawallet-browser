@@ -15,6 +15,9 @@ jest.mock('../../../hooks/save-settings', () => ({
 }))
 
 describe('TelemetrySection', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('renders the section header correctly', () => {
     ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
@@ -91,6 +94,21 @@ describe('TelemetrySection', () => {
 
     expect(save).toHaveBeenCalledTimes(1)
     expect(save).toHaveBeenCalledWith({ telemetry: false })
+  })
+
+  it('shows nothing selected if setting is not set', async () => {
+    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        globals: {
+          settings: {
+            telemetry: undefined
+          }
+        }
+      })
+    })
+    render(<TelemetrySection />)
+    expect(screen.getByLabelText('Yes')).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByLabelText('No')).toHaveAttribute('aria-checked', 'false')
   })
 
   it('renders the data policy link correctly', () => {

@@ -2,14 +2,7 @@ import locators from '../locators'
 
 export const Vega = () => {
   return (
-    <svg
-      data-testid={locators.vega}
-      width="84"
-      height="18"
-      viewBox="0 0 84 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg data-testid={locators.vega} width="84" height="18" viewBox="0 0 84 18" fill="none">
       <path d="M7.8 15.59L12.93 0.0100002H15.5L9.15 17.98H6.37L0 0.0100002H2.63L7.81 15.59H7.8Z" fill="white" />
       <path
         d="M26.32 9.76V15.94H36.39V17.98H23.89V0.0100002H36.16V2.05H26.32V7.73H35.09V9.77H26.31L26.32 9.76Z"

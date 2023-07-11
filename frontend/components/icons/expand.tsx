@@ -1,6 +1,6 @@
 export const ExpandIcon = () => {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
       <path
         d="M2.80952 13.5016L7.18684 13.5016L7.18684 14.5616L0.999988 14.5616L0.999987 8.37478L2.05999 8.37478L2.05999 12.7521L6.81208 8L7.56162 8.74954L2.80952 13.5016Z"
         fill="#C0C0C0"

@@ -52,6 +52,7 @@ describe('Telemetry', () => {
     expect(screen.getByTestId(locators.userDataPolicy)).toBeVisible()
     expect(screen.getByTestId(locators.userDataPolicy)).toHaveAttribute('href', config.userDataPolicy)
     expect(screen.getByTestId(locators.reportBugsAndCrashes)).toBeVisible()
+    expect(screen.getByTestId(locators.reportBugsAndCrashes)).toHaveFocus()
     expect(screen.getByTestId(locators.noThanks)).toBeVisible()
 
     expect(screen.getByTestId(locators.scopeContainer)).toBeVisible()

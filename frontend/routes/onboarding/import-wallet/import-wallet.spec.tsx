@@ -34,6 +34,7 @@ describe('ImportWallet', () => {
     )
     expect(screen.getByTestId(importMnemonicDescription)).toBeVisible()
     expect(screen.getByTestId(importMnemonic)).toBeInTheDocument()
+    expect(screen.getByTestId(importMnemonic)).toHaveFocus()
     expect(screen.getByTestId(importMnemonicSubmit)).toHaveTextContent('Import wallet')
   })
 

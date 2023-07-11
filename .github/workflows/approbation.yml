@@ -19,21 +19,15 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Checkout specs repository
-        uses: actions/checkout@v3
-        with:
-          repository: vegaprotocol/specs
-          ref: master
-          path: specs
-
       - name: Run Approbation on main
         id: approbation-main
+        continue-on-error: true
         run: |
           echo "Starting Approbation"
           npx --silent --yes github:vegaprotocol/approbation check-references \
-            --specs="specs/user-interface/11[0-9][0-9]*.md" \
+            --specs="specs/*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
-            --categories="specs/user-interface/categories.json" \
+            --categories="specs/categories.json" \
             --show-mystery --category-stats --output-jenkins
           results=$(cat results/jenkins.txt)
           echo "file-main=$results" >> "$GITHUB_OUTPUT"
@@ -44,21 +38,14 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
-      - name: Checkout specs repository
-        uses: actions/checkout@v3
-        with:
-          repository: vegaprotocol/specs
-          ref: master
-          path: specs
-
       - name: Run Approbation on PR
         id: approbation
         run: |
           echo "Starting Approbation"
           npx --silent --yes github:vegaprotocol/approbation check-references \
-            --specs="specs/user-interface/11[0-9][0-9]*.md" \
+            --specs="specs/*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
-            --categories="specs/user-interface/categories.json" \
+            --categories="specs/categories.json" \
             --show-mystery --category-stats --output-jenkins
           results=$(cat results/jenkins.txt)
           echo "file=$results" >> "$GITHUB_OUTPUT"

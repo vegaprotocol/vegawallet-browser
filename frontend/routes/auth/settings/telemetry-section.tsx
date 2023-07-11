@@ -3,8 +3,8 @@ import { SettingsHeader } from './settings-header'
 import { SettingsSection } from './settings-section'
 import { useCallback } from 'react'
 import config from '@/config'
-import { useSaveSettings } from '../../../hooks/save-settings'
 import { useGlobalsStore } from '../../../stores/globals'
+import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 
 export const locators = {
   settingsDescription: 'settings-description',
@@ -14,18 +14,20 @@ export const locators = {
 }
 
 export const TelemetrySection = () => {
-  const { save, loading } = useSaveSettings()
-  const { globals } = useGlobalsStore((state) => ({
-    globals: state.globals
+  const { globals, saveSettings, loading } = useGlobalsStore((state) => ({
+    globals: state.globals,
+    saveSettings: state.saveSettings,
+    loading: state.settingsLoading
   }))
+  const { request } = useJsonRpcClient()
   const handleChange = useCallback(
     async (value: string) => {
       const newVal = value === 'true'
-      await save({
+      await saveSettings(request, {
         telemetry: newVal
       })
     },
-    [save]
+    [saveSettings, request]
   )
 
   if (!globals) {

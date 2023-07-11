@@ -1,18 +1,18 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { TelemetrySection, locators } from './telemetry-section'
 import config from '@/config'
-import { useSaveSettings } from '../../../hooks/save-settings'
 import { silenceErrors } from '../../../test-helpers/silence-errors'
 import { useGlobalsStore } from '../../../stores/globals'
 
 jest.mock('../../../stores/globals')
 
-jest.mock('../../../hooks/save-settings', () => ({
-  useSaveSettings: jest.fn().mockReturnValue({
-    save: jest.fn(),
-    loading: false
-  })
+const mockedRequest = jest.fn()
+
+jest.mock('../../../contexts/json-rpc/json-rpc-context', () => ({
+  useJsonRpcClient: () => ({ request: mockedRequest })
 }))
+
+const saveSettings = jest.fn()
 
 describe('TelemetrySection', () => {
   beforeEach(() => {
@@ -25,7 +25,8 @@ describe('TelemetrySection', () => {
           settings: {
             telemetry: true
           }
-        }
+        },
+        saveSettings
       })
     })
     render(<TelemetrySection />)
@@ -37,7 +38,8 @@ describe('TelemetrySection', () => {
     silenceErrors()
     ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
-        globals: null
+        globals: null,
+        saveSettings
       })
     })
     expect(() => render(<TelemetrySection />)).toThrowError('Tried to render settings page without globals defined')
@@ -50,7 +52,8 @@ describe('TelemetrySection', () => {
           settings: {
             telemetry: true
           }
-        }
+        },
+        saveSettings
       })
     })
 
@@ -67,7 +70,8 @@ describe('TelemetrySection', () => {
           settings: {
             telemetry: true
           }
-        }
+        },
+        saveSettings
       })
     })
     render(<TelemetrySection />)
@@ -84,16 +88,16 @@ describe('TelemetrySection', () => {
           settings: {
             telemetry: true
           }
-        }
+        },
+        saveSettings
       })
     })
     render(<TelemetrySection />)
     const telemetryNoOption = screen.getByLabelText('No')
-    const { save } = useSaveSettings()
     fireEvent.click(telemetryNoOption)
 
-    expect(save).toHaveBeenCalledTimes(1)
-    expect(save).toHaveBeenCalledWith({ telemetry: false })
+    expect(saveSettings).toHaveBeenCalledTimes(1)
+    expect(saveSettings).toHaveBeenCalledWith(mockedRequest, { telemetry: false })
   })
 
   it('shows nothing selected if setting is not set', async () => {
@@ -103,7 +107,8 @@ describe('TelemetrySection', () => {
           settings: {
             telemetry: undefined
           }
-        }
+        },
+        saveSettings
       })
     })
     render(<TelemetrySection />)
@@ -118,7 +123,8 @@ describe('TelemetrySection', () => {
           settings: {
             telemetry: true
           }
-        }
+        },
+        saveSettings
       })
     })
     render(<TelemetrySection />)

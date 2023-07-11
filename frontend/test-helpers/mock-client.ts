@@ -30,7 +30,7 @@ const defaultGlobals = {
 export const mockClient = (
   wallets: string[] = defaultWallets,
   keys: Key[] = defaultKeys,
-  globals: AppGlobals = defaultGlobals
+  globals?: Partial<AppGlobals>
 ) => {
   const listeners: Function[] = []
 
@@ -108,7 +108,10 @@ export const mockClient = (
           } else if (message.method === RpcMethods.AppGlobals) {
             pushMessage({
               jsonrpc: '2.0',
-              result: globals,
+              result: {
+                ...defaultGlobals,
+                ...globals
+              },
               id: message.id
             })
           } else if (message.method === 'admin.unlock') {
@@ -155,6 +158,13 @@ export const mockClient = (
               }
             })
           } else if (message.method === RpcMethods.UpdateSettings) {
+            // TODO this is a hack. We are getting to the point where a dumb mock client is not good enough
+            // need to investigate a better mocking solution
+            globals = {
+              ...defaultGlobals,
+              ...globals,
+              settings: message.params
+            }
             listeners.map((fn) =>
               fn({
                 jsonrpc: '2.0',

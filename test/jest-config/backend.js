@@ -1,4 +1,4 @@
-export default {
+const backend = {
   rootDir: '../..',
   roots: ['<rootDir>/web-extension'],
   testEnvironment: 'jest-environment-node',
@@ -21,3 +21,5 @@ export default {
     '@/config': '<rootDir>/config/test.js'
   }
 }
+
+export default backend

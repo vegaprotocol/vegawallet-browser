@@ -11,6 +11,9 @@ import EncryptedStorage from './lib/encrypted-storage.js'
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'
 import config from '!/config'
+import { captureException, init } from '@sentry/browser'
+import { sanitizeEvent } from '../lib/sanitize-event.js'
+import packageJson from '../package.json'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
@@ -37,19 +40,41 @@ const connections = new ConnectionsCollection({
   connectionsStore: new ConcurrentStorage(new StorageLocalMap('connections')),
   publicKeyIndexStore
 })
+
+// Same structure as result of admin.list_wallets & admin.list_keys
+let wals = []
+
+// TODO how to enable/disable when settings change?
+if (config.sentryDsn && (await settings.get('telemetry'))) {
+  init({
+    dsn: config.sentryDsn,
+    release: `@vegaprotocol/vegawallet-browser@${packageJson.version}`,
+    integrations: [],
+    tracesSampleRate: 1.0,
+    /* istanbul ignore next */
+    beforeSend(event) {
+      /* istanbul ignore next */
+      return sanitizeEvent(event, wals)
+    }
+  })
+}
+
+const onerror = (...args) => {
+  console.error(args)
+  captureException(args[0])
+}
+
 const clientServer = initClient({
   settings,
   wallets,
   networks,
   connections,
   interactor,
-  onerror: (...args) => console.error(args)
+  onerror
 })
 
 const clientPorts = new PortServer({
-  onerror(err) {
-    console.error(err)
-  },
+  onerror,
   server: clientServer
 })
 
@@ -59,7 +84,7 @@ const server = initAdmin({
   wallets,
   networks,
   connections,
-  onerror: (...args) => console.error(args)
+  onerror
 })
 
 const popupPorts = new PortServer({

@@ -1,4 +1,8 @@
 /* istanbul ignore file */
+
+// TODO We are getting to the point where a dumb mock client is not good enough
+// need to investigate a better mocking solution]
+
 import { RpcMethods } from '../lib/client-rpc-methods'
 import { AppGlobals } from '../stores/globals'
 import { Key } from '../stores/wallets'
@@ -159,7 +163,7 @@ export const mockClient = (
             })
           } else if (message.method === RpcMethods.UpdateSettings) {
             // TODO this is a hack. We are getting to the point where a dumb mock client is not good enough
-            // need to investigate a better mocking solution
+            // need to investigate a better mocking solution]
             globals = {
               ...defaultGlobals,
               ...globals,

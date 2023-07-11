@@ -38,7 +38,7 @@ describe('Save mnemonic', () => {
     renderComponent()
     await screen.findByTestId(locators.mnemonicContainerHidden)
     expect(screen.getByTestId('secure-your-wallet')).toHaveTextContent('Secure your wallet')
-    expect(screen.getByTestId(locators.mnemonicContainerHidden)).toBeInTheDocument()
+    expect(screen.getByTestId(locators.mnemonicContainerHidden)).toHaveFocus()
     expect(screen.getByTestId(saveMnemonicDescription)).toHaveTextContent(saveMnemonicDescriptionText)
     expect(screen.getByTestId(saveMnemonicButton)).toHaveTextContent('Create wallet')
   })

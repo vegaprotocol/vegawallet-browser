@@ -27,6 +27,7 @@ describe('GetStarted', () => {
   it('Redirects to the create password route when button is clicked', () => {
     render(<GetStarted />)
     const button = screen.getByTestId(getStartedButton)
+    expect(button).toHaveFocus()
     fireEvent.click(button)
     expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.createPassword)
   })

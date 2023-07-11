@@ -34,6 +34,7 @@ describe('CreatePassword', () => {
     const passwordInfo = screen.getByText(
       "Set a password to protect and unlock your Vega Wallet. Your password can't be recovered or used to recover a wallet."
     )
+    expect(screen.getByTestId(passphraseInput)).toHaveFocus()
     expect(passwordInfo).toBeInTheDocument()
   })
 

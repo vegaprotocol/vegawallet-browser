@@ -28,7 +28,7 @@ describe('Login', () => {
     mockClient()
     renderComponent()
     expect(screen.getByTestId(locators.splashWrapper)).toBeInTheDocument()
-    expect(screen.getByTestId(loginPassphrase)).toBeInTheDocument()
+    expect(screen.getByTestId(loginPassphrase)).toHaveFocus()
     expect(screen.getByTestId(loginButton)).toBeInTheDocument()
   })
   it('renders error message if the passphrase is incorrect', async () => {

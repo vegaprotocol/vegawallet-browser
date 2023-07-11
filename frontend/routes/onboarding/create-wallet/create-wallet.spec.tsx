@@ -23,6 +23,7 @@ describe('Create wallet', () => {
     renderComponent()
     expect(screen.getByTestId(locators.walletIcon)).toBeInTheDocument()
     expect(screen.getByTestId(createNewWalletButton)).toHaveTextContent('Create a wallet')
+    expect(screen.getByTestId(createNewWalletButton)).toHaveFocus()
     expect(screen.getByTestId(importWalletButton)).toHaveTextContent('Import a Wallet')
   })
 

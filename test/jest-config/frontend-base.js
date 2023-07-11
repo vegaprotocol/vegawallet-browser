@@ -11,7 +11,7 @@ const base = {
   testEnvironment: 'jsdom',
 
   // TODO merge coverage reports
-  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],
+  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**', '!**/*.(spec|test|integration).tsx'],
   coverageReporters: ['html'],
 
   reporters: [

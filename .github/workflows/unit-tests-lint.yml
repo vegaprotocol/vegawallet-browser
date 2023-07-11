@@ -25,20 +25,39 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      # - name: Format
-      #   run: yarn format
+      - name: Format
+        run: yarn format
 
       - name: Test
-        run: yarn test:frontend:ci
+        run: yarn test:frontend:unit --coverage
+        # Always run both sets of tests even if one fails
+        if: always()
 
-      - name: Test Report
+      - name: Test
+        run: yarn test:frontend:integration --coverage
+        # Always run both sets of tests even if one fails
+        if: always()
+
+      - name: Test Report (unit)
         uses: phoenix-actions/test-reporting@v12
         if: always()
         with:
           name: JEST Unit Tests (FE)
-          path: ./test/test-reports/unit-test-results.xml
+          path: ./test/test-reports/ui-unit-test-results.xml
           reporter: jest-junit
           output-to: step-summary
+
+      - name: Test Report (Integration)
+        uses: phoenix-actions/test-reporting@v12
+        if: always()
+        with:
+          name: JEST Unit Tests (FE)
+          path: ./test/test-reports/ui-integration-test-results.xml
+          reporter: jest-junit
+          output-to: step-summary
+
+      - name: Merge coverage reports
+        run: ./test/merge-coverage.sh
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3

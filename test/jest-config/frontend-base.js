@@ -11,19 +11,8 @@ const base = {
   testEnvironment: 'jsdom',
 
   // TODO merge coverage reports
-  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**', '!**/*.(spec|test|integration).tsx'],
-  coverageReporters: ['html'],
-
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: './test/test-reports',
-        outputName: 'unit-test-results.xml'
-      }
-    ]
-  ],
+  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!**/test/**', '!**/*.(spec|test|integration).tsx'],
+  coverageReporters: ['json'],
 
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],

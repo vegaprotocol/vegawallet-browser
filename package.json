@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "mutexify": "^1.4.0",
     "nanoassert": "^2.0.0",
+    "nyc": "^15.1.0",
     "protobuf-codec": "^1.0.6",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
@@ -50,7 +51,6 @@
     "test:frontend": "jest --config=test/jest-config/jest.config-ui.js",
     "test:frontend:unit": "jest --config=test/jest-config/jest.ui-unit.js",
     "test:frontend:integration": "jest --config=test/jest-config/jest.ui-integration.js",
-    "test:frontend:ci": "yarn test:frontend --coverage",
     "watch": "yarn build:dev -w"
   },
   "browserslist": {

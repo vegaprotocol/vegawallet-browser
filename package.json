@@ -47,7 +47,7 @@
     "test:e2e:chrome": "BROWSER=chrome yarn test:e2e",
     "test:e2e:firefox": "BROWSER=firefox yarn test:e2e",
     "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox",
-    "test:frontend": "yarn test:frontend:unit && yarn test:frontend:integration",
+    "test:frontend": "jest --config=test/jest-config/ui-dev.js",
     "test:frontend:unit": "jest --config=test/jest-config/ui-unit.js",
     "test:frontend:integration": "jest --config=test/jest-config/ui-integration.js",
     "watch": "yarn build:dev -w"

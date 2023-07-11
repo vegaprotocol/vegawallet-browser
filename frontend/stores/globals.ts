@@ -13,7 +13,7 @@ export interface AppGlobals {
   locked: boolean
   // Mutable settings, see below
   settings: {
-    [key: string]: any | undefined
+    [key: string]: boolean | string | number | undefined
   }
 }
 

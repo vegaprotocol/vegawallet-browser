@@ -39,7 +39,7 @@ export const useGetRedirectPath = () => {
       loading: false,
       path: FULL_ROUTES.createWallet
     }
-  } else if ([null, undefined].includes(globals.settings.telemetry)) {
+  } else if (globals.settings.telemetry === null || globals.settings.telemetry === undefined) {
     return {
       loading: false,
       error: null,

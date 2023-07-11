@@ -39,7 +39,7 @@ export const TelemetrySection = () => {
         Improve Vega Wallet by automatically reporting bugs and crashes.
       </p>
       <form>
-        <RadioGroup onChange={handleChange} value={globals.settings.telemetry.toString()}>
+        <RadioGroup onChange={handleChange} value={globals.settings.telemetry?.toString()}>
           <Radio disabled={loading} id={locators.settingsTelemetryYes} label="Yes" value="true" />
           <Radio disabled={loading} id={locators.settingsTelemetryNo} label="No" value="false" />
         </RadioGroup>

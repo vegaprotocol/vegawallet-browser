@@ -7,7 +7,8 @@ import { FULL_ROUTES } from '../../route-names'
 import { Frame } from '../../../components/frame'
 import { Tick } from '../../../components/icons/tick'
 import config from '@/config'
-import { useSaveSettings } from '../../../hooks/save-settings'
+import { useGlobalsStore } from '../../../stores/globals'
+import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 
 export const locators = {
   description: 'description',
@@ -19,17 +20,21 @@ export const locators = {
 }
 
 export const Telemetry = () => {
-  const { save, loading } = useSaveSettings()
+  const { saveSettings, loading } = useGlobalsStore((state) => ({
+    saveSettings: state.saveSettings,
+    loading: state.settingsLoading
+  }))
+  const { request } = useJsonRpcClient()
   const { handleSubmit } = useForm()
   const navigate = useNavigate()
   const submit = useCallback(
     async (value: boolean) => {
-      await save({
+      await saveSettings(request, {
         telemetry: value
       })
       navigate(FULL_ROUTES.wallets)
     },
-    [navigate, save]
+    [navigate, request, saveSettings]
   )
 
   return (

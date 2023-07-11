@@ -3,15 +3,14 @@ import { Telemetry, locators } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
-import { RpcMethods } from '../../../lib/client-rpc-methods'
 import config from '@/config'
 
-const mockLoadGlobals = jest.fn()
+const saveSettings = jest.fn()
 
 jest.mock('../../../stores/globals', () => ({
   useGlobalsStore: jest.fn((fn) => {
     return fn({
-      loadGlobals: mockLoadGlobals
+      saveSettings
     })
   })
 }))
@@ -66,19 +65,17 @@ describe('Telemetry', () => {
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.reportBugsAndCrashes))
     await waitFor(() => expect(screen.getByTestId(locators.reportBugsAndCrashes)).toBeEnabled())
+    expect(saveSettings).toHaveBeenCalledWith(mockedRequest, { telemetry: true })
+    expect(saveSettings).toBeCalledTimes(1)
     expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.wallets)
-    expect(mockedRequest).toHaveBeenCalledWith(RpcMethods.UpdateSettings, { telemetry: true })
-    expect(mockedRequest).toBeCalledTimes(1)
-    expect(mockLoadGlobals).toHaveBeenCalled()
   })
 
   it('saves telemetry settings and navigates to wallets page if opted out', async () => {
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.noThanks))
     await waitFor(() => expect(screen.getByTestId(locators.noThanks)).toBeEnabled())
+    expect(saveSettings).toHaveBeenCalledWith(mockedRequest, { telemetry: false })
+    expect(saveSettings).toBeCalledTimes(1)
     expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.wallets)
-    expect(mockedRequest).toHaveBeenCalledWith(RpcMethods.UpdateSettings, { telemetry: false })
-    expect(mockedRequest).toBeCalledTimes(1)
-    expect(mockLoadGlobals).toHaveBeenCalled()
   })
 })

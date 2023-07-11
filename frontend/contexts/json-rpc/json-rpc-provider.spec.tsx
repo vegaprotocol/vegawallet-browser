@@ -59,8 +59,6 @@ const TestComponent = ({ expect }: { expect: jest.Expect }) => {
 
 describe('JsonRpcProvider', () => {
   beforeEach(() => {
-    // @ts-ignore
-    global.browser = {}
     jest.clearAllMocks()
   })
   it('renders and provides client', () => {

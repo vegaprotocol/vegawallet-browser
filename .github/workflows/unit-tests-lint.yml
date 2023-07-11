@@ -38,6 +38,12 @@ jobs:
         # Always run both sets of tests even if one fails
         if: always()
 
+      - name: Merge coverage reports
+        run: ./test/merge-coverage.sh
+
+      - name: Gate coverage
+        run: yarn nyc check-coverage --per-file true --branches=98 --lines=100 --statements=100 --functions=99.5 -t coverage/frontend/final
+
       - name: Test Report (unit)
         uses: phoenix-actions/test-reporting@v12
         if: always()
@@ -55,9 +61,6 @@ jobs:
           path: ./test/test-reports/ui-integration-test-results.xml
           reporter: jest-junit
           output-to: step-summary
-
-      - name: Merge coverage reports
-        run: ./test/merge-coverage.sh
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3

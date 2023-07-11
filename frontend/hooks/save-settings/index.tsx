@@ -14,6 +14,7 @@ export const useSaveSettings = () => {
       setLoading(true)
       try {
         await request(RpcMethods.UpdateSettings, values)
+        // Reload the globals as this contains the settings and these should have changed
         await loadGlobals(request)
       } finally {
         setLoading(false)

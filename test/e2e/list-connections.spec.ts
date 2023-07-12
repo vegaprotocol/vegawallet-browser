@@ -99,6 +99,7 @@ describe('list connections tests', () => {
   })
 
   it('disconnects all instances of a dapp when I have more than one instance when I click disonnect', async () => {
+    secondDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
 

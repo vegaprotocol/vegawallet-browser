@@ -23,7 +23,7 @@ jest.mock('../../stores/wallets', () => ({
   useWalletStore: jest.fn()
 }))
 
-jest.mock('../../components/modals/modal-wrapper', () => ({
+jest.mock('../../components/modals', () => ({
   ModalWrapper: () => <div data-testid="modal-wrapper" />
 }))
 

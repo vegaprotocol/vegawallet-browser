@@ -29,11 +29,11 @@ Only one extension (Fairground or Mainnet) should be installed at a time to avoi
 **Firefox users**
 1. Install the [Firefox Browser Developer Edition](https://www.mozilla.org/en-GB/firefox/developer/)
 2. Open Firefox developer edition
-3. Enter "about:config" in the URL bar. You'll be asked to accept risk and continue.
+3. Enter "about:config" in the URL bar. You'll be asked to accept risk and continue
 4. Search for "xpinstall.signatures.required" and set to false
-5. Now enter "about:addons" in the URL bar.
+5. Now enter "about:addons" in the URL bar
 6. From the settings cog drop down, select to install add-on from file and select your downloaded zip file
-7. You will need to accept a warning message to add an unverified extension. Your installation is then complete.
+7. You will need to accept a warning message to add an unverified extension. Your installation is then complete
 
 ## Usage
 

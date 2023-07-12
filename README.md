@@ -77,6 +77,8 @@ window.postMessage(
 
 ## Reporting Bugs
 
+Spot an issue? [Provide feedback here](https://github.com/vegaprotocol/feedback/discussions)
+
 Please provide which browser you used and its version, and the output of both
 the DevTools console from the dApp used, the error page from the
 `about:addons` (FF) / `chrome://extensions/` (Chromium) page and relevant logs

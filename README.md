@@ -33,7 +33,8 @@ Only one extension (Fairground or Mainnet) should be installed at a time to avoi
 4. Search for "xpinstall.signatures.required" and set to false
 5. Now enter "about:addons" in the URL bar
 6. From the settings cog drop down, select to install add-on from file and select your downloaded zip file
-7. You will need to accept a warning message to add an unverified extension. Your installation is then complete
+7. You will need to accept a warning message to add an unverified extension
+8. Finally, you'll accept a "Vega wallet was added" message. Installation is then complete and you can pin to toolbar from your extension menu for easy access
 
 ## Usage
 

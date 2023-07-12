@@ -7,17 +7,7 @@ import { usePing } from './hooks/ping'
 import { useEffect, useLayoutEffect, useMemo } from 'react'
 import { useEffect } from 'react'
 import { usePopoverStore } from './stores/popover-store'
-
-function useListenForPopups() {
-  const { setup, teardown } = usePopoverStore((state) => ({
-    setup: state.setup,
-    teardown: state.teardown
-  }))
-  useEffect(() => {
-    setup()
-    return teardown
-  }, [setup, teardown])
-}
+import { useListenForPopups } from './hooks/listen-for-popups'
 
 function App() {
   useListenForPopups()

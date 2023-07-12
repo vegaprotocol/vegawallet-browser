@@ -23,7 +23,7 @@ export const PopoverOpenModal = () => {
           <div className="flex justify-center">
             <ExpandIcon size={24} />
           </div>
-          <p className="my-4 text-lg">You’re viewing your wallet in another window</p>
+          <p className="my-4 text-lg">You're viewing your wallet in another window</p>
           <Button fill={true} onClick={focusPopover} variant="primary">
             Continue here
           </Button>

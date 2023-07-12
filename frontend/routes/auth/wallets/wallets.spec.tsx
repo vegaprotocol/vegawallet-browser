@@ -54,6 +54,7 @@ describe('Wallets', () => {
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
     expect(screen.getByTestId(walletLocators.walletsWalletName)).toHaveTextContent('wallet 1')
+    expect(screen.getByTestId(walletLocators.walletsExplorerLink)).toBeVisible()
     expect(screen.getByTestId(walletLocators.walletsExplorerLink)).toHaveTextContent('07248a…3673')
     expect(screen.getByTestId(walletLocators.walletsExplorerLink)).toHaveAttribute(
       'href',

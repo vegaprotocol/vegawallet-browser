@@ -2,7 +2,7 @@ import { Outlet, useMatch } from 'react-router-dom'
 import { NavBar } from '../../components/navbar'
 
 import { PageHeader } from '../../components/page-header'
-import { ModalWrapper } from '../../components/modals/modal-wrapper'
+import { ModalWrapper } from '../../components/modals'
 import { useEffect } from 'react'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { useWalletStore } from '../../stores/wallets'

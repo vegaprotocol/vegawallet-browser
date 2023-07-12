@@ -32,7 +32,7 @@ export const createStore = () =>
           windows.remove(popupId)
           set({ popoverOpen: false, popoverId: null })
         } else {
-          throw new Error('Tried to focus popup but none existed')
+          throw new Error('Tried to focus popover but no popover is open')
         }
       },
       onCreated: (window) => {

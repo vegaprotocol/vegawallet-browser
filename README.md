@@ -10,7 +10,7 @@ Installing the extension injects a Vega API for dapps and websites to interact w
 
 - You retain custody of your assets
 - You are responsible for the security of your assets
-- You should never share your private keys
+- You should never share your private keys, recovery phrase or password
 - You may encounter bugs, loss of functionality or loss of assets using the software
 - No party accepts any liability for any losses whatsoever relating to its use
 

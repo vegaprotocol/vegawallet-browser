@@ -34,6 +34,8 @@ describe('usePreventWindowResize', () => {
 
   it('should remove resize event listener on unmount', () => {
     const removeEventListenerMock = jest.fn()
+    global.window.resizeTo = jest.fn()
+    global.window.addEventListener = jest.fn()
 
     global.window.removeEventListener = removeEventListenerMock
 

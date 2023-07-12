@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { PopoverOpenModal, locators } from '.'
 import { usePopoverStore } from '../../../stores/popover-store'

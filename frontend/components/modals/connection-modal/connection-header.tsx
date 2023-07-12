@@ -1,6 +1,6 @@
-import { VegaIcon } from '../icons/vega-icon'
-import { HostImage } from '../host-image'
-import locators from '../locators'
+import { VegaIcon } from '../../icons/vega-icon'
+import { HostImage } from '../../host-image'
+import locators from '../../locators'
 
 const LeftRightArrows = () => {
   return (

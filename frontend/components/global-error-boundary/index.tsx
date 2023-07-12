@@ -1,5 +1,5 @@
 import { Component, ComponentType, ErrorInfo, ReactNode } from 'react'
-import { ErrorModal } from '../error-modal'
+import { ErrorModal } from '../modals/error-modal'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../routes/route-names'
 import { useErrorStore } from '../../stores/error'

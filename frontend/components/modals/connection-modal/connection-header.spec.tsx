@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
-import locators from '../locators'
+import locators from '../../locators'
 import { ConnectionHeader } from './connection-header'
 
-jest.mock('../host-image', () => ({
+jest.mock('../../host-image', () => ({
   HostImage: () => <div data-testid="host-image"></div>
 }))
-jest.mock('../icons/vega-icon', () => ({
+jest.mock('../../icons/vega-icon', () => ({
   VegaIcon: () => <div data-testid="vega-icon"></div>
 }))
 

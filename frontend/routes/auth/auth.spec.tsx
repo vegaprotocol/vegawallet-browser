@@ -23,12 +23,8 @@ jest.mock('../../stores/wallets', () => ({
   useWalletStore: jest.fn()
 }))
 
-jest.mock('../../components/connection-modal', () => ({
-  ConnectionModal: () => <div data-testid="connection-modal" />
-}))
-
-jest.mock('../../components/transaction-modal', () => ({
-  TransactionModal: () => <div data-testid="transaction-modal" />
+jest.mock('../../components/modals/modal-wrapper', () => ({
+  ModalWrapper: () => <div data-testid="modal-wrapper" />
 }))
 
 jest.mock('../../components/dapps-header/dapps-header', () => ({
@@ -54,8 +50,7 @@ describe('Auth', () => {
 
     expect(screen.getByTestId(locators.navBar)).toBeInTheDocument()
     expect(screen.getByTestId('outlet')).toBeInTheDocument()
-    expect(screen.getByTestId('connection-modal')).toBeInTheDocument()
-    expect(screen.getByTestId('transaction-modal')).toBeInTheDocument()
+    expect(screen.getByTestId('modal-wrapper')).toBeInTheDocument()
     expect(screen.getByTestId('page-header')).toBeInTheDocument()
   })
   it('loads the users wallets', () => {

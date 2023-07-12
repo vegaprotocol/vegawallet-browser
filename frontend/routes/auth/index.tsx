@@ -21,8 +21,8 @@ export const Auth = () => {
 
   return (
     <div className="h-full w-full grid grid-rows-[min-content_1fr_min-content] bg-vega-dark-100">
-      <PageHeader />
       <ModalWrapper />
+      <PageHeader />
       <section className="w-full h-full overflow-y-auto">
         {isWallets && <DappsHeader />}
         <div className="px-5 pt-3">
@@ -30,8 +30,6 @@ export const Auth = () => {
         </div>
       </section>
       <NavBar isFairground={false} />
-      <TransactionModal />
-      <ConnectionModal />
     </div>
   )
 }

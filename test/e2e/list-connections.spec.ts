@@ -27,16 +27,23 @@ describe('list connections tests', () => {
   let connectWalletModal: ConnectWallet
 
   beforeEach(async () => {
+    console.log('instantiating')
     driver = await initDriver()
+    console.log('instantiated driver')
     navPanel = new NavPanel(driver)
     const apiHelper = new APIHelper(driver)
     firstDapp = new VegaAPI(driver)
+    console.log('set up first dapp')
     secondDapp = new VegaAPI(driver, 'https://vega.xyz')
+    console.log('set up second dapp')
     connectWalletModal = new ConnectWallet(driver)
 
     await navigateToLandingPage(driver)
+    console.log('navigated to landing page')
     await apiHelper.setUpWalletAndKey()
+    console.log('set up wallet and key')
     await navigateToLandingPage(driver)
+    console.log('navigated to landing page after the')
     connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
   })
@@ -102,10 +109,13 @@ describe('list connections tests', () => {
     secondDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
+    console.log('first dapp connected')
 
     await secondDapp.connectWallet()
+    console.log('second dapp connected')
     await connections.checkOnListConnectionsPage()
     await connections.checkNumConnections(1)
+    console.log('checked num connections')
 
     await connections.disconnectConnection('https://vegaprotocol.github.io')
     expect(await connections.connectionsExist()).toBe(false)

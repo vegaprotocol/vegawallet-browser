@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { useModalStore } from '../../stores/modal-store'
+import { useModalStore } from '../../../stores/modal-store'
+import locators from '../../locators'
 import { TransactionModal } from '.'
-import { locators } from './transaction-modal'
-import genericLocators from '../locators'
+import { locators as hostImageLocators } from '../../host-image'
 
 const transaction = {
   orderSubmission: {
@@ -30,19 +30,11 @@ const data = {
   receivedAt: new Date('2021-01-01T00:00:00.000Z')
 }
 
-jest.mock('./raw-transaction', () => ({
-  RawTransaction: () => <div data-testid="raw-transaction" />
-}))
-
-jest.mock('./transaction-header', () => ({
-  TransactionHeader: () => <div data-testid="transaction-header" />
-}))
-
-jest.mock('../../stores/modal-store', () => ({
+jest.mock('../../../stores/modal-store', () => ({
   useModalStore: jest.fn()
 }))
 
-jest.mock('../page-header', () => ({
+jest.mock('../../page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
 }))
 
@@ -56,8 +48,9 @@ describe('TransactionModal', () => {
   it('renders nothing when isOpen is false', () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { transactionModalOpen: false, currentTransactionDetails: null, handleTransactionDecision }
-      return fn(res)
+      const res = { isOpen: false, details: null, handleTransactionDecision }
+      fn(res)
+      return res
     })
     const { container } = render(<TransactionModal />)
     expect(container).toBeEmptyDOMElement()
@@ -65,6 +58,9 @@ describe('TransactionModal', () => {
 
   it('renders page header, transaction type, hostname and key', () => {
     /* 1105-TRAN-011 For transactions that are not orders or withdraw / transfers, there is a standard template with the minimum information required i.e. 
+-- [ ] Transaction title
+-- [ ] Where it is from e.g. console.vega.xyz with a favicon
+-- [ ] The key you are using to sign with a visual identifier
 -- [ ] When it was received
 -- [ ] Raw JSON details
 
@@ -72,24 +68,30 @@ describe('TransactionModal', () => {
 */
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision }
-      return fn(res)
+      const res = { isOpen: true, details: data, handleTransactionDecision }
+      fn(res)
+      return res
     })
     render(<TransactionModal />)
-    expect(screen.getByTestId('raw-transaction')).toBeVisible()
-    expect(screen.getByTestId('transaction-header')).toBeVisible()
-    expect(screen.getByTestId(genericLocators.pageHeader)).toBeVisible()
     expect(screen.getByTestId(locators.transactionWrapper)).toBeVisible()
+    expect(screen.getByTestId(hostImageLocators.hostImage)).toBeVisible()
+    expect(screen.getByTestId(locators.pageHeader)).toBeVisible()
+    expect(screen.getByTestId(locators.transactionType)).toHaveTextContent('Order submission')
+    expect(screen.getByTestId(locators.codeWindow)).toBeVisible()
+    expect(screen.getByTestId(locators.transactionRequest)).toHaveTextContent('Request from https://www.google.com')
+    expect(screen.getByTestId(locators.transactionKey)).toHaveTextContent('Signing with')
     expect(screen.getByTestId(locators.transactionTimeAgo)).toHaveTextContent('Received just now')
     expect(screen.getByTestId(locators.transactionModalApproveButton)).toBeVisible()
     expect(screen.getByTestId(locators.transactionModalDenyButton)).toBeVisible()
+    expect(screen.getByTestId(locators.copyWithCheck)).toBeVisible()
   })
 
   it('calls handleTransactionDecision with false if denying', async () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision }
-      return fn(res)
+      const res = { isOpen: true, details: data, handleTransactionDecision }
+      fn(res)
+      return res
     })
     render(<TransactionModal />)
     fireEvent.click(screen.getByTestId(locators.transactionModalDenyButton))
@@ -99,8 +101,9 @@ describe('TransactionModal', () => {
   it('renders nothing after approving', async () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision }
-      return fn(res)
+      const res = { isOpen: true, details: data, handleTransactionDecision }
+      fn(res)
+      return res
     })
     render(<TransactionModal />)
     fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))

@@ -85,12 +85,10 @@ export async function getElementText(driver: WebDriver, locator: By, timeout: nu
   return element.getText()
 }
 
-export async function waitForElementToDisappear(
-  driver: WebDriver,
-  element: WebElement,
-  timeout: number = defaultTimeoutMillis
-) {
-  await driver.wait(until.stalenessOf(element), timeout, 'Success modal did not disappear')
+export async function waitForElementToDisappear(driver: WebDriver, locator: By, timeout: number = 1000) {
+  if (await isElementDisplayed(driver, locator, timeout)) {
+    await driver.wait(async () => !(await isElementDisplayed(driver, locator, 200)), timeout)
+  }
 }
 
 export async function waitForChildElementsCount(
@@ -189,14 +187,20 @@ export async function isElementDisplayed(driver: WebDriver, locator: By, timeout
 export async function isElementSelected(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   try {
     const element = await waitForElementToBeReady(driver, locator, timeout)
-    return await element.getAttribute('aria-checked') === 'true'
+    return (await element.getAttribute('aria-checked')) === 'true'
   } catch (error) {
     return false
   }
 }
 
-export async function waitForElementToBeSelected(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
-  await driver.wait( async () => {return await isElementSelected(driver, locator)}, timeout)
+export async function waitForElementToBeSelected(
+  driver: WebDriver,
+  locator: By,
+  timeout: number = defaultTimeoutMillis
+) {
+  await driver.wait(async () => {
+    return await isElementSelected(driver, locator)
+  }, timeout)
 }
 
 export function staticWait(milliseconds: number): Promise<void> {

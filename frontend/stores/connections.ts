@@ -20,7 +20,7 @@ export type ConnectionsStore = {
   loadConnections: (request: SendMessage) => void
   addConnection: (connection: Connection) => void
   setConnections: (connections: Connection[]) => void
-  removeConnection: (client: JSONRPCClient, connection: Connection) => void
+  removeConnection: (request: SendMessage, connection: Connection) => void
 }
 
 export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
@@ -42,15 +42,10 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
       set({ loading: false })
     }
   },
-  removeConnection: async (client: JSONRPCClient, connection: Connection) => {
-    try {
-      set({ error: null })
-      await client.request(RpcMethods.RemoveConnection, { origin: connection.origin })
-      set({
-        connections: get().connections.filter((c) => c.origin !== connection.origin)
-      })
-    } catch (e) {
-      set({ error: e?.toString() || 'Something went wrong' })
-    }
+  removeConnection: async (request: SendMessage, connection: Connection) => {
+    await request(RpcMethods.RemoveConnection, { origin: connection.origin })
+    set({
+      connections: get().connections.filter((c) => c.origin !== connection.origin)
+    })
   }
 }))

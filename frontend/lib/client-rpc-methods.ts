@@ -13,7 +13,6 @@ export const RpcMethods = {
   // Login
   Lock: 'admin.lock',
   Unlock: 'admin.unlock',
-  OpenPopout: 'admin.open_popout',
 
   // Connections
   ListConnections: 'admin.list_connections',

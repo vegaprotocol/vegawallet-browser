@@ -14,7 +14,7 @@ export const locators = {
 
 export const Connections = () => {
   const { request } = useJsonRpcClient()
-  const { connections, loading, error, loadConnections, removeConnection } = useConnectionStore((state) => ({
+  const { connections, loading, loadConnections, removeConnection } = useConnectionStore((state) => ({
     connections: state.connections,
     loading: state.loading,
     loadConnections: state.loadConnections,
@@ -36,7 +36,7 @@ export const Connections = () => {
       ) : (
         <ConnectionsList
           connections={connections}
-          removeConnection={(connection) => removeConnection(client, connection)}
+          removeConnection={(connection) => removeConnection(request, connection)}
         />
       )}
       <div className="mt-6">

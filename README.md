@@ -4,6 +4,8 @@ Securely connect to Vega dapps and sign transactions from your browser.
 
 This is an experimental release for test purposes only and is in active development. You should regard all funds transferred to keys that are managed by the extension as lost.
 
+Installing the extension injects a Vega API for dapps and websites to interact with keys and send transactions to the Vega network. Connecting to the wallet and sending any transaction require explicit user approval.
+
 **Understand the risks before you start**
 
 - You retain custody of your assets

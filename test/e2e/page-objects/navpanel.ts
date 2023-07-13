@@ -28,7 +28,7 @@ export class NavPanel {
       'expected to be able to navigate to settings via the nav panel but could not locate the settings page content',
       { showPrefix: false }
     ).toBe(true)
-    return new Settings(this.driver)
+    return settings
   }
 
   async goToListConnections() {
@@ -39,6 +39,6 @@ export class NavPanel {
       'expected to be able to navigate to connections via the nav panel but was not on the connections page',
       { showPrefix: false }
     ).toBe(true)
-    return new ListConnections(this.driver)
+    return connections
   }
 }

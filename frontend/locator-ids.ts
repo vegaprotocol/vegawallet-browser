@@ -30,6 +30,5 @@ export const errorMessage = 'input-error-text'
 export const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
 export const viewWalletsHeader = 'view-wallets-header'
 
-export const connectionsConnection = 'connections-connection'
 export const connectionsNoConnections = 'connections-no-connections'
 export const connectionsHeader = 'connections-header'

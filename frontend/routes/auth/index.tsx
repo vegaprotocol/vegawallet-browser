@@ -17,14 +17,14 @@ export const Auth = () => {
     loadWallets(request)
   }, [request, loadWallets])
   return (
-    <div className="h-full w-full grid grid-rows-[1fr_min-content] overflow-y-auto">
-      <ConnectionModal />
-      <TransactionModal />
-      <section className="w-full h-full overflow-y-auto pt-3 px-5 bg-vega-dark-100">
-        <PageHeader />
+    <div className="h-full w-full grid grid-rows-[min-content_1fr_min-content] bg-vega-dark-100">
+      <PageHeader />
+      <section className="w-full h-full overflow-y-auto pt-3 px-5">
         <Outlet />
       </section>
       <NavBar isFairground={false} />
+      <ConnectionModal />
+      <TransactionModal />
     </div>
   )
 }

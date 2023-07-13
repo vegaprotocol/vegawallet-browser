@@ -57,7 +57,7 @@ export default function init({ onerror, settings, wallets, networks, connections
       async 'client.send_transaction'(params, context) {
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.sendTransaction, params)
-        if (context.isConnected === false) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)
+        if (context.isConnected !== true) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)
         if ((await connections.isAllowed(context.origin, params.publicKey)) === false) {
           throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
         }
@@ -125,7 +125,7 @@ export default function init({ onerror, settings, wallets, networks, connections
 
       async 'client.list_keys'(params, context) {
         doValidate(clientValidation.listKeys, params)
-        if (context.isConnected === false) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)
+        if (context.isConnected !== true) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)
 
         const keys = await connections.listAllowedKeys(context.origin)
 

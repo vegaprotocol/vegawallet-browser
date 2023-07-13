@@ -1,17 +1,21 @@
+import { RpcMethods } from '../lib/client-rpc-methods'
 import { useConnectionStore } from './connections'
 
-const request = () => {
-  return {
-    connections: [
-      {
-        allowList: {
-          publicKeys: [],
-          wallets: ['Wallet 1']
-        },
-        origin: 'https://vega.xyz'
-      }
-    ]
+const request = (method: string) => {
+  if (method === RpcMethods.ListConnections) {
+    return {
+      connections: [
+        {
+          allowList: {
+            publicKeys: [],
+            wallets: ['Wallet 1']
+          },
+          origin: 'https://vega.xyz'
+        }
+      ]
+    }
   }
+  return null
 }
 
 const initialState = useConnectionStore.getState()
@@ -70,5 +74,20 @@ describe('Store', () => {
         origin: 'https://vega.xyz'
       }
     ])
+  })
+  it('removes connections from backend', async () => {
+    const mockConnection = {
+      allowList: {
+        publicKeys: [],
+        wallets: ['Wallet 1']
+      },
+      origin: 'https://vega.xyz'
+    }
+    useConnectionStore.setState({
+      connections: [mockConnection]
+    })
+
+    await useConnectionStore.getState().removeConnection(request as unknown as any, mockConnection)
+    expect(useConnectionStore.getState().connections).toStrictEqual([])
   })
 })

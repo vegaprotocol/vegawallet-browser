@@ -1,12 +1,14 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed, openLatestWindowHandle, staticWait } from '../selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed, isElementSelected, waitForElementToBeSelected } from '../selenium-util'
 import { Login } from './login'
-import { locators } from '../../../frontend/routes/auth/settings'
+import * as settingsLock from '../../../frontend/routes/auth/settings/lock-section'
+import * as telemetry from '../../../frontend/routes/auth/settings/telemetry-section'
+
 
 export class Settings {
-  private readonly lockWalletButton: By = getByDataTestID(locators.settingsLockButton)
-  private readonly settingsPageContent: By = getByDataTestID(locators.settingsPage)
-  private readonly openInNewWindow: By = getByDataTestID(locators.settingsOpenPopoutButton)
+  private readonly lockWalletButton: By = getByDataTestID(settingsLock.locators.settingsLockButton)
+  private readonly telemetryYes: By = getByDataTestID(telemetry.locators.settingsTelemetryYes)
+  private readonly telemetryNo: By = getByDataTestID(telemetry.locators.settingsTelemetryNo)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -19,15 +21,29 @@ export class Settings {
     return loginPage
   }
 
-  async openAppInNewWindowAndSwitchToIt() {
+  async isTelemetrySelected() {
     await this.checkOnSettingsPage()
-    const windowHandles = await this.driver.getAllWindowHandles()
-    await clickElement(this.driver, this.openInNewWindow)
-    await this.driver.wait(async () => {
-      return (await this.driver.getAllWindowHandles()).length === windowHandles.length + 1
-    }, 10000)
-    await openLatestWindowHandle(this.driver)
-    return await this.driver.getWindowHandle()
+    const telemetryYesSelected = await isElementSelected(this.driver, this.telemetryYes)
+    const telemetryNoSelected = await isElementSelected(this.driver, this.telemetryNo)
+
+    if (telemetryYesSelected) {
+      return true
+    }
+    if (telemetryNoSelected) {
+      return false
+    }
+  }
+
+  async selectTelemetryYes() {
+    await this.checkOnSettingsPage()
+    await clickElement(this.driver, this.telemetryYes)
+    await waitForElementToBeSelected(this.driver, this.telemetryYes)
+  }
+
+  async selectTelemetryNo() {
+    await this.checkOnSettingsPage()
+    await clickElement(this.driver, this.telemetryNo)
+    await waitForElementToBeSelected(this.driver, this.telemetryNo)
   }
 
   async isSettingsPage() {

@@ -20,6 +20,7 @@ export type ConnectionsStore = {
   loadConnections: (request: SendMessage) => void
   addConnection: (connection: Connection) => void
   setConnections: (connections: Connection[]) => void
+  removeConnection: (request: SendMessage, connection: Connection) => void
 }
 
 export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
@@ -40,5 +41,11 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
     } finally {
       set({ loading: false })
     }
+  },
+  removeConnection: async (request: SendMessage, connection: Connection) => {
+    await request(RpcMethods.RemoveConnection, { origin: connection.origin })
+    set({
+      connections: get().connections.filter((c) => c.origin !== connection.origin)
+    })
   }
 }))

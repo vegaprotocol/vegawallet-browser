@@ -7,16 +7,17 @@ import { switchWindowHandles } from './selenium-util'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { Transaction } from './page-objects/transaction'
 import { ConnectWallet } from './page-objects/connect-wallet'
-import { ViewWallet } from './page-objects/view-wallet'
 import { Settings } from './page-objects/settings'
+import { ExtensionHeader } from './page-objects/extension-header'
 
 describe('Settings test', () => {
   let driver: WebDriver
   let connectWalletModal: ConnectWallet
   let navPanel: NavPanel
-  let viewWallet: ViewWallet
   let settingsPage: Settings
   let transaction: Transaction
+  const expectedTelemetryDisabledMessage = "expected telemetry to be disabled initially but it was not"
+  const expectedTelemetryEnabledMessage = "expected telemetry to be enabled initially but it was not"
 
   const transferReq = {
     fromAccountType: 4,
@@ -37,7 +38,6 @@ describe('Settings test', () => {
     await navigateToLandingPage(driver)
     connectWalletModal = new ConnectWallet(driver)
     navPanel = new NavPanel(driver)
-    viewWallet = new ViewWallet(driver)
     transaction = new Transaction(driver)
     settingsPage = await navPanel.goToSettings()
   })
@@ -54,6 +54,17 @@ describe('Settings test', () => {
     await settingsPage.lockWalletAndCheckLoginPageAppears()
   })
 
+  it('can navigate to settings and update telemetry opt in/out preference', async () => {
+    // 1111-TELE-008 There is a way to change whether I want to opt in / out of error reporting later (e.g. in settings)
+    const navPanel = new NavPanel(driver)
+    const settingsPage = await navPanel.goToSettings()
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
+    await settingsPage.selectTelemetryYes()
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+    await navigateToLandingPage(driver)
+    expect (await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+  })
+
   it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
     // 1107-SETT-007 There is a way for me to open the browser wallet in a new window
     // 1107-SETT-002 If I have a new window open, if there is a transaction for me to approve or reject this is shown in the new window
@@ -61,11 +72,12 @@ describe('Settings test', () => {
     // 1107-SETT-004 If I reject the transaction the pop-up window stays open (on the last view I was on)
     // 1107-SETT-006 If I have the new window open but then open the extension pop up I see the same thing on both views
     const originalExtensionInstance = await driver.getWindowHandle()
-    const vegaAPI = new VegaAPI(driver, originalExtensionInstance)
+    const vegaAPI = new VegaAPI(driver)
 
     await vegaAPI.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    const popoutWindowHandle = await settingsPage.openAppInNewWindowAndSwitchToIt()
+    const header = new ExtensionHeader(driver)
+    const popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
     await settingsPage.checkOnSettingsPage()
 
     const keys = await vegaAPI.listKeys()

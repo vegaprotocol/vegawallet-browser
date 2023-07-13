@@ -13,19 +13,22 @@ export interface AppGlobals {
   locked: boolean
   // Mutable settings, see below
   settings: {
-    [key: string]: any | undefined
+    [key: string]: boolean | string | number | undefined
   }
 }
 
 export type GlobalsStore = {
   globals: AppGlobals | null
   loading: boolean
+  settingsLoading: boolean
   loadGlobals: (request: SendMessage) => Promise<void>
+  saveSettings: (request: SendMessage, settings: AppGlobals['settings']) => Promise<void>
 }
 
 export const useGlobalsStore = create<GlobalsStore>()((set, get) => ({
   globals: null,
   loading: true,
+  settingsLoading: false,
   error: null,
   loadGlobals: async (request: SendMessage) => {
     try {
@@ -34,6 +37,15 @@ export const useGlobalsStore = create<GlobalsStore>()((set, get) => ({
       set({ globals: res })
     } finally {
       set({ loading: false })
+    }
+  },
+  saveSettings: async (request: SendMessage, settings: AppGlobals['settings']) => {
+    try {
+      set({ settingsLoading: true })
+      await request(RpcMethods.UpdateSettings, settings)
+      await get().loadGlobals(request)
+    } finally {
+      set({ settingsLoading: false })
     }
   }
 }))

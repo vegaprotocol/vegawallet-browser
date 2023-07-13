@@ -8,13 +8,13 @@ import {
   waitForChildElementsCount
 } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
+import * as pageHeader from '../../../frontend/components/page-header'
 import { locators as walletLocators } from '../../../frontend/routes/auth/wallets'
 
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
   private readonly createNewKeyPairButton: By = getByDataTestID(walletLocators.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
-  private readonly networkIndicator: By = getByDataTestID(locators.networkIndicator)
   private readonly copyIcon: By = getByDataTestID('copy-icon')
   private readonly copyableKey: By = getByDataTestID('copy-with-check')
 
@@ -74,9 +74,5 @@ export class ViewWallet {
       console.error('Failed to read clipboard:', error)
       return ''
     }
-  }
-
-  async getNetworkConnectedTo() {
-    return await getElementText(this.driver, this.networkIndicator)
   }
 }

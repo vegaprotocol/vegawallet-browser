@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true
   },
   "files": ["node_modules/jest-expect-message/types/index.d.ts", "frontend/index.d.ts", "frontend/lib/config.d.ts"],
   "include": ["frontend", "test/*"]

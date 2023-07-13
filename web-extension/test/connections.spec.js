@@ -119,4 +119,35 @@ describe('ConnectionsCollection', () => {
     expect(await connections.isAllowed('https://example.com', '321')).toBe(false)
     expect(await connections.listAllowedKeys('https://example.com')).toEqual([])
   })
+
+  it('should emit events', async () => {
+    const connectionsStore = new ConcurrentStorage(new Map())
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+
+    const connections = new ConnectionsCollection({
+      connectionsStore,
+      publicKeyIndexStore
+    })
+
+    const listener = jest.fn()
+    connections.listen(listener)
+
+    await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
+
+    await connections.set('https://example.com', {
+      wallets: ['w1'],
+      publicKeys: []
+    })
+
+    expect(listener).toHaveBeenCalledWith('set', { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] } })
+
+    expect(await connections.list()).toEqual([
+      { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] } }
+    ])
+
+    await connections.delete('https://example.com')
+    expect(listener).toHaveBeenCalledWith('delete', { origin: 'https://example.com' })
+
+    expect(await connections.list()).toEqual([])
+  })
 })

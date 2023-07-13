@@ -49,18 +49,17 @@
         view() {
           if (window.vega == null) {
             return [
-              m('h1', 'No Vega Browser Extension'),
+              m('h1', 'No browser extension detected'),
               m('p', [
-                'No installation of the Vega Browser Extension was found. The extension is currently in a public alpha.',
-                'You can download a preview release from Github Releases. Be WARNED that updates may wipe all data and keys are not recoverable',
+                'No installation of the Vega Wallet browser extension was found. Follow the installation instructions to download and install the latest release.',
                 m('br'),
                 m(
                   'a',
                   {
-                    href: 'https://github.com/vegaprotocol/vegawallet-browser/releases',
+                    href: 'https://github.com/vegaprotocol/vegawallet-browser#readme',
                     target: '_blank'
                   },
-                  'Download from Github Releases'
+                  'Installation instructions'
                 ),
                 m('br'),
                 m('button', { onclick() {} }, 'Retry')

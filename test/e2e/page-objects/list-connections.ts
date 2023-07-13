@@ -1,12 +1,20 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { getByDataTestID, getElements, hasTotalNumElements, isElementDisplayed } from '../selenium-util'
+import {
+  clickDescendantOfWebElement,
+  getByDataTestID,
+  getElements,
+  getWebElementContainingText,
+  hasTotalNumElements,
+  isElementDisplayed
+} from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
+import { locators as connectionsListLocators } from '../../../frontend/routes/auth/connections/connection-list'
 
 export class ListConnections {
   private readonly noConnections: By = getByDataTestID(locators.connectionsNoConnections)
-  private readonly connectionsEl: By = getByDataTestID(locators.connectionsConnection)
   private readonly connectionsHeader: By = getByDataTestID(locators.connectionsHeader)
   private readonly connections: By = getByDataTestID('list-item')
+  private readonly connectionsRemoveConnection: By = getByDataTestID(connectionsListLocators.connectionRemoveConnection)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -58,5 +66,10 @@ export class ListConnections {
 
   async isListConnectionsPage() {
     return await isElementDisplayed(this.driver, this.connectionsHeader)
+  }
+
+  async disconnectConnection(connectionName: string) {
+    const connection = await getWebElementContainingText(connectionName, this.driver, this.connections)
+    await clickDescendantOfWebElement(this.driver, connection, this.connectionsRemoveConnection)
   }
 }

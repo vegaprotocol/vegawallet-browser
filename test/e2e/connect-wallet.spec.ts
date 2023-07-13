@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { navigateToLandingPage, testDAppUrl } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
@@ -22,7 +22,7 @@ describe('Connect wallet', () => {
   beforeEach(async () => {
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
-    vegaAPI = new VegaAPI(driver, await driver.getWindowHandle())
+    vegaAPI = new VegaAPI(driver)
     connectWallet = new ConnectWallet(driver)
     telemetry = new Telemetry(driver)
     apiHelper = new APIHelper(driver)
@@ -60,7 +60,8 @@ describe('Connect wallet', () => {
 
   it('I can call client.disconnect_wallet with no prior connection and get a null response', async () => {
     // 1104-DCON-002 can call client.disconnect_wallet with no prior connection and get a null response
-    const disconnectWalletResponse = await vegaAPI.disconnectWallet()
+    const vega = new VegaAPI(driver, testDAppUrl, await driver.getWindowHandle())
+    const disconnectWalletResponse = await vega.disconnectWallet()
     expect(disconnectWalletResponse).toBe(null)
   })
 

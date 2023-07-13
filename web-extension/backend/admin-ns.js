@@ -25,9 +25,9 @@ function doValidate(validator, params) {
 export default function init({ runtime, windows, encryptedStore, settings, wallets, networks, connections, onerror }) {
   connections.listen((ev, connection) => {
     server.notify('admin.connections_change', {
-      add: [connection],
+      add: ev === 'set' ? [connection] : [],
       update: [],
-      delete: []
+      delete: ev === 'delete' ? [connection] : []
     })
   })
 
@@ -177,6 +177,14 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
         doValidate(adminValidation.listConnections, params)
 
         return { connections: await connections.list() }
+      },
+
+      async 'admin.remove_connection'(params) {
+        doValidate(adminValidation.removeConnection, params)
+
+        await connections.delete(params.origin)
+
+        return null
       }
     }
   })

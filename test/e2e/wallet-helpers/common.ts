@@ -5,6 +5,7 @@ const chromeExtensionURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkb
 export const validRecoveryPhrase =
   'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
 export const defaultPassword = 'password1'
+export const testDAppUrl = 'https://vegaprotocol.github.io/vegawallet-browser/'
 
 async function getLandingPageURL(driver: WebDriver) {
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {

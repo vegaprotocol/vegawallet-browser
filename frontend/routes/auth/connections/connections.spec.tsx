@@ -1,8 +1,8 @@
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, act, waitFor, fireEvent } from '@testing-library/react'
 import { Connections, locators as connectionsLocators } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
-import { connectionsConnection, connectionsNoConnections } from '../../../locator-ids'
+import { connectionsNoConnections } from '../../../locator-ids'
 import { ConnectionsStore, useConnectionStore } from '../../../stores/connections'
 import { locators as connectionListLocators } from './connection-list'
 
@@ -27,7 +27,7 @@ describe('Connections', () => {
   it('renders sorted list of connections with instructions on how to connect', async () => {
     mockClient()
     renderComponent()
-    const [foo, vega] = await screen.findAllByTestId(connectionsConnection)
+    const [foo, vega] = await screen.findAllByTestId(connectionListLocators.connectionOrigin)
     expect(vega).toHaveTextContent('https://vega.xyz')
     expect(foo).toHaveTextContent('foo.com')
     // 1109-VCON-002 I can see an explanation of what it means i.e. these dapps have permission to access my keys and connect to my wallet
@@ -76,5 +76,13 @@ describe('Connections', () => {
     expect(screen.getByTestId(connectionsNoConnections)).toBeInTheDocument()
     // 1109-VCON-005 When I have no connections I can see that and still see instructions on how to connect to a Vega dapp
     expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toBeVisible()
+  })
+
+  it('remove the connection', async () => {
+    mockClient()
+    renderComponent()
+    await waitFor(() => expect(screen.queryAllByTestId(connectionListLocators.connectionOrigin)).toHaveLength(2))
+    fireEvent.click(screen.getAllByTestId(connectionListLocators.connectionRemoveConnection)[0])
+    await waitFor(() => expect(screen.queryAllByTestId(connectionListLocators.connectionOrigin)).toHaveLength(1))
   })
 })

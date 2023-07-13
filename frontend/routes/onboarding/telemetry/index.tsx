@@ -1,15 +1,14 @@
 import { Button, ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { Page } from '../../../components/page'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
 import { Frame } from '../../../components/frame'
 import { Tick } from '../../../components/icons/tick'
-import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { RpcMethods } from '../../../lib/client-rpc-methods'
 import config from '@/config'
 import { useGlobalsStore } from '../../../stores/globals'
+import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 
 export const locators = {
   description: 'description',
@@ -21,27 +20,21 @@ export const locators = {
 }
 
 export const Telemetry = () => {
-  const [loading, setLoading] = useState(false)
-  const { handleSubmit } = useForm<{}>()
-  const { request } = useJsonRpcClient()
-  const navigate = useNavigate()
-  const { loadGlobals } = useGlobalsStore((state) => ({
-    loadGlobals: state.loadGlobals
+  const { saveSettings, loading } = useGlobalsStore((state) => ({
+    saveSettings: state.saveSettings,
+    loading: state.settingsLoading
   }))
+  const { request } = useJsonRpcClient()
+  const { handleSubmit } = useForm()
+  const navigate = useNavigate()
   const submit = useCallback(
     async (value: boolean) => {
-      setLoading(true)
-      try {
-        await request(RpcMethods.UpdateSettings, {
-          telemetry: value
-        })
-        await loadGlobals(request)
-      } finally {
-        setLoading(false)
-      }
+      await saveSettings(request, {
+        telemetry: value
+      })
       navigate(FULL_ROUTES.wallets)
     },
-    [request, loadGlobals, navigate]
+    [navigate, request, saveSettings]
   )
 
   return (

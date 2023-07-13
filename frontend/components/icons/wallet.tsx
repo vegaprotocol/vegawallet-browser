@@ -17,7 +17,6 @@ export const Wallet = ({
       height={size}
       viewBox="0 0 21 19"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <rect x="1.33331" y="1" width="17" height="17" stroke="currentColor" />
       <rect x="13.3333" y="6" width="7" height="7" fill={squareFill} stroke="currentColor" />

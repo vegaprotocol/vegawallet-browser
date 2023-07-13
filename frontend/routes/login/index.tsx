@@ -10,6 +10,7 @@ import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { LoadingButton } from '../../components/loading-button'
 import { VegaHeader } from '../../components/vega-header'
 import { useGlobalsStore } from '../../stores/globals'
+import { RpcMethods } from '../../lib/client-rpc-methods'
 
 const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
 

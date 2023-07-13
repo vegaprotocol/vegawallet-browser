@@ -1,6 +1,6 @@
 const PixelatedTick = () => {
   return (
-    <svg width="36" height="28" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="36" height="28" viewBox="0 0 36 28" fill="none">
       <path d="M4 16H0V20H4V16Z" fill="#161616" />
       <path d="M8 20H4V24H8V20Z" fill="#161616" />
       <path d="M12 24H8V28H12V24Z" fill="#161616" />

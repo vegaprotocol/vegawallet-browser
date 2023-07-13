@@ -1,19 +1,24 @@
 {
-  "name": "Vega Wallet",
+  "name": "Vega Wallet - Fairground",
   "icons": {
-    "16": "16x16.png",
-    "32": "32x32.png",
-    "48": "48x48.png",
-    "64": "64x64.png",
-    "96": "96x96.png",
-    "128": "128x128.png",
-    "512": "512x512.png"
+    "16": "Fairground-16x16.png",
+    "32": "Fairground-32x32.png",
+    "48": "Fairground-48x48.png",
+    "64": "Fairground-64x64.png",
+    "96": "Fairground-96x96.png",
+    "128": "Fairground-128x128.png"
   },
-  "permissions": ["storage"],
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["./content-script.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "./content-script.js"
+      ],
       "run_at": "document_end"
     }
   ]

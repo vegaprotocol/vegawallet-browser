@@ -8,6 +8,7 @@ import { Transaction } from './page-objects/transaction'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { Settings } from './page-objects/settings'
 import { ExtensionHeader } from './page-objects/extension-header'
+import { WalletOpenInOtherWindow } from './page-objects/wallet-open-in-other-window'
 
 describe('Settings test', () => {
   let driver: WebDriver
@@ -15,6 +16,7 @@ describe('Settings test', () => {
   let navPanel: NavPanel
   let settingsPage: Settings
   let transaction: Transaction
+  let header: ExtensionHeader
   const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled initially but it was not'
   const expectedTelemetryEnabledMessage = 'expected telemetry to be enabled initially but it was not'
 
@@ -34,6 +36,7 @@ describe('Settings test', () => {
     connectWalletModal = new ConnectWallet(driver)
     navPanel = new NavPanel(driver)
     transaction = new Transaction(driver)
+    header = new ExtensionHeader(driver)
     settingsPage = await navPanel.goToSettings()
   })
 
@@ -71,7 +74,6 @@ describe('Settings test', () => {
 
     await vegaAPI.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    const header = new ExtensionHeader(driver)
     const popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
     await settingsPage.checkOnSettingsPage()
 
@@ -94,5 +96,21 @@ describe('Settings test', () => {
     await navigateToLandingPage(driver)
     await settingsPage.checkOnSettingsPage()
     await switchWindowHandles(driver, false, originalExtensionInstance)
+  })
+
+  it('prompts the user to continue in the extension window when a popout is open', async () => {
+    const originalExtensionWindowHandle = await driver.getWindowHandle()
+    let popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
+    await settingsPage.checkOnSettingsPage()
+    await switchWindowHandles(driver, false, originalExtensionWindowHandle)
+    const popOutOpenInOtherWindow = new WalletOpenInOtherWindow(driver)
+    await popOutOpenInOtherWindow.checkOnWalletOpenInOtherWindowPage()
+    await popOutOpenInOtherWindow.continueHere()
+    await settingsPage.checkOnSettingsPage()
+    let windowHandles = await driver.getAllWindowHandles()
+    expect(
+      windowHandles,
+      "expected the popout window handle to be closed after clicking the 'continue here button' but it was still found in the window handles"
+    ).not.toContain(popoutWindowHandle)
   })
 })

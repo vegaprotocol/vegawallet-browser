@@ -1,6 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
-import { locators } from '../../../frontend/components/error-modal'
+import { locators } from '../../../frontend/components/modals/error-modal'
 
 export class ErrorModal {
   private readonly errorPage: By = getByDataTestID(locators.errorModal)

@@ -5,7 +5,8 @@ import { ExpandIcon } from '../../icons/expand'
 import { Splash } from '../../splash'
 
 export const locators = {
-  popoverModal: 'popover-modal'
+  popoverModal: 'popover-modal',
+  continueHere: 'continue-here'
 }
 
 export const PopoverOpenModal = () => {
@@ -24,7 +25,7 @@ export const PopoverOpenModal = () => {
             <ExpandIcon size={24} />
           </div>
           <p className="my-4 text-lg">You're viewing your wallet in another window</p>
-          <Button fill={true} onClick={focusPopover} variant="primary">
+          <Button fill={true} onClick={focusPopover} variant="primary" data-testid={locators.continueHere}>
             Continue here
           </Button>
         </div>

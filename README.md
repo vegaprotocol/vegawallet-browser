@@ -1,18 +1,42 @@
-# Minimal Extension
+# Experimental browser extension
 
-> This is minimal extension to explore communication between a browser page and
-> an extension popup
+Securely connect to Vega dapps and sign transactions from your browser.
+
+This is an experimental release for test purposes only and is in active development. You should only transfer funds you are willing to lose to keys that are managed by the extension.
+
+Installing the extension injects a Vega API for dapps and websites to interact with keys and send transactions to the Vega network. Connecting to the wallet and sending any transaction require explicit user approval.
+
+**Understand the risks before you start**
+
+- You retain custody of your assets
+- You are responsible for the security of your assets
+- You should never share your private keys, recovery phrase or password
+- You may encounter bugs, loss of functionality or loss of assets using the software
+- No party accepts any liability for any losses whatsoever relating to its use
+
+By using the Vega Wallet, you acknowledge that you have read and understood the [Vega Wallet User Data Policy ↗](https://vega.xyz/vega-wallet-user-data-policy/)
 
 ## Installation
 
-**NOTE** The extension is in active development and may break at any time.
-It will not allow you to backup the recovery phrase, and you should regard
-all funds transferred to keys that are managed to the extension as lost.
+Only one extension should be installed at a time to avoid version conflict. Updates may wipe all data, and keys are not recoverable. If you are communicating with multiple networks, consider using multiple browser profiles.
 
-Download a release from [Github Releases](https://github.com/vegaprotocol/vegawallet-browser/releases) and follow one of the guides below:
+1. Download a release from [Github Releases](https://github.com/vegaprotocol/vegawallet-browser/releases) for the network you are testing 
+2. Follow the installation guide below based on the browser you are using:
 
-- [Chrome - Load unpacked extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
-- [Firefox - Temporary Add-on](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
+**Chrome users**
+
+1. Unzip the file
+2. Add the extension by following this guide: [Load unpacked extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
+
+**Firefox users**
+1. Install the [Firefox Browser Developer Edition](https://www.mozilla.org/en-GB/firefox/developer/)
+2. Open Firefox developer edition
+3. Enter "about:config" in the URL bar. You'll be asked to accept the risk and continue
+4. Search for "xpinstall.signatures.required" and set to false
+5. Now enter "about:addons" in the URL bar
+6. From the settings cog drop down, select to install add-on from file and select your downloaded zip file
+7. You will need to accept a warning message to add an unverified extension
+8. Finally, you'll accept a "Vega wallet was added" message. Installation is then complete and you can pin to toolbar from your extension menu for easy access
 
 ## Usage
 
@@ -54,6 +78,8 @@ window.postMessage(
 ```
 
 ## Reporting Bugs
+
+Spot an issue? [Provide feedback here](https://github.com/vegaprotocol/feedback/discussions)
 
 Please provide which browser you used and its version, and the output of both
 the DevTools console from the dApp used, the error page from the

@@ -8,9 +8,9 @@ import { ErrorEvent } from '@sentry/types'
 export const sanitizeEvent = (event: ErrorEvent, wallets: Wallet[]) => {
   let eventString = JSON.stringify(event)
   wallets.forEach((wallet) => {
-    eventString = eventString.replace(wallet.name, '[WALLET_NAME]')
+    eventString = eventString.replaceAll(wallet.name, '[WALLET_NAME]')
     wallet.keys.forEach((key) => {
-      eventString = eventString.replace(key.publicKey, '[VEGA_KEY]')
+      eventString = eventString.replaceAll(key.publicKey, '[VEGA_KEY]')
     })
   })
   const sanitizedEvent = JSON.parse(eventString)

@@ -1,5 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed, isElementEnabled } from '../selenium-util'
+import { clickElement, getByDataTestID, getElementText, isElementDisplayed, isElementEnabled } from '../selenium-util'
 import * as locators from '../../../frontend/locator-ids'
 import componentLocators from '../../../frontend/components/locators'
 import * as walletCreated from '../../../frontend/routes/onboarding/save-mnemonic/wallet-created'
@@ -9,6 +9,7 @@ export class SecureYourWallet {
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)
   private readonly hideRecoveryPhraseButton: By = getByDataTestID(componentLocators.hideIcon)
   private readonly recoveryPhraseElement: By = getByDataTestID(componentLocators.mnemonicContainerShown)
+  private readonly recoveryPhraseText: By = getByDataTestID(componentLocators.mnemonicContainerMnemonic)
   private readonly secureYourWalletPage: By = getByDataTestID(locators.secureYourWalletPage)
   private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(componentLocators.copyWithCheck)
   private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(locators.recoveryPhraseWarningCheckbox)
@@ -23,6 +24,14 @@ export class SecureYourWallet {
     if (acknwledgeWarningAndContinue) {
       await this.acceptRecoveryPhraseWarning()
     }
+  }
+
+  async getRecoveryPhraseText() {
+    expect(
+      await this.isRecoveryPhraseDisplayed(),
+      'expected recovery phrase to be displayed prior to getting the text'
+    ).toBe(true)
+    return await getElementText(this.driver, this.recoveryPhraseText)
   }
 
   async acceptRecoveryPhraseWarning() {

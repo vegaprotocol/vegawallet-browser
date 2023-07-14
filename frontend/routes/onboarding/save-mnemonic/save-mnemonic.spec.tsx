@@ -8,6 +8,7 @@ import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { locators as saveMnemonicFormLocators } from './save-mnemonic-form'
 import { SUGGESTED_MNEMONIC_KEY } from '../../../hooks/suggest-mnemonic'
+import { mockStorage } from '../../../test-helpers/mock-storage'
 
 const mockedUsedNavigate = jest.fn()
 const saveMnemonicDescriptionText =
@@ -31,18 +32,7 @@ const renderComponent = () =>
 describe('Save mnemonic', () => {
   beforeEach(() => {
     mockClient()
-    // @ts-ignore
-    global.browser = {
-      // @ts-ignore
-      ...global.browser,
-      storage: {
-        session: {
-          get: jest.fn().mockResolvedValue({}),
-          set: jest.fn().mockResolvedValue({}),
-          remove: jest.fn().mockResolvedValue({})
-        }
-      }
-    }
+    mockStorage()
   })
   afterEach(() => {
     // @ts-ignore

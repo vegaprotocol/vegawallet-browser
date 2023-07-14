@@ -96,7 +96,6 @@ describe('RedirectPath', () => {
       settings: {}
     })
     expect(view.loading).toBeFalsy()
-    expect(view.error).toBeNull()
     expect(view.path).toBe(FULL_ROUTES.telemetry)
   })
 

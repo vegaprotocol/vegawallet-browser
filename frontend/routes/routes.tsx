@@ -17,6 +17,7 @@ import { Connections } from './auth/connections'
 import { usePersistLocation } from '../hooks/persist-location'
 import { ComingSoon } from '../components/coming-soon'
 import { FULL_ROUTES, ROUTES } from './route-names'
+import { ConfirmMnemonic } from './onboarding/confirm-mnemonic'
 
 export const Routing = () => {
   usePersistLocation()
@@ -39,6 +40,7 @@ export const Routing = () => {
           <Route path={ROUTES.createPassword} element={<CreatePassword />} />
           <Route path={ROUTES.createWallet} element={<CreateWallet />} />
           <Route path={ROUTES.saveMnemonic} element={<SaveMnemonic />} />
+          <Route path={ROUTES.confirmMnemonic} element={<ConfirmMnemonic />} />
           <Route path={ROUTES.telemetry} element={<Telemetry />} />
           <Route path={ROUTES.importWallet} element={<ImportWallet />} />
         </Route>

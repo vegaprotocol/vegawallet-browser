@@ -41,7 +41,7 @@ export const TransactionModal = () => {
             {transactionTitle}
           </h1>
           <div className="flex items-center mt-6">
-            <HostImage size={36} hostname={details.origin} />
+            <HostImage size={42} hostname={details.origin} />
             <div data-testid={locators.transactionRequest} className="ml-4">
               <span className="text-vega-dark-300">Request from</span> {details.origin}
             </div>

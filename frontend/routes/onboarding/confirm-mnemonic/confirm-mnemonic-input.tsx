@@ -11,6 +11,7 @@ export const ConfirmMnemonicInput = ({
   splitMnemonic: string[]
   index: number
   requiredWords: number[]
+  // TODO type this
   register: any
   errors: any
 }) => {

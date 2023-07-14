@@ -7,6 +7,8 @@ import { useCallback, useEffect, useState } from 'react'
 import uniq from 'lodash/uniq'
 import { ConfirmMnemonicInput } from './confirm-mnemonic-input'
 
+// TODO persist words and input values in session storage
+
 // const WORD_CONFIRMATION_STORAGE_KEY = 'word-confirmation'
 // const WORD_ENTRIES_STORAGE_KEY = 'word-entries'
 

@@ -21,7 +21,7 @@ export function Splash({ children, centered = false, className, ...props }: Spla
       )}
     >
       <div
-        className={classnames('h-full w-full min-h-full max-w-full py-3 px-5', {
+        className={classnames('h-full w-full min-h-full max-w-full', {
           'flex flex-col justify-center': centered
         })}
       >

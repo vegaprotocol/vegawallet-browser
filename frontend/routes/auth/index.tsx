@@ -23,8 +23,8 @@ export const Auth = () => {
         <Outlet />
       </section>
       <NavBar isFairground={false} />
-      <ConnectionModal />
       <TransactionModal />
+      <ConnectionModal />
     </div>
   )
 }

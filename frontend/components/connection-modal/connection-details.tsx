@@ -13,7 +13,7 @@ export const ConnectionDetails = ({
   hostname: string
 }) => {
   return (
-    <div data-testid={locators.connectionModalApprove}>
+    <div className="py-3 px-5" data-testid={locators.connectionModalApprove}>
       <ConnectionHeader hostname={hostname} title="Connect to dapp" />
       <Frame>
         <p className="text-vega-dark-300 mb-3" data-testid={locators.connectionModalAccessListTitle}>

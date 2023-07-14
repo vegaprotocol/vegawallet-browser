@@ -35,8 +35,8 @@ export const TransactionModal = () => {
   return (
     <>
       <Splash data-testid={locators.transactionWrapper}>
-        <section className="pb-4">
-          <PageHeader />
+        <PageHeader />
+        <section className="pb-4 py-3 px-5">
           <h1 data-testid={locators.transactionType} className="flex justify-center flex-col text-2xl text-white">
             {transactionTitle}
           </h1>

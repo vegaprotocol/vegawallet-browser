@@ -12,7 +12,7 @@ export const clearMnemonic = () => {
   const {
     storage: { session }
   } = getExtensionApi()
-  session.remove(SUGGESTED_MNEMONIC_KEY)
+  return session.remove(SUGGESTED_MNEMONIC_KEY)
 }
 
 /**

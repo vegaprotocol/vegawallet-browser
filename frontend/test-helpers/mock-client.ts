@@ -47,6 +47,8 @@ export const mockClient = (
   }
   // @ts-ignore
   global.browser = {
+    // @ts-ignore
+    ...global.browser,
     runtime: {
       connect: () => ({
         postMessage: (message: any) => {

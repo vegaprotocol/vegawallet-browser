@@ -7,6 +7,7 @@ import { FULL_ROUTES } from '../../route-names'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { locators as saveMnemonicFormLocators } from './save-mnemonic-form'
+import { SUGGESTED_MNEMONIC_KEY } from '../../../hooks/suggest-mnemonic'
 
 const mockedUsedNavigate = jest.fn()
 const saveMnemonicDescriptionText =
@@ -116,5 +117,16 @@ describe('Save mnemonic', () => {
     fireEvent.click(screen.getByTestId(saveMnemonicFormLocators.saveMnemonicButton))
     // Needs longer timeout as this shows for 1 full second
     await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.telemetry), { timeout: 1200 })
+  })
+
+  it('loads an exisiting mnemonic if one is in memory', async () => {
+    // @ts-ignore
+    global.browser.storage.session.get = jest.fn().mockResolvedValue({
+      [SUGGESTED_MNEMONIC_KEY]: 'foo'
+    })
+    renderComponent()
+    await screen.findByTestId(locators.mnemonicContainerHidden)
+    fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
+    expect(screen.getByTestId(locators.mnemonicContainerMnemonic)).toHaveTextContent('foo')
   })
 })

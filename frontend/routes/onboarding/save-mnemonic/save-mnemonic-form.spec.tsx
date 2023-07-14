@@ -1,6 +1,5 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react'
-import { useForm, useWatch } from 'react-hook-form'
-import { FormFields, SaveMnemonicForm, locators } from './save-mnemonic-form'
+import { SaveMnemonicForm, locators } from './save-mnemonic-form'
 
 describe('SaveMnemonicForm', () => {
   const mockedOnSubmit = jest.fn()

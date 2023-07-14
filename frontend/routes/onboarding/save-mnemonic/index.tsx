@@ -1,46 +1,28 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Page } from '../../../components/page'
-import { useForm, useWatch } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
-import { Checkbox } from '../../../components/checkbox'
 import { MnemonicContainer } from '../../../components/mnemonic-container'
-import { saveMnemonicButton, saveMnemonicDescription } from '../../../locator-ids'
+import { saveMnemonicDescription } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { RpcMethods } from '../../../lib/client-rpc-methods'
 import { createWallet } from '../../../lib/create-wallet'
-import { LoadingButton } from '../../../components/loading-button'
 import { WalletCreated } from './wallet-created'
-
-interface FormFields {
-  acceptedTerms: boolean
-}
+import { usePersistedSuggestMnemonic } from './use-persisted-suggest-mnemonic'
+import { SaveMnemonicForm } from './save-mnemonic-form'
 
 export const SaveMnemonic = () => {
   const [showSuccess, setShowSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const { request } = useJsonRpcClient()
   const navigate = useNavigate()
-  const { control, handleSubmit } = useForm<FormFields>()
   const [mnemonicShown, setMnemonicShown] = useState<boolean>(false)
-  const [mnemonic, setMnemonic] = useState<string | null>(null)
-
-  const suggestMnemonic = useCallback(async () => {
-    const res = await request(RpcMethods.GenerateRecoveryPhrase, null)
-    const { recoveryPhrase } = res
-    setMnemonic(recoveryPhrase)
-  }, [request])
-
-  useEffect(() => {
-    suggestMnemonic()
-  }, [suggestMnemonic])
-
-  const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
+  const { mnemonic, clearMnemonic } = usePersistedSuggestMnemonic()
 
   const submit = async () => {
     try {
       setLoading(true)
       await createWallet(mnemonic as string, request)
+      clearMnemonic()
       setShowSuccess(true)
     } finally {
       setLoading(false)
@@ -65,26 +47,7 @@ export const SaveMnemonic = () => {
           this with anyone else.
         </p>
         <MnemonicContainer mnemonic={mnemonic} onChange={setMnemonicShown} />
-        <form className="mt-8" onSubmit={handleSubmit(submit)}>
-          {mnemonicShown && (
-            <Checkbox
-              className="mb-8"
-              name="acceptedTerms"
-              label="I understand that if I lose my recovery phrase, I lose access to my wallet and keys."
-              control={control}
-            />
-          )}
-          <LoadingButton
-            loading={loading}
-            text="Create wallet"
-            loadingText="Creating wallet"
-            data-testid={saveMnemonicButton}
-            fill={true}
-            type="submit"
-            variant="primary"
-            disabled={!Boolean(acceptedTerms)}
-          />
-        </form>
+        <SaveMnemonicForm onSubmit={submit} loading={loading} disabled={!mnemonicShown} />
       </>
     </Page>
   )

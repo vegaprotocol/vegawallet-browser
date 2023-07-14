@@ -7,7 +7,7 @@ import { saveMnemonicDescription } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { createWallet } from '../../../lib/create-wallet'
 import { WalletCreated } from './wallet-created'
-import { clearMnemonic, useSuggestMnemonic } from '../../../hooks/suggest-mnemonic'
+import { useSuggestMnemonic } from '../../../hooks/suggest-mnemonic'
 import { SaveMnemonicForm } from './save-mnemonic-form'
 
 export const SaveMnemonic = () => {

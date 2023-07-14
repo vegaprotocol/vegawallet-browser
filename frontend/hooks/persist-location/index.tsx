@@ -11,6 +11,7 @@ const IGNORED_PATHS = [
   FULL_ROUTES.getStarted,
   FULL_ROUTES.createPassword,
   FULL_ROUTES.saveMnemonic,
+  FULL_ROUTES.confirmMnemonic,
   FULL_ROUTES.telemetry,
   FULL_ROUTES.createWallet,
   FULL_ROUTES.importWallet

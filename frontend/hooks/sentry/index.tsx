@@ -6,11 +6,11 @@ import { useGlobalsStore } from '../../stores/globals'
 import { ErrorEvent } from '@sentry/types'
 
 export const sanitizeEvent = (event: ErrorEvent, wallets: Wallet[]) => {
-  const eventString = JSON.stringify(event)
+  let eventString = JSON.stringify(event)
   wallets.forEach((wallet) => {
-    eventString.replace(wallet.name, '[WALLET_NAME]')
+    eventString = eventString.replaceAll(wallet.name, '[WALLET_NAME]')
     wallet.keys.forEach((key) => {
-      eventString.replace(key.publicKey, '[VEGA_KEY]')
+      eventString = eventString.replaceAll(key.publicKey, '[VEGA_KEY]')
     })
   })
   const sanitizedEvent = JSON.parse(eventString)

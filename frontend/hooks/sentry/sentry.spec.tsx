@@ -103,16 +103,21 @@ describe('useSentry', () => {
       },
       { name: 'name2', keys: [{ index: 0, name: 'Key 1', publicKey: 'publicKey3', metadata: [] }] }
     ]
-    const event = sanitizeEvent(
-      {
-        message: 'name1, name2, publicKey1, publicKey2, publicKey3'
-      } as any,
-      wallets
+    const event = JSON.stringify(
+      sanitizeEvent(
+        {
+          message: 'name1, name2, publicKey1, publicKey2, publicKey3, publicKey2, name2'
+        } as any,
+        wallets
+      )
     )
+
     expect(event).not.toContain('name1')
     expect(event).not.toContain('name2')
     expect(event).not.toContain('publicKey1')
     expect(event).not.toContain('publicKey2')
     expect(event).not.toContain('publicKey3')
+    expect(event).toContain('[VEGA_KEY]')
+    expect(event).toContain('[WALLET_NAME]')
   })
 })

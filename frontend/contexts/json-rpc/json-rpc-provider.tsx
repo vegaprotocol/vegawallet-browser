@@ -9,6 +9,7 @@ import { Connection, useConnectionStore } from '../../stores/connections'
 import { RpcMethods } from '../../lib/client-rpc-methods'
 import { log } from '../../lib/logging'
 import { useErrorStore } from '../../stores/error'
+import { getExtensionApi } from '../../lib/extension-apis'
 import { TransactionMessage } from '../../lib/transactions'
 
 export type SendMessage = (method: string, params?: any, propagate?: boolean) => Promise<any>
@@ -19,13 +20,8 @@ export interface JsonRpcNotification {
   jsonrpc: '2.0'
 }
 
-const getRuntime = () => {
-  // @ts-ignore
-  return globalThis.browser?.runtime ?? globalThis.chrome?.runtime
-}
-
 const createClient = (notificationHandler: Function) => {
-  const runtime = getRuntime()
+  const { runtime } = getExtensionApi()
   const backgroundPort = runtime.connect({ name: 'popup' })
 
   const client = new JSONRPCClient({
@@ -50,7 +46,7 @@ const createServer = (
   handleConnection: (params: ConnectionMessage) => Promise<boolean>,
   handleTransaction: (params: TransactionMessage) => Promise<boolean>
 ) => {
-  const runtime = getRuntime()
+  const { runtime } = getExtensionApi()
   const backgroundPort = runtime.connect({ name: 'popup' })
   const server = new JSONRPCServer({
     methods: {

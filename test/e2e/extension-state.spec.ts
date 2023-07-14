@@ -75,15 +75,15 @@ describe('Check correct app state persists after closing the extension', () => {
     await createAWallet.createNewWallet()
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
     await secureYourWallet.revealRecoveryPhrase()
-    expect(await secureYourWallet.isRecoveryPhraseDisplayed()).toBe(true)
+    const recoveryPhraseText = await secureYourWallet.getRecoveryPhraseText()
 
     await switchToNewWindow()
-    // TODO this is the wrong behavior, we should be on the secure wallet page.
-    await createAWallet.checkOnCreateWalletPage()
-    await switchWindowHandles(driver)
+    await secureYourWallet.revealRecoveryPhrase()
+    const newTabRecoveryPhraseText = await secureYourWallet.getRecoveryPhraseText()
+    expect(newTabRecoveryPhraseText).toBe(recoveryPhraseText)
 
+    await switchWindowHandles(driver)
     await navigateToLandingPage(driver)
-    await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
     await telemetry.checkOnTelemetryPage()
 

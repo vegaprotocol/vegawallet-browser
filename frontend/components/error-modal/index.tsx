@@ -19,7 +19,7 @@ export const ErrorModal = ({ error, onClose }: { error: Error | null; onClose: (
         <h1 className="text-2xl mb-6">Something's gone wrong</h1>
         <div className="mb-8">
           {error ? (
-            <CodeWindow content={error.message} text={error.message} />
+            <CodeWindow content={error.stack} text={JSON.stringify(error.stack, null, 2)} />
           ) : (
             <CodeWindow content={'An unknown error occurred'} text={'An unknown error occurred'} />
           )}

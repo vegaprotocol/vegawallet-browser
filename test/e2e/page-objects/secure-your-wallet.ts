@@ -3,6 +3,7 @@ import { clickElement, getByDataTestID, isElementDisplayed, isElementEnabled } f
 import * as locators from '../../../frontend/locator-ids'
 import componentLocators from '../../../frontend/components/locators'
 import * as walletCreated from '../../../frontend/routes/onboarding/save-mnemonic/wallet-created'
+import { locators as mnemonicForm } from '../../../frontend/routes/onboarding/save-mnemonic/save-mnemonic-form'
 
 export class SecureYourWallet {
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)
@@ -11,7 +12,7 @@ export class SecureYourWallet {
   private readonly secureYourWalletPage: By = getByDataTestID(locators.secureYourWalletPage)
   private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(componentLocators.copyWithCheck)
   private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(locators.recoveryPhraseWarningCheckbox)
-  private readonly secureWalletContinueButton: By = getByDataTestID(locators.saveMnemonicButton)
+  private readonly secureWalletContinueButton: By = getByDataTestID(mnemonicForm.saveMnemonicButton)
   private readonly walletCreatedIcon: By = getByDataTestID(walletCreated.locators.walletCreated)
 
   constructor(private readonly driver: WebDriver) {}

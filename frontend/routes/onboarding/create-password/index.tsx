@@ -10,6 +10,7 @@ import { confirmPassphraseInput, passphraseInput, submitPassphraseButton } from 
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 import { LoadingButton } from '../../../components/loading-button'
+import zxcvbn from 'zxcvbn'
 
 interface FormFields {
   password: string
@@ -40,6 +41,9 @@ export const CreatePassword = () => {
     }
   }
 
+  const passwordStrength = zxcvbn(password || '')
+  console.log(passwordStrength)
+
   return (
     <Page name="Create Password" backLocation={FULL_ROUTES.getStarted}>
       <>
@@ -57,6 +61,11 @@ export const CreatePassword = () => {
               type="password"
               {...register('password')}
             />
+            <InputError forInput="confirmPassword">{passwordStrength?.feedback?.warning}</InputError>
+            {passwordStrength?.feedback?.suggestions.map((s) => (
+              <p>{s}</p>
+            ))}
+            <p>{passwordStrength.score}</p>
           </FormGroup>
           <FormGroup label="Confirm password" labelFor="confirmPassword" className="mb-6">
             <Input

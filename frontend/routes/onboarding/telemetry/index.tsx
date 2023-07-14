@@ -75,7 +75,7 @@ export const Telemetry = () => {
             type="submit"
             variant="primary"
           >
-            Report Bugs & Crashes
+            Opt in to error reporting
           </Button>
         </form>
         <form onSubmit={handleSubmit(() => submit(false))} className="mt-4">

@@ -1,7 +1,9 @@
-import { renderHook } from '@testing-library/react'
+import { renderHook, waitFor } from '@testing-library/react'
 import { useGetRedirectPath } from '.'
 import { FULL_ROUTES } from '../../routes/route-names'
 import { AppGlobals, useGlobalsStore } from '../../stores/globals'
+import { mockStorage } from '../../test-helpers/mock-storage'
+import { SUGGESTED_MNEMONIC_KEY } from '../suggest-mnemonic'
 
 jest.mock('../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({ client: {} })
@@ -14,7 +16,7 @@ jest.mock('../../stores/globals', () => ({
 }))
 
 const renderRedirectHook = (globals: AppGlobals, loading: boolean = false) => {
-  ;(useGlobalsStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
+  ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
     const result = {
       loading,
       globals,
@@ -23,15 +25,15 @@ const renderRedirectHook = (globals: AppGlobals, loading: boolean = false) => {
     fn(result)
     return result
   })
-  const {
-    result: { current }
-  } = renderHook(() => useGetRedirectPath(), {
+  return renderHook(() => useGetRedirectPath(), {
     initialProps: false
   })
-  return current
 }
 
 describe('RedirectPath', () => {
+  beforeEach(() => {
+    mockStorage()
+  })
   it('returns the wallets page by default', async () => {
     const view = renderRedirectHook({
       passphrase: true,
@@ -42,8 +44,8 @@ describe('RedirectPath', () => {
         telemetry: false
       }
     })
-    expect(view.loading).toBeFalsy()
-    expect(view.path).toBe(FULL_ROUTES.wallets)
+    await waitFor(() => expect(view.result.current.loading).toBeFalsy())
+    expect(view.result.current.path).toBe(FULL_ROUTES.wallets)
   })
 
   it('returns getting started if no password is set', async () => {
@@ -56,8 +58,9 @@ describe('RedirectPath', () => {
         telemetry: false
       }
     })
-    expect(view.loading).toBeFalsy()
-    expect(view.path).toBe(FULL_ROUTES.getStarted)
+    await waitFor(() => expect(view.result.current.loading).toBeFalsy())
+    expect(view.result.current.loading).toBeFalsy()
+    expect(view.result.current.path).toBe(FULL_ROUTES.getStarted)
   })
   it('returns login if locked', async () => {
     const view = renderRedirectHook({
@@ -69,8 +72,27 @@ describe('RedirectPath', () => {
         telemetry: false
       }
     })
-    expect(view.loading).toBeFalsy()
-    expect(view.path).toBe(FULL_ROUTES.login)
+    await waitFor(() => expect(view.result.current.loading).toBeFalsy())
+    expect(view.result.current.loading).toBeFalsy()
+    expect(view.result.current.path).toBe(FULL_ROUTES.login)
+  })
+
+  it('returns save mnemonic if no wallets exist and there is a mnemonic in memory', async () => {
+    // @ts-ignore
+    global.browser.storage.session.get = jest.fn().mockResolvedValue({
+      [SUGGESTED_MNEMONIC_KEY]: 'foo'
+    })
+    const view = renderRedirectHook({
+      passphrase: true,
+      locked: false,
+      wallet: false,
+      version: '0.0.1',
+      settings: {
+        telemetry: false
+      }
+    })
+    await waitFor(() => expect(view.result.current.loading).toBeFalsy())
+    expect(view.result.current.path).toBe(FULL_ROUTES.saveMnemonic)
   })
 
   it('returns create wallet if no wallets exist', async () => {
@@ -83,8 +105,9 @@ describe('RedirectPath', () => {
         telemetry: false
       }
     })
-    expect(view.loading).toBeFalsy()
-    expect(view.path).toBe(FULL_ROUTES.createWallet)
+    await waitFor(() => expect(view.result.current.loading).toBeFalsy())
+    expect(view.result.current.loading).toBeFalsy()
+    expect(view.result.current.path).toBe(FULL_ROUTES.createWallet)
   })
 
   it('returns telemetry if telemetry settings are undefined', async () => {
@@ -95,8 +118,9 @@ describe('RedirectPath', () => {
       version: '0.0.1',
       settings: {}
     })
-    expect(view.loading).toBeFalsy()
-    expect(view.path).toBe(FULL_ROUTES.telemetry)
+    await waitFor(() => expect(view.result.current.loading).toBeFalsy())
+    expect(view.result.current.loading).toBeFalsy()
+    expect(view.result.current.path).toBe(FULL_ROUTES.telemetry)
   })
 
   it('returns no path if loading', async () => {
@@ -112,7 +136,7 @@ describe('RedirectPath', () => {
       },
       true
     )
-    expect(view.loading).toBeTruthy()
-    expect(view.path).toBeNull()
+    await waitFor(() => expect(view.result.current.loading).toBeTruthy())
+    expect(view.result.current.path).toBeNull()
   })
 })

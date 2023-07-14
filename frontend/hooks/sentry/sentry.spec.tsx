@@ -105,7 +105,7 @@ describe('useSentry', () => {
     ]
     const event = sanitizeEvent(
       {
-        message: 'name1, name2, publicKey1, publicKey2, publicKey3'
+        message: 'name1, name2, publicKey1, publicKey2, publicKey3, publicKey2, name2'
       } as any,
       wallets
     )

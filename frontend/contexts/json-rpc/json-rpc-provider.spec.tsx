@@ -60,8 +60,6 @@ const TestComponent = ({ expect }: { expect: jest.Expect }) => {
 
 describe('JsonRpcProvider', () => {
   beforeEach(() => {
-    // @ts-ignore
-    global.browser = {}
     jest.clearAllMocks()
   })
   it('renders and provides client', () => {
@@ -99,7 +97,7 @@ describe('JsonRpcProvider', () => {
       'useJsonRpcClient must be used within JsonRPCProvider'
     )
   })
-  it('uses firefox runtime if available', () => {
+  it('uses chrome runtime if available', () => {
     mockModalStore()
     mockConnectionStore()
     mockErrorStore()
@@ -127,7 +125,7 @@ describe('JsonRpcProvider', () => {
     )
     expect(screen.getByText('Content')).toBeInTheDocument()
   })
-  it('uses chrome runtime if available', () => {
+  it('uses browser runtime if available', () => {
     mockModalStore()
     mockConnectionStore()
     mockErrorStore()

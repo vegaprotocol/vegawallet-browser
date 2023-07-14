@@ -6,6 +6,7 @@ import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { FULL_ROUTES } from '../../route-names'
 import { validRecoveryPhrase } from '../../../../test/e2e/wallet-helpers/common'
+import { mockStorage } from '../../../test-helpers/mock-storage'
 
 const mockedUsedNavigate = jest.fn()
 
@@ -25,6 +26,9 @@ const renderComponent = () => {
 }
 
 describe('ImportWallet', () => {
+  beforeEach(() => {
+    mockStorage()
+  })
   it('renders description, input and submit button', () => {
     // 1101-ONBD-030 I can see an explanation of what I am being asked to do
     mockClient()

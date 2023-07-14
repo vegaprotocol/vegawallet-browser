@@ -1,9 +1,13 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { Checkbox } from '../../../components/checkbox'
-import { saveMnemonicButton } from '../../../locator-ids'
 import { LoadingButton } from '../../../components/loading-button'
 
-interface FormFields {
+export const locators = {
+  saveMnemonicButton: 'save-mnemonic-button',
+  saveMnemonicForm: 'save-mnemonic-form'
+}
+
+export interface FormFields {
   acceptedTerms: boolean
 }
 
@@ -19,23 +23,23 @@ export const SaveMnemonicForm = ({
   const { control, handleSubmit } = useForm<FormFields>()
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
   return (
-    <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
+    <form data-testid={locators.saveMnemonicForm} className="mt-8" onSubmit={handleSubmit(onSubmit)}>
       <Checkbox
         className="mb-8"
         name="acceptedTerms"
         label="I understand that if I lose my recovery phrase, I lose access to my wallet and keys."
         control={control}
-        disabled={disabled}
+        disabled={disabled || loading}
       />
       <LoadingButton
         loading={loading}
         text="Create wallet"
         loadingText="Creating wallet"
-        data-testid={saveMnemonicButton}
+        data-testid={locators.saveMnemonicButton}
         fill={true}
         type="submit"
         variant="primary"
-        disabled={!Boolean(acceptedTerms) || disabled}
+        disabled={!Boolean(acceptedTerms) || loading || disabled}
       />
     </form>
   )

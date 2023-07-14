@@ -12,7 +12,6 @@ export const passphraseWarningCheckbox = 'acceptedTerms' // by id
 export const submitPassphraseButton = 'submit-passphrase-button'
 export const importWalletButton = 'import-wallet'
 export const saveMnemonicDescription = 'save-mnemonic-description'
-export const saveMnemonicButton = 'save-mnemonic-button'
 export const secureYourWalletPage = 'secure-your-wallet'
 
 export const networkIndicator = 'network-indicator'

@@ -15,7 +15,6 @@ import { Settings } from './auth/settings'
 import { Connections } from './auth/connections'
 
 import { usePersistLocation } from '../hooks/persist-location'
-import { ComingSoon } from '../components/coming-soon'
 import { FULL_ROUTES, ROUTES } from './route-names'
 import { ConfirmMnemonic } from './onboarding/confirm-mnemonic'
 
@@ -27,9 +26,9 @@ export const Routing = () => {
         <Route index path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.auth} element={<Auth />}>
           <Route path={ROUTES.wallets} element={<Wallets />} />
-          <Route path={ROUTES.transactions} element={<ComingSoon />}>
-            <Route index element={<ComingSoon />} />
-            <Route path={':id'} element={<ComingSoon />} />
+          <Route path={ROUTES.transactions} element={<Outlet />}>
+            <Route index element={<Outlet />} />
+            <Route path={':id'} element={<Outlet />} />
           </Route>
           <Route path={ROUTES.connections} element={<Connections />} />
           <Route path={ROUTES.settings} element={<Settings />} />

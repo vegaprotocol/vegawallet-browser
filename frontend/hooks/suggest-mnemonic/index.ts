@@ -1,11 +1,26 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { RpcMethods } from '../../../lib/client-rpc-methods'
-import { getExtensionApi } from '../../../lib/extension-apis'
+import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
+import { RpcMethods } from '../../lib/client-rpc-methods'
+import { getExtensionApi } from '../../lib/extension-apis'
 
 export const SUGGESTED_MNEMONIC_KEY = 'suggested-mnemonic'
 
-export const usePersistedSuggestMnemonic = () => {
+/**
+ * Clears the mnemonic from memory, should be called after the wallet has been created
+ * */
+export const clearMnemonic = () => {
+  const {
+    storage: { session }
+  } = getExtensionApi()
+  session.remove(SUGGESTED_MNEMONIC_KEY)
+}
+
+/**
+ * Suggests a mnemonic to the user and stores it in memory
+ * once the user creates the wallet the mnemonic should be cleared from memory
+ * using the clear mnemonic function above
+ */
+export const useSuggestMnemonic = () => {
   const {
     storage: { session }
   } = getExtensionApi()
@@ -31,17 +46,11 @@ export const usePersistedSuggestMnemonic = () => {
     }
   }, [session, suggestMnemonic])
 
-  // Clears the mnemonic from memory after the wallet has been created
-  const clearMnemonic = () => {
-    session.remove(SUGGESTED_MNEMONIC_KEY)
-  }
-
   useEffect(() => {
     getMnemonic()
   }, [getMnemonic])
 
   return {
-    mnemonic,
-    clearMnemonic
+    mnemonic
   }
 }

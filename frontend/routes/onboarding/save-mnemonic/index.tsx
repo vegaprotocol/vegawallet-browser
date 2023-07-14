@@ -7,7 +7,7 @@ import { saveMnemonicDescription } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { createWallet } from '../../../lib/create-wallet'
 import { WalletCreated } from './wallet-created'
-import { usePersistedSuggestMnemonic } from './use-persisted-suggest-mnemonic'
+import { clearMnemonic, useSuggestMnemonic } from '../../../hooks/suggest-mnemonic'
 import { SaveMnemonicForm } from './save-mnemonic-form'
 
 export const SaveMnemonic = () => {
@@ -16,13 +16,12 @@ export const SaveMnemonic = () => {
   const { request } = useJsonRpcClient()
   const navigate = useNavigate()
   const [mnemonicShown, setMnemonicShown] = useState<boolean>(false)
-  const { mnemonic, clearMnemonic } = usePersistedSuggestMnemonic()
+  const { mnemonic } = useSuggestMnemonic()
 
   const submit = async () => {
     try {
       setLoading(true)
       await createWallet(mnemonic as string, request)
-      clearMnemonic()
       setShowSuccess(true)
     } finally {
       setLoading(false)

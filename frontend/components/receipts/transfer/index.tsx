@@ -1,10 +1,23 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { CopyWithCheckmark } from '../../copy-with-check'
 import { KeyIcon } from '../../key-icon'
+import ReactTimeAgo from 'react-time-ago'
+import { isBefore } from 'date-fns'
+
+const getTime = (transaction: any) => {
+  const deliverOn = transaction?.transfer?.oneOff?.deliverOn
+  if (deliverOn) {
+    const date = new Date(deliverOn)
+    if (isBefore(date, new Date())) return null
+    return date
+  }
+  return null
+}
 
 export const Transfer = ({ transaction }: { transaction: any }) => {
   // Not supporting recurring transfers yet
   if (transaction.transfer.recurring) return null
+  const time = getTime(transaction)
   return (
     <section>
       <h1 className="text-vega-dark-300">Transfer</h1>
@@ -25,7 +38,7 @@ export const Transfer = ({ transaction }: { transaction: any }) => {
         </div>
       </div>
       <h1 className="text-vega-dark-300">When</h1>
-      <p>Now</p>
+      <p>{time ? <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> : 'Now'}</p>
     </section>
   )
 }

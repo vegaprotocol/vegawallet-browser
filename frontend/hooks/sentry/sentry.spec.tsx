@@ -1,7 +1,8 @@
 import { renderHook } from '@testing-library/react'
-import { sanitizeEvent, useSentry } from '.'
+import { useSentry } from '.'
 import { useGlobalsStore } from '../../stores/globals'
 import { init, close, setTag } from '@sentry/react'
+import { sanitizeEvent } from '../../../lib/sanitize-event'
 
 jest.mock('../../stores/globals')
 jest.mock('@sentry/react')

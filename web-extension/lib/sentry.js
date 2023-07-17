@@ -1,5 +1,5 @@
 import config from '@/config'
-import { init } from '@sentry/browser'
+import { init, setTag } from '@sentry/browser'
 import { sanitizeEvent } from '../../lib/sanitize-event.js'
 import packageJson from '../../package.json'
 
@@ -30,5 +30,6 @@ export const setupSentry = async (settingsStore, walletsStore) => {
         return sanitizeEvent(event, walletsWithKeys)
       }
     })
+    setTag('version', packageJson.version)
   }
 }

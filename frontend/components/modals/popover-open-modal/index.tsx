@@ -19,17 +19,19 @@ export const PopoverOpenModal = () => {
   if (!popoverOpen || isPopoverInstance) return null
   return (
     <Splash data-testid={locators.popoverModal} centered={true}>
-      <Frame>
-        <div className="text-center">
-          <div className="flex justify-center">
-            <ExpandIcon size={24} />
+      <div className="px-5">
+        <Frame>
+          <div className="text-center">
+            <div className="flex justify-center">
+              <ExpandIcon size={24} />
+            </div>
+            <p className="my-4 text-lg">You're viewing your wallet in another window</p>
+            <Button fill={true} onClick={focusPopover} variant="primary" data-testid={locators.continueHere}>
+              Continue here
+            </Button>
           </div>
-          <p className="my-4 text-lg">You're viewing your wallet in another window</p>
-          <Button fill={true} onClick={focusPopover} variant="primary" data-testid={locators.continueHere}>
-            Continue here
-          </Button>
-        </div>
-      </Frame>
+        </Frame>
+      </div>
     </Splash>
   )
 }

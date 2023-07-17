@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { TelemetrySection, locators } from './telemetry-section'
 import config from '@/config'
 import { silenceErrors } from '../../../test-helpers/silence-errors'

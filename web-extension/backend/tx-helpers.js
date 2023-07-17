@@ -12,23 +12,32 @@ export async function getChainId({ rpc }) {
   return latestBlock.chainId
 }
 
-export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
+export async function createTransactionData(rpc, keys, transaction, sendingMode) {
+  console.log('rpc', rpc)
+  console.log('keys', keys)
+  console.log('transaction', transaction)
+  console.log('sendingMode', sendingMode) 
   const latestBlock = await rpc.blockchainHeight()
+  console.log('latestBlock', latestBlock)
   const tid = toHex(await randomFill(new Uint8Array(32)))
+  console.log('tid', tid)
 
   const pow = await solvePoW({
     difficulty: latestBlock.spamPowDifficulty,
     blockHash: latestBlock.hash,
     tid
   })
+  console.log('pow', pow)
 
   const nonce = new DataView(await randomFill(new Uint8Array(8)).buffer).getBigUint64(0, false)
-
+  console.log('nonce', nonce)
   const inputData = InputData.encode({
     blockHeight: BigInt(latestBlock.height),
     nonce,
     command: transaction
   })
+
+  console.log('inputData', inputData)
 
   const chainId = latestBlock.chainId
 
@@ -46,34 +55,45 @@ export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
     pow
   }
 
-  const tx = Transaction.encode(txData)
+  console.log('txData before encoding', txData)
+  const encodedTx = Transaction.encode(txData)
 
+  return {
+    encodedTx, txData, inputData, pow, tid
+  }
+}
+export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
+  const trans = await createTransactionData(rpc, keys, transaction, sendingMode )
+
+  console.log('txData after encoding', trans.txData)
   const txJSON = {
-    inputData: toBase64(inputData),
+    inputData: toBase64(trans.inputData),
     signature: {
-      value: txData.signature.value,
-      algo: txData.signature.algo,
-      version: txData.signature.version
+      value: trans.txData.signature.value,
+      algo: trans.txData.signature.algo,
+      version: trans.txData.signature.version
     },
     from: {
-      pubKey: txData.from.pubKey
+      pubKey: trans.txData.from.pubKey
     },
-    version: txData.version,
+    version: trans.txData.version,
     pow: {
-      tid: toHex(tid),
-      nonce: pow.nonce.toString()
+      tid: toHex(trans.tid),
+      nonce: trans.pow.nonce.toString()
     }
   }
+  console.log('txJSON', txJSON)
 
   const sentAt = new Date().toISOString()
   const res = await rpc.submitRawTransaction(
-    toBase64(tx),
+    toBase64(trans.encodedTx),
     sendingMode
   )
+  console.log(res, 'res')
 
   return {
     sentAt,
     transactionHash: res.txHash,
-    transaction: txJSON
+    transaction: txJSON, 
   }
 }

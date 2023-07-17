@@ -90,6 +90,12 @@ export default function init({ onerror, settings, wallets, networks, connections
 
         try {
 
+          console.log('keyPair param', key.keyPair)
+          console.log('keyPair param', key.keyPair)
+          console.log('rpc param', rpc)
+          console.log('sendingMode param', params.sendingMode)
+          console.log('transaction param', params.transaction)
+
           const res = await txHelpers.sendTransaction({
             keys: key.keyPair,
             rpc,

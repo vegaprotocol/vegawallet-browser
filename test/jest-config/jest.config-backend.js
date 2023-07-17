@@ -1,6 +1,10 @@
 export default {
   rootDir: '../..',
   roots: ['<rootDir>/web-extension'],
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.jsx?$': 'ts-jest'
+  },
   testEnvironment: 'jest-environment-node',
   testTimeout: 30000,
   reporters: [

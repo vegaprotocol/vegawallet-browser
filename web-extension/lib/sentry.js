@@ -1,7 +1,7 @@
 import config from '@/config'
 import { init } from '@sentry/browser'
-import { sanitizeEvent } from '../lib/sanitize-event.js'
-import packageJson from '../package.json'
+import { sanitizeEvent } from '../../lib/sanitize-event.js'
+import packageJson from '../../package.json'
 
 export const setupSentry = async (settingsStore, walletsStore) => {
   if (config.sentryDsn) {

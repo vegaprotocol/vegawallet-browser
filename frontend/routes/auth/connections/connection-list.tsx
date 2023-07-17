@@ -45,6 +45,9 @@ export const ConnectionsList = ({
             <div data-testid={locators.connectionLastConnected} className="text-vega-dark-400">
               Last connected: {getDateFormat().format(i.accessedAt)} · {getTimeFormat().format(i.accessedAt)}
             </div>
+            <button data-testid={locators.connectionRemoveConnection} onClick={() => removeConnection(i)}>
+              <Cross className="w-4 h-4" />
+            </button>
           </div>
         )}
       />

@@ -3,6 +3,8 @@ import config from '../../lib/config'
 import { ExpandIcon } from '../icons/expand'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../lib/client-rpc-methods'
+import { usePopoverStore } from '../../stores/popover-store'
+import { Cross } from '../icons/cross'
 
 export const locators = {
   pageHeader: 'page-header',
@@ -22,6 +24,10 @@ const useOpenInNewWindow = () => {
 }
 
 export const PageHeader = () => {
+  const { isPopoverInstance, focusPopover } = usePopoverStore((state) => ({
+    isPopoverInstance: state.isPopoverInstance,
+    focusPopover: state.focusPopover
+  }))
   const open = useOpenInNewWindow()
   return (
     <div
@@ -38,10 +44,10 @@ export const PageHeader = () => {
         </div>
         <button
           data-testid={locators.openPopoutButton}
-          onClick={open}
+          onClick={isPopoverInstance ? focusPopover : open}
           className="border rounded-md border-vega-dark-300 text-sm h-6 ml-3 px-1"
         >
-          <ExpandIcon />
+          {isPopoverInstance ? <Cross className="h-4 w-4 flex justify-between items-center" /> : <ExpandIcon />}
         </button>
       </div>
     </div>

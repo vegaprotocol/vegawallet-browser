@@ -1,5 +1,5 @@
 import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
-import { generate as generateMnemonic, wordlist, validate } from '@vegaprotocol/crypto/bip-0039/mnemonic'
+import { generate as generateMnemonic, validate } from '@vegaprotocol/crypto/bip-0039/mnemonic'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 
 export class WalletCollection {

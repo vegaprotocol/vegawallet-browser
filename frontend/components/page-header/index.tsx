@@ -2,7 +2,6 @@ import { VegaIcon } from '../icons/vega-icon'
 import config from '../../lib/config'
 import { ExpandIcon } from '../icons/expand'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
-import { useCallback } from 'react'
 import { RpcMethods } from '../../lib/client-rpc-methods'
 
 export const locators = {
@@ -14,12 +13,12 @@ export const locators = {
 const useOpenInNewWindow = () => {
   const { request } = useJsonRpcClient()
 
-  return useCallback(async () => {
+  return async () => {
     await request(RpcMethods.OpenPopout, null)
     if (config.closeWindowOnPopupOpen) {
       window.close()
     }
-  }, [request])
+  }
 }
 
 export const PageHeader = () => {

@@ -2,7 +2,7 @@ import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Page } from '../../../components/page'
 import { useForm, useWatch } from 'react-hook-form'
 import { Validation } from '../../../lib/form-validation'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
@@ -30,18 +30,15 @@ export const CreatePassword = () => {
   const password = useWatch({ control, name: 'password' })
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
   const confirmPassword = useWatch({ control, name: 'confirmPassword' })
-  const submit = useCallback(
-    async ({ password }: FormFields) => {
-      try {
-        setLoading(true)
-        await request(RpcMethods.CreatePassphrase, { passphrase: password })
-        navigate(FULL_ROUTES.createWallet)
-      } finally {
-        setLoading(false)
-      }
-    },
-    [request, navigate]
-  )
+  const submit = async ({ password }: FormFields) => {
+    try {
+      setLoading(true)
+      await request(RpcMethods.CreatePassphrase, { passphrase: password })
+      navigate(FULL_ROUTES.createWallet)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <Page name="Create Password" backLocation={FULL_ROUTES.getStarted}>

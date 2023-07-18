@@ -1,7 +1,6 @@
 import { ExternalLink, Radio, RadioGroup } from '@vegaprotocol/ui-toolkit'
 import { SettingsHeader } from './settings-header'
 import { SettingsSection } from './settings-section'
-import { useCallback } from 'react'
 import config from '@/config'
 import { useGlobalsStore } from '../../../stores/globals'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
@@ -20,15 +19,12 @@ export const TelemetrySection = () => {
     loading: state.settingsLoading
   }))
   const { request } = useJsonRpcClient()
-  const handleChange = useCallback(
-    async (value: string) => {
-      const newVal = value === 'true'
-      await saveSettings(request, {
-        telemetry: newVal
-      })
-    },
-    [saveSettings, request]
-  )
+  const handleChange = async (value: string) => {
+    const newVal = value === 'true'
+    await saveSettings(request, {
+      telemetry: newVal
+    })
+  }
 
   if (!globals) {
     throw new Error('Tried to render settings page without globals defined')

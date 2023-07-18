@@ -126,15 +126,13 @@ export const JsonRPCProvider = ({ children }: { children: JSX.Element }) => {
     handleTransaction: store.handleTransaction
   }))
   const server = useMemo(() => createServer(handleConnection, handleTransaction), [handleConnection, handleTransaction])
-  return (
-    <JsonRpcContext.Provider
-      value={{
-        client,
-        server,
-        request
-      }}
-    >
-      {children}
-    </JsonRpcContext.Provider>
+  const value = useMemo(
+    () => ({
+      client,
+      server,
+      request
+    }),
+    [client, request, server]
   )
+  return <JsonRpcContext.Provider value={value}>{children}</JsonRpcContext.Provider>
 }

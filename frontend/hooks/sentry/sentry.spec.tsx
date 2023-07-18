@@ -63,11 +63,11 @@ describe('useSentry', () => {
     renderHook(() => useSentry())
 
     expect(init).toHaveBeenCalledWith({
-      dsn: expect.any(String),
+      dsn: 'dsn',
       integrations: [],
       tracesSampleRate: 1.0,
-      environment: expect.any(String),
-      release: expect.any(String),
+      environment: 'Test',
+      release: '@vegaprotocol/vegawallet-browser@0.4.0',
       beforeSend: expect.any(Function)
     })
 

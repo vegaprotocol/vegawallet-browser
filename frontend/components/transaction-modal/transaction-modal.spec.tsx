@@ -49,8 +49,7 @@ describe('TransactionModal', () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: false, details: null, handleTransactionDecision }
-      fn(res)
-      return res
+      return fn(res)
     })
     const { container } = render(<TransactionModal />)
     expect(container).toBeEmptyDOMElement()
@@ -69,8 +68,7 @@ describe('TransactionModal', () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: true, details: data, handleTransactionDecision }
-      fn(res)
-      return res
+      return fn(res)
     })
     render(<TransactionModal />)
     expect(screen.getByTestId(locators.transactionWrapper)).toBeVisible()
@@ -90,8 +88,7 @@ describe('TransactionModal', () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: true, details: data, handleTransactionDecision }
-      fn(res)
-      return res
+      return fn(res)
     })
     render(<TransactionModal />)
     fireEvent.click(screen.getByTestId(locators.transactionModalDenyButton))
@@ -102,8 +99,7 @@ describe('TransactionModal', () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: true, details: data, handleTransactionDecision }
-      fn(res)
-      return res
+      return fn(res)
     })
     render(<TransactionModal />)
     fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))

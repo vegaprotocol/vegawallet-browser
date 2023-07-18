@@ -1,16 +1,18 @@
 import { useCallback, useMemo } from 'react'
 import { useModalStore } from '../../stores/modal-store'
 import { Splash } from '../splash'
-import { CodeWindow } from '../code-window'
-import { Button, truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { CollapsiblePanel } from '../collapsible-panel'
-import locators from '../locators'
+import { Button } from '@vegaprotocol/ui-toolkit'
 import { PageHeader } from '../page-header'
-import { HostImage } from '../host-image'
-import { KeyIcon } from '../key-icon'
-import { TRANSACTION_TITLES, TransactionKeys } from '../../lib/transactions'
 import ReactTimeAgo from 'react-time-ago'
-import { VegaSection } from '../vega-section'
+import { RawTransaction } from './raw-transaction'
+import { TransactionHeader } from './transaction-header'
+
+export const locators = {
+  transactionWrapper: 'transaction-wrapper',
+  transactionTimeAgo: 'transaction-time-ago',
+  transactionModalDenyButton: 'transaction-deny-button',
+  transactionModalApproveButton: 'transaction-approve-button'
+}
 
 export const TransactionModal = () => {
   const { isOpen, handleTransactionDecision, details } = useModalStore((store) => ({
@@ -24,10 +26,7 @@ export const TransactionModal = () => {
     },
     [handleTransactionDecision]
   )
-  const transactionTitle = useMemo(() => {
-    if (!details) return ''
-    return TRANSACTION_TITLES[Object.keys(details.transaction)[0] as TransactionKeys]
-  }, [details])
+
   const date = useMemo(() => {
     if (!details) return new Date()
     return new Date(details.receivedAt)
@@ -38,38 +37,13 @@ export const TransactionModal = () => {
       <Splash data-testid={locators.transactionWrapper}>
         <PageHeader />
         <section className="pb-4 pt-2 px-5">
-          <VegaSection>
-            <h1 data-testid={locators.transactionType} className="flex justify-center flex-col text-2xl text-white">
-              {transactionTitle}
-            </h1>
-            <div className="flex items-center mt-6 mb-4">
-              <HostImage size={42} hostname={details.origin} />
-              <div data-testid={locators.transactionRequest} className="ml-4">
-                <span className="text-vega-dark-300">Request from</span> {details.origin}
-              </div>
-            </div>
-            <div className="flex items-center">
-              <KeyIcon publicKey={details.publicKey} />
-              <div className="ml-4" data-testid={locators.transactionKey}>
-                <div className="text-vega-dark-300">Signing with</div>
-                <p>
-                  {details.name}: <span className="text-vega-dark-300">{truncateMiddle(details.publicKey)}</span>
-                </p>
-              </div>
-            </div>
-          </VegaSection>
-          <VegaSection>
-            <CollapsiblePanel
-              title="View raw Transaction"
-              initiallyOpen={true}
-              panelContent={
-                <CodeWindow
-                  text={JSON.stringify(details.transaction, null, '  ')}
-                  content={JSON.stringify(details.transaction, null, '  ')}
-                />
-              }
-            />
-          </VegaSection>
+          <TransactionHeader
+            origin={details.origin}
+            publicKey={details.publicKey}
+            name={details.name}
+            transaction={details.transaction}
+          />
+          <RawTransaction transaction={details.transaction} />
           <div data-testid={locators.transactionTimeAgo} className="text-sm text-vega-dark-300 mt-6 mb-20">
             Received <ReactTimeAgo timeStyle="round" date={date} locale="en-US" />
           </div>

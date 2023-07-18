@@ -47,7 +47,6 @@ export const CreatePassword = () => {
     Boolean
   )
   const feedback = combinedFeedback.map((s) => s.replace(/\.$/, '')).join('. ')
-  console.log(combinedFeedback)
 
   return (
     <Page name="Create Password" backLocation={FULL_ROUTES.getStarted}>

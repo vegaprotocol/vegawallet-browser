@@ -21,8 +21,7 @@ describe('ConnectionModal', () => {
   it('renders nothing when isOpen is false', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
       const res = { isOpen: false }
-      fn(res)
-      return res
+      return fn(res)
     })
     const { container } = render(<ConnectionModal />)
     expect(container).toBeEmptyDOMElement()
@@ -30,8 +29,7 @@ describe('ConnectionModal', () => {
   it('renders connection details when open but not yet connected', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: true, details: {} }
-      fn(res)
-      return res
+      return fn(res)
     })
     render(<ConnectionModal />)
     expect(screen.getByTestId(locators.connectionModalApprove)).toBeInTheDocument()
@@ -39,8 +37,7 @@ describe('ConnectionModal', () => {
   it('renders connection success when hasConnected is true', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: true, handleConnectionDecision: jest.fn(), details: {} }
-      fn(res)
-      return res
+      return fn(res)
     })
     render(<ConnectionModal />)
     fireEvent.click(screen.getByTestId(locators.connectionModalApproveButton))
@@ -49,8 +46,7 @@ describe('ConnectionModal', () => {
   it('renders nothing if connection is not approved', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: true, handleConnectionDecision: jest.fn(), details: {} }
-      fn(res)
-      return res
+      return fn(res)
     })
     render(<ConnectionModal />)
     fireEvent.click(screen.getByTestId(locators.connectionModalDenyButton))
@@ -60,8 +56,7 @@ describe('ConnectionModal', () => {
     const handleConnectionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { isOpen: true, handleConnectionDecision, details: {} }
-      fn(res)
-      return res
+      return fn(res)
     })
     render(<ConnectionModal />)
     fireEvent.click(screen.getByTestId(locators.connectionModalApproveButton))

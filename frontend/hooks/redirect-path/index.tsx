@@ -50,7 +50,7 @@ export const useGetRedirectPath = () => {
     const path = localStorage.getItem(LOCATION_KEY)
     return {
       loading: false,
-      path: path || FULL_ROUTES.wallets
+      path: path ?? FULL_ROUTES.wallets
     }
   }
 }

@@ -23,7 +23,6 @@ export const TransactionHeader = ({
   transaction: Transaction
 }) => {
   const transactionTitle = useMemo(() => {
-    if (!transaction) return ''
     return TRANSACTION_TITLES[Object.keys(transaction)[0] as TransactionKeys]
   }, [transaction])
   return (

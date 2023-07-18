@@ -1,6 +1,5 @@
 import classnames from 'classnames'
-import type { HTMLAttributes } from 'react'
-import type { ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 
 interface SplashProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { CreatePassword } from '.'
+import { CreatePassword } from './create-password'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
 import { confirmPassphraseInput, passphraseInput, submitPassphraseButton } from '../../../locator-ids'

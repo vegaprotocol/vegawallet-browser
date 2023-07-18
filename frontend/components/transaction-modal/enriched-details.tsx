@@ -1,12 +1,12 @@
-import { TransactionKeys } from '../../lib/transactions'
-import { Transfer } from '../receipts/transfer'
+// import { TransactionKeys } from '../../lib/transactions'
+// import { Transfer } from '../receipts/transfer'
 import { VegaSection } from '../vega-section'
 
 const TransactionSwitch = ({ transaction }: { transaction: any }) => {
-  const type = Object.keys(transaction)[0]
-  if (type === TransactionKeys.TRANSFER) {
-    return <Transfer transaction={transaction} />
-  }
+  // const type = Object.keys(transaction)[0]
+  // if (type === TransactionKeys.TRANSFER) {
+  //   return <Transfer transaction={transaction} />
+  // }
   return null
 }
 

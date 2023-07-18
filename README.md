@@ -18,7 +18,7 @@ By using the Vega Wallet, you acknowledge that you have read and understood the 
 
 ## Installation
 
-Only one extension should be installed at a time to avoid version conflict. Updates may wipe all data, and keys are not recoverable. If you are communicating with multiple networks, consider using multiple browser profiles.
+**Only one extension should be active (installed and enabled) at a time to avoid version conflict.** Future updates may wipe all data, and keys are not recoverable. If you are communicating with multiple networks, consider using multiple browser profiles.
 
 1. Download a release from [Github Releases](https://github.com/vegaprotocol/vegawallet-browser/releases) for the network you are testing 
 2. Follow the installation guide below based on the browser you are using:

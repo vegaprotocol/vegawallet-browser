@@ -2,8 +2,9 @@ import config from '@/config'
 import { init, setTag } from '@sentry/browser'
 import { sanitizeEvent } from '../../lib/sanitize-event.js'
 import packageJson from '../../package.json'
+import uniq from 'lodash/uniq'
 
-export const setupSentry = async (settingsStore, walletsStore) => {
+export const setupSentry = async (settingsStore, publicKeyIndexStore) => {
   if (config.sentryDsn) {
     init({
       dsn: config.sentryDsn,
@@ -15,19 +16,12 @@ export const setupSentry = async (settingsStore, walletsStore) => {
         const telemetry = await settingsStore.get('telemetry')
         // returning null prevents the event from being sent
         if (!telemetry) return null
-        const wallets = await walletsStore.list()
+        const wallets = await publicKeyIndexStore.values()
+        const walletNames = uniq(wallets.map((w) => w.wallet))
+        const keys = uniq(wallets.map((w) => w.publicKey))
 
-        const walletsWithKeys = await Promise.all(
-          wallets.map((wallet) => {
-            const keys = walletsStore.listKeys({ wallet })
-            return {
-              name: wallet,
-              keys
-            }
-          })
-        )
         /* istanbul ignore next */
-        return sanitizeEvent(event, walletsWithKeys)
+        return sanitizeEvent(event, walletNames, keys)
       }
     })
     setTag('version', packageJson.version)

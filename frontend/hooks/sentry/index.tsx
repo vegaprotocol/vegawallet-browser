@@ -26,7 +26,11 @@ export const useSentry = () => {
 
         beforeSend(event) {
           /* istanbul ignore next */
-          return sanitizeEvent(event, wallets)
+          return sanitizeEvent(
+            event,
+            wallets.map((wallet) => wallet.name),
+            wallets.flatMap((w) => w.keys.map((k) => k.publicKey))
+          )
         }
       })
       setTag('version', globals.version)

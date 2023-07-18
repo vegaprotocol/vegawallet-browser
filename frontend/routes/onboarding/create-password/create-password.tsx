@@ -11,6 +11,7 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 import { LoadingButton } from '../../../components/loading-button'
 import zxcvbn from 'zxcvbn'
+import classNames from 'classnames'
 
 interface FormFields {
   password: string
@@ -42,7 +43,11 @@ export const CreatePassword = () => {
   }
 
   const passwordStrength = zxcvbn(password || '')
-  console.log([passwordStrength?.feedback?.warning, ...passwordStrength?.feedback?.suggestions])
+  const combinedFeedback = [passwordStrength?.feedback?.warning, ...passwordStrength?.feedback?.suggestions].filter(
+    Boolean
+  )
+  const feedback = combinedFeedback.map((s) => s.replace(/\.$/, '')).join('. ')
+  console.log(combinedFeedback)
 
   return (
     <Page name="Create Password" backLocation={FULL_ROUTES.getStarted}>
@@ -61,14 +66,18 @@ export const CreatePassword = () => {
               type="password"
               {...register('password')}
             />
-            <InputError forInput="confirmPassword">
-              {[passwordStrength?.feedback?.warning, ...passwordStrength?.feedback?.suggestions]
-                .filter(Boolean)
-                .map((s) => s.replace(/\.$/, ''))
-                .join('. ')}
-              .
-            </InputError>
-            <p>{passwordStrength.score}</p>
+            <div className="grid grid-cols-5 gap-1 h-2">
+              {new Array(5).fill(0).map((_, i) => (
+                <div
+                  key={i}
+                  className={classNames('h-2', {
+                    'bg-vega-yellow': passwordStrength.score < i,
+                    'bg-vega-pink': passwordStrength.score >= i
+                  })}
+                ></div>
+              ))}
+            </div>
+            {combinedFeedback.length ? <InputError forInput="confirmPassword">{feedback}.</InputError> : null}
           </FormGroup>
           <FormGroup label="Confirm password" labelFor="confirmPassword" className="mb-6">
             <Input

@@ -69,28 +69,10 @@ export const mockClient = (
               },
               id: message.id
             })
-          } else if (message.method === RpcMethods.CreatePassphrase) {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: null,
-              id: message.id
-            })
           } else if (message.method === RpcMethods.GenerateRecoveryPhrase) {
             pushMessage({
               jsonrpc: '2.0',
               result: { recoveryPhrase: 'Word '.repeat(24) },
-              id: message.id
-            })
-          } else if (message.method === RpcMethods.ImportWallet) {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: null,
-              id: message.id
-            })
-          } else if (message.method === RpcMethods.Lock) {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: null,
               id: message.id
             })
           } else if (message.method === RpcMethods.GenerateKey) {
@@ -132,12 +114,6 @@ export const mockClient = (
                 id: message.id
               })
             }
-          } else if (message.method === RpcMethods.OpenPopout) {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: null,
-              id: message.id
-            })
           } else if (message.method === RpcMethods.ListConnections) {
             pushMessage({
               jsonrpc: '2.0',
@@ -174,7 +150,15 @@ export const mockClient = (
               result: null,
               id: message.id
             })
-          } else if (message.method === RpcMethods.RemoveConnection) {
+          } else if (
+            [
+              RpcMethods.ImportWallet,
+              RpcMethods.Lock,
+              RpcMethods.RemoveConnection,
+              RpcMethods.OpenPopout,
+              RpcMethods.CreatePassphrase
+            ].includes(message.method)
+          ) {
             pushMessage({
               jsonrpc: '2.0',
               result: null,

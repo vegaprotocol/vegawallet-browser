@@ -1,6 +1,6 @@
 import { ButtonLink, ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { CopyWithCheckmark } from '../../../components/copy-with-check'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { Frame } from '../../../components/frame'
 import { List } from '../../../components/list'
@@ -27,11 +27,11 @@ export const Wallets = () => {
     createNewKey: store.createKey
   }))
   const [creatingKey, setCreatingKey] = useState(false)
-  const createKey = useCallback(async () => {
+  const createKey = async () => {
     setCreatingKey(true)
     await createNewKey(request, wallets[0].name)
     setCreatingKey(false)
-  }, [request, createNewKey, wallets])
+  }
   const [wallet] = wallets
 
   if (loading) return null

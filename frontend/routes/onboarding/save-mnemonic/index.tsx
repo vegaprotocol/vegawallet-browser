@@ -37,7 +37,7 @@ export const SaveMnemonic = () => {
 
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })
 
-  const submit = useCallback(async () => {
+  const submit = async () => {
     try {
       setLoading(true)
       await createWallet(mnemonic as string, request)
@@ -45,7 +45,7 @@ export const SaveMnemonic = () => {
     } finally {
       setLoading(false)
     }
-  }, [request, mnemonic, setLoading, setShowSuccess])
+  }
   // While loading, render nothing
   if (!mnemonic) return null
   if (showSuccess)

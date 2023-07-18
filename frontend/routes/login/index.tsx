@@ -1,7 +1,7 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../lib/form-validation'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
@@ -32,25 +32,23 @@ export const Login = () => {
   }))
   const navigate = useNavigate()
   const passphrase = useWatch({ control, name: 'passphrase' })
-  const submit = useCallback(
-    async (fields: { passphrase: string }) => {
-      try {
-        setLoading(true)
-        await request('admin.unlock', { passphrase: fields.passphrase }, true)
-        await loadGlobals(request)
-        navigate(FULL_ROUTES.home)
-      } catch (e) {
-        if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
-          setError('passphrase', { message: 'Incorrect passphrase' })
-        } else {
-          setError('passphrase', { message: `Unknown error occurred ${e}` })
-        }
-      } finally {
-        setLoading(false)
+  const submit = async (fields: { passphrase: string }) => {
+    try {
+      setLoading(true)
+      await request('admin.unlock', { passphrase: fields.passphrase }, true)
+      await loadGlobals(request)
+      navigate(FULL_ROUTES.home)
+    } catch (e) {
+      if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
+        setError('passphrase', { message: 'Incorrect passphrase' })
+      } else {
+        setError('passphrase', { message: `Unknown error occurred ${e}` })
       }
-    },
-    [request, loadGlobals, navigate, setError, setLoading]
-  )
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <StarsWrapper>
       <VegaHeader />

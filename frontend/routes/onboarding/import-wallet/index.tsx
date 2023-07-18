@@ -1,6 +1,6 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { Page } from '../../../components/page'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FormGroup, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../../lib/form-validation'
@@ -29,20 +29,17 @@ export const ImportWallet = () => {
     mode: 'onChange'
   })
   const navigate = useNavigate()
-  const submit = useCallback(
-    async (fields: FormFields) => {
-      try {
-        setLoading(true)
-        await createWallet(fields.mnemonic, request, true)
-        setShowSuccess(true)
-      } catch (e) {
-        setError('mnemonic', { message: e?.toString() })
-      } finally {
-        setLoading(false)
-      }
-    },
-    [request, setError]
-  )
+  const submit = async (fields: FormFields) => {
+    try {
+      setLoading(true)
+      await createWallet(fields.mnemonic, request, true)
+      setShowSuccess(true)
+    } catch (e) {
+      setError('mnemonic', { message: e?.toString() })
+    } finally {
+      setLoading(false)
+    }
+  }
   const mnemonic = useWatch({ control, name: 'mnemonic' })
   if (showSuccess)
     return (

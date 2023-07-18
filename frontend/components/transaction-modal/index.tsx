@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useModalStore } from '../../stores/modal-store'
 import { Splash } from '../splash'
 import { CodeWindow } from '../code-window'
@@ -17,12 +17,9 @@ export const TransactionModal = () => {
     handleTransactionDecision: store.handleTransactionDecision,
     details: store.currentTransactionDetails
   }))
-  const handleDecision = useCallback(
-    (decision: boolean) => {
-      handleTransactionDecision(decision)
-    },
-    [handleTransactionDecision]
-  )
+  const handleDecision = (decision: boolean) => {
+    handleTransactionDecision(decision)
+  }
   const transactionTitle = useMemo(() => {
     if (!details) return ''
     return TRANSACTION_TITLES[Object.keys(details.transaction)[0] as TransactionKeys]

@@ -1,6 +1,5 @@
 import { Button, ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { Page } from '../../../components/page'
-import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
@@ -27,15 +26,12 @@ export const Telemetry = () => {
   const { request } = useJsonRpcClient()
   const { handleSubmit } = useForm()
   const navigate = useNavigate()
-  const submit = useCallback(
-    async (value: boolean) => {
-      await saveSettings(request, {
-        telemetry: value
-      })
-      navigate(FULL_ROUTES.wallets)
-    },
-    [navigate, request, saveSettings]
-  )
+  const submit = async (value: boolean) => {
+    await saveSettings(request, {
+      telemetry: value
+    })
+    navigate(FULL_ROUTES.wallets)
+  }
 
   return (
     <Page name="Help improve Vega Wallet">

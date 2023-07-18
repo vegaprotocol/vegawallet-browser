@@ -1,5 +1,5 @@
 import { Splash } from '../splash'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 import { useModalStore } from '../../stores/modal-store'
 import locators from '../locators'
@@ -13,15 +13,12 @@ export const ConnectionModal = () => {
     details: store.currentConnectionDetails
   }))
   const [hasConnected, setHasConnected] = useState(false)
-  const handleDecision = useCallback(
-    (decision: boolean) => {
-      if (!decision) {
-        handleConnectionDecision(decision)
-      }
-      setHasConnected(decision)
-    },
-    [handleConnectionDecision]
-  )
+  const handleDecision = (decision: boolean) => {
+    if (!decision) {
+      handleConnectionDecision(decision)
+    }
+    setHasConnected(decision)
+  }
 
   if (!isOpen || !details) return null
   return (

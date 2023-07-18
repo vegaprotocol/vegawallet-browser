@@ -1,9 +1,11 @@
 import { ExternalLink, Radio, RadioGroup } from '@vegaprotocol/ui-toolkit'
 import { SettingsHeader } from './settings-header'
 import { SettingsSection } from './settings-section'
+import { useCallback } from 'react'
 import config from '@/config'
 import { useGlobalsStore } from '../../../stores/globals'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
+import { VegaSection } from '../../../components/vega-section'
 
 export const locators = {
   settingsDescription: 'settings-description',
@@ -31,7 +33,7 @@ export const TelemetrySection = () => {
   }
 
   return (
-    <SettingsSection>
+    <VegaSection>
       <SettingsHeader text="Report bugs and crashes" />
       <p data-testid={locators.settingsDescription} className="my-4">
         Improve Vega Wallet by automatically reporting bugs and crashes.
@@ -45,6 +47,6 @@ export const TelemetrySection = () => {
       <ExternalLink data-testid={locators.settingsDataPolicy} className="text-white mt-4" href={config.userDataPolicy}>
         Read Vega Wallet's user data policy
       </ExternalLink>
-    </SettingsSection>
+    </VegaSection>
   )
 }

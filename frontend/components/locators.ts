@@ -41,19 +41,11 @@ const locators = {
   settingsIcon: 'settings-icon',
   splashWrapper: 'splash-wrapper',
   tickIcon: 'tick-icon',
-  transactionWrapper: 'transaction-wrapper',
-  transactionStatus: 'transaction-status',
-  transactionModalApproveButton: 'transaction-modal-approve-button',
-  transactionModalDenyButton: 'transaction-modal-deny-button',
   upDownArrows: 'up-down-arrows-icon',
   vegaIcon: 'vega-icon',
   vega: 'vega',
   walletIcon: 'wallet-icon',
-  connectionsIcon: 'connections-icon',
-  transactionType: 'transaction-type',
-  transactionRequest: 'transaction-request',
-  transactionKey: 'transaction-key',
-  transactionTimeAgo: 'transaction-time-ago'
+  connectionsIcon: 'connections-icon'
 }
 
 export default locators

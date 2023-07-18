@@ -67,7 +67,7 @@ describe('useSentry', () => {
       integrations: [],
       tracesSampleRate: 1.0,
       environment: 'Test',
-      release: '@vegaprotocol/vegawallet-browser@0.4.0',
+      release: '@vegaprotocol/vegawallet-browser@1.0.0',
       beforeSend: expect.any(Function)
     })
 

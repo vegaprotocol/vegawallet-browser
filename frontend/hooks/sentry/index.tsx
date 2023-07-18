@@ -4,7 +4,6 @@ import config from '!/config'
 import { useWalletStore } from '../../stores/wallets'
 import { useGlobalsStore } from '../../stores/globals'
 import { sanitizeEvent } from '../../../lib/sanitize-event.js'
-import packageJson from '../../../package.json'
 
 export const useSentry = () => {
   const { globals } = useGlobalsStore((state) => ({
@@ -17,7 +16,7 @@ export const useSentry = () => {
   useEffect(() => {
     if (globals?.settings.telemetry && config.sentryDsn) {
       init({
-        release: `@vegaprotocol/vegawallet-browser@${packageJson.version}`,
+        release: `@vegaprotocol/vegawallet-browser@${globals.version}`,
         dsn: config.sentryDsn,
         integrations: [],
         tracesSampleRate: 1.0,

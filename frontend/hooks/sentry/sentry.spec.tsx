@@ -67,6 +67,7 @@ describe('useSentry', () => {
       integrations: [],
       tracesSampleRate: 1.0,
       environment: expect.any(String),
+      release: expect.any(String),
       beforeSend: expect.any(Function)
     })
 
@@ -94,22 +95,13 @@ describe('useSentry', () => {
   })
 
   it('should sanitize event by replacing wallet keys with [VEGA_KEY]', () => {
-    const wallets = [
-      {
-        name: 'name1',
-        keys: [
-          { index: 0, name: 'Key 1', publicKey: 'publicKey1', metadata: [] },
-          { index: 1, name: 'Key 2', publicKey: 'publicKey2', metadata: [] }
-        ]
-      },
-      { name: 'name2', keys: [{ index: 0, name: 'Key 1', publicKey: 'publicKey3', metadata: [] }] }
-    ]
     const event = JSON.stringify(
       sanitizeEvent(
         {
           message: 'name1, name2, publicKey1, publicKey2, publicKey3, publicKey2, name2'
         } as any,
-        wallets
+        ['name1', 'name2'],
+        ['publicKey1', 'publicKey2', 'publicKey3']
       )
     )
 

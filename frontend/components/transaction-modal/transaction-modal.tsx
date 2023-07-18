@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useModalStore } from '../../stores/modal-store'
 import { Splash } from '../splash'
 import { Button } from '@vegaprotocol/ui-toolkit'
@@ -21,10 +20,6 @@ export const TransactionModal = () => {
     details: store.currentTransactionDetails
   }))
 
-  const date = useMemo(() => {
-    if (!details) return new Date()
-    return new Date(details.receivedAt)
-  }, [details])
   if (!isOpen || !details) return null
   return (
     <>
@@ -39,7 +34,7 @@ export const TransactionModal = () => {
           />
           <RawTransaction transaction={details.transaction} />
           <div data-testid={locators.transactionTimeAgo} className="text-sm text-vega-dark-300 mt-6 mb-20">
-            Received <ReactTimeAgo timeStyle="round" date={date} locale="en-US" />
+            Received <ReactTimeAgo timeStyle="round" date={new Date(details.receivedAt)} locale="en-US" />
           </div>
         </section>
       </Splash>

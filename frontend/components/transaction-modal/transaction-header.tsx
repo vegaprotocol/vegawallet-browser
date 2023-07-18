@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { TRANSACTION_TITLES, Transaction, TransactionKeys } from '../../lib/transactions'
 import { VegaSection } from '../vega-section'
 import { HostImage } from '../host-image'
@@ -22,13 +21,10 @@ export const TransactionHeader = ({
   name: string
   transaction: Transaction
 }) => {
-  const transactionTitle = useMemo(() => {
-    return TRANSACTION_TITLES[Object.keys(transaction)[0] as TransactionKeys]
-  }, [transaction])
   return (
     <VegaSection>
       <h1 data-testid={locators.transactionType} className="flex justify-center flex-col text-2xl text-white">
-        {transactionTitle}
+        {TRANSACTION_TITLES[Object.keys(transaction)[0] as TransactionKeys]}
       </h1>
       <div className="flex items-center mt-6 mb-4">
         <HostImage size={42} hostname={origin} />

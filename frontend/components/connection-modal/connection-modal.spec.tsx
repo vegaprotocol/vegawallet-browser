@@ -20,7 +20,7 @@ describe('ConnectionModal', () => {
   })
   it('renders nothing when isOpen is false', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementationOnce((fn) => {
-      const res = { isOpen: false }
+      const res = { connectionModalOpen: false }
       return fn(res)
     })
     const { container } = render(<ConnectionModal />)
@@ -28,7 +28,7 @@ describe('ConnectionModal', () => {
   })
   it('renders connection details when open but not yet connected', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, details: {} }
+      const res = { connectionModalOpen: true, currentConnectionDetails: {} }
       return fn(res)
     })
     render(<ConnectionModal />)
@@ -36,7 +36,7 @@ describe('ConnectionModal', () => {
   })
   it('renders connection success when hasConnected is true', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, handleConnectionDecision: jest.fn(), details: {} }
+      const res = { connectionModalOpen: true, handleConnectionDecision: jest.fn(), currentConnectionDetails: {} }
       return fn(res)
     })
     render(<ConnectionModal />)
@@ -45,7 +45,7 @@ describe('ConnectionModal', () => {
   })
   it('renders nothing if connection is not approved', () => {
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, handleConnectionDecision: jest.fn(), details: {} }
+      const res = { connectionModalOpen: true, handleConnectionDecision: jest.fn(), currentConnectionDetails: {} }
       return fn(res)
     })
     render(<ConnectionModal />)
@@ -55,7 +55,7 @@ describe('ConnectionModal', () => {
   it('handle the interaction decision when connection is approve after showing success state', () => {
     const handleConnectionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, handleConnectionDecision, details: {} }
+      const res = { connectionModalOpen: true, handleConnectionDecision, currentConnectionDetails: {} }
       return fn(res)
     })
     render(<ConnectionModal />)

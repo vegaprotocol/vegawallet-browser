@@ -48,7 +48,7 @@ describe('TransactionModal', () => {
   it('renders nothing when isOpen is false', () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: false, details: null, handleTransactionDecision }
+      const res = { transactionModalOpen: false, currentTransactionDetails: null, handleTransactionDecision }
       return fn(res)
     })
     const { container } = render(<TransactionModal />)
@@ -67,7 +67,7 @@ describe('TransactionModal', () => {
 */
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, details: data, handleTransactionDecision }
+      const res = { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision }
       return fn(res)
     })
     render(<TransactionModal />)
@@ -87,7 +87,7 @@ describe('TransactionModal', () => {
   it('calls handleTransactionDecision with false if denying', async () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, details: data, handleTransactionDecision }
+      const res = { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision }
       return fn(res)
     })
     render(<TransactionModal />)
@@ -98,7 +98,7 @@ describe('TransactionModal', () => {
   it('renders nothing after approving', async () => {
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
-      const res = { isOpen: true, details: data, handleTransactionDecision }
+      const res = { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision }
       return fn(res)
     })
     render(<TransactionModal />)

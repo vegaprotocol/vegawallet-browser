@@ -1,7 +1,5 @@
 import { ExternalLink, Radio, RadioGroup } from '@vegaprotocol/ui-toolkit'
 import { SettingsHeader } from './settings-header'
-import { SettingsSection } from './settings-section'
-import { useCallback } from 'react'
 import config from '@/config'
 import { useGlobalsStore } from '../../../stores/globals'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'

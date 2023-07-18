@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useModalStore } from '../../stores/modal-store'
 import { Splash } from '../splash'
 import { Button } from '@vegaprotocol/ui-toolkit'
@@ -20,12 +20,6 @@ export const TransactionModal = () => {
     handleTransactionDecision: store.handleTransactionDecision,
     details: store.currentTransactionDetails
   }))
-  const handleDecision = useCallback(
-    (decision: boolean) => {
-      handleTransactionDecision(decision)
-    },
-    [handleTransactionDecision]
-  )
 
   const date = useMemo(() => {
     if (!details) return new Date()
@@ -50,7 +44,7 @@ export const TransactionModal = () => {
         </section>
       </Splash>
       <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-4 bg-black z-20 px-5 border-t border-vega-dark-200">
-        <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleDecision(false)}>
+        <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleTransactionDecision(false)}>
           Reject
         </Button>
         <Button

@@ -14,7 +14,7 @@ jest.mock('./lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
 
-jest.mock('@/config', () => ({
+jest.mock('!/config', () => ({
   ...jest.requireActual('../../../../config/test').default,
   closeWindowOnPopupOpen: true
 }))

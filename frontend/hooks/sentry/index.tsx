@@ -1,6 +1,6 @@
 import { init, close, setTag } from '@sentry/react'
 import { useEffect } from 'react'
-import config from '@/config'
+import config from '!/config'
 import { Wallet, useWalletStore } from '../../stores/wallets'
 import { useGlobalsStore } from '../../stores/globals'
 import { ErrorEvent } from '@sentry/types'

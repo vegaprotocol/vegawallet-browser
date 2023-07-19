@@ -18,6 +18,6 @@ export default {
   coverageReporters: ['html'],
   transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/'],
   moduleNameMapper: {
-    '@/config': '<rootDir>/config/test.js'
+    '!/config': '<rootDir>/config/test.js'
   }
 }

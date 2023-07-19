@@ -5,7 +5,7 @@ import componentLocators from '../locators'
 
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 
-jest.mock('@/config', () => ({
+jest.mock('!/config', () => ({
   ...jest.requireActual('../../../config/test').default,
   closeWindowOnPopupOpen: true
 }))
@@ -33,7 +33,7 @@ describe('PageHeader', () => {
   test('closes the window if config.closeWindowOnPopupOpen is true', async () => {
     config.closeWindowOnPopupOpen = true
     global.close = jest.fn()
-    jest.mock('@/config', () => ({
+    jest.mock('!/config', () => ({
       closeWindowOnPopupOpen: true
     }))
 

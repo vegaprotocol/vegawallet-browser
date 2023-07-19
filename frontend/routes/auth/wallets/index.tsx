@@ -6,7 +6,7 @@ import { Frame } from '../../../components/frame'
 import { List } from '../../../components/list'
 import { KeyIcon } from '../../../components/key-icon'
 import { useWalletStore, Key } from '../../../stores/wallets'
-import config from '@/config'
+import config from '!/config'
 
 export const locators = {
   walletsAssetHeader: 'wallets-asset-header',

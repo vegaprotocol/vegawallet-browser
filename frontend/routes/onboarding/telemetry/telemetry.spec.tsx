@@ -3,7 +3,7 @@ import { Telemetry, locators } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
-import config from '@/config'
+import config from '!/config'
 
 const saveSettings = jest.fn()
 

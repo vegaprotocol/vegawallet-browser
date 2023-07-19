@@ -5,7 +5,7 @@ import { init, close, setTag } from '@sentry/react'
 
 jest.mock('../../stores/globals')
 jest.mock('@sentry/react')
-jest.mock('@/config', () => ({
+jest.mock('!/config', () => ({
   ...jest.requireActual('../../../config/test').default,
   sentryDsn: 'dsn'
 }))

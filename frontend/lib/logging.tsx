@@ -1,4 +1,4 @@
-import config from '@/config'
+import config from '!/config'
 
 type ConsoleMethod = {
   [K in keyof Console]: Console[K] extends (...args: any[]) => unknown ? K : never

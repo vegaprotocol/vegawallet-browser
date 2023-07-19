@@ -9,7 +9,7 @@ import ConcurrentStorage from './lib/concurrent-storage.js'
 import EncryptedStorage from './lib/encrypted-storage.js'
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'
-import config from '@/config'
+import config from '!/config'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action

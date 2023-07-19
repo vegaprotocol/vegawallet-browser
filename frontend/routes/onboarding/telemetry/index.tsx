@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
 import { Frame } from '../../../components/frame'
 import { Tick } from '../../../components/icons/tick'
-import config from '@/config'
+import config from '!/config'
 import { useGlobalsStore } from '../../../stores/globals'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 

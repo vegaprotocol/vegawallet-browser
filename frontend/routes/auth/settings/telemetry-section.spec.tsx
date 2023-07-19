@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { TelemetrySection, locators } from './telemetry-section'
-import config from '@/config'
+import config from '!/config'
 import { silenceErrors } from '../../../test-helpers/silence-errors'
 import { useGlobalsStore } from '../../../stores/globals'
 

@@ -21,7 +21,7 @@ const backend = (isProduction, outputPath, walletConfig, analyze) => [
       commonjs(),
       isProduction && terser(),
       alias({
-        entries: [{ find: '@/config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
+        entries: [{ find: '!/config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
       }),
       analyze &&
         visualizer({

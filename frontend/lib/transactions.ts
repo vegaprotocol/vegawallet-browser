@@ -1,8 +1,3 @@
-export enum TransactionStatus {
-  APPROVED = 'approved',
-  REJECTED = 'rejected'
-}
-
 export enum TransactionKeys {
   UNKNOWN = 'unknown',
   ORDER_SUBMISSION = 'orderSubmission',
@@ -51,19 +46,24 @@ export const TRANSACTION_TITLES: Record<TransactionKeys, string> = {
   [TransactionKeys.ETHEREUM_KEY_ROTATE_SUBMISSION]: 'Ethereum key rotation submission'
 }
 
-type TransactionData = object
+type TransactionData = Record<string, any>
 
 export type Transaction = {
-  id: string
-  type: TransactionKeys
-  hostname: string
-  wallet: string
+  [key in TransactionKeys]: TransactionData
+}
+
+export enum SendingMode {
+  ASYNC = 'TYPE_ASYNC',
+  SYNC = 'TYPE_SYNC',
+  COMMIT = 'TYPE_COMMIT'
+}
+
+export interface TransactionMessage {
+  transaction: Transaction
   publicKey: string
-  payload: TransactionData
-  status: TransactionStatus
-  receivedAt: Date
-  txHash?: null | string
-  blockHeight?: number
-  signature?: string
-  error?: string
+  name: string
+  wallet: string
+  sendingMode: string
+  origin: string
+  receivedAt: string
 }

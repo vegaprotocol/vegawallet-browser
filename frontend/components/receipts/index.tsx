@@ -1,10 +1,6 @@
 import { TransactionKeys } from '../../lib/transactions'
-import { ReceiptComponentProps, ReceiptMap } from './receipts'
-import { Transfer } from './transfer'
-
-export const TransactionMap: Partial<ReceiptMap> = {
-  [TransactionKeys.TRANSFER]: Transfer
-}
+import { ReceiptComponentProps } from './receipts'
+import { TransactionMap } from './transaction-map'
 
 export const TransactionSwitch = ({ transaction }: ReceiptComponentProps) => {
   const type = Object.keys(transaction)[0] as TransactionKeys

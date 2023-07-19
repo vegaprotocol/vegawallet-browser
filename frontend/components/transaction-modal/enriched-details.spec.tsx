@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { EnrichedDetails } from './enriched-details'
 import { ReceiptComponentProps } from '../receipts/receipts'

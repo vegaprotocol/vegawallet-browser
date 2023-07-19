@@ -1,9 +1,11 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { TransactionSwitch } from '.'
+import { TransactionKeys } from '../../lib/transactions'
 
-jest.mock('./transfer', () => ({
-  Transfer: () => <div data-testid="transfer" />
+jest.mock('./transaction-map', () => ({
+  TransactionMap: () => ({
+    [TransactionKeys.TRANSFER]: () => <div data-testid="transfer" />
+  })
 }))
 
 describe('TransactionSwitch', () => {

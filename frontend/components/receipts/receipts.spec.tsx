@@ -4,7 +4,7 @@ import { TransactionKeys } from '../../lib/transactions'
 
 jest.mock('./transaction-map', () => ({
   TransactionMap: () => ({
-    [TransactionKeys.TRANSFER]: () => <div data-testid="transfer" />
+    [TransactionKeys.TRANSFER]: <div data-testid="transfer" />
   })
 }))
 

@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import { getDateTimeFormat } from '@vegaprotocol/utils'
 
 const OrderBadge = ({ children }: { children: ReactNode }) => {
-  return <Lozenge className="text-xs mr-1 text-vega-dark-400">{children}</Lozenge>
+  return <Lozenge className="text-xs mr-0.5 text-vega-dark-400 whitespace-nowrap">{children}</Lozenge>
 }
 
 const TifBadge = ({ timeInForce, expiresAt }: { timeInForce: OrderTimeInForce | null; expiresAt: string | null }) => {
@@ -31,6 +31,11 @@ export const OrderBadges = ({
   const postBadge = postOnly ? <OrderBadge>Post only</OrderBadge> : null
   const reduceBadge = reduceOnly ? <OrderBadge>Reduce only</OrderBadge> : null
   const tifBadge = <TifBadge timeInForce={timeInForce} expiresAt={expiresAt} />
-  const badges = [postBadge, reduceBadge, tifBadge].filter(Boolean)
-  return <div>{badges}</div>
+  return (
+    <div>
+      {tifBadge}
+      {reduceBadge}
+      {postBadge}
+    </div>
+  )
 }

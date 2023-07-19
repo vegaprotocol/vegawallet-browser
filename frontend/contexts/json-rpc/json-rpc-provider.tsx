@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import { JsonRpcContext } from './json-rpc-context'
-import { ConnectionMessage, TransactionMessage, useModalStore } from '../../stores/modal-store'
+import { ConnectionMessage, useModalStore } from '../../stores/modal-store'
 import { ServerRpcMethods } from '../../lib/server-rpc-methods'
 import JSONRPCClient from '../../../lib/json-rpc-client'
 import JSONRPCServer from '../../../lib/json-rpc-server'
@@ -9,6 +9,7 @@ import { Connection, useConnectionStore } from '../../stores/connections'
 import { RpcMethods } from '../../lib/client-rpc-methods'
 import { log } from '../../lib/logging'
 import { useErrorStore } from '../../stores/error'
+import { TransactionMessage } from '../../lib/transactions'
 
 export type SendMessage = (method: string, params?: any, propagate?: boolean) => Promise<any>
 

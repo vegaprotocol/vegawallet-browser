@@ -4,8 +4,9 @@ import { KeyIcon } from '../../key-icon'
 import ReactTimeAgo from 'react-time-ago'
 import { isBefore } from 'date-fns'
 import { ReceiptComponentProps } from '../receipts'
+import { Transaction } from '../../../lib/transactions'
 
-const getTime = (transaction: any) => {
+const getTime = (transaction: Transaction) => {
   const deliverOn = transaction?.transfer?.oneOff?.deliverOn
   if (deliverOn) {
     const date = new Date(deliverOn)

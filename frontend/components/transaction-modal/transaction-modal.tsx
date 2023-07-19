@@ -5,6 +5,7 @@ import { PageHeader } from '../page-header'
 import ReactTimeAgo from 'react-time-ago'
 import { RawTransaction } from './raw-transaction'
 import { TransactionHeader } from './transaction-header'
+import { EnrichedDetails } from './enriched-details'
 
 export const locators = {
   transactionWrapper: 'transaction-wrapper',
@@ -32,6 +33,7 @@ export const TransactionModal = () => {
             name={details.name}
             transaction={details.transaction}
           />
+          <EnrichedDetails transaction={details.transaction} />
           <RawTransaction transaction={details.transaction} />
           <div data-testid={locators.transactionTimeAgo} className="text-sm text-vega-dark-300 mt-6 mb-20">
             Received <ReactTimeAgo timeStyle="round" date={new Date(details.receivedAt)} locale="en-US" />

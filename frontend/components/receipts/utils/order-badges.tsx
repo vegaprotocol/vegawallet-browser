@@ -1,13 +1,19 @@
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { OrderTimeInForce } from '@vegaprotocol/types'
 import { ReactNode } from 'react'
+import { getDateTimeFormat } from '@vegaprotocol/utils'
 
 const OrderBadge = ({ children }: { children: ReactNode }) => {
   return <Lozenge className="text-xs mr-1 text-vega-dark-400">{children}</Lozenge>
 }
 
 const TifBadge = ({ timeInForce, expiresAt }: { timeInForce: OrderTimeInForce | null; expiresAt: string | null }) => {
-  if (timeInForce === OrderTimeInForce.TIME_IN_FORCE_GTT) return <OrderBadge>Good til {expiresAt}</OrderBadge>
+  if (timeInForce === OrderTimeInForce.TIME_IN_FORCE_GTT) {
+    if (!expiresAt) {
+      throw new Error('GTT order without expiresAt')
+    }
+    return <OrderBadge>Good til {getDateTimeFormat().format(new Date(expiresAt))}</OrderBadge>
+  }
   return <OrderBadge>{timeInForce}</OrderBadge>
 }
 

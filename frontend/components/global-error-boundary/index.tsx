@@ -1,42 +1,9 @@
-import { Component, ComponentType, ErrorInfo, ReactNode } from 'react'
-import { ErrorModal } from '../modals/error-modal'
-import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { Component, ErrorInfo, ReactNode } from 'react'
+import { ErrorModal } from '../error-modal'
 import { FULL_ROUTES } from '../../routes/route-names'
-import { useErrorStore } from '../../stores/error'
 import { captureException } from '@sentry/react'
-
-interface RouterProps {
-  navigate: NavigateFunction
-}
-
-interface ErrorProps {
-  error: Error | null
-  setError: (error: Error | null) => void
-}
-
-function withRouter<P extends RouterProps>(Component: ComponentType<P>) {
-  const Wrapper = (props: Omit<P, keyof RouterProps>) => {
-    const navigate = useNavigate()
-    const routerProps = { navigate }
-
-    return <Component {...routerProps} {...(props as P)} />
-  }
-
-  return Wrapper
-}
-
-function withErrorStore<P extends ErrorProps>(Component: ComponentType<P>) {
-  const Wrapper = (props: Omit<P, keyof ErrorProps>) => {
-    const errorProps = useErrorStore((state) => ({
-      setError: state.setError,
-      error: state.error
-    }))
-
-    return <Component {...errorProps} {...(props as P)} />
-  }
-
-  return Wrapper
-}
+import { RouterProps, withRouter } from './with-router'
+import { ErrorProps, withErrorStore } from './with-error-store'
 
 interface Props extends RouterProps, ErrorProps {
   children?: ReactNode

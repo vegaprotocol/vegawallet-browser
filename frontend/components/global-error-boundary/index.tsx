@@ -3,6 +3,7 @@ import { ErrorModal } from '../modals/error-modal'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../routes/route-names'
 import { useErrorStore } from '../../stores/error'
+import { captureException } from '@sentry/react'
 
 interface RouterProps {
   navigate: NavigateFunction
@@ -57,7 +58,7 @@ class GlobalErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // TODO log to sentry!!
+    captureException(error)
   }
 
   public render() {

@@ -3,7 +3,7 @@ import { OrderTimeInForce } from '@vegaprotocol/types'
 import { ReactNode } from 'react'
 
 const OrderBadge = ({ children }: { children: ReactNode }) => {
-  return <Lozenge className="text-xs mr-1">{children}</Lozenge>
+  return <Lozenge className="text-xs mr-1 text-vega-dark-400">{children}</Lozenge>
 }
 
 const TifBadge = ({ timeInForce, expiresAt }: { timeInForce: OrderTimeInForce | null; expiresAt: string | null }) => {

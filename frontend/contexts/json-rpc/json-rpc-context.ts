@@ -1,4 +1,4 @@
-import React from 'react'
+import { createContext, useContext } from 'react'
 import JSONRPCClient from '../../../lib/json-rpc-client'
 import JSONRPCServer from '../../../lib/json-rpc-server'
 
@@ -8,10 +8,10 @@ export interface JsonRpcContextShape {
   request: (method: string, params?: any, propagateError?: boolean) => Promise<any>
 }
 
-export const JsonRpcContext = React.createContext<JsonRpcContextShape | undefined>(undefined)
+export const JsonRpcContext = createContext<JsonRpcContextShape | undefined>(undefined)
 
 export function useJsonRpcClient() {
-  const context = React.useContext(JsonRpcContext)
+  const context = useContext(JsonRpcContext)
   if (context === undefined) {
     throw new Error('useJsonRpcClient must be used within JsonRPCProvider')
   }

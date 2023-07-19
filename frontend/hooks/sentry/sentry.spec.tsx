@@ -65,7 +65,6 @@ describe('useSentry', () => {
     expect(init).toHaveBeenCalledWith({
       dsn: 'dsn',
       integrations: [],
-      tracesSampleRate: 1.0,
       environment: 'Test',
       release: '@vegaprotocol/vegawallet-browser@1.0.0',
       beforeSend: expect.any(Function)

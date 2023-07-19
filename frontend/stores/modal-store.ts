@@ -1,19 +1,7 @@
 import { create } from 'zustand'
+import { TransactionMessage } from '../lib/transactions'
 
 export interface ConnectionMessage {
-  origin: string
-  receivedAt: string
-}
-
-// TODO type this
-export type Transaction = any
-
-export interface TransactionMessage {
-  transaction: Transaction
-  publicKey: string
-  name: string
-  wallet: string
-  sendingMode: string
   origin: string
   receivedAt: string
 }

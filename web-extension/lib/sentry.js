@@ -10,7 +10,6 @@ export const setupSentry = async (settingsStore, publicKeyIndexStore) => {
       dsn: config.sentryDsn,
       release: `@vegaprotocol/vegawallet-browser@${packageJson.version}`,
       integrations: [],
-      tracesSampleRate: 1.0,
       /* istanbul ignore next */
       async beforeSend(event) {
         const telemetry = await settingsStore.get('telemetry')

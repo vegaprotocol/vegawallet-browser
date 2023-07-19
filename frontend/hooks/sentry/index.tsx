@@ -19,7 +19,6 @@ export const useSentry = () => {
         release: `@vegaprotocol/vegawallet-browser@${globals.version}`,
         dsn: config.sentryDsn,
         integrations: [],
-        tracesSampleRate: 1.0,
         environment: config.network.name,
         /* istanbul ignore next */
 

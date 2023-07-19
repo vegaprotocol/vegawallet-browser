@@ -1,3 +1,4 @@
+import { TransactionMessage } from '../lib/transactions'
 import { useModalStore } from './modal-store'
 
 const initialState = useModalStore.getState()
@@ -10,7 +11,7 @@ const mockMessage = {
   sendingMode: 'TYPE_SYNC',
   origin: 'qux',
   receivedAt: new Date().toISOString()
-}
+} as TransactionMessage
 
 describe('ModalStore', () => {
   beforeEach(() => {

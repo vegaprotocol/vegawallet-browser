@@ -3,6 +3,7 @@ import { CopyWithCheckmark } from '../../copy-with-check'
 import { KeyIcon } from '../../key-icon'
 import ReactTimeAgo from 'react-time-ago'
 import { isBefore } from 'date-fns'
+import { ReceiptComponentProps } from '../receipts'
 
 const getTime = (transaction: any) => {
   const deliverOn = transaction?.transfer?.oneOff?.deliverOn
@@ -14,7 +15,7 @@ const getTime = (transaction: any) => {
   return null
 }
 
-export const Transfer = ({ transaction }: { transaction: any }) => {
+export const Transfer = ({ transaction }: ReceiptComponentProps) => {
   // Not supporting recurring transfers yet
   if (transaction.transfer.recurring) return null
   const time = getTime(transaction)

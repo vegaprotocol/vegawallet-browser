@@ -1,5 +1,5 @@
 import { ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { KeyIcon } from '../key-icon'
+import { KeyIcon } from '../vega-icon'
 import { CopyWithCheckmark } from '../../copy-with-check'
 import config from '@/config'
 

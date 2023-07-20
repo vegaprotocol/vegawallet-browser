@@ -26,7 +26,11 @@ export const CreatePassword = () => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormFields>()
+  } = useForm<FormFields>({
+    defaultValues: {
+      password: ''
+    }
+  })
   const navigate = useNavigate()
   const password = useWatch({ control, name: 'password' })
   const acceptedTerms = useWatch({ control, name: 'acceptedTerms' })

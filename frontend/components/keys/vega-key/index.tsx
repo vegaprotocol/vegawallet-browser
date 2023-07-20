@@ -1,6 +1,6 @@
 import { ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { KeyIcon } from '../key-icon'
-import { CopyWithCheckmark } from '../copy-with-check'
+import { CopyWithCheckmark } from '../../copy-with-check'
 import config from '@/config'
 
 export const locators = {

@@ -9,7 +9,7 @@ jest.mock('../key-icon', () => ({
   KeyIcon: () => <div data-testid="key-icon" />
 }))
 
-jest.mock('../copy-with-check', () => ({
+jest.mock('../../copy-with-check', () => ({
   CopyWithCheckmark: () => <div data-testid="copy-with-checkmark" />
 }))
 

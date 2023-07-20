@@ -1,10 +1,9 @@
-import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { CopyWithCheckmark } from '../../copy-with-check'
-import { KeyIcon } from '../../key-icon'
 import ReactTimeAgo from 'react-time-ago'
 import { isBefore } from 'date-fns'
 import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
+import { PriceWithSymbol } from '../utils/price-with-symbol'
+import { VegaKey } from '../../keys/vega-key'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction?.transfer?.oneOff?.deliverOn
@@ -20,6 +19,7 @@ export const locators = {
   transferSection: 'transfer-section',
   transferTitle: 'transfer-title',
   assetSymbol: 'asset-symbol',
+  assetAmount: 'asset-amount',
   receivingKeySection: 'receiving-key-section',
   publicKey: 'public-key',
   whenSection: 'when-section',
@@ -35,24 +35,11 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
       <h1 className="text-vega-dark-300" data-testid={locators.transferTitle}>
         Transfer
       </h1>
-      <div className="flex text-lg mb-4" data-testid={locators.assetSymbol}>
-        <div className="mr-2">0.0182199822</div>
-        <div className="text-vega-dark-300">tDAI</div>
+      <div className="text-lg">
+        <PriceWithSymbol price={0.0182199822} symbol="tDAI" />
       </div>
       <h1 className="text-vega-dark-300">To</h1>
-      <div className="flex items-center mb-4" data-testid={locators.receivingKeySection}>
-        <KeyIcon publicKey={transaction.transfer.to} />
-        <div className="ml-4">
-          <div>Receiving Key</div>
-          <p>
-            <CopyWithCheckmark text={transaction.transfer.to}>
-              <span className="underline text-vega-dark-400" data-testid={locators.publicKey}>
-                {truncateMiddle(transaction.transfer.to)}
-              </span>
-            </CopyWithCheckmark>
-          </p>
-        </div>
-      </div>
+      <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
       <h1 className="text-vega-dark-300" data-testid={locators.whenSection}>
         When
       </h1>

@@ -11,6 +11,7 @@ import { locators as depositAssetsCalloutLocators } from './deposit-assets-callo
 import { locators as signMessageLocators } from '../../../components/sign-message-dialog/sign-message'
 import { locators as signedMessageLocators } from '../../../components/sign-message-dialog/signed-message'
 import { locators as vegaKeyLocators } from '../../../components/vega-key'
+import { locators as vegaKeyLocators } from '../../../components/keys/vega-key'
 
 const mockLoadedState = () => {
   const state = useWalletStore.getState()

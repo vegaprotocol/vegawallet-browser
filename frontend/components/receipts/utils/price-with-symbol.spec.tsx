@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { PriceWithSymbol, locators } from './price-with-symbol' // Assuming the component is in the same directory
+import { PriceWithSymbol, locators } from './price-with-symbol'
 
 describe('PriceWithSymbol component', () => {
   it('renders price and symbol correctly', () => {

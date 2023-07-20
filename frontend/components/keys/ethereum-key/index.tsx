@@ -1,5 +1,5 @@
 import { ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { KeyIcon } from '../vega-icon'
+import { EthereumIcon } from '../ethereum-icon'
 import { CopyWithCheckmark } from '../../copy-with-check'
 import config from '@/config'
 
@@ -8,22 +8,21 @@ export const locators = {
   explorerLink: 'explorer-link'
 }
 
-export const VegaKey = ({ publicKey, name }: { publicKey: string; name: string }) => {
+export const EthereumKey = ({ address }: { address: string }) => {
   return (
     <div className="flex items-center">
-      <KeyIcon publicKey={publicKey} />
+      <EthereumIcon />
       <div className="ml-4">
-        <div data-testid={locators.keyName} className="text-lg text-white">
-          {name}
-        </div>
+        <div className="text-lg text-white">Ethereum Address</div>
+        {/* TODO need to add the config for ethereum explorer link here */}
         <ExternalLink
           className="text-vega-dark-400"
           data-testid={locators.explorerLink}
-          href={`${config.network.explorer}/parties/${publicKey}`}
+          href={`${config.network.explorer}/parties/${address}`}
         >
-          {truncateMiddle(publicKey)}
+          {truncateMiddle(address)}
         </ExternalLink>
-        <CopyWithCheckmark text={publicKey} />
+        <CopyWithCheckmark text={address} />
       </div>
     </div>
   )

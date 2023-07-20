@@ -10,6 +10,11 @@ const COLORS = [
   'bg-vega-yellow-450'
 ]
 
+export const locators = {
+  error: 'password-feedback-error',
+  feedbackStrength: 'password-feedback-strength'
+}
+
 export const PasswordFeedback = ({ password }: { password: string }) => {
   const passwordStrength = zxcvbn(password)
   const combinedFeedback = [passwordStrength?.feedback?.warning, ...passwordStrength?.feedback?.suggestions].filter(
@@ -21,6 +26,7 @@ export const PasswordFeedback = ({ password }: { password: string }) => {
       <div className="grid grid-cols-4 gap-1 mt-1">
         {new Array(4).fill(0).map((_, i) => (
           <div
+            data-testid={locators.feedbackStrength}
             key={i}
             className={classNames('h-1 rounded-md', {
               'bg-vega-dark-150': passwordStrength.score < i + 1,
@@ -29,7 +35,11 @@ export const PasswordFeedback = ({ password }: { password: string }) => {
           ></div>
         ))}
       </div>
-      {combinedFeedback.length ? <InputError forInput="confirmPassword">{feedback}.</InputError> : null}
+      {combinedFeedback.length ? (
+        <InputError data-testid={locators.error} forInput="password">
+          {feedback}.
+        </InputError>
+      ) : null}
     </>
   )
 }

@@ -10,6 +10,7 @@ import { locators as keyLocators } from './key-list'
 import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
 import { locators as signMessageLocators } from '../../../components/sign-message-dialog/sign-message'
 import { locators as signedMessageLocators } from '../../../components/sign-message-dialog/signed-message'
+import { locators as vegaKeyLocators } from '../../../components/vega-key'
 
 const mockLoadedState = () => {
   const state = useWalletStore.getState()
@@ -59,9 +60,9 @@ describe('Wallets', () => {
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
     expect(screen.getByTestId(walletLocators.walletsWalletName)).toHaveTextContent('wallet 1')
-    expect(screen.getByTestId(keyLocators.walletsExplorerLink)).toBeVisible()
-    expect(screen.getByTestId(keyLocators.walletsExplorerLink)).toHaveTextContent('07248a…3673')
-    expect(screen.getByTestId(keyLocators.walletsExplorerLink)).toHaveAttribute(
+    expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toBeVisible()
+    expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toHaveTextContent('07248a…3673')
+    expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toHaveAttribute(
       'href',
       'https://explorer.fairground.wtf/parties/07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673'
     )

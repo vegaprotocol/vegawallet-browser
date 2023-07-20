@@ -17,9 +17,7 @@ export const locators = {
 
 export const PasswordFeedback = ({ password }: { password: string }) => {
   const passwordStrength = zxcvbn(password)
-  const combinedFeedback = [passwordStrength?.feedback?.warning, ...passwordStrength?.feedback?.suggestions].filter(
-    Boolean
-  )
+  const combinedFeedback = [passwordStrength.feedback.warning, ...passwordStrength.feedback.suggestions].filter(Boolean)
   const feedback = combinedFeedback.map((s) => s.replace(/\.$/, '')).join('. ')
   return (
     <>

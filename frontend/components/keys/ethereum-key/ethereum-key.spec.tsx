@@ -13,8 +13,7 @@ describe('EthereumKey', () => {
 
     const explorerLink = screen.getByTestId(locators.explorerLink)
     expect(screen.getByTestId(locators.title)).toHaveTextContent('Ethereum Address')
-    // TODO this needs to be based on a config property
-    expect(explorerLink).toHaveAttribute(`https://sepolia.etherscan.io/address/${address}`)
+    expect(explorerLink).toHaveAttribute('href', `https://sepolia.etherscan.io/address/${address}`)
     expect(explorerLink).toHaveTextContent('0x1234…cdef')
   })
 

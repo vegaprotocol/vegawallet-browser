@@ -4,8 +4,8 @@ import { CopyWithCheckmark } from '../../copy-with-check'
 import config from '@/config'
 
 export const locators = {
-  keyName: 'key-name',
-  explorerLink: 'explorer-link'
+  keyName: 'vega-key-name',
+  explorerLink: 'vega-explorer-link'
 }
 
 export const VegaKey = ({ publicKey, name }: { publicKey: string; name: string }) => {

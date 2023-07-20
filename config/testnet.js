@@ -4,6 +4,7 @@ const testnet = {
     rest: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
     console: 'https://console.fairground.wtf',
     explorer: 'https://explorer.fairground.wtf',
+    explorer: 'https://explorer.fairground.wtf',
     governance: 'https://governance.fairground.wtf',
     vegaDapps: 'https://vega.xyz/use'
   },

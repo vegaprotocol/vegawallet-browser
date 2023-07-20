@@ -15,6 +15,7 @@ declare module '!/config' {
     rest: string[]
     console: string
     explorer: string
+    ethereumExplorerLink: string
     governance: string
     vegaDapps: string
   }

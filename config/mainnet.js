@@ -10,6 +10,7 @@ const mainnet = {
       'https://darling.network'
     ],
     console: 'https://console.vega.xyz',
+    ethereumExplorerLink: 'https://etherscan.io',
     explorer: 'https://explorer.vega.xyz',
     governance: 'https://governance.vega.xyz',
     vegaDapps: 'https://vega.xyz/use'

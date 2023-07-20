@@ -25,19 +25,11 @@ describe('VegaKey component', () => {
     expect(explorerLinkElement.getAttribute('href')).toBe(`${config.network.explorer}/parties/${mockPublicKey}`)
   })
 
-  test('renders the KeyIcon component', () => {
+  test('renders the KeyIcon & CopyWithCheckmark components', () => {
     render(<VegaKey publicKey={mockPublicKey} name={mockName} />)
 
-    const keyIconElement = screen.getByTestId('key-icon')
+    expect(screen.getByTestId('key-icon')).toBeInTheDocument()
 
-    expect(keyIconElement).toBeInTheDocument()
-  })
-
-  test('renders the CopyWithCheckmark component', () => {
-    render(<VegaKey publicKey={mockPublicKey} name={mockName} />)
-
-    const copyWithCheckmarkElement = screen.getByTestId('copy-with-checkmark')
-
-    expect(copyWithCheckmarkElement).toBeInTheDocument()
+    expect(screen.getByTestId('copy-with-checkmark')).toBeInTheDocument()
   })
 })

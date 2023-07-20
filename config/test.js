@@ -8,6 +8,7 @@ const test = {
     name: 'Test',
     rest: [`http://localhost:${mockPort}`],
     console: 'https://console.fairground.wtf',
+    ethereumExplorerLink: 'https://sepolia.etherscan.io',
     explorer: 'https://explorer.fairground.wtf',
     governance: 'https://governance.fairground.wtf',
     vegaDapps: 'https://vega.xyz/use'

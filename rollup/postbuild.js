@@ -12,7 +12,7 @@ const fileName = 'I_SHOULD_NOT_EXIST.js'
  * @param {string} commonFolder - The folder containing the common files
  * @param {string} build - The browser specific build folder
  */
-export default (browser, commonFolder, build, isTestBuild) => {
+export default (browser, commonFolder, build, isTestBuild, network) => {
   const testReplacements = isTestBuild && browser === 'chrome'
     ? {
       key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA08UzOSHIQYHM54WUFpkwdli9r64CjLvR0zQywfNvJEW808vRJF86esnXtgFn+XaPc/rKL1SguiGrhi0DJH6uzNEBs37q7kEsEzK+yxWu8OPGp8Bf6p1MnvT5m/44tXqcbdLll3K8rBrNq8PAGIbw7AI/dkLnK1UosVDkkO7CCqLYLDp0ccJTLs1ALS78o6Es9tg91DuTRJyNc1HP8rZn0FL+rjOkqAX+26rhy+UOwWvqe7FZbMU18ZsQ5Z/rFWAYnRG6+lWMMWYBsU2irwRLVPd4RydEr2JKeaNi9V42a7kAtDlYW9607LCOtXfAJTIA3g2zrtxvPBSLMO84abvGzwIDAQAB'
@@ -44,6 +44,13 @@ export default (browser, commonFolder, build, isTestBuild) => {
         mainfest({
           manifests: [`manifests/common.json`, `manifests/${browser}.json`],
           outputFile: `${browser}/manifest.json`,
+          replacements: {
+            // Used to prefix all icons eg. Fairground-16x16.png
+            __ICON_PREFIX__: network,
+
+            // Used in the extension name and gecko id
+            __BUILD_NAME__: network
+          },
           overrides: {
             version: pkg.version,
             ...testReplacements

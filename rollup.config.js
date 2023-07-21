@@ -27,6 +27,12 @@ const config = (cliArgs) => {
   }
   const isTestBuild = walletConfig === 'test'
 
+  const network = ({
+    mainnet: 'Mainnet',
+    testnet: 'Fairground',
+    test: 'Fairground' // TODO can get it's own name once we have icons
+  })[walletConfig]
+
   // Remove custom CLI args to prevent errors.
   // https://github.com/rollup/rollup/issues/2694#issuecomment-463915954
   delete cliArgs['wallet-config']
@@ -35,7 +41,7 @@ const config = (cliArgs) => {
     ...prebuild(),
     ...backend(isProduction, commonPath, walletConfig, analyze),
     ...frontend(isProduction, commonPath, walletConfig, analyze),
-    ...browsers.flatMap((b) => postbuild(b, commonPath, destination, isTestBuild))
+    ...browsers.flatMap((b) => postbuild(b, commonPath, destination, isTestBuild, network))
   ]
 }
 export default config

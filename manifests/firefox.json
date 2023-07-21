@@ -2,21 +2,21 @@
   "manifest_version": 2,
   "browser_specific_settings": {
     "gecko": {
-      "id": "browser-extension+fairground@vega.xyz",
+      "id": "browser-extension+__BUILD_NAME__@vega.xyz",
       "strict_min_version": "52.0"
     }
   },
   "browser_action": {
     "browser_style": false,
     "default_icon": {
-      "16": "Fairground-16x16.png",
-      "32": "Fairground-32x32.png",
-      "48": "Fairground-48x48.png",
-      "64": "Fairground-64x64.png",
-      "96": "Fairground-96x96.png",
-      "128": "Fairground-128x128.png"
+      "16": "__ICON_PREFIX__-16x16.png",
+      "32": "__ICON_PREFIX__-32x32.png",
+      "48": "__ICON_PREFIX__-48x48.png",
+      "64": "__ICON_PREFIX__-64x64.png",
+      "96": "__ICON_PREFIX__-96x96.png",
+      "128": "__ICON_PREFIX__-128x128.png"
     },
-    "default_title": "Vega Browser Wallet",
+    "default_title": "Vega Wallet - __BUILD_NAME__",
     "default_popup": "index.html"
   },
   "background": {

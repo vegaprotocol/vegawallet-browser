@@ -26,7 +26,7 @@
     },
     "transaction": {
       "type": "object",
-      "errorMessage": "`transaction` must contain only one of the valid commands",
+      "errorMessage": "Unsupported transaction type",
       "oneOf": [
         {
           "additionalProperties": false,
@@ -161,6 +161,24 @@
           ],
           "properties": {
             "batchMarketInstructions": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "stopOrderSubmission"
+          ],
+          "properties": {
+            "stopOrderSubmission": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "stopOrderCancellation"
+          ],
+          "properties": {
+            "stopOrderCancellation": {}
           }
         },
         {

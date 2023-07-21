@@ -25,7 +25,7 @@ export const PasswordFeedback = ({ password }: { password: string }) => {
         {new Array(4).fill(0).map((_, i) => (
           <div
             data-testid={locators.feedbackStrength}
-            key={i}
+            key={`password-feedback-bar-${i}`}
             className={classNames('h-1 rounded-md', {
               'bg-vega-dark-150': passwordStrength.score < i + 1,
               [COLORS[i]]: passwordStrength.score >= i + 1

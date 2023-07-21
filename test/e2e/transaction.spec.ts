@@ -74,7 +74,7 @@ describe('transactions', () => {
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { aCommandThatDoesNotExist: {} })
     const res = await vegaAPI.getTransactionResult()
-    expect(res).toBe('`transaction` must contain only one of the valid commands')
+    expect(res).toBe('Unsupported transaction type')
   })
 
   it('the result of the transaction request is fed back to the UI', async () => {

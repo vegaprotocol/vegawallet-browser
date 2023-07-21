@@ -92,9 +92,9 @@ export const CreatePassword = () => {
             variant="primary"
             type="submit"
             disabled={
-              Boolean(errors.confirmPassword?.message) ||
-              !Boolean(password) ||
-              !Boolean(confirmPassword) ||
+              errors.confirmPassword?.message ||
+              !password ||
+              !confirmPassword ||
               !acceptedTerms
             }
             loading={loading}

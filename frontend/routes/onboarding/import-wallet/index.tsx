@@ -79,7 +79,7 @@ export const ImportWallet = () => {
             variant="primary"
             type="submit"
             loading={loading}
-            disabled={!Boolean(mnemonic) || !!errors.mnemonic?.message}
+            disabled={!mnemonic || !!errors.mnemonic?.message}
             text="Import wallet"
             loadingText="Importing"
           />

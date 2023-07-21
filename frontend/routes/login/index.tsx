@@ -74,7 +74,7 @@ export const Login = () => {
           className="mt-2"
           variant="primary"
           type="submit"
-          disabled={!Boolean(passphrase)}
+          disabled={!passphrase}
         />
       </form>
     </StarsWrapper>

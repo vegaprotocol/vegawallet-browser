@@ -1,10 +1,11 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { CreatePassword } from '.'
+import { CreatePassword } from './create-password'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
 import { confirmPassphraseInput, passphraseInput, submitPassphraseButton } from '../../../locator-ids'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
+import { locators as passwordFeedbackLocators } from './password-feedback'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
@@ -137,5 +138,11 @@ describe('CreatePassword', () => {
     fireEvent.click(screen.getByTestId(submitPassphraseButton))
 
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith(FULL_ROUTES.createWallet))
+  })
+
+  it('should render password security feedback', async () => {
+    // 1101-ONBD-037 During password creation, there is a way to understand whether the password I have created is secure or no
+    renderComponent()
+    expect(screen.getByTestId(passwordFeedbackLocators.passwordFeedback)).toBeInTheDocument()
   })
 })

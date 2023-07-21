@@ -13,11 +13,18 @@ export default (opts) => {
     watchChange: build
   }
   async function build() {
-    const manifests = await Promise.all(
+    const manifestsSrc = await Promise.all(
       opts.manifests.map(async (filePath) => {
-        return JSON.parse(await readFile(path.resolve(filePath), 'utf8'))
+        return await readFile(path.resolve(filePath), 'utf8')
       })
     )
+
+    // Replace each string key in each manifest before parsing as JSON
+    const manifests = manifestsSrc.map((manifest) => {
+      return JSON.parse(Object.entries(opts.replacements ?? {}).reduce((manifest, [key, value]) => {
+        return manifest.replaceAll(key, value)
+      }, manifest))
+    })
 
     this.emitFile({
       type: 'asset',

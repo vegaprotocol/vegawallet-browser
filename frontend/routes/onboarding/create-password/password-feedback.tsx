@@ -12,7 +12,8 @@ const COLORS = [
 
 export const locators = {
   error: 'password-feedback-error',
-  feedbackStrength: 'password-feedback-strength'
+  feedbackStrength: 'password-feedback-strength',
+  passwordFeedback: 'password-feedback'
 }
 
 export const PasswordFeedback = ({ password }: { password: string }) => {
@@ -21,7 +22,7 @@ export const PasswordFeedback = ({ password }: { password: string }) => {
   const feedback = combinedFeedback.map((s) => s.replace(/\.$/, '')).join('. ')
   return (
     <>
-      <div className="grid grid-cols-4 gap-1 mt-1">
+      <div data-testid={locators.passwordFeedback} className="grid grid-cols-4 gap-1 mt-1">
         {new Array(4).fill(0).map((_, i) => (
           <div
             data-testid={locators.feedbackStrength}

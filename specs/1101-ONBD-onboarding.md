@@ -15,6 +15,7 @@ As a browser wallet user I want to create a password for my browser wallet app S
 - When I have submitted my new password, I can NOT go back to the previous step (<a name="1101-ONBD-009" href="#1101-ONBD-009">1101-ONBD-009</a>)
 - After setting a password, my wallets are encrypted (<a name="1101-ONBD-010" href="#1101-ONBD-010">1101-ONBD-010</a>)
 - I can see the button is disabled and a loading state after submitting (<a name="1101-ONBD-011" href="#1101-ONBD-011">1101-ONBD-011</a>)
+- During password creation, there is a way to understand whether the password I have created is secure or not (<a name="1101-ONBD-037" href="#1101-ONBD-037">1101-ONBD-037</a>)
 
 ## Create or import wallet
 

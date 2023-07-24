@@ -70,7 +70,9 @@ export const HostImage = ({ hostname, size = 48 }: HostImageProps) => {
       data-testid={locators.hostImage}
       style={{
         width: size,
-        height: size
+        height: size,
+        minWidth: size,
+        minHeight: size
       }}
       alt={hostname}
       src={`${hostname}/favicon.ico`}

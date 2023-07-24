@@ -10,6 +10,7 @@ const request = (method: string) => {
             publicKeys: [],
             wallets: ['Wallet 1']
           },
+          accessedAt: new Date(),
           origin: 'https://vega.xyz'
         }
       ]
@@ -23,6 +24,10 @@ const initialState = useConnectionStore.getState()
 describe('Store', () => {
   beforeEach(() => {
     useConnectionStore.setState(initialState)
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.useRealTimers()
   })
   it('loads connections from backend', async () => {
     expect(useConnectionStore.getState().loading).toBe(true)
@@ -35,6 +40,7 @@ describe('Store', () => {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
+        accessedAt: new Date(),
         origin: 'https://vega.xyz'
       }
     ])
@@ -47,6 +53,7 @@ describe('Store', () => {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
+      accessedAt: new Date(),
       origin: 'https://vega.xyz'
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
@@ -55,6 +62,7 @@ describe('Store', () => {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
+        accessedAt: new Date(),
         origin: 'https://vega.xyz'
       }
     ])
@@ -63,6 +71,7 @@ describe('Store', () => {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
+      accessedAt: new Date(),
       origin: 'https://vega.xyz'
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
@@ -71,6 +80,7 @@ describe('Store', () => {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
+        accessedAt: new Date(),
         origin: 'https://vega.xyz'
       }
     ])
@@ -81,6 +91,7 @@ describe('Store', () => {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
+      accessedAt: new Date(),
       origin: 'https://vega.xyz'
     }
     useConnectionStore.setState({

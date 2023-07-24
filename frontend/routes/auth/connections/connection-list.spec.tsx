@@ -3,6 +3,15 @@ import { ConnectionsList, locators } from './connection-list'
 import { locators as hostImageLocators } from '../../../components/host-image'
 
 describe('ConnectionList', () => {
+  beforeEach(() => {
+    jest.useFakeTimers()
+    jest.setSystemTime(new Date('2021-01-01T00:00:00.000Z'))
+  })
+
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
   it('renders list of connections passed in with image', () => {
     render(
       <ConnectionsList
@@ -13,6 +22,7 @@ describe('ConnectionList', () => {
               publicKeys: [],
               wallets: ['Wallet 1']
             },
+            accessedAt: new Date(),
             origin: 'https://vega.xyz'
           },
           {
@@ -20,6 +30,7 @@ describe('ConnectionList', () => {
               publicKeys: [],
               wallets: ['Wallet 1']
             },
+            accessedAt: new Date(),
             origin: 'foo.com'
           }
         ]}
@@ -33,36 +44,50 @@ describe('ConnectionList', () => {
     const images = screen.getAllByTestId(hostImageLocators.hostImage)
     expect(images).toHaveLength(2)
   })
+
   it('calls remove connection when cross button is clicked', async () => {
     const mockRemoveConnection = jest.fn()
+    const connections = [
+      {
+        allowList: {
+          publicKeys: [],
+          wallets: ['Wallet 1']
+        },
+        origin: 'https://vega.xyz',
+        accessedAt: new Date()
+      },
+      {
+        allowList: {
+          publicKeys: [],
+          wallets: ['Wallet 1']
+        },
+        accessedAt: new Date(),
+        origin: 'foo.com'
+      }
+    ]
+    render(<ConnectionsList removeConnection={mockRemoveConnection} connections={connections} />)
+    fireEvent.click(screen.getAllByTestId(locators.connectionRemoveConnection)[0])
+    expect(mockRemoveConnection).toHaveBeenCalledWith(connections[0])
+  })
+
+  it('renders last accessed at time', () => {
     render(
       <ConnectionsList
-        removeConnection={mockRemoveConnection}
+        removeConnection={() => {}}
         connections={[
           {
             allowList: {
               publicKeys: [],
               wallets: ['Wallet 1']
             },
-            origin: 'https://vega.xyz'
-          },
-          {
-            allowList: {
-              publicKeys: [],
-              wallets: ['Wallet 1']
-            },
-            origin: 'foo.com'
+            origin: 'https://vega.xyz',
+            accessedAt: new Date()
           }
         ]}
       />
     )
-    fireEvent.click(screen.getAllByTestId(locators.connectionRemoveConnection)[0])
-    expect(mockRemoveConnection).toHaveBeenCalledWith({
-      allowList: {
-        publicKeys: [],
-        wallets: ['Wallet 1']
-      },
-      origin: 'https://vega.xyz'
-    })
+    expect(screen.getByTestId(locators.connectionLastConnected)).toHaveTextContent(
+      'Last connected: 1/1/2021 · 12:00:00 AM'
+    )
   })
 })

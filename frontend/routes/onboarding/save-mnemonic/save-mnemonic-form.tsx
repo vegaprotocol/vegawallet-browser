@@ -39,7 +39,7 @@ export const SaveMnemonicForm = ({
         fill={true}
         type="submit"
         variant="primary"
-        disabled={!Boolean(acceptedTerms) || loading || disabled}
+        disabled={!acceptedTerms || loading || disabled}
       />
     </form>
   )

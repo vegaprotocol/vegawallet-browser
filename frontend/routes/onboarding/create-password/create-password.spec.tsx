@@ -143,6 +143,9 @@ describe('CreatePassword', () => {
   it('should render password security feedback', async () => {
     // 1101-ONBD-037 During password creation, there is a way to understand whether the password I have created is secure or no
     renderComponent()
-    expect(screen.getByTestId(passwordFeedbackLocators.passwordFeedback)).toBeInTheDocument()
+    fireEvent.change(screen.getByTestId(passphraseInput), {
+      target: { value: 'test1234' }
+    })
+    await screen.findByTestId(passwordFeedbackLocators.passwordFeedback)
   })
 })

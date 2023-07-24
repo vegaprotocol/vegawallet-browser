@@ -35,7 +35,6 @@ describe('PasswordFeedback component', () => {
     const password = 'test123'
     render(<PasswordFeedback password={password} />)
 
-    // Assert that the password feedback strength bars are rendered
     const feedbackStrengthElements = screen.getAllByTestId(locators.feedbackStrength)
     expect(feedbackStrengthElements).toHaveLength(4)
     expect(feedbackStrengthElements[0]).toHaveClass('bg-vega-yellow-650')
@@ -48,11 +47,9 @@ describe('PasswordFeedback component', () => {
     const password = 'weak'
     render(<PasswordFeedback password={password} />)
 
-    // Assert that the password error feedback is rendered
     const errorElement = screen.getByTestId(locators.error)
     expect(errorElement).toBeInTheDocument()
 
-    // Assert that the error feedback text is correct
     const feedback = 'Weak password. Add more characters.'
     expect(errorElement).toHaveTextContent(feedback)
   })
@@ -61,8 +58,13 @@ describe('PasswordFeedback component', () => {
     const password = 'strong'
     render(<PasswordFeedback password={password} />)
 
-    // Assert that no password error feedback is rendered
     const errorElement = screen.queryByTestId(locators.error)
     expect(errorElement).toBeNull()
+  })
+
+  test('render nothing for an empty password', () => {
+    const { container } = render(<PasswordFeedback password={''} />)
+
+    expect(container).toBeEmptyDOMElement()
   })
 })

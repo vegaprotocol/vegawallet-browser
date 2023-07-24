@@ -7,7 +7,7 @@ import { SendMessage } from '../contexts/json-rpc/json-rpc-provider'
 export interface Connection {
   allowList: AllowList
   origin: string
-  accessedAt: Date
+  accessedAt: number
 }
 
 export interface AllowList {

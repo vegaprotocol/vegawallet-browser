@@ -22,7 +22,7 @@ describe('ConnectionList', () => {
               publicKeys: [],
               wallets: ['Wallet 1']
             },
-            accessedAt: new Date(),
+            accessedAt: Date.now(),
             origin: 'https://vega.xyz'
           },
           {
@@ -30,7 +30,7 @@ describe('ConnectionList', () => {
               publicKeys: [],
               wallets: ['Wallet 1']
             },
-            accessedAt: new Date(),
+            accessedAt: Date.now(),
             origin: 'foo.com'
           }
         ]}
@@ -54,14 +54,14 @@ describe('ConnectionList', () => {
           wallets: ['Wallet 1']
         },
         origin: 'https://vega.xyz',
-        accessedAt: new Date()
+        Date.now()
       },
       {
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
-        accessedAt: new Date(),
+        Date.now(),
         origin: 'foo.com'
       }
     ]
@@ -81,7 +81,7 @@ describe('ConnectionList', () => {
               wallets: ['Wallet 1']
             },
             origin: 'https://vega.xyz',
-            accessedAt: new Date()
+            Date.now()
           }
         ]}
       />

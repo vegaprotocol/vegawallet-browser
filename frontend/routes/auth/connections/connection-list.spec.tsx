@@ -15,7 +15,7 @@ describe('ConnectionList', () => {
   it('renders list of connections passed in with image', () => {
     render(
       <ConnectionsList
-        removeConnection={() => {}}
+        removeConnection={() => { }}
         connections={[
           {
             allowList: {
@@ -54,14 +54,14 @@ describe('ConnectionList', () => {
           wallets: ['Wallet 1']
         },
         origin: 'https://vega.xyz',
-        Date.now()
+        accessedAt: Date.now()
       },
       {
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
-        Date.now(),
+        accessedAt: Date.now(),
         origin: 'foo.com'
       }
     ]
@@ -73,7 +73,7 @@ describe('ConnectionList', () => {
   it('renders last accessed at time', () => {
     render(
       <ConnectionsList
-        removeConnection={() => {}}
+        removeConnection={() => { }}
         connections={[
           {
             allowList: {
@@ -81,7 +81,7 @@ describe('ConnectionList', () => {
               wallets: ['Wallet 1']
             },
             origin: 'https://vega.xyz',
-            Date.now()
+            accessedAt: Date.now()
           }
         ]}
       />

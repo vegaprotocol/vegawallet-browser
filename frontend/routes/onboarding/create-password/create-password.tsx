@@ -91,12 +91,7 @@ export const CreatePassword = () => {
             className="mt-8"
             variant="primary"
             type="submit"
-            disabled={
-              errors.confirmPassword?.message ||
-              !password ||
-              !confirmPassword ||
-              !acceptedTerms
-            }
+            disabled={!!errors.confirmPassword?.message || !password || !confirmPassword || !acceptedTerms}
             loading={loading}
             loadingText="Creating password"
             text="Create password"

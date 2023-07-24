@@ -44,6 +44,8 @@ export default function init({ onerror, settings, wallets, networks, connections
             wallets: await wallets.list()
           })
         }
+
+        await connections.touch(context.origin)
         context.isConnected = true
 
         return null

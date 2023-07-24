@@ -121,6 +121,8 @@ describe('ConnectionsCollection', () => {
   })
 
   it('should emit events', async () => {
+    jest.useFakeTimers().setSystemTime(0)
+
     const connectionsStore = new ConcurrentStorage(new Map())
     const publicKeyIndexStore = new ConcurrentStorage(new Map())
 
@@ -139,15 +141,68 @@ describe('ConnectionsCollection', () => {
       publicKeys: []
     })
 
-    expect(listener).toHaveBeenCalledWith('set', { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] } })
+    expect(listener).toHaveBeenCalledWith('set', { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 })
 
     expect(await connections.list()).toEqual([
-      { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] } }
+      { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 }
     ])
 
     await connections.delete('https://example.com')
     expect(listener).toHaveBeenCalledWith('delete', { origin: 'https://example.com' })
 
     expect(await connections.list()).toEqual([])
+
+    jest.useRealTimers()
+  })
+
+  it('should order origins by last accessed', async () => {
+    jest.useFakeTimers().setSystemTime(0)
+
+    const connectionsStore = new ConcurrentStorage(new Map())
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+
+    const connections = new ConnectionsCollection({
+      connectionsStore,
+      publicKeyIndexStore
+    })
+
+    await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
+
+    await connections.set('https://example.com', {
+      wallets: ['w1'],
+      publicKeys: []
+    })
+
+    jest.setSystemTime(1000)
+
+    await connections.set('https://example.org', {
+      wallets: ['w1'],
+      publicKeys: []
+    })
+
+    jest.setSystemTime(2000)
+
+    await connections.set('https://example.net', {
+      wallets: ['w1'],
+      publicKeys: []
+    })
+
+    expect(await connections.list()).toEqual([
+      { origin: 'https://example.net', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 2000 },
+      { origin: 'https://example.org', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 1000 },
+      { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 }
+    ])
+
+    jest.setSystemTime(3000)
+
+    await connections.touch('https://example.org')
+
+    expect(await connections.list()).toEqual([
+      { origin: 'https://example.org', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 3000 },
+      { origin: 'https://example.net', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 2000 },
+      { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 }
+    ])
+
+    jest.useRealTimers()
   })
 })

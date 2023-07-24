@@ -7,7 +7,8 @@ import { getTimeFormat, getDateFormat } from '@vegaprotocol/utils'
 export const locators = {
   connectionDetails: 'connection-details',
   connectionOrigin: 'connections-connection',
-  connectionRemoveConnection: 'connections-remove-connection'
+  connectionRemoveConnection: 'connections-remove-connection',
+  connectionLastConnected: 'connections-last-connected'
 }
 
 export const ConnectionsList = ({
@@ -41,7 +42,7 @@ export const ConnectionsList = ({
                 <Cross className="w-8 h-8" />
               </button>
             </div>
-            <div className="text-vega-dark-400">
+            <div data-testid={locators.connectionLastConnected} className="text-vega-dark-400">
               Last connected: {getDateFormat().format(i.accessedAt)} · {getTimeFormat().format(i.accessedAt)}
             </div>
           </div>

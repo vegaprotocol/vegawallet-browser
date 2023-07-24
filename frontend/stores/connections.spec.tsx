@@ -10,7 +10,7 @@ const request = (method: string) => {
             publicKeys: [],
             wallets: ['Wallet 1']
           },
-          accessedAt: new Date(),
+          accessedAt: Date.now(),
           origin: 'https://vega.xyz'
         }
       ]
@@ -40,7 +40,7 @@ describe('Store', () => {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
-        accessedAt: new Date(),
+        accessedAt: Date.now(),
         origin: 'https://vega.xyz'
       }
     ])
@@ -53,7 +53,7 @@ describe('Store', () => {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
-      accessedAt: new Date(),
+      accessedAt: Date.now(),
       origin: 'https://vega.xyz'
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
@@ -62,7 +62,7 @@ describe('Store', () => {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
-        accessedAt: new Date(),
+        accessedAt: Date.now(),
         origin: 'https://vega.xyz'
       }
     ])
@@ -71,7 +71,7 @@ describe('Store', () => {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
-      accessedAt: new Date(),
+      accessedAt: Date.now(),
       origin: 'https://vega.xyz'
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
@@ -80,7 +80,7 @@ describe('Store', () => {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
-        accessedAt: new Date(),
+        accessedAt: Date.now(),
         origin: 'https://vega.xyz'
       }
     ])
@@ -91,7 +91,7 @@ describe('Store', () => {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
-      accessedAt: new Date(),
+      accessedAt: Date.now(),
       origin: 'https://vega.xyz'
     }
     useConnectionStore.setState({

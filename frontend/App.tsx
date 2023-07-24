@@ -3,9 +3,11 @@ import { Routing } from './routes'
 import { JsonRPCProvider } from './contexts/json-rpc/json-rpc-provider'
 import GlobalErrorBoundary from './components/global-error-boundary'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
+import { usePing } from './hooks/ping'
 
 function App() {
   usePreventWindowResize()
+  usePing()
   return (
     <Router>
       <GlobalErrorBoundary>

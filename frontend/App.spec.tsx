@@ -1,11 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import App from './App'
 import { ReactNode } from 'react'
+import { usePreventWindowResize } from './hooks/prevent-window-resize'
+import { usePing } from './hooks/ping'
+
+jest.mock('./hooks/prevent-window-resize')
+jest.mock('./hooks/ping')
 
 jest.mock('./components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
   <div data-testid="global-error-boundary">{children}</div>
 ))
-jest.mock('./hooks/prevent-window-resize')
 
 jest.mock('./components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
   <div data-testid="global-error-boundary">{children}</div>
@@ -27,5 +31,11 @@ describe('App', () => {
     expect(screen.getByTestId('global-error-boundary')).toBeInTheDocument()
     expect(screen.getByTestId('routing')).toBeInTheDocument()
     expect(screen.getByTestId('json-rpc-provider')).toBeInTheDocument()
+  })
+
+  it('calls global level hooks', () => {
+    render(<App />)
+    expect(usePreventWindowResize).toHaveBeenCalled()
+    expect(usePing).toHaveBeenCalled()
   })
 })

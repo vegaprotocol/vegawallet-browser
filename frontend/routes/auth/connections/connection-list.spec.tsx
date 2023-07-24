@@ -15,7 +15,7 @@ describe('ConnectionList', () => {
   it('renders list of connections passed in with image', () => {
     render(
       <ConnectionsList
-        removeConnection={() => { }}
+        removeConnection={() => {}}
         connections={[
           {
             allowList: {
@@ -73,7 +73,7 @@ describe('ConnectionList', () => {
   it('renders last accessed at time', () => {
     render(
       <ConnectionsList
-        removeConnection={() => { }}
+        removeConnection={() => {}}
         connections={[
           {
             allowList: {

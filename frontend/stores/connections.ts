@@ -17,10 +17,10 @@ export interface AllowList {
 export type ConnectionsStore = {
   connections: Connection[]
   loading: boolean
-  loadConnections: (request: SendMessage) => void
+  loadConnections: (request: SendMessage) => Promise<void>
   addConnection: (connection: Connection) => void
   setConnections: (connections: Connection[]) => void
-  removeConnection: (request: SendMessage, connection: Connection) => void
+  removeConnection: (request: SendMessage, connection: Connection) => Promise<void>
 }
 
 export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({

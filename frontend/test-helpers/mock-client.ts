@@ -127,6 +127,7 @@ export const mockClient = (
                       publicKeys: [],
                       wallets: ['Wallet 1']
                     },
+                    lastAccessed: new Date(),
                     origin: 'https://vega.xyz'
                   },
                   {
@@ -134,6 +135,7 @@ export const mockClient = (
                       publicKeys: [],
                       wallets: ['Wallet 1']
                     },
+                    lastAccessed: new Date(),
                     origin: 'foo.com'
                   }
                 ]

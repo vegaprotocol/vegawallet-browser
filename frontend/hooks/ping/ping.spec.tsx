@@ -12,18 +12,13 @@ describe('usePing', () => {
     ;(initKeepAlive as jest.Mock).mockReturnValue(
       mockKeepAlive.mockReturnValueOnce({ keepAliveTimeout: 1, keepAliveInterval: 2 })
     )
-    const mockClearInterval = jest.spyOn(window, 'clearInterval')
-    const mockClearTimeout = jest.spyOn(window, 'clearTimeout')
 
     const { unmount } = renderHook(() => usePing())
 
     expect(initKeepAlive).toHaveBeenCalled()
+    expect(mockKeepAlive).toHaveBeenCalled()
 
     unmount()
-    expect(mockClearTimeout).toHaveBeenCalledWith(1)
-    expect(mockClearInterval).toHaveBeenCalledWith(2)
-
-    mockClearInterval.mockRestore()
-    mockClearTimeout.mockRestore()
+    expect(mockKeepAlive).toHaveBeenCalledWith(null)
   })
 })

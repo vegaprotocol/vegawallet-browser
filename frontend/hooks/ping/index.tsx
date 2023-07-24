@@ -9,10 +9,10 @@ export const usePing = () => {
   }, [])
   const keepAlive = useMemo(() => initKeepAlive(), [])
   useEffect(() => {
-    const { keepAliveTimeout, keepAliveInterval } = keepAlive(backgroundPort)
+    keepAlive(backgroundPort)
     return () => {
-      clearInterval(keepAliveInterval)
-      clearTimeout(keepAliveTimeout)
+      // Cancels the running keepAlive
+      keepAlive(null)
     }
   }, [backgroundPort, keepAlive])
 }

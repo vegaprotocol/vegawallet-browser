@@ -16,19 +16,34 @@ export class ConnectionsCollection {
     for (const listener of this.listeners) {
       try {
         listener(event, ...args)
-      } catch (_) {}
+      } catch (_) { }
     }
   }
 
   async set(origin, allowList) {
-    const res = await this.store.set(origin, {
+    const value = {
       origin,
-      allowList
-    })
+      allowList,
+      accessedAt: Date.now()
+    }
 
-    this._emit('set', { origin, allowList })
+    const res = await this.store.set(origin, value)
+
+    this._emit('set', value)
 
     return res
+  }
+
+  async touch(origin) {
+    return await this.store.transaction(async store => {
+      const conn = await store.get(origin)
+      if (conn == null) return
+
+      conn.accessedAt = Date.now()
+
+      await store.set(origin, conn)
+      this._emit('set', conn)
+    })
   }
 
   async has(origin) {
@@ -36,7 +51,9 @@ export class ConnectionsCollection {
   }
 
   async list() {
-    return Array.from(await this.store.values())
+    return Array.from(await this.store.values()).sort((a, b) => {
+      return b.accessedAt - a.accessedAt
+    })
   }
 
   async delete(origin) {

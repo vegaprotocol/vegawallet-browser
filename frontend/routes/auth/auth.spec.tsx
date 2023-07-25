@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import locators from '../../components/locators'
 
 import { useWalletStore } from '../../stores/wallets'
+import { FULL_ROUTES } from '../route-names'
 
 jest.mock('../../components/page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
@@ -30,9 +31,13 @@ jest.mock('../../components/transaction-modal', () => ({
   TransactionModal: () => <div data-testid="transaction-modal" />
 }))
 
-const renderComponent = () => {
+jest.mock('../../components/dapps-header/dapps-header', () => ({
+  DappsHeader: () => <div data-testid="dapps-header" />
+}))
+
+const renderComponent = (route: string = '') => {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[route]}>
       <Auth />
     </MemoryRouter>
   )
@@ -63,5 +68,16 @@ describe('Auth', () => {
     renderComponent()
 
     expect(mockLoad).toBeCalledTimes(1)
+  })
+  it('renders wallets header on wallets page', () => {
+    const mockLoad = jest.fn()
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => {
+      return fn({
+        loadWallets: mockLoad
+      })
+    })
+    renderComponent(FULL_ROUTES.wallets)
+
+    expect(screen.getByTestId('dapps-header')).toBeVisible()
   })
 })

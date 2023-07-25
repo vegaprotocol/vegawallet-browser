@@ -11,8 +11,11 @@ describe('WalletsHeader', () => {
     expect(walletsHeader).toBeInTheDocument()
 
     expect(tradeButton).toHaveTextContent('Trade')
+    expect(tradeButton).toHaveAttribute('href', 'Trade')
     expect(governButton).toHaveTextContent('Vote')
+    expect(governButton).toHaveAttribute('href', 'Trade')
     expect(browseButton).toHaveTextContent('Browse')
+    expect(browseButton).toHaveAttribute('href', 'Trade')
   })
 
   it('renders the correct tooltip content', async () => {

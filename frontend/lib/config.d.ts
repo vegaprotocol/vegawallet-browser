@@ -14,6 +14,8 @@ declare module '!/config' {
     rest: string[]
     console: string
     explorer: string
+    governance: string
+    vegaDapps: string
   }
 
   export interface EncryptionSettings {

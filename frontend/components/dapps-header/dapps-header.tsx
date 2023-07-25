@@ -18,7 +18,7 @@ const TradeIcon = () => {
 const OpenExternal = () => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17 6L5.68629 17.3137" stroke="black" stroke-miterlimit="10" stroke-linecap="square" />
+      <path d="M17 6L5.68629 17.3137" stroke="black" strokeMiterlimit="10" strokeLinecap="square" />
       <path d="M17.5 5L17.5 15" stroke="black" />
       <path d="M18 5.5L8 5.5" stroke="black" />
     </svg>
@@ -28,13 +28,13 @@ const OpenExternal = () => {
 const Tick = () => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 18.5L2.50001 13" stroke="black" stroke-miterlimit="10" stroke-linecap="square" />
-      <path d="M21.5 5L7.94365 18.5563" stroke="black" stroke-miterlimit="10" />
+      <path d="M8 18.5L2.50001 13" stroke="black" strokeMiterlimit="10" strokeLinecap="square" />
+      <path d="M21.5 5L7.94365 18.5563" stroke="black" strokeMiterlimit="10" />
     </svg>
   )
 }
 
-const WalletsHeaderButton = ({
+const DappsHeaderButton = ({
   text,
   icon,
   tooltipContent
@@ -53,12 +53,15 @@ const WalletsHeaderButton = ({
   )
 }
 
-export const WalletsHeader = () => {
+export const DappsHeader = () => {
   return (
-    <div className="grid grid-cols-3 bg-vega-dark-150 w-full py-3" data-testid={locators.walletsHeader}>
-      <WalletsHeaderButton tooltipContent="Console" icon={<TradeIcon />} text="Trade" />
-      <WalletsHeaderButton tooltipContent="Governance" icon={<Tick />} text="Vote" />
-      <WalletsHeaderButton tooltipContent="Vega dapps" icon={<OpenExternal />} text="Browse" />
+    <div
+      className="grid grid-cols-3 bg-vega-dark-150 w-full py-3 border-b border-1 border-vega-dark-150"
+      data-testid={locators.walletsHeader}
+    >
+      <DappsHeaderButton tooltipContent="Console" icon={<TradeIcon />} text="Trade" />
+      <DappsHeaderButton tooltipContent="Governance" icon={<Tick />} text="Vote" />
+      <DappsHeaderButton tooltipContent="Vega dapps" icon={<OpenExternal />} text="Browse" />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../package.json'
+import { toBase64, string as fromString } from '@vegaprotocol/crypto/buf'
 
 function doValidate(validator, params) {
   if (!validator(params))
@@ -171,6 +172,19 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
         doValidate(adminValidation.generateKey, params)
 
         return await wallets.generateKey(params)
+      },
+
+      async 'admin.sign_message'(params) {
+        doValidate(adminValidation.signMessage, params)
+
+        const keys = await wallets.getKeypair({ publicKey: params.publicKey })
+        if (keys == null) throw new JSONRPCServer.Error('Key not found', 1)
+
+        const { keyPair } = keys
+
+        const signature = await keyPair.sign(fromString(params.message), null) // no chainId
+
+        return { signature: toBase64(signature) }
       },
 
       async 'admin.list_connections'(params) {

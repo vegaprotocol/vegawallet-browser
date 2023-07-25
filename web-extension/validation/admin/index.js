@@ -22,6 +22,8 @@ export { default as renameWallet } from "./rename-wallet.js";
 export { default as generateKey } from "./generate-key.js";
 export { default as listKeys } from "./list-keys.js";
 
+export { default as signMessage } from "./sign-message.js";
+
 export { default as listConnections } from "./list-connections.js";
 export { default as removeConnection } from "./remove-connection.js";
 export { default as openPopout } from "./open-popout.js";

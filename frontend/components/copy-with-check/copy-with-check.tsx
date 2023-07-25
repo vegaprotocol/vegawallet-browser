@@ -34,8 +34,8 @@ export function CopyWithCheckmark({ text, children, iconSide = 'right' }: CopyWi
   const content =
     iconSide === 'right' ? (
       <>
-        {children}
-        {copied ? <Tick className="w-4 ml-3 text-vega-green-550" /> : <Copy className="w-4 ml-3" />}
+        {children}&nbsp;
+        {copied ? <Tick className="w-4 text-vega-green-550" /> : <Copy className="w-4" />}
       </>
     ) : (
       <>

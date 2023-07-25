@@ -3,7 +3,8 @@ import { ReactNode } from 'react'
 import config from '!/config'
 
 export const locators = {
-  walletsHeaderButton: 'wallets-header-button',
+  walletsHeaderItem: 'wallets-header-item',
+  walletsHeaderLink: 'wallets-header-link',
   walletsHeader: 'wallets-header'
 }
 
@@ -48,8 +49,8 @@ const DappsHeaderButton = ({
 }) => {
   return (
     <Tooltip description={tooltipContent}>
-      <div className="text-center hover:text-white ml-5 no-underline">
-        <a data-testid={locators.walletsHeaderButton} target="_blank" href={href} rel="noreferrer nofollow noopener">
+      <div data-testid={locators.walletsHeaderItem} className="text-center hover:text-white ml-5 no-underline">
+        <a data-testid={locators.walletsHeaderLink} target="_blank" href={href} rel="noreferrer nofollow noopener">
           <div className="rounded-full p-2 bg-vega-yellow">{icon}</div>
           <div className="text-xs mt-1">{text}</div>
         </a>

@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { DappsHeader, locators } from './wallets-header'
+import { DappsHeader, locators } from './dapps-header'
 
 describe('WalletsHeader', () => {
   it('should render the wallets header and buttons', () => {
@@ -21,7 +21,16 @@ describe('WalletsHeader', () => {
     const [tradeButton, governButton, browseButton] = screen.getAllByTestId(locators.walletsHeaderButton)
     fireEvent.pointerMove(tradeButton)
     await screen.findByRole('tooltip')
-
     expect(screen.queryByRole('tooltip')).toHaveTextContent('Console')
+    fireEvent.pointerLeave(tradeButton)
+
+    fireEvent.pointerMove(governButton)
+    await screen.findByRole('tooltip')
+    expect(screen.queryByRole('tooltip')).toHaveTextContent('Governance')
+    fireEvent.pointerLeave(governButton)
+
+    fireEvent.pointerMove(browseButton)
+    await screen.findByRole('tooltip')
+    expect(screen.queryByRole('tooltip')).toHaveTextContent('Vega dapps')
   })
 })

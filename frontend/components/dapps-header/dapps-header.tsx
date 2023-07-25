@@ -45,9 +45,9 @@ const DappsHeaderButton = ({
 }) => {
   return (
     <Tooltip description={tooltipContent}>
-      <div data-testid={locators.walletsHeaderButton} className="text-center">
+      <div data-testid={locators.walletsHeaderButton} className="text-center hover:text-white ml-5">
         <button className="rounded-full p-2 bg-vega-yellow">{icon}</button>
-        <div className="no-underline">{text}</div>
+        <div className="no-underline text-xs mt-1">{text}</div>
       </div>
     </Tooltip>
   )
@@ -56,7 +56,7 @@ const DappsHeaderButton = ({
 export const DappsHeader = () => {
   return (
     <div
-      className="grid grid-cols-3 bg-vega-dark-150 w-full py-3 border-b border-1 border-vega-dark-150"
+      className="flex bg-vega-dark-150 w-full py-3 border-b border-1 border-vega-dark-150"
       data-testid={locators.walletsHeader}
     >
       <DappsHeaderButton tooltipContent="Console" icon={<TradeIcon />} text="Trade" />

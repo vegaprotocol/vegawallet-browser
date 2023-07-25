@@ -7,6 +7,7 @@ import { List } from '../../../components/list'
 import { KeyIcon } from '../../../components/key-icon'
 import { useWalletStore, Key } from '../../../stores/wallets'
 import config from '!/config'
+import { MessageIcon } from '../../../components/icons/message'
 
 export const locators = {
   walletsAssetHeader: 'wallets-asset-header',
@@ -52,13 +53,19 @@ export const Wallets = () => {
               <div data-testid={locators.walletsKeyName} className="text-lg text-white">
                 {k.name}
               </div>
-              <ExternalLink
-                data-testid={locators.walletsExplorerLink}
-                href={`${config.network.explorer}/parties/${k.publicKey}`}
-              >
-                {truncateMiddle(k.publicKey)}
-              </ExternalLink>
-              <CopyWithCheckmark text={k.publicKey} />
+              <div className="flex items-center">
+                <ExternalLink
+                  data-testid={locators.walletsExplorerLink}
+                  href={`${config.network.explorer}/parties/${k.publicKey}`}
+                >
+                  {truncateMiddle(k.publicKey)}
+                </ExternalLink>
+                <CopyWithCheckmark text={k.publicKey} />
+                &nbsp;
+                <span className="cursor-pointer">
+                  <MessageIcon />
+                </span>
+              </div>
             </div>
           </div>
         )}

@@ -305,4 +305,108 @@ describe('admin-ns', () => {
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
     expect(windowsMock.create).toBeCalledTimes(1)
   })
+
+  it('should sign message with given public key', async () => {
+    const admin = await createAdmin({ passphrase: 'foo' })
+
+    const importWallet = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.import_wallet',
+      params: {
+        name: 'Wallet 1',
+        recoveryPhrase: 'mandate verify garage episode glimpse evidence erosion resist fit razor fluid theme remember penalty address media claim beach fiscal taste impact lucky test survey'
+      }
+    })
+
+    expect(importWallet.result).toEqual(null)
+
+    const generateKey = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.generate_key',
+      params: {
+        name: 'Key 1',
+        wallet: 'Wallet 1'
+      }
+    })
+
+    const publicKey = generateKey.result.publicKey
+
+    const message = ' '
+
+    const signMessage = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.sign_message',
+      params: {
+        publicKey,
+        message
+      }
+    })
+
+    expect(signMessage.result).toEqual({
+      signature: 'RdgrLZBovd0sCY4RcVFTF5aebV5TwbxkohhpvnJZMw0a1c0+50jqtJqaVTBBf4B3C1PlbvNGfGl4BMiqrr9DAA=='
+    })
+
+    const message2 = 'Hello World'
+
+    const signMessage2 = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.sign_message',
+      params: {
+        publicKey,
+        message: message2
+      }
+    })
+
+    expect(signMessage2.result).toEqual({
+      signature: '2tCYSehD1WO0udvU1P92UzkP4BoPB4NLxs3JCGwFKb9oD86njCXoGrVgE1k2zpM7Tcjs3HzSBg8bDCTm3FjUBQ=='
+    })
+
+    // generate a new key
+
+    const generateKey2 = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.generate_key',
+      params: {
+        name: 'Key 2',
+        wallet: 'Wallet 1'
+      }
+    })
+
+    const publicKey2 = generateKey2.result.publicKey
+
+    const signMessage3 = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.sign_message',
+      params: {
+        publicKey: publicKey2,
+        message
+      }
+    })
+
+    expect(signMessage3.result).toEqual({
+      signature: '1f25T84uQ+CTePavhus+nKrIllQr5R1pdipstz8+J+bKDBQM0MGfFjuxRnaR9bqQrgW0xc/z2ma56I4MYInaBA=='
+    })
+
+    const signMessage4 = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.sign_message',
+      params: {
+        publicKey: publicKey2,
+        message: message2
+      }
+    })
+
+    expect(signMessage4.result).toEqual({
+      signature: 'sNGQ0io4t3oh/L8z1N8I+/gAai9I7ke10BcsGXmRXC70UHbYD5ysaA9v9/9g6gLBA9gfuXPuGxG9z+86yfYQDg=='
+    })
+
+  })
+
 })

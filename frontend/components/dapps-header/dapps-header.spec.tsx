@@ -4,6 +4,9 @@ import config from '!/config'
 
 describe('WalletsHeader', () => {
   it('should render the wallets header and buttons', () => {
+    // 1106-KEYS-008 There is a way to go to console from the wallet view
+    // 1106-KEYS-010 There is a way to go govern from the wallet view
+    // 1106-KEYS-011 There is a way to view other Vega dapps from the wallet view
     render(<DappsHeader />)
 
     const walletsHeader = screen.getByTestId(locators.walletsHeader)
@@ -20,6 +23,7 @@ describe('WalletsHeader', () => {
   })
 
   it('renders the correct tooltip content', async () => {
+    // 1106-KEYS-012 There is a way to see what's linked to my wallet from the wallet view
     render(<DappsHeader />)
 
     const [tradeButton, governButton, browseButton] = screen.getAllByTestId(locators.walletsHeaderItem)

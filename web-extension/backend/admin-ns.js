@@ -177,10 +177,10 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
       async 'admin.sign_message'(params) {
         doValidate(adminValidation.signMessage, params)
 
-        const keys = await wallets.getKeypair({ publicKey: params.publicKey })
-        if (keys == null) throw new JSONRPCServer.Error('Key not found', 1)
+        const key = await wallets.getKeypair({ publicKey: params.publicKey })
+        if (key == null) throw new JSONRPCServer.Error('Key not found', 1)
 
-        const { keyPair } = keys
+        const { keyPair } = key
 
         const signature = await keyPair.sign(fromString(params.message), null) // no chainId
 

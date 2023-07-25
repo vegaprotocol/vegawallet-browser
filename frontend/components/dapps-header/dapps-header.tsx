@@ -1,5 +1,6 @@
 import { Tooltip } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
+import config from '!/config'
 
 export const locators = {
   walletsHeaderButton: 'wallets-header-button',
@@ -37,19 +38,21 @@ const Tick = () => {
 const DappsHeaderButton = ({
   text,
   icon,
-  tooltipContent
+  tooltipContent,
+  href
 }: {
   text: string
   icon: ReactNode
   tooltipContent: string
+  href: string
 }) => {
   return (
     <Tooltip description={tooltipContent}>
-      <div data-testid={locators.walletsHeaderButton} className="text-center hover:text-white ml-5">
-        <button>
+      <div className="text-center hover:text-white ml-5 no-underline">
+        <a data-testid={locators.walletsHeaderButton} target="_blank" href={href} rel="noreferrer nofollow noopener">
           <div className="rounded-full p-2 bg-vega-yellow">{icon}</div>
-          <div className="no-underline text-xs mt-1">{text}</div>
-        </button>
+          <div className="text-xs mt-1">{text}</div>
+        </a>
       </div>
     </Tooltip>
   )
@@ -61,9 +64,14 @@ export const DappsHeader = () => {
       className="flex bg-vega-dark-150/25 w-full py-3 border-b border-1 border-vega-dark-150"
       data-testid={locators.walletsHeader}
     >
-      <DappsHeaderButton tooltipContent="Console" icon={<TradeIcon />} text="Trade" />
-      <DappsHeaderButton tooltipContent="Governance" icon={<Tick />} text="Vote" />
-      <DappsHeaderButton tooltipContent="Vega dapps" icon={<OpenExternal />} text="Browse" />
+      <DappsHeaderButton href={config.network.console} tooltipContent="Console" icon={<TradeIcon />} text="Trade" />
+      <DappsHeaderButton href={config.network.governance} tooltipContent="Governance" icon={<Tick />} text="Vote" />
+      <DappsHeaderButton
+        href={config.network.vegaDapps}
+        tooltipContent="Vega dapps"
+        icon={<OpenExternal />}
+        text="Browse"
+      />
     </div>
   )
 }

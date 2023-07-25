@@ -8,7 +8,9 @@ const test = {
     name: 'Test',
     rest: [`http://localhost:${mockPort}`],
     console: 'https://console.fairground.wtf',
-    explorer: 'https://explorer.fairground.wtf'
+    explorer: 'https://explorer.fairground.wtf',
+    governance: 'https://governance.fairground.wtf',
+    vegaDapps: 'https://vega.xyz/use'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',

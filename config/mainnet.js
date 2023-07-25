@@ -10,7 +10,9 @@ const mainnet = {
       'https://darling.network'
     ],
     console: 'https://console.vega.xyz',
-    explorer: 'https://explorer.vega.xyz'
+    explorer: 'https://explorer.vega.xyz',
+    governance: 'https://governance.vega.xyz',
+    vegaDapps: 'https://vega.xyz/use'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   encryptionSettings: undefined,

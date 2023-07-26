@@ -40,7 +40,7 @@ export const TransactionModal = () => {
           </div>
         </section>
       </Splash>
-      <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-4 bg-black z-20 px-5 border-t border-vega-dark-200">
+      <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-4 bg-black z-30 px-5 border-t border-vega-dark-200">
         <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleTransactionDecision(false)}>
           Reject
         </Button>

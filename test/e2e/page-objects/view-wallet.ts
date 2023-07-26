@@ -10,6 +10,7 @@ import {
 import * as locators from '../../../frontend/locator-ids'
 import * as pageHeader from '../../../frontend/components/page-header'
 import { locators as walletLocators } from '../../../frontend/routes/auth/wallets'
+import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/key-list'
 
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
@@ -26,7 +27,7 @@ export class ViewWallet {
 
   async getWalletKeys() {
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(walletLocators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
     const keys: string[] = []
     for (const key of keyElements) {
       keys.push(await key.getText())
@@ -36,7 +37,7 @@ export class ViewWallet {
 
   async waitForExpectedNumberOfKeys(expectedNumber: number) {
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(walletLocators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
     expect(keyElements.length).toBe(expectedNumber)
   }
 
@@ -50,9 +51,13 @@ export class ViewWallet {
 
   async createNewKeyPair() {
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(walletLocators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
     await clickElement(this.driver, this.createNewKeyPairButton)
-    await waitForChildElementsCount(this.driver, getByDataTestID(walletLocators.walletsKeyName), keyElements.length + 1)
+    await waitForChildElementsCount(
+      this.driver,
+      getByDataTestID(keyListLocators.walletsKeyName),
+      keyElements.length + 1
+    )
   }
 
   async copyPublicKeyToClipboard() {

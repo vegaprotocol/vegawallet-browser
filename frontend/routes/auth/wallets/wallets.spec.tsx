@@ -6,7 +6,8 @@ import locators from '../../../components/locators'
 import { locators as walletLocators } from '../wallets/index'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { WalletsStore, useWalletStore } from '../../../stores/wallets'
-
+import { locators as keyLocators } from './key-list'
+import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
 const mockLoadedState = () => {
   const state = useWalletStore.getState()
 
@@ -54,19 +55,19 @@ describe('Wallets', () => {
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
     expect(screen.getByTestId(walletLocators.walletsWalletName)).toHaveTextContent('wallet 1')
-    expect(screen.getByTestId(walletLocators.walletsExplorerLink)).toBeVisible()
-    expect(screen.getByTestId(walletLocators.walletsExplorerLink)).toHaveTextContent('07248a…3673')
-    expect(screen.getByTestId(walletLocators.walletsExplorerLink)).toHaveAttribute(
+    expect(screen.getByTestId(keyLocators.walletsExplorerLink)).toBeVisible()
+    expect(screen.getByTestId(keyLocators.walletsExplorerLink)).toHaveTextContent('07248a…3673')
+    expect(screen.getByTestId(keyLocators.walletsExplorerLink)).toHaveAttribute(
       'href',
       'https://explorer.fairground.wtf/parties/07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673'
     )
     expect(screen.getByTestId(locators.copyWithCheck)).toBeInTheDocument()
-    expect(screen.getByTestId(walletLocators.walletsKeyName)).toHaveTextContent('Key 1')
-    expect(screen.getByTestId(walletLocators.walletsCreateKey)).toHaveTextContent('Create new key/pair')
-    expect(screen.getByTestId(walletLocators.walletsAssetHeader)).toHaveTextContent('Assets')
+    expect(screen.getByTestId(keyLocators.walletsKeyName)).toHaveTextContent('Key 1')
+    expect(screen.getByTestId(keyLocators.walletsCreateKey)).toHaveTextContent('Create new key/pair')
+    expect(screen.getByTestId(depositAssetsCalloutLocators.walletsAssetHeader)).toHaveTextContent('Assets')
     expect(screen.getByTestId(locators.frame)).toHaveTextContent(informationText)
-    expect(screen.getByTestId(walletLocators.walletsDepositLink)).toHaveTextContent('Vega Console dapp.')
-    expect(screen.getByTestId(walletLocators.walletsDepositLink)).toHaveAttribute(
+    expect(screen.getByTestId(depositAssetsCalloutLocators.walletsDepositLink)).toHaveTextContent('Vega Console dapp.')
+    expect(screen.getByTestId(depositAssetsCalloutLocators.walletsDepositLink)).toHaveAttribute(
       'href',
       'https://console.fairground.wtf'
     )
@@ -83,7 +84,7 @@ describe('Wallets', () => {
     )
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
-    fireEvent.click(screen.getByTestId(walletLocators.walletsCreateKey))
+    fireEvent.click(screen.getByTestId(keyLocators.walletsCreateKey))
     await waitFor(() => expect(screen.queryAllByTestId(locators.listItem)).toHaveLength(2))
     const [key1, key2] = screen.queryAllByTestId(locators.listItem)
     expect(key1).toHaveTextContent('Key 1')

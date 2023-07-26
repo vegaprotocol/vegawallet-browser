@@ -20,7 +20,13 @@ const test = {
   },
   closeWindowOnPopupOpen: false,
   sentryDsn: undefined,
-  logging: false
+  logging: false,
+
+  manifestReplacements: {
+    buildName: 'Test',
+    geckoId: 'browser-extension-test@vega.xyz',
+    iconPrefix: 'Fairground'
+  }
 }
 
 export default test

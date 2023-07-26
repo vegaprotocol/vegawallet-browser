@@ -12,7 +12,9 @@ const fileName = 'I_SHOULD_NOT_EXIST.js'
  * @param {string} commonFolder - The folder containing the common files
  * @param {string} build - The browser specific build folder
  */
-export default (browser, commonFolder, build, isTestBuild, network) => {
+export default async (browser, commonFolder, build, isTestBuild, walletConfig) => {
+  const { default: config } = await import(`../config/${walletConfig}.js`)
+
   const testReplacements = isTestBuild && browser === 'chrome'
     ? {
       key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA08UzOSHIQYHM54WUFpkwdli9r64CjLvR0zQywfNvJEW808vRJF86esnXtgFn+XaPc/rKL1SguiGrhi0DJH6uzNEBs37q7kEsEzK+yxWu8OPGp8Bf6p1MnvT5m/44tXqcbdLll3K8rBrNq8PAGIbw7AI/dkLnK1UosVDkkO7CCqLYLDp0ccJTLs1ALS78o6Es9tg91DuTRJyNc1HP8rZn0FL+rjOkqAX+26rhy+UOwWvqe7FZbMU18ZsQ5Z/rFWAYnRG6+lWMMWYBsU2irwRLVPd4RydEr2JKeaNi9V42a7kAtDlYW9607LCOtXfAJTIA3g2zrtxvPBSLMO84abvGzwIDAQAB'
@@ -46,10 +48,12 @@ export default (browser, commonFolder, build, isTestBuild, network) => {
           outputFile: `${browser}/manifest.json`,
           replacements: {
             // Used to prefix all icons eg. Fairground-16x16.png
-            __ICON_PREFIX__: network,
+            __ICON_PREFIX__: config.manifestReplacements.iconPrefix,
 
-            // Used in the extension name and gecko id
-            __BUILD_NAME__: network
+            // Used in the extension name
+            __BUILD_NAME__: config.manifestReplacements.buildName,
+
+            __GECKO_ID__: config.manifestReplacements.geckoId,
           },
           overrides: {
             version: pkg.version,

@@ -12,7 +12,7 @@ const browsers = ['chrome', 'firefox']
 const destination = 'build'
 const commonPath = `${destination}/common`
 
-const config = (cliArgs) => {
+const config = async (cliArgs) => {
   const walletConfig = cliArgs['wallet-config']
   const analyze = cliArgs['analyze']
 
@@ -38,11 +38,14 @@ const config = (cliArgs) => {
   // https://github.com/rollup/rollup/issues/2694#issuecomment-463915954
   delete cliArgs['wallet-config']
   delete cliArgs['analyze']
+
+  const postbuilds = await Promise.all(browsers.map((b) => postbuild(b, commonPath, destination, isTestBuild, walletConfig)))
+
   return [
     ...prebuild(),
     ...backend(isProduction, commonPath, walletConfig, analyze),
     ...frontend(isProduction, commonPath, walletConfig, analyze),
-    ...browsers.flatMap((b) => postbuild(b, commonPath, destination, isTestBuild, network))
+    ...postbuilds.flat()
   ]
 }
 export default config

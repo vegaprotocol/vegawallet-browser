@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "browser_specific_settings": {
     "gecko": {
-      "id": "browser-extension-__BUILD_NAME__@vega.xyz",
+      "id": "__GECKO_ID__",
       "strict_min_version": "115.0"
     }
   },

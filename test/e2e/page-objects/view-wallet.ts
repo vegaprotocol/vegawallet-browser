@@ -14,7 +14,7 @@ import { locators as keyListLocators } from '../../../frontend/routes/auth/walle
 
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
-  private readonly createNewKeyPairButton: By = getByDataTestID(walletLocators.walletsCreateKey)
+  private readonly createNewKeyPairButton: By = getByDataTestID(keyListLocators.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly copyIcon: By = getByDataTestID('copy-icon')
   private readonly copyableKey: By = getByDataTestID('copy-with-check')

@@ -39,7 +39,7 @@ const htmlPlugin = (outputPath) => {
         })
         .join('\n')
       return `<!DOCTYPE html>
-    <html lang="en">
+    <html class="dark" lang="en">
       <head>
         ${metas}
         <title>${title}</title>

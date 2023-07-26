@@ -11,10 +11,16 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 export const locators = {
   walletsKeyName: 'wallets-key-name',
   walletsExplorerLink: 'wallets-explorer-link',
-  walletsCreateKey: 'wallets-create-key'
+  walletsCreateKey: 'wallets-create-key',
+  walletsSignMessageButton: 'sign-message-button'
 }
 
-export const KeyList = ({ wallet, onIconClick }: { wallet: Wallet; onIconClick: (key: string) => void }) => {
+export interface KeyListProps {
+  wallet: Wallet
+  onIconClick: (key: string) => void
+}
+
+export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
   const { request } = useJsonRpcClient()
   // Wallet loading is handled in auth, when the user is redirected to the auth page
   const { createNewKey } = useWalletStore((store) => ({
@@ -48,7 +54,11 @@ export const KeyList = ({ wallet, onIconClick }: { wallet: Wallet; onIconClick: 
                 </ExternalLink>
                 <CopyWithCheckmark text={k.publicKey} />
                 &nbsp;
-                <button onClick={() => onIconClick(k.publicKey)} className="cursor-pointer">
+                <button
+                  data-testid={locators.walletsSignMessageButton}
+                  onClick={() => onIconClick(k.publicKey)}
+                  className="cursor-pointer"
+                >
                   <MessageIcon />
                 </button>
               </div>

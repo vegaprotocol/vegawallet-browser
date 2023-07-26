@@ -1,4 +1,4 @@
-import { Input, Button } from '@vegaprotocol/ui-toolkit'
+import { Button, TextArea } from '@vegaprotocol/ui-toolkit'
 import { useForm } from 'react-hook-form'
 
 export const locators = {
@@ -19,13 +19,7 @@ const SignMessageForm = ({ onCancel, onSign, disabled }: SignMessageProps) => {
   const { register, handleSubmit } = useForm<{ message: string }>()
   return (
     <form onSubmit={handleSubmit(onSign)}>
-      <Input
-        {...register('message')}
-        autoFocus
-        type="text"
-        placeholder="Enter a message"
-        data-testid={locators.messageInput}
-      />
+      <TextArea {...register('message')} autoFocus placeholder="Enter a message" data-testid={locators.messageInput} />
       <div className="mt-4 flex justify-between">
         <Button disabled={disabled} onClick={onCancel} data-testid={locators.cancelButton}>
           Cancel

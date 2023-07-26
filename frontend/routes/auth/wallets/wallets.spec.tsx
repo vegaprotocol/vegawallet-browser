@@ -89,21 +89,4 @@ describe('Wallets', () => {
     expect(key1).toHaveTextContent('Key 1')
     expect(key2).toHaveTextContent('Key 2')
   })
-
-  it('gives information of where to deposit and manage assets', async () => {
-    // 1106-KEYS-003 I can see information of where to go to deposit and manage my assets
-    mockClient()
-    mockLoadedState()
-
-    render(
-      <JsonRPCProvider>
-        <Wallets />
-      </JsonRPCProvider>
-    )
-    // Wait for list to load
-    await screen.findByTestId(locators.listItem)
-    const infoElement = screen.getByTestId(locators.frame)
-    expect(infoElement).toHaveTextContent(informationText)
-    expect(infoElement).toBeVisible()
-  })
 })

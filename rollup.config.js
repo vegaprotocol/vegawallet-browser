@@ -27,13 +27,6 @@ const config = async (cliArgs) => {
   }
   const isTestBuild = walletConfig === 'test'
 
-  const network = {
-    mainnet: 'Mainnet',
-    testnet: 'Fairground',
-    test: 'Fairground',
-    dev: 'Fairground' // TODO can get it's own name once we have icons
-  }[walletConfig]
-
   // Remove custom CLI args to prevent errors.
   // https://github.com/rollup/rollup/issues/2694#issuecomment-463915954
   delete cliArgs['wallet-config']

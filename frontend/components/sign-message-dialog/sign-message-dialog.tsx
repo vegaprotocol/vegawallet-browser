@@ -5,7 +5,7 @@ import { RpcMethods } from '../../lib/client-rpc-methods'
 import { SignedMessage } from './signed-message'
 import { SignMessage } from './sign-message'
 
-interface SignMessageDialogProps {
+export interface SignMessageDialogProps {
   publicKey: string | null
   onClose: () => void
   open: boolean

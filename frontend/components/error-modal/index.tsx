@@ -12,7 +12,7 @@ export const locators = {
 export const ErrorModal = ({ error, onClose }: { error: Error | null; onClose: () => void }) => {
   return (
     <Splash data-testid={locators.errorModal}>
-      <section className="h-full text-center flex flex-col justify-center">
+      <section className="h-full text-center flex flex-col justify-center px-5">
         <div className="text-center mx-auto">
           <ErrorIcon />
         </div>

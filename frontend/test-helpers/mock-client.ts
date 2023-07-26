@@ -154,6 +154,12 @@ export const mockClient = (
               result: null,
               id: message.id
             })
+          } else if (message.method === RpcMethods.SignMessage) {
+            pushMessage({
+              jsonrpc: '2.0',
+              result: { signature: 'signature' },
+              id: message.id
+            })
           } else if (
             [
               RpcMethods.ImportWallet,

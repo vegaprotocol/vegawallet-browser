@@ -19,5 +19,8 @@ export const RpcMethods = {
   ConnectionsChange: 'admin.connections_change',
   OpenPopout: 'admin.open_popout',
   UpdateSettings: 'admin.update_app_settings',
-  RemoveConnection: 'admin.remove_connection'
+  RemoveConnection: 'admin.remove_connection',
+
+  // Misc
+  SignMessage: 'admin.sign_message'
 }

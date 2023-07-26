@@ -8,6 +8,9 @@ import { mockClient } from '../../../test-helpers/mock-client'
 import { WalletsStore, useWalletStore } from '../../../stores/wallets'
 import { locators as keyLocators } from './key-list'
 import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
+import { locators as signMessageLocators } from '../../../components/sign-message-dialog/sign-message'
+import { locators as signedMessageLocators } from '../../../components/sign-message-dialog/signed-message'
+
 const mockLoadedState = () => {
   const state = useWalletStore.getState()
 
@@ -89,5 +92,26 @@ describe('Wallets', () => {
     const [key1, key2] = screen.queryAllByTestId(locators.listItem)
     expect(key1).toHaveTextContent('Key 1')
     expect(key2).toHaveTextContent('Key 2')
+  })
+
+  it('allows you to sign a message with a key', async () => {
+    mockClient()
+    mockLoadedState()
+
+    render(
+      <JsonRPCProvider>
+        <Wallets />
+      </JsonRPCProvider>
+    )
+    // Wait for list to load
+    await screen.findByTestId(locators.listItem)
+    fireEvent.click(screen.getByTestId(keyLocators.walletsSignMessageButton))
+    await waitFor(() => expect(screen.getByTestId(signMessageLocators.signMessageHeader)).toBeVisible())
+    fireEvent.change(screen.getByTestId(signMessageLocators.messageInput), { target: { value: 'Test message' } })
+    fireEvent.click(screen.getByTestId(signMessageLocators.signButton))
+    await screen.findByTestId(signedMessageLocators.signedMessageHeader)
+    expect(screen.getByText('signature')).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId(signedMessageLocators.signedMessageDoneButton))
+    await waitFor(() => expect(screen.queryByTestId(signedMessageLocators.signedMessageHeader)).not.toBeInTheDocument())
   })
 })

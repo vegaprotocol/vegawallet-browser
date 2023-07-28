@@ -7,8 +7,6 @@ import {
   isElementDisplayed,
   waitForChildElementsCount
 } from '../selenium-util'
-import * as locators from '../../../frontend/locator-ids'
-import * as pageHeader from '../../../frontend/components/page-header'
 import { locators as walletLocators } from '../../../frontend/routes/auth/wallets'
 import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/key-list'
 
@@ -17,7 +15,7 @@ export class ViewWallet {
   private readonly createNewKeyPairButton: By = getByDataTestID(keyListLocators.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly copyIcon: By = getByDataTestID('copy-icon')
-  private readonly copyableKey: By = getByDataTestID('copy-with-check')
+  private readonly copyableKey: By = getByDataTestID(keyListLocators.walletsExplorerLink)
 
   constructor(private readonly driver: WebDriver) {}
 

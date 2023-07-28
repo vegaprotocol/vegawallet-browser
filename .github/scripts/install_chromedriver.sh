@@ -1,8 +1,8 @@
 #!/bin/bash
 
-stable_version=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json | grep -oP '"Stable":{"channel":"Stable","version":"\K[^"]+')
+response=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json)
 
-echo "Stable Version: $stable_version"
+stable_version=$(echo "$response" | jq -r '.channels.Stable.version')
 
 chromedriver_filename="chromedriver-linux64"
 

@@ -19,8 +19,10 @@ jobs:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install chromedriver
-        run: bash .github/scripts/install_chromedriver.sh
+      - name: Install chrome and chromedriver
+        run: |
+          bash .github/scripts/install_chromedriver.sh
+          bash .github/scripts/install_chrome.sh
 
       - name: Install dependencies
         run: yarn install

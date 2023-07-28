@@ -38,7 +38,6 @@ describe('Connect wallet', () => {
     // 1103-CONN-008 There is a visual way to understand that a connection has been successful
     // 1103-CONN-009 If the had the browser wallet open when I instigated the connection request, the browser wallet returns your view to where you were before the request came in
     await setUpWalletAndKey()
-    console.log('dummy change')
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
     const responsePromise = await vegaAPI.connectWallet()

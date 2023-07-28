@@ -7,4 +7,4 @@ download_url="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$lates
 
 echo "working directory: $(pwd)"
 echo "directory contents: $(ls -la)"
-sudo $(pwd)/.github/scripts/download_and_unzip.sh "$download_url" "$chromedriver_filename"
+$(pwd)/.github/scripts/download_and_unzip.sh "$download_url" "$chromedriver_filename"

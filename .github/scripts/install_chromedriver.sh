@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./get_latest_stable_chrome.sh
+source get_latest_stable_chrome.sh
 
 chromedriver_filename="chromedriver-linux64"
 

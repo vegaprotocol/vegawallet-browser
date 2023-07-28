@@ -13,29 +13,24 @@ export async function getChainId({ rpc }) {
 }
 
 export async function createTransactionData(rpc, keys, transaction, sendingMode) {
-  console.log('rpc', rpc)
-  console.log('keys', keys)
-  console.log('transaction', transaction)
-  console.log('sendingMode', sendingMode) 
   const latestBlock = await rpc.blockchainHeight()
-  console.log('latestBlock', latestBlock)
   const tid = toHex(await randomFill(new Uint8Array(32)))
-  console.log('tid', tid)
 
+  console.log('here is your transaction', transaction)
   const pow = await solvePoW({
     difficulty: latestBlock.spamPowDifficulty,
     blockHash: latestBlock.hash,
     tid
   })
-  console.log('pow', pow)
 
   const nonce = new DataView(await randomFill(new Uint8Array(8)).buffer).getBigUint64(0, false)
-  console.log('nonce', nonce)
-  const inputData = InputData.encode({
+
+  const inputDataRaw = {
     blockHeight: BigInt(latestBlock.height),
     nonce,
     command: transaction
-  })
+  }
+  const inputData = InputData.encode(inputDataRaw)
 
   console.log('inputData', inputData)
 
@@ -56,10 +51,14 @@ export async function createTransactionData(rpc, keys, transaction, sendingMode)
   }
 
   console.log('txData before encoding', txData)
+  //write the transaction json out to a file
   const encodedTx = Transaction.encode(txData)
+  // write the encoded json out to a file
 
+  const base64Tx = toBase64(encodedTx)
+  console.log('encodedTx', encodedTx)
   return {
-    encodedTx, txData, inputData, pow, tid
+    base64Tx, txData, inputData, pow, tid
   }
 }
 export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
@@ -84,9 +83,10 @@ export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
   }
   console.log('txJSON', txJSON)
 
+  const base64Tx = toBase64(trans.encodedTx)
   const sentAt = new Date().toISOString()
   const res = await rpc.submitRawTransaction(
-    toBase64(trans.encodedTx),
+    base64Tx,
     sendingMode
   )
   console.log(res, 'res')

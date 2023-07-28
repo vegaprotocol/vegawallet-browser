@@ -14,6 +14,6 @@ wget $download_url
 unzip $chromedriver_filename
 
 ls -la
-sudo mv chromedriver /usr/local/bin/
-sudo chown root:root /usr/local/bin/chromedriver
-sudo chmod +x /usr/local/bin/chromedriver
+sudo mv chromedriver-linux64 /usr/local/bin/
+sudo chown root:root /usr/local/bin/chromedriver-linux64
+sudo chmod +x /usr/local/bin/chromedriver-linux64

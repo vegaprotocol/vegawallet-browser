@@ -5,12 +5,13 @@ response=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/last-kn
 stable_version=$(echo "$response" | grep -oP '"Stable":{"channel":"Stable","version":"\K[^"]+')
 
 echo "Stable Version: $stable_version"
+chromedriver_filename="chromedriver-linux64.zip" 
 
-download_url="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$stable_version/linux64/chromedriver-linux64.zip"
+download_url="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$stable_version/linux64/$chromedriver_filename"
 echo "Download URL: $download_url" 
 
 wget $download_url
-unzip chromedriver_linux64.zip
+unzip $chromedriver_filename
 sudo mv chromedriver /usr/local/bin/
 sudo chown root:root /usr/local/bin/chromedriver
 sudo chmod +x /usr/local/bin/chromedriver

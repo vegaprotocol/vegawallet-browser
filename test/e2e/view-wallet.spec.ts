@@ -1,5 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
+import { captureScreenshot } from './driver'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToLandingPage, createWalletAndDriver } from './wallet-helpers/common'
 import { NavPanel } from './page-objects/navpanel'

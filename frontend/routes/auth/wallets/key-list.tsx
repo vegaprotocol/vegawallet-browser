@@ -1,4 +1,4 @@
-import { ButtonLink, ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { ButtonLink, ExternalLink, Tooltip, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { CopyWithCheckmark } from '../../../components/copy-with-check'
 import { List } from '../../../components/list'
 import { KeyIcon } from '../../../components/key-icon'
@@ -54,13 +54,15 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
                 </ExternalLink>
                 <CopyWithCheckmark text={k.publicKey} />
                 &nbsp;
-                <button
-                  data-testid={locators.walletsSignMessageButton}
-                  onClick={() => onIconClick(k.publicKey)}
-                  className="cursor-pointer mt-1"
-                >
-                  <MessageIcon />
-                </button>
+                <Tooltip description="Sign message">
+                  <button
+                    data-testid={locators.walletsSignMessageButton}
+                    onClick={() => onIconClick(k.publicKey)}
+                    className="cursor-pointer mt-1"
+                  >
+                    <MessageIcon />
+                  </button>
+                </Tooltip>
               </div>
             </div>
           </div>

@@ -1,20 +1,15 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { createWalletAndDriver } from './wallet-helpers/common'
 import { ViewWallet } from './page-objects/view-wallet'
-import { APIHelper } from './wallet-helpers/api-helpers'
 
 describe('sign message', () => {
   let driver: WebDriver
   let viewWallet: ViewWallet
 
   beforeEach(async () => {
-    driver = await initDriver()
-    await navigateToLandingPage(driver)
+    driver = await createWalletAndDriver()
     viewWallet = new ViewWallet(driver)
-    const apiHelper = new APIHelper(driver)
-    await apiHelper.setUpWalletAndKey()
-    await navigateToLandingPage(driver)
   })
 
   afterEach(async () => {

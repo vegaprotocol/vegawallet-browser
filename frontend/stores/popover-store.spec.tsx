@@ -87,6 +87,7 @@ describe('useWindowStore', () => {
     expect(windows.onCreated.addListener).toHaveBeenCalledWith(windowStore.getState().onCreated)
     expect(windows.onCreated.addListener).toBeCalledTimes(1)
   })
+
   it('setup throws error if there a multiple popups', async () => {
     silenceErrors()
     mockChrome()
@@ -94,21 +95,24 @@ describe('useWindowStore', () => {
     globalThis.chrome.windows.getAll = jest.fn().mockReturnValue([{ id: 1 }, { id: 2 }])
     await expect(() => windowStore.getState().setup()).rejects.toThrow('Multiple popups open, this should not happen')
   })
+
   it('setup sets popup open if there is a popup', async () => {
     mockChrome()
     const windowStore = createStore()
-    globalThis.chrome.windows.getAll = jest.fn().mockReturnValue([{ id: 1 }])
+    globalThis.chrome.windows.getAll = jest.fn().mockReturnValue([{ id: 1, type: 'popup' }])
     await windowStore.getState().setup()
     expect(windowStore.getState().popoverOpen).toBe(true)
   })
+
   it('setup sets isPopoverInstance to be true current window has same id as popover', async () => {
     mockChrome()
     const windowStore = createStore()
-    globalThis.chrome.windows.getAll = jest.fn().mockReturnValue([{ id: 1 }])
-    globalThis.chrome.windows.getCurrent = jest.fn().mockReturnValue({ id: 1 })
+    globalThis.chrome.windows.getAll = jest.fn().mockReturnValue([{ id: 1, type: 'popup' }])
+    globalThis.chrome.windows.getCurrent = jest.fn().mockReturnValue({ id: 1, type: 'popup' })
     await windowStore.getState().setup()
     expect(windowStore.getState().isPopoverInstance).toBe(true)
   })
+
   it('setup leaves popup as false if there is not a popup', async () => {
     mockChrome()
     const windowStore = createStore()
@@ -116,6 +120,7 @@ describe('useWindowStore', () => {
     await windowStore.getState().setup()
     expect(windowStore.getState().popoverOpen).toBe(false)
   })
+
   it('teardown removes listeners and resets state', () => {
     mockChrome()
     const windowStore = createStore()
@@ -128,29 +133,35 @@ describe('useWindowStore', () => {
     expect(windowStore.getState().popoverOpen).toBe(false)
     expect(windowStore.getState().popoverId).toBe(null)
   })
+
   it('onCreate sets popupOpen to true and popupId to windowId', () => {
     mockChrome()
     const windowStore = createStore()
-    windowStore.getState().onCreated({ id: 1 } as unknown as chrome.windows.Window)
+    windowStore.getState().onCreated({ id: 1, type: 'popup' } as unknown as chrome.windows.Window)
     expect(windowStore.getState().popoverOpen).toBe(true)
     expect(windowStore.getState().popoverId).toBe(1)
   })
-  it('onRemove sets popupOpen to false and popupId to null', () => {
+
+  it('onRemove sets popupOpen to false and popupId to null', async () => {
     mockChrome()
+    globalThis.chrome.windows.get = jest.fn().mockReturnValue({ id: 1, type: 'popup' })
     const windowStore = createStore()
     windowStore.setState({ popoverId: 1, popoverOpen: true })
-    windowStore.getState().onRemoved(1)
+    await windowStore.getState().onRemoved(1)
     expect(windowStore.getState().popoverOpen).toBe(false)
     expect(windowStore.getState().popoverId).toBe(null)
   })
-  it('onRemove sets nothing if id does not match popupId', () => {
+
+  it('onRemove sets nothing if id does not match popupId', async () => {
     mockChrome()
+    globalThis.chrome.windows.get = jest.fn().mockReturnValue({ id: 2, type: 'popup' })
     const windowStore = createStore()
     windowStore.setState({ popoverId: 1, popoverOpen: true })
-    windowStore.getState().onRemoved(2)
+    await windowStore.getState().onRemoved(2)
     expect(windowStore.getState().popoverOpen).toBe(true)
     expect(windowStore.getState().popoverId).toBe(1)
   })
+
   it('focusPopover removes the current window and reset the state', () => {
     mockChrome()
     const windowStore = createStore()
@@ -161,6 +172,7 @@ describe('useWindowStore', () => {
     expect(windowStore.getState().popoverOpen).toBe(false)
     expect(windowStore.getState().popoverId).toBe(null)
   })
+
   it('focusPopover throws error if popupId is null', () => {
     silenceErrors()
     mockChrome()

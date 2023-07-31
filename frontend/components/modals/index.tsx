@@ -1,4 +1,4 @@
-export * from './modal-wrapper'
-export * from './connection-modal'
-export * from './error-modal'
-export * from './transaction-modal'
+export { ModalWrapper } from './modal-wrapper'
+export { ConnectionModal } from './connection-modal'
+export { ErrorModal } from './error-modal'
+export { TransactionModal } from './transaction-modal'

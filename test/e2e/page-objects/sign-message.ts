@@ -9,7 +9,6 @@ import {
 } from '../selenium-util'
 import { locators as signMessageLocators } from '../../../frontend/components/sign-message-dialog/sign-message'
 import { locators as signedMessageLocators } from '../../../frontend/components/sign-message-dialog/signed-message'
-import { sign } from 'crypto'
 
 export class SignMessage {
   private readonly signButton: By = getByDataTestID(signMessageLocators.signButton)

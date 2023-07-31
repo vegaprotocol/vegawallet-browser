@@ -29,4 +29,14 @@ describe('SignMessage', () => {
     fireEvent.click(screen.getByTestId(locators.signButton))
     await waitFor(() => expect(onSign).toHaveBeenCalledTimes(1))
   })
+
+  test('does not allow you to sign an empty message', async () => {
+    // 1112-SIGN-003 I can see an error if I try to sign an empty message
+    const onSign = jest.fn()
+    render(<SignMessage onCancel={jest.fn()} onSign={onSign} disabled={false} />)
+
+    fireEvent.click(screen.getByTestId(locators.signButton))
+    expect(await screen.findByText('Required')).toBeInTheDocument()
+    expect(onSign).toHaveBeenCalledTimes(0)
+  })
 })

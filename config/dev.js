@@ -1,4 +1,4 @@
-import testnet from './testnet'
+import testnet from './testnet.js'
 
 const dev = {
   ...testnet,

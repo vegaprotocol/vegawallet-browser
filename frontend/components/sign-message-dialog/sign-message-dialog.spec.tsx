@@ -47,6 +47,7 @@ describe('SignMessageDialog', () => {
     expect(screen.getByTestId('copy-icon')).toBeInTheDocument()
     const messageText = screen.getByTestId('code-window').textContent
     expect(messageText).toBeTruthy()
+  })
 
   test('calls onClose and resets dialog when signMessage is cancelled', () => {
     const mockOnClose = jest.fn()

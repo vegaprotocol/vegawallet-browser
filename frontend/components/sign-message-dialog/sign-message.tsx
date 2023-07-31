@@ -1,5 +1,6 @@
-import { Button, TextArea } from '@vegaprotocol/ui-toolkit'
+import { Button, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
 import { useForm } from 'react-hook-form'
+import { Validation } from '../../lib/form-validation'
 
 export const locators = {
   messageInput: 'message-input',
@@ -16,10 +17,22 @@ interface SignMessageProps {
 }
 
 const SignMessageForm = ({ onCancel, onSign, disabled }: SignMessageProps) => {
-  const { register, handleSubmit } = useForm<{ message: string }>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<{ message: string }>()
   return (
     <form onSubmit={handleSubmit(onSign)}>
-      <TextArea {...register('message')} autoFocus placeholder="Enter a message" data-testid={locators.messageInput} />
+      <TextArea
+        {...register('message', {
+          required: Validation.REQUIRED
+        })}
+        autoFocus
+        placeholder="Enter a message"
+        data-testid={locators.messageInput}
+      />
+      {errors.message?.message && <InputError forInput="confirmPassword">{errors.message.message}</InputError>}
       <div className="mt-4 flex justify-between">
         <Button disabled={disabled} onClick={onCancel} data-testid={locators.cancelButton}>
           Cancel

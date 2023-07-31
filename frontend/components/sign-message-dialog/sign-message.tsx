@@ -47,7 +47,7 @@ const SignMessageForm = ({ onCancel, onSign, disabled }: SignMessageProps) => {
 
 export const SignMessage = ({ onCancel, onSign, disabled }: SignMessageProps) => {
   return (
-    <div className="p-2 text-center">
+    <div className="p-2 text-center text-base  text-vega-dark-400">
       <h1 data-testid={locators.signMessageHeader} className="text-xl text-white mb-2">
         Sign message
       </h1>

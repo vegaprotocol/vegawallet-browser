@@ -1,14 +1,23 @@
 import { ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { KeyIcon } from '../vega-icon'
 import { CopyWithCheckmark } from '../../copy-with-check'
-import config from '@/config'
+import config from '!/config'
+import { ReactNode } from 'react'
 
 export const locators = {
   keyName: 'vega-key-name',
   explorerLink: 'vega-explorer-link'
 }
 
-export const VegaKey = ({ publicKey, name }: { publicKey: string; name: string }) => {
+export const VegaKey = ({
+  publicKey,
+  name,
+  children
+}: {
+  publicKey: string
+  name: string
+  children: ReactNode | undefined
+}) => {
   return (
     <div className="flex items-center">
       <KeyIcon publicKey={publicKey} />
@@ -24,6 +33,7 @@ export const VegaKey = ({ publicKey, name }: { publicKey: string; name: string }
           {truncateMiddle(publicKey)}
         </ExternalLink>
         <CopyWithCheckmark text={publicKey} />
+        {children}
       </div>
     </div>
   )

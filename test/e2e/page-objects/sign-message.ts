@@ -38,7 +38,12 @@ export class SignMessage {
     await this.checkOnSignMessageview()
     await sendKeysToElement(this.driver, this.messageField, message)
     await clickElement(this.driver, this.signButton)
-    // await 'your signed message' header to appear
+  }
+
+  async cancelSigning() {
+    await this.checkOnSignMessageview()
+    await clickElement(this.driver, this.cancelButton)
+    await waitForElementToDisappear(this.driver, this.signButton)
   }
 
   async checkMessageSigned() {

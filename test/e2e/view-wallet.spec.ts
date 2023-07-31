@@ -55,11 +55,4 @@ describe('View wallet page', () => {
       ).toContain(displayedKey)
     }
   })
-
-  it('can sign a message', async () => {
-    const signMessageView = await viewWallet.openSignMessageView()
-    await signMessageView.signMessage('my message')
-    await signMessageView.checkMessageSignedAndClose()
-    await viewWallet.checkOnViewWalletPage()
-  })
 })

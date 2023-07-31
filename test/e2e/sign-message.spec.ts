@@ -4,7 +4,7 @@ import { navigateToLandingPage } from './wallet-helpers/common'
 import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './wallet-helpers/api-helpers'
 
-describe('View wallet page', () => {
+describe('sign message', () => {
   let driver: WebDriver
   let viewWallet: ViewWallet
 
@@ -22,7 +22,7 @@ describe('View wallet page', () => {
     await driver.quit()
   })
 
-  it('can sign a message', async () => {
+  it('can sign a message successfully', async () => {
     const signMessageView = await viewWallet.openSignMessageView()
     await signMessageView.signMessage('my message')
     await signMessageView.checkMessageSignedAndClose()

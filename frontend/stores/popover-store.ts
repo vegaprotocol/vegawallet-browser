@@ -13,7 +13,7 @@ export type WindowStore = {
   onCreated: (window: chrome.windows.Window) => void
   onRemoved: (windowId: number) => void
 
-  setup: () => void
+  setup: () => Promise<void>
   teardown: () => void
 }
 
@@ -36,20 +36,19 @@ export const createStore = () =>
         }
       },
       onCreated: (window) => {
-        set({ popoverOpen: true, popoverId: window.id })
+        if (window.type === 'popup') {
+          set({ popoverOpen: true, popoverId: window.id })
+        }
       },
       onRemoved: (windowId) => {
-        if (get().popoverId === windowId) {
+        const window = windows.get(windowId)
+        if (window.type === 'popup' && window.id === get().popoverId) {
           set({ popoverOpen: false, popoverId: null })
         }
       },
       setup: async () => {
-        windows.onCreated.addListener(get().onCreated, {
-          windowTypes: ['popup']
-        })
-        windows.onRemoved.addListener(get().onRemoved, {
-          windowTypes: ['popup']
-        })
+        windows.onCreated.addListener(get().onCreated)
+        windows.onRemoved.addListener(get().onRemoved)
         const [wins, currentWindow] = await Promise.all([
           windows.getAll({
             windowTypes: ['popup']

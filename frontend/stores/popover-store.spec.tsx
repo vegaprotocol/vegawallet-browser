@@ -92,7 +92,10 @@ describe('useWindowStore', () => {
     silenceErrors()
     mockChrome()
     const windowStore = createStore()
-    globalThis.chrome.windows.getAll = jest.fn().mockReturnValue([{ id: 1 }, { id: 2 }])
+    globalThis.chrome.windows.getAll = jest.fn().mockReturnValue([
+      { id: 1, type: 'popup' },
+      { id: 2, type: 'popup' }
+    ])
     await expect(() => windowStore.getState().setup()).rejects.toThrow('Multiple popups open, this should not happen')
   })
 

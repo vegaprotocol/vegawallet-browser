@@ -4,9 +4,6 @@ import { JsonRPCProvider } from './contexts/json-rpc/json-rpc-provider'
 import GlobalErrorBoundary from './components/global-error-boundary'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'
-import { useEffect, useLayoutEffect, useMemo } from 'react'
-import { useEffect } from 'react'
-import { usePopoverStore } from './stores/popover-store'
 import { useListenForPopups } from './hooks/listen-for-popups'
 
 function App() {

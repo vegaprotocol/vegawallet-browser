@@ -8,7 +8,7 @@ jest.mock('../../vega-section', () => ({
   }
 }))
 
-jest.mock('../../receipts/receipts', () => ({
+jest.mock('../../receipts', () => ({
   TransactionSwitch: ({ transaction }: ReceiptComponentProps) => {
     if (transaction === null) return null
     return <div data-testid="mocked-transaction-switch" />

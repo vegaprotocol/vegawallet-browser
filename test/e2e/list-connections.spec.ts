@@ -1,7 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
-import { navigateToLandingPage } from './wallet-helpers/common'
-import { APIHelper } from './wallet-helpers/api-helpers'
+import { captureScreenshot } from './driver'
+import { createWalletAndDriver } from './wallet-helpers/common'
 import { NavPanel } from './page-objects/navpanel'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
@@ -27,16 +26,12 @@ describe('list connections tests', () => {
   let connectWalletModal: ConnectWallet
 
   beforeEach(async () => {
-    driver = await initDriver()
+    driver = await createWalletAndDriver()
     navPanel = new NavPanel(driver)
-    const apiHelper = new APIHelper(driver)
     firstDapp = new VegaAPI(driver)
     secondDapp = new VegaAPI(driver, 'https://vega.xyz')
     connectWalletModal = new ConnectWallet(driver)
 
-    await navigateToLandingPage(driver)
-    await apiHelper.setUpWalletAndKey()
-    await navigateToLandingPage(driver)
     connections = await navPanel.goToListConnections()
     await connections.checkNoConnectionsExist()
   })

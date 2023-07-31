@@ -9,6 +9,7 @@ import {
 } from '../selenium-util'
 import { locators as walletLocators } from '../../../frontend/routes/auth/wallets'
 import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/key-list'
+import { SignMessage } from './sign-message'
 
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
@@ -16,14 +17,17 @@ export class ViewWallet {
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly copyIcon: By = getByDataTestID('copy-icon')
   private readonly copyableKey: By = getByDataTestID(keyListLocators.walletsExplorerLink)
+  private readonly signMessageButton: By = getByDataTestID(keyListLocators.walletsSignMessageButton)
 
   constructor(private readonly driver: WebDriver) {}
 
   async getWalletName() {
+    await this.checkOnViewWalletPage()
     return await getElementText(this.driver, this.walletName)
   }
 
   async getWalletKeys() {
+    await this.checkOnViewWalletPage()
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
     const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
     const keys: string[] = []
@@ -33,7 +37,14 @@ export class ViewWallet {
     return keys
   }
 
+  async openSignMessageView() {
+    await this.checkOnViewWalletPage()
+    await clickElement(this.driver, this.signMessageButton)
+    return new SignMessage(this.driver)
+  }
+
   async waitForExpectedNumberOfKeys(expectedNumber: number) {
+    await this.checkOnViewWalletPage()
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
     const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
     expect(keyElements.length).toBe(expectedNumber)
@@ -48,6 +59,7 @@ export class ViewWallet {
   }
 
   async createNewKeyPair() {
+    await this.checkOnViewWalletPage()
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
     const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
     await clickElement(this.driver, this.createNewKeyPairButton)
@@ -59,10 +71,12 @@ export class ViewWallet {
   }
 
   async copyPublicKeyToClipboard() {
+    await this.checkOnViewWalletPage()
     await clickElement(this.driver, this.copyIcon)
   }
 
   async getVisiblePublicKeyText() {
+    await this.checkOnViewWalletPage()
     const publicKey = await getElementText(this.driver, this.copyableKey)
     return publicKey
   }

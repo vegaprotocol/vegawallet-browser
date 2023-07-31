@@ -1,5 +1,7 @@
 import { WebDriver, until } from 'selenium-webdriver'
 import * as fs from 'fs'
+import { APIHelper } from './api-helpers'
+import { initDriver } from '../driver'
 
 const chromeExtensionURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
 export const validRecoveryPhrase =
@@ -16,6 +18,15 @@ async function getLandingPageURL(driver: WebDriver) {
   } else {
     return chromeExtensionURL
   }
+}
+
+export async function createWalletAndDriver() {
+  const driver = await initDriver()
+  const apiHelper = new APIHelper(driver)
+  await navigateToLandingPage(driver)
+  await apiHelper.setUpWalletAndKey()
+  await navigateToLandingPage(driver)
+  return driver
 }
 
 export async function navigateToLandingPage(driver: WebDriver) {

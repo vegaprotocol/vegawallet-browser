@@ -1,8 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { captureScreenshot } from './driver'
+import { navigateToLandingPage, createWalletAndDriver } from './wallet-helpers/common'
 import { NavPanel } from './page-objects/navpanel'
-import { APIHelper } from './wallet-helpers/api-helpers'
 import { switchWindowHandles } from './selenium-util'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { Transaction } from './page-objects/transaction'
@@ -16,8 +15,8 @@ describe('Settings test', () => {
   let navPanel: NavPanel
   let settingsPage: Settings
   let transaction: Transaction
-  const expectedTelemetryDisabledMessage = "expected telemetry to be disabled initially but it was not"
-  const expectedTelemetryEnabledMessage = "expected telemetry to be enabled initially but it was not"
+  const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled initially but it was not'
+  const expectedTelemetryEnabledMessage = 'expected telemetry to be enabled initially but it was not'
 
   const transferReq = {
     fromAccountType: 4,
@@ -31,11 +30,7 @@ describe('Settings test', () => {
   }
 
   beforeEach(async () => {
-    driver = await initDriver()
-    await navigateToLandingPage(driver)
-    const apiHelper = new APIHelper(driver)
-    await apiHelper.setUpWalletAndKey()
-    await navigateToLandingPage(driver)
+    driver = await createWalletAndDriver()
     connectWalletModal = new ConnectWallet(driver)
     navPanel = new NavPanel(driver)
     transaction = new Transaction(driver)
@@ -62,7 +57,7 @@ describe('Settings test', () => {
     await settingsPage.selectTelemetryYes()
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
     await navigateToLandingPage(driver)
-    expect (await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
   })
 
   it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {

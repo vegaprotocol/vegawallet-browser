@@ -1,21 +1,16 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
-import { navigateToLandingPage } from './wallet-helpers/common'
-import { APIHelper } from './wallet-helpers/api-helpers'
+import { captureScreenshot } from './driver'
 import test from '../../config/test'
 import { ExtensionHeader } from './page-objects/extension-header'
+import { createWalletAndDriver } from './wallet-helpers/common'
 
 describe('Network tests', () => {
   let driver: WebDriver
   let extensionHeader: ExtensionHeader
 
   beforeEach(async () => {
-    driver = await initDriver()
+    driver = await createWalletAndDriver()
     extensionHeader = new ExtensionHeader(driver)
-    await navigateToLandingPage(driver)
-    const apiHelper = new APIHelper(driver)
-    await apiHelper.setUpWalletAndKey()
-    await navigateToLandingPage(driver)
   })
 
   afterEach(async () => {

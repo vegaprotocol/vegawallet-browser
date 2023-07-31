@@ -28,8 +28,6 @@ describe('View wallet page', () => {
     // 1106-KEYS-007 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
     // 1106-KEYS-008 New key pairs are listed in order they were created - oldest first
     // 1106-KEYS-001 I can see a list of the keys in my wallet
-    await viewWallet.checkOnViewWalletPage()
-
     await viewWallet.createNewKeyPair()
     expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2'])
 
@@ -43,8 +41,6 @@ describe('View wallet page', () => {
   it('can copy public key to clipboard and see where I am in the extension', async () => {
     // 1106-KEYS-002 I can copy the public key ID to my clipboard
     // 1106-KEYS-004 I can see where I am in the app when viewing my wallet and key pair(s)
-    await viewWallet.checkOnViewWalletPage()
-
     const navPanel = new NavPanel(driver)
     await navPanel.checkOnExpectedNavigationTab('Wallets')
 
@@ -58,5 +54,12 @@ describe('View wallet page', () => {
         `expected the copied key to contain ${displayedKey}, but instead it was ${copiedKey}`
       ).toContain(displayedKey)
     }
+  })
+
+  it('can sign a message', async () => {
+    const signMessageView = await viewWallet.openSignMessageView()
+    await signMessageView.signMessage('my message')
+    await signMessageView.checkMessageSignedAndClose()
+    await viewWallet.checkOnViewWalletPage()
   })
 })

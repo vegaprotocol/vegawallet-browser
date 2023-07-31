@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { RawTransaction } from './raw-transaction'
-import genericLocators from '../locators'
+import genericLocators from '../../locators'
 
 describe('RawTransaction', () => {
   it('renders page header, transaction type, hostname and key', () => {

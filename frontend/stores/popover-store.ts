@@ -11,7 +11,7 @@ export type WindowStore = {
   focusPopover: () => void
 
   onCreated: (window: chrome.windows.Window) => void
-  onRemoved: (windowId: number) => void
+  onRemoved: (windowId: number) => Promise<void>
 
   setup: () => Promise<void>
   teardown: () => void
@@ -40,9 +40,9 @@ export const createStore = () =>
           set({ popoverOpen: true, popoverId: window.id })
         }
       },
-      onRemoved: (windowId) => {
-        const window = windows.get(windowId)
-        if (window.type === 'popup' && window.id === get().popoverId) {
+      onRemoved: async (windowId) => {
+        const window = await windows.get(windowId)
+        if (window && window.type === 'popup' && window.id === get().popoverId) {
           set({ popoverOpen: false, popoverId: null })
         }
       },

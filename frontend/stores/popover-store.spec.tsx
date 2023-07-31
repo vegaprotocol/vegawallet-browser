@@ -82,13 +82,9 @@ describe('useWindowStore', () => {
     const windowStore = createStore()
     await windowStore.getState().setup()
     const { windows } = globalThis.chrome
-    expect(windows.onRemoved.addListener).toHaveBeenCalledWith(windowStore.getState().onRemoved, {
-      windowTypes: ['popup']
-    })
+    expect(windows.onRemoved.addListener).toHaveBeenCalledWith(windowStore.getState().onRemoved)
     expect(windows.onRemoved.addListener).toBeCalledTimes(1)
-    expect(windows.onCreated.addListener).toHaveBeenCalledWith(windowStore.getState().onCreated, {
-      windowTypes: ['popup']
-    })
+    expect(windows.onCreated.addListener).toHaveBeenCalledWith(windowStore.getState().onCreated)
     expect(windows.onCreated.addListener).toBeCalledTimes(1)
   })
   it('setup throws error if there a multiple popups', async () => {

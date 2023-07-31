@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { TransactionHeader, locators } from './transaction-header'
-import { locators as hostImageLocators } from '../../components/host-image'
+import { locators as hostImageLocators } from '../../../components/host-image'
 
 const transaction = {
   orderSubmission: {

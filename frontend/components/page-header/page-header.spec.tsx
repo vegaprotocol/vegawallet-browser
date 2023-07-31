@@ -18,7 +18,7 @@ const mockPopoverStore = (isPopoverInstance: boolean) => {
   return focusPopover
 }
 
-jest.mock('@/config', () => ({
+jest.mock('!/config', () => ({
   ...jest.requireActual('../../../config/test').default,
   closeWindowOnPopupOpen: true
 }))

@@ -15,7 +15,7 @@ export const DepositAssetsCallout = () => {
         <h1 data-testid={locators.walletsAssetHeader} className="mb-3 text-vega-dark-300 uppercase text-sm">
           Connect to console to deposit funds
         </h1>
-        <p data-testid={locators.walletAssetDescription}>
+        <p className="mb-3" data-testid={locators.walletAssetDescription}>
           Choose a market on Vega Console, connect your wallet and follow the prompts to connect and deposit the funds
           needed to trade
         </p>

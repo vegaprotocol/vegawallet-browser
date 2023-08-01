@@ -58,7 +58,7 @@ export async function createTransactionData(rpc, keys, transaction, sendingMode)
   const base64Tx = toBase64(encodedTx)
   console.log('encodedTx', encodedTx)
   return {
-    base64Tx, txData, inputData, pow, tid
+    base64Tx, txData, inputData, pow, tid, inputDataRaw
   }
 }
 export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {

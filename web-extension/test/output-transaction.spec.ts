@@ -79,6 +79,7 @@ const writeTransactionToFile = async () => {
   const tx = await txHelpers.createTransactionData(rpc, KeyPairMock, transaction, 'my sending mode')
   const txObject = {
     transaction: tx.txData,
+    inputData: tx.inputDataRaw,
     encodedData: tx.base64Tx
   }
 

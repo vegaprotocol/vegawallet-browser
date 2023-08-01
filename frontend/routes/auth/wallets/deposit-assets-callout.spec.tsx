@@ -10,7 +10,7 @@ describe('DepositAssetsCallout', () => {
     expect(assetsHeader).toHaveTextContent('Connect to console to deposit funds')
     expect(description).toBeVisible()
     expect(description).toHaveTextContent(
-      'Choose a market on Vega Console, connect your wallet and follow the prompts to connect and deposit the funds needed to trade'
+      'Choose a market on Vega Console, connect your wallet and follow the prompts to deposit the funds needed to trade'
     )
   })
 

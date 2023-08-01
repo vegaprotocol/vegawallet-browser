@@ -36,7 +36,7 @@ const mockLoadedState = () => {
 describe('Wallets', () => {
   let initialState: WalletsStore | null = null
   const informationText =
-    'Choose a market on Vega Console, connect your wallet and follow the prompts to connect and deposit the funds needed to trade'
+    'Choose a market on Vega Console, connect your wallet and follow the prompts to deposit the funds needed to trade'
   beforeEach(() => {
     initialState = useWalletStore.getState()
   })

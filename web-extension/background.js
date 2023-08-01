@@ -97,7 +97,26 @@ runtime.onInstalled.addListener(async () => {
 async function setPending() {
   const pending = interactor.totalPending()
   try {
-    if (pending > 0 && popupPorts.ports.size < 1) await action.openPopup()
+    if (pending > 0 && popupPorts.ports.size < 1) {
+      let left = 0
+      let top = 0
+      try {
+        const lastFocused = await windows.getLastFocused()
+        top = lastFocused.top
+        left = lastFocused.left + (lastFocused.width - 360)
+      } catch (_) {}
+
+      await windows.create({
+        url: runtime.getURL('/index.html?once=1'),
+        type: 'popup',
+        // Approximate dimension. The client figures out exactly how big it should be as this height/width
+        // includes the frame and different OSes have different sizes
+        width: 360,
+        height: 600,
+        top,
+        left
+      })
+    }
   } catch (_) {}
   action.setBadgeText({
     text: pending === 0 ? '' : pending.toString()

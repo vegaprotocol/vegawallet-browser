@@ -50,13 +50,13 @@ export const createStore = () =>
         windows.onCreated.addListener(get().onCreated)
         windows.onRemoved.addListener(get().onRemoved)
         const [allWins, currentWindow] = await Promise.all([windows.getAll(), windows.getCurrent()])
-        const wins = allWins.filter((win: chrome.windows.Window) => win.type === 'popup' && win.id !== currentWindow.id)
-        const isPopoverInstance = wins[0].id === currentWindow.id
+        const wins = allWins.filter((win: chrome.windows.Window) => win.type === 'popup')
+        console.log(wins, allWins, currentWindow)
         if (wins.length === 1) {
           set({
             popoverOpen: true,
             popoverId: wins[0].id,
-            isPopoverInstance
+            isPopoverInstance: wins[0].id === currentWindow.id
           })
         } else if (wins.length > 1) {
           throw new Error('Multiple popups open, this should not happen')

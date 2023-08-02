@@ -42,7 +42,6 @@ export const createStore = () =>
         }
       },
       onRemoved: async (windowId) => {
-        // Will error if the windowId does not exist
         if (windowId === get().popoverId) {
           set({ popoverOpen: false, popoverId: null })
         }

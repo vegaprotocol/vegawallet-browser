@@ -51,7 +51,7 @@ export const createStore = () =>
         windows.onRemoved.addListener(get().onRemoved)
         const [allWins, currentWindow] = await Promise.all([windows.getAll(), windows.getCurrent()])
         const wins = allWins.filter((win: chrome.windows.Window) => win.type === 'popup')
-        console.log(wins, allWins, currentWindow)
+        console.log(wins, allWins)
         if (wins.length === 1) {
           set({
             popoverOpen: true,

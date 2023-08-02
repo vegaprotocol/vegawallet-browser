@@ -133,6 +133,7 @@ export class VegaAPI {
       return keysArray
     }
 
+    console.log("keys string is ", keysString)
     keysArray = JSON.parse(keysString).keys as Key[]
     return keysArray
   }

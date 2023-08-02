@@ -34,16 +34,11 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
 
   let handle = null
 
-  windows.onRemoved.addListener(
-    (windowId) => {
-      if (windowId === handle?.id) {
-        handle = null
-      }
-    },
-    {
-      windowTypes: ['popup']
+  windows.onRemoved.addListener((windowId) => {
+    if (windowId === handle?.id) {
+      handle = null
     }
-  )
+  })
 
   var server = new JSONRPCServer({
     onerror,

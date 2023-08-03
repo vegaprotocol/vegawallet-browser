@@ -199,6 +199,20 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
         await connections.delete(params.origin)
 
         return null
+      },
+
+      async 'admin.fetch'(params) {
+        doValidate(adminValidation.fetch, params)
+
+        try {
+          const selectedNetwork = await settings.get('selectedNetwork')
+          const network = await networks.get(selectedNetwork)
+          const rpc = await network.rpc()
+
+          return await rpc.getJSON(params.url)
+        } catch (ex) {
+          throw new JSONRPCServer.Error('Failed to fetch data', -1, ex.message)
+        }
       }
     }
   })

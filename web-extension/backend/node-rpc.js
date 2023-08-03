@@ -1,30 +1,6 @@
 import assert from 'nanoassert'
 import { hex as fromHex, toString } from '@vegaprotocol/crypto/buf'
 
-// TODO: Improve this "fetch" shim to handle TCP and HTTP errors
-async function getJson(url) {
-  return (
-    await fetch(url, {
-      headers: {
-        Accept: 'application/json'
-      }
-    })
-  ).json()
-}
-
-async function postJson(url, body) {
-  return (
-    await fetch(url, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
-  ).json()
-}
-
 export default class NodeRPC {
   /**
    *
@@ -34,6 +10,59 @@ export default class NodeRPC {
     assert(nodeUrl instanceof URL, 'nodeUrl must be WHATWG URLs')
 
     this._url = nodeUrl
+  }
+
+  /**
+   * Make direct GET request to data node
+   *
+   * @param {string} url - path part of the URL
+   *
+   * @returns {Promise<Object>}
+   * @throws {Error} if response status is not 2xx
+   * @throws {Error} if response body is not JSON
+   */
+  async getJSON(url) {
+    const _url = new URL(url, this._url)
+
+    const res = await fetch(_url, {
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status} ${res.statusText}`)
+    }
+
+    return res.json()
+  }
+
+  /**
+   * Make direct POST request to data node
+   *
+   * @param {string} url - path part of the URL
+   *
+   * @returns {Promise<Object>}
+   * @throws {Error} if response status is not 2xx
+   * @throws {Error} if response body is not JSON
+   */
+  async postJSON(url, body) {
+    const _url = new URL(url, this._url)
+
+    const res = await fetch(_url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status} ${res.statusText}`)
+    }
+
+    return res.json()
   }
 
   /**
@@ -102,15 +131,17 @@ export default class NodeRPC {
     }
 
     async function promiseAllResolved(promises) {
+      const timers = []
       promises.forEach((p) => {
         p.then(res => {
-          setTimeout(() => {
+          timers.push(setTimeout(() => {
             timeout.abort()
-          }, maxDelay)
+          }, maxDelay))
         }, () => { })
       })
 
       return Promise.allSettled(promises).then((results) => {
+        timers.forEach((t) => clearTimeout(t))
         return results.filter(({ status }) => status === 'fulfilled').map(({ value }) => value)
       })
     }
@@ -139,11 +170,11 @@ export default class NodeRPC {
   }
 
   async blockchainHeight() {
-    return getJson(new URL('/blockchain/height', this._url))
+    return this.getJSON('/blockchain/height')
   }
 
   async statistics() {
-    return getJson(new URL('/statistics', this._url))
+    return this.getJSON('/statistics')
   }
 
   /**
@@ -153,11 +184,11 @@ export default class NodeRPC {
    */
   async statisticsSpam({ partyId }) {
     assert(typeof partyId === 'string')
-    return getJson(new URL(`/statistics/spam/${partyId}`, this._url))
+    return this.getJSON(`/statistics/spam/${partyId}`)
   }
 
   async checkRawTransaction(tx) {
-    const res = await postJson(new URL('/transaction/raw/check', this._url), { tx })
+    const res = await this.postJSON('/transaction/raw/check', { tx })
 
     return res
   }
@@ -166,7 +197,7 @@ export default class NodeRPC {
     assert(typeof tx === 'string')
     assert(typeof type === 'string')
 
-    const res = await postJson(new URL('/transaction/raw', this._url), {
+    const res = await this.postJSON('/transaction/raw', {
       tx,
       type
     })

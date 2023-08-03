@@ -4,12 +4,13 @@ import { NetworkCollection } from '../backend/network.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 import { ConnectionsCollection } from '../backend/connections.js'
+import { createHTTPServer, createJSONHTTPServer } from './helpers.js'
 
 let windowsMock = null
 
 let runtimeMock = null
 
-const createAdmin = async ({ passphrase } = {}) => {
+const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   const publicKeyIndexStore = new ConcurrentStorage(new Map())
   windowsMock = {
@@ -34,7 +35,7 @@ const createAdmin = async ({ passphrase } = {}) => {
       connectionsStore: new ConcurrentStorage(new Map()),
       publicKeyIndexStore
     }),
-    networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground' }]])),
+    networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
     onerror(err) {
       throw err
     }
@@ -409,4 +410,109 @@ describe('admin-ns', () => {
 
   })
 
+  it('should proxy requests to healthy data node on fetch', async () => {
+    const chainHeight = {
+      height: '2',
+      chainId: 'testnet'
+    }
+
+    const expected = {
+      assets: ['asset1', 'asset2']
+    }
+
+    const happyServer = await createJSONHTTPServer((req) => {
+      if (req.url === '/blockchain/height') return { body: chainHeight }
+
+      return { body: expected }
+    })
+
+    const sadServer = await createJSONHTTPServer(() => {
+      return { statusCode: 500 }
+    })
+
+    const malformedServer = await createHTTPServer((req, res) => {
+      return res.end('<Malformed JSON>')
+    })
+
+    const admin = await createAdmin({ passphrase: 'foo', datanodeUrls: [happyServer.url, sadServer.url, malformedServer.url] })
+
+    const fetch = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.fetch',
+      params: {
+        path: '/assets'
+      }
+    })
+
+    expect(fetch.result).toEqual(expected)
+
+    await Promise.all([happyServer.close(), sadServer.close(), malformedServer.close()])
+  })
+
+  it('should return errors from unsuccessful fetch (statusCode)', async () => {
+    const chainHeight = {
+      height: '2',
+      chainId: 'testnet'
+    }
+
+    const server = await createJSONHTTPServer((req) => {
+      if (req.url === '/blockchain/height') return { body: chainHeight }
+
+      return { statusCode: 400 }
+    })
+
+    const admin = await createAdmin({ passphrase: 'foo', datanodeUrls: [server.url] })
+
+    const fetch = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.fetch',
+      params: {
+        path: '/assets'
+      }
+    })
+
+    expect(fetch.result).toBeUndefined()
+    expect(fetch.error).toEqual({
+      code: -1,
+      message: 'Failed to fetch data',
+      data: expect.any(String)
+    })
+
+    await Promise.all([server.close()])
+  })
+
+  it.only('should return errors from unsuccessful fetch (malformed response)', async () => {
+    const chainHeight = {
+      height: '2',
+      chainId: 'testnet'
+    }
+
+    const server = await createHTTPServer((req, res) => {
+      if (req.url === '/blockchain/height') return res.end(JSON.stringify(chainHeight))
+
+      return res.end('<Malformed JSON>')
+    })
+
+    const admin = await createAdmin({ passphrase: 'foo', datanodeUrls: [server.url] })
+
+    const fetch = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.fetch',
+      params: {
+        path: '/assets'
+      }
+    })
+
+    expect(fetch.result).toBeUndefined()
+    expect(fetch.error).toEqual({
+      code: -1,
+      message: 'Failed to fetch data',
+      data: expect.any(String)
+    })
+
+    await Promise.all([server.close()])
+  })
 })

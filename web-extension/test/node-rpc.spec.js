@@ -1,32 +1,17 @@
 import NodeRPC from '../backend/node-rpc.js'
-import http from 'node:http'
+import { wait, createJSONHTTPServer } from './helpers.js'
 
-async function wait(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
-async function createHTTPServer(fn) {
-  const server = http.createServer(fn)
-
-  await new Promise(res => server.listen(res))
-
-  return {
-    url: new URL(`http://localhost:${server.address().port}/`),
-    close: () => new Promise(res => server.close(res))
-  }
-}
 
 async function createServer(height = 100, timeout = 0) {
-  return createHTTPServer(async (_, res) => {
+  return createJSONHTTPServer(async () => {
     await wait(timeout)
-    res.end(JSON.stringify({ height }))
+    return { body: { height } }
   })
 }
 
 async function createFaultyServer() {
-  return createHTTPServer(async (_, res) => {
-    res.statusCode = 500
-    res.end()
+  return createJSONHTTPServer(async () => {
+    return { statusCode: 500 }
   })
 }
 

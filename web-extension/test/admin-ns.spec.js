@@ -152,7 +152,7 @@ describe('admin-ns', () => {
       }
     })
 
-    expect(updatePassphrase.error.toJSON()).toEqual({ code: 1, message: 'Invalid passphrase' })
+    expect(updatePassphrase.error).toEqual({ code: 1, message: 'Invalid passphrase' })
 
     const updatePassphrase2 = await admin.onrequest({
       jsonrpc: '2.0',
@@ -183,7 +183,7 @@ describe('admin-ns', () => {
       }
     })
 
-    expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Invalid passphrase or corrupted storage' })
+    expect(unlockFailure.error).toEqual({ code: 1, message: 'Invalid passphrase or corrupted storage' })
 
     const unlockSuccess = await admin.onrequest({
       jsonrpc: '2.0',
@@ -209,7 +209,7 @@ describe('admin-ns', () => {
       }
     })
 
-    expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Encryption not initialised' })
+    expect(unlockFailure.error).toEqual({ code: 1, message: 'Encryption not initialised' })
   })
 
   it('app_globals should be true after creating a wallet, locking and unlocking', async () => {
@@ -434,7 +434,7 @@ describe('admin-ns', () => {
       return res.end('<Malformed JSON>')
     })
 
-    const admin = await createAdmin({ passphrase: 'foo', datanodeUrls: [happyServer.url, sadServer.url, malformedServer.url] })
+    const admin = await createAdmin({ datanodeUrls: [happyServer.url, sadServer.url, malformedServer.url] })
 
     const fetch = await admin.onrequest({
       jsonrpc: '2.0',
@@ -462,7 +462,7 @@ describe('admin-ns', () => {
       return { statusCode: 400 }
     })
 
-    const admin = await createAdmin({ passphrase: 'foo', datanodeUrls: [server.url] })
+    const admin = await createAdmin({ datanodeUrls: [server.url] })
 
     const fetch = await admin.onrequest({
       jsonrpc: '2.0',
@@ -483,7 +483,7 @@ describe('admin-ns', () => {
     await Promise.all([server.close()])
   })
 
-  it.only('should return errors from unsuccessful fetch (malformed response)', async () => {
+  it('should return errors from unsuccessful fetch (malformed response)', async () => {
     const chainHeight = {
       height: '2',
       chainId: 'testnet'
@@ -495,7 +495,7 @@ describe('admin-ns', () => {
       return res.end('<Malformed JSON>')
     })
 
-    const admin = await createAdmin({ passphrase: 'foo', datanodeUrls: [server.url] })
+    const admin = await createAdmin({ datanodeUrls: [server.url] })
 
     const fetch = await admin.onrequest({
       jsonrpc: '2.0',

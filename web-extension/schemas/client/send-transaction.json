@@ -166,19 +166,19 @@
         {
           "additionalProperties": false,
           "required": [
-            "stopOrderSubmission"
+            "stopOrdersSubmission"
           ],
           "properties": {
-            "stopOrderSubmission": {}
+            "stopOrdersSubmission": {}
           }
         },
         {
           "additionalProperties": false,
           "required": [
-            "stopOrderCancellation"
+            "stopOrdersCancellation"
           ],
           "properties": {
-            "stopOrderCancellation": {}
+            "stopOrdersCancellation": {}
           }
         },
         {

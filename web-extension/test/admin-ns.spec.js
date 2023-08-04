@@ -450,69 +450,49 @@ describe('admin-ns', () => {
     await Promise.all([happyServer.close(), sadServer.close(), malformedServer.close()])
   })
 
-  it('should return errors from unsuccessful fetch (statusCode)', async () => {
-    const chainHeight = {
-      height: '2',
-      chainId: 'testnet'
-    }
+  it('should return errors from unsuccessful fetch (statusCode)', setupFaultyFetch({
+    statusCode: 400,
+    body: ''
+  }))
 
-    const server = await createJSONHTTPServer((req) => {
-      if (req.url === '/blockchain/height') return { body: chainHeight }
+  it('should return errors from unsuccessful fetch (malformed response)', setupFaultyFetch({
+    statusCode: 200,
+    body: '<Malformed JSON>'
+  }))
 
-      return { statusCode: 400 }
-    })
-
-    const admin = await createAdmin({ datanodeUrls: [server.url] })
-
-    const fetch = await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.fetch',
-      params: {
-        path: '/assets'
+  function setupFaultyFetch(faultyResponse) {
+    return async () => {
+      const chainHeight = {
+        height: '2',
+        chainId: 'testnet'
       }
-    })
 
-    expect(fetch.result).toBeUndefined()
-    expect(fetch.error).toEqual({
-      code: -1,
-      message: 'Failed to fetch data',
-      data: expect.any(String)
-    })
+      const server = await createHTTPServer((req, res) => {
+        if (req.url === '/blockchain/height') return res.end(JSON.stringify(chainHeight))
 
-    await Promise.all([server.close()])
-  })
+        res.writeHead(faultyResponse.statusCode, { 'Content-Type': 'application/json' })
+        res.end(faultyResponse.body)
+      })
 
-  it('should return errors from unsuccessful fetch (malformed response)', async () => {
-    const chainHeight = {
-      height: '2',
-      chainId: 'testnet'
+      const admin = await createAdmin({ datanodeUrls: [server.url] })
+
+      const fetch = await admin.onrequest({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'admin.fetch',
+        params: {
+          path: '/assets'
+        }
+      })
+
+      expect(fetch.result).toBeUndefined()
+      expect(fetch.error).toEqual({
+        code: -1,
+        message: 'Failed to fetch data',
+        data: expect.any(String)
+      })
+
+      await Promise.all([server.close()])
     }
-
-    const server = await createHTTPServer((req, res) => {
-      if (req.url === '/blockchain/height') return res.end(JSON.stringify(chainHeight))
-
-      return res.end('<Malformed JSON>')
-    })
-
-    const admin = await createAdmin({ datanodeUrls: [server.url] })
-
-    const fetch = await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.fetch',
-      params: {
-        path: '/assets'
-      }
-    })
-
-    expect(fetch.result).toBeUndefined()
-    expect(fetch.error).toEqual({
-      code: -1,
-      message: 'Failed to fetch data',
-      data: expect.any(String)
-    })
-
-    await Promise.all([server.close()])
-  })
+  }
 })

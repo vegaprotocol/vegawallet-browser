@@ -35,6 +35,9 @@ describe('GetStarted', () => {
     expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.createPassword)
   })
   it('Renders disclaimer when showDisclaimer is true', async () => {
+    // 1101-ONBD-037 If built for mainnet I can see a legal disclaimer with a button to read more
+    // 1101-ONBD-038 If built for mainnet I can press read more to see the full disclaimer
+
     config.showDisclaimer = true
     render(<GetStarted />)
     expect(screen.getByTestId(disclaimerLocators.readMoreButton)).toBeInTheDocument()
@@ -45,6 +48,7 @@ describe('GetStarted', () => {
     expect(screen.getByTestId(disclaimerLocators.disclaimerText)).toBeInTheDocument()
   })
   it('Renders incentive banner when showDisclaimer is false', () => {
+    // 1101-ONBD-039 If not built for mainnet I can see a message related to testnet
     config.showDisclaimer = false
     render(<GetStarted />)
     expect(screen.getByTestId(getStartedButton)).toHaveTextContent('Get Started')

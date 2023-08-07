@@ -52,3 +52,5 @@ function onbackgrounddisconnect() {
   backgroundPort = null
   keepAlive(null) // stop keepalive
 }
+
+connect()

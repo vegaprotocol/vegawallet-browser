@@ -93,25 +93,24 @@ class Network {
     // but we may change the logic to take into account failed requests to the preferred node
     clearTimeout(this._nodeTimeout)
     this.probing = true
-    this.preferredNode = new Promise(async (resolve, reject) => {
-      try {
-        const node = await NodeRPC.findHealthyNode(this.rest.map((u) => new URL(u)))
+
+    this.preferredNode = NodeRPC.findHealthyNode(this.rest.map((u) => new URL(u)))
+      .then((node) => {
         // Only set timeout if successful
         this._nodeTimeout = setTimeout(() => {
           this.preferredNode = null
         }, DEFAULT_PREFERRED_NODE_TTL)
 
-        return resolve(node)
-      } catch (err) {
-        // This catches any errors thrown by NodeRPC
-        reject(err)
+        return node
+      }, (err) => {
         // The promise will reject all pending calls, but clear state
         // such that the next call will try to find a healthy node again
         this.preferredNode = null
-      } finally {
+        throw err
+      })
+      .finally(() => {
         this.probing = false
-      }
-    })
+      })
 
     return this.preferredNode
   }

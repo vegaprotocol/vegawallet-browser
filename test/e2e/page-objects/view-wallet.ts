@@ -11,13 +11,14 @@ import { locators as walletLocators } from '../../../frontend/routes/auth/wallet
 import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/key-list'
 import { SignMessage } from './sign-message'
 
-import { locators as vegaKeyLocators } from '../../../frontend/components/vega-key'
+import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'
+
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
   private readonly createNewKeyPairButton: By = getByDataTestID(keyListLocators.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly copyIcon: By = getByDataTestID('copy-icon')
-  private readonly copyableKey: By = getByDataTestID(keyListLocators.walletsExplorerLink)
+  private readonly copyableKey: By = getByDataTestID(vegaKeyLocators.explorerLink)
   private readonly signMessageButton: By = getByDataTestID(keyListLocators.walletsSignMessageButton)
 
   constructor(private readonly driver: WebDriver) {}

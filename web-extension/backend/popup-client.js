@@ -1,5 +1,6 @@
 import JSONRPCClient from '../../lib/json-rpc-client.js'
 import assert from 'nanoassert'
+import { isRequest } from '../../lib/json-rpc.js'
 
 export class PopupClient {
   constructor({ onbeforerequest, onafterrequest }) {
@@ -12,7 +13,9 @@ export class PopupClient {
     this.client = new JSONRPCClient({
       idPrefix: 'background-',
       send: (msg) => {
-        this.persistentQueue.push(msg)
+        if (isRequest(msg)) {
+          this.persistentQueue.push(msg)
+        }
         this.ports.forEach((p) => p.postMessage(msg))
       }
     })
@@ -23,11 +26,19 @@ export class PopupClient {
   }
 
   async reviewConnection(params) {
-    return this._send('popup.review_connection', params)
+    const decision = await this._send('popup.review_connection', params)
+    // this.client.notify('popup.connection_decision', {
+    //   decision
+    // })
+    return decision
   }
 
   async reviewTransaction(params) {
-    return this._send('popup.review_transaction', params)
+    const decision = await this._send('popup.review_transaction', params)
+    // this.client.notify('popup.transaction_decision', {
+    //   decision
+    // })
+    return decision
   }
 
   async _send(method, params) {
@@ -50,6 +61,7 @@ export class PopupClient {
 
     const self = this
     function _onmessage(message) {
+      console.log(message)
       if (message.id != null) {
         const idx = self.persistentQueue.findIndex((msg) => msg.id === message.id)
         if (idx !== -1) {

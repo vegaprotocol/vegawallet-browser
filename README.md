@@ -20,8 +20,18 @@ By using the Vega Wallet, you acknowledge that you have read and understood the 
 
 **Only one extension should be active (installed and enabled) at a time to avoid version conflict.** Future updates may wipe all data, and keys are not recoverable. If you are communicating with multiple networks, consider using multiple browser profiles.
 
-1. Download a release from [Github Releases](https://github.com/vegaprotocol/vegawallet-browser/releases) for the network you are testing 
+1. Download a release from [Github Releases](https://github.com/vegaprotocol/vegawallet-browser/releases) for the network you are testing
 2. Follow the installation guide below based on the browser you are using:
+
+**Browser support**
+
+We support Firefox, Chrome. You can find specific version in the [manifest files](./manifests).
+
+It might work on these:
+
+Brave
+
+But we've not tested against it. Last updated 28 Jul 2023.
 
 **Chrome users**
 
@@ -29,6 +39,7 @@ By using the Vega Wallet, you acknowledge that you have read and understood the 
 2. Add the extension by following this guide: [Load unpacked extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
 
 **Firefox users**
+
 1. Install the [Firefox Browser Developer Edition](https://www.mozilla.org/en-GB/firefox/developer/)
 2. Open Firefox developer edition
 3. Enter "about:config" in the URL bar. You'll be asked to accept the risk and continue

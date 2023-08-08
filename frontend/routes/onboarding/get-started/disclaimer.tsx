@@ -40,6 +40,11 @@ export const DisclaimerText = () => {
         Wallet is liable for any acts or omissions by users in connection with or as a result of their Vega Wallet or
         other associated wallet being compromised.
       </p>
+      <p className="mb-2">
+        By using the Vega Wallet, you acknowledge that you have read and understood the Vega Wallet User Data Policy
+        here: https://vega.xyz/vega-wallet-user-data-policy/
+      </p>
+      <p className="mb-2">Spot an issue? Provide feedback here: https://github.com/vegaprotocol/feedback/discussions</p>
     </section>
   )
 }

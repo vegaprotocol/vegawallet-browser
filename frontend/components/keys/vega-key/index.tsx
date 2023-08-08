@@ -9,15 +9,7 @@ export const locators = {
   explorerLink: 'vega-explorer-link'
 }
 
-export const VegaKey = ({
-  publicKey,
-  name,
-  children
-}: {
-  publicKey: string
-  name: string
-  children: ReactNode | undefined
-}) => {
+export const VegaKey = ({ publicKey, name, children }: { publicKey: string; name: string; children?: ReactNode }) => {
   return (
     <div className="flex items-center">
       <KeyIcon publicKey={publicKey} />

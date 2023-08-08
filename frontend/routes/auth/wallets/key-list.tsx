@@ -1,5 +1,3 @@
-import { ButtonLink, ExternalLink, Tooltip, truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { CopyWithCheckmark } from '../../../components/copy-with-check'
 import { ButtonLink } from '@vegaprotocol/ui-toolkit'
 import { List } from '../../../components/list'
 import { Key, Wallet, useWalletStore } from '../../../stores/wallets'

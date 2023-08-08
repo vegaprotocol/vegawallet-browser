@@ -10,7 +10,6 @@ import { locators as keyLocators } from './key-list'
 import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
 import { locators as signMessageLocators } from '../../../components/sign-message-dialog/sign-message'
 import { locators as signedMessageLocators } from '../../../components/sign-message-dialog/signed-message'
-import { locators as vegaKeyLocators } from '../../../components/vega-key'
 import { locators as vegaKeyLocators } from '../../../components/keys/vega-key'
 
 const mockLoadedState = () => {
@@ -68,7 +67,7 @@ describe('Wallets', () => {
       'https://explorer.fairground.wtf/parties/07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673'
     )
     expect(screen.getByTestId(locators.copyWithCheck)).toBeInTheDocument()
-    expect(screen.getByTestId(keyLocators.walletsKeyName)).toHaveTextContent('Key 1')
+    expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('Key 1')
     expect(screen.getByTestId(keyLocators.walletsCreateKey)).toHaveTextContent('Create new key/pair')
     expect(screen.getByTestId(depositAssetsCalloutLocators.walletsAssetHeader)).toHaveTextContent(
       'Connect to console to deposit funds'

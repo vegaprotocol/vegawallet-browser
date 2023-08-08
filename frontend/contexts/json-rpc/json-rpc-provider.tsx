@@ -42,6 +42,14 @@ const createClient = (notificationHandler: Function) => {
   return client
 }
 
+const closeWindow = () => {
+  const url = new URL(window.location.href)
+  const shouldClose = url.search.includes('once')
+  if (shouldClose) {
+    window.close()
+  }
+}
+
 const createServer = (
   handleConnection: (params: ConnectionMessage) => Promise<boolean>,
   handleTransaction: (params: TransactionMessage) => Promise<boolean>
@@ -53,12 +61,24 @@ const createServer = (
       async [ServerRpcMethods.Connection](params: any, context: any) {
         log('info', 'Message pushed from background', params, context)
         const res = await handleConnection(params)
+        closeWindow()
         return res
       },
       async [ServerRpcMethods.Transaction](params: any, context: any) {
         log('info', 'Message pushed from background', params, context)
         const res = await handleTransaction(params)
+        closeWindow()
         return res
+      }
+    },
+    onnotification: (method, params) => {
+      switch (method) {
+        case 'popup.connection_decision':
+          console.log(method, params)
+          break
+        case 'popup.transaction_decision':
+          console.log(method, params)
+          break
       }
     }
   })

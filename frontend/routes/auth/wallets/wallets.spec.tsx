@@ -35,7 +35,8 @@ const mockLoadedState = () => {
 
 describe('Wallets', () => {
   let initialState: WalletsStore | null = null
-  const informationText = 'Deposit and manage your assets directly in the Vega Console dapp.'
+  const informationText =
+    'Choose a market on Vega Console, connect your wallet and follow the prompts to deposit the funds needed to trade'
   beforeEach(() => {
     initialState = useWalletStore.getState()
   })
@@ -67,9 +68,11 @@ describe('Wallets', () => {
     expect(screen.getByTestId(locators.copyWithCheck)).toBeInTheDocument()
     expect(screen.getByTestId(keyLocators.walletsKeyName)).toHaveTextContent('Key 1')
     expect(screen.getByTestId(keyLocators.walletsCreateKey)).toHaveTextContent('Create new key/pair')
-    expect(screen.getByTestId(depositAssetsCalloutLocators.walletsAssetHeader)).toHaveTextContent('Assets')
-    expect(screen.getByTestId(locators.frame)).toHaveTextContent(informationText)
-    expect(screen.getByTestId(depositAssetsCalloutLocators.walletsDepositLink)).toHaveTextContent('Vega Console dapp.')
+    expect(screen.getByTestId(depositAssetsCalloutLocators.walletsAssetHeader)).toHaveTextContent(
+      'Connect to console to deposit funds'
+    )
+    expect(screen.getByTestId(depositAssetsCalloutLocators.walletAssetDescription)).toHaveTextContent(informationText)
+    expect(screen.getByTestId(depositAssetsCalloutLocators.walletsDepositLink)).toHaveTextContent('Vega Console dapp')
     expect(screen.getByTestId(depositAssetsCalloutLocators.walletsDepositLink)).toHaveAttribute(
       'href',
       'https://console.fairground.wtf'

@@ -21,6 +21,7 @@ const test = {
   closeWindowOnPopupOpen: false,
   sentryDsn: undefined,
   logging: false,
+  showDisclaimer: false,
 
   manifestReplacements: {
     buildName: 'Test',

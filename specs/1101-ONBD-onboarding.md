@@ -61,3 +61,9 @@ As a wallet user When I am using the browser extension for the first time I want
 - If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again) (<a name="1101-ONBD-034" href="#1101-ONBD-034">1101-ONBD-034</a>)
 - I am redirected to the next step (<a name="1101-ONBD-035" href="#1101-ONBD-035">1101-ONBD-035</a>)
 - I can see the button is disabled and a loading state after submitting (<a name="1101-ONBD-036" href="#1101-ONBD-036">1101-ONBD-036</a>)
+
+## Getting started
+
+- If built for mainnet I can see a legal disclaimer with a button to read more (<a name="1101-ONBD-037" href="#1101-ONBD-037">1101-ONBD-037</a>)
+- If built for mainnet I can press read more to see the full disclaimer (<a name="1101-ONBD-038" href="#1101-ONBD-038">1101-ONBD-038</a>)
+- If not built for mainnet I can see a message related to testnet (<a name="1101-ONBD-039" href="#1101-ONBD-039">1101-ONBD-039</a>)

@@ -1,7 +1,7 @@
-import { VegaSection } from '../vega-section'
-import { CodeWindow } from '../code-window'
-import { Transaction } from '../../lib/transactions'
-import { CollapsiblePanel } from '../collapsible-panel'
+import { VegaSection } from '../../vega-section'
+import { CodeWindow } from '../../code-window'
+import { Transaction } from '../../../lib/transactions'
+import { CollapsiblePanel } from '../../collapsible-panel'
 
 export const RawTransaction = ({ transaction }: { transaction: Transaction }) => {
   return (

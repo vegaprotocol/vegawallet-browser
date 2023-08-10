@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { useModalStore } from '../../stores/modal-store'
+import { useModalStore } from '../../../stores/modal-store'
 import { TransactionModal } from '.'
 import { locators } from './transaction-modal'
-import genericLocators from '../locators'
+import genericLocators from '../../locators'
 
 const transaction = {
   orderSubmission: {
@@ -38,11 +38,11 @@ jest.mock('./transaction-header', () => ({
   TransactionHeader: () => <div data-testid="transaction-header" />
 }))
 
-jest.mock('../../stores/modal-store', () => ({
+jest.mock('../../../stores/modal-store', () => ({
   useModalStore: jest.fn()
 }))
 
-jest.mock('../page-header', () => ({
+jest.mock('../../page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
 }))
 
@@ -67,7 +67,6 @@ describe('TransactionModal', () => {
     /* 1105-TRAN-011 For transactions that are not orders or withdraw / transfers, there is a standard template with the minimum information required i.e. 
 -- [ ] When it was received
 -- [ ] Raw JSON details
-
     1105-TRAN-012 I can copy the raw json to my clipboard
 */
     const handleTransactionDecision = jest.fn()

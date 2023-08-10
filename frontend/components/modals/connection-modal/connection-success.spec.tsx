@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { ConnectionSuccess } from './connection-success'
-import locators from '../locators'
+import locators from '../../locators'
 
 describe('ConnectionSuccess', () => {
   beforeEach(() => {

@@ -69,12 +69,14 @@ describe('list connections tests', () => {
     // 1109-VCON-006 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
     await firstDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
+    await connections.checkNumConnections(1)
 
     await secondDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(2)
 
     const keys = await firstDapp.listKeys()
+    console.log(keys)
 
     await connections.disconnectConnection('https://vegaprotocol.github.io')
     await connections.checkNumConnections(1)

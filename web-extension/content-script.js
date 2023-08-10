@@ -23,6 +23,7 @@ function connect() {
   backgroundPort = runtime.connect({ name: 'content-script' })
   backgroundPort.onMessage.addListener(onbackgroundmessage)
   backgroundPort.onDisconnect.addListener(onbackgrounddisconnect)
+  keepAlive(backgroundPort) // start keepalive
 }
 
 // Relay requests from page to background
@@ -52,3 +53,5 @@ function onbackgrounddisconnect() {
   backgroundPort = null
   keepAlive(null) // stop keepalive
 }
+
+connect()

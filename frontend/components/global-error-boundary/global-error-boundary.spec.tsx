@@ -12,7 +12,7 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedUsedNavigate
 }))
 
-jest.mock('../error-modal', () => ({
+jest.mock('../modals/error-modal', () => ({
   ErrorModal: ({ onClose }: { onClose: () => void }) => (
     <div data-testid="error-modal">
       <button data-testid="close" onClick={onClose}>

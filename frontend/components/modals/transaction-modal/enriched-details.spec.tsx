@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import { EnrichedDetails } from './enriched-details'
-import { ReceiptComponentProps } from '../receipts/receipts'
+import { ReceiptComponentProps } from '../../receipts/receipts'
 
-jest.mock('../vega-section', () => ({
+jest.mock('../../vega-section', () => ({
   VegaSection: ({ children }: { children: React.ReactNode }) => {
     return <div data-testid="vega-section">{children}</div>
   }
 }))
 
-jest.mock('../receipts', () => ({
+jest.mock('../../receipts', () => ({
   TransactionSwitch: ({ transaction }: ReceiptComponentProps) => {
     if (transaction === null) return null
     return <div data-testid="mocked-transaction-switch" />

@@ -1,9 +1,9 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
-import { Frame } from '../frame'
-import { Tick } from '../icons/tick'
+import { Frame } from '../../frame'
+import { Tick } from '../../icons/tick'
 import { ConnectionHeader } from './connection-header'
 
-import locators from '../locators'
+import locators from '../../locators'
 
 export const ConnectionDetails = ({
   handleDecision,

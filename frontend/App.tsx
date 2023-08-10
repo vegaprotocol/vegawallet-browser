@@ -4,8 +4,10 @@ import { JsonRPCProvider } from './contexts/json-rpc/json-rpc-provider'
 import GlobalErrorBoundary from './components/global-error-boundary'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'
+import { useListenForPopups } from './hooks/listen-for-popups'
 
 function App() {
+  useListenForPopups()
   usePreventWindowResize()
   usePing()
   return (

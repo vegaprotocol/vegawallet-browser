@@ -1,6 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
-import { locators } from '../../../frontend/components/transaction-modal/transaction-modal'
+import { locators } from '../../../frontend/components/modals/transaction-modal'
 
 export class Transaction {
   private readonly confirm: By = getByDataTestID(locators.transactionModalApproveButton)

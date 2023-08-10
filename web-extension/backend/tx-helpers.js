@@ -12,11 +12,10 @@ export async function getChainId({ rpc }) {
   return latestBlock.chainId
 }
 
-export async function createTransactionData(rpc, keys, transaction, sendingMode) {
+export async function createTransactionData({rpc, keys, transaction}) {
   const latestBlock = await rpc.blockchainHeight()
   const tid = toHex(await randomFill(new Uint8Array(32)))
 
-  console.log('here is your transaction', transaction)
   const pow = await solvePoW({
     difficulty: latestBlock.spamPowDifficulty,
     blockHash: latestBlock.hash,
@@ -25,14 +24,11 @@ export async function createTransactionData(rpc, keys, transaction, sendingMode)
 
   const nonce = new DataView(await randomFill(new Uint8Array(8)).buffer).getBigUint64(0, false)
 
-  const inputDataRaw = {
+  const inputData = InputData.encode({
     blockHeight: BigInt(latestBlock.height),
     nonce,
     command: transaction
-  }
-  const inputData = InputData.encode(inputDataRaw)
-
-  console.log('inputData', inputData)
+  })
 
   const chainId = latestBlock.chainId
 
@@ -50,50 +46,44 @@ export async function createTransactionData(rpc, keys, transaction, sendingMode)
     pow
   }
 
-  console.log('txData before encoding', txData)
-  //write the transaction json out to a file
-  const encodedTx = Transaction.encode(txData)
-  // write the encoded json out to a file
+  const tx = Transaction.encode(txData)
 
-  const base64Tx = toBase64(encodedTx)
-  console.log('encodedTx', encodedTx)
-  return {
-    base64Tx, txData, inputData, pow, tid, inputDataRaw
-  }
-}
-export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
-  const trans = await createTransactionData(rpc, keys, transaction, sendingMode )
-
-  console.log('txData after encoding', trans.txData)
   const txJSON = {
-    inputData: toBase64(trans.inputData),
+    inputData: toBase64(inputData),
     signature: {
-      value: trans.txData.signature.value,
-      algo: trans.txData.signature.algo,
-      version: trans.txData.signature.version
+      value: txData.signature.value,
+      algo: txData.signature.algo,
+      version: txData.signature.version
     },
     from: {
-      pubKey: trans.txData.from.pubKey
+      pubKey: txData.from.pubKey
     },
-    version: trans.txData.version,
+    version: txData.version,
     pow: {
-      tid: toHex(trans.tid),
-      nonce: trans.pow.nonce.toString()
+      tid: toHex(tid),
+      nonce: pow.nonce.toString()
     }
   }
-  console.log('txJSON', txJSON)
 
-  const base64Tx = toBase64(trans.encodedTx)
+  const base64Tx = toBase64(tx)
+
+  return {
+    tx, 
+    base64Tx, 
+    txJSON
+  }
+
+}
+export async function sendTransaction({ rpc, base64Tx, txJSON, sendingMode }) {
   const sentAt = new Date().toISOString()
   const res = await rpc.submitRawTransaction(
     base64Tx,
     sendingMode
   )
-  console.log(res, 'res')
 
   return {
     sentAt,
     transactionHash: res.txHash,
-    transaction: txJSON, 
+    transaction: txJSON
   }
 }

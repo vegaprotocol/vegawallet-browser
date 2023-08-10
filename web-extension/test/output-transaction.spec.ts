@@ -2,19 +2,17 @@ import * as txHelpers from '../backend/tx-helpers.js'
 import { TransferRequest } from '@vegaprotocol/protos/dist/vega/TransferRequest'
 import { Account } from '@vegaprotocol/protos/dist/vega/Account'
 import fs from 'fs'
-
-const bigIntToNumberReplacer = (key: any, value: any) => {
-  if (typeof value === 'bigint') {
-    if (Number.isSafeInteger(value)) {
-      return Number(value)
-    } else {
-      console.warn('BigInt exceeds the safe integer range. Converting it to a Number may lose precision.')
-      return Number(value)
-    }
-  }
-  return value
-}
-
+import path from 'path'
+import { OrderAmendment } from '@vegaprotocol/protos/dist/vega/commands/v1/OrderAmendment.js'
+import { RecurringTransfer } from '@vegaprotocol/protos/dist/vega/commands/v1/RecurringTransfer.js'
+import { VoteSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/VoteSubmission.js'
+import { WithdrawSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/WithdrawSubmission.js'
+import { TimeInForce } from '@vegaprotocol/protos/dist/vega/Order/TimeInForce.js'
+import { PeggedReference } from '@vegaprotocol/protos/dist/vega/PeggedReference.js'
+import { DispatchMetric } from '@vegaprotocol/protos/dist/vega/DispatchMetric.js'
+import { WithdrawExt } from '@vegaprotocol/protos/dist/vega/WithdrawExt.js'
+import { Value } from '@vegaprotocol/protos/dist/vega/Vote/Value.js'
+import { Erc20WithdrawExt } from '@vegaprotocol/protos/dist/vega/Erc20WithdrawExt.js'
 export const solvePoWMock = jest.fn(async () => {
   return 'mocked-pow'
 })
@@ -25,6 +23,77 @@ jest.mock('../backend/tx-helpers.js', () => {
     solvePoW: solvePoWMock
   }
 })
+
+const account: Account = {
+  id: '234234',
+  owner: 'bob',
+  balance: '45',
+  asset: '535',
+  marketId: '67',
+  type: 5
+}
+
+const ecr20: Erc20WithdrawExt = {
+  receiverAddress: 'receiverAddress'
+}
+
+const transferRequest: TransferRequest = {
+  fromAccount: [account],
+  toAccount: [account],
+  amount: '1',
+  minAmount: '11',
+  asset: 'd1984e3d365faa05bcafbe41f50f90e3663ee7c0da22bb1e24b164e9532691b2',
+  type: 15
+}
+
+const orderAmendment: OrderAmendment = {
+  orderId: '234234',
+  marketId: '234234',
+  price: '1',
+  sizeDelta: BigInt(1),
+  expiresAt: BigInt(1),
+  timeInForce: TimeInForce.TIME_IN_FORCE_GTT,
+  peggedOffset: '1',
+  peggedReference: PeggedReference.PEGGED_REFERENCE_MID
+}
+
+const recurringTransfer: RecurringTransfer = {
+  startEpoch: BigInt(1),
+  endEpoch: BigInt(1),
+  factor: 'factor',
+  dispatchStrategy: {
+    assetForMetric: '',
+    metric: DispatchMetric.DISPATCH_METRIC_LP_FEES_RECEIVED,
+    markets: []
+  }
+}
+
+const voteSubmission: VoteSubmission = {
+  proposalId: 'proposalId',
+  value: Value.VALUE_YES
+}
+
+const withdrawSubmission: WithdrawSubmission = {
+  amount: '',
+  asset: '',
+  ext: {
+    ext: {
+      erc20: ecr20
+    }
+  }
+}
+
+class NodeRPCMock {
+  blockchainHeight() {
+    return Promise.resolve({
+      spamPowDifficulty: 20,
+      hash: '048ed681fbe2334a31c86dcfebd4b55e071273ec460455bff7ebbcdc910f1709',
+      height: 758390847
+    })
+  }
+
+  url = 'http://localhost:9933'
+}
 
 export const KeyPairMock = {
   algorithm: {
@@ -40,66 +109,46 @@ export const KeyPairMock = {
   })
 }
 
-class NodeRPCMock {
-  blockchainHeight() {
-    return Promise.resolve({
-      spamPowDifficulty: 20,
-      hash: '048ed681fbe2334a31c86dcfebd4b55e071273ec460455bff7ebbcdc910f1709',
-      height: 758390847
-    })
-  }
-
-  url = 'http://localhost:9933'
-}
-
 export default NodeRPCMock
-const writeTransactionToFile = async () => {
+
+const writeTransactionToFile = async (transaction: any, filePath: string) => {
   const rpc = new NodeRPCMock()
-  // const keyPair = new KeyPair('bil', 'bob', 'ben')
-  const account: Account = {
-    id: '234234',
-    owner: 'bob',
-    balance: '45',
-    asset: '535',
-    marketId: '67',
-    type: 5
-  }
-  console.log('created account')
 
-  const transaction: TransferRequest = {
-    fromAccount: [account],
-    toAccount: [account],
-    amount: '1',
-    minAmount: '11',
-    asset: 'd1984e3d365faa05bcafbe41f50f90e3663ee7c0da22bb1e24b164e9532691b2',
-    type: 15
-  }
+  const tx = await txHelpers.createTransactionData({ rpc: rpc, keys: KeyPairMock, transaction: transaction })
 
-  console.log('created transaction')
-  const tx = await txHelpers.createTransactionData(rpc, KeyPairMock, transaction, 'my sending mode')
-  const txObject = {
-    transaction: tx.txData,
-    inputData: tx.inputDataRaw,
-    encodedData: tx.base64Tx
-  }
-
-  const txObjectJSON = JSON.stringify(txObject, bigIntToNumberReplacer, 2)
-
-  console.log('transaction =', txObjectJSON)
+  console.log('base64 encoded data: ', tx.base64Tx)
 
   try {
-    fs.writeFileSync('./transactionjson.json', txObjectJSON)
+    const directoryPath = path.dirname(filePath)
+
+    // Create the directory if it doesn't exist
+    if (!fs.existsSync(directoryPath)) {
+      fs.mkdirSync(directoryPath, { recursive: true })
+    }
+
+    fs.writeFileSync(filePath, tx.base64Tx)
     console.log('JSON data has been written to the file successfully.')
   } catch (err) {
     console.error('Error writing JSON data to file:', err)
   }
 }
 
+const transactionList: { transaction: any; transactionType: string }[] = [
+  { transaction: transferRequest, transactionType: 'TransferRequest' },
+  { transaction: orderAmendment, transactionType: 'OrderAmendment' },
+  { transaction: recurringTransfer, transactionType: 'RecurringTransfer' },
+  { transaction: voteSubmission, transactionType: 'VoteSubmission' },
+  { transaction: withdrawSubmission, transactionType: 'WithdrawSubmission' }
+]
+
 describe('encoding and decoding', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  it('write transactions to file', async () => {
-    await writeTransactionToFile()
+  it('write transfer request to file', async () => {
+    for (const { transaction, transactionType } of transactionList) {
+      const fileName = `./requestfiles/${transactionType}.txt`
+      await writeTransactionToFile(transaction, fileName)
+    }
   })
 })

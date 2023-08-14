@@ -44,10 +44,8 @@ jobs:
           ref: 'test/check-transaction'
           path: vega
 
-      - name: build vega
+      - name: Test browser wallet requests compatible with vega
         run: |
-          pwd
-          ls
           cd vega
           make build
           ./cmd/vega/vega tools check-tx --txdir=../requestfiles

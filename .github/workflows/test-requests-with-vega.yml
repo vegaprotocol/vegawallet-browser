@@ -49,4 +49,6 @@ jobs:
           ls
           make build
           cd cmd/vega
+          pwd
+          ls
           vega tools check-tx --txdir=./requestfiles

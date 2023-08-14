@@ -47,7 +47,6 @@ jobs:
         run: |
           pwd
           ls
-          cd vegawallet-browser/vega
-          cd vega
+          cd cmd/vega
           make build
           vega tools check-tx --txdir=./requestfiles

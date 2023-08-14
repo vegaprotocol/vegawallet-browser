@@ -44,7 +44,9 @@ jobs:
           ref: 'test/check-transaction'
 
       - name: build vega
-        run: |
+        run: pwd
+          ls
+          cd vegawallet-browser/vega
           cd vega
           make build
           vega tools check-tx --txdir=./requestfiles

@@ -320,7 +320,7 @@ const writeTransactionToFile = async (transaction: any, filePath: string) => {
     }
 
     fs.writeFileSync(filePath, tx.base64Tx)
-    console.log('JSON data has been written to the file successfully.')
+    console.log(`JSON data has been written to ${filePath}`)
   } catch (err) {
     console.error('Error writing JSON data to file:', err)
   }

@@ -8,7 +8,6 @@ import { RecurringTransfer } from '@vegaprotocol/protos/dist/vega/commands/v1/Re
 import { VoteSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/VoteSubmission.js'
 import { WithdrawSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/WithdrawSubmission.js'
 import { TimeInForce } from '@vegaprotocol/protos/dist/vega/Order/TimeInForce.js'
-import { PeggedReference } from '@vegaprotocol/protos/dist/vega/PeggedReference.js'
 import { DispatchMetric } from '@vegaprotocol/protos/dist/vega/DispatchMetric.js'
 import { Value } from '@vegaprotocol/protos/dist/vega/Vote/Value.js'
 import { Erc20WithdrawExt } from '@vegaprotocol/protos/dist/vega/Erc20WithdrawExt.js'
@@ -27,6 +26,16 @@ import { CancelTransfer } from '@vegaprotocol/protos/dist/vega/CancelTransfer.js
 import { DelegateSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/DelegateSubmission.js'
 import { IssueSignatures } from '@vegaprotocol/protos/dist/vega/commands/v1/IssueSignatures.js'
 import { NodeSignatureKind } from '@vegaprotocol/protos/dist/vega/commands/v1/NodeSignatureKind.js'
+import { LiquidityProvisionAmendment } from '@vegaprotocol/protos/dist/vega/commands/v1/LiquidityProvisionAmendment.js'
+import { LiquidityProvisionCancellation } from '@vegaprotocol/protos/dist/vega/commands/v1/LiquidityProvisionCancellation.js'
+import { LiquidityProvisionSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/LiquidityProvisionSubmission.js'
+import { OneOffTransfer } from '@vegaprotocol/protos/dist/vega/commands/v1/OneOffTransfer.js'
+import { PeggedReference } from '@vegaprotocol/protos/dist/vega/PeggedReference.js'
+import { ProposalSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/ProposalSubmission.js'
+import { ProposalTerms } from '@vegaprotocol/protos/dist/vega/ProposalTerms.js'
+import { ProposalRationale } from '@vegaprotocol/protos/dist/vega/ProposalRationale.js'
+import { Transfer } from '@vegaprotocol/protos/dist/vega/commands/v1/Transfer.js'
+import { AccountType } from '@vegaprotocol/protos/dist/vega/AccountType.js'
 
 export const solvePoWMock = jest.fn(async () => {
   return 'mocked-pow'
@@ -92,6 +101,23 @@ const recurringTransfer: RecurringTransfer = {
 const voteSubmission: VoteSubmission = {
   proposalId: 'proposalId',
   value: Value.VALUE_YES
+}
+
+const proposalTerms: ProposalTerms = {
+  closingTimestamp: BigInt(1),
+  enactmentTimestamp: BigInt(1),
+  validationTimestamp: BigInt(1)
+}
+
+const proposalRationale: ProposalRationale = {
+  description: 'description',
+  title: 'title'
+}
+
+const proposalSubmission: ProposalSubmission = {
+  reference: 'ref',
+  terms: proposalTerms,
+  rationale: proposalRationale
 }
 
 const orderCancellation: OrderCancellation = {
@@ -186,6 +212,41 @@ const issueSignatures: IssueSignatures = {
   kind: NodeSignatureKind.NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL
 }
 
+const liquidityProvisionAmendment: LiquidityProvisionAmendment = {
+  marketId: 'marketId',
+  commitmentAmount: '1',
+  fee: '1',
+  reference: 'reference',
+  sells: [],
+  buys: []
+}
+
+const liquidityProvisionCancellation: LiquidityProvisionCancellation = {
+  marketId: 'marketId'
+}
+
+const liquidityProvisionSubmission: LiquidityProvisionSubmission = {
+  marketId: 'marketId',
+  commitmentAmount: '1',
+  fee: '1',
+  reference: 'reference',
+  sells: [],
+  buys: []
+}
+
+const transfer: Transfer = {
+  amount: '1',
+  asset: 'asset',
+  to: 'to',
+  fromAccountType: AccountType.ACCOUNT_TYPE_BOND,
+  toAccountType: AccountType.ACCOUNT_TYPE_BOND,
+  reference: 'reference'
+}
+
+const oneOffTransfer: OneOffTransfer = {
+  deliverOn: BigInt(1)
+}
+
 class NodeRPCMock {
   blockchainHeight() {
     return Promise.resolve({
@@ -214,34 +275,21 @@ export const KeyPairMock = {
 
 export default NodeRPCMock
 
-const writeTransactionToFile = async (transaction: any, filePath: string) => {
-  const rpc = new NodeRPCMock()
-
-  const tx = await txHelpers.createTransactionData({ rpc: rpc, keys: KeyPairMock, transaction: transaction })
-
-  console.log('base64 encoded data: ', tx.base64Tx)
-
-  try {
-    const directoryPath = path.dirname(filePath)
-
-    if (!fs.existsSync(directoryPath)) {
-      fs.mkdirSync(directoryPath, { recursive: true })
-    }
-
-    fs.writeFileSync(filePath, tx.base64Tx)
-    console.log('JSON data has been written to the file successfully.')
-  } catch (err) {
-    console.error('Error writing JSON data to file:', err)
-  }
-}
-
 const transactionList: { transaction: any; transactionType: string }[] = [
   { transaction: batchMarketInstructions, transactionType: 'BatchMarketInstructions' },
   { transaction: cancelTransfer, transactionType: 'CancelTransfer' },
   { transaction: delegateSubmission, transactionType: 'DelegateSubmission' },
   { transaction: issueSignatures, transactionType: 'IssueSignatures' },
+  { transaction: liquidityProvisionAmendment, transactionType: 'LiquidityProvisionAmendment' },
+  { transaction: liquidityProvisionCancellation, transactionType: 'LiquidityProvisionCancellation' },
+  { transaction: liquidityProvisionSubmission, transactionType: 'LiquidityProvisionSubmission' },
+  { transaction: oneOffTransfer, transactionType: 'OneOffTransfer' },
   { transaction: orderAmendment, transactionType: 'OrderAmendment' },
+  { transaction: orderCancellation, transactionType: 'OrderCancellation' },
+  { transaction: orderSubmission, transactionType: 'OrderSubmission' },
+  { transaction: proposalSubmission, transactionType: 'ProposalSubmission' },
   { transaction: recurringTransfer, transactionType: 'RecurringTransfer' },
+  { transaction: transfer, transactionType: 'Transfer' },
   { transaction: transferRequest, transactionType: 'TransferRequest' },
   { transaction: undelegateSubmission, transactionType: 'UndelegateSubmission' },
   { transaction: voteSubmission, transactionType: 'VoteSubmission' },
@@ -259,3 +307,21 @@ describe('encoding and decoding', () => {
     }
   })
 })
+
+const writeTransactionToFile = async (transaction: any, filePath: string) => {
+  const rpc = new NodeRPCMock()
+  const tx = await txHelpers.createTransactionData({ rpc: rpc, keys: KeyPairMock, transaction: transaction })
+
+  try {
+    const directoryPath = path.dirname(filePath)
+
+    if (!fs.existsSync(directoryPath)) {
+      fs.mkdirSync(directoryPath, { recursive: true })
+    }
+
+    fs.writeFileSync(filePath, tx.base64Tx)
+    console.log('JSON data has been written to the file successfully.')
+  } catch (err) {
+    console.error('Error writing JSON data to file:', err)
+  }
+}

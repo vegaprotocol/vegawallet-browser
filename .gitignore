@@ -6,6 +6,7 @@
 .pnp.js
 
 # testing
+/requestfiles
 /coverage
 /test/test-reports
 /test/test-screenshots

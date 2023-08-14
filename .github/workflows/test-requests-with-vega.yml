@@ -42,10 +42,12 @@ jobs:
         with:
           repository: vegaprotocol/vega
           ref: 'test/check-transaction'
+          path: vega
 
       - name: build vega
         run: |
           pwd
           ls
+          cd vega
           make build
-          ./cmd/vega/vega tools check-tx --txdir=./requestfiles
+          ./cmd/vega/vega tools check-tx --txdir=../requestfiles

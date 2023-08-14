@@ -44,7 +44,8 @@ jobs:
           ref: 'test/check-transaction'
 
       - name: build vega
-        run: pwd
+        run: |
+          pwd
           ls
           cd vegawallet-browser/vega
           cd vega

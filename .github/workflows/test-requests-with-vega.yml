@@ -1,0 +1,40 @@
+name: Check requests meet vega protos
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  request-generation-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Generate requests
+        run: yarn test:requests
+
+      - name: Format
+        run: yarn format
+
+      - name: Test Report
+        uses: phoenix-actions/test-reporting@v12
+        if: always()
+        with:
+          name: JEST Unit Tests (BE)
+          path: ./test/test-reports/backend-test-results.xml
+          reporter: jest-junit
+          output-to: step-summary
+
+          # use vega tools command line

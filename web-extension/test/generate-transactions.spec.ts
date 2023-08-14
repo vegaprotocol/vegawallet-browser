@@ -10,9 +10,24 @@ import { WithdrawSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/W
 import { TimeInForce } from '@vegaprotocol/protos/dist/vega/Order/TimeInForce.js'
 import { PeggedReference } from '@vegaprotocol/protos/dist/vega/PeggedReference.js'
 import { DispatchMetric } from '@vegaprotocol/protos/dist/vega/DispatchMetric.js'
-import { WithdrawExt } from '@vegaprotocol/protos/dist/vega/WithdrawExt.js'
 import { Value } from '@vegaprotocol/protos/dist/vega/Vote/Value.js'
 import { Erc20WithdrawExt } from '@vegaprotocol/protos/dist/vega/Erc20WithdrawExt.js'
+import { UndelegateSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/UndelegateSubmission.js'
+import { Method } from '@vegaprotocol/protos/dist/vega/commands/v1/UndelegateSubmission/Method.js'
+import { BatchMarketInstructions } from '@vegaprotocol/protos/dist/vega/commands/v1/BatchMarketInstructions.js'
+import { OrderCancellation } from '@vegaprotocol/protos/dist/vega/commands/v1/OrderCancellation.js'
+import { OrderSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/OrderSubmission.js'
+import { PeggedOrder } from '@vegaprotocol/protos/dist/vega/PeggedOrder.js'
+import { IcebergOpts } from '@vegaprotocol/protos/dist/vega/commands/v1/IcebergOpts.js'
+import { StopOrdersCancellation } from '@vegaprotocol/protos/dist/vega/commands/v1/StopOrdersCancellation.js'
+import { StopOrderSetup } from '@vegaprotocol/protos/dist/vega/commands/v1/StopOrderSetup.js'
+import { ExpiryStrategy } from '@vegaprotocol/protos/dist/vega/StopOrder/ExpiryStrategy.js'
+import { StopOrdersSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/StopOrdersSubmission.js'
+import { CancelTransfer } from '@vegaprotocol/protos/dist/vega/CancelTransfer.js'
+import { DelegateSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/DelegateSubmission.js'
+import { IssueSignatures } from '@vegaprotocol/protos/dist/vega/commands/v1/IssueSignatures.js'
+import { NodeSignatureKind } from '@vegaprotocol/protos/dist/vega/commands/v1/NodeSignatureKind.js'
+
 export const solvePoWMock = jest.fn(async () => {
   return 'mocked-pow'
 })
@@ -46,6 +61,12 @@ const transferRequest: TransferRequest = {
   type: 15
 }
 
+const undelegateSubmission: UndelegateSubmission = {
+  nodeId: 'nodeId',
+  amount: '1',
+  method: Method.METHOD_NOW
+}
+
 const orderAmendment: OrderAmendment = {
   orderId: '234234',
   marketId: '234234',
@@ -73,6 +94,71 @@ const voteSubmission: VoteSubmission = {
   value: Value.VALUE_YES
 }
 
+const orderCancellation: OrderCancellation = {
+  orderId: 'orderId',
+  marketId: 'marketId'
+}
+
+const amendment: OrderAmendment = {
+  orderId: 'orderId',
+  marketId: 'marketId',
+  price: '1',
+  sizeDelta: BigInt(1),
+  expiresAt: BigInt(1),
+  timeInForce: TimeInForce.TIME_IN_FORCE_GTT,
+  peggedOffset: '1',
+  peggedReference: PeggedReference.PEGGED_REFERENCE_MID
+}
+
+const peggedOrder: PeggedOrder = {
+  offset: '1',
+  reference: PeggedReference.PEGGED_REFERENCE_MID
+}
+
+const icebergOpts: IcebergOpts = {
+  peakSize: BigInt(1),
+  minimumVisibleSize: BigInt(1)
+}
+
+const orderSubmission: OrderSubmission = {
+  marketId: 'marketId',
+  price: '1',
+  size: BigInt(1),
+  side: 1,
+  timeInForce: TimeInForce.TIME_IN_FORCE_GTT,
+  expiresAt: BigInt(1),
+  type: 1,
+  reference: 'reference',
+  peggedOrder: peggedOrder,
+  icebergOpts: icebergOpts,
+  postOnly: false,
+  reduceOnly: false
+}
+
+const stopOrdersCancellation: StopOrdersCancellation = {
+  marketId: 'marketId',
+  stopOrderId: 'stopOrderId'
+}
+
+const stopOrderSetUp: StopOrderSetup = {
+  orderSubmission: orderSubmission,
+  expiresAt: BigInt(1),
+  expiryStrategy: ExpiryStrategy.EXPIRY_STRATEGY_CANCELS
+}
+
+const stopOrdersSubmission: StopOrdersSubmission = {
+  risesAbove: stopOrderSetUp,
+  fallsBelow: stopOrderSetUp
+}
+
+const batchMarketInstructions: BatchMarketInstructions = {
+  cancellations: [orderCancellation],
+  amendments: [amendment],
+  submissions: [orderSubmission],
+  stopOrdersCancellation: [stopOrdersCancellation],
+  stopOrdersSubmission: [stopOrdersSubmission]
+}
+
 const withdrawSubmission: WithdrawSubmission = {
   amount: '',
   asset: '',
@@ -81,6 +167,23 @@ const withdrawSubmission: WithdrawSubmission = {
       erc20: ecr20
     }
   }
+}
+
+const cancelTransfer: CancelTransfer = {
+  changes: {
+    transferId: 'id'
+  }
+}
+
+const delegateSubmission: DelegateSubmission = {
+  nodeId: 'nodeId',
+  amount: '1'
+}
+
+const issueSignatures: IssueSignatures = {
+  submitter: 'submitter',
+  validatorNodeId: 'validatorNodeId',
+  kind: NodeSignatureKind.NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL
 }
 
 class NodeRPCMock {
@@ -121,7 +224,6 @@ const writeTransactionToFile = async (transaction: any, filePath: string) => {
   try {
     const directoryPath = path.dirname(filePath)
 
-    // Create the directory if it doesn't exist
     if (!fs.existsSync(directoryPath)) {
       fs.mkdirSync(directoryPath, { recursive: true })
     }
@@ -134,9 +236,14 @@ const writeTransactionToFile = async (transaction: any, filePath: string) => {
 }
 
 const transactionList: { transaction: any; transactionType: string }[] = [
-  { transaction: transferRequest, transactionType: 'TransferRequest' },
+  { transaction: batchMarketInstructions, transactionType: 'BatchMarketInstructions' },
+  { transaction: cancelTransfer, transactionType: 'CancelTransfer' },
+  { transaction: delegateSubmission, transactionType: 'DelegateSubmission' },
+  { transaction: issueSignatures, transactionType: 'IssueSignatures' },
   { transaction: orderAmendment, transactionType: 'OrderAmendment' },
   { transaction: recurringTransfer, transactionType: 'RecurringTransfer' },
+  { transaction: transferRequest, transactionType: 'TransferRequest' },
+  { transaction: undelegateSubmission, transactionType: 'UndelegateSubmission' },
   { transaction: voteSubmission, transactionType: 'VoteSubmission' },
   { transaction: withdrawSubmission, transactionType: 'WithdrawSubmission' }
 ]

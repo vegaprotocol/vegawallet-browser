@@ -1,4 +1,4 @@
-name: Check requests meet vega protos
+name: Check requests compatible with vega
 
 on:
   pull_request:
@@ -37,4 +37,14 @@ jobs:
           reporter: jest-junit
           output-to: step-summary
 
-          # use vega tools command line
+      - name: Get Vega Tools
+        uses: actions/checkout@v2
+        with:
+          repository: vegaprotocol/vega
+          ref: 'test/check-transaction'
+
+      - name: build vega
+        run: |
+          cd vega
+          make build
+          vega tools check-tx --txdir=./requestfiles

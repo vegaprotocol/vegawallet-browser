@@ -8,7 +8,6 @@
     "96": "__ICON_PREFIX__-96x96.png",
     "128": "__ICON_PREFIX__-128x128.png"
   },
-  "default_locale": "en",
   "description": "Vega web wallet",
   "permissions": ["storage"],
   "content_scripts": [

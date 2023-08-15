@@ -65,25 +65,26 @@ export async function createTransactionData({rpc, keys, transaction}) {
     }
   }
 
-  const base64Tx = toBase64(tx)
+  const base64Tx = await toBase64(tx)
 
   return {
     tx, 
     base64Tx, 
     txJSON
   }
-
 }
-export async function sendTransaction({ rpc, base64Tx, txJSON, sendingMode }) {
+
+export async function sendTransaction({rpc, keys, transaction, sendingMode}) {
+  const txData = await createTransactionData({rpc, keys, transaction})
   const sentAt = new Date().toISOString()
   const res = await rpc.submitRawTransaction(
-    base64Tx,
+    txData.base64Tx,
     sendingMode
   )
 
   return {
     sentAt,
     transactionHash: res.txHash,
-    transaction: txJSON
+    transaction: txData.txJSON
   }
 }

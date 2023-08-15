@@ -89,7 +89,6 @@ export default function init({ onerror, settings, wallets, networks, connections
         const rpc = await network.rpc()
 
         try {
-          
           const res = await txHelpers.sendTransaction({
             keys: key.keyPair,
             rpc,

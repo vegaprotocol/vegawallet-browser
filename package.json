@@ -37,7 +37,7 @@
     "build:mainnet": "yarn build --wallet-config=mainnet",
     "build:analyze": "NODE_ENV=production yarn build:mainnet --analyze",
     "dev": "web-ext run --start-url=examples/sample-dapp/index.html",
-    "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium --chromium-binary=/usr/bin/google-chrome",
+    "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium",
     "dev:firefox": "yarn dev --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition",
     "format": "prettier frontend --check",
     "format:write": "yarn format --write",

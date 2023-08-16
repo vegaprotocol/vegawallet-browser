@@ -48,4 +48,4 @@ jobs:
         run: |
           cd vega
           make build
-          ./cmd/vega/vega tools check-tx --txdir=../requestfiles
+          ./cmd/vega/vega tools check-tx --txdir=../request-files

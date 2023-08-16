@@ -43,7 +43,7 @@
     "format:write": "yarn format --write",
     "lint": "eslint --ext js,ts,tsx frontend --max-warnings=0",
     "test:backend": "jest --config=test/jest-config/jest.config-backend.js -t --testPathIgnorePatterns='.*\\/generate-transactions\\.spec\\.ts'",
-    "test:requests": "jest --config=test/jest-config/jest.config-backend.js --testPathPattern='.*\\/generate-transactions\\.spec\\.ts'",
+    "test:requests": "jest --config=test/jest-config/jest.config-requests.js --testPathPattern='.*\\/generate-transactions\\.spec\\.ts'",
     "test:backend:ci": "yarn test:backend --coverage",
     "test:e2e": "jest ./test/e2e --config=test/jest-config/jest.config-e2e.js --maxWorkers=1",
     "test:e2e:chrome": "BROWSER=chrome yarn test:e2e",

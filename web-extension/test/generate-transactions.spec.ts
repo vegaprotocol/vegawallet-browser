@@ -302,7 +302,7 @@ describe('encoding and decoding', () => {
   })
   it('write transfer request to file', async () => {
     for (const { transaction, transactionType } of transactionList) {
-      const fileName = `./requestfiles/${transactionType}.txt`
+      const fileName = `./request-files/${transactionType}.txt`
       await writeTransactionToFile(transaction, fileName)
     }
   })

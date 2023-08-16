@@ -8,17 +8,12 @@
     "96": "__ICON_PREFIX__-96x96.png",
     "128": "__ICON_PREFIX__-128x128.png"
   },
-  "permissions": [
-    "storage"
-  ],
+  "description": "Vega web wallet",
+  "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "./content-script.js"
-      ],
+      "matches": ["<all_urls>"],
+      "js": ["./content-script.js"],
       "run_at": "document_end"
     }
   ]

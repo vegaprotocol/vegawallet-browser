@@ -27,9 +27,5 @@ jobs:
 
       - name: Test browser wallet requests compatible with vega
         run: |
-          echo "current dir"
-          pwd
-          ls
-
           docker pull ghcr.io/vegaprotocol/vega/vega
           docker run --rm -v $(pwd)/request-files:/txdir ghcr.io/vegaprotocol/vega/vega tools check-tx --txdir=/txdir

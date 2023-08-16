@@ -28,15 +28,7 @@ jobs:
       - name: Format
         run: yarn format
 
-      - name: Get Vega Tools
-        uses: actions/checkout@v2
-        with:
-          repository: vegaprotocol/vega
-          ref: 'test/check-transaction'
-          path: vega
-
       - name: Test browser wallet requests compatible with vega
         run: |
-          cd vega
-          make build
-          ./cmd/vega/vega tools check-tx --txdir=../request-files
+          pull ghcr.io/vegaprotocol/vega/vega
+          run --rm ghcr.io/vegaprotocol/vega/vega tools check-tx --txdir=../request-files

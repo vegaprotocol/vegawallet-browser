@@ -25,10 +25,7 @@ jobs:
       - name: Generate requests
         run: yarn test:requests
 
-      - name: Format
-        run: yarn format
-
       - name: Test browser wallet requests compatible with vega
         run: |
           docker pull ghcr.io/vegaprotocol/vega/vega
-          docker run --rm -v /../request-files:/txdir ghcr.io/vegaprotocol/vega/vega tools check-tx --txdir=/txdir
+          docker run --rm -v /request-files:/txdir ghcr.io/vegaprotocol/vega/vega tools check-tx --txdir=/txdir

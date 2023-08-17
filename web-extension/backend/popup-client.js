@@ -25,20 +25,12 @@ export class PopupClient {
     return this.persistentQueue.length
   }
 
-  async reviewConnection(params) {
-    const decision = await this._send('popup.review_connection', params)
-    // this.client.notify('popup.connection_decision', {
-    //   decision
-    // })
-    return decision
+  reviewConnection(params) {
+    return this._send('popup.review_connection', params)
   }
 
-  async reviewTransaction(params) {
-    const decision = await this._send('popup.review_transaction', params)
-    // this.client.notify('popup.transaction_decision', {
-    //   decision
-    // })
-    return decision
+  reviewTransaction(params) {
+    return this._send('popup.review_transaction', params)
   }
 
   async _send(method, params) {
@@ -61,7 +53,6 @@ export class PopupClient {
 
     const self = this
     function _onmessage(message) {
-      console.log(message)
       if (message.id != null) {
         const idx = self.persistentQueue.findIndex((msg) => msg.id === message.id)
         if (idx !== -1) {

@@ -3,6 +3,7 @@ import { WalletCollection } from './backend/wallets.js'
 import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from '../lib/port-server.js'
 import { PopupClient } from './backend/popup-client.js'
+import { createNotificationWindow, focusWindow, getNotificationWindow } from './backend/windows.js'
 
 import StorageLocalMap from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
@@ -98,24 +99,10 @@ async function setPending() {
   const pending = interactor.totalPending()
   try {
     if (pending > 0 && popupPorts.ports.size < 1) {
-      let left = 0
-      let top = 0
-      try {
-        const lastFocused = await windows.getLastFocused()
-        top = lastFocused.top
-        left = lastFocused.left + (lastFocused.width - 360)
-      } catch (_) {}
-
-      await windows.create({
-        url: runtime.getURL('/index.html?once=1'),
-        type: 'popup',
-        // Approximate dimension. The client figures out exactly how big it should be as this height/width
-        // includes the frame and different OSes have different sizes
-        width: 360,
-        height: 600,
-        top,
-        left
-      })
+      await createNotificationWindow()
+    } else if (pending > 0 && popupPorts.ports.size > 1) {
+      const popup = await getNotificationWindow()
+      await focusWindow(popup)
     }
   } catch (_) {}
   action.setBadgeText({

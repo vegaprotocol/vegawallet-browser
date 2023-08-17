@@ -2,6 +2,7 @@ import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../package.json'
 import { toBase64, string as fromString } from '@vegaprotocol/crypto/buf'
+import { createWindow } from './windows.js'
 
 function doValidate(validator, params) {
   if (!validator(params))
@@ -46,14 +47,7 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
       async 'admin.open_popout'(params) {
         doValidate(adminValidation.openPopout, params)
         if (handle == null) {
-          const popout = windows.create({
-            url: runtime.getURL('/index.html'),
-            type: 'popup',
-            // Approximate dimension. The client figures out exactly how big it should be as this height/width
-            // includes the frame and different OSes have different sizes
-            width: 360,
-            height: 600
-          })
+          const popout = await createWindow()
 
           handle = await popout
           handle.alwaysOnTop = true

@@ -4,6 +4,8 @@ import pkg from '../../package.json'
 import { toBase64, string as fromString } from '@vegaprotocol/crypto/buf'
 import { createWindow } from './windows.js'
 
+const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
+
 function doValidate(validator, params) {
   if (!validator(params))
     throw new JSONRPCServer.Error(
@@ -24,7 +26,7 @@ function doValidate(validator, params) {
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default function init({ runtime, windows, encryptedStore, settings, wallets, networks, connections, onerror }) {
+export default function init({ encryptedStore, settings, wallets, networks, connections, onerror }) {
   connections.listen((ev, connection) => {
     server.notify('admin.connections_change', {
       add: ev === 'set' ? [connection] : [],
@@ -50,8 +52,6 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
           const popout = await createWindow()
 
           handle = await popout
-          handle.alwaysOnTop = true
-          handle.focused = true
         }
 
         return null

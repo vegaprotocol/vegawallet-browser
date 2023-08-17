@@ -70,16 +70,6 @@ const createServer = (
         closeWindow()
         return res
       }
-    },
-    onnotification: (method, params) => {
-      switch (method) {
-        case 'popup.connection_decision':
-          console.log(method, params)
-          break
-        case 'popup.transaction_decision':
-          console.log(method, params)
-          break
-      }
     }
   })
   window.server = server

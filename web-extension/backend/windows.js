@@ -15,6 +15,7 @@ export const createWindow = (top = undefined, left = undefined, once = false) =>
   return windows.create({
     url: runtime.getURL(url),
     type: 'popup',
+    focused: true,
     // Approximate dimension. The client figures out exactly how big it should be as this height/width
     // includes the frame and different OSes have different sizes
     width: 360,

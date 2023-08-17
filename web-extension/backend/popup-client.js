@@ -13,9 +13,7 @@ export class PopupClient {
     this.client = new JSONRPCClient({
       idPrefix: 'background-',
       send: (msg) => {
-        if (isRequest(msg)) {
-          this.persistentQueue.push(msg)
-        }
+        this.persistentQueue.push(msg)
         this.ports.forEach((p) => p.postMessage(msg))
       }
     })

@@ -1,6 +1,11 @@
 import JSONRPCClient from '../../lib/json-rpc-client.js'
 import assert from 'nanoassert'
 
+/**
+ * Popup client
+ * @constructor
+ * @param {object} opts Options note that onbeforerequest and onafterrequest will not be called if the method is "ping"
+ */
 export class PopupClient {
   constructor({ onbeforerequest, onafterrequest }) {
     this.onbeforerequest = onbeforerequest
@@ -33,7 +38,9 @@ export class PopupClient {
   async _send(method, params) {
     const res = this.client.request(method, params)
     // Wait for the request to be added to the send queue
-    this.onbeforerequest?.()
+    if (method !== 'ping') {
+      this.onbeforerequest?.() // TODO: ask @emil about this, we aren't awaiting this but it is a promise. Should we be? What if it errors?
+    }
     return res
   }
 
@@ -58,7 +65,9 @@ export class PopupClient {
       }
 
       self.client.onmessage(message)
-      self.onafterrequest?.()
+      if (message.method !== 'ping') {
+        self.onafterrequest?.() // TODO: ask @emil about this, we aren't awaiting this but it is a promise. Should we be? What if it errors?
+      }
     }
 
     function _ondisconnect(port) {

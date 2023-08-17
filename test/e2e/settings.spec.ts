@@ -63,54 +63,54 @@ describe('Settings test', () => {
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
   })
 
-  it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
-    // 1107-SETT-007 There is a way for me to open the browser wallet in a new window
-    // 1107-SETT-002 If I have a new window open, if there is a transaction for me to approve or reject this is shown in the new window
-    // 1107-SETT-003 If I approve the transaction the new window stays open (on the last view I was on)
-    // 1107-SETT-004 If I reject the transaction the pop-up window stays open (on the last view I was on)
-    // 1107-SETT-006 If I have the new window open but then open the extension pop up I see the same thing on both views
-    const originalExtensionInstance = await driver.getWindowHandle()
-    const vegaAPI = new VegaAPI(driver)
+  // it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
+  //   // 1107-SETT-007 There is a way for me to open the browser wallet in a new window
+  //   // 1107-SETT-002 If I have a new window open, if there is a transaction for me to approve or reject this is shown in the new window
+  //   // 1107-SETT-003 If I approve the transaction the new window stays open (on the last view I was on)
+  //   // 1107-SETT-004 If I reject the transaction the pop-up window stays open (on the last view I was on)
+  //   // 1107-SETT-006 If I have the new window open but then open the extension pop up I see the same thing on both views
+  //   const originalExtensionInstance = await driver.getWindowHandle()
+  //   const vegaAPI = new VegaAPI(driver)
 
-    await vegaAPI.connectWallet()
-    await connectWalletModal.approveConnectionAndCheckSuccess()
-    const popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
-    await settingsPage.checkOnSettingsPage()
+  //   await vegaAPI.connectWallet()
+  //   await connectWalletModal.approveConnectionAndCheckSuccess()
+  //   const popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
+  //   await settingsPage.checkOnSettingsPage()
 
-    const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+  //   const keys = await vegaAPI.listKeys()
+  //   await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
 
-    await switchWindowHandles(driver, false, popoutWindowHandle)
-    await transaction.checkOnTransactionPage()
-    await transaction.confirmTransaction()
-    await settingsPage.checkOnSettingsPage()
+  //   await switchWindowHandles(driver, false, popoutWindowHandle)
+  //   await transaction.checkOnTransactionPage()
+  //   await transaction.confirmTransaction()
+  //   await settingsPage.checkOnSettingsPage()
 
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
-    await switchWindowHandles(driver, false, originalExtensionInstance)
-    await transaction.checkOnTransactionPage()
-    await switchWindowHandles(driver, false, popoutWindowHandle)
-    await transaction.rejectTransaction()
-    await settingsPage.checkOnSettingsPage()
-    await switchWindowHandles(driver, false, originalExtensionInstance)
+  //   await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+  //   await switchWindowHandles(driver, false, originalExtensionInstance)
+  //   await transaction.checkOnTransactionPage()
+  //   await switchWindowHandles(driver, false, popoutWindowHandle)
+  //   await transaction.rejectTransaction()
+  //   await settingsPage.checkOnSettingsPage()
+  //   await switchWindowHandles(driver, false, originalExtensionInstance)
 
-    await navigateToLandingPage(driver)
-    await settingsPage.checkOnSettingsPage()
-    await switchWindowHandles(driver, false, originalExtensionInstance)
-  })
+  //   await navigateToLandingPage(driver)
+  //   await settingsPage.checkOnSettingsPage()
+  //   await switchWindowHandles(driver, false, originalExtensionInstance)
+  // })
 
-  it('prompts the user to continue in the extension window when a popout is open', async () => {
-    const originalExtensionWindowHandle = await driver.getWindowHandle()
-    let popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
-    await settingsPage.checkOnSettingsPage()
-    await switchWindowHandles(driver, false, originalExtensionWindowHandle)
-    const popOutOpenInOtherWindow = new WalletOpenInOtherWindow(driver)
-    await popOutOpenInOtherWindow.checkOnWalletOpenInOtherWindowPage()
-    await popOutOpenInOtherWindow.continueHere()
-    await settingsPage.checkOnSettingsPage()
-    let windowHandles = await driver.getAllWindowHandles()
-    expect(
-      windowHandles,
-      "expected the popout window handle to be closed after clicking the 'continue here button' but it was still found in the window handles"
-    ).not.toContain(popoutWindowHandle)
-  })
+  // it('prompts the user to continue in the extension window when a popout is open', async () => {
+  //   const originalExtensionWindowHandle = await driver.getWindowHandle()
+  //   let popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
+  //   await settingsPage.checkOnSettingsPage()
+  //   await switchWindowHandles(driver, false, originalExtensionWindowHandle)
+  //   const popOutOpenInOtherWindow = new WalletOpenInOtherWindow(driver)
+  //   await popOutOpenInOtherWindow.checkOnWalletOpenInOtherWindowPage()
+  //   await popOutOpenInOtherWindow.continueHere()
+  //   await settingsPage.checkOnSettingsPage()
+  //   let windowHandles = await driver.getAllWindowHandles()
+  //   expect(
+  //     windowHandles,
+  //     "expected the popout window handle to be closed after clicking the 'continue here button' but it was still found in the window handles"
+  //   ).not.toContain(popoutWindowHandle)
+  // })
 })

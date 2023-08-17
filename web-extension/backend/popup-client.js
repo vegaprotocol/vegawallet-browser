@@ -1,6 +1,5 @@
 import JSONRPCClient from '../../lib/json-rpc-client.js'
 import assert from 'nanoassert'
-import { isRequest } from '../../lib/json-rpc.js'
 
 export class PopupClient {
   constructor({ onbeforerequest, onafterrequest }) {

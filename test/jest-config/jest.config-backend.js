@@ -17,6 +17,7 @@ export default {
       }
     ]
   ],
+  setupFiles: ['jest-webextension-mock', './web-extension/test/setup-tests.js'],
   collectCoverageFrom: ['**/*.js', '!**/node_modules/**'],
   coverageDirectory: 'coverage/backend',
   coverageReporters: ['html', 'lcov'],

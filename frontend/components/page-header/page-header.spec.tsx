@@ -1,5 +1,4 @@
-// import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { PageHeader, locators } from '.'
 import config from '../../lib/config'
 import componentLocators from '../locators'
@@ -48,42 +47,42 @@ describe('PageHeader', () => {
     expect(networkIndicatorElement).toHaveTextContent(config.network.name)
   })
 
-  // test('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
-  //   mockPopoverStore(false)
-  //   config.closeWindowOnPopupOpen = true
-  //   global.close = jest.fn()
+  test.skip('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
+    mockPopoverStore(false)
+    config.closeWindowOnPopupOpen = true
+    global.close = jest.fn()
 
-  //   const mockRequest = jest.fn()
-  //   ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-  //   render(<PageHeader />)
+    const mockRequest = jest.fn()
+    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
+    render(<PageHeader />)
 
-  //   fireEvent.click(screen.getByTestId(locators.openPopoutButton))
+    fireEvent.click(screen.getByTestId(locators.openPopoutButton))
 
-  //   await waitFor(() => expect(global.close).toHaveBeenCalled())
-  // })
+    await waitFor(() => expect(global.close).toHaveBeenCalled())
+  })
 
-  // test('when opening in new window does not close the window if config.closeWindowOnPopupOpen is false', async () => {
-  //   mockPopoverStore(false)
-  //   config.closeWindowOnPopupOpen = false
-  //   global.close = jest.fn()
+  test.skip('when opening in new window does not close the window if config.closeWindowOnPopupOpen is false', async () => {
+    mockPopoverStore(false)
+    config.closeWindowOnPopupOpen = false
+    global.close = jest.fn()
 
-  //   const mockRequest = jest.fn()
-  //   ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-  //   render(<PageHeader />)
+    const mockRequest = jest.fn()
+    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
+    render(<PageHeader />)
 
-  //   fireEvent.click(screen.getByTestId(locators.openPopoutButton))
+    fireEvent.click(screen.getByTestId(locators.openPopoutButton))
 
-  //   await waitFor(() => expect(global.close).not.toHaveBeenCalled())
-  // })
+    await waitFor(() => expect(global.close).not.toHaveBeenCalled())
+  })
 
-  // test('renders close button if popover is open', async () => {
-  //   const mockClose = mockPopoverStore(true)
-  //   const mockRequest = jest.fn()
-  //   ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-  //   render(<PageHeader />)
+  test.skip('renders close button if popover is open', async () => {
+    const mockClose = mockPopoverStore(true)
+    const mockRequest = jest.fn()
+    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
+    render(<PageHeader />)
 
-  //   fireEvent.click(screen.getByTestId(locators.openPopoutButton))
+    fireEvent.click(screen.getByTestId(locators.openPopoutButton))
 
-  //   await waitFor(() => expect(mockClose).toHaveBeenCalled())
-  // })
+    await waitFor(() => expect(mockClose).toHaveBeenCalled())
+  })
 })

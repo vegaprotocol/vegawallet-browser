@@ -8,6 +8,11 @@ declare module '!/config' {
     logging: boolean
     userDataPolicy: string
     showDisclaimer: boolean
+    features:
+      | {
+          [key: string]: boolean
+        }
+      | undefined
   }
 
   export interface Network {

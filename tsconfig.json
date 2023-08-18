@@ -13,8 +13,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": false,
-    "sourceMap": false,
-    "inlineSourceMap": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "allowImportingTsExtensions": true

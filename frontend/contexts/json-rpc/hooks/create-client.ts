@@ -55,7 +55,7 @@ export const useCreateClient = () => {
         return result
       } catch (e) {
         if (!propagate) {
-          setError(e as unknown as Error)
+          setError(e as Error)
         } else {
           throw e
         }

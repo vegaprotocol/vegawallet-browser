@@ -2,13 +2,15 @@ import path from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 
 function rebuildLcovFilePaths(coverageFilePath) {
-  const lcovFile = path.resolve(__dirname, coverageFilePath);
+  const scriptUrl = new URL(import.meta.url);
+  const scriptDir = path.dirname(scriptUrl.pathname);
+  const lcovFile = path.resolve(scriptDir, coverageFilePath);
   const rawFile = readFileSync(lcovFile, 'utf8');
   const rebuiltPaths = rawFile
     .split('\n')
     .map((singleLine) => {
       if (singleLine.startsWith('SF:')) {
-        return singleLine.replace('SF:', `SF:${__dirname}/`);
+        return singleLine.replace('SF:', `SF:${scriptDir}/`);
       }
       return singleLine;
     })

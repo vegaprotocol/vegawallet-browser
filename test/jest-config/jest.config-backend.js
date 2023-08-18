@@ -19,7 +19,7 @@ export default {
   ],
   collectCoverageFrom: ['**/*.js', '!**/node_modules/**'],
   coverageDirectory: 'coverage/backend',
-  coverageReporters: ['html'],
+  coverageReporters: ['html', 'lcov'],
   transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/'],
   moduleNameMapper: {
     '!/config': '<rootDir>/config/test.js'

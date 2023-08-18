@@ -100,6 +100,11 @@ jobs:
           name: code-coverage-report-backend
           path: coverage-backend
 
+      - name: print directory contents, frontend should be listed
+        run: |
+          pwd
+          ls
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

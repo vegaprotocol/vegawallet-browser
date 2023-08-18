@@ -1,5 +1,5 @@
-const path = require('path');
-const { readFileSync, writeFileSync } = require('fs');
+import path from 'path';
+import { readFileSync, writeFileSync } from 'fs';
 
 function rebuildLcovFilePaths(coverageFilePath) {
   const lcovFile = path.resolve(__dirname, coverageFilePath);
@@ -13,7 +13,7 @@ function rebuildLcovFilePaths(coverageFilePath) {
       return singleLine;
     })
     .join('\n');
-  
+
   writeFileSync(lcovFile, rebuiltPaths, 'utf8');
 }
 

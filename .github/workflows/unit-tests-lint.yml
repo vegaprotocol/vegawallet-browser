@@ -94,6 +94,13 @@ jobs:
           name: code-coverage-report
           path: coverage
 
+      - name: debugging
+        run: |
+          cd coverage
+          echo "coverage"
+          ls
+          pwd
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

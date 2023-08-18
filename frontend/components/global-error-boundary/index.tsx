@@ -1,5 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react'
-import { ErrorModal } from '../error-modal'
+import { ErrorModal } from '../modals/error-modal'
 import { FULL_ROUTES } from '../../routes/route-names'
 import { captureException } from '@sentry/react'
 import { RouterProps, withRouter } from './with-router'

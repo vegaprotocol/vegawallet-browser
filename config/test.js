@@ -27,6 +27,9 @@ const test = {
     buildName: 'Test',
     geckoId: 'browser-extension-test@vega.xyz',
     iconPrefix: 'Fairground'
+  },
+  features: {
+    popoutHeader: true
   }
 }
 

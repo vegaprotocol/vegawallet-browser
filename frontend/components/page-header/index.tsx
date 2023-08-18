@@ -1,10 +1,10 @@
 import { VegaIcon } from '../icons/vega-icon'
-import config from '../../lib/config'
-// import { ExpandIcon } from '../icons/expand'
-// import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
-// import { RpcMethods } from '../../lib/client-rpc-methods'
-// import { usePopoverStore } from '../../stores/popover-store'
-// import { Cross } from '../icons/cross'
+import config from '!/config'
+import { ExpandIcon } from '../icons/expand'
+import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
+import { RpcMethods } from '../../lib/client-rpc-methods'
+import { usePopoverStore } from '../../stores/popover-store'
+import { Cross } from '../icons/cross'
 
 export const locators = {
   pageHeader: 'page-header',
@@ -12,23 +12,23 @@ export const locators = {
   openPopoutButton: 'open-popout-button'
 }
 
-// const useOpenInNewWindow = () => {
-//   const { request } = useJsonRpcClient()
+const useOpenInNewWindow = () => {
+  const { request } = useJsonRpcClient()
 
-//   return async () => {
-//     await request(RpcMethods.OpenPopout, null)
-//     if (config.closeWindowOnPopupOpen) {
-//       window.close()
-//     }
-//   }
-// }
+  return async () => {
+    await request(RpcMethods.OpenPopout, null)
+    if (config.closeWindowOnPopupOpen) {
+      window.close()
+    }
+  }
+}
 
 export const PageHeader = () => {
-  // const { isPopoverInstance, focusPopover } = usePopoverStore((state) => ({
-  //   isPopoverInstance: state.isPopoverInstance,
-  //   focusPopover: state.focusPopover
-  // }))
-  // const open = useOpenInNewWindow()
+  const { isPopoverInstance, focusPopover } = usePopoverStore((state) => ({
+    isPopoverInstance: state.isPopoverInstance,
+    focusPopover: state.focusPopover
+  }))
+  const open = useOpenInNewWindow()
   return (
     <div
       data-testid={locators.pageHeader}
@@ -42,13 +42,19 @@ export const PageHeader = () => {
         >
           {config.network.name}
         </div>
-        {/* <button
-          data-testid={locators.openPopoutButton}
-          onClick={isPopoverInstance ? focusPopover : open}
-          className="border rounded-md border-vega-dark-300 text-sm h-6 ml-3 px-1"
-        >
-          {isPopoverInstance ? <Cross className="h-4 w-4 flex justify-between items-center" /> : <ExpandIcon />}
-        </button> */}
+        {config.features?.popoutHeader ? (
+          <button
+            data-testid={locators.openPopoutButton}
+            onClick={isPopoverInstance ? focusPopover : open}
+            className="border rounded-md border-vega-dark-300 text-sm h-6 ml-3 px-1"
+          >
+            {isPopoverInstance ? (
+              <Cross className="h-4 w-4 flex justify-between items-center" />
+            ) : (
+              <ExpandIcon size={16} />
+            )}
+          </button>
+        ) : null}
       </div>
     </div>
   )

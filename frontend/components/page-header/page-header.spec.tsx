@@ -47,7 +47,7 @@ describe('PageHeader', () => {
     expect(networkIndicatorElement).toHaveTextContent(config.network.name)
   })
 
-  test.skip('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
+  test('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
     mockPopoverStore(false)
     config.closeWindowOnPopupOpen = true
     global.close = jest.fn()
@@ -61,7 +61,7 @@ describe('PageHeader', () => {
     await waitFor(() => expect(global.close).toHaveBeenCalled())
   })
 
-  test.skip('when opening in new window does not close the window if config.closeWindowOnPopupOpen is false', async () => {
+  test('when opening in new window does not close the window if config.closeWindowOnPopupOpen is false', async () => {
     mockPopoverStore(false)
     config.closeWindowOnPopupOpen = false
     global.close = jest.fn()
@@ -75,7 +75,7 @@ describe('PageHeader', () => {
     await waitFor(() => expect(global.close).not.toHaveBeenCalled())
   })
 
-  test.skip('renders close button if popover is open', async () => {
+  test('renders close button if popover is open', async () => {
     const mockClose = mockPopoverStore(true)
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })

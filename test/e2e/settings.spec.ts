@@ -64,7 +64,7 @@ describe('Settings test', () => {
   })
 
   // TODO this test shouldn't be hidden in settings tests as is available across all of the app
-  it.skip('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
+  it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
     // 1107-SETT-007 There is a way for me to open the browser wallet in a new window
     // 1107-SETT-002 If I have a new window open, if there is a transaction for me to approve or reject this is shown in the new window
     // 1107-SETT-003 If I approve the transaction the new window stays open (on the last view I was on)
@@ -100,7 +100,7 @@ describe('Settings test', () => {
   })
 
   // TODO this test shouldn't be hidden in settings tests as is available across all of the app
-  it.skip('prompts the user to continue in the extension window when a popout is open', async () => {
+  it('prompts the user to continue in the extension window when a popout is open', async () => {
     const originalExtensionWindowHandle = await driver.getWindowHandle()
     let popoutWindowHandle = await header.openAppInNewWindowAndSwitchToIt()
     await settingsPage.checkOnSettingsPage()

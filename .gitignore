@@ -6,11 +6,13 @@
 .pnp.js
 
 # testing
+/request-files
 /coverage
 /test/test-reports
 /test/test-screenshots
 /test/e2e/firefox-profile
 /.vscode/launch.json
+
 # production
 /build
 

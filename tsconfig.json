@@ -12,11 +12,11 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx",
     "allowImportingTsExtensions": true
   },
   "files": ["node_modules/jest-expect-message/types/index.d.ts", "frontend/index.d.ts", "frontend/lib/config.d.ts"],
-  "include": ["frontend", "test/*"]
+  "include": ["frontend", "test/*", "web-extension/*"]
 }

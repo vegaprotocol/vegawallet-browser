@@ -25,7 +25,7 @@ export default {
 
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],
   coverageDirectory: 'coverage/frontend',
-  coverageReporters: ['html'],
+  coverageReporters: ['html', 'lcov'],
   coverageThreshold: {
     global: {
       branches: 96,

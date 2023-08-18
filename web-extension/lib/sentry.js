@@ -1,4 +1,4 @@
-import config from '@/config'
+import config from '!/config'
 import { init, setTag } from '@sentry/browser'
 import { sanitizeEvent } from '../../lib/sanitize-event.js'
 import packageJson from '../../package.json'

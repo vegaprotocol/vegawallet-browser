@@ -105,6 +105,9 @@ jobs:
           pwd
           ls
 
+      - name: Run LCOV path rebuild script
+        run: node lcov-resolve.js
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

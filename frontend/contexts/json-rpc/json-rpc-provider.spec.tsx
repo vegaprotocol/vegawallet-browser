@@ -288,6 +288,96 @@ describe('JsonRpcProvider', () => {
     )
     expect(handleTransaction).toHaveBeenCalled()
   })
+  it('closes the window after an interaction if once is present in the URL', async () => {
+    global.close = jest.fn()
+    Object.defineProperty(window, 'location', {
+      value: {
+        href: 'http://localhost/index.html?once=1'
+      },
+      writable: true // possibility to override
+    })
+    mockModalStore()
+    mockErrorStore()
+    mockConnectionStore()
+
+    const TestComponent = ({ expect }: { expect: jest.Expect }) => {
+      const { server } = useJsonRpcClient()
+      server.onrequest({
+        jsonrpc: '2.0',
+        id: '1',
+        method: ServerRpcMethods.Transaction,
+        params: { details: 'some' }
+      })
+      return <div>Content</div>
+    }
+    const mock = {
+      runtime: {
+        connect: () => ({
+          postMessage: () => {},
+          onmessage: () => {},
+          onMessage: {
+            addListener: () => {}
+          },
+          onDisconnect: {
+            addListener: (fn: any) => {}
+          }
+        })
+      }
+    }
+    // @ts-ignore
+    global.browser = mock
+    render(
+      <JsonRPCProvider>
+        <TestComponent expect={expect} />
+      </JsonRPCProvider>
+    )
+    await waitFor(() => expect(window.close).toHaveBeenCalled())
+  })
+  it('does not close the window after an interaction if once is present in the URL', async () => {
+    global.close = jest.fn()
+    Object.defineProperty(window, 'location', {
+      value: {
+        href: 'http://localhost/index.html'
+      },
+      writable: true // possibility to override
+    })
+    mockModalStore()
+    mockErrorStore()
+    mockConnectionStore()
+
+    const TestComponent = ({ expect }: { expect: jest.Expect }) => {
+      const { server } = useJsonRpcClient()
+      server.onrequest({
+        jsonrpc: '2.0',
+        id: '1',
+        method: ServerRpcMethods.Transaction,
+        params: { details: 'some' }
+      })
+      return <div>Content</div>
+    }
+    const mock = {
+      runtime: {
+        connect: () => ({
+          postMessage: () => {},
+          onmessage: () => {},
+          onMessage: {
+            addListener: () => {}
+          },
+          onDisconnect: {
+            addListener: (fn: any) => {}
+          }
+        })
+      }
+    }
+    // @ts-ignore
+    global.browser = mock
+    render(
+      <JsonRPCProvider>
+        <TestComponent expect={expect} />
+      </JsonRPCProvider>
+    )
+    await waitFor(() => expect(window.close).toHaveBeenCalledTimes(0))
+  })
   it('sets error message if a request fails when using the request methods', async () => {
     mockClient()
     mockModalStore()

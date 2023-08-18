@@ -58,6 +58,17 @@ const TestComponent = ({ expect }: { expect: jest.Expect }) => {
   return <div>Content</div>
 }
 
+const TransactionConfirmComponent = ({ expect }: { expect: jest.Expect }) => {
+  const { server } = useJsonRpcClient()
+  server.onrequest({
+    jsonrpc: '2.0',
+    id: '1',
+    method: ServerRpcMethods.Transaction,
+    params: { details: 'some' }
+  })
+  return <div>Content</div>
+}
+
 describe('JsonRpcProvider', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -255,16 +266,6 @@ describe('JsonRpcProvider', () => {
     mockErrorStore()
     mockConnectionStore()
 
-    const TestComponent = ({ expect }: { expect: jest.Expect }) => {
-      const { server } = useJsonRpcClient()
-      server.onrequest({
-        jsonrpc: '2.0',
-        id: '1',
-        method: ServerRpcMethods.Transaction,
-        params: { details: 'some' }
-      })
-      return <div>Content</div>
-    }
     const mock = {
       runtime: {
         connect: () => ({
@@ -283,7 +284,7 @@ describe('JsonRpcProvider', () => {
     global.browser = mock
     render(
       <JsonRPCProvider>
-        <TestComponent expect={expect} />
+        <TransactionConfirmComponent expect={expect} />
       </JsonRPCProvider>
     )
     expect(handleTransaction).toHaveBeenCalled()
@@ -300,16 +301,6 @@ describe('JsonRpcProvider', () => {
     mockErrorStore()
     mockConnectionStore()
 
-    const TestComponent = ({ expect }: { expect: jest.Expect }) => {
-      const { server } = useJsonRpcClient()
-      server.onrequest({
-        jsonrpc: '2.0',
-        id: '1',
-        method: ServerRpcMethods.Transaction,
-        params: { details: 'some' }
-      })
-      return <div>Content</div>
-    }
     const mock = {
       runtime: {
         connect: () => ({
@@ -328,7 +319,7 @@ describe('JsonRpcProvider', () => {
     global.browser = mock
     render(
       <JsonRPCProvider>
-        <TestComponent expect={expect} />
+        <TransactionConfirmComponent expect={expect} />
       </JsonRPCProvider>
     )
     await waitFor(() => expect(window.close).toHaveBeenCalled())
@@ -345,16 +336,6 @@ describe('JsonRpcProvider', () => {
     mockErrorStore()
     mockConnectionStore()
 
-    const TestComponent = ({ expect }: { expect: jest.Expect }) => {
-      const { server } = useJsonRpcClient()
-      server.onrequest({
-        jsonrpc: '2.0',
-        id: '1',
-        method: ServerRpcMethods.Transaction,
-        params: { details: 'some' }
-      })
-      return <div>Content</div>
-    }
     const mock = {
       runtime: {
         connect: () => ({
@@ -373,7 +354,7 @@ describe('JsonRpcProvider', () => {
     global.browser = mock
     render(
       <JsonRPCProvider>
-        <TestComponent expect={expect} />
+        <TransactionConfirmComponent expect={expect} />
       </JsonRPCProvider>
     )
     await waitFor(() => expect(window.close).toHaveBeenCalledTimes(0))

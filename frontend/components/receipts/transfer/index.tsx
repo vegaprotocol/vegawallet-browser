@@ -36,12 +36,12 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
       <h1 className="text-vega-dark-300" data-testid={locators.transferTitle}>
         Transfer
       </h1>
-      <div className="text-lg">
+      <div className="text-xl">
         <PriceWithSymbol price={0.0182199822} symbol="tDAI" />
       </div>
-      <h1 className="text-vega-dark-300">To</h1>
+      <h1 className="text-vega-dark-300 mt-4">To</h1>
       <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
-      <h1 className="text-vega-dark-300" data-testid={locators.whenSection}>
+      <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
         When
       </h1>
       <p data-testid={locators.whenElement}>

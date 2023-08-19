@@ -14,7 +14,7 @@ export const VegaKey = ({ publicKey, name, children }: { publicKey: string; name
     <div className="flex items-center">
       <KeyIcon publicKey={publicKey} />
       <div className="ml-4">
-        <div data-testid={locators.keyName} className="text-lg text-white">
+        <div data-testid={locators.keyName} className="text-white">
           {name}
         </div>
         <ExternalLink

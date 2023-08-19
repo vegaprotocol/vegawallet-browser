@@ -6,9 +6,10 @@ import { PriceWithSymbol } from '../utils/price-with-symbol'
 import { VegaKey } from '../../keys/vega-key'
 
 const getTime = (transaction: Transaction) => {
-  const deliverOn = transaction?.transfer?.oneOff?.deliverOn
+  const deliverOn = transaction.transfer.oneOff?.deliverOn
   if (deliverOn) {
-    const date = new Date(deliverOn)
+    const deliverOnInSeconds = Math.floor(deliverOn / 1000)
+    const date = new Date(deliverOnInSeconds)
     if (isBefore(date, new Date())) return null
     return date
   }

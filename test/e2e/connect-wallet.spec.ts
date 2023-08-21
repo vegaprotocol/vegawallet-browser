@@ -143,51 +143,62 @@ describe('Connect wallet', () => {
     await viewWallet.checkOnViewWalletPage()
   })
 
-  it('popout opens when a connection request is sent if not already in the extension', async () => {
-    // The browser wallet opens in a pop-up window when there is a connection request
-    // If I approve the connection the pop-up window closes
-    await setUpWalletAndKey()
+  describe('connection request popout', () => {
+    let dappHandle = ''
 
-    const dappHandle = await createDappWindowHandle()
-    await driver.close()
-    await switchWindowHandles(driver, false, dappHandle)
+    beforeEach(async () => {
+      await setUpWalletAndKey()
+    })
 
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
-    await vegaAPI.connectWallet(false, false)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    it('connect request opens in popout and can be approved when extension not already open', async () => {
+      // 1113-POPT-001 The browser wallet opens in a pop-up window when there is a connection request
+      // 1113-POPT-003 If I approve the connection the pop-up window closes
+      await sendConnectionRequestAndCheckPopoutWindowHandlePresent()
 
-    await openLatestWindowHandle(driver)
-    await connectWallet.checkOnConnectWallet()
-    await connectWallet.approveConnectionAndCheckSuccess()
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+      await openLatestWindowHandle(driver)
+      await connectWallet.checkOnConnectWallet()
+      await connectWallet.approveConnectionAndCheckSuccess()
+      expect(await windowHandleHasCount(driver, 1)).toBe(true)
 
-    await switchWindowHandles(driver, false, dappHandle)
-    await navigateToLandingPage(driver)
-    expect((await apiHelper.listConnections()).length).toBe(1)
-  })
+      await switchWindowHandles(driver, false, dappHandle)
+      await navigateToLandingPage(driver)
+      expect((await apiHelper.listConnections()).length).toBe(1)
+    })
 
-  it('connection request persists when popout dismissed', async () => {
-    // The browser wallet opens in a pop-up window when there is a connection request
-    // If I close the pop-up window the connection persists
-    await setUpWalletAndKey()
+    it('connection request persists when popout dismissed', async () => {
+      // 1113-POPT-002 If I close the pop-up window the connection persists
+      await sendConnectionRequestAndCheckPopoutWindowHandlePresent()
 
-    const dappHandle = await createDappWindowHandle()
-    await driver.close()
-    await switchWindowHandles(driver, false, dappHandle)
+      await openLatestWindowHandle(driver)
+      await connectWallet.checkOnConnectWallet()
+      await driver.close()
+      expect(await windowHandleHasCount(driver, 1)).toBe(true)
 
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
-    await vegaAPI.connectWallet(false, false)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+      await switchWindowHandles(driver, false, dappHandle)
+      await navigateToLandingPage(driver)
+      await connectWallet.checkOnConnectWallet()
+    })
 
-    await openLatestWindowHandle(driver)
-    await connectWallet.checkOnConnectWallet()
-    await driver.close()
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+    it('connect request opens in popout and can be denied when extension not already open', async () => {
+      // 1113-POPT-004 If I reject the connection the pop-up window closes
+      await sendConnectionRequestAndCheckPopoutWindowHandlePresent()
 
-    await switchWindowHandles(driver, false, dappHandle)
-    await navigateToLandingPage(driver)
-    await connectWallet.checkOnConnectWallet()
-    await staticWait(3000)
+      await openLatestWindowHandle(driver)
+      await connectWallet.checkOnConnectWallet()
+      await connectWallet.denyConnection()
+      expect(await windowHandleHasCount(driver, 1)).toBe(true)
+      await switchWindowHandles(driver, false, dappHandle)
+    })
+
+    async function sendConnectionRequestAndCheckPopoutWindowHandlePresent() {
+      dappHandle = await createDappWindowHandle()
+      await driver.close()
+      await switchWindowHandles(driver, false, dappHandle)
+
+      expect(await windowHandleHasCount(driver, 1)).toBe(true)
+      await vegaAPI.connectWallet(false, false)
+      expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    }
   })
 
   async function createDappWindowHandle() {

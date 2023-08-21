@@ -4,6 +4,7 @@ import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
 import { PriceWithSymbol } from '../utils/price-with-symbol'
 import { VegaKey } from '../../keys/vega-key'
+import { getDateTimeFormat } from '@vegaprotocol/utils'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn
@@ -45,7 +46,13 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
         When
       </h1>
       <p data-testid={locators.whenElement}>
-        {time ? <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> : 'Now'}
+        {time ? (
+          <>
+            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({getDateTimeFormat().format(new Date(time))})
+          </>
+        ) : (
+          'Now'
+        )}
       </p>
     </section>
   )

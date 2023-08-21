@@ -71,7 +71,7 @@ describe('TransferReceipt', () => {
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
   })
-  it('if transfer is in future then it renders relative time', () => {
+  it('if transfer is in future then it renders relative & absolute time', () => {
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -82,6 +82,7 @@ describe('TransferReceipt', () => {
     }
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('in 3 months')
+    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('4/11/1970, 1:00:00 AM')
   })
   it('if deliverOn is not provided renders now', () => {
     const oneOffTransfer = {

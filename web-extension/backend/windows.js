@@ -25,12 +25,6 @@ export const createWindow = (top = undefined, left = undefined, once = false) =>
   })
 }
 
-export const focusWindow = async (win) => {
-  await windows.update(win.id, {
-    focused: true
-  })
-}
-
 export const createNotificationWindow = async () => {
   let left = 0
   let top = 0

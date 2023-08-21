@@ -4,8 +4,8 @@ import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
 import { VegaKey } from '../../keys/vega-key'
 import { getDateTimeFormat } from '@vegaprotocol/utils'
-import { VegaSection } from '../../vega-section'
 import { AmountWithTooltip } from '../utils/amount-with-tooltip'
+import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn
@@ -19,12 +19,6 @@ const getTime = (transaction: Transaction) => {
 }
 
 export const locators = {
-  transferSection: 'transfer-section',
-  transferTitle: 'transfer-title',
-  assetSymbol: 'asset-symbol',
-  assetAmount: 'asset-amount',
-  receivingKeySection: 'receiving-key-section',
-  publicKey: 'public-key',
   whenSection: 'when-section',
   whenElement: 'when-element'
 }
@@ -35,30 +29,24 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
   const time = getTime(transaction)
   const { asset, amount } = transaction.transfer
   return (
-    <VegaSection>
-      <section data-testid={locators.transferSection}>
-        <h1 className="text-vega-dark-300" data-testid={locators.transferTitle}>
-          Transfer
-        </h1>
+    <ReceiptWrapper type="Transfer">
+      <h1 className="text-vega-dark-300 mt-4">To</h1>
+      <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
         <div className="text-2xl text-white">
           <AmountWithTooltip assetId={asset} amount={amount} />
         </div>
-        <h1 className="text-vega-dark-300 mt-4">To</h1>
-        <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
-        <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
-          When
-        </h1>
-        <p data-testid={locators.whenElement}>
-          {time ? (
-            <>
-              <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> (
-              {getDateTimeFormat().format(new Date(time))})
-            </>
-          ) : (
-            'Now'
-          )}
-        </p>
-      </section>
-    </VegaSection>
+      <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
+        When
+      </h1>
+      <p data-testid={locators.whenElement}>
+        {time ? (
+          <>
+            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({getDateTimeFormat().format(new Date(time))})
+          </>
+        ) : (
+          'Now'
+        )}
+      </p>
+    </ReceiptWrapper>
   )
 }

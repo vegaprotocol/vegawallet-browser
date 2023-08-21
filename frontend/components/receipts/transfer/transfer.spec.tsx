@@ -3,9 +3,9 @@ import { AccountType } from '@vegaprotocol/protos/vega/AccountType.js'
 import { render, screen } from '@testing-library/react'
 import { Transfer, locators } from '.'
 
-jest.mock('../../vega-section', () => ({
-  VegaSection: ({ children }: { children: React.ReactNode }) => {
-    return <div data-testid="vega-section">{children}</div>
+jest.mock('../utils/receipt-wrapper', () => ({
+  ReceiptWrapper: ({ children }: { children: React.ReactNode }) => {
+    return <div data-testid="receipt-wrapper">{children}</div>
   }
 }))
 
@@ -62,10 +62,8 @@ describe('TransferReceipt', () => {
       }
     }
     render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId('vega-section')).toBeVisible()
+    expect(screen.getByTestId('receipt-wrapper')).toBeVisible()
     expect(screen.getByTestId('amount-with-tooltip')).toBeVisible()
-    expect(screen.getByTestId(locators.transferSection)).toBeVisible()
-    expect(screen.getByTestId(locators.transferTitle)).toHaveTextContent('Transfer')
     expect(screen.getByTestId('VegaKey')).toHaveTextContent(
       '1111111111111111111111111111111111111111111111111111111111111111'
     )

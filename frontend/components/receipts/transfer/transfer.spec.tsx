@@ -3,6 +3,12 @@ import { AccountType } from '@vegaprotocol/protos/dist/vega/AccountType.js'
 import { render, screen } from '@testing-library/react'
 import { Transfer, locators } from '.'
 
+jest.mock('../../vega-section', () => ({
+  VegaSection: ({ children }: { children: React.ReactNode }) => {
+    return <div data-testid="vega-section">{children}</div>
+  }
+}))
+
 jest.mock('../utils/price-with-symbol', () => ({
   PriceWithSymbol: () => <div data-testid="PriceWithSymbol" />
 }))
@@ -41,7 +47,7 @@ describe('TransferReceipt', () => {
     const { container } = render(<Transfer transaction={recurringTransfer} />)
     expect(container).toBeEmptyDOMElement()
   })
-  it('should render title, price, receiving key and when the transaction is scheduled to be delivered', () => {
+  it('should render vega section, title, price, receiving key and when the transaction is scheduled to be delivered', () => {
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -51,6 +57,7 @@ describe('TransferReceipt', () => {
       }
     }
     render(<Transfer transaction={oneOffTransfer} />)
+    expect(screen.getByTestId('vega-section')).toBeVisible()
     expect(screen.getByTestId(locators.transferSection)).toBeVisible()
     expect(screen.getByTestId(locators.transferTitle)).toHaveTextContent('Transfer')
     expect(screen.getByTestId('VegaKey')).toHaveTextContent(

@@ -4,6 +4,7 @@ import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
 import { VegaKey } from '../../keys/vega-key'
 import { getDateTimeFormat } from '@vegaprotocol/utils'
+import { VegaSection } from '../../vega-section'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn
@@ -32,24 +33,27 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
   if (transaction.transfer.recurring) return null
   const time = getTime(transaction)
   return (
-    <section data-testid={locators.transferSection}>
-      <h1 className="text-vega-dark-300" data-testid={locators.transferTitle}>
-        Transfer
-      </h1>
-      <h1 className="text-vega-dark-300 mt-4">To</h1>
-      <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
-      <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
-        When
-      </h1>
-      <p data-testid={locators.whenElement}>
-        {time ? (
-          <>
-            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({getDateTimeFormat().format(new Date(time))})
-          </>
-        ) : (
-          'Now'
-        )}
-      </p>
-    </section>
+    <VegaSection>
+      <section data-testid={locators.transferSection}>
+        <h1 className="text-vega-dark-300" data-testid={locators.transferTitle}>
+          Transfer
+        </h1>
+        <h1 className="text-vega-dark-300 mt-4">To</h1>
+        <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
+        <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
+          When
+        </h1>
+        <p data-testid={locators.whenElement}>
+          {time ? (
+            <>
+              <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> (
+              {getDateTimeFormat().format(new Date(time))})
+            </>
+          ) : (
+            'Now'
+          )}
+        </p>
+      </section>
+    </VegaSection>
   )
 }

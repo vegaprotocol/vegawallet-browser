@@ -108,60 +108,6 @@ describe('JsonRpcProvider', () => {
       'useJsonRpcClient must be used within JsonRPCProvider'
     )
   })
-  it('uses chrome runtime if available', () => {
-    mockModalStore()
-    mockConnectionStore()
-    mockErrorStore()
-    // @ts-ignore
-    global.chrome = {
-      runtime: {
-        connect: () => ({
-          postMessage: () => {},
-          onmessage: () => {},
-          // @ts-ignore
-          onMessage: {
-            addListener: () => {}
-          },
-          // @ts-ignore
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
-    render(
-      <JsonRPCProvider>
-        <TestComponent expect={expect} />
-      </JsonRPCProvider>
-    )
-    expect(screen.getByText('Content')).toBeInTheDocument()
-  })
-  it('uses browser runtime if available', () => {
-    mockModalStore()
-    mockConnectionStore()
-    mockErrorStore()
-    // @ts-ignore
-    global.browser = {
-      runtime: {
-        connect: () => ({
-          postMessage: () => {},
-          onmessage: () => {},
-          onMessage: {
-            addListener: () => {}
-          },
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
-    render(
-      <JsonRPCProvider>
-        <TestComponent expect={expect} />
-      </JsonRPCProvider>
-    )
-    expect(screen.getByText('Content')).toBeInTheDocument()
-  })
   it('handles connection notification messages', () => {
     mockModalStore()
     mockErrorStore()

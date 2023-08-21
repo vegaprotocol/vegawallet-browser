@@ -3,7 +3,7 @@ import { WalletCollection } from './backend/wallets.js'
 import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from '../lib/port-server.js'
 import { PopupClient } from './backend/popup-client.js'
-import { createNotificationWindow, getNotificationWindow } from './backend/windows.js'
+import { createNotificationWindow } from './backend/windows.js'
 
 import StorageLocalMap from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'

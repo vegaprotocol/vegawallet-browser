@@ -85,4 +85,22 @@ describe('PageHeader', () => {
 
     await waitFor(() => expect(mockClose).toHaveBeenCalled())
   })
+  test('does not render open in new window if feature is turned off', async () => {
+    mockPopoverStore(true)
+    config.features = {
+      popoutHeader: false
+    }
+    const mockRequest = jest.fn()
+    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
+    render(<PageHeader />)
+    expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
+  })
+  test('does not render open in new window if feature is not defined', async () => {
+    mockPopoverStore(true)
+    config.features = undefined
+    const mockRequest = jest.fn()
+    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
+    render(<PageHeader />)
+    expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
+  })
 })

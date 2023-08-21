@@ -47,7 +47,8 @@ describe('TransferReceipt', () => {
     const { container } = render(<Transfer transaction={recurringTransfer} />)
     expect(container).toBeEmptyDOMElement()
   })
-  it('should render vega section, title, price, receiving key and when the transaction is scheduled to be delivered', () => {
+  it('should render vega section, title, receiving key and when the transaction is scheduled to be delivered', () => {
+    // 1113-RCPT-005 I can see the receiving key of the transfer
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -66,6 +67,7 @@ describe('TransferReceipt', () => {
     expect(screen.getByTestId(locators.whenSection)).toHaveTextContent('When')
   })
   it('if transfer time is in the past renders now', () => {
+    // 1113-RCPT-006 For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -77,7 +79,17 @@ describe('TransferReceipt', () => {
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
   })
+  it('if deliverOn is not provided renders now', () => {
+    const oneOffTransfer = {
+      transfer: {
+        ...baseTransfer
+      }
+    }
+    render(<Transfer transaction={oneOffTransfer} />)
+    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
+  })
   it('if transfer is in future then it renders relative & absolute time', () => {
+    // 1113-RCPT-007 For a oneOff transfer which is has a delivery date in the future there is a way to see when the transfer will be delivered
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -89,14 +101,5 @@ describe('TransferReceipt', () => {
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('in 3 months')
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('4/11/1970, 1:00:00 AM')
-  })
-  it('if deliverOn is not provided renders now', () => {
-    const oneOffTransfer = {
-      transfer: {
-        ...baseTransfer
-      }
-    }
-    render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
   })
 })

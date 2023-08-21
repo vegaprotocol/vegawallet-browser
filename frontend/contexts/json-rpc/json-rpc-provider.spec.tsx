@@ -72,11 +72,6 @@ const TransactionConfirmComponent = ({ expect }: { expect: jest.Expect }) => {
 describe('JsonRpcProvider', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-  })
-  it('renders and provides client', () => {
-    mockModalStore()
-    mockConnectionStore()
-    mockErrorStore()
     // @ts-ignore
     global.browser = {
       runtime: {
@@ -92,6 +87,12 @@ describe('JsonRpcProvider', () => {
         })
       }
     }
+  })
+  it('renders and provides client', () => {
+    mockModalStore()
+    mockConnectionStore()
+    mockErrorStore()
+
     render(
       <JsonRPCProvider>
         <TestComponent expect={expect} />
@@ -140,22 +141,7 @@ describe('JsonRpcProvider', () => {
       }, [client])
       return <div>Content</div>
     }
-    const mock = {
-      runtime: {
-        connect: () => ({
-          postMessage: () => {},
-          onmessage: () => {},
-          onMessage: {
-            addListener: () => {}
-          },
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
-    // @ts-ignore
-    global.browser = mock
+
     render(
       <JsonRPCProvider>
         <TestComponent expect={expect} />
@@ -184,22 +170,7 @@ describe('JsonRpcProvider', () => {
       })
       return <div>Content</div>
     }
-    const mock = {
-      runtime: {
-        connect: () => ({
-          postMessage: () => {},
-          onmessage: () => {},
-          onMessage: {
-            addListener: () => {}
-          },
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
-    // @ts-ignore
-    global.browser = mock
+
     render(
       <JsonRPCProvider>
         <TestComponent expect={expect} />
@@ -212,22 +183,6 @@ describe('JsonRpcProvider', () => {
     mockErrorStore()
     mockConnectionStore()
 
-    const mock = {
-      runtime: {
-        connect: () => ({
-          postMessage: () => {},
-          onmessage: () => {},
-          onMessage: {
-            addListener: () => {}
-          },
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
-    // @ts-ignore
-    global.browser = mock
     render(
       <JsonRPCProvider>
         <TransactionConfirmComponent expect={expect} />
@@ -247,22 +202,6 @@ describe('JsonRpcProvider', () => {
     mockErrorStore()
     mockConnectionStore()
 
-    const mock = {
-      runtime: {
-        connect: () => ({
-          postMessage: () => {},
-          onmessage: () => {},
-          onMessage: {
-            addListener: () => {}
-          },
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
-    // @ts-ignore
-    global.browser = mock
     render(
       <JsonRPCProvider>
         <TransactionConfirmComponent expect={expect} />
@@ -282,22 +221,6 @@ describe('JsonRpcProvider', () => {
     mockErrorStore()
     mockConnectionStore()
 
-    const mock = {
-      runtime: {
-        connect: () => ({
-          postMessage: () => {},
-          onmessage: () => {},
-          onMessage: {
-            addListener: () => {}
-          },
-          onDisconnect: {
-            addListener: (fn: any) => {}
-          }
-        })
-      }
-    }
-    // @ts-ignore
-    global.browser = mock
     render(
       <JsonRPCProvider>
         <TransactionConfirmComponent expect={expect} />

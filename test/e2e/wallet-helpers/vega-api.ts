@@ -28,6 +28,10 @@ export class VegaAPI {
     })
   }
 
+  async getVegaExtensionWindowHandle() {
+    return this.vegaExtensionWindowHandle
+  }
+
   async openNewWindow() {
     this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver)
     await this.driver.get(this.dappUrl)
@@ -133,7 +137,7 @@ export class VegaAPI {
       return keysArray
     }
 
-    console.log("keys string is ", keysString)
+    console.log('keys string is ', keysString)
     keysArray = JSON.parse(keysString).keys as Key[]
     return keysArray
   }

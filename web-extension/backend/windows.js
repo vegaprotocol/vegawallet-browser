@@ -1,15 +1,6 @@
 const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
-export const getNotificationWindow = async () => {
-  const allWindows = await windows.getAll()
-  const win = allWindows.find((win) => win.type === 'popup')
-  if (!win) {
-    throw new Error('Could not find popup window present')
-  }
-  return win
-}
-
 export const createWindow = (top = undefined, left = undefined, once = false) => {
   const url = once ? '/index.html?once=1' : '/index.html'
   return windows.create({

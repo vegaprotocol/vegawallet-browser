@@ -46,6 +46,10 @@ jest.mock('../../page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
 }))
 
+jest.mock('./enriched-details', () => ({
+  EnrichedDetails: () => <div data-testid="enriched-details" />
+}))
+
 describe('TransactionModal', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -68,13 +72,16 @@ describe('TransactionModal', () => {
 -- [ ] When it was received
 -- [ ] Raw JSON details
     1105-TRAN-012 I can copy the raw json to my clipboard
+    1113-RCPT-001 I can see a receipt like view on the transaction confirmation screen if one is present
 */
+
     const handleTransactionDecision = jest.fn()
     ;(useModalStore as unknown as jest.Mock).mockImplementation((fn) => {
       const res = { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision }
       return fn(res)
     })
     render(<TransactionModal />)
+    expect(screen.getByTestId('enriched-details')).toBeVisible()
     expect(screen.getByTestId('raw-transaction')).toBeVisible()
     expect(screen.getByTestId('transaction-header')).toBeVisible()
     expect(screen.getByTestId(genericLocators.pageHeader)).toBeVisible()

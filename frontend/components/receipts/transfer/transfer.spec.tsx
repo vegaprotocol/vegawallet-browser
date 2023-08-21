@@ -53,7 +53,6 @@ describe('TransferReceipt', () => {
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.transferSection)).toBeVisible()
     expect(screen.getByTestId(locators.transferTitle)).toHaveTextContent('Transfer')
-    expect(screen.getByTestId('PriceWithSymbol')).toBeInTheDocument()
     expect(screen.getByTestId('VegaKey')).toHaveTextContent(
       '1111111111111111111111111111111111111111111111111111111111111111'
     )

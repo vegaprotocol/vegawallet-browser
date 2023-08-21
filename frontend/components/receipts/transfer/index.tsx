@@ -2,7 +2,6 @@ import ReactTimeAgo from 'react-time-ago'
 import { isBefore } from 'date-fns'
 import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
-import { PriceWithSymbol } from '../utils/price-with-symbol'
 import { VegaKey } from '../../keys/vega-key'
 import { getDateTimeFormat } from '@vegaprotocol/utils'
 
@@ -37,9 +36,6 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
       <h1 className="text-vega-dark-300" data-testid={locators.transferTitle}>
         Transfer
       </h1>
-      <div className="text-xl">
-        <PriceWithSymbol price={0.0182199822} symbol="tDAI" />
-      </div>
       <h1 className="text-vega-dark-300 mt-4">To</h1>
       <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
       <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>

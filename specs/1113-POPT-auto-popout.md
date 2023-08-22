@@ -1,4 +1,4 @@
-## Sign Message
+## Auto popout
 
 As a user I want the wallet to automatically open if I send a request to the wallet from a dapp so that I can instantly action any requests
 

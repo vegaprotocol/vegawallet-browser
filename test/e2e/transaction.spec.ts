@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { dummyTransaction, navigateToExtensionLandingPage, setUpWalletAndKey } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
@@ -19,18 +19,6 @@ describe('transactions', () => {
   let apiHelper: APIHelper
   let transaction: Transaction
 
-  // TODO better typing
-  const transferReq = {
-    fromAccountType: 4,
-    toAccountType: 4,
-    amount: '1',
-    asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
-    to: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
-    kind: {
-      oneOff: {}
-    }
-  }
-
   beforeEach(async () => {
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
@@ -38,8 +26,8 @@ describe('transactions', () => {
     connectWallet = new ConnectWallet(driver)
     apiHelper = new APIHelper(driver)
     transaction = new Transaction(driver)
-    await navigateToLandingPage(driver)
-    await setUpWalletAndKey()
+    await navigateToExtensionLandingPage(driver)
+    await setUpWalletAndKey(driver)
     await vegaAPI.connectWalletAndCheckSuccess()
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
@@ -53,7 +41,7 @@ describe('transactions', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    //await driver.quit()
+    await driver.quit()
   })
 
   afterAll(async () => {
@@ -63,7 +51,7 @@ describe('transactions', () => {
   it('can confirm a transaction', async () => {
     // 1105-TRAN-001 When I view a transaction request I can choose to approve it
     const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
     await viewWallet.checkOnViewWalletPage()
@@ -80,7 +68,7 @@ describe('transactions', () => {
   it('the result of the transaction request is fed back to the UI', async () => {
     // 1105-TRAN-002 When I approve a transaction the transaction gets signed and the approved status gets fed back to the dapp that requested it
     const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
     const res = await vegaAPI.getTransactionResult()
@@ -92,15 +80,15 @@ describe('transactions', () => {
     // 1105-TRAN-003 When I approve a transaction after I have approved it we revert to the next transaction if there's a queue OR we revert to the key view (the front / homepage)
     // 1105-TRAN-006 When I reject a transaction after I have rejected it we revert to the next transaction if there's a queue OR we revert to the key view (start / home page)
     const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
     await viewWallet.checkOnViewWalletPage()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
     await transaction.checkOnTransactionPage()
@@ -112,7 +100,7 @@ describe('transactions', () => {
     // 1105-TRAN-004 When I view a transaction request I can choose to reject it
     // 1105-TRAN-005 When I reject a transaction the transaction does not get signed and the rejected status gets fed back to the dapp that requested it
     const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
     const resp = await vegaAPI.getTransactionResult()
@@ -123,8 +111,8 @@ describe('transactions', () => {
   it('can send a transaction to a locked wallet and respond on unlock', async () => {
     const keys = await vegaAPI.listKeys()
     await apiHelper.lockWallet()
-    await navigateToLandingPage(driver)
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await navigateToExtensionLandingPage(driver)
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     const login = new Login(driver)
     await login.login()
     await transaction.checkOnTransactionPage()
@@ -134,7 +122,7 @@ describe('transactions', () => {
 
   it("1105-TRAN-007 When the dapp requests a transaction with a key we don't know about, we don't see a request in the wallet but instead send an error back to the dapp", async () => {
     const keyThatDoesNotExistInWallet = await vegaAPI.generateEncodedHexPublicKey()
-    await vegaAPI.sendTransaction(keyThatDoesNotExistInWallet, { transfer: transferReq })
+    await vegaAPI.sendTransaction(keyThatDoesNotExistInWallet, { transfer: dummyTransaction })
     await viewWallet.checkOnViewWalletPage()
     const response = await vegaAPI.getTransactionResult()
     expect(response).toBe('Unknown public key')
@@ -144,18 +132,13 @@ describe('transactions', () => {
     // 1105-TRAN-009 When the user opens the extension (or it has automatically opened) they can immediately see a transaction request
     // 1105-TRAN-010 If the browser extension is closed during a transaction request, the request persists
     const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()
     await openNewWindowAndSwitchToIt(driver, true)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await apiHelper.lockWallet()
     await apiHelper.login()
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await transaction.checkOnTransactionPage()
   })
-
-  async function setUpWalletAndKey() {
-    await apiHelper.setUpWalletAndKey()
-    await navigateToLandingPage(driver)
-  }
 })

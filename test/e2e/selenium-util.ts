@@ -269,7 +269,7 @@ export async function switchWindowHandles(driver: WebDriver, closeCurrent = true
     }
   }
 
-  if (windowHandle) {
+  if (windowHandle != '') {
     await driver.switchTo().window(windowHandle)
   } else {
     await driver.switchTo().window((await driver.getAllWindowHandles())[0])

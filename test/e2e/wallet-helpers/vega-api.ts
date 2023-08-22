@@ -32,12 +32,6 @@ export class VegaAPI {
     return this.vegaExtensionWindowHandle
   }
 
-  async getCurrentVegaDappWindowHandle(withNewTab = true) {
-    return await this.controlTabs(withNewTab, false, async () => {
-      return await this.driver.getWindowHandle()
-    })
-  }
-
   async getVegaDappWindowHandle() {
     return this.vegaDappWindowHandle
   }

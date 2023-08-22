@@ -72,7 +72,7 @@ describe('check popout functionality', () => {
   })
 
   it('transaction request persists when popout dismissed without response', async () => {
-    // 1113-POPT-007 If I close the pop-up window the transaction persists
+    // 1113-POPT-006 If I close the pop-up window the transaction persists
     await sendTransactionAndCheckPopoutAppears()
     await openLatestWindowHandle(driver)
     await transaction.checkOnTransactionPage()

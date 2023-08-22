@@ -10,8 +10,6 @@ import { GetStarted } from './page-objects/get-started'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { Telemetry } from './page-objects/telemetry-opt-in'
-import { openLatestWindowHandle, staticWait, switchWindowHandles, windowHandleHasCount } from './selenium-util'
-import { Transaction } from './page-objects/transaction'
 
 describe('Connect wallet', () => {
   let driver: WebDriver

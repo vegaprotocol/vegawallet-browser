@@ -9,7 +9,6 @@ import { Transaction } from './page-objects/transaction'
 
 describe('check popout functionality', () => {
   let dappHandle = ''
-
   let driver: WebDriver
   let vegaAPI: VegaAPI
   let connectWallet: ConnectWallet
@@ -78,10 +77,9 @@ describe('check popout functionality', () => {
     await transaction.checkOnTransactionPage()
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
     await driver.close()
-    await openLatestWindowHandle(driver)
 
+    await switchWindowHandles(driver, false, dappHandle)
     expect(await windowHandleHasCount(driver, 1)).toBe(true)
-    await navigateToExtensionLandingPage(driver)
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
@@ -91,8 +89,9 @@ describe('check popout functionality', () => {
     await openLatestWindowHandle(driver)
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+
     await switchWindowHandles(driver, false, dappHandle)
+    expect(await windowHandleHasCount(driver, 1)).toBe(true)
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {
@@ -101,8 +100,9 @@ describe('check popout functionality', () => {
     await openLatestWindowHandle(driver)
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+
     await switchWindowHandles(driver, false, dappHandle)
+    expect(await windowHandleHasCount(driver, 1)).toBe(true)
   })
 
   async function sendTransactionAndCheckPopoutAppears() {

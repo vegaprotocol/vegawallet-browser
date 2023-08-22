@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot } from './driver'
-import { navigateToLandingPage, createWalletAndDriver } from './wallet-helpers/common'
+import { navigateToExtensionLandingPage, createWalletAndDriver } from './wallet-helpers/common'
 import { NavPanel } from './page-objects/navpanel'
 import { switchWindowHandles } from './selenium-util'
 import { VegaAPI } from './wallet-helpers/vega-api'
@@ -59,7 +59,7 @@ describe('Settings test', () => {
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
     await settingsPage.selectTelemetryYes()
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
   })
 
@@ -94,7 +94,7 @@ describe('Settings test', () => {
     await settingsPage.checkOnSettingsPage()
     await switchWindowHandles(driver, false, originalExtensionInstance)
 
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await settingsPage.checkOnSettingsPage()
     await switchWindowHandles(driver, false, originalExtensionInstance)
   })

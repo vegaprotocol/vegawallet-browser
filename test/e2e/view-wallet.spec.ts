@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot } from './driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToLandingPage, createWalletAndDriver } from './wallet-helpers/common'
+import { navigateToExtensionLandingPage, createWalletAndDriver } from './wallet-helpers/common'
 import { NavPanel } from './page-objects/navpanel'
 
 describe('View wallet page', () => {
@@ -29,7 +29,7 @@ describe('View wallet page', () => {
     await viewWallet.createNewKeyPair()
     expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
 
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
   })
 

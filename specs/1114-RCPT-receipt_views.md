@@ -13,7 +13,7 @@ As a user I want to understand my transaction so that I can know what I am sendi
 ### Transfers
 
 - I can see the receiving key of the transfer (<a name="1114-RCPT-004" href="#1114-RCPT-004">1114-RCPT-004</a>)
-- For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately (<a name="1114-RCPT-005" href="#1114-RCPT-005">1114-RCPT-005</a>)
-- For a oneOff transfer which is has a delivery date in the future there is a way to see when the transfer will be delivered (<a name="1114-RCPT-006" href="#1114-RCPT-006">1114-RCPT-006</a>)
+- For a oneOff transfer which has a delivery date in the past there is a way to see that the transfer will be executed immediately (<a name="1114-RCPT-005" href="#1114-RCPT-005">1114-RCPT-005</a>)
+- For a oneOff transfer which has a delivery date in the future there is a way to see when the transfer will be delivered (<a name="1114-RCPT-006" href="#1114-RCPT-006">1114-RCPT-006</a>)
 
 <!-- Recurring transfers not currently supported -->

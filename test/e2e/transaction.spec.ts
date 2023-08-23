@@ -10,6 +10,7 @@ import { openNewWindowAndSwitchToIt } from './selenium-util'
 import { closeServerAndWait, server } from './wallet-helpers/http-server'
 import test from '../../config/test'
 import { Login } from './page-objects/login'
+import { EthereumKeyRotateSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/EthereumKeyRotateSubmission'
 
 describe('transactions', () => {
   let driver: WebDriver
@@ -28,6 +29,18 @@ describe('transactions', () => {
     to: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
     kind: {
       oneOff: {}
+    }
+  }
+
+  const ethereumKeyRotateSubmission: EthereumKeyRotateSubmission = {
+    targetBlock: BigInt(1),
+    newAddress: 'testNewAddress',
+    currentAddress: 'testCurrentAddress',
+    submitterAddress: 'testSubmitterAddress',
+    ethereumSignature: {
+      value: 'testValue',
+      algo: 'testAlgo',
+      version: 1
     }
   }
 
@@ -108,12 +121,30 @@ describe('transactions', () => {
     await viewWallet.checkOnViewWalletPage()
   })
 
+  it('receipt view not shown for unhandled request types', async () => {
+    const keys = await vegaAPI.listKeys()
+    await vegaAPI.sendTransaction(keys[0].publicKey, { ethereumKeyRotateSubmission: ethereumKeyRotateSubmission })
+    await transaction.checkOnTransactionPage()
+    const receiptViewPresent = await transaction.checkReceiptViewPresent()
+    expect(
+      receiptViewPresent,
+      'receipt view was displayed. Expected it to not be displayed for ethereumKeyRotateSubmission',
+      {
+        showPrefix: false
+      }
+    ).toBe(false)
+  })
+
   it('can reject a transaction', async () => {
     // 1105-TRAN-004 When I view a transaction request I can choose to reject it
     // 1105-TRAN-005 When I reject a transaction the transaction does not get signed and the rejected status gets fed back to the dapp that requested it
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     await transaction.checkOnTransactionPage()
+    const receiptViewPresent = await transaction.checkReceiptViewPresent()
+    expect(receiptViewPresent, 'receipt view was not displayed. Expected it to be displayed for a transfer', {
+      showPrefix: false
+    }).toBe(true)
     await transaction.rejectTransaction()
     const resp = await vegaAPI.getTransactionResult()
     expect(resp).toBe('Transaction denied')

@@ -1,4 +1,3 @@
-import { difference } from 'lodash'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 
 const defaultTimeoutMillis = 10000
@@ -263,11 +262,33 @@ export async function openLatestWindowHandle(driver: WebDriver) {
 
 export async function switchWindowHandles(driver: WebDriver, closeCurrent = true, windowHandle = '') {
   if (closeCurrent) {
-    await driver.close()
+    if (windowHandle != (await driver.getWindowHandle())) {
+      await driver.close()
+    } else {
+      return
+    }
   }
+
   if (windowHandle) {
     await driver.switchTo().window(windowHandle)
   } else {
     await driver.switchTo().window((await driver.getAllWindowHandles())[0])
+  }
+}
+
+export async function windowHandleHasCount(
+  driver: WebDriver,
+  targetCount: number,
+  timeoutMs: number = 10000
+): Promise<boolean> {
+  try {
+    await driver.wait(async () => {
+      const handles = await driver.getAllWindowHandles()
+      return handles.length === targetCount
+    }, timeoutMs)
+
+    return true
+  } catch (error) {
+    return false
   }
 }

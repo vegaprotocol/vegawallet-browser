@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { navigateToExtensionLandingPage } from './wallet-helpers/common'
 import { Password } from './page-objects/password'
 import { GetStarted } from './page-objects/get-started'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
@@ -33,7 +33,7 @@ describe('Check correct app state persists after closing the extension', () => {
     apiHelper = new APIHelper(driver)
     loginPage = new Login(driver)
     telemetry = new Telemetry(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
   })
 
   afterEach(async () => {
@@ -43,9 +43,9 @@ describe('Check correct app state persists after closing the extension', () => {
 
   const switchToNewWindow = async () => {
     await openNewWindowAndSwitchToIt(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await apiHelper.lockWallet()
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await loginPage.login()
   }
 
@@ -59,11 +59,11 @@ describe('Check correct app state persists after closing the extension', () => {
     await password.createPassword('Password', 'password')
 
     await openNewWindowAndSwitchToIt(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await getStarted.checkOnGetStartedPage()
     await switchWindowHandles(driver)
 
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await getStarted.getStarted()
     await password.createPassword()
     await createAWallet.checkOnCreateWalletPage()
@@ -83,7 +83,7 @@ describe('Check correct app state persists after closing the extension', () => {
     expect(newTabRecoveryPhraseText).toBe(recoveryPhraseText)
 
     await switchWindowHandles(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await secureYourWallet.revealRecoveryPhrase(true)
     await telemetry.checkOnTelemetryPage()
 

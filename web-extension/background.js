@@ -3,6 +3,7 @@ import { WalletCollection } from './backend/wallets.js'
 import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from '../lib/port-server.js'
 import { PopupClient } from './backend/popup-client.js'
+import { createNotificationWindow } from './backend/windows.js'
 
 import StorageLocalMap from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
@@ -13,7 +14,6 @@ import config from '!/config'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
-const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 
 const interactor = new PopupClient({
   onbeforerequest: setPending,
@@ -54,8 +54,6 @@ const clientPorts = new PortServer({
 })
 
 const server = initAdmin({
-  runtime,
-  windows,
   encryptedStore,
   settings,
   wallets,
@@ -97,7 +95,9 @@ runtime.onInstalled.addListener(async () => {
 async function setPending() {
   const pending = interactor.totalPending()
   try {
-    if (pending > 0 && popupPorts.ports.size < 1) await action.openPopup()
+    if (pending > 0 && popupPorts.ports.size < 1) {
+      await createNotificationWindow()
+    }
   } catch (_) {}
   action.setBadgeText({
     text: pending === 0 ? '' : pending.toString()

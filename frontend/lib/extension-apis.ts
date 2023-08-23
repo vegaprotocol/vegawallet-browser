@@ -1,4 +1,8 @@
 export const getExtensionApi = (): typeof chrome => {
   // @ts-ignore
-  return globalThis.browser ?? globalThis.chrome
+  const result = globalThis.browser ?? globalThis.chrome
+  if (!result) {
+    throw new Error('Could not find extension APIs')
+  }
+  return result
 }

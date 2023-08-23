@@ -45,6 +45,7 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
   },
   removeConnection: async (request: SendMessage, connection: Connection) => {
     await request(RpcMethods.RemoveConnection, { origin: connection.origin })
+    // TODO this should be done with the notification not here!
     set({
       connections: get().connections.filter((c) => c.origin !== connection.origin)
     })

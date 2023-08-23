@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToLandingPage, testDAppUrl } from './wallet-helpers/common'
+import { navigateToExtensionLandingPage, setUpWalletAndKey, testDAppUrl } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { VegaAPI } from './wallet-helpers/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
@@ -26,7 +26,7 @@ describe('Connect wallet', () => {
     connectWallet = new ConnectWallet(driver)
     telemetry = new Telemetry(driver)
     apiHelper = new APIHelper(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
   })
 
   afterEach(async () => {
@@ -37,7 +37,7 @@ describe('Connect wallet', () => {
   it('can approve a connection to the wallet and return to previously active view', async () => {
     // 1103-CONN-008 There is a visual way to understand that a connection has been successful
     // 1103-CONN-009 If the had the browser wallet open when I instigated the connection request, the browser wallet returns your view to where you were before the request came in
-    await setUpWalletAndKey()
+    await setUpWalletAndKey(driver)
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
     const responsePromise = await vegaAPI.connectWallet()
@@ -49,7 +49,7 @@ describe('Connect wallet', () => {
   })
 
   it('can reject a connection to the wallet and return to previously active view', async () => {
-    await setUpWalletAndKey()
+    await setUpWalletAndKey(driver)
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
     await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
@@ -68,7 +68,7 @@ describe('Connect wallet', () => {
   it('can disconnect wallet via dapp and reconnect without needing approval', async () => {
     // 1104-DCON-001 I can call client.disconnect_wallet after successfully calling client.connect_wallet
     // 1104-DCON-003 A dapp can disconnect the current active connection (not it's pre-approved status i.e. the dapp can re-instate the connection without further approval)
-    await setUpWalletAndKey()
+    await setUpWalletAndKey(driver)
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
     await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
@@ -105,7 +105,7 @@ describe('Connect wallet', () => {
 
   it('does not need to reconnect to the wallet if I navigate away from my current page, api still shows connection and dapp can still see public key', async () => {
     // 1103-CONN-007 When I go away from the extension and come back to the connected site, the browser extension remembers the connection and does not ask me to reconnect
-    await setUpWalletAndKey()
+    await setUpWalletAndKey(driver)
     await vegaAPI.connectWallet()
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
@@ -117,7 +117,7 @@ describe('Connect wallet', () => {
       `expected to have 1 active connection to the wallet, but found ${connections.length}`
     ).toBe(1)
     await driver.get('https://google.co.uk')
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     connections = await apiHelper.listConnections()
     expect(
       connections.length,
@@ -132,7 +132,7 @@ describe('Connect wallet', () => {
 
   it('dapp can see any wallet keys I add after connecting', async () => {
     // 1103-CONN-005 All new connections are for all keys in a wallet and all future keys added to the wallet
-    await setUpWalletAndKey()
+    await setUpWalletAndKey(driver)
     await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
     await connectWallet.approveConnectionAndCheckSuccess()
     await assertNumberOfKeysVisibleToDApp(1)
@@ -140,11 +140,6 @@ describe('Connect wallet', () => {
     await assertNumberOfKeysVisibleToDApp(2)
     await viewWallet.checkOnViewWalletPage()
   })
-
-  async function setUpWalletAndKey() {
-    await apiHelper.setUpWalletAndKey()
-    await navigateToLandingPage(driver)
-  }
 
   async function assertNumberOfKeysVisibleToDApp(expectedNumber: number) {
     const keys = await vegaAPI.listKeys()

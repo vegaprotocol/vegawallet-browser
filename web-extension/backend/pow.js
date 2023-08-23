@@ -1,4 +1,3 @@
-/* global Worker */
 import JSONRPCClient from '../../lib/json-rpc-client.js'
 import mutex from 'mutexify/promise.js'
 import { PoW } from '@vegaprotocol/crypto'

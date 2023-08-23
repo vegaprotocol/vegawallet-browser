@@ -1,5 +1,5 @@
 import { VegaIcon } from '../icons/vega-icon'
-import config from '../../lib/config'
+import config from '!/config'
 import { ExpandIcon } from '../icons/expand'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../lib/client-rpc-methods'
@@ -42,13 +42,19 @@ export const PageHeader = () => {
         >
           {config.network.name}
         </div>
-        <button
-          data-testid={locators.openPopoutButton}
-          onClick={isPopoverInstance ? focusPopover : open}
-          className="border rounded-md border-vega-dark-300 text-sm h-6 ml-3 px-1"
-        >
-          {isPopoverInstance ? <Cross className="h-4 w-4 flex justify-between items-center" /> : <ExpandIcon />}
-        </button>
+        {config.features?.popoutHeader ? (
+          <button
+            data-testid={locators.openPopoutButton}
+            onClick={isPopoverInstance ? focusPopover : open}
+            className="border rounded-md border-vega-dark-300 text-sm h-6 ml-3 px-1"
+          >
+            {isPopoverInstance ? (
+              <Cross className="h-4 w-4 flex justify-between items-center" />
+            ) : (
+              <ExpandIcon size={16} />
+            )}
+          </button>
+        ) : null}
       </div>
     </div>
   )

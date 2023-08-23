@@ -2,6 +2,9 @@ import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../package.json'
 import { toBase64, string as fromString } from '@vegaprotocol/crypto/buf'
+import { createWindow } from './windows.js'
+
+const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 
 function doValidate(validator, params) {
   if (!validator(params))
@@ -23,7 +26,7 @@ function doValidate(validator, params) {
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default function init({ runtime, windows, encryptedStore, settings, wallets, networks, connections, onerror }) {
+export default function init({ encryptedStore, settings, wallets, networks, connections, onerror }) {
   connections.listen((ev, connection) => {
     server.notify('admin.connections_change', {
       add: ev === 'set' ? [connection] : [],
@@ -46,18 +49,9 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
       async 'admin.open_popout'(params) {
         doValidate(adminValidation.openPopout, params)
         if (handle == null) {
-          const popout = windows.create({
-            url: runtime.getURL('/index.html'),
-            type: 'popup',
-            // Approximate dimension. The client figures out exactly how big it should be as this height/width
-            // includes the frame and different OSes have different sizes
-            width: 360,
-            height: 600
-          })
+          const popout = await createWindow()
 
           handle = await popout
-          handle.alwaysOnTop = true
-          handle.focused = true
         }
 
         return null
@@ -199,6 +193,20 @@ export default function init({ runtime, windows, encryptedStore, settings, walle
         await connections.delete(params.origin)
 
         return null
+      },
+
+      async 'admin.fetch'(params) {
+        doValidate(adminValidation.fetch, params)
+
+        try {
+          const selectedNetwork = await settings.get('selectedNetwork')
+          const network = await networks.get(selectedNetwork)
+          const rpc = await network.rpc()
+
+          return await rpc.getJSON(params.url)
+        } catch (ex) {
+          throw new JSONRPCServer.Error('Failed to fetch data', -1, ex.message)
+        }
       }
     }
   })

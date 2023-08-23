@@ -4,27 +4,13 @@ import { NetworkCollection } from '../backend/network.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 import { ConnectionsCollection } from '../backend/connections.js'
+import { createHTTPServer, createJSONHTTPServer } from './helpers.js'
 
-let windowsMock = null
-
-let runtimeMock = null
-
-const createAdmin = async ({ passphrase } = {}) => {
+const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   const publicKeyIndexStore = new ConcurrentStorage(new Map())
-  windowsMock = {
-    create: jest.fn().mockReturnValue(new Promise((resolve) => resolve({ alwaysOnTop: false, focused: false }))),
-    onRemoved: {
-      addListener: jest.fn()
-    }
-  }
-  runtimeMock = {
-    getURL: jest.fn(() => 'http://localhost:8080/index.html')
-  }
   const server = initAdminServer({
     encryptedStore: enc,
-    windows: windowsMock,
-    runtime: runtimeMock,
     settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
     wallets: new WalletCollection({
       walletsStore: enc,
@@ -34,7 +20,7 @@ const createAdmin = async ({ passphrase } = {}) => {
       connectionsStore: new ConcurrentStorage(new Map()),
       publicKeyIndexStore
     }),
-    networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground' }]])),
+    networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
     onerror(err) {
       throw err
     }
@@ -151,7 +137,7 @@ describe('admin-ns', () => {
       }
     })
 
-    expect(updatePassphrase.error.toJSON()).toEqual({ code: 1, message: 'Invalid passphrase' })
+    expect(updatePassphrase.error).toEqual({ code: 1, message: 'Invalid passphrase' })
 
     const updatePassphrase2 = await admin.onrequest({
       jsonrpc: '2.0',
@@ -182,7 +168,7 @@ describe('admin-ns', () => {
       }
     })
 
-    expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Invalid passphrase or corrupted storage' })
+    expect(unlockFailure.error).toEqual({ code: 1, message: 'Invalid passphrase or corrupted storage' })
 
     const unlockSuccess = await admin.onrequest({
       jsonrpc: '2.0',
@@ -208,7 +194,7 @@ describe('admin-ns', () => {
       }
     })
 
-    expect(unlockFailure.error.toJSON()).toEqual({ code: 1, message: 'Encryption not initialised' })
+    expect(unlockFailure.error).toEqual({ code: 1, message: 'Encryption not initialised' })
   })
 
   it('app_globals should be true after creating a wallet, locking and unlocking', async () => {
@@ -279,31 +265,30 @@ describe('admin-ns', () => {
   it('should open popout', async () => {
     // 1107-SETT-001 When the browser wallet is open in a new window, the window stays on top
     const admin = await createAdmin()
-    const create = await windowsMock.create()
-
-    expect(create.alwaysOnTop).toBe(false)
-    expect(create.focused).toBe(false)
 
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
 
-    expect(windowsMock.create).toBeCalledWith({
-      url: 'http://localhost:8080/index.html',
+    expect(globalThis.chrome.windows.create).toBeCalledWith({
+      url: 'moz-extension://8b413e68-1e0d-4cad-b98e-1eb000799783/index.html',
       type: 'popup',
       width: 360,
-      height: 600
+      height: 600,
+      focused: true,
+      left: undefined,
+      top: undefined
     })
-    expect(windowsMock.create).toBeCalledTimes(2) // Once for the above call for guard assertions, once for the actual call
-
-    expect(create.alwaysOnTop).toBe(true)
-    expect(create.focused).toBe(true)
+    expect(globalThis.chrome.windows.create).toBeCalledTimes(1)
   })
 
   it('should not open pop out if one is already open', async () => {
+    globalThis.chrome.windows.create.mockResolvedValue({
+      id: 1
+    })
     const admin = await createAdmin()
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
-    expect(windowsMock.create).toBeCalled()
+    expect(globalThis.chrome.windows.create).toBeCalled()
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
-    expect(windowsMock.create).toBeCalledTimes(1)
+    expect(globalThis.chrome.windows.create).toBeCalledTimes(1)
   })
 
   it('should sign message with given public key', async () => {
@@ -315,7 +300,8 @@ describe('admin-ns', () => {
       method: 'admin.import_wallet',
       params: {
         name: 'Wallet 1',
-        recoveryPhrase: 'mandate verify garage episode glimpse evidence erosion resist fit razor fluid theme remember penalty address media claim beach fiscal taste impact lucky test survey'
+        recoveryPhrase:
+          'mandate verify garage episode glimpse evidence erosion resist fit razor fluid theme remember penalty address media claim beach fiscal taste impact lucky test survey'
       }
     })
 
@@ -406,7 +392,97 @@ describe('admin-ns', () => {
     expect(signMessage4.result).toEqual({
       signature: 'sNGQ0io4t3oh/L8z1N8I+/gAai9I7ke10BcsGXmRXC70UHbYD5ysaA9v9/9g6gLBA9gfuXPuGxG9z+86yfYQDg=='
     })
-
   })
 
+  it('should proxy requests to healthy data node on fetch', async () => {
+    const chainHeight = {
+      height: '2',
+      chainId: 'testnet'
+    }
+
+    const expected = {
+      assets: ['asset1', 'asset2']
+    }
+
+    const happyServer = await createJSONHTTPServer((req) => {
+      if (req.url === '/blockchain/height') return { body: chainHeight }
+
+      return { body: expected }
+    })
+
+    const sadServer = await createJSONHTTPServer(() => {
+      return { statusCode: 500 }
+    })
+
+    const malformedServer = await createHTTPServer((req, res) => {
+      return res.end('<Malformed JSON>')
+    })
+
+    const admin = await createAdmin({ datanodeUrls: [happyServer.url, sadServer.url, malformedServer.url] })
+
+    const fetch = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.fetch',
+      params: {
+        path: '/assets'
+      }
+    })
+
+    expect(fetch.result).toEqual(expected)
+
+    await Promise.all([happyServer.close(), sadServer.close(), malformedServer.close()])
+  })
+
+  it(
+    'should return errors from unsuccessful fetch (statusCode)',
+    setupFaultyFetch({
+      statusCode: 400,
+      body: ''
+    })
+  )
+
+  it(
+    'should return errors from unsuccessful fetch (malformed response)',
+    setupFaultyFetch({
+      statusCode: 200,
+      body: '<Malformed JSON>'
+    })
+  )
+
+  function setupFaultyFetch(faultyResponse) {
+    return async () => {
+      const chainHeight = {
+        height: '2',
+        chainId: 'testnet'
+      }
+
+      const server = await createHTTPServer((req, res) => {
+        if (req.url === '/blockchain/height') return res.end(JSON.stringify(chainHeight))
+
+        res.writeHead(faultyResponse.statusCode, { 'Content-Type': 'application/json' })
+        res.end(faultyResponse.body)
+      })
+
+      const admin = await createAdmin({ datanodeUrls: [server.url] })
+
+      const fetch = await admin.onrequest({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'admin.fetch',
+        params: {
+          path: '/assets'
+        }
+      })
+
+      expect(fetch.result).toBeUndefined()
+      expect(fetch.error).toEqual({
+        code: -1,
+        message: 'Failed to fetch data',
+        data: expect.any(String)
+      })
+
+      await Promise.all([server.close()])
+    }
+  }
 })

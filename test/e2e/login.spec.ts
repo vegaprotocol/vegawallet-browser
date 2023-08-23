@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, copyProfile, deleteAutomationFirefoxProfile, initDriver, initFirefoxDriver } from './driver'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { navigateToExtensionLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { Login } from './page-objects/login'
 import { openNewWindowAndSwitchToIt } from './selenium-util'
@@ -19,9 +19,9 @@ describe('Login', () => {
     apiHelper = new APIHelper(driver)
     viewWallet = new ViewWallet(driver)
     login = new Login(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await apiHelper.setUpWalletAndKey()
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
   })
 
   afterEach(async () => {
@@ -50,7 +50,7 @@ describe('Login', () => {
   it('shows error if password entered incorrectly, I can log in after fixing the error', async () => {
     // 1102-LGIN-002 I am informed if I enter my password incorrectly
     await apiHelper.lockWallet()
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await login.checkOnLoginPage()
     await login.login(testPassword + '1')
     const errorText = await login.getErrorText()
@@ -68,6 +68,6 @@ describe('Login', () => {
       await apiHelper.lockWallet()
       await openNewWindowAndSwitchToIt(driver)
     }
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
   }
 })

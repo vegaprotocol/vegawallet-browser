@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot, initDriver } from './driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToLandingPage } from './wallet-helpers/common'
+import { navigateToExtensionLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { ErrorModal } from './page-objects/error'
 
@@ -16,7 +16,7 @@ describe('Global error', () => {
     viewWallet = new ViewWallet(driver)
     apiHelper = new APIHelper(driver)
     errorModal = new ErrorModal(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
   })
 
   afterEach(async () => {
@@ -34,6 +34,6 @@ describe('Global error', () => {
 
   async function setUpWalletAndKey() {
     await apiHelper.setUpWalletAndKey()
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
   }
 })

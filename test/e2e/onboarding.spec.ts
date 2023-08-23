@@ -5,7 +5,7 @@ import { Password } from './page-objects/password'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
-import { defaultPassword, navigateToLandingPage } from './wallet-helpers/common'
+import { defaultPassword, navigateToExtensionLandingPage } from './wallet-helpers/common'
 import { APIHelper } from './wallet-helpers/api-helpers'
 import { validRecoveryPhrase } from './wallet-helpers/common'
 import { Telemetry } from './page-objects/telemetry-opt-in'
@@ -30,7 +30,7 @@ describe('Onboarding', () => {
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
     telemetry = new Telemetry(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await getStarted.getStarted()
   })
 
@@ -54,7 +54,7 @@ describe('Onboarding', () => {
     await secureYourWallet.checkCreateWalletSuccessful()
     await telemetry.optIn()
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
   })
 
@@ -66,9 +66,9 @@ describe('Onboarding', () => {
     // 1101-ONBD-015 I am given visual feedback that my wallet was successfully imported
     // 1111-TELE-004 I can opt out of reporting bugs and crashes
     const apiHelper = new APIHelper(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     const importWallet = await createAWallet.importWallet()
     await importWallet.fillInRecoveryPhraseAndSubmit(validRecoveryPhrase)
     await importWallet.checkImportWalletSuccessful()
@@ -78,9 +78,9 @@ describe('Onboarding', () => {
 
   it('shows an error when recovery phrase is incorrect', async () => {
     const apiHelper = new APIHelper(driver)
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     await apiHelper.createPassphraseAndCheckSuccess()
-    await navigateToLandingPage(driver)
+    await navigateToExtensionLandingPage(driver)
     const importWallet = await createAWallet.importWallet()
     await importWallet.fillInRecoveryPhraseAndSubmit(incorrectRecoveryPhrase)
     const errorText = await importWallet.getErrorMessageText()

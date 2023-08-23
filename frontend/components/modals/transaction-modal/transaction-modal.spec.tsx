@@ -72,7 +72,7 @@ describe('TransactionModal', () => {
 -- [ ] When it was received
 -- [ ] Raw JSON details
     1105-TRAN-012 I can copy the raw json to my clipboard
-    1113-RCPT-001 I can see a receipt like view on the transaction confirmation screen if one is present
+    1114-RCPT-001 I can see a receipt like view on the transaction confirmation screen if one is present
 */
 
     const handleTransactionDecision = jest.fn()

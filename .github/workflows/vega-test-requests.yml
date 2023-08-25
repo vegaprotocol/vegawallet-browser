@@ -55,6 +55,8 @@ jobs:
 
       - name: ${{ matrix.environment }}-check requests compatible
         run: |
+          pwd
+          ls
           envVersion=$(node ./.github/scripts/get-version.cjs ${{ matrix.environment }})
           echo "-------- ${{ matrix.environment }} is running on vega $envVersion --------"
           docker pull ghcr.io/vegaprotocol/vega/vega:$envVersion

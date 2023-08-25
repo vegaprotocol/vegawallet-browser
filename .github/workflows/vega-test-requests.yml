@@ -55,4 +55,4 @@ jobs:
           envVersion=$(node ./.github/scripts/get-version.cjs ${{ matrix.environment }})
           echo "-------- ${{ matrix.environment }} is running on vega $envVersion --------"
           docker pull ghcr.io/vegaprotocol/vega/vega:$envVersion
-          docker run --rm -v $(pwd)/txdir:/txdir ghcr.io/vegaprotocol/vega/vega:$envVersion tools check-tx --txdir=/request-files
+          docker run --rm -v $(pwd)/request-files:/txdir ghcr.io/vegaprotocol/vega/vega:$envVersion tools check-tx --txdir=/txdir

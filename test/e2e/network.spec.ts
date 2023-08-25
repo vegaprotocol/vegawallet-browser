@@ -1,8 +1,8 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot } from './driver'
+import { captureScreenshot } from './helpers/driver'
 import test from '../../config/test'
 import { ExtensionHeader } from './page-objects/extension-header'
-import { createWalletAndDriver } from './wallet-helpers/common'
+import { createWalletAndDriver } from './helpers/wallet/wallet-setup'
 
 describe('Network tests', () => {
   let driver: WebDriver

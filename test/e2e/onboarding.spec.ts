@@ -5,10 +5,10 @@ import { Password } from './page-objects/password'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
-import { defaultPassword, navigateToExtensionLandingPage } from './helpers/wallet/common-wallet-values'
+import { defaultPassword, validRecoveryPhrase } from './helpers/wallet/common-wallet-values'
 import { APIHelper } from './helpers/wallet/wallet-api'
-import { validRecoveryPhrase } from './helpers/wallet/common-wallet-values'
 import { Telemetry } from './page-objects/telemetry-opt-in'
+import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 
 const incorrectRecoveryPhrase =
   'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic bob'

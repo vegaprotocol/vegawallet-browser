@@ -1,15 +1,16 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
+import { captureScreenshot, initDriver } from './helpers/driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToExtensionLandingPage, setUpWalletAndKey, testDAppUrl } from './wallet-helpers/common'
-import { APIHelper } from './wallet-helpers/api-helpers'
-import { VegaAPI } from './wallet-helpers/vega-api'
+import { APIHelper } from './helpers/wallet/wallet-api'
+import { VegaAPI } from './helpers/wallet/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { NavPanel } from './page-objects/navpanel'
 import { GetStarted } from './page-objects/get-started'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { Telemetry } from './page-objects/telemetry-opt-in'
+import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
+import { testDAppUrl } from './helpers/wallet/common-wallet-values'
 
 describe('Connect wallet', () => {
   let driver: WebDriver

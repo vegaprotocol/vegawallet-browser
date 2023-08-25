@@ -5,7 +5,7 @@ import { importMnemonic, importMnemonicDescription, importMnemonicSubmit } from 
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { FULL_ROUTES } from '../../route-names'
-import { validRecoveryPhrase } from '../../../../test/e2e/wallet-helpers/common'
+import { validRecoveryPhrase } from '../../../../test/e2e/helpers/wallet/common-wallet-values'
 import { mockStorage } from '../../../test-helpers/mock-storage'
 
 const mockedUsedNavigate = jest.fn()

@@ -1,6 +1,5 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot } from './helpers/driver'
-import { navigateToExtensionLandingPage, createWalletAndDriver } from './helpers/wallet/common-wallet-values'
 import { NavPanel } from './page-objects/navpanel'
 import { switchWindowHandles } from './helpers/selenium-util'
 import { VegaAPI } from './helpers/wallet/vega-api'
@@ -9,6 +8,7 @@ import { ConnectWallet } from './page-objects/connect-wallet'
 import { Settings } from './page-objects/settings'
 import { ExtensionHeader } from './page-objects/extension-header'
 import { WalletOpenInOtherWindow } from './page-objects/wallet-open-in-other-window'
+import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 
 describe('Settings test', () => {
   let driver: WebDriver

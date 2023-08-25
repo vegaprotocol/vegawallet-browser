@@ -1,16 +1,17 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { dummyTransaction, navigateToExtensionLandingPage, setUpWalletAndKey } from './wallet-helpers/common'
-import { APIHelper } from './wallet-helpers/api-helpers'
-import { VegaAPI } from './wallet-helpers/vega-api'
+import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { Transaction } from './page-objects/transaction'
-import { openNewWindowAndSwitchToIt } from './selenium-util'
-import { closeServerAndWait, server } from './wallet-helpers/http-server'
 import test from '../../config/test'
 import { Login } from './page-objects/login'
 import { EthereumKeyRotateSubmission } from '@vegaprotocol/protos/dist/vega/commands/v1/EthereumKeyRotateSubmission'
+import { VegaAPI } from './helpers/wallet/vega-api'
+import { APIHelper } from './helpers/wallet/wallet-api'
+import { captureScreenshot, initDriver } from './helpers/driver'
+import { closeServerAndWait, server } from './helpers/wallet/http-server'
+import { openNewWindowAndSwitchToIt } from './helpers/selenium-util'
+import { dummyTransaction } from './helpers/wallet/common-wallet-values'
 
 describe('transactions', () => {
   let driver: WebDriver

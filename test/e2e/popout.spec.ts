@@ -1,11 +1,12 @@
 import { WebDriver } from 'selenium-webdriver'
-import { VegaAPI } from './wallet-helpers/vega-api'
+import { VegaAPI } from './helpers/wallet/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
-import { APIHelper } from './wallet-helpers/api-helpers'
-import { captureScreenshot, initDriver } from './driver'
-import { dummyTransaction, navigateToExtensionLandingPage, setUpWalletAndKey } from './wallet-helpers/common'
-import { openLatestWindowHandle, switchWindowHandles, windowHandleHasCount } from './selenium-util'
+import { APIHelper } from './helpers/wallet/wallet-api'
+import { captureScreenshot, initDriver } from './helpers/driver'
+import { dummyTransaction } from './helpers/wallet/common-wallet-values'
+import { openLatestWindowHandle, switchWindowHandles, windowHandleHasCount } from './helpers/selenium-util'
 import { Transaction } from './page-objects/transaction'
+import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
 
 describe('check popout functionality', () => {
   let dappHandle = ''

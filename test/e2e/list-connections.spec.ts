@@ -1,10 +1,10 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot } from './driver'
-import { createWalletAndDriver } from './wallet-helpers/common'
+import { captureScreenshot } from './helpers/driver'
 import { NavPanel } from './page-objects/navpanel'
-import { VegaAPI } from './wallet-helpers/vega-api'
+import { VegaAPI } from './helpers/wallet/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { ListConnections } from './page-objects/list-connections'
+import { createWalletAndDriver } from './helpers/wallet/wallet-setup'
 
 const transferReq = {
   fromAccountType: 4,

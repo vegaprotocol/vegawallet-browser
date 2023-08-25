@@ -25,7 +25,8 @@ jobs:
       - name: Generate requests
         run: yarn test:requests
 
-      - name: Test browser wallet requests compatible with vega
+      - name: Test browser wallet requests compatible with vega mainnet
         run: |
-          docker pull ghcr.io/vegaprotocol/vega/vega:6d07cc4a
-          docker run --rm -v $(pwd)/request-files:/txdir ghcr.io/vegaprotocol/vega/vega:6d07cc4a tools check-tx --txdir=/txdir
+          mainnetVersion=$(node ./github/scripts/get-version.cjs mainnet)
+          docker pull ghcr.io/vegaprotocol/vega/vega:$mainnetVersion
+          docker run --rm -v $(pwd)/request-files:/txdir ghcr.io/vegaprotocol/vega/vega:$mainnetVersion tools check-tx --txdir=/txdir

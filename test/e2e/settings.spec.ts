@@ -46,7 +46,7 @@ describe('Settings test', () => {
   })
 
   it('can navigate to settings and lock the wallet, wallent version is visible', async () => {
-    // 1107-SETT-010 I can see a lock button and when I press it I am logged out and redirect to the login page
+    // 1107-SETT-009 I can see a lock button and when I press it I am logged out and redirect to the login page
     const navPanel = new NavPanel(driver)
     const settingsPage = await navPanel.goToSettings()
     await settingsPage.lockWalletAndCheckLoginPageAppears()
@@ -65,11 +65,11 @@ describe('Settings test', () => {
 
   // TODO this test shouldn't be hidden in settings tests as is available across all of the app
   it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
-    // 1107-SETT-007 There is a way for me to open the browser wallet in a new window
+    // 1107-SETT-006 There is a way for me to open the browser wallet in a new window
     // 1107-SETT-002 If I have a new window open, if there is a transaction for me to approve or reject this is shown in the new window
     // 1107-SETT-003 If I approve the transaction the new window stays open (on the last view I was on)
     // 1107-SETT-004 If I reject the transaction the pop-up window stays open (on the last view I was on)
-    // 1107-SETT-006 If I have the new window open but then open the extension pop up I see the same thing on both views
+    // 1107-SETT-005 If I have the new window open but then open the extension pop up I see the same thing on both views
     const originalExtensionInstance = await driver.getWindowHandle()
     const vegaAPI = new VegaAPI(driver)
 

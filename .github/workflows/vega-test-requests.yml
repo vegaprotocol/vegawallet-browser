@@ -1,0 +1,54 @@
+name: 'Mainnet and Fairground: Check Requests Compatible'
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-requests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Generate requests
+        run: yarn test:requests
+        id: generate-requests
+
+      - name: Copy /txdir to workspace
+        run: cp -R /txdir ${{ runner.workspace }}
+
+  test-requests:
+    needs: generate-requests
+    runs-on: ${{ matrix.environment }}
+
+    strategy:
+      matrix:
+        environment: ['mainnet', 'fairground']
+
+    steps:
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Copy generated files from workspace
+        run: cp -R ${{ runner.workspace }}/txdir .
+
+      - name: ${{ matrix.environment }}: Check requests compatible
+        run: |
+          envVersion=$(node ./.github/scripts/get-version.cjs ${{ matrix.environment }})
+          docker pull ghcr.io/vegaprotocol/vega/vega:$envVersion
+          docker run --rm -v $(pwd)/txdir:/txdir ghcr.io/vegaprotocol/vega/vega:$envVersion tools check-tx --txdir=/txdir

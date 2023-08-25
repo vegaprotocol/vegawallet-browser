@@ -20,7 +20,7 @@ async function main() {
     const mainnetModule = await import('../../config/mainnet.js');
     urls = mainnetModule.default.network.rest;
   } else if (arg === 'fairground') {
-    urls = ['http://localhost:8080'];
+    urls = ['https://api.n07.testnet.vega.rocks', 'https://api.n08.testnet.vega.rocks'];
   } else {
     console.error('Invalid argument. Usage: node get-version.cjs mainnet|fairground');
     return;

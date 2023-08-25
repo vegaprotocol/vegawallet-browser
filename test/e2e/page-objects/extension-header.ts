@@ -5,7 +5,7 @@ import {
   getElementText,
   isElementDisplayed,
   openLatestWindowHandle
-} from '../selenium-util'
+} from '../helpers/selenium-util'
 import * as pageHeader from '../../../frontend/components/page-header/index'
 export class ExtensionHeader {
   private readonly openPopoutButton: By = getByDataTestID(pageHeader.locators.openPopoutButton)
@@ -14,9 +14,13 @@ export class ExtensionHeader {
   constructor(private readonly driver: WebDriver) {}
 
   async checkPageHeaderDisplayed() {
-    expect(await isElementDisplayed(this.driver, this.openPopoutButton), "expected vega wallet header to be visible but could not located the open popout button on it", {
-      showPrefix: false
-    }).toBe(true)
+    expect(
+      await isElementDisplayed(this.driver, this.openPopoutButton),
+      'expected vega wallet header to be visible but could not located the open popout button on it',
+      {
+        showPrefix: false
+      }
+    ).toBe(true)
   }
 
   async openAppInNewWindowAndSwitchToIt() {

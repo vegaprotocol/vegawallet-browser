@@ -6,7 +6,7 @@ import {
   waitForElementToBeReady,
   isElementDisplayed,
   waitForChildElementsCount
-} from '../selenium-util'
+} from '../helpers/selenium-util'
 import { locators as walletLocators } from '../../../frontend/routes/auth/wallets'
 import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/key-list'
 import { SignMessage } from './sign-message'

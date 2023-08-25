@@ -6,7 +6,7 @@ import {
   getWebElementContainingText,
   hasTotalNumElements,
   isElementDisplayed
-} from '../selenium-util'
+} from '../helpers/selenium-util'
 import * as locators from '../../../frontend/locator-ids'
 import { locators as connectionsListLocators } from '../../../frontend/routes/auth/connections/connection-list'
 

@@ -6,9 +6,9 @@ import {
   getElementText,
   isElementDisplayed,
   sendKeysToElement
-} from '../selenium-util'
+} from '../helpers/selenium-util'
 import { errorMessage, loginButton, loginPassphrase } from '../../../frontend/locator-ids'
-import { defaultPassword } from '../wallet-helpers/common'
+import { defaultPassword } from '../helpers/wallet/common-wallet-values'
 
 export class Login {
   private readonly loginButton: By = getByDataTestID(loginButton)

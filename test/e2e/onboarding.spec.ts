@@ -1,13 +1,13 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
+import { captureScreenshot, initDriver } from './helpers/driver'
 import { GetStarted } from './page-objects/get-started'
 import { Password } from './page-objects/password'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
-import { defaultPassword, navigateToExtensionLandingPage } from './wallet-helpers/common'
-import { APIHelper } from './wallet-helpers/api-helpers'
-import { validRecoveryPhrase } from './wallet-helpers/common'
+import { defaultPassword, navigateToExtensionLandingPage } from './helpers/wallet/common-wallet-values'
+import { APIHelper } from './helpers/wallet/wallet-api'
+import { validRecoveryPhrase } from './helpers/wallet/common-wallet-values'
 import { Telemetry } from './page-objects/telemetry-opt-in'
 
 const incorrectRecoveryPhrase =

@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto'
 import { WebDriver } from 'selenium-webdriver'
 import { switchWindowHandles, openNewWindowAndSwitchToIt } from '../selenium-util'
-import { testDAppUrl } from './common'
+import { testDAppUrl } from './common-wallet-values'
 
 interface Key {
   index: number

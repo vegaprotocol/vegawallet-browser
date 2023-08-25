@@ -1,5 +1,11 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, getElementText, isElementDisplayed, isElementEnabled } from '../selenium-util'
+import {
+  clickElement,
+  getByDataTestID,
+  getElementText,
+  isElementDisplayed,
+  isElementEnabled
+} from '../helpers/selenium-util'
 import * as locators from '../../../frontend/locator-ids'
 import componentLocators from '../../../frontend/components/locators'
 import * as walletCreated from '../../../frontend/routes/onboarding/save-mnemonic/wallet-created'

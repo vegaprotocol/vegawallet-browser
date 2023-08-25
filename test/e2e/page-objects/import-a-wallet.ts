@@ -6,7 +6,7 @@ import {
   getElementText,
   isElementDisplayed,
   sendKeysToElement
-} from '../selenium-util'
+} from '../helpers/selenium-util'
 import { errorMessage, importMnemonic, importMnemonicSubmit } from '../../../frontend/locator-ids'
 import { locators } from '../../../frontend/routes/onboarding/import-wallet/wallet-imported'
 

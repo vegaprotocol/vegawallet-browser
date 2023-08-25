@@ -6,7 +6,7 @@ import {
   isElementDisplayed,
   sendKeysToElement,
   waitForElementToDisappear
-} from '../selenium-util'
+} from '../helpers/selenium-util'
 import { locators as signMessageLocators } from '../../../frontend/components/sign-message-dialog/sign-message'
 import { locators as signedMessageLocators } from '../../../frontend/components/sign-message-dialog/signed-message'
 

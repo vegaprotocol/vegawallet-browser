@@ -1,5 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed } from '../helpers/selenium-util'
 import * as locators from '../../../frontend/locator-ids'
 import { Password } from './password'
 

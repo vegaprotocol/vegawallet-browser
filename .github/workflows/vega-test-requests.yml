@@ -26,11 +26,11 @@ jobs:
         run: yarn test:requests
         id: generate-requests
 
-      - name: Copy /request-files to workspace
-        run: |
-          pwd
-          ls
-          cp -R ./request-files ${{ runner.workspace }}
+      - name: Archive request files
+        uses: actions/upload-artifact@v2
+        with:
+          name: request-files
+          path: ${{ runner.workspace }}/request-files
 
   test-requests:
     needs: generate-requests
@@ -47,8 +47,11 @@ jobs:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Copy generated files from workspace
-        run: cp -R ${{ runner.workspace }}/request-files .
+      - name: Download request files
+        uses: actions/download-artifact@v2
+        with:
+          name: request-files
+          path: request-files
 
       - name: ${{ matrix.environment }}-check requests compatible
         run: |

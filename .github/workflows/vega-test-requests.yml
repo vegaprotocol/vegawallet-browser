@@ -47,7 +47,7 @@ jobs:
       - name: Copy generated files from workspace
         run: cp -R ${{ runner.workspace }}/txdir .
 
-      - name: ${{ matrix.environment }}: Check requests compatible
+      - name: ${{ matrix.environment }}-check requests compatible
         run: |
           envVersion=$(node ./.github/scripts/get-version.cjs ${{ matrix.environment }})
           docker pull ghcr.io/vegaprotocol/vega/vega:$envVersion

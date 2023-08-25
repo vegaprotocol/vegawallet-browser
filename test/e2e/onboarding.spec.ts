@@ -44,6 +44,7 @@ describe('Onboarding', () => {
     // 1101-ONBD-008 When I have submitted my new password, I am taken to the next step
     // 1101-ONBD-012 I can choose to create a wallet
     // 1101-ONBD-021 I am given feedback that my wallet was successfully created
+    // 1101-ONBD-023 I am redirected to the next step - opt in to error reporting
     // 1101-ONBD-024 The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" #
     // 1101-ONBD-025 When I have already created a wallet, I am redirected to the landing page where I can view that wallet
     // 1101-ONBD-014 I am given visual feedback that my wallet was successfully created

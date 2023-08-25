@@ -27,6 +27,6 @@ jobs:
 
       - name: Test browser wallet requests compatible with vega mainnet
         run: |
-          mainnetVersion=$(node ./github/scripts/get-version.cjs mainnet)
+          mainnetVersion=$(node ./.github/scripts/get-version.cjs mainnet)
           docker pull ghcr.io/vegaprotocol/vega/vega:$mainnetVersion
           docker run --rm -v $(pwd)/request-files:/txdir ghcr.io/vegaprotocol/vega/vega:$mainnetVersion tools check-tx --txdir=/txdir

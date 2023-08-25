@@ -38,7 +38,7 @@ jobs:
 
     strategy:
       matrix:
-        environment: ['mainnet', 'fairground']
+        environment: [''] #Add 'mainnet', 'fairground' when the env have the check-tx functionality to turn checks against those envs on
 
     steps:
       - uses: actions/checkout@v3
@@ -55,11 +55,19 @@ jobs:
           name: request-files
           path: request-files
 
+      - name: Set envVersion
+        id: set-envVersion
+        run: |
+          if [[ "${{ matrix.environment }}" == "" ]]; then
+            echo "::set-output name=envVersion::58508f6e"
+          else
+            envVersion=$(node ./.github/scripts/get-version.cjs ${{ matrix.environment }})
+            echo "::set-output name=envVersion::$envVersion"
+          fi
+
       - name: ${{ matrix.environment }}-check requests compatible
         run: |
-          pwd
-          ls
-          envVersion=$(node ./.github/scripts/get-version.cjs ${{ matrix.environment }})
+          envVersion=${{ steps.set-envVersion.outputs.envVersion }}
           echo "-------- ${{ matrix.environment }} is running on vega $envVersion --------"
           docker pull ghcr.io/vegaprotocol/vega/vega:$envVersion
           docker run --rm -v $(pwd)/request-files:/txdir ghcr.io/vegaprotocol/vega/vega:$envVersion tools check-tx --txdir=/txdir

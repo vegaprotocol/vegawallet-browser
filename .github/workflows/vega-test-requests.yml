@@ -27,7 +27,10 @@ jobs:
         id: generate-requests
 
       - name: Copy /request-files to workspace
-        run: cp -R /request-files ${{ runner.workspace }}
+        run: |
+          pwd
+          ls
+          cp -R ./request-files ${{ runner.workspace }}
 
   test-requests:
     needs: generate-requests

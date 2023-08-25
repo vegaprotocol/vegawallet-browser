@@ -13,7 +13,7 @@ async function getVersion(url) {
 }
 
 async function main() {
-  const arg = process.argv[2]; // Get the command line argument
+  const arg = process.argv[2];
   let urls;
 
   if (arg === 'mainnet') {

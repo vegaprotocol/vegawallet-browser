@@ -1,4 +1,4 @@
-name: 'Mainnet/Fairground: Check Requests Compatible'
+name: 'Check Requests Compatible With Vega Envs'
 
 on:
   pull_request:
@@ -34,7 +34,7 @@ jobs:
 
   test-requests:
     needs: generate-requests
-    runs-on: ${{ matrix.environment }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:

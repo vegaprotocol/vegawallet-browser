@@ -28,8 +28,8 @@ const renderComponent = () =>
 
 describe('Settings', () => {
   it('renders settings page', () => {
-    // 1107-SETT-008 I can see the version # of the browser extension
-    // 1107-SETT-009 I can see the feedback link
+    // 1107-SETT-007 I can see the version # of the browser extension
+    // 1107-SETT-008 I can see the feedback link
     mockClient()
     renderComponent()
     expect(screen.getByTestId(locators.settingsPage)).toBeVisible()

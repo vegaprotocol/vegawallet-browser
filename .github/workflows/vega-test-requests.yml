@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: request-files
-          path: ${{ runner.workspace }}/request-files
+          path: request-files
 
   test-requests:
     needs: generate-requests

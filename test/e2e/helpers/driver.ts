@@ -3,11 +3,11 @@ import chrome from 'selenium-webdriver/chrome'
 import * as firefox from 'selenium-webdriver/firefox'
 import * as fs from 'fs-extra'
 import path from 'path'
-import { clickElement } from './selenium-util'
 import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } from './file-system'
+import { clickElement } from './selenium-util'
 
 const extensionPath = './build'
-const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
+export const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
 
 export async function initDriver() {
   let driver: WebDriver | null = null

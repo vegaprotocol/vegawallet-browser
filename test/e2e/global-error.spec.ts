@@ -1,9 +1,9 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
+import { captureScreenshot, initDriver } from './helpers/driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToExtensionLandingPage } from './wallet-helpers/common'
-import { APIHelper } from './wallet-helpers/api-helpers'
+import { APIHelper } from './helpers/wallet/wallet-api'
 import { ErrorModal } from './page-objects/error'
+import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 
 describe('Global error', () => {
   let driver: WebDriver

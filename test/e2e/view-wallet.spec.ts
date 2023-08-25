@@ -1,8 +1,8 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot } from './helpers/driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToExtensionLandingPage, createWalletAndDriver } from './helpers/wallet/common-wallet-values'
 import { NavPanel } from './page-objects/navpanel'
+import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 
 describe('View wallet page', () => {
   let driver: WebDriver

@@ -1,16 +1,16 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, initDriver } from './driver'
-import { navigateToExtensionLandingPage } from './wallet-helpers/common'
+import { captureScreenshot, initDriver } from './helpers/driver'
 import { Password } from './page-objects/password'
 import { GetStarted } from './page-objects/get-started'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
-import { APIHelper } from './wallet-helpers/api-helpers'
+import { APIHelper } from './helpers/wallet/wallet-api'
 import { NavPanel } from './page-objects/navpanel'
 import { Login } from './page-objects/login'
-import { switchWindowHandles, openNewWindowAndSwitchToIt } from './selenium-util'
+import { switchWindowHandles, openNewWindowAndSwitchToIt } from './helpers/selenium-util'
 import { Telemetry } from './page-objects/telemetry-opt-in'
+import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver

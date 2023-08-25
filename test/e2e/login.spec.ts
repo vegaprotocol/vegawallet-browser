@@ -1,10 +1,17 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, copyProfile, deleteAutomationFirefoxProfile, initDriver, initFirefoxDriver } from './driver'
-import { navigateToExtensionLandingPage } from './wallet-helpers/common'
-import { APIHelper } from './wallet-helpers/api-helpers'
+import {
+  captureScreenshot,
+  copyProfile,
+  firefoxTestProfileDirectory,
+  initDriver,
+  initFirefoxDriver
+} from './helpers/driver'
+import { APIHelper } from './helpers/wallet/wallet-api'
 import { Login } from './page-objects/login'
-import { openNewWindowAndSwitchToIt } from './selenium-util'
+import { openNewWindowAndSwitchToIt } from './helpers/selenium-util'
 import { ViewWallet } from './page-objects/view-wallet'
+import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import { deleteDirectory } from './helpers/file-system'
 
 describe('Login', () => {
   let driver: WebDriver
@@ -27,7 +34,7 @@ describe('Login', () => {
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
     if (isFirefox) {
-      deleteAutomationFirefoxProfile()
+      deleteDirectory(firefoxTestProfileDirectory)
     }
     await driver.quit()
   })

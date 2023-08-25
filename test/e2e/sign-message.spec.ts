@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot } from './driver'
-import { createWalletAndDriver } from './wallet-helpers/common'
+import { captureScreenshot } from './helpers/driver'
+import { createWalletAndDriver } from './helpers/wallet/wallet-setup'
 import { ViewWallet } from './page-objects/view-wallet'
 
 describe('sign message', () => {

@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Setup Node.js Latest
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
@@ -38,13 +38,13 @@ jobs:
 
     strategy:
       matrix:
-        environment: [''] #Add 'mainnet', 'fairground' when the env have the check-tx functionality to turn checks against those envs on
+        environment: [''] # Add 'mainnet', 'fairground' when the env have the check-tx functionality to turn checks against those envs on
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Setup Node.js Latest
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
@@ -56,18 +56,17 @@ jobs:
           path: request-files
 
       - name: Set envVersion
-        id: set-envVersion
         run: |
           if [[ "${{ matrix.environment }}" == "" ]]; then
-            echo "::set-output name=envVersion::58508f6e"
+            echo "VERSION=58508f6e" >> $GITHUB_ENV
           else
             envVersion=$(node ./.github/scripts/get-version.cjs ${{ matrix.environment }})
-            echo "::set-output name=envVersion::$envVersion"
+            echo "VERSION=$envVersion" >> $GITHUB_ENV
           fi
 
       - name: ${{ matrix.environment }}-check requests compatible
         run: |
-          envVersion=${{ steps.set-envVersion.outputs.envVersion }}
+          envVersion=$VERSION
           echo "-------- ${{ matrix.environment }} is running on vega $envVersion --------"
           docker pull ghcr.io/vegaprotocol/vega/vega:$envVersion
           docker run --rm -v $(pwd)/request-files:/txdir ghcr.io/vegaprotocol/vega/vega:$envVersion tools check-tx --txdir=/txdir

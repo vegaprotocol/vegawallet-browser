@@ -5,9 +5,9 @@ import {
   isElementDisplayed,
   sendKeysToElement,
   waitForElementToBeReady
-} from '../selenium-util'
+} from '../helpers/selenium-util'
 import * as locators from '../../../frontend/locator-ids'
-import { defaultPassword } from '../wallet-helpers/common'
+import { defaultPassword } from '../helpers/wallet/common-wallet-values'
 
 export class Password {
   private readonly createPasswordBackButton: By = getByDataTestID('create-password-back')

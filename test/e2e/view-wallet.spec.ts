@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
-import { captureScreenshot } from './driver'
+import { captureScreenshot } from './helpers/driver'
 import { ViewWallet } from './page-objects/view-wallet'
-import { navigateToExtensionLandingPage, createWalletAndDriver } from './wallet-helpers/common'
+import { navigateToExtensionLandingPage, createWalletAndDriver } from './helpers/wallet/common-wallet-values'
 import { NavPanel } from './page-objects/navpanel'
 
 describe('View wallet page', () => {

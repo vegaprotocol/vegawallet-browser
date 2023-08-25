@@ -1,9 +1,14 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed, isElementSelected, waitForElementToBeSelected } from '../selenium-util'
+import {
+  clickElement,
+  getByDataTestID,
+  isElementDisplayed,
+  isElementSelected,
+  waitForElementToBeSelected
+} from '../helpers/selenium-util'
 import { Login } from './login'
 import * as settingsLock from '../../../frontend/routes/auth/settings/lock-section'
 import * as telemetry from '../../../frontend/routes/auth/settings/telemetry-section'
-
 
 export class Settings {
   private readonly lockWalletButton: By = getByDataTestID(settingsLock.locators.settingsLockButton)

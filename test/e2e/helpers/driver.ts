@@ -1,10 +1,10 @@
 import { Builder, By, Capabilities, until, WebDriver } from 'selenium-webdriver'
 import chrome from 'selenium-webdriver/chrome'
 import * as firefox from 'selenium-webdriver/firefox'
-import archiver from 'archiver'
 import * as fs from 'fs-extra'
 import path from 'path'
 import { clickElement } from './selenium-util'
+import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } from './file-system'
 
 const extensionPath = './build'
 const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
@@ -75,18 +75,6 @@ export async function initFirefoxDriver(useProfile = false, installExtension = t
   return driver
 }
 
-function createDirectoryIfNotExists(directoryPath: string) {
-  if (!fs.existsSync(directoryPath)) {
-    fs.mkdirSync(directoryPath, { recursive: true })
-  }
-}
-
-export function deleteAutomationFirefoxProfile() {
-  if (fs.existsSync(firefoxTestProfileDirectory)) {
-    fs.rmdirSync(firefoxTestProfileDirectory, { recursive: true })
-  }
-}
-
 export async function copyProfile(driver: WebDriver) {
   let seleniumInstanceProfile: string
 
@@ -96,30 +84,6 @@ export async function copyProfile(driver: WebDriver) {
   } else {
     console.log('Copying profile is only supported for Firefox. Skipping this step for Chrome.')
   }
-}
-
-async function copyDirectoryToNewLocation(srcDir: string, targetDir: string) {
-  try {
-    await fs.emptyDir(targetDir)
-    await fs.copy(srcDir, targetDir)
-  } catch (err) {
-    console.error('Error copying directory:', err)
-  }
-}
-
-async function zipDirectory(source: string, out: string): Promise<void> {
-  const archive = archiver('zip', { zlib: { level: 9 } })
-  const stream = fs.createWriteStream(out)
-
-  return new Promise((resolve, reject) => {
-    archive
-      .directory(source, false)
-      .on('error', (err) => reject(err))
-      .pipe(stream)
-
-    stream.on('close', () => resolve())
-    archive.finalize()
-  })
 }
 
 export const captureScreenshot = async (driver: WebDriver, testName: string) => {

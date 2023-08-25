@@ -1,5 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed } from '../helpers/selenium-util'
 import { locators } from '../../../frontend/routes/onboarding/telemetry/index'
 
 export class Telemetry {

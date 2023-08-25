@@ -1,13 +1,16 @@
-import { WebDriver, until } from 'selenium-webdriver'
+import { WebDriver } from 'selenium-webdriver'
 import * as fs from 'fs'
-import { APIHelper } from './api-helpers'
-import { initDriver } from '../driver'
 
+//URLS
 const chromeExtensionURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
+export const testDAppUrl = 'https://vegaprotocol.github.io/vegawallet-browser/'
+
+//PASSWORDS
+export const defaultPassword = 'password1'
 export const validRecoveryPhrase =
   'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
-export const defaultPassword = 'password1'
-export const testDAppUrl = 'https://vegaprotocol.github.io/vegawallet-browser/'
+
+//REQUESTS
 export const dummyTransaction = {
   fromAccountType: 4,
   toAccountType: 4,
@@ -19,7 +22,7 @@ export const dummyTransaction = {
   }
 }
 
-async function getLandingPageURL(driver: WebDriver) {
+export async function getLandingPageURL(driver: WebDriver) {
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {
     const profilePath = (await (await driver.getCapabilities()).get('moz:profile')) as string
     const userPrefsFileContent = fs.readFileSync(`${profilePath}/prefs.js`, 'utf-8')
@@ -28,27 +31,6 @@ async function getLandingPageURL(driver: WebDriver) {
   } else {
     return chromeExtensionURL
   }
-}
-
-export async function createWalletAndDriver() {
-  const driver = await initDriver()
-  const apiHelper = new APIHelper(driver)
-  await navigateToExtensionLandingPage(driver)
-  await apiHelper.setUpWalletAndKey()
-  await navigateToExtensionLandingPage(driver)
-  return driver
-}
-
-export async function navigateToExtensionLandingPage(driver: WebDriver) {
-  const url = await getLandingPageURL(driver)
-  await driver.get(url)
-  await driver.wait(until.urlContains(url), 10000)
-}
-
-export async function setUpWalletAndKey(driver: WebDriver) {
-  const apiHelper = new APIHelper(driver)
-  await apiHelper.setUpWalletAndKey()
-  await navigateToExtensionLandingPage(driver)
 }
 
 async function getExtensionUuid(userPrefsFileContent: string): Promise<string | null> {

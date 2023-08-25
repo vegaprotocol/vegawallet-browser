@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
-import { RpcMethods } from '../../../frontend/lib/client-rpc-methods'
-import { defaultPassword } from './common'
+import { RpcMethods } from '../../../../frontend/lib/client-rpc-methods'
+import { defaultPassword } from './common-wallet-values'
 export class APIHelper {
   private driver: WebDriver
 
@@ -102,7 +102,12 @@ export class APIHelper {
     }).toBe(null)
   }
 
-  async setUpWalletAndKey(passphrase = 'password1', walletName = 'Wallet 1', keyName = 'Key 1', telemetryOptIn = false) {
+  async setUpWalletAndKey(
+    passphrase = 'password1',
+    walletName = 'Wallet 1',
+    keyName = 'Key 1',
+    telemetryOptIn = false
+  ) {
     let resp: any
     await this.createPassphraseAndCheckSuccess(passphrase)
 

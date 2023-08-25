@@ -1,6 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { locators as popoverLocators } from '../../../frontend/components/modals/popover-open-modal'
-import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed } from '../helpers/selenium-util'
 
 export class WalletOpenInOtherWindow {
   private readonly continueHereButton: By = getByDataTestID(popoverLocators.continueHere)

@@ -1,5 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { clickElement, getByDataTestID, getElementText } from '../selenium-util'
+import { clickElement, getByDataTestID, getElementText } from '../helpers/selenium-util'
 import locators from '../../../frontend/components/locators'
 
 import { Settings } from './settings'

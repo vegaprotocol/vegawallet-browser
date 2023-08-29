@@ -8,8 +8,6 @@ import en from 'javascript-time-ago/locale/en'
 import 'jest-canvas-mock'
 import ResizeObserver from 'resize-observer-polyfill'
 
-process.env.TZ = 'UTC'
-
 TimeAgo.addDefaultLocale(en)
 
 // Required by radix-ui/react-tooltip

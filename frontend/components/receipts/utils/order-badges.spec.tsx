@@ -24,7 +24,7 @@ describe('OrderBadges component', () => {
         postOnly={false}
         reduceOnly={false}
         timeInForce={OrderTimeInForce.TIME_IN_FORCE_GTC}
-        expiresAt={null}
+        expiresAt={undefined}
       />
     )
 
@@ -37,7 +37,7 @@ describe('OrderBadges component', () => {
         postOnly={true}
         reduceOnly={false}
         timeInForce={OrderTimeInForce.TIME_IN_FORCE_GTC}
-        expiresAt={null}
+        expiresAt={undefined}
       />
     )
     expect(screen.getByText('Post only')).toBeVisible()
@@ -49,7 +49,7 @@ describe('OrderBadges component', () => {
         postOnly={false}
         reduceOnly={true}
         timeInForce={OrderTimeInForce.TIME_IN_FORCE_GTC}
-        expiresAt={null}
+        expiresAt={undefined}
       />
     )
 
@@ -64,7 +64,7 @@ describe('OrderBadges component', () => {
           postOnly={false}
           reduceOnly={false}
           timeInForce={OrderTimeInForce.TIME_IN_FORCE_GTT}
-          expiresAt={null}
+          expiresAt={undefined}
         />
       )
     ).toThrowError('GTT order without expiresAt')

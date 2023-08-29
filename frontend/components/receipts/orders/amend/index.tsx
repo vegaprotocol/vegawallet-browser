@@ -5,6 +5,7 @@ import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 
 export const Amendment = ({ transaction }: ReceiptComponentProps) => {
   const amendment = transaction.orderAmendment
+  if (amendment.pegged_offset || amendment.pegged_reference) return null
   return (
     <ReceiptWrapper type="Order Amendment">
       <OrderTable {...amendment} />

@@ -11,6 +11,8 @@ import EncryptedStorage from './lib/encrypted-storage.js'
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'
 import config from '!/config'
+import { captureException } from '@sentry/browser'
+import { setupSentry } from './lib/sentry.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
@@ -37,19 +39,25 @@ const connections = new ConnectionsCollection({
   connectionsStore: new ConcurrentStorage(new StorageLocalMap('connections')),
   publicKeyIndexStore
 })
+
+setupSentry(settings, wallets)
+
+const onerror = (...args) => {
+  console.error(args)
+  captureException(args[0])
+}
+
 const clientServer = initClient({
   settings,
   wallets,
   networks,
   connections,
   interactor,
-  onerror: (...args) => console.error(args)
+  onerror
 })
 
 const clientPorts = new PortServer({
-  onerror(err) {
-    console.error(err)
-  },
+  onerror,
   server: clientServer
 })
 
@@ -59,7 +67,7 @@ const server = initAdmin({
   wallets,
   networks,
   connections,
-  onerror: (...args) => console.error(args)
+  onerror
 })
 
 const popupPorts = new PortServer({

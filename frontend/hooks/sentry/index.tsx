@@ -1,21 +1,9 @@
 import { init, close, setTag } from '@sentry/react'
 import { useEffect } from 'react'
 import config from '!/config'
-import { Wallet, useWalletStore } from '../../stores/wallets'
+import { useWalletStore } from '../../stores/wallets'
 import { useGlobalsStore } from '../../stores/globals'
-import { ErrorEvent } from '@sentry/types'
-
-export const sanitizeEvent = (event: ErrorEvent, wallets: Wallet[]) => {
-  let eventString = JSON.stringify(event)
-  wallets.forEach((wallet) => {
-    eventString = eventString.replaceAll(wallet.name, '[WALLET_NAME]')
-    wallet.keys.forEach((key) => {
-      eventString = eventString.replaceAll(key.publicKey, '[VEGA_KEY]')
-    })
-  })
-  const sanitizedEvent = JSON.parse(eventString)
-  return sanitizedEvent
-}
+import { sanitizeEvent } from '../../../lib/sanitize-event.js'
 
 export const useSentry = () => {
   const { globals } = useGlobalsStore((state) => ({
@@ -28,15 +16,19 @@ export const useSentry = () => {
   useEffect(() => {
     if (globals?.settings.telemetry && config.sentryDsn) {
       init({
+        release: `@vegaprotocol/vegawallet-browser@${globals.version}`,
         dsn: config.sentryDsn,
         integrations: [],
-        tracesSampleRate: 1.0,
         environment: config.network.name,
         /* istanbul ignore next */
 
         beforeSend(event) {
           /* istanbul ignore next */
-          return sanitizeEvent(event, wallets)
+          return sanitizeEvent(
+            event,
+            wallets.map((wallet) => wallet.name),
+            wallets.flatMap((w) => w.keys.map((k) => k.publicKey))
+          )
         }
       })
       setTag('version', globals.version)

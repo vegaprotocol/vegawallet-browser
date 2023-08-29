@@ -1,7 +1,8 @@
 import { renderHook } from '@testing-library/react'
-import { sanitizeEvent, useSentry } from '.'
+import { useSentry } from '.'
 import { useGlobalsStore } from '../../stores/globals'
 import { init, close, setTag } from '@sentry/react'
+import { sanitizeEvent } from '../../../lib/sanitize-event'
 
 jest.mock('../../stores/globals')
 jest.mock('@sentry/react')
@@ -62,10 +63,10 @@ describe('useSentry', () => {
     renderHook(() => useSentry())
 
     expect(init).toHaveBeenCalledWith({
-      dsn: expect.any(String),
+      dsn: 'dsn',
       integrations: [],
-      tracesSampleRate: 1.0,
-      environment: expect.any(String),
+      environment: 'Test',
+      release: '@vegaprotocol/vegawallet-browser@1.0.0',
       beforeSend: expect.any(Function)
     })
 
@@ -93,22 +94,13 @@ describe('useSentry', () => {
   })
 
   it('should sanitize event by replacing wallet keys with [VEGA_KEY]', () => {
-    const wallets = [
-      {
-        name: 'name1',
-        keys: [
-          { index: 0, name: 'Key 1', publicKey: 'publicKey1', metadata: [] },
-          { index: 1, name: 'Key 2', publicKey: 'publicKey2', metadata: [] }
-        ]
-      },
-      { name: 'name2', keys: [{ index: 0, name: 'Key 1', publicKey: 'publicKey3', metadata: [] }] }
-    ]
     const event = JSON.stringify(
       sanitizeEvent(
         {
           message: 'name1, name2, publicKey1, publicKey2, publicKey3, publicKey2, name2'
         } as any,
-        wallets
+        ['name1', 'name2'],
+        ['publicKey1', 'publicKey2', 'publicKey3']
       )
     )
 

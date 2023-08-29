@@ -8,7 +8,7 @@ export const Submission = ({ transaction }: ReceiptComponentProps) => {
 
   if (submission.peggedOrder || submission.icebergOpts) return null
   return (
-    <ReceiptWrapper type="Order Submission">
+    <ReceiptWrapper>
       <OrderTable {...submission} />
       <OrderBadges {...submission} />
     </ReceiptWrapper>

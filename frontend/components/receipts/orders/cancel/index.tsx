@@ -6,7 +6,7 @@ import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 export const Cancellation = ({ transaction }: ReceiptComponentProps) => {
   const cancellation = transaction.orderCancellation
   return (
-    <ReceiptWrapper type="Order Cancellation">
+    <ReceiptWrapper>
       <OrderTable {...cancellation} />
       <OrderBadges {...cancellation} />
     </ReceiptWrapper>

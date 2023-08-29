@@ -29,7 +29,7 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
   const time = getTime(transaction)
   const { asset, amount } = transaction.transfer
   return (
-    <ReceiptWrapper type="Transfer">
+    <ReceiptWrapper>
       <h1 className="text-vega-dark-300 mt-4">To</h1>
       <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
         <div className="text-2xl text-white">

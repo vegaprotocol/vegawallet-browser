@@ -51,7 +51,7 @@ describe('TransferReceipt', () => {
     const { container } = render(<Transfer transaction={recurringTransfer} />)
     expect(container).toBeEmptyDOMElement()
   })
-  it('should render vega section, title, amount, receiving key and when the transaction is scheduled to be delivered', () => {
+  it('should render wrapper, amount, receiving key and when the transaction is scheduled to be delivered', () => {
     // 1114-RCPT-004 I can see the receiving key of the transfer
     const oneOffTransfer = {
       transfer: {

@@ -5,7 +5,7 @@ import { silenceErrors } from '../../../test-helpers/silence-errors'
 
 describe('OrderBadges component', () => {
   test('renders Good til date badge when timeInForce is GTT', () => {
-    const mockExpiresAt = '2022-01-01T00:00:00.000Z'
+    const mockExpiresAt = '1000000'
     render(
       <OrderBadges
         postOnly={false}
@@ -15,7 +15,7 @@ describe('OrderBadges component', () => {
       />
     )
 
-    expect(screen.getByText('Good til 1/1/2022, 12:00:00 AM')).toBeInTheDocument()
+    expect(screen.getByText('Good til 1/1/1970, 12:00:01 AM')).toBeInTheDocument()
   })
 
   test('renders TIF badge when timeInForce is not GTT', () => {

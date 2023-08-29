@@ -12,20 +12,22 @@ describe('OrderTable', () => {
         orderId={'2'.repeat(64)}
         size={'12'}
         price={'123'}
+        reference="ref"
       />
     )
-    const [marketRow, orderRow, directionRow, sizeRow, priceRow] = screen.getAllByTestId(locators.dataRow)
+    const [marketRow, orderRow, directionRow, referenceRow] = screen.getAllByTestId(locators.dataRow)
     expect(marketRow).toHaveTextContent('Market')
     expect(marketRow).toHaveTextContent('111111…1111')
+
     expect(orderRow).toHaveTextContent('Order')
     expect(orderRow).toHaveTextContent('222222…2222')
+
     expect(directionRow).toHaveTextContent('Direction')
     expect(directionRow).toHaveTextContent('Long')
-    expect(sizeRow).toHaveTextContent('Size')
-    expect(sizeRow).toHaveTextContent('12')
-    expect(priceRow).toHaveTextContent('Price')
-    expect(priceRow).toHaveTextContent('123')
-    expect(screen.getAllByTestId(locators.dataRow)).toHaveLength(5)
+
+    expect(referenceRow).toHaveTextContent('Reference')
+    expect(referenceRow).toHaveTextContent('ref')
+    expect(screen.getAllByTestId(locators.dataRow)).toHaveLength(4)
   })
 
   it('does not render row if the property is undefined', () => {

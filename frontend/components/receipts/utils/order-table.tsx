@@ -17,9 +17,7 @@ const Direction = ({ direction }: { direction: Side }) => {
 export const OrderTable = ({
   marketId,
   direction,
-  size,
   orderId,
-  price,
   reference
 }: Partial<{
   marketId: string
@@ -33,11 +31,7 @@ export const OrderTable = ({
     marketId ? ['Market', <MarketLink marketId={marketId} />] : null,
     orderId ? ['Order', truncateMiddle(orderId)] : null,
     direction ? ['Direction', <Direction direction={direction} />] : null,
-    reference ? ['Reference', reference] : null,
-    // TODO size makes no sense without positionDecimals
-    size ? ['Size', size] : null,
-    // TODO price makes no sense without decimals
-    price ? ['Price', price] : null
+    reference ? ['Reference', reference] : null
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
 

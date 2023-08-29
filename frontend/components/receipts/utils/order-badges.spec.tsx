@@ -5,7 +5,7 @@ import { silenceErrors } from '../../../test-helpers/silence-errors'
 
 describe('OrderBadges component', () => {
   test('renders Good til date badge when timeInForce is GTT', () => {
-    const mockExpiresAt = '1000000'
+    const mockExpiresAt = '100000000'
     render(
       <OrderBadges
         postOnly={false}

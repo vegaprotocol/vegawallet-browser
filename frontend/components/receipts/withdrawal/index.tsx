@@ -10,7 +10,7 @@ export const locators = {
 export const Withdraw = ({ transaction }: ReceiptComponentProps) => {
   if (!transaction.withdrawSubmission.ext?.erc20) return null
   return (
-    <ReceiptWrapper type="Withdrawal">
+    <ReceiptWrapper>
       <EthereumKey address={transaction.withdrawSubmission.ext.erc20.receiverAddress} />
     </ReceiptWrapper>
   )

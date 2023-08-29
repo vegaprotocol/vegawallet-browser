@@ -1,7 +1,7 @@
 import { TRANSACTION_TITLES, Transaction, TransactionKeys } from '../../../lib/transactions'
 import { VegaSection } from '../../vega-section'
 import { HostImage } from '../../host-image'
-import { KeyIcon } from '../../key-icon'
+import { KeyIcon } from '../../keys/vega-icon'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
 export const locators = {

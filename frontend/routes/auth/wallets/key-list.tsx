@@ -1,16 +1,12 @@
-import { ButtonLink, ExternalLink, Tooltip, truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { CopyWithCheckmark } from '../../../components/copy-with-check'
+import { ButtonLink } from '@vegaprotocol/ui-toolkit'
 import { List } from '../../../components/list'
-import { KeyIcon } from '../../../components/key-icon'
 import { Key, Wallet, useWalletStore } from '../../../stores/wallets'
-import config from '!/config'
 import { MessageIcon } from '../../../components/icons/message'
 import { useState } from 'react'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
+import { VegaKey } from '../../../components/keys/vega-key'
 
 export const locators = {
-  walletsKeyName: 'wallets-key-name',
-  walletsExplorerLink: 'wallets-explorer-link',
   walletsCreateKey: 'wallets-create-key',
   walletsSignMessageButton: 'sign-message-button'
 }
@@ -39,33 +35,16 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
         idProp="publicKey"
         items={wallet.keys}
         renderItem={(k) => (
-          <div className="flex items-center">
-            <KeyIcon publicKey={k.publicKey} />
-            <div className="ml-4">
-              <div data-testid={locators.walletsKeyName} className="text-lg text-white">
-                {k.name}
-              </div>
-              <div className="flex items-center">
-                <ExternalLink
-                  data-testid={locators.walletsExplorerLink}
-                  href={`${config.network.explorer}/parties/${k.publicKey}`}
-                >
-                  {truncateMiddle(k.publicKey)}
-                </ExternalLink>
-                <CopyWithCheckmark text={k.publicKey} />
-                &nbsp;
-                <Tooltip description="Sign message">
-                  <button
-                    data-testid={locators.walletsSignMessageButton}
-                    onClick={() => onIconClick(k.publicKey)}
-                    className="cursor-pointer mt-1"
-                  >
-                    <MessageIcon />
-                  </button>
-                </Tooltip>
-              </div>
-            </div>
-          </div>
+          <VegaKey publicKey={k.publicKey} name={k.name}>
+            &nbsp;
+            <button
+              data-testid={locators.walletsSignMessageButton}
+              onClick={() => onIconClick(k.publicKey)}
+              className="cursor-pointer mt-2"
+            >
+              <MessageIcon />
+            </button>
+          </VegaKey>
         )}
       />
       <div className="mt-3 text-white">

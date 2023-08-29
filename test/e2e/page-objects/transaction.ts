@@ -1,10 +1,12 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../selenium-util'
-import { locators } from '../../../frontend/components/modals/transaction-modal'
+import { locators as transactionModalLocators } from '../../../frontend/components/modals/transaction-modal'
+import { locators as transferLocators } from '../../../frontend/components/receipts/transfer'
 
 export class Transaction {
-  private readonly confirm: By = getByDataTestID(locators.transactionModalApproveButton)
-  private readonly reject: By = getByDataTestID(locators.transactionModalDenyButton)
+  private readonly confirm: By = getByDataTestID(transactionModalLocators.transactionModalApproveButton)
+  private readonly reject: By = getByDataTestID(transactionModalLocators.transactionModalDenyButton)
+  private readonly transferWhen: By = getByDataTestID(transferLocators.whenElement)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -14,6 +16,10 @@ export class Transaction {
 
   async rejectTransaction() {
     await clickElement(this.driver, this.reject)
+  }
+
+  async checkReceiptViewPresent() {
+    return await isElementDisplayed(this.driver, this.transferWhen, 1)
   }
 
   async checkOnTransactionPage() {

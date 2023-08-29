@@ -1,7 +1,7 @@
 import { Transaction, TransactionKeys } from '../../lib/transactions'
 import { Amendment } from './orders/amend'
 import { Cancellation } from './orders/cancel'
-import { Submission } from './orders/submit'
+import { Submission } from './orders/submission'
 import { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
 import { Withdraw } from './withdrawal'

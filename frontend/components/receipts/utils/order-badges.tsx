@@ -21,7 +21,8 @@ const TifBadge = ({ timeInForce, expiresAt }: { timeInForce: OrderTimeInForce; e
     if (!expiresAt) {
       throw new Error('GTT order without expiresAt')
     }
-    return <OrderBadge>Good til {getDateTimeFormat().format(new Date(expiresAt))}</OrderBadge>
+    const time = Math.floor(+expiresAt / 1e6) // nano seconds to milliseconds
+    return <OrderBadge>Good til {getDateTimeFormat().format(new Date(time))}</OrderBadge>
   }
   return <OrderBadge>{TIF_MAP[timeInForce]}</OrderBadge>
 }
@@ -41,7 +42,7 @@ export const OrderBadges = ({
   const reduceBadge = reduceOnly ? <OrderBadge>Reduce only</OrderBadge> : null
   const tifBadge = timeInForce ? <TifBadge timeInForce={timeInForce} expiresAt={expiresAt} /> : null
   return (
-    <div>
+    <div className="break-all">
       {tifBadge}
       {reduceBadge}
       {postBadge}

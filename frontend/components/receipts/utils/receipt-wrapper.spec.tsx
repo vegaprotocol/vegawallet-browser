@@ -4,11 +4,10 @@ import { ReceiptWrapper, locators } from './receipt-wrapper'
 describe('ReceiptView', () => {
   it('should render vega section, title and children', () => {
     render(
-      <ReceiptWrapper type={'Transfer'}>
+      <ReceiptWrapper>
         <div>Child</div>
       </ReceiptWrapper>
     )
-    expect(screen.getByTestId(locators.receiptTitle)).toHaveTextContent('Transfer')
     expect(screen.getByTestId(locators.receiptWrapper)).toBeInTheDocument()
     expect(screen.getByText('Child')).toBeInTheDocument()
   })

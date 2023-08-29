@@ -100,6 +100,6 @@ describe('TransferReceipt', () => {
     }
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('in 3 months')
-    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('4/11/1970, 1:00:00 AM')
+    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('4/11/1970, 12:00:00 AM')
   })
 })

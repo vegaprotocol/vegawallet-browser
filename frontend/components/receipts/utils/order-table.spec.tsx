@@ -34,4 +34,16 @@ describe('OrderTable', () => {
     render(<OrderTable />)
     expect(screen.queryAllByTestId(locators.dataRow)).toHaveLength(0)
   })
+  it('renders short for buy orders', () => {
+    render(<OrderTable direction={Side.SIDE_BUY} />)
+    const [directionRow] = screen.getAllByTestId(locators.dataRow)
+    expect(directionRow).toHaveTextContent('Direction')
+    expect(directionRow).toHaveTextContent('Long')
+  })
+  it('renders long for sell orders', () => {
+    render(<OrderTable direction={Side.SIDE_SELL} />)
+    const [directionRow] = screen.getAllByTestId(locators.dataRow)
+    expect(directionRow).toHaveTextContent('Direction')
+    expect(directionRow).toHaveTextContent('Long')
+  })
 })

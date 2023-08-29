@@ -1,5 +1,4 @@
 import { ReceiptComponentProps } from '../../receipts'
-import { OrderBadges } from '../../utils/order-badges'
 import { OrderTable } from '../../utils/order-table'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 
@@ -8,7 +7,6 @@ export const Cancellation = ({ transaction }: ReceiptComponentProps) => {
   return (
     <ReceiptWrapper>
       <OrderTable {...cancellation} />
-      <OrderBadges {...cancellation} />
     </ReceiptWrapper>
   )
 }

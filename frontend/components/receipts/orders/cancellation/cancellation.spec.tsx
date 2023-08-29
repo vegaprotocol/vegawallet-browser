@@ -6,7 +6,7 @@ describe('Cancellation', () => {
     render(
       <Cancellation
         transaction={{
-          cancellation: {
+          orderCancellation: {
             orderId: 'orderId',
             marketId: 'marketId'
           }

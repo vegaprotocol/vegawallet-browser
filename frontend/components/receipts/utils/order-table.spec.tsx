@@ -44,6 +44,6 @@ describe('OrderTable', () => {
     render(<OrderTable direction={Side.SIDE_SELL} />)
     const [directionRow] = screen.getAllByTestId(locators.dataRow)
     expect(directionRow).toHaveTextContent('Direction')
-    expect(directionRow).toHaveTextContent('Long')
+    expect(directionRow).toHaveTextContent('Short')
   })
 })

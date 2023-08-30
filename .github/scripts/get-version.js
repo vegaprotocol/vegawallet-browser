@@ -20,7 +20,7 @@ async function main(configPath) {
     for (const url of urls) {
       const version = await getVersion(url);
       if (version !== null) {
-        console.log(`${version}`);
+        console.log(version);
         break;
       }
     }

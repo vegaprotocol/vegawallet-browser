@@ -2,9 +2,9 @@ import { execSync } from 'child_process';
 
 async function getVersion(url) {
   try {
-    const response = execSync(`curl -s '${url}/graphql' -H 'content-type: application/json' --data-raw '{"query":"{ statistics { appVersion } }"}'`);
+    const response = execSync(`curl -s '${url}/statistics' -H 'content-type: application/json'}`);
     const parsedResponse = JSON.parse(response);
-    const appVersion = parsedResponse.data.statistics.appVersion;
+    const appVersion = parsedResponse.statistics.appVersion;
     return appVersion;
   } catch (error) {
     console.error(`Error fetching version from ${url}: ${error.message}`);

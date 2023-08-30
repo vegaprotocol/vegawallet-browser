@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { OrderTable } from './order-table'
 import { locators } from '../../data-table/data-table'
-import { Side } from '@vegaprotocol/types'
+import { OrderType, Side } from '@vegaprotocol/types'
 
 describe('OrderTable', () => {
   it('renders a row for each property', () => {
@@ -13,9 +13,10 @@ describe('OrderTable', () => {
         size={'12'}
         price={'123'}
         reference="ref"
+        type={OrderType.TYPE_MARKET}
       />
     )
-    const [marketRow, orderRow, directionRow, referenceRow] = screen.getAllByTestId(locators.dataRow)
+    const [marketRow, orderRow, directionRow, typeRow, referenceRow] = screen.getAllByTestId(locators.dataRow)
     expect(marketRow).toHaveTextContent('Market')
     expect(marketRow).toHaveTextContent('111111…1111')
 
@@ -25,9 +26,12 @@ describe('OrderTable', () => {
     expect(directionRow).toHaveTextContent('Direction')
     expect(directionRow).toHaveTextContent('Long')
 
+    expect(typeRow).toHaveTextContent('Type')
+    expect(typeRow).toHaveTextContent('Market')
+
     expect(referenceRow).toHaveTextContent('Reference')
     expect(referenceRow).toHaveTextContent('ref')
-    expect(screen.getAllByTestId(locators.dataRow)).toHaveLength(4)
+    expect(screen.getAllByTestId(locators.dataRow)).toHaveLength(5)
   })
 
   it('does not render row if the property is undefined', () => {

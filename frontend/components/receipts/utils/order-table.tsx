@@ -1,24 +1,17 @@
 import { ReactNode } from 'react'
 import { DataTable } from '../../data-table/data-table'
-import { ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import config from '!/config'
-import { Side } from '@vegaprotocol/types'
-
-const MarketLink = ({ marketId, name }: { marketId: string; name?: string }) => (
-  <ExternalLink href={`${config.network.explorer}/markets/${marketId}`}>
-    {name ? name : truncateMiddle(marketId)}
-  </ExternalLink>
-)
-
-const Direction = ({ direction }: { direction: Side }) => {
-  return <>{direction === Side.SIDE_BUY ? 'Long' : 'Short'}</>
-}
+import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { OrderType, Side } from '@vegaprotocol/types'
+import { MarketLink } from './order/market-link'
+import { Direction } from './order/direction'
+import { OrderTypeComponent } from './order/order-type'
 
 export const OrderTable = ({
   marketId,
   direction,
   orderId,
-  reference
+  reference,
+  type
 }: Partial<{
   marketId: string
   orderId: string
@@ -26,11 +19,13 @@ export const OrderTable = ({
   size: string
   price: string
   reference: string
+  type: OrderType
 }>) => {
   const columns = [
-    marketId ? ['Market', <MarketLink marketId={marketId} />] : null,
+    marketId ? ['Market', <MarketLink key="order-details-market" marketId={marketId} />] : null,
     orderId ? ['Order', truncateMiddle(orderId)] : null,
-    direction ? ['Direction', <Direction direction={direction} />] : null,
+    direction ? ['Direction', <Direction key="order-details-direction" direction={direction} />] : null,
+    type ? ['Type', <OrderTypeComponent key="order-details-type" type={type} />] : null,
     reference ? ['Reference', reference] : null
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]

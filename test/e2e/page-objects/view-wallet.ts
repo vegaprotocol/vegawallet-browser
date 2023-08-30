@@ -11,12 +11,14 @@ import { locators as walletLocators } from '../../../frontend/routes/auth/wallet
 import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/key-list'
 import { SignMessage } from './sign-message'
 
+import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'
+
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
   private readonly createNewKeyPairButton: By = getByDataTestID(keyListLocators.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly copyIcon: By = getByDataTestID('copy-icon')
-  private readonly copyableKey: By = getByDataTestID(keyListLocators.walletsExplorerLink)
+  private readonly copyableKey: By = getByDataTestID(vegaKeyLocators.explorerLink)
   private readonly signMessageButton: By = getByDataTestID(keyListLocators.walletsSignMessageButton)
 
   constructor(private readonly driver: WebDriver) {}
@@ -29,7 +31,7 @@ export class ViewWallet {
   async getWalletKeys() {
     await this.checkOnViewWalletPage()
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(vegaKeyLocators.keyName))
     const keys: string[] = []
     for (const key of keyElements) {
       keys.push(await key.getText())
@@ -46,7 +48,7 @@ export class ViewWallet {
   async waitForExpectedNumberOfKeys(expectedNumber: number) {
     await this.checkOnViewWalletPage()
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(vegaKeyLocators.keyName))
     expect(keyElements.length).toBe(expectedNumber)
   }
 
@@ -61,13 +63,9 @@ export class ViewWallet {
   async createNewKeyPair() {
     await this.checkOnViewWalletPage()
     const keyList = await waitForElementToBeReady(this.driver, this.walletKeys)
-    const keyElements = await keyList.findElements(getByDataTestID(keyListLocators.walletsKeyName))
+    const keyElements = await keyList.findElements(getByDataTestID(vegaKeyLocators.keyName))
     await clickElement(this.driver, this.createNewKeyPairButton)
-    await waitForChildElementsCount(
-      this.driver,
-      getByDataTestID(keyListLocators.walletsKeyName),
-      keyElements.length + 1
-    )
+    await waitForChildElementsCount(this.driver, getByDataTestID(vegaKeyLocators.keyName), keyElements.length + 1)
   }
 
   async copyPublicKeyToClipboard() {

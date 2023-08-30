@@ -22,6 +22,7 @@ export default {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
 
   setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
+  globalSetup: '<rootDir>/frontend/global-setup.ts',
 
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],
   coverageDirectory: 'coverage/frontend',

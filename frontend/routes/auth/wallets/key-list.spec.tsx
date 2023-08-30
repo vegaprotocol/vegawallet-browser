@@ -4,6 +4,7 @@ import config from '!/config'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import componentLocators from '../../../components/locators'
+import { locators as vegaKeyLocators } from '../../../components/keys/vega-key'
 
 const storeMock = {
   createKey: jest.fn()
@@ -47,8 +48,8 @@ describe('KeyList', () => {
     renderComponent({ wallet, onIconClick })
 
     const header = screen.getByText('Keys')
-    const keys = screen.getAllByTestId(locators.walletsKeyName)
-    const explorerLink = screen.getAllByTestId(locators.walletsExplorerLink)
+    const keys = screen.getAllByTestId(vegaKeyLocators.keyName)
+    const explorerLink = screen.getAllByTestId(vegaKeyLocators.explorerLink)
     const copyWithCheck = screen.getAllByTestId(componentLocators.copyWithCheck)
     const createKeyButton = screen.getByTestId(locators.walletsCreateKey)
 

@@ -77,9 +77,9 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
       async 'admin.update_app_settings'(params) {
         doValidate(adminValidation.updateAppSettings, params)
         await settings.transaction(async (store) => {
-          Object.entries(params).forEach(async ([key, value]) => {
+          for (const [key, value] of Object.entries(params)) {
             await store.set(key, value)
-          })
+          }
         })
 
         return null

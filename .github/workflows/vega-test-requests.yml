@@ -38,7 +38,7 @@ jobs:
 
     strategy:
       matrix:
-        configFile: [''] # Add '$(pwd)/config/mainnet.js', '$(pwd)/config/testnet.js' when the env have the check-tx functionality to turn checks against those envs on
+        configFile: [$(pwd)/config/mainnet.js, '$(pwd)/config/testnet.js'] # Add '$(pwd)/config/mainnet.js', '$(pwd)/config/testnet.js' when the env have the check-tx functionality to turn checks against those envs on
 
     steps:
       - uses: actions/checkout@v2

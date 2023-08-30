@@ -40,6 +40,7 @@ describe('OrderBadges component', () => {
         expiresAt={undefined}
       />
     )
+
     expect(screen.getByText('Post only')).toBeVisible()
   })
 

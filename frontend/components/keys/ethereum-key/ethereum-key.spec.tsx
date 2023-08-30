@@ -9,6 +9,7 @@ const address = '0x1234567890abcdef'
 
 describe('EthereumKey', () => {
   test('renders Ethereum address correctly', () => {
+    // 1115-EXPL-001 When I see the Ethereum key I can see a link to an Ethereum block explorer based on that address
     render(<EthereumKey address={address} />)
 
     const explorerLink = screen.getByTestId(locators.explorerLink)

@@ -61,9 +61,9 @@ describe('Onboarding', () => {
 
   it('can successfully import a wallet', async () => {
     // 1101-ONBD-013 I can choose to import an existing wallet
-    // 1101-ONBD-031 I can enter the recovery phrase to import my existing vega wallet
-    // 1101-ONBD-032 I can submit the recovery phrase I have entered to import the wallet
-    // 1101-ONBD-035 I am redirected to the next step
+    // 1101-ONBD-027 I can enter the recovery phrase to import my existing vega wallet
+    // 1101-ONBD-028 I can submit the recovery phrase I have entered to import the wallet
+    // 1101-ONBD-031 I am redirected to the next step
     // 1101-ONBD-015 I am given visual feedback that my wallet was successfully imported
     // 1111-TELE-004 I can opt out of reporting bugs and crashes
     const apiHelper = new APIHelper(driver)

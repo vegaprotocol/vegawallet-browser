@@ -141,7 +141,7 @@ describe('CreatePassword', () => {
   })
 
   it('should render password security feedback', async () => {
-    // 1101-ONBD-037 During password creation, there is a way to understand whether the password I have created is secure or no
+    // 1101-ONBD-036 During password creation, there is a way to understand whether the password I have created is secure or no
     renderComponent()
     fireEvent.change(screen.getByTestId(passphraseInput), {
       target: { value: 'test1234' }

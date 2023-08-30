@@ -1,0 +1,72 @@
+name: 'Check Requests Compatible With Vega Envs'
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-requests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v2
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Generate requests
+        run: yarn test:requests
+        id: generate-requests
+
+      - name: Archive request files
+        uses: actions/upload-artifact@v2
+        with:
+          name: request-files
+          path: request-files
+
+  test-requests:
+    needs: generate-requests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        configFile: [''] # Add '$(pwd)/config/mainnet.js', '$(pwd)/config/testnet.js' when the env have the check-tx functionality to turn checks against those envs on
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v2
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Download request files
+        uses: actions/download-artifact@v2
+        with:
+          name: request-files
+          path: request-files
+
+      - name: Set envVersion
+        run: |
+          if [[ "${{ matrix.configFile }}" == "" ]]; then
+            echo "VERSION=58508f6e" >> $GITHUB_ENV
+          else
+            envVersion=$(node ./.github/scripts/get-version.js ${{ matrix.configFile }})
+            echo "VERSION=$envVersion" >> $GITHUB_ENV
+          fi
+
+      - name: ${{ matrix.configFile }}-check requests compatible
+        run: |
+          envVersion=$VERSION
+          echo "-------- configuration ${{ matrix.configFile }} is running on vega $envVersion --------"
+          docker pull ghcr.io/vegaprotocol/vega/vega:$envVersion
+          docker run --rm -v $(pwd)/request-files:/txdir ghcr.io/vegaprotocol/vega/vega:$envVersion tools check-tx --txdir=/txdir

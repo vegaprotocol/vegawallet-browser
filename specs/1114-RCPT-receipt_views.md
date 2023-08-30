@@ -26,7 +26,6 @@ As a user I want to understand my transaction so that I can know what I am sendi
 ## Withdrawal
 
 - I can see the Ethereum key I am withdrawing the assets to (<a name="1114-RCPT-007" href="#1114-RCPT-007">1114-RCPT-007</a>)
-- I can see a link to an Ethereum block explorer based on that link (<a name="1114-RCPT-008" href="#1114-RCPT-008">1114-RCPT-008</a>)
 
 ## Order
 
@@ -44,7 +43,6 @@ As a user I want to understand my transaction so that I can know what I am sendi
 ### Order submission
 
 - I can see the market id of the order I am submitting (<a name="1114-RCPT-013" href="#1114-RCPT-013">1114-RCPT-013</a>)
-- I can see a link to the Vega block explorer for the market (<a name="1114-RCPT-014" href="#1114-RCPT-014">1114-RCPT-014</a>)
 - I can see the direction of order I am submitting (<a name="1114-RCPT-015" href="#1114-RCPT-015">1114-RCPT-015</a>)
 - I can see the type of the order I am submitting (<a name="1114-RCPT-016" href="#1114-RCPT-016">1114-RCPT-016</a>)
 - I can see the reference of the order I am submitting (<a name="1114-RCPT-017" href="#1114-RCPT-017">1114-RCPT-017</a>)
@@ -53,12 +51,10 @@ As a user I want to understand my transaction so that I can know what I am sendi
 ### Order cancellation
 
 - If present I can see the market id relating to the order (<a name="1114-RCPT-019" href="#1114-RCPT-019">1114-RCPT-019</a>)
-- If present I can see a link to the Vega block explorer for the market (<a name="1114-RCPT-020" href="#1114-RCPT-020">1114-RCPT-020</a>)
 - If present I can see the order id relating to the order (<a name="1114-RCPT-021" href="#1114-RCPT-021">1114-RCPT-021</a>)
 
 ### Order amendment
 
 - I can see the order id of the order I am amending (<a name="1114-RCPT-022" href="#1114-RCPT-022">1114-RCPT-022</a>)
-- I can see the market id relating to the order (<a name="1114-RCPT-023" href="#1114-RCPT-023">1114-RCPT-023</a>)
 - I can see a link to the Vega block explorer for the market (<a name="1114-RCPT-024" href="#1114-RCPT-024">1114-RCPT-024</a>)
 - I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-025" href="#1114-RCPT-025">1114-RCPT-025</a>)

@@ -38,7 +38,7 @@ jobs:
 
     strategy:
       matrix:
-        configFile: [$(pwd)/config/mainnet.js, '$(pwd)/config/testnet.js'] # Add '$(pwd)/config/mainnet.js', '$(pwd)/config/testnet.js' when the env have the check-tx functionality to turn checks against those envs on
+        configFile: [$(pwd)/config/mainnet.js, $(pwd)/config/testnet.js] # Add '$(pwd)/config/mainnet.js', '$(pwd)/config/testnet.js' when the env have the check-tx functionality to turn checks against those envs on
 
     steps:
       - uses: actions/checkout@v2
@@ -60,7 +60,7 @@ jobs:
           if [[ "${{ matrix.configFile }}" == "" ]]; then
             echo "VERSION=58508f6e" >> $GITHUB_ENV
           else
-            envVersion=$(node ./.github/scripts/get-version.cjs ${{ matrix.configFile }})
+            envVersion=$(node ./.github/scripts/get-version.js ${{ matrix.configFile }})
             echo "VERSION=$envVersion" >> $GITHUB_ENV
           fi
 

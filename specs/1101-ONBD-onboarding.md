@@ -15,7 +15,7 @@ As a browser wallet user I want to create a password for my browser wallet app S
 - When I have submitted my new password, I can NOT go back to the previous step (<a name="1101-ONBD-009" href="#1101-ONBD-009">1101-ONBD-009</a>)
 - After setting a password, my wallets are encrypted (<a name="1101-ONBD-010" href="#1101-ONBD-010">1101-ONBD-010</a>)
 - I can see the button is disabled and a loading state after submitting (<a name="1101-ONBD-011" href="#1101-ONBD-011">1101-ONBD-011</a>)
-- During password creation, there is a way to understand whether the password I have created is secure or not (<a name="1101-ONBD-037" href="#1101-ONBD-037">1101-ONBD-037</a>)
+- During password creation, there is a way to understand whether the password I have created is secure or not (<a name="1101-ONBD-036" href="#1101-ONBD-036">1101-ONBD-036</a>)
 
 ## Create or import wallet
 
@@ -41,29 +41,20 @@ As a browser wallet user When I am using the browser wallet for the first time I
 - The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" (<a name="1101-ONBD-024" href="#1101-ONBD-024">1101-ONBD-024</a>)
 - When I have already created a wallet, I am redirected to the landing page where I can view that wallet (rather than the onboarding flow) (<a name="1101-ONBD-025" href="#1101-ONBD-025">1101-ONBD-025</a>)
 
-## Confirm recovery phrase
-
-As a wallet user I want to validate I have "recorded" or saved the recovery phrase accurately So that I feel secure and confident to go ahead
-
-- I can confirm I have written down / saved my recovery phrase by entering parts of it again in the UI(<a name="1101-ONBD-026" href="#1101-ONBD-026">1101-ONBD-026</a>)
-- There is a way to go back to see the full recovery phrase if I have written / saved it incorrectly (<a name="1101-ONBD-027" href="#1101-ONBD-027">1101-ONBD-027</a>)
-- I can click to continue to the next step of onboarding once I've successfully entered the relevant parts of the phrase (<a name="1101-ONBD-028" href="#1101-ONBD-028">1101-ONBD-028</a>)
-- There is a way to understand if the details I've entered are incorrect e.g. highlight in red (<a name="1101-ONBD-029" href="#1101-ONBD-029">1101-ONBD-029</a>)
-
 ## Import existing wallet
 
 As a wallet user When I am using the browser extension for the first time I want to import an existing vega wallet (and key pair(s)) that I created elsewhere i.e. desktop app or CLI So that I can get started using Console / another Vega dapp to trade / take part in governance
 
-- I can see an explanation of what I am being asked to do (<a name="1101-ONBD-030" href="#1101-ONBD-030">1101-ONBD-030</a>)
-- I can enter the recovery phrase to import my existing vega wallet (<a name="1101-ONBD-031" href="#1101-ONBD-031">1101-ONBD-031</a>)
-- I can submit the recovery phrase I have entered to import the wallet (<a name="1101-ONBD-032" href="#1101-ONBD-032">1101-ONBD-032</a>)
-- I can not hit submit until I have entered 24 words (and given feedback that I haven't met the min number of words) (<a name="1101-ONBD-033" href="#1101-ONBD-033">1101-ONBD-033</a>)
-- If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again) (<a name="1101-ONBD-034" href="#1101-ONBD-034">1101-ONBD-034</a>)
-- I am redirected to the next step (<a name="1101-ONBD-035" href="#1101-ONBD-035">1101-ONBD-035</a>)
-- I can see the button is disabled and a loading state after submitting (<a name="1101-ONBD-036" href="#1101-ONBD-036">1101-ONBD-036</a>)
+- I can see an explanation of what I am being asked to do (<a name="1101-ONBD-026" href="#1101-ONBD-026">1101-ONBD-026</a>)
+- I can enter the recovery phrase to import my existing vega wallet (<a name="1101-ONBD-027" href="#1101-ONBD-027">1101-ONBD-027</a>)
+- I can submit the recovery phrase I have entered to import the wallet (<a name="1101-ONBD-028" href="#1101-ONBD-028">1101-ONBD-028</a>)
+- I can not hit submit until I have entered 24 words (and given feedback that I haven't met the min number of words) (<a name="1101-ONBD-029" href="#1101-ONBD-029">1101-ONBD-029</a>)
+- If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again) (<a name="1101-ONBD-030" href="#1101-ONBD-030">1101-ONBD-030</a>)
+- I am redirected to the next step (<a name="1101-ONBD-031" href="#1101-ONBD-031">1101-ONBD-031</a>)
+- I can see the button is disabled and a loading state after submitting (<a name="1101-ONBD-032" href="#1101-ONBD-032">1101-ONBD-032</a>)
 
 ## Getting started
 
-- If built for mainnet I can see a legal disclaimer with a button to read more (<a name="1101-ONBD-037" href="#1101-ONBD-037">1101-ONBD-037</a>)
-- If built for mainnet I can press read more to see the full disclaimer (<a name="1101-ONBD-038" href="#1101-ONBD-038">1101-ONBD-038</a>)
-- If not built for mainnet I can see a message related to testnet (<a name="1101-ONBD-039" href="#1101-ONBD-039">1101-ONBD-039</a>)
+- If built for mainnet I can see a legal disclaimer with a button to read more (<a name="1101-ONBD-033" href="#1101-ONBD-033">1101-ONBD-033</a>)
+- If built for mainnet I can press read more to see the full disclaimer (<a name="1101-ONBD-034" href="#1101-ONBD-034">1101-ONBD-034</a>)
+- If not built for mainnet I can see a message related to testnet (<a name="1101-ONBD-035" href="#1101-ONBD-035">1101-ONBD-035</a>)

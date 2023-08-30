@@ -30,7 +30,7 @@ describe('ImportWallet', () => {
     mockStorage()
   })
   it('renders description, input and submit button', () => {
-    // 1101-ONBD-030 I can see an explanation of what I am being asked to do
+    // 1101-ONBD-026 I can see an explanation of what I am being asked to do
     mockClient()
     renderComponent()
     expect(screen.getByTestId(importMnemonicDescription)).toHaveTextContent(
@@ -43,7 +43,7 @@ describe('ImportWallet', () => {
   })
 
   it('renders loading state while wallet is being imported', async () => {
-    // 1101-ONBD-036 - I can see the button is disabled and a loading state after submitting
+    // 1101-ONBD-032 - I can see the button is disabled and a loading state after submitting
     mockClient()
     renderComponent()
 
@@ -82,7 +82,7 @@ describe('ImportWallet', () => {
   })
 
   it('requires mnemonic should be 24 words', async () => {
-    // 1101-ONBD-033 I can not hit submit until I have entered 24 words (and given feedback that I haven't met the min number of words)
+    // 1101-ONBD-029 I can not hit submit until I have entered 24 words (and given feedback that I haven't met the min number of words)
     mockClient()
     const twentyThreeWords =
       'one two three four five six seven eight nine ten eleven twelve thirteen fouteen fifteen sixteen seventeen eighteen ninteen twenty twenty-one twenty-two twenty-three'
@@ -101,7 +101,7 @@ describe('ImportWallet', () => {
   })
 
   it('renders error message if recovery phrase is invalid', async () => {
-    // 1101-ONBD-034 If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again)
+    // 1101-ONBD-030 If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again)
     const listeners: Function[] = []
     // @ts-ignore
     global.browser = {

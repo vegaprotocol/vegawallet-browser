@@ -29,5 +29,5 @@ async function main(configPath) {
   }
 }
 
-const configPath = process.argv[2]; // Assuming the path is provided as a command-line argument
+const configPath = process.argv[2];
 main(configPath);

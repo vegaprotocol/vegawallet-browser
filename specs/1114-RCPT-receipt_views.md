@@ -56,5 +56,5 @@ As a user I want to understand my transaction so that I can know what I am sendi
 ### Order amendment
 
 - I can see the order id of the order I am amending (<a name="1114-RCPT-019" href="#1114-RCPT-019">1114-RCPT-019</a>)
-- I can see a link to the Vega block explorer for the market (<a name="1114-RCPT-020" href="#1114-RCPT-020">1114-RCPT-020</a>)
+- I can see the market id relating to the order I am amending (<a name="1114-RCPT-020" href="#1114-RCPT-020">1114-RCPT-020</a>)
 - I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-021" href="#1114-RCPT-021">1114-RCPT-021</a>)

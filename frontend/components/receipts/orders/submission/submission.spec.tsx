@@ -28,6 +28,11 @@ describe('SubmissionReceipt', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('renders order table and badges', () => {
+    // 1114-RCPT-012 I can see the market id of the order I am submitting
+    // 1114-RCPT-013 I can see the direction of order I am submitting
+    // 1114-RCPT-014 I can see the type of the order I am submitting
+    // 1114-RCPT-015 I can see the reference of the order I am submitting
+    // 1114-RCPT-016 I can see any relevant order badges
     render(
       <Submission
         transaction={{

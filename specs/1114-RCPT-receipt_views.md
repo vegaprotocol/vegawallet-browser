@@ -33,28 +33,28 @@ As a user I want to understand my transaction so that I can know what I am sendi
 
 #### Order badges
 
-- I can see a badge if the order is post only (<a name="1114-RCPT-009" href="#1114-RCPT-009">1114-RCPT-009</a>)
-- I can see a badge if the order is reduce only (<a name="1114-RCPT-010" href="#1114-RCPT-010">1114-RCPT-010</a>)
-- I can see a badge of the order time in force (<a name="1114-RCPT-011" href="#1114-RCPT-011">1114-RCPT-011</a>)
-- If time in force is GTT then I can see the expiry of the order (<a name="1114-RCPT-012" href="#1114-RCPT-012">1114-RCPT-012</a>)
+- I can see a badge if the order is post only (<a name="1114-RCPT-008" href="#1114-RCPT-008">1114-RCPT-008</a>)
+- I can see a badge if the order is reduce only (<a name="1114-RCPT-009" href="#1114-RCPT-009">1114-RCPT-009</a>)
+- I can see a badge of the order time in force (<a name="1114-RCPT-010" href="#1114-RCPT-010">1114-RCPT-010</a>)
+- If time in force is GTT then I can see the expiry of the order (<a name="1114-RCPT-011" href="#1114-RCPT-011">1114-RCPT-011</a>)
 
 <!-- #### Data enrichment -->
 
 ### Order submission
 
-- I can see the market id of the order I am submitting (<a name="1114-RCPT-013" href="#1114-RCPT-013">1114-RCPT-013</a>)
-- I can see the direction of order I am submitting (<a name="1114-RCPT-015" href="#1114-RCPT-015">1114-RCPT-015</a>)
-- I can see the type of the order I am submitting (<a name="1114-RCPT-016" href="#1114-RCPT-016">1114-RCPT-016</a>)
-- I can see the reference of the order I am submitting (<a name="1114-RCPT-017" href="#1114-RCPT-017">1114-RCPT-017</a>)
-- I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-018" href="#1114-RCPT-018">1114-RCPT-018</a>)
+- I can see the market id of the order I am submitting (<a name="1114-RCPT-012" href="#1114-RCPT-012">1114-RCPT-012</a>)
+- I can see the direction of order I am submitting (<a name="1114-RCPT-013" href="#1114-RCPT-013">1114-RCPT-013</a>)
+- I can see the type of the order I am submitting (<a name="1114-RCPT-014" href="#1114-RCPT-014">1114-RCPT-014</a>)
+- I can see the reference of the order I am submitting (<a name="1114-RCPT-015" href="#1114-RCPT-015">1114-RCPT-015</a>)
+- I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-016" href="#1114-RCPT-016">1114-RCPT-016</a>)
 
 ### Order cancellation
 
-- If present I can see the market id relating to the order (<a name="1114-RCPT-019" href="#1114-RCPT-019">1114-RCPT-019</a>)
-- If present I can see the order id relating to the order (<a name="1114-RCPT-021" href="#1114-RCPT-021">1114-RCPT-021</a>)
+- If present I can see the market id relating to the order (<a name="1114-RCPT-017" href="#1114-RCPT-017">1114-RCPT-017</a>)
+- If present I can see the order id relating to the order (<a name="1114-RCPT-018" href="#1114-RCPT-018">1114-RCPT-018</a>)
 
 ### Order amendment
 
-- I can see the order id of the order I am amending (<a name="1114-RCPT-022" href="#1114-RCPT-022">1114-RCPT-022</a>)
-- I can see a link to the Vega block explorer for the market (<a name="1114-RCPT-024" href="#1114-RCPT-024">1114-RCPT-024</a>)
-- I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-025" href="#1114-RCPT-025">1114-RCPT-025</a>)
+- I can see the order id of the order I am amending (<a name="1114-RCPT-019" href="#1114-RCPT-019">1114-RCPT-019</a>)
+- I can see a link to the Vega block explorer for the market (<a name="1114-RCPT-020" href="#1114-RCPT-020">1114-RCPT-020</a>)
+- I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-021" href="#1114-RCPT-021">1114-RCPT-021</a>)

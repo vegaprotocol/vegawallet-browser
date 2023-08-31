@@ -3712,12 +3712,12 @@
   resolved "https://registry.yarnpkg.com/@vegaprotocol/i18n/-/i18n-0.0.3.tgz#36344549db815a720381b7fa4d155120bcc036c3"
   integrity sha512-ExZi8VXZ2Cpf6k7j5P8PfNW2+eWL+766C1bXvKR9zd2p79oGL8TRqObS+q+UWHz1hL3vLepdVEel5rW/I0E3lw==
 
-"@vegaprotocol/protos@0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/protos/-/protos-0.6.0.tgz#e24ae0587ae5f00231f38b70215804a504c7b774"
-  integrity sha512-JY/r2biOKzmHsStTWYBJXKv59Ljat2+lGdcvxDl4s4/Kvo8srrhP5u6B8vN4pb3hPlUs5vdvXrgESOkhqSa3fw==
+"@vegaprotocol/protos@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/protos/-/protos-0.7.2.tgz#9d2927b95b61388a6a76191cd917a7845fd15fd9"
+  integrity sha512-0wENROE1VLiFrtUi54AJCnWoPKUnMqnn2m5KlzTcycfFh/F7Rp674nch62UV5rIgBU/2HWcydW/ijTmwOO87yQ==
   dependencies:
-    protobuf-codec "^1.0.6"
+    protobuf-codec "^2.0.1"
     type-fest "^3.6.0"
 
 "@vegaprotocol/react-helpers@0.2.4":
@@ -9047,6 +9047,13 @@ protobuf-codec@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/protobuf-codec/-/protobuf-codec-1.0.6.tgz#46b93b76966e41e86336d5e7bec53f6f2d25c3dd"
   integrity sha512-tQ9FGcca9g6COFr1yft+B/JYSafx6xsxak9YL0yCQ3FAM9HkbgEUZWyz1NbPcTN3Efw2YEVEBxaHr1+P9p+eJw==
+  dependencies:
+    nanoassert "^2.0.0"
+
+protobuf-codec@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/protobuf-codec/-/protobuf-codec-2.0.1.tgz#2f15d70168a899f9e21f0a9e2cb20548df8d891c"
+  integrity sha512-pM9K/O4R+HSarhAcsixyv5yhpDf0sNXY3oQL0asJphM7KgAki2fbg9eUqPhx3HW47H7nLu0fxN/r28g6sg1eVw==
   dependencies:
     nanoassert "^2.0.0"
 

@@ -15,7 +15,7 @@ describe('OrderTable', () => {
     // 1114-RCPT-020 I can see the market id relating to the order I am amending
     render(
       <OrderTable
-        direction={Side.SIDE_BUY}
+        side={Side.SIDE_BUY}
         marketId={'1'.repeat(64)}
         orderId={'2'.repeat(64)}
         size={'12'}
@@ -47,13 +47,13 @@ describe('OrderTable', () => {
     expect(screen.queryAllByTestId(locators.dataRow)).toHaveLength(0)
   })
   it('renders short for buy orders', () => {
-    render(<OrderTable direction={Side.SIDE_BUY} />)
+    render(<OrderTable side={Side.SIDE_BUY} />)
     const [directionRow] = screen.getAllByTestId(locators.dataRow)
     expect(directionRow).toHaveTextContent('Direction')
     expect(directionRow).toHaveTextContent('Long')
   })
   it('renders long for sell orders', () => {
-    render(<OrderTable direction={Side.SIDE_SELL} />)
+    render(<OrderTable side={Side.SIDE_SELL} />)
     const [directionRow] = screen.getAllByTestId(locators.dataRow)
     expect(directionRow).toHaveTextContent('Direction')
     expect(directionRow).toHaveTextContent('Short')

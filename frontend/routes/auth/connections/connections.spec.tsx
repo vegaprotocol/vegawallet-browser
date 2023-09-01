@@ -28,8 +28,8 @@ describe('Connections', () => {
     mockClient()
     renderComponent()
     const [foo, vega] = await screen.findAllByTestId(connectionListLocators.connectionOrigin)
-    expect(vega).toHaveTextContent('https://vega.xyz')
     expect(foo).toHaveTextContent('foo.com')
+    expect(vega).toHaveTextContent('https://vega.xyz')
     // 1109-VCON-002 I can see an explanation of what it means i.e. these dapps have permission to access my keys and connect to my wallet
     expect(screen.getByTestId(connectionListLocators.connectionDetails)).toHaveTextContent(
       'These dapps have access to your public keys and permission to send transaction requests.'

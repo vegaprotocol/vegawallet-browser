@@ -108,7 +108,8 @@ const voteSubmission: VoteSubmission = {
 const proposalTerms: ProposalTerms = {
   closingTimestamp: BigInt(1),
   enactmentTimestamp: BigInt(1),
-  validationTimestamp: BigInt(1)
+  validationTimestamp: BigInt(1),
+  change: null
 }
 
 const proposalRationale: ProposalRationale = {
@@ -171,7 +172,8 @@ const stopOrdersCancellation: StopOrdersCancellation = {
 const stopOrderSetUp: StopOrderSetup = {
   orderSubmission: orderSubmission,
   expiresAt: BigInt(1),
-  expiryStrategy: ExpiryStrategy.EXPIRY_STRATEGY_CANCELS
+  expiryStrategy: ExpiryStrategy.EXPIRY_STRATEGY_CANCELS,
+  trigger: null
 }
 
 const stopOrdersSubmission: StopOrdersSubmission = {
@@ -242,7 +244,8 @@ const transfer: Transfer = {
   to: 'to',
   fromAccountType: AccountType.ACCOUNT_TYPE_BOND,
   toAccountType: AccountType.ACCOUNT_TYPE_BOND,
-  reference: 'reference'
+  reference: 'reference',
+  kind: null
 }
 
 const oneOffTransfer: OneOffTransfer = {

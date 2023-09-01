@@ -1,5 +1,5 @@
-import { Transfer as TransferType } from '@vegaprotocol/protos/dist/vega/commands/v1/Transfer.js'
-import { AccountType } from '@vegaprotocol/protos/dist/vega/AccountType.js'
+import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer.js'
+import { AccountType } from '@vegaprotocol/protos/vega/AccountType.js'
 import { render, screen } from '@testing-library/react'
 import { Transfer, locators } from '.'
 
@@ -22,7 +22,8 @@ const baseTransfer: TransferType = {
   to: '1'.repeat(64),
   fromAccountType: AccountType.ACCOUNT_TYPE_BOND,
   toAccountType: AccountType.ACCOUNT_TYPE_BOND,
-  reference: 'reference'
+  reference: 'reference',
+  kind: null
 }
 
 describe('TransferReceipt', () => {

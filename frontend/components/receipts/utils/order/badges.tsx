@@ -12,15 +12,6 @@ const TIF_MAP: { [key in OrderTimeInForce]: string } = {
   [OrderTimeInForce.TIME_IN_FORCE_GFN]: 'GFN'
 }
 
-export const TIF_NUMBER_MAP: { [key: number]: string } = {
-  1: TIF_MAP.TIME_IN_FORCE_GTC,
-  2: TIF_MAP.TIME_IN_FORCE_GTT,
-  3: TIF_MAP.TIME_IN_FORCE_IOC,
-  4: TIF_MAP.TIME_IN_FORCE_FOK,
-  5: TIF_MAP.TIME_IN_FORCE_GFA,
-  6: TIF_MAP.TIME_IN_FORCE_GFN
-}
-
 const OrderBadge = ({ children }: { children: ReactNode }) => {
   return <Lozenge className="text-xs mr-0.5 text-vega-dark-400 whitespace-nowrap">{children}</Lozenge>
 }
@@ -33,7 +24,7 @@ const TifBadge = ({ timeInForce, expiresAt }: { timeInForce: OrderTimeInForce; e
     const time = Math.floor(+expiresAt / 1e6) // nano seconds to milliseconds
     return <OrderBadge>Good til {getDateTimeFormat().format(new Date(time))}</OrderBadge>
   }
-  return <OrderBadge>{typeof timeInForce === 'number' ? TIF_NUMBER_MAP[timeInForce] : TIF_MAP[timeInForce]}</OrderBadge>
+  return <OrderBadge>{TIF_MAP[timeInForce]}</OrderBadge>
 }
 
 export const OrderBadges = ({

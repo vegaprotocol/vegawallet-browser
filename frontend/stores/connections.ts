@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { RpcMethods } from '../lib/client-rpc-methods'
 import uniqBy from 'lodash/uniqBy'
+import orderBy from 'lodash/orderBy'
 import { SendMessage } from '../contexts/json-rpc/json-rpc-provider'
 
 export interface Connection {
@@ -27,7 +28,7 @@ export const useConnectionStore = create<ConnectionsStore>()((set, get) => ({
   connections: [],
   loading: true,
   setConnections: (connections: Connection[]) => {
-    set({ connections: uniqBy(connections, 'origin') })
+    set({ connections: uniqBy(orderBy(connections, 'accessedAt', 'desc'), 'origin') })
   },
   addConnection: (connection: Connection) => {
     const newConnections = [...get().connections, connection]

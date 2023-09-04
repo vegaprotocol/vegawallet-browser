@@ -15,6 +15,9 @@ jest.mock('../utils/price-with-symbol', () => ({
 jest.mock('../../keys/vega-key', () => ({
   VegaKey: ({ publicKey }: { publicKey: string }) => <div data-testid="VegaKey">{publicKey}</div>
 }))
+jest.mock('../utils/amount-with-tooltip', () => ({
+  AmountWithTooltip: () => <div data-testid="amount-with-tooltip" />
+}))
 
 const baseTransfer: TransferType = {
   amount: '1',
@@ -48,7 +51,7 @@ describe('TransferReceipt', () => {
     const { container } = render(<Transfer transaction={recurringTransfer} />)
     expect(container).toBeEmptyDOMElement()
   })
-  it('should render vega section, title, receiving key and when the transaction is scheduled to be delivered', () => {
+  it('should render vega section, title, amount, receiving key and when the transaction is scheduled to be delivered', () => {
     // 1114-RCPT-004 I can see the receiving key of the transfer
     const oneOffTransfer = {
       transfer: {
@@ -60,6 +63,7 @@ describe('TransferReceipt', () => {
     }
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId('vega-section')).toBeVisible()
+    expect(screen.getByTestId('amount-with-tooltip')).toBeVisible()
     expect(screen.getByTestId(locators.transferSection)).toBeVisible()
     expect(screen.getByTestId(locators.transferTitle)).toHaveTextContent('Transfer')
     expect(screen.getByTestId('VegaKey')).toHaveTextContent(

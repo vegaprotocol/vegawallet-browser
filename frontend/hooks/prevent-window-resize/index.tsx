@@ -1,10 +1,11 @@
 import { useLayoutEffect, useMemo } from 'react'
+import { CONSTANTS } from '../../../lib/constants'
 
 export const usePreventWindowResize = () => {
   const frameHeight = useMemo(() => window.outerHeight - window.innerHeight, [])
   useLayoutEffect(() => {
     function resetSize() {
-      window.resizeTo(360, Math.max(window.outerHeight, 600 + frameHeight))
+      window.resizeTo(CONSTANTS.width, Math.max(window.outerHeight, 600 + frameHeight))
     }
     window.addEventListener('resize', resetSize)
     resetSize()

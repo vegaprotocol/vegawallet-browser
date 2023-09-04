@@ -1,3 +1,5 @@
+import { CONSTANTS } from '../../lib/constants'
+
 const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
@@ -9,7 +11,7 @@ export const createWindow = (top = undefined, left = undefined, once = false) =>
     focused: true,
     // Approximate dimension. The client figures out exactly how big it should be as this height/width
     // includes the frame and different OSes have different sizes
-    width: 360,
+    width: CONSTANTS.width,
     height: 600,
     top,
     left
@@ -22,7 +24,7 @@ export const createNotificationWindow = async () => {
   try {
     const lastFocused = await windows.getLastFocused()
     top = lastFocused.top
-    left = lastFocused.left + (lastFocused.width - 360)
+    left = lastFocused.left + (lastFocused.width - CONSTANTS.width)
   } catch (_) {}
 
   return createWindow(top, left, true)

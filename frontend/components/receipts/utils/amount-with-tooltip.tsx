@@ -1,5 +1,6 @@
 import config from '!/config'
 import { ExternalLink, Tooltip, truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { Info } from '../../icons/info'
 
 export const locators = {
   amount: 'amount',
@@ -16,7 +17,7 @@ const AmountDescription = ({ assetId }: { assetId: string }) => {
   const assetHref = `${config.network.explorer}/assets/${assetId}`
   const docsHref = `${config.network.docs}/api/using-the-apis#decimal-precision`
   return (
-    <div>
+    <div style={{ maxWidth: 360 }}>
       <p data-testid={locators.description1}>This number does not include a decimal point.</p>
 
       <p data-testid={locators.description2} className="mt-1">
@@ -45,9 +46,14 @@ const AmountDescription = ({ assetId }: { assetId: string }) => {
 
 export const AmountWithTooltip = ({ assetId, amount }: { assetId: string; amount: string }) => {
   return (
-    <span data-testid={locators.amountWithTooltip}>
+    <span className="flex items-center" data-testid={locators.amountWithTooltip}>
       <Tooltip description={<AmountDescription assetId={assetId} />}>
-        <span data-testid={locators.amount}>{amount}</span>
+        <span className="flex items-center">
+          <span className="mr-1" data-testid={locators.amount}>
+            {amount}
+          </span>
+          <Info />
+        </span>
       </Tooltip>
       &nbsp;
       <ExternalLink

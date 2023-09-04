@@ -23,6 +23,7 @@ declare module '!/config' {
     ethereumExplorerLink: string
     governance: string
     vegaDapps: string
+    docs: string
   }
 
   export interface EncryptionSettings {

@@ -5,7 +5,8 @@ const testnet = {
     console: 'https://console.fairground.wtf',
     explorer: 'https://explorer.fairground.wtf',
     governance: 'https://governance.fairground.wtf',
-    vegaDapps: 'https://vega.xyz/use'
+    vegaDapps: 'https://vega.xyz/use',
+    docs: 'https://docs.vega.xyz/testnet'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   encryptionSettings: undefined,

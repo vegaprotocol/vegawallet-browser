@@ -18,4 +18,11 @@ describe('PriceWithSymbol component', () => {
     expect(priceWithSymbolElement).toContainElement(symbolElement)
     expect(screen.getByTestId(locators.priceWithSymbol)).toHaveTextContent('9.99 USD')
   })
+  it('does not render symbol when it is not passed in', () => {
+    const price = 9.99
+
+    render(<PriceWithSymbol price={price} symbol={undefined} />)
+
+    expect(screen.queryByTestId(locators.symbol)).not.toBeInTheDocument()
+  })
 })

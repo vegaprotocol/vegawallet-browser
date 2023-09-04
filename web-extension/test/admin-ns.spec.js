@@ -5,6 +5,7 @@ import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 import { ConnectionsCollection } from '../backend/connections.js'
 import { createHTTPServer, createJSONHTTPServer } from './helpers.js'
+import { CONSTANTS } from '../../lib/constants.js'
 
 const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
@@ -271,7 +272,7 @@ describe('admin-ns', () => {
     expect(globalThis.chrome.windows.create).toBeCalledWith({
       url: 'moz-extension://8b413e68-1e0d-4cad-b98e-1eb000799783/index.html',
       type: 'popup',
-      width: 360,
+      width: CONSTANTS.width,
       height: 600,
       focused: true,
       left: undefined,

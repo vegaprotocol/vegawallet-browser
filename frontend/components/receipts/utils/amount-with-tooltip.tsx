@@ -1,6 +1,7 @@
 import config from '!/config'
 import { ExternalLink, Tooltip, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { Info } from '../../icons/info'
+import { CONSTANTS } from '../../../../lib/constants'
 
 export const locators = {
   amount: 'amount',
@@ -17,7 +18,7 @@ const AmountDescription = ({ assetId }: { assetId: string }) => {
   const assetHref = `${config.network.explorer}/assets/${assetId}`
   const docsHref = `${config.network.docs}/api/using-the-apis#decimal-precision`
   return (
-    <div style={{ maxWidth: 360 }}>
+    <div style={{ maxWidth: CONSTANTS.width }}>
       <p data-testid={locators.description1}>This number does not include a decimal point.</p>
 
       <p data-testid={locators.description2} className="mt-1">

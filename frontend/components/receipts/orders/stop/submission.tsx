@@ -8,15 +8,16 @@ import { OrderBadges } from '../../utils/order/badges'
 const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrderDetails: any }) => {
   const { expiryStrategy, expiresAt, trailingPercentOffset, orderSubmission } = stopOrderDetails
   const columns = [
-    expiryStrategy ? ['Expiry Strategy', expiryStrategy] : null,
+    expiryStrategy ? ['Expiry strategy', expiryStrategy] : null,
     expiresAt && Number(expiresAt) !== 0 ? ['Expires at', expiresAt] : null,
     trailingPercentOffset && Number(expiresAt) !== 0 ? ['Trailing offset', `${trailingPercentOffset}%`] : null
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
   return (
-    <div className="mt-2">
-      <h1 className="text-vega-dark-300">{title}</h1>
+    <div className="mb-2">
+      <h1 className="text-white text-lg">{title}</h1>
       <DataTable items={data} />
+      <h2 className="text-white">Order details</h2>
       <OrderTable {...orderSubmission} />
       <OrderBadges {...orderSubmission} />
     </div>

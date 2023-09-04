@@ -14,7 +14,7 @@ export function Splash({ children, centered = false, className, ...props }: Spla
     <div
       {...props}
       className={classnames(
-        'bg-black z-30 fixed flex flex-col items-center justify-start',
+        'bg-black z-[15] fixed flex flex-col items-center justify-start',
         'w-full h-full top-0 left-0 right-0 overflow-y-auto text-white',
         className
       )}

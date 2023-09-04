@@ -12,8 +12,6 @@ describe('Amend', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('should render badges and table data', () => {
-    // 1114-RCPT-019 I can see the order id of the order I am amending
-    // 1114-RCPT-020 I can see the market id relating to the order I am amending
     // 1114-RCPT-021 I can see any relevant order badges
     render(<Amendment transaction={{ orderAmendment: { reference: 'foo', postOnly: true } }} />)
     const [referenceRow] = screen.getAllByTestId(locators.dataRow)

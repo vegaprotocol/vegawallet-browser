@@ -22,7 +22,7 @@ export const GetStarted = () => {
           {ITEMS.map((i) => (
             <li key={i} className="flex">
               <div>
-                <Tick className="w-3 mr-2 text-vega-green-550" />
+                <Tick size={12} className="mr-2 text-vega-green-550" />
               </div>
               <p className="text-white">{i}</p>
             </li>

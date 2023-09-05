@@ -10,7 +10,9 @@ describe('WalletsHeader', () => {
     render(<DappsHeader />)
 
     const walletsHeader = screen.getByTestId(locators.walletsHeader)
-    const [tradeButton, governButton, browseButton] = screen.getAllByTestId(locators.walletsHeaderLink)
+    const [tradeButton, governButton, transferButton, depositButton, withdrawButton] = screen.getAllByTestId(
+      locators.walletsHeaderLink
+    )
 
     expect(walletsHeader).toBeInTheDocument()
 
@@ -18,15 +20,21 @@ describe('WalletsHeader', () => {
     expect(tradeButton).toHaveAttribute('href', config.network.console)
     expect(governButton).toHaveTextContent('Vote')
     expect(governButton).toHaveAttribute('href', config.network.governance)
-    expect(browseButton).toHaveTextContent('Browse')
-    expect(browseButton).toHaveAttribute('href', config.network.vegaDapps)
+    expect(transferButton).toHaveTextContent('Transfer')
+    expect(transferButton).toHaveAttribute('href', config.network.console)
+    expect(depositButton).toHaveTextContent('Deposit')
+    expect(depositButton).toHaveAttribute('href', config.network.console)
+    expect(withdrawButton).toHaveTextContent('Withdraw')
+    expect(withdrawButton).toHaveAttribute('href', config.network.console)
   })
 
   it('renders the correct tooltip content', async () => {
     // 1106-KEYS-012 There is a way to see what's linked to my wallet from the wallet view
     render(<DappsHeader />)
 
-    const [tradeButton, governButton, browseButton] = screen.getAllByTestId(locators.walletsHeaderItem)
+    const [tradeButton, governButton, transferButton, depositButton, withdrawButton] = screen.getAllByTestId(
+      locators.walletsHeaderItem
+    )
     fireEvent.pointerMove(tradeButton)
     await screen.findByRole('tooltip')
     expect(screen.queryByRole('tooltip')).toHaveTextContent('Console')
@@ -37,8 +45,18 @@ describe('WalletsHeader', () => {
     expect(screen.queryByRole('tooltip')).toHaveTextContent('Governance')
     fireEvent.pointerLeave(governButton)
 
-    fireEvent.pointerMove(browseButton)
+    fireEvent.pointerMove(transferButton)
     await screen.findByRole('tooltip')
-    expect(screen.queryByRole('tooltip')).toHaveTextContent('Vega dapps')
+    expect(screen.queryByRole('tooltip')).toHaveTextContent('Transfer')
+    fireEvent.pointerLeave(transferButton)
+
+    fireEvent.pointerMove(depositButton)
+    await screen.findByRole('tooltip')
+    expect(screen.queryByRole('tooltip')).toHaveTextContent('Deposit')
+    fireEvent.pointerLeave(depositButton)
+
+    fireEvent.pointerMove(withdrawButton)
+    await screen.findByRole('tooltip')
+    expect(screen.queryByRole('tooltip')).toHaveTextContent('Withdraw')
   })
 })

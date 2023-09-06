@@ -25,7 +25,7 @@ const config = async (cliArgs) => {
   } else if (!fs.existsSync(configPath)) {
     throw new Error('Could not find config file for environment: ' + walletConfig + '. At location ' + configPath)
   }
-  const isTestBuild = walletConfig === 'test'
+  const isTestBuild = walletConfig === 'test' || walletConfig === 'console-smoke'
 
   // Remove custom CLI args to prevent errors.
   // https://github.com/rollup/rollup/issues/2694#issuecomment-463915954

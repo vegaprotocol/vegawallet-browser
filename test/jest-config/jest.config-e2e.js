@@ -1,5 +1,5 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
-export default {
+const jestConfigE2E = {
   rootDir: '../..',
   roots: ['<rootDir>/test'],
   transform: {
@@ -25,3 +25,5 @@ export default {
     '!/config': '<rootDir>/config/test.js'
   }
 }
+
+export default jestConfigE2E

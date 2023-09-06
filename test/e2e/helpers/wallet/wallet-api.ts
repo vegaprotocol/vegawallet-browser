@@ -106,12 +106,16 @@ export class APIHelper {
     passphrase = 'password1',
     walletName = 'Wallet 1',
     keyName = 'Key 1',
-    telemetryOptIn = false
+    telemetryOptIn = false,
+    recoveryPhrase = undefined
   ) {
     let resp: any
     await this.createPassphraseAndCheckSuccess(passphrase)
 
-    const recoveryPhrase = await this.generateRecoveryPhrase()
+    if (!recoveryPhrase) {
+      recoveryPhrase = await this.generateRecoveryPhrase()
+    }
+
     expect(
       recoveryPhrase,
       `expected to generate recovery phrase via the api but response did not return a phrase, instead it was: ${recoveryPhrase}`,

@@ -36,8 +36,7 @@ export async function clickDescendantOfWebElement(
 }
 
 export async function clickWebElement(driver: WebDriver, element: WebElement, timeout: number = defaultTimeoutMillis) {
-  await waitForWebElementToBeReady(driver, element, timeout)
-  await element.click()
+  ;(await waitForWebElementToBeReady(driver, element, timeout)).click()
 }
 
 export async function getWebElementText(

@@ -61,7 +61,7 @@ export const DappsHeader = () => {
         href={config.network.console}
         tooltipContent="Transfer"
         icon={<OpenExternal />}
-        text="Browse"
+        text="Transfer"
       />
       <DappsHeaderButton href={config.network.console} tooltipContent="Deposit" icon={<Deposit />} text="Deposit" />
       <DappsHeaderButton href={config.network.console} tooltipContent="Withdraw" icon={<Withdraw />} text="Withdraw" />

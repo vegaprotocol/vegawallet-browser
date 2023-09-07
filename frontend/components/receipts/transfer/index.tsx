@@ -4,7 +4,7 @@ import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
 import { VegaKey } from '../../keys/vega-key'
 import { getDateTimeFormat } from '@vegaprotocol/utils'
-import { AmountWithTooltip } from '../utils/amount-with-tooltip'
+import { AmountWithTooltip } from '../utils/string-amounts/amount-with-tooltip'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 const getTime = (transaction: Transaction) => {

@@ -9,13 +9,11 @@ jest.mock('../utils/receipt-wrapper', () => ({
   }
 }))
 
-jest.mock('../utils/price-with-symbol', () => ({
-  PriceWithSymbol: () => <div data-testid="PriceWithSymbol" />
-}))
 jest.mock('../../keys/vega-key', () => ({
   VegaKey: ({ publicKey }: { publicKey: string }) => <div data-testid="VegaKey">{publicKey}</div>
 }))
-jest.mock('../utils/amount-with-tooltip', () => ({
+
+jest.mock('../utils/string-amounts/amount-with-tooltip', () => ({
   AmountWithTooltip: () => <div data-testid="amount-with-tooltip" />
 }))
 

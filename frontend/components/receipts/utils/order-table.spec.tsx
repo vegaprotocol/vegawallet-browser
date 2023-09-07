@@ -24,7 +24,15 @@ describe('OrderTable', () => {
         type={OrderType.TYPE_MARKET}
       />
     )
-    const [marketRow, orderRow, directionRow, typeRow, referenceRow] = screen.getAllByTestId(locators.dataRow)
+    const [priceRow, sizeRow, marketRow, orderRow, directionRow, typeRow, referenceRow] = screen.getAllByTestId(
+      locators.dataRow
+    )
+    expect(priceRow).toHaveTextContent('Price')
+    expect(priceRow).toHaveTextContent('123')
+
+    expect(sizeRow).toHaveTextContent('Size')
+    expect(sizeRow).toHaveTextContent('12')
+
     expect(marketRow).toHaveTextContent('Market')
     expect(marketRow).toHaveTextContent('111111…1111')
 
@@ -39,7 +47,7 @@ describe('OrderTable', () => {
 
     expect(referenceRow).toHaveTextContent('Reference')
     expect(referenceRow).toHaveTextContent('ref')
-    expect(screen.getAllByTestId(locators.dataRow)).toHaveLength(5)
+    expect(screen.getAllByTestId(locators.dataRow)).toHaveLength(7)
   })
 
   it('does not render row if the property is undefined', () => {

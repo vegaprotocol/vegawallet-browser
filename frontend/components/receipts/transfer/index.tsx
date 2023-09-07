@@ -30,11 +30,12 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
   const { asset, amount } = transaction.transfer
   return (
     <ReceiptWrapper>
-      <h1 className="text-vega-dark-300 mt-4">To</h1>
-      <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
+      <h1 className="text-vega-dark-300">Amount</h1>
       <div className="text-2xl text-white">
         <AmountWithTooltip assetId={asset} amount={amount} />
       </div>
+      <h1 className="text-vega-dark-300 mt-4">To</h1>
+      <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
       <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
         When
       </h1>

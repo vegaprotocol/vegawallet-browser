@@ -26,9 +26,8 @@ export const Routing = () => {
         <Route index path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.auth} element={<Auth />}>
           <Route path={ROUTES.wallets} element={<Wallets />} />
-          <Route path={ROUTES.transactions} element={<ComingSoon />}>
-            <Route index element={<ComingSoon />} />
-            <Route path={':id'} element={<ComingSoon />} />
+            <Route index element={<Wallets />} />
+            <Route path={':id'} element={<Key />} />
           </Route>
           <Route path={ROUTES.connections} element={<Connections />} />
           <Route path={ROUTES.settings} element={<Settings />} />

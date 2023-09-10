@@ -34,7 +34,7 @@ export const DecimalTooltip = ({
         <code>
           10<sup>{variableName}</sup>
         </code>{' '}
-        e.g. <code>1000</code> with a {variableName} value of <code>2</code> would become{' '}
+        e.g. <code>1000</code> with a <code>{variableName}</code> value of <code>2</code> would become{' '}
         <code>
           1000 ÷ 10<sup>2</sup> = 10
         </code>

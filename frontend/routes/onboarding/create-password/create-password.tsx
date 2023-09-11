@@ -73,7 +73,7 @@ export const CreatePassword = () => {
               type="password"
               {...register('confirmPassword', {
                 required: Validation.REQUIRED,
-                pattern: Validation.match(password)
+                validate: (val) => val === password || 'Passwords do not match'
               })}
             />
             {errors.confirmPassword?.message && (

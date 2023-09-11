@@ -98,7 +98,7 @@ describe('CreatePassword', () => {
 
     fireEvent.click(screen.getByTestId(submitPassphraseButton))
 
-    expect(await screen.findByText('Password does not match')).toBeInTheDocument()
+    expect(await screen.findByText('Passwords do not match')).toBeInTheDocument()
   })
 
   it('should render loading state once the create button is pressed', async () => {

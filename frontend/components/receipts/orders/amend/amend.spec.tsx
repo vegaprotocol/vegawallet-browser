@@ -12,7 +12,7 @@ describe('Amend', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('should render badges and table data', () => {
-    // 1114-RCPT-021 I can see any relevant order badges
+    // 1114-RCPT-022 I can see any relevant order badges
     render(<Amendment transaction={{ orderAmendment: { reference: 'foo', postOnly: true } }} />)
     const [referenceRow] = screen.getAllByTestId(locators.dataRow)
     expect(referenceRow).toHaveTextContent('foo')

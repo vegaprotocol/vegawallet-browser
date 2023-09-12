@@ -28,7 +28,7 @@ describe('SubmissionReceipt', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('renders order table and badges', () => {
-    // 1114-RCPT-016 I can see any relevant order badges
+    // 1114-RCPT-017 I can see any relevant order badges
     render(
       <Submission
         transaction={{

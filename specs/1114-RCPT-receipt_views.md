@@ -47,14 +47,21 @@ As a user I want to understand my transaction so that I can know what I am sendi
 - I can see the type of the order I am submitting (<a name="1114-RCPT-014" href="#1114-RCPT-014">1114-RCPT-014</a>)
 - I can see the reference of the order I am submitting (<a name="1114-RCPT-015" href="#1114-RCPT-015">1114-RCPT-015</a>)
 - I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-016" href="#1114-RCPT-016">1114-RCPT-016</a>)
+- I can see the price of the order (#decimal-numbers) (<a name="1114-RCPT-017" href="#1114-RCPT-017">1114-RCPT-017</a>)
+- I can see the size of the order (#decimal-numbers) (<a name="1114-RCPT-018" href="#1114-RCPT-018">1114-RCPT-018</a>)
 
 ### Order cancellation
 
-- If present I can see the market id relating to the order (<a name="1114-RCPT-017" href="#1114-RCPT-017">1114-RCPT-017</a>)
-- If present I can see the order id relating to the order (<a name="1114-RCPT-018" href="#1114-RCPT-018">1114-RCPT-018</a>)
+- If present I can see the market id relating to the order (<a name="1114-RCPT-019" href="#1114-RCPT-019">1114-RCPT-019</a>)
+- If present I can see the order id relating to the order (<a name="1114-RCPT-019" href="#1114-RCPT-019">1114-RCPT-019</a>)
 
 ### Order amendment
 
-- I can see the order id of the order I am amending (<a name="1114-RCPT-019" href="#1114-RCPT-019">1114-RCPT-019</a>)
-- I can see the market id relating to the order I am amending (<a name="1114-RCPT-020" href="#1114-RCPT-020">1114-RCPT-020</a>)
-- I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-021" href="#1114-RCPT-021">1114-RCPT-021</a>)
+- I can see the order id of the order I am amending (<a name="1114-RCPT-020" href="#1114-RCPT-020">1114-RCPT-020</a>)
+- I can see the market id relating to the order I am amending (<a name="1114-RCPT-021" href="#1114-RCPT-021">1114-RCPT-021</a>)
+- I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-022" href="#1114-RCPT-022">1114-RCPT-022</a>)
+
+### Decimal numbers
+
+- I can see a tooltip for how to add the decimals to the number (<a name="1114-RCPT-023" href="#1114-RCPT-023">1114-RCPT-023</a>)
+- I can see a link in the tooltip to the relevant entity on the block explorer (<a name="1114-RCPT-024" href="#1114-RCPT-024">1114-RCPT-024</a>)

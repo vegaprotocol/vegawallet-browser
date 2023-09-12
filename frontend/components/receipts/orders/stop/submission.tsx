@@ -4,13 +4,37 @@ import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { DataTable } from '../../../data-table/data-table'
 import { OrderTable } from '../../utils/order-table'
 import { OrderBadges } from '../../utils/order/badges'
+import { getDateTimeFormat } from '@vegaprotocol/utils'
+import { PriceWithTooltip } from '../../utils/string-amounts/price-with-tooltip'
+
+export const enum ExpiryStrategy {
+  EXPIRY_STRATEGY_UNSPECIFIED = 'EXPIRY_STRATEGY_UNSPECIFIED',
+  EXPIRY_STRATEGY_CANCELS = 'EXPIRY_STRATEGY_CANCELS',
+  EXPIRY_STRATEGY_SUBMIT = 'EXPIRY_STRATEGY_SUBMIT'
+}
+
+const EXPIRY_STRATEGY_MAP: Record<ExpiryStrategy, string> = {
+  [ExpiryStrategy.EXPIRY_STRATEGY_UNSPECIFIED]: 'Unspecified',
+  [ExpiryStrategy.EXPIRY_STRATEGY_CANCELS]: 'Cancels',
+  [ExpiryStrategy.EXPIRY_STRATEGY_SUBMIT]: 'Submit'
+}
+
+const ExpiryStrat = ({ expiryStrategy }: { expiryStrategy: ExpiryStrategy }) => {
+  return <>{EXPIRY_STRATEGY_MAP[expiryStrategy]}</>
+}
 
 const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrderDetails: any }) => {
-  const { expiryStrategy, expiresAt, trailingPercentOffset, orderSubmission } = stopOrderDetails
+  const { expiryStrategy, price, expiresAt, trailingPercentOffset, orderSubmission } = stopOrderDetails
+  const { marketId } = orderSubmission
   const columns = [
-    expiryStrategy ? ['Expiry strategy', expiryStrategy] : null,
-    expiresAt && Number(expiresAt) !== 0 ? ['Expires at', expiresAt] : null,
-    trailingPercentOffset && Number(expiresAt) !== 0 ? ['Trailing offset', `${trailingPercentOffset}%`] : null
+    price
+      ? ['Trigger price', <PriceWithTooltip key={`${title}-trigger-price`} price={price} marketId={marketId} />]
+      : null,
+    trailingPercentOffset && Number(expiresAt) !== 0 ? ['Trailing offset', `${trailingPercentOffset}%`] : null,
+    expiryStrategy
+      ? ['Expiry strategy', <ExpiryStrat key={`${title}-expiry-strategy`} expiryStrategy={expiryStrategy} />]
+      : null,
+    expiresAt && Number(expiresAt) !== 0 ? ['Expires at', getDateTimeFormat().format(new Date(+expiresAt / 1e6))] : null
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
   return (

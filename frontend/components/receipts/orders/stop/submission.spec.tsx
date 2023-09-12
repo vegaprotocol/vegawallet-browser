@@ -81,4 +81,17 @@ describe('StopOrderSubmission', () => {
     render(<StopOrderSubmission transaction={transaction} />)
     expect(screen.queryByTestId(locators.sectionHeader)).not.toBeInTheDocument()
   })
+
+  test('does not render stop order fields if not present', () => {
+    const transaction = {
+      stopOrdersSubmission: {
+        risesAbove: {
+          orderDetails: {}
+        }
+      }
+    }
+    render(<StopOrderSubmission transaction={transaction} />)
+    const rows = screen.getAllByTestId(tableLocators.dataRow)
+    expect(rows).toHaveLength(0)
+  })
 })

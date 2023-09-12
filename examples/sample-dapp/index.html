@@ -9,9 +9,8 @@
   <body style="max-width: 40rem; margin: auto">
     <h1>Sample dApp</h1>
     <p>
-      This sample dApp allows you to interact with the extension either by
-      clicking the button below or by using one of the following commands in the
-      console
+      This sample dApp allows you to interact with the extension either by clicking the button below or by using one of
+      the following commands in the console
     </p>
     <code>
       <pre style="background-color: #ececec; padding: 1rem">
@@ -112,9 +111,7 @@
                   },
                   'Disconnect wallet'
                 ),
-            App.chainId == null
-              ? null
-              : m('span', [' Connected to: ', m('code', App.chainId)]),
+            App.chainId == null ? null : m('span', [' Connected to: ', m('code', App.chainId)]),
             App.connected === false ? null : m(Transfer)
           ]
         }
@@ -160,18 +157,38 @@
               publicKey: Transfer.selectedKey.publicKey,
               sendingMode: 'TYPE_SYNC',
               transaction: {
-                transfer: {
-                  fromAccountType: 'ACCOUNT_TYPE_GENERAL',
-                  toAccountType: 'ACCOUNT_TYPE_GENERAL',
-
-                  // Vega
-                  asset:
-                    'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
-                  amount: '1',
-                  to: Transfer.selectedKey.publicKey,
-
-                  kind: {
-                    oneOff: {}
+                stopOrdersSubmission: {
+                  risesAbove: {
+                    orderSubmission: {
+                      marketId: 'f308a23f5f5e2623b35846f4e7d26820c6f554802c8b73963b1977385c6f7184',
+                      price: '',
+                      size: '5000',
+                      side: 'SIDE_SELL',
+                      timeInForce: 'TIME_IN_FORCE_FOK',
+                      expiresAt: '0',
+                      type: 'TYPE_MARKET',
+                      reference: '',
+                      peggedOrder: null,
+                      postOnly: false,
+                      reduceOnly: true
+                    },
+                    price: '6600000'
+                  },
+                  fallsBelow: {
+                    orderSubmission: {
+                      marketId: 'f308a23f5f5e2623b35846f4e7d26820c6f554802c8b73963b1977385c6f7184',
+                      price: '',
+                      size: '5000',
+                      side: 'SIDE_SELL',
+                      timeInForce: 'TIME_IN_FORCE_FOK',
+                      expiresAt: '0',
+                      type: 'TYPE_MARKET',
+                      reference: '',
+                      peggedOrder: null,
+                      postOnly: false,
+                      reduceOnly: true
+                    },
+                    price: '6600000'
                   }
                 }
               }
@@ -198,8 +215,7 @@
             keyOptions = [m('option', 'No keys found')]
           } else {
             keyOptions = Transfer.keys.map((k) => {
-              const shortKey =
-                k.publicKey.slice(0, 6) + '...' + k.publicKey.slice(-6)
+              const shortKey = k.publicKey.slice(0, 6) + '...' + k.publicKey.slice(-6)
               const label = `${k.name} (${shortKey})`
 
               return m(
@@ -215,10 +231,7 @@
 
           return [
             m('h1', 'Transfer'),
-            m(
-              'p',
-              'This sample makes a transfer for the VEGA assert from the selected key to itself'
-            ),
+            m('p', 'This sample makes a transfer for the VEGA assert from the selected key to itself'),
             m(
               'select',
               {
@@ -229,11 +242,7 @@
               },
               keyOptions
             ),
-            m(
-              'button',
-              { style: { margin: '0 0.5rem' }, onclick: Transfer.refreshKeys },
-              'Refresh keys'
-            ),
+            m('button', { style: { margin: '0 0.5rem' }, onclick: Transfer.refreshKeys }, 'Refresh keys'),
             m('p', 'Proposed transaction'),
             Transfer.selectedKey == null
               ? null
@@ -241,23 +250,23 @@
                   'pre',
                   { style: 'background-color: #ececec; padding: 1rem;' },
                   `{
-  "publicKey": "${Transfer.selectedKey.publicKey}",
-  "sendingMode": "TYPE_SYNC",
-  "transaction": {
-    "transfer": {
-      "fromAccountType": "ACCOUNT_TYPE_GENERAL",
-      "toAccountType": "ACCOUNT_TYPE_GENERAL",
+        "publicKey": "${Transfer.selectedKey.publicKey}",
+        "sendingMode": "TYPE_SYNC",
+        "transaction": {
+          "transfer": {
+            "fromAccountType": "ACCOUNT_TYPE_GENERAL",
+            "toAccountType": "ACCOUNT_TYPE_GENERAL",
 
-      "asset": "fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55",
-      "amount": "1",
-      "to": "${Transfer.selectedKey.publicKey}",
+            "asset": "fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55",
+            "amount": "1",
+            "to": "${Transfer.selectedKey.publicKey}",
 
-      "kind": {
-        "oneOff": {}
-      }
-    }
-  }
-}`
+            "kind": {
+              "oneOff": {}
+            }
+          }
+        }
+      }`
                 ),
             m('br'),
             m(
@@ -274,9 +283,9 @@
               : m(
                   'p',
                   { style: { color: 'red' } },
-                  `Error: ${Transfer.error.message} (${
-                    Transfer.error.data?.code ?? ''
-                  }) - ${Transfer.error.data?.message ?? ''}`
+                  `Error: ${Transfer.error.message} (${Transfer.error.data?.code ?? ''}) - ${
+                    Transfer.error.data?.message ?? ''
+                  }`
                 ),
             Transfer.txHash == null
               ? null
@@ -290,8 +299,7 @@
                     'a',
                     {
                       target: '_blank',
-                      href:
-                        'https://explorer.fairground.wtf/txs/' + Transfer.txHash
+                      href: 'https://explorer.fairground.wtf/txs/' + Transfer.txHash
                     },
                     'View on Fairground'
                   ),
@@ -300,9 +308,7 @@
                     'a',
                     {
                       target: '_blank',
-                      href:
-                        'https://explorer.stagnet1.vega.xyz/txs/' +
-                        Transfer.txHash
+                      href: 'https://explorer.stagnet1.vega.xyz/txs/' + Transfer.txHash
                     },
                     'View on Stagnet1'
                   ),
@@ -311,9 +317,7 @@
                     'a',
                     {
                       target: '_blank',
-                      href:
-                        'https://explorer.stagnet3.vega.xyz/txs/' +
-                        Transfer.txHash
+                      href: 'https://explorer.stagnet3.vega.xyz/txs/' + Transfer.txHash
                     },
                     'View on Stagnet3'
                   ),

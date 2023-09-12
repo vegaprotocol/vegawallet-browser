@@ -100,7 +100,7 @@ describe('Onboarding', () => {
 
   it('shows an error message when passwords differ', async () => {
     await password.createPassword(defaultPassword, defaultPassword + '2')
-    expect(await password.getErrorMessageText()).toBe('Password does not match')
+    expect(await password.getErrorMessageText()).toBe('Passwords do not match')
     await password.checkOnCreatePasswordPage()
   })
 

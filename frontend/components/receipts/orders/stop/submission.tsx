@@ -8,6 +8,11 @@ import { getDateTimeFormat } from '@vegaprotocol/utils'
 import { PriceWithTooltip } from '../../utils/string-amounts/price-with-tooltip'
 import { ExpiryStrategyComponent } from './expiry-strategy'
 
+export const locators = {
+  sectionHeader: 'section-header',
+  orderDetails: 'order-details'
+}
+
 const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrderDetails: any }) => {
   const { expiryStrategy, price, expiresAt, trailingPercentOffset, orderSubmission } = stopOrderDetails
   const { marketId } = orderSubmission
@@ -27,9 +32,13 @@ const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrd
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
   return (
     <div className="mb-2">
-      <h1 className="text-white text-lg">{title}</h1>
+      <h1 data-testid={locators.sectionHeader} className="text-white text-lg">
+        {title}
+      </h1>
       <DataTable items={data} />
-      <h2 className="text-white">Order details</h2>
+      <h2 data-testid={locators.orderDetails} className="text-white">
+        Order details
+      </h2>
       <OrderTable {...orderSubmission} />
       <OrderBadges {...orderSubmission} />
     </div>

@@ -6,7 +6,7 @@ import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 export const Submission = ({ transaction }: ReceiptComponentProps) => {
   const submission = transaction.orderSubmission
 
-  if (submission.peggedOrder || submission.icebergOpts) return null
+  if (submission.icebergOpts) return null
   return (
     <ReceiptWrapper>
       <OrderTable {...submission} />

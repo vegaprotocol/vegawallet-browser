@@ -3,18 +3,6 @@ import { Submission } from '.'
 import { locators } from '../../../data-table/data-table'
 
 describe('SubmissionReceipt', () => {
-  it('renders nothing if the transaction is a pegged order', () => {
-    const { container } = render(
-      <Submission
-        transaction={{
-          orderSubmission: {
-            peggedOrder: {}
-          }
-        }}
-      />
-    )
-    expect(container).toBeEmptyDOMElement()
-  })
   it('renders nothing if the transaction is an iceberg order', () => {
     const { container } = render(
       <Submission

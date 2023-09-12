@@ -1,10 +1,11 @@
 import { ReactNode } from 'react'
 import { DataTable } from '../../data-table/data-table'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { OrderType, Side } from '@vegaprotocol/types'
+import { OrderType, Side, PeggedOrder } from '@vegaprotocol/types'
 import { MarketLink } from './order/market-link'
 import { Direction } from './order/direction'
 import { OrderTypeComponent } from './order/order-type'
+import { PeggedOrderInfo } from './order/pegged-order-info.tsx'
 import { PriceWithTooltip } from './string-amounts/price-with-tooltip'
 import { SizeWithTooltip } from './string-amounts/size-with-tooltip'
 
@@ -15,7 +16,8 @@ export const OrderTable = ({
   reference,
   price,
   size,
-  type
+  type,
+  peggedOrder
 }: Partial<{
   marketId: string
   orderId: string
@@ -24,10 +26,14 @@ export const OrderTable = ({
   price: string
   reference: string
   type: OrderType
+  peggedOrder?: PeggedOrder
 }>) => {
   const columns = [
-    price && marketId
+    price && price !== '0' && marketId
       ? ['Price', <PriceWithTooltip key="order-details-price" marketId={marketId} price={price} />]
+      : null,
+    peggedOrder && marketId
+      ? ['Price', <PeggedOrderInfo key="order-details-pegged" peggedOrder={peggedOrder} marketId={marketId} />]
       : null,
     size && marketId ? ['Size', <SizeWithTooltip key="order-details-price" marketId={marketId} size={size} />] : null,
     marketId ? ['Market', <MarketLink key="order-details-market" marketId={marketId} />] : null,

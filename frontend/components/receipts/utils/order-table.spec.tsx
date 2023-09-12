@@ -11,10 +11,10 @@ describe('OrderTable', () => {
     // 1114-RCPT-015 I can see the reference of the order I am submitting
     // 1114-RCPT-016 I can see the price of the order
     // 1114-RCPT-017 I can see the size of the order
-    // 1114-RCPT-018 If present I can see the market id relating to the order
-    // 1114-RCPT-019 If present I can see the order id relating to the order
-    // 1114-RCPT-020 I can see the order id of the order I am amending
-    // 1114-RCPT-021 I can see the market id relating to the order I am amending
+    // 1114-RCPT-019 If present I can see the market id relating to the order
+    // 1114-RCPT-020 If present I can see the order id relating to the order
+    // 1114-RCPT-021 I can see the order id of the order I am amending
+    // 1114-RCPT-022 I can see the market id relating to the order I am amending
     render(
       <OrderTable
         direction={Side.SIDE_BUY}

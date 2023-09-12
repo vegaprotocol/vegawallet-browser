@@ -86,7 +86,7 @@ describe('StopOrderSubmission', () => {
     const transaction = {
       stopOrdersSubmission: {
         risesAbove: {
-          orderDetails: {}
+          orderSubmission: {}
         }
       }
     }

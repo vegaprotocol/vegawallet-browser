@@ -49,8 +49,8 @@ export const StopOrderSubmission = ({ transaction }: ReceiptComponentProps) => {
   const order = transaction.stopOrdersSubmission
   return (
     <ReceiptWrapper>
-      {order.risesAbove && <SubmissionDetails title="Rises above ↗" stopOrderDetails={order.risesAbove} />}
-      {order.fallsBelow && <SubmissionDetails title="Falls below ↘" stopOrderDetails={order.fallsBelow} />}
+      {order.risesAbove ? <SubmissionDetails title="Rises above ↗" stopOrderDetails={order.risesAbove} /> : null}
+      {order.fallsBelow ? <SubmissionDetails title="Falls below ↘" stopOrderDetails={order.fallsBelow} /> : null}
     </ReceiptWrapper>
   )
 }

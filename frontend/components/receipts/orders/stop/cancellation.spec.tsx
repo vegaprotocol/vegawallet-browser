@@ -4,6 +4,8 @@ import { locators as tableLocators } from '../../../data-table/data-table'
 
 describe('StopOrderCancellation', () => {
   test('renders the component with market ID and stop order ID', () => {
+    // 1114-RCPT-023 If present I can see the if of the market the order is being cancelled for
+    // 1114-RCPT-024 If present I can see the id of the stop order being cancelled
     const transaction = {
       stopOrdersCancellation: {
         marketId: '1'.repeat(64),

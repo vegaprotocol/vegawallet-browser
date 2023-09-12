@@ -106,10 +106,10 @@ describe('CreatePassword', () => {
     renderComponent()
 
     fireEvent.change(screen.getByTestId(passphraseInput), {
-      target: { value: 'test1234' }
+      target: { value: 'te$t1234' }
     })
     fireEvent.change(screen.getByTestId(confirmPassphraseInput), {
-      target: { value: 'test1234' }
+      target: { value: 'te$t1234' }
     })
 
     const checkbox = screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it')
@@ -126,10 +126,10 @@ describe('CreatePassword', () => {
     renderComponent()
 
     fireEvent.change(screen.getByTestId(passphraseInput), {
-      target: { value: 'test1234' }
+      target: { value: 'te$t1234' }
     })
     fireEvent.change(screen.getByTestId(confirmPassphraseInput), {
-      target: { value: 'test1234' }
+      target: { value: 'te$t1234' }
     })
 
     const checkbox = screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it')
@@ -144,7 +144,7 @@ describe('CreatePassword', () => {
     // 1101-ONBD-036 During password creation, there is a way to understand whether the password I have created is secure or no
     renderComponent()
     fireEvent.change(screen.getByTestId(passphraseInput), {
-      target: { value: 'test1234' }
+      target: { value: 'te$t1234' }
     })
     await screen.findByTestId(passwordFeedbackLocators.passwordFeedback)
   })

@@ -229,23 +229,23 @@
                   'pre',
                   { style: 'background-color: #ececec; padding: 1rem;' },
                   `{
-        "publicKey": "${Transfer.selectedKey.publicKey}",
-        "sendingMode": "TYPE_SYNC",
-        "transaction": {
-          "transfer": {
-            "fromAccountType": "ACCOUNT_TYPE_GENERAL",
-            "toAccountType": "ACCOUNT_TYPE_GENERAL",
+               "publicKey": "${Transfer.selectedKey.publicKey}",
+               "sendingMode": "TYPE_SYNC",
+               "transaction": {
+                 "transfer": {
+                   "fromAccountType": "ACCOUNT_TYPE_GENERAL",
+                   "toAccountType": "ACCOUNT_TYPE_GENERAL",
 
-            "asset": "fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55",
-            "amount": "1",
-            "to": "${Transfer.selectedKey.publicKey}",
+                   "asset": "fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55",
+                   "amount": "1",
+                   "to": "${Transfer.selectedKey.publicKey}",
 
-            "kind": {
-              "oneOff": {}
-            }
-          }
-        }
-      }`
+                   "kind": {
+                     "oneOff": {}
+                   }
+                 }
+               }
+             }`
                 ),
             m('br'),
             m(

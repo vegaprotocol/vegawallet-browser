@@ -51,6 +51,11 @@ Vega.
 - If time in force is GTT then I can see the expiry of the order (<a name="1114-RCPT-011" href="#1114-RCPT-011">
   1114-RCPT-011</a>)
 
+#### Decimal numbers
+
+- I can see a tooltip for how to add the decimals to the number (<a name="1114-RCPT-023" href="#1114-RCPT-023">1114-RCPT-023</a>)
+- I can see a link in the tooltip to the relevant entity on the block explorer (<a name="1114-RCPT-024" href="#1114-RCPT-024">1114-RCPT-024</a>)
+
 <!-- #### Data enrichment -->
 
 ### Order submission
@@ -77,12 +82,17 @@ Vega.
   1114-RCPT-022</a>)
 - I can see any relevant [order badges](#order-badges) (<a name="1114-RCPT-023" href="#1114-RCPT-023">1114-RCPT-023</a>)
 
-### Decimal numbers
+### Stop order cancellation
 
-- I can see a tooltip for how to add the decimals to the number (<a name="1114-RCPT-024" href="#1114-RCPT-024">
-  1114-RCPT-024</a>)
-- I can see a link in the tooltip to the relevant entity on the block
-  explorer (<a name="1114-RCPT-025" href="#1114-RCPT-025">1114-RCPT-025</a>)
+- If present I can see the if of the market the order is being cancelled for (<a name="1114-RCPT-023" href="#1114-RCPT-023">1114-RCPT-023</a>)
+- If present I can see the id of the stop order being cancelled (<a name="1114-RCPT-024" href="#1114-RCPT-024">1114-RCPT-024</a>)
+
+## Stop order
+
+- If a rises above order is present I see the rises above section (<a name="1114-RCPT-025" href="#1114-RCPT-025">1114-RCPT-025</a>)
+- If a falls below is present I see the falls below section (<a name="1114-RCPT-026" href="#1114-RCPT-026">1114-RCPT-026</a>)
+- In each section I can see the trigger price (<a name="1114-RCPT-027" href="#1114-RCPT-027">1114-RCPT-027</a>)
+- In each section I can see the all [the details of the order](#order-submission) (<a name="1114-RCPT-028" href="#1114-RCPT-028">1114-RCPT-028</a>)
 
 ### Pegged Orders
 

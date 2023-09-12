@@ -30,27 +30,34 @@ export enum TransactionKeys {
 }
 
 export const TRANSACTION_TITLES: Record<TransactionKeys, string> = {
-  [TransactionKeys.UNKNOWN]: 'Unknown transaction',
+  [TransactionKeys.UNKNOWN]: 'Unknown',
   [TransactionKeys.ORDER_SUBMISSION]: 'Order submission',
   [TransactionKeys.ORDER_CANCELLATION]: 'Order cancellation',
   [TransactionKeys.ORDER_AMENDMENT]: 'Order amendment',
-  [TransactionKeys.VOTE_SUBMISSION]: 'Vote submission',
   [TransactionKeys.WITHDRAW_SUBMISSION]: 'Withdraw submission',
-  [TransactionKeys.LIQUIDTY_PROVISION_SUBMISSION]: 'Liquidity provision',
-  [TransactionKeys.LIQUIDTY_PROVISION_CANCELLATION]: 'Liquidity provision cancellation',
-  [TransactionKeys.LIQUIDITY_PROVISION_AMENDMENT]: 'Liquidity provision amendment',
   [TransactionKeys.PROPOSAL_SUBMISSION]: 'Proposal submission',
+  [TransactionKeys.VOTE_SUBMISSION]: 'Vote submission',
+  [TransactionKeys.LIQUIDITY_PROVISION_SUBMISSION]: 'Liquidity provision submission',
+  [TransactionKeys.DELEGATE_SUBMISSION]: 'Delegate submission',
+  [TransactionKeys.UNDELEGATE_SUBMISSION]: 'Undelegate submission',
+  [TransactionKeys.LIQUIDITY_PROVISION_CANCELLATION]: 'Liquidity provision cancellation',
+  [TransactionKeys.LIQUIDITY_PROVISION_AMENDMENT]: 'Liquidity provision amendment',
+  [TransactionKeys.TRANSFER]: 'Transfer',
+  [TransactionKeys.CANCEL_TRANSFER]: 'Cancel transfer',
   [TransactionKeys.ANNOUNCE_NODE]: 'Announce node',
+  [TransactionKeys.BATCH_MARKET_INSTRUCTIONS]: 'Batch market instructions',
+  [TransactionKeys.STOP_ORDERS_SUBMISSION]: 'Stop orders submission',
+  [TransactionKeys.STOP_ORDERS_CANCELLATION]: 'Stop orders cancellation',
   [TransactionKeys.NODE_VOTE]: 'Node vote',
   [TransactionKeys.NODE_SIGNATURE]: 'Node signature',
   [TransactionKeys.CHAIN_EVENT]: 'Chain event',
-  [TransactionKeys.ORACLE_DATA_SUBMISSION]: 'Oracle data submission',
-  [TransactionKeys.UNDELEGATE_SUBMISSION]: 'Undelegate submission',
-  [TransactionKeys.DELEGATE_SUBMISSION]: 'Delegate submission',
-  [TransactionKeys.TRANSFER]: 'Transfer',
-  [TransactionKeys.CANCEL_TRANSFER]: 'Cancel transfer',
-  [TransactionKeys.KEY_ROTATE_SUBMISSION]: 'Key rotation submission',
-  [TransactionKeys.ETHEREUM_KEY_ROTATE_SUBMISSION]: 'Ethereum key rotation submission'
+  [TransactionKeys.KEY_ROTATE_SUBMISSION]: 'Key rotate submission',
+  [TransactionKeys.STATE_VARIABLE_PROPOSAL]: 'State variable proposal',
+  [TransactionKeys.VALIDATOR_HEARTBEAT]: 'Validator heartbeat',
+  [TransactionKeys.ETHEREUM_KEY_ROTATE_SUBMISSION]: 'Ethereum key rotate submission',
+  [TransactionKeys.PROTOCOL_UPGRADE_PROPOSAL]: 'Protocol upgrade proposal',
+  [TransactionKeys.ISSUE_SIGNATURES]: 'Issue signatures',
+  [TransactionKeys.ORACLE_DATA_SUBMISSION]: 'Oracle data submission'
 }
 
 type TransactionData = Record<string, any>

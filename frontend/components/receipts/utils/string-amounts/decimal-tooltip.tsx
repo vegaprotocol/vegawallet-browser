@@ -22,7 +22,7 @@ export const DecimalTooltip = ({
 }) => {
   const docsHref = `${config.network.docs}/api/using-the-apis#decimal-precision`
   return (
-    <div data-testid={locators.decimalTooltip} style={{ maxWidth: CONSTANTS.width }}>
+    <div data-testid={locators.decimalTooltip} style={{ maxWidth: CONSTANTS.width - 60 }}>
       <p data-testid={locators.description1}>This number does not include a decimal point.</p>
 
       <p data-testid={locators.description2} className="mt-1">

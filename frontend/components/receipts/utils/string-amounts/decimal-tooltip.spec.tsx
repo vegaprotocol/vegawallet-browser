@@ -5,7 +5,7 @@ import config from '!/config'
 describe('DecimalTooltip', () => {
   it('renders and description the explorer link and docs links', () => {
     // 1114-RCPT-024 I can see a tooltip for how to add the decimals to the number
-    // I can see a link in the tooltip to the relevant entity on the block explorer
+    // 1114-RCPT-025 I can see a link in the tooltip to the relevant entity on the block explorer
     render(<DecimalTooltip variableName="decimals" entityLink="https://example.com" entityText="asset" />)
 
     const [description1] = screen.getAllByTestId(locators.description1)

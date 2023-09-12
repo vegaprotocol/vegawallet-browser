@@ -9,8 +9,9 @@ describe('OrderTable', () => {
     // 1114-RCPT-013 I can see the direction of order I am submitting
     // 1114-RCPT-014 I can see the type of the order I am submitting
     // 1114-RCPT-015 I can see the reference of the order I am submitting
-    // 1114-RCPT-016 I can see the price of the order
-    // 1114-RCPT-017 I can see the size of the order
+    // 1114-RCPT-016 I can see any relevant order badges
+    // 1114-RCPT-017 I can see the price of the order
+    // 1114-RCPT-018 I can see the size of the order
     // 1114-RCPT-019 If present I can see the market id relating to the order
     // 1114-RCPT-020 If present I can see the order id relating to the order
     // 1114-RCPT-021 I can see the order id of the order I am amending

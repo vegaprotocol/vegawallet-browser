@@ -157,38 +157,17 @@
               publicKey: Transfer.selectedKey.publicKey,
               sendingMode: 'TYPE_SYNC',
               transaction: {
-                stopOrdersSubmission: {
-                  risesAbove: {
-                    orderSubmission: {
-                      marketId: 'f308a23f5f5e2623b35846f4e7d26820c6f554802c8b73963b1977385c6f7184',
-                      price: '',
-                      size: '5000',
-                      side: 'SIDE_SELL',
-                      timeInForce: 'TIME_IN_FORCE_FOK',
-                      expiresAt: '0',
-                      type: 'TYPE_MARKET',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: false,
-                      reduceOnly: true
-                    },
-                    price: '6600000'
-                  },
-                  fallsBelow: {
-                    orderSubmission: {
-                      marketId: 'f308a23f5f5e2623b35846f4e7d26820c6f554802c8b73963b1977385c6f7184',
-                      price: '',
-                      size: '5000',
-                      side: 'SIDE_SELL',
-                      timeInForce: 'TIME_IN_FORCE_FOK',
-                      expiresAt: '0',
-                      type: 'TYPE_MARKET',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: false,
-                      reduceOnly: true
-                    },
-                    price: '6600000'
+                transfer: {
+                  fromAccountType: 'ACCOUNT_TYPE_GENERAL',
+                  toAccountType: 'ACCOUNT_TYPE_GENERAL',
+
+                  // Vega
+                  asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+                  amount: '1',
+                  to: Transfer.selectedKey.publicKey,
+
+                  kind: {
+                    oneOff: {}
                   }
                 }
               }

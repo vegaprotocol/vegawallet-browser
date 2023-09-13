@@ -1,16 +1,16 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Wallets } from '.'
-import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
-import locators from '../../../components/locators'
+import { JsonRPCProvider } from '../../../../contexts/json-rpc/json-rpc-provider'
+import locators from '../../../../components/locators'
 
-import { locators as walletLocators } from '../wallets/index'
-import { mockClient } from '../../../test-helpers/mock-client'
-import { WalletsStore, useWalletStore } from '../../../stores/wallets'
+import { locators as walletLocators } from '../../wallets/home/index'
+import { mockClient } from '../../../../test-helpers/mock-client'
+import { WalletsStore, useWalletStore } from '../../../../stores/wallets'
 import { locators as keyLocators } from './key-list'
 import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
-import { locators as signMessageLocators } from '../../../components/sign-message-dialog/sign-message'
-import { locators as signedMessageLocators } from '../../../components/sign-message-dialog/signed-message'
-import { locators as vegaKeyLocators } from '../../../components/keys/vega-key'
+import { locators as signMessageLocators } from '../../../../components/sign-message-dialog/sign-message'
+import { locators as signedMessageLocators } from '../../../../components/sign-message-dialog/signed-message'
+import { locators as vegaKeyLocators } from '../../../../components/keys/vega-key'
 
 const mockLoadedState = () => {
   const state = useWalletStore.getState()

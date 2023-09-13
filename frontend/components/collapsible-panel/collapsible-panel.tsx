@@ -10,7 +10,7 @@ export const CollapsiblePanel = ({
   panelContent
 }: {
   initiallyOpen?: boolean
-  title: string
+  title: string | ReactNode
   panelContent: ReactNode
 }) => {
   const [isOpen, setIsOpen] = useState(initiallyOpen)

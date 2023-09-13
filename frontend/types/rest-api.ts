@@ -11,7 +11,6 @@ export enum ConditionOperator {
   LESSTHAN = 'OPERATOR_LESS_THAN' as any,
   LESSTHANOREQUAL = 'OPERATOR_LESS_THAN_OR_EQUAL' as any
 }
-
 /**
  * - TRADING_MODE_UNSPECIFIED: Default value, this is invalid  - TRADING_MODE_CONTINUOUS: Normal trading  - TRADING_MODE_BATCH_AUCTION: Auction trading (FBA)  - TRADING_MODE_OPENING_AUCTION: Opening auction  - TRADING_MODE_MONITORING_AUCTION: Auction triggered by monitoring  - TRADING_MODE_NO_TRADING: No trading is allowed
  * @export
@@ -25,7 +24,6 @@ export enum MarketTradingMode {
   MONITORINGAUCTION = 'TRADING_MODE_MONITORING_AUCTION' as any,
   NOTRADING = 'TRADING_MODE_NO_TRADING' as any
 }
-
 /**
  * - ORACLE_SOURCE_UNSPECIFIED: Default value  - ORACLE_SOURCE_OPEN_ORACLE: Specifies that the payload will be base64 encoded JSON conforming to the Open Oracle standard  - ORACLE_SOURCE_JSON: Specifies that the payload will be base64 encoded JSON, but does not specify the shape of the data
  * @export
@@ -36,7 +34,6 @@ export enum OracleDataSubmissionOracleSource {
   OPENORACLE = 'ORACLE_SOURCE_OPEN_ORACLE' as any,
   JSON = 'ORACLE_SOURCE_JSON' as any
 }
-
 /**
  * - TIME_IN_FORCE_UNSPECIFIED: Default value for TimeInForce, can be valid for an amend  - TIME_IN_FORCE_GTC: Good until cancelled, the order trades any amount and as much as possible and remains on the book until it either trades completely or is cancelled  - TIME_IN_FORCE_GTT: Good until specified time, this order type trades any amount and as much as possible and remains on the book until it either trades completely, is cancelled, or expires at a set time NOTE: this may in future be multiple types or have sub types for orders that provide different ways of specifying expiry  - TIME_IN_FORCE_IOC: Immediate or cancel, the order trades any amount and as much as possible but does not remain on the book (whether it trades or not)  - TIME_IN_FORCE_FOK: Fill or kill, the order either trades completely i.e. remainingSize == 0 after adding, or not at all, and does not remain on the book if it doesn't trade  - TIME_IN_FORCE_GFA: Good for auction, this order is only accepted during an auction period  - TIME_IN_FORCE_GFN: Good for normal, this order is only accepted during normal trading (that can be continuous trading or frequent batched auctions)
  * @export
@@ -65,14 +62,12 @@ export interface TransactionResultFailureDetails {
    */
   error?: string
 }
-
 /**
  *
  * @export
  * @interface TransactionResultSuccessDetails
  */
 export interface TransactionResultSuccessDetails {}
-
 /**
  *
  * @export
@@ -83,7 +78,6 @@ export enum UndelegateSubmissionMethod {
   NOW = 'METHOD_NOW' as any,
   ATENDOFEPOCH = 'METHOD_AT_END_OF_EPOCH' as any
 }
-
 /**
  *
  * @export
@@ -169,7 +163,6 @@ export interface V1AnnounceNode {
    */
   vegaSignature?: V1Signature
 }
-
 /**
  *
  * @export
@@ -219,7 +212,6 @@ export interface V1AuctionEvent {
    */
   trigger?: VegaAuctionTrigger
 }
-
 /**
  *
  * @export
@@ -245,7 +237,6 @@ export interface V1BatchMarketInstructions {
    */
   submissions?: Array<V1OrderSubmission>
 }
-
 /**
  *
  * @export
@@ -271,7 +262,6 @@ export interface V1BeginBlock {
    */
   timestamp?: string
 }
-
 /**
  *
  * @export
@@ -663,7 +653,6 @@ export interface V1BusEvent {
    */
   withdrawal?: VegaWithdrawal
 }
-
 /**
  * - BUS_EVENT_TYPE_UNSPECIFIED: Default value, always invalid  - BUS_EVENT_TYPE_ALL: Events of ALL event types, used when filtering stream from event bus  - BUS_EVENT_TYPE_TIME_UPDATE: Event for blockchain time updates  - BUS_EVENT_TYPE_LEDGER_MOVEMENTS: Event for when a transfer happens internally, contains the transfer information  - BUS_EVENT_TYPE_POSITION_RESOLUTION: Event indicating position resolution has occurred  - BUS_EVENT_TYPE_ORDER: Event for order updates, both new and existing orders  - BUS_EVENT_TYPE_ACCOUNT: Event for account updates  - BUS_EVENT_TYPE_PARTY: Event for party updates  - BUS_EVENT_TYPE_TRADE: Event indicating a new trade has occurred  - BUS_EVENT_TYPE_MARGIN_LEVELS: Event indicating margin levels have changed for a party  - BUS_EVENT_TYPE_PROPOSAL: Event for proposal updates (for governance)  - BUS_EVENT_TYPE_VOTE: Event indicating a new vote has occurred (for governance)  - BUS_EVENT_TYPE_MARKET_DATA: Event for market data updates  - BUS_EVENT_TYPE_NODE_SIGNATURE: Event for a new signature for a Vega node  - BUS_EVENT_TYPE_LOSS_SOCIALIZATION: Event indicating loss socialisation occurred for a party  - BUS_EVENT_TYPE_SETTLE_POSITION: Event for when a position is being settled  - BUS_EVENT_TYPE_SETTLE_DISTRESSED: Event for when a position is distressed  - BUS_EVENT_TYPE_MARKET_CREATED: Event indicating a new market was created  - BUS_EVENT_TYPE_ASSET: Event for when an asset is added to Vega  - BUS_EVENT_TYPE_MARKET_TICK: Event indicating a market tick event  - BUS_EVENT_TYPE_WITHDRAWAL: Event for when a withdrawal occurs  - BUS_EVENT_TYPE_DEPOSIT: Event for when a deposit occurs  - BUS_EVENT_TYPE_AUCTION: Event indicating a change in auction state, for example starting or ending an auction  - BUS_EVENT_TYPE_RISK_FACTOR: Event indicating a risk factor has been updated  - BUS_EVENT_TYPE_NETWORK_PARAMETER: Event indicating a network parameter has been added or updated  - BUS_EVENT_TYPE_LIQUIDITY_PROVISION: Event indicating a liquidity provision has been created or updated  - BUS_EVENT_TYPE_MARKET_UPDATED: Event indicating a new market was created  - BUS_EVENT_TYPE_ORACLE_SPEC: Event indicating an oracle spec has been created or updated  - BUS_EVENT_TYPE_ORACLE_DATA: Event indicating that an oracle data has been broadcast  - BUS_EVENT_TYPE_DELEGATION_BALANCE: Event indicating that an delegation balance of a party to a node for current epoch has changed  - BUS_EVENT_TYPE_VALIDATOR_SCORE: Event indicating the validator score for the given epoch  - BUS_EVENT_TYPE_EPOCH_UPDATE: Event indicating the start or end of an epoch  - BUS_EVENT_TYPE_VALIDATOR_UPDATE: Event indicating that validator node has been updated  - BUS_EVENT_TYPE_STAKE_LINKING: Event indicating a new staking event have been processed by the network  - BUS_EVENT_TYPE_REWARD_PAYOUT_EVENT: Event indicating the payout of a reward has been initiated  - BUS_EVENT_TYPE_CHECKPOINT: Event indicating a new checkpoint was created  - BUS_EVENT_TYPE_STREAM_START: Event indicating stream is starting  - BUS_EVENT_TYPE_KEY_ROTATION: Event indicating key rotation took place  - BUS_EVENT_TYPE_STATE_VAR: Event indicating state transitions in state variable consensus  - BUS_EVENT_TYPE_NETWORK_LIMITS: Event indicating network limits set or updated  - BUS_EVENT_TYPE_TRANSFER: Event indicating a update for a transfer  - BUS_EVENT_TYPE_VALIDATOR_RANKING: Event indicating the ranking of validator and their status in Vega  - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_EVENT: Event indicating a new multi sig signer event have been processed  - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SET_THRESHOLD: Event indicating the erc20 multi sig threshold have been updated  - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_ADDED: Event indicating a new signer has been added to the ERC-20 multisig  - BUS_EVENT_TYPE_ERC20_MULTI_SIG_SIGNER_REMOVED: Event indicating a signer has been removed from the ERC-20 multisig  - BUS_EVENT_TYPE_POSITION_STATE: Event indicating that a party's position has changed  - BUS_EVENT_TYPE_ETHEREUM_KEY_ROTATION: Event indicating Ethereum key rotation took place  - BUS_EVENT_TYPE_PROTOCOL_UPGRADE_PROPOSAL: Event indicating protocol upgrade proposal updates  - BUS_EVENT_TYPE_BEGIN_BLOCK: Event indicating the core is starting to process a new block  - BUS_EVENT_TYPE_END_BLOCK: Event indicating the core finished to process a block  - BUS_EVENT_TYPE_PROTOCOL_UPGRADE_STARTED: Event indicating the core is starting a protocol upgrade  - BUS_EVENT_TYPE_SETTLE_MARKET: Event indicating the market has stopped and settled  - BUS_EVENT_TYPE_TRANSACTION_RESULT: Event indicating the result of a transaction processed by the network  - BUS_EVENT_TYPE_SNAPSHOT_TAKEN: Event indicating a snapshot was taken at this block height  - BUS_EVENT_TYPE_PROTOCOL_UPGRADE_DATA_NODE_READY: Event data node uses to notify that it is ready to upgrade  - BUS_EVENT_TYPE_DISTRESSED_ORDERS_CLOSED: Event indicating parties had orders closed because they were distressed, but were not closed out.  - BUS_EVENT_TYPE_EXPIRED_ORDERS: Event indicating parties had orders closed because they were distressed, but were not closed out.  - BUS_EVENT_TYPE_DISTRESSED_POSITIONS: Event indicating parties have become, or were, distressed but still have an active position.  - BUS_EVENT_TYPE_MARKET: Event indicating a market related event, for example when a market opens  - BUS_EVENT_TYPE_TX_ERROR: Event used to report failed transactions back to a user, this is excluded from the ALL type
  * @export
@@ -732,7 +721,6 @@ export enum V1BusEventType {
   MARKET = 'BUS_EVENT_TYPE_MARKET' as any,
   TXERROR = 'BUS_EVENT_TYPE_TX_ERROR' as any
 }
-
 /**
  *
  * @export
@@ -746,7 +734,6 @@ export interface V1CancelTransfer {
    */
   transferId?: string
 }
-
 /**
  *
  * @export
@@ -760,7 +747,6 @@ export interface V1CheckRawTransactionRequest {
    */
   tx: string
 }
-
 /**
  *
  * @export
@@ -810,7 +796,6 @@ export interface V1CheckRawTransactionResponse {
    */
   success?: boolean
 }
-
 /**
  *
  * @export
@@ -824,7 +809,6 @@ export interface V1CheckTransactionRequest {
    */
   tx?: V1Transaction
 }
-
 /**
  *
  * @export
@@ -874,7 +858,6 @@ export interface V1CheckTransactionResponse {
    */
   success?: boolean
 }
-
 /**
  *
  * @export
@@ -900,7 +883,6 @@ export interface V1CheckpointEvent {
    */
   hash?: string
 }
-
 /**
  *
  * @export
@@ -920,7 +902,6 @@ export interface V1Condition {
    */
   value?: string
 }
-
 /**
  * CoreSnapshotData represents the core snapshot data.
  * @export
@@ -952,7 +933,6 @@ export interface V1CoreSnapshotData {
    */
   protocolUpgradeBlock?: boolean
 }
-
 /**
  * Data describes valid source data that has been received by the node. It represents both matched and unmatched data.
  * @export
@@ -984,7 +964,6 @@ export interface V1Data {
    */
   signers?: Array<V1Signer>
 }
-
 /**
  *
  * @export
@@ -1004,7 +983,6 @@ export interface V1DelegateSubmission {
    */
   nodeId?: string
 }
-
 /**
  *
  * @export
@@ -1036,7 +1014,6 @@ export interface V1DelegationBalanceEvent {
    */
   party?: string
 }
-
 /**
  *
  * @export
@@ -1056,7 +1033,6 @@ export interface V1DistressedOrders {
    */
   parties?: Array<string>
 }
-
 /**
  * Distressed positions event contains the party IDs for all parties that were distressed, had their orders closed but because of insufficient volume on the book could not be fully closed out. These parties are distressed, but still hold an active position on the book as a result. Once enough volume is on the book to close them out, a SettleDistressed event will be sent. In case they manage to reduce their position, or meet the margin requirements, this status will be updated. Parties that are no longer distressed but active will be listed in the safe_parties field.
  * @export
@@ -1082,7 +1058,6 @@ export interface V1DistressedPositions {
    */
   safeParties?: Array<string>
 }
-
 /**
  *
  * @export
@@ -1132,7 +1107,6 @@ export interface V1ERC20MultiSigSignerAdded {
    */
   validatorId?: string
 }
-
 /**
  *
  * @export
@@ -1188,7 +1162,6 @@ export interface V1ERC20MultiSigSignerEvent {
    */
   type?: V1ERC20MultiSigSignerEventType
 }
-
 /**
  *
  * @export
@@ -1199,7 +1172,6 @@ export enum V1ERC20MultiSigSignerEventType {
   ADDED = 'TYPE_ADDED' as any,
   REMOVED = 'TYPE_REMOVED' as any
 }
-
 /**
  *
  * @export
@@ -1243,7 +1215,6 @@ export interface V1ERC20MultiSigSignerRemoved {
    */
   validatorId?: string
 }
-
 /**
  *
  * @export
@@ -1263,7 +1234,6 @@ export interface V1ERC20MultiSigSignerRemovedSubmitter {
    */
   submitter?: string
 }
-
 /**
  *
  * @export
@@ -1313,7 +1283,6 @@ export interface V1ERC20MultiSigThresholdSetEvent {
    */
   txHash?: string
 }
-
 /**
  *
  * @export
@@ -1327,7 +1296,6 @@ export interface V1ETHAddress {
    */
   address?: string
 }
-
 /**
  *
  * @export
@@ -1341,7 +1309,6 @@ export interface V1EndBlock {
    */
   height?: string
 }
-
 /**
  *
  * @export
@@ -1379,7 +1346,6 @@ export interface V1EpochEvent {
    */
   startTime?: string
 }
-
 /**
  *
  * @export
@@ -1417,7 +1383,6 @@ export interface V1EthereumKeyRotateSubmission {
    */
   targetBlock?: string
 }
-
 /**
  *
  * @export
@@ -1449,7 +1414,6 @@ export interface V1EthereumKeyRotation {
    */
   oldAddress?: string
 }
-
 /**
  *
  * @export
@@ -1469,7 +1433,6 @@ export interface V1ExpiredOrders {
    */
   orderIds?: Array<string>
 }
-
 /**
  *
  * @export
@@ -1483,7 +1446,6 @@ export interface V1ExternalData {
    */
   data?: V1Data
 }
-
 /**
  * Filter describes the conditions under which a data source data is considered of interest or not.
  * @export
@@ -1503,7 +1465,6 @@ export interface V1Filter {
    */
   key?: V1PropertyKey
 }
-
 /**
  *
  * @export
@@ -1523,7 +1484,6 @@ export interface V1GetSpamStatisticsResponse {
    */
   statistics?: V1SpamStatistics
 }
-
 /**
  *
  * @export
@@ -1537,7 +1497,6 @@ export interface V1GetVegaTimeResponse {
    */
   timestamp?: string
 }
-
 /**
  *
  * @export
@@ -1563,7 +1522,6 @@ export interface V1IssueSignatures {
    */
   validatorNodeId?: string
 }
-
 /**
  *
  * @export
@@ -1595,7 +1553,6 @@ export interface V1KeyRotateSubmission {
    */
   targetBlock?: string
 }
-
 /**
  *
  * @export
@@ -1627,7 +1584,6 @@ export interface V1KeyRotation {
    */
   oldPubKey?: string
 }
-
 /**
  *
  * @export
@@ -1683,7 +1639,6 @@ export interface V1LastBlockHeightResponse {
    */
   spamPowNumberOfTxPerBlock?: number
 }
-
 /**
  *
  * @export
@@ -1697,7 +1652,6 @@ export interface V1LedgerMovements {
    */
   ledgerMovements?: Array<VegaLedgerMovement>
 }
-
 /**
  *
  * @export
@@ -1741,7 +1695,6 @@ export interface V1LiquidityProvisionAmendment {
    */
   sells?: Array<VegaLiquidityOrder>
 }
-
 /**
  *
  * @export
@@ -1755,7 +1708,6 @@ export interface V1LiquidityProvisionCancellation {
    */
   marketId?: string
 }
-
 /**
  *
  * @export
@@ -1799,7 +1751,6 @@ export interface V1LiquidityProvisionSubmission {
    */
   sells?: Array<VegaLiquidityOrder>
 }
-
 /**
  *
  * @export
@@ -1825,7 +1776,6 @@ export interface V1LossSocialization {
    */
   partyId?: string
 }
-
 /**
  *
  * @export
@@ -1845,7 +1795,6 @@ export interface V1MarketEvent {
    */
   payload?: string
 }
-
 /**
  *
  * @export
@@ -1865,7 +1814,6 @@ export interface V1MarketTick {
    */
   time?: string
 }
-
 /**
  *
  * @export
@@ -1891,7 +1839,6 @@ export interface V1NodeSignature {
    */
   sig?: string
 }
-
 /**
  * - NODE_SIGNATURE_KIND_UNSPECIFIED: Represents an unspecified or missing value from the input  - NODE_SIGNATURE_KIND_ASSET_NEW: Represents a signature for a new asset allow-listing  - NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL: Represents a signature for an asset withdrawal  - NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_ADDED: Represents a signature for a new signer added to the erc20 multisig contract  - NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_REMOVED: Represents a signature for a signer removed from the erc20 multisig contract  - NODE_SIGNATURE_KIND_ASSET_UPDATE: Represents a signature for an asset update allow-listing
  * @export
@@ -1905,7 +1852,6 @@ export enum V1NodeSignatureKind {
   ERC20MULTISIGSIGNERREMOVED = 'NODE_SIGNATURE_KIND_ERC20_MULTISIG_SIGNER_REMOVED' as any,
   ASSETUPDATE = 'NODE_SIGNATURE_KIND_ASSET_UPDATE' as any
 }
-
 /**
  *
  * @export
@@ -1919,7 +1865,6 @@ export interface V1ObserveEventBusResponse {
    */
   events?: Array<V1BusEvent>
 }
-
 /**
  *
  * @export
@@ -1939,7 +1884,6 @@ export interface V1OracleDataSubmission {
    */
   source?: OracleDataSubmissionOracleSource
 }
-
 /**
  *
  * @export
@@ -1995,7 +1939,6 @@ export interface V1OrderAmendment {
    */
   timeInForce?: OrderTimeInForce
 }
-
 /**
  *
  * @export
@@ -2015,7 +1958,6 @@ export interface V1OrderCancellation {
    */
   orderId?: string
 }
-
 /**
  *
  * @export
@@ -2089,7 +2031,6 @@ export interface V1OrderSubmission {
    */
   type?: VegaOrderType
 }
-
 /**
  *
  * @export
@@ -2145,7 +2086,6 @@ export interface V1PoWBlockState {
    */
   txPerBlock?: string
 }
-
 /**
  *
  * @export
@@ -2171,7 +2111,6 @@ export interface V1PoWStatistic {
    */
   numberOfPastBlocks?: string
 }
-
 /**
  *
  * @export
@@ -2203,7 +2142,6 @@ export interface V1PositionResolution {
    */
   marketId?: string
 }
-
 /**
  *
  * @export
@@ -2253,7 +2191,6 @@ export interface V1PositionStateEvent {
    */
   vwSellPrice?: string
 }
-
 /**
  *
  * @export
@@ -2273,7 +2210,6 @@ export interface V1ProofOfWork {
    */
   tid?: string
 }
-
 /**
  *
  * @export
@@ -2287,7 +2223,6 @@ export interface V1PropagateChainEventResponse {
    */
   success?: boolean
 }
-
 /**
  * Property describes one property of data spec with a key with its value.
  * @export
@@ -2307,7 +2242,6 @@ export interface V1Property {
    */
   value?: string
 }
-
 /**
  * PropertyKey describes the property key contained in data source data.
  * @export
@@ -2333,7 +2267,6 @@ export interface V1PropertyKey {
    */
   type?: V1PropertyKeyType
 }
-
 /**
  * Type describes the data type of properties that are supported by the data source engine.   - TYPE_UNSPECIFIED: The default value.  - TYPE_EMPTY: Any type.  - TYPE_INTEGER: Integer type.  - TYPE_STRING: String type.  - TYPE_BOOLEAN: Boolean type.  - TYPE_DECIMAL: Any floating point decimal type.  - TYPE_TIMESTAMP: Timestamp date type.
  * @export
@@ -2348,7 +2281,6 @@ export enum V1PropertyKeyType {
   DECIMAL = 'TYPE_DECIMAL' as any,
   TIMESTAMP = 'TYPE_TIMESTAMP' as any
 }
-
 /**
  *
  * @export
@@ -2374,7 +2306,6 @@ export interface V1ProposalSubmission {
    */
   terms?: VegaProposalTerms
 }
-
 /**
  *
  * @export
@@ -2388,7 +2319,6 @@ export interface V1ProtocolUpgradeDataNodeReady {
    */
   lastBlockHeight?: string
 }
-
 /**
  *
  * @export
@@ -2420,7 +2350,6 @@ export interface V1ProtocolUpgradeEvent {
    */
   vegaReleaseTag?: string
 }
-
 /**
  *
  * @export
@@ -2440,7 +2369,6 @@ export interface V1ProtocolUpgradeProposal {
    */
   vegaReleaseTag?: string
 }
-
 /**
  *
  * @export
@@ -2452,7 +2380,6 @@ export enum V1ProtocolUpgradeProposalStatus {
   APPROVED = 'PROTOCOL_UPGRADE_PROPOSAL_STATUS_APPROVED' as any,
   REJECTED = 'PROTOCOL_UPGRADE_PROPOSAL_STATUS_REJECTED' as any
 }
-
 /**
  *
  * @export
@@ -2466,7 +2393,6 @@ export interface V1ProtocolUpgradeStarted {
    */
   lastBlockHeight?: string
 }
-
 /**
  * PubKey is the public key that signed this data. Different public keys coming from different sources will be further separated.
  * @export
@@ -2480,7 +2406,6 @@ export interface V1PubKey {
    */
   key?: string
 }
-
 /**
  *
  * @export
@@ -2536,7 +2461,6 @@ export interface V1RewardPayoutEvent {
    */
   timestamp?: string
 }
-
 /**
  *
  * @export
@@ -2568,7 +2492,6 @@ export interface V1SettleDistressed {
    */
   price?: string
 }
-
 /**
  *
  * @export
@@ -2594,7 +2517,6 @@ export interface V1SettleMarket {
    */
   price?: string
 }
-
 /**
  *
  * @export
@@ -2632,7 +2554,6 @@ export interface V1SettlePosition {
    */
   tradeSettlements?: Array<V1TradeSettlement>
 }
-
 /**
  * Signature to authenticate a transaction and to be verified by the Vega network.
  * @export
@@ -2658,7 +2579,6 @@ export interface V1Signature {
    */
   version?: number
 }
-
 /**
  *
  * @export
@@ -2678,7 +2598,6 @@ export interface V1Signer {
    */
   pubKey?: V1PubKey
 }
-
 /**
  *
  * @export
@@ -2710,7 +2629,6 @@ export interface V1SpamStatistic {
    */
   minTokensRequired?: string
 }
-
 /**
  *
  * @export
@@ -2766,7 +2684,6 @@ export interface V1SpamStatistics {
    */
   votes?: V1VoteSpamStatistics
 }
-
 /**
  *
  * @export
@@ -2846,7 +2763,6 @@ export interface V1StakeLinking {
    */
   type?: V1StakeLinkingType
 }
-
 /**
  *
  * @export
@@ -2858,7 +2774,6 @@ export enum V1StakeLinkingStatus {
   ACCEPTED = 'STATUS_ACCEPTED' as any,
   REJECTED = 'STATUS_REJECTED' as any
 }
-
 /**
  *
  * @export
@@ -2869,7 +2784,6 @@ export enum V1StakeLinkingType {
   LINK = 'TYPE_LINK' as any,
   UNLINK = 'TYPE_UNLINK' as any
 }
-
 /**
  *
  * @export
@@ -2895,7 +2809,6 @@ export interface V1StateVar {
    */
   state?: string
 }
-
 /**
  *
  * @export
@@ -3131,7 +3044,6 @@ export interface V1Statistics {
    */
   vegaTime?: string
 }
-
 /**
  *
  * @export
@@ -3145,7 +3057,6 @@ export interface V1StatisticsResponse {
    */
   statistics?: V1Statistics
 }
-
 /**
  *
  * @export
@@ -3165,7 +3076,6 @@ export interface V1SubmitRawTransactionRequest {
    */
   type?: V1SubmitRawTransactionRequestType
 }
-
 /**
  * - TYPE_ASYNC: Transaction will be submitted without waiting for response  - TYPE_SYNC: Transaction will be submitted, and blocking until the tendermint mempool returns a response  - TYPE_COMMIT: Transaction will be submitted, and blocking until the tendermint network has committed it into a block. Used only for debugging, not for submitting transactions
  * @export
@@ -3177,7 +3087,6 @@ export enum V1SubmitRawTransactionRequestType {
   SYNC = 'TYPE_SYNC' as any,
   COMMIT = 'TYPE_COMMIT' as any
 }
-
 /**
  *
  * @export
@@ -3221,7 +3130,6 @@ export interface V1SubmitRawTransactionResponse {
    */
   txHash?: string
 }
-
 /**
  *
  * @export
@@ -3241,7 +3149,6 @@ export interface V1SubmitTransactionRequest {
    */
   type?: V1SubmitTransactionRequestType
 }
-
 /**
  * - TYPE_ASYNC: Transaction will be submitted without waiting for response  - TYPE_SYNC: Transaction will be submitted, and blocking until the tendermint mempool returns a response  - TYPE_COMMIT: Transaction will be submitted, and blocking until the tendermint network has committed it into a block. Used only for debugging, not for submitting transactions
  * @export
@@ -3253,7 +3160,6 @@ export enum V1SubmitTransactionRequestType {
   SYNC = 'TYPE_SYNC' as any,
   COMMIT = 'TYPE_COMMIT' as any
 }
-
 /**
  *
  * @export
@@ -3297,7 +3203,6 @@ export interface V1SubmitTransactionResponse {
    */
   txHash?: string
 }
-
 /**
  *
  * @export
@@ -3311,7 +3216,6 @@ export interface V1TimeUpdate {
    */
   timestamp?: string
 }
-
 /**
  *
  * @export
@@ -3337,7 +3241,6 @@ export interface V1TradeSettlement {
    */
   size?: string
 }
-
 /**
  * Represents a transaction to be sent to Vega.
  * @export
@@ -3381,7 +3284,6 @@ export interface V1Transaction {
    */
   version?: V1TxVersion
 }
-
 /**
  *
  * @export
@@ -3539,7 +3441,6 @@ export interface V1TransactionResult {
    */
   withdrawSubmission?: V1WithdrawSubmission
 }
-
 /**
  *
  * @export
@@ -3553,7 +3454,6 @@ export enum V1TransferStatus {
   STOPPED = 'STATUS_STOPPED' as any,
   CANCELLED = 'STATUS_CANCELLED' as any
 }
-
 /**
  *
  * @export
@@ -3681,7 +3581,6 @@ export interface V1TxErrorEvent {
    */
   withdrawSubmission?: V1WithdrawSubmission
 }
-
 /**
  * Current supported version of the transaction inside the network.   - TX_VERSION_UNSPECIFIED: Represents an unspecified or missing value from the input  - TX_VERSION_V2: This version requires the proof-of-work added to the transaction.  - TX_VERSION_V3: This version requires the chain ID to be appended in front of the input data byte, with a `\\0` delimiter.
  * @export
@@ -3692,7 +3591,6 @@ export enum V1TxVersion {
   V2 = 'TX_VERSION_V2' as any,
   V3 = 'TX_VERSION_V3' as any
 }
-
 /**
  *
  * @export
@@ -3718,7 +3616,6 @@ export interface V1UndelegateSubmission {
    */
   nodeId?: string
 }
-
 /**
  *
  * @export
@@ -3774,7 +3671,6 @@ export interface V1ValidatorRankingEvent {
    */
   tmVotingPower?: number
 }
-
 /**
  *
  * @export
@@ -3830,7 +3726,6 @@ export interface V1ValidatorScoreEvent {
    */
   validatorStatus?: string
 }
-
 /**
  *
  * @export
@@ -3916,7 +3811,6 @@ export interface V1ValidatorUpdate {
    */
   vegaPubKeyIndex?: number
 }
-
 /**
  * Vote statistics for the voting spam policies which are calculated as a ratio of the total votes that have been rejected.
  * @export
@@ -3942,7 +3836,6 @@ export interface V1VoteSpamStatistic {
    */
   proposal?: string
 }
-
 /**
  *
  * @export
@@ -3968,7 +3861,6 @@ export interface V1VoteSpamStatistics {
    */
   statistics?: Array<V1VoteSpamStatistic>
 }
-
 /**
  * Command to submit a new vote for a governance proposal.
  * @export
@@ -3988,7 +3880,6 @@ export interface V1VoteSubmission {
    */
   value?: VegaVoteValue
 }
-
 /**
  *
  * @export
@@ -4014,7 +3905,6 @@ export interface V1WithdrawSubmission {
    */
   ext?: VegaWithdrawExt
 }
-
 /**
  *
  * @export
@@ -4058,7 +3948,6 @@ export interface VegaAccount {
    */
   type?: VegaAccountType
 }
-
 /**
  *
  * @export
@@ -4090,7 +3979,6 @@ export interface VegaAccountDetails {
    */
   type?: VegaAccountType
 }
-
 /**
  * - ACCOUNT_TYPE_UNSPECIFIED: Default value  - ACCOUNT_TYPE_INSURANCE: Insurance pool accounts contain insurance pool funds for a market  - ACCOUNT_TYPE_SETTLEMENT: Settlement accounts exist only during settlement or mark-to-market  - ACCOUNT_TYPE_MARGIN: Margin accounts contain funds set aside for the margin needed to support a party's open positions. Each party will have a margin account for each market they have traded in. Required initial margin is allocated to each market from user's general account. Collateral in the margin account can't be withdrawn or used as margin on another market until it is released back to the general account. Vega protocol uses an internal accounting system to segregate funds held as margin from other funds to ensure they are never lost or 'double spent'  Margin account funds will vary as margin requirements on positions change  - ACCOUNT_TYPE_GENERAL: General accounts contain the collateral for a party that is not otherwise allocated. A party will have multiple general accounts, one for each asset they want to trade with  General accounts are where funds are initially deposited or withdrawn from, it is also the account where funds are taken to fulfil fees and initial margin requirements  - ACCOUNT_TYPE_FEES_INFRASTRUCTURE: Infrastructure accounts contain fees earned by providing infrastructure on Vega  - ACCOUNT_TYPE_FEES_LIQUIDITY: Liquidity accounts contain fees earned by providing liquidity on Vega markets  - ACCOUNT_TYPE_FEES_MAKER: This account is created to hold fees earned by placing orders that sit on the book and are then matched with an incoming order to create a trade - These fees reward parties who provide the best priced liquidity that actually allows trading to take place  - ACCOUNT_TYPE_BOND: This account is created to maintain liquidity providers funds commitments  - ACCOUNT_TYPE_EXTERNAL: External account represents an external source (deposit/withdrawal)  - ACCOUNT_TYPE_GLOBAL_INSURANCE: Global insurance account for the asset  - ACCOUNT_TYPE_GLOBAL_REWARD: Global reward account for the asset  - ACCOUNT_TYPE_PENDING_TRANSFERS: Per asset account used to store pending transfers (if any)  - ACCOUNT_TYPE_REWARD_MAKER_PAID_FEES: Per asset reward account for fees paid to makers  - ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES: Per asset reward account for fees received by makers  - ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES: Per asset reward account for fees received by liquidity providers  - ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS: Per asset reward account for market proposers when the market goes above some trading threshold
  * @export
@@ -4115,7 +4003,6 @@ export enum VegaAccountType {
   REWARDLPRECEIVEDFEES = 'ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES' as any,
   REWARDMARKETPROPOSERS = 'ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS' as any
 }
-
 /**
  *
  * @export
@@ -4141,7 +4028,6 @@ export interface VegaAsset {
    */
   status?: VegaAssetStatus
 }
-
 /**
  *
  * @export
@@ -4185,7 +4071,6 @@ export interface VegaAssetDetails {
    */
   symbol?: string
 }
-
 /**
  * Changes to apply on an existing asset.
  * @export
@@ -4205,7 +4090,6 @@ export interface VegaAssetDetailsUpdate {
    */
   quantum?: string
 }
-
 /**
  *
  * @export
@@ -4218,7 +4102,6 @@ export enum VegaAssetStatus {
   PENDINGLISTING = 'STATUS_PENDING_LISTING' as any,
   ENABLED = 'STATUS_ENABLED' as any
 }
-
 /**
  *
  * @export
@@ -4238,7 +4121,6 @@ export interface VegaAuctionDuration {
    */
   volume?: string
 }
-
 /**
  * - AUCTION_TRIGGER_UNSPECIFIED: Default value for AuctionTrigger, no auction triggered  - AUCTION_TRIGGER_BATCH: Batch auction  - AUCTION_TRIGGER_OPENING: Opening auction  - AUCTION_TRIGGER_PRICE: Price monitoring trigger  - AUCTION_TRIGGER_LIQUIDITY: Deprecated  - AUCTION_TRIGGER_LIQUIDITY_TARGET_NOT_MET: Liquidity auction due to not enough committed liquidity  - AUCTION_TRIGGER_UNABLE_TO_DEPLOY_LP_ORDERS: Liquidity auction due to not being able to deploy LP orders because there's nothing to peg on one or both sides of the book
  * @export
@@ -4253,7 +4135,6 @@ export enum VegaAuctionTrigger {
   LIQUIDITYTARGETNOTMET = 'AUCTION_TRIGGER_LIQUIDITY_TARGET_NOT_MET' as any,
   UNABLETODEPLOYLPORDERS = 'AUCTION_TRIGGER_UNABLE_TO_DEPLOY_LP_ORDERS' as any
 }
-
 /**
  *
  * @export
@@ -4267,7 +4148,6 @@ export interface VegaBuiltinAsset {
    */
   maxFaucetAmountMint?: string
 }
-
 /**
  * - CHAIN_STATUS_UNSPECIFIED: Default value, always invalid  - CHAIN_STATUS_DISCONNECTED: Blockchain is disconnected  - CHAIN_STATUS_REPLAYING: Blockchain is replaying historic transactions  - CHAIN_STATUS_CONNECTED: Blockchain is connected and receiving transactions
  * @export
@@ -4279,7 +4159,6 @@ export enum VegaChainStatus {
   REPLAYING = 'CHAIN_STATUS_REPLAYING' as any,
   CONNECTED = 'CHAIN_STATUS_CONNECTED' as any
 }
-
 /**
  * DataSourceDefinition represents the top level object that deals with data sources. DataSourceDefinition can be external or internal, with whatever number of data sources are defined for each type in the child objects below.
  * @export
@@ -4299,7 +4178,6 @@ export interface VegaDataSourceDefinition {
    */
   internal?: VegaDataSourceDefinitionInternal
 }
-
 /**
  * DataSourceDefinitionExternal is the top level object used for all external data sources. It contains one of any of the defined `SourceType` variants.
  * @export
@@ -4313,7 +4191,6 @@ export interface VegaDataSourceDefinitionExternal {
    */
   oracle?: VegaDataSourceSpecConfiguration
 }
-
 /**
  * DataSourceDefinitionInternal is the top level object used for all internal data sources. It contains one of any of the defined `SourceType` variants.
  * @export
@@ -4327,7 +4204,6 @@ export interface VegaDataSourceDefinitionInternal {
    */
   time?: VegaDataSourceSpecConfigurationTime
 }
-
 /**
  * Data source spec describes the data source base that a product or a risk model wants to get from the data source engine. This message contains additional information used by the API.
  * @export
@@ -4365,7 +4241,6 @@ export interface VegaDataSourceSpec {
    */
   updatedAt?: string
 }
-
 /**
  * All types of external data sources use the same configuration set for meeting requirements in order for the data to be useful for Vega - valid signatures and matching filters.
  * @export
@@ -4385,7 +4260,6 @@ export interface VegaDataSourceSpecConfiguration {
    */
   signers?: Array<V1Signer>
 }
-
 /**
  * DataSourceSpecConfigurationTime is the internal data source used for emitting timestamps.
  * @export
@@ -4399,7 +4273,6 @@ export interface VegaDataSourceSpecConfigurationTime {
    */
   conditions?: Array<V1Condition>
 }
-
 /**
  * - STATUS_UNSPECIFIED: Default value.  - STATUS_ACTIVE: STATUS_ACTIVE describes an active data source spec.  - STATUS_DEACTIVATED: STATUS_DEACTIVATED describes an data source spec that is not listening to data anymore.
  * @export
@@ -4410,7 +4283,6 @@ export enum VegaDataSourceSpecStatus {
   ACTIVE = 'STATUS_ACTIVE' as any,
   DEACTIVATED = 'STATUS_DEACTIVATED' as any
 }
-
 /**
  *
  * @export
@@ -4430,7 +4302,6 @@ export interface VegaDataSourceSpecToFutureBinding {
    */
   tradingTerminationProperty?: string
 }
-
 /**
  *
  * @export
@@ -4486,7 +4357,6 @@ export interface VegaDeposit {
    */
   txHash?: string
 }
-
 /**
  * - STATUS_UNSPECIFIED: Default value, always invalid  - STATUS_OPEN: Deposit is being processed by the network  - STATUS_CANCELLED: Deposit has been cancelled by the network  - STATUS_FINALIZED: Deposit has been finalised and accounts have been updated
  * @export
@@ -4498,7 +4368,6 @@ export enum VegaDepositStatus {
   CANCELLED = 'STATUS_CANCELLED' as any,
   FINALIZED = 'STATUS_FINALIZED' as any
 }
-
 /**
  *
  * @export
@@ -4511,7 +4380,6 @@ export enum VegaDispatchMetric {
   LPFEESRECEIVED = 'DISPATCH_METRIC_LP_FEES_RECEIVED' as any,
   MARKETVALUE = 'DISPATCH_METRIC_MARKET_VALUE' as any
 }
-
 /**
  *
  * @export
@@ -4537,7 +4405,6 @@ export interface VegaDispatchStrategy {
    */
   metric?: VegaDispatchMetric
 }
-
 /**
  *
  * @export
@@ -4563,7 +4430,6 @@ export interface VegaERC20 {
    */
   withdrawThreshold?: string
 }
-
 /**
  *
  * @export
@@ -4583,7 +4449,6 @@ export interface VegaERC20Update {
    */
   withdrawThreshold?: string
 }
-
 /**
  * - EPOCH_ACTION_START: Epoch update is for a new epoch.  - EPOCH_ACTION_END: Epoch update is for the end of an epoch.
  * @export
@@ -4594,7 +4459,6 @@ export enum VegaEpochAction {
   START = 'EPOCH_ACTION_START' as any,
   END = 'EPOCH_ACTION_END' as any
 }
-
 /**
  *
  * @export
@@ -4608,7 +4472,6 @@ export interface VegaErc20WithdrawExt {
    */
   receiverAddress?: string
 }
-
 /**
  *
  * @export
@@ -4622,7 +4485,6 @@ export interface VegaExternalDataSourceSpec {
    */
   spec?: VegaDataSourceSpec
 }
-
 /**
  *
  * @export
@@ -4648,7 +4510,6 @@ export interface VegaFee {
    */
   makerFee?: string
 }
-
 /**
  *
  * @export
@@ -4674,7 +4535,6 @@ export interface VegaFeeFactors {
    */
   makerFee?: string
 }
-
 /**
  *
  * @export
@@ -4688,7 +4548,6 @@ export interface VegaFees {
    */
   factors?: VegaFeeFactors
 }
-
 /**
  *
  * @export
@@ -4726,7 +4585,6 @@ export interface VegaFuture {
    */
   settlementAsset?: string
 }
-
 /**
  *
  * @export
@@ -4764,7 +4622,6 @@ export interface VegaFutureProduct {
    */
   settlementAsset?: string
 }
-
 /**
  *
  * @export
@@ -4802,7 +4659,6 @@ export interface VegaInstrument {
    */
   name?: string
 }
-
 /**
  *
  * @export
@@ -4828,7 +4684,6 @@ export interface VegaInstrumentConfiguration {
    */
   name?: string
 }
-
 /**
  *
  * @export
@@ -4842,7 +4697,6 @@ export interface VegaInstrumentMetadata {
    */
   tags?: Array<string>
 }
-
 /**
  *
  * @export
@@ -4892,7 +4746,6 @@ export interface VegaLedgerEntry {
    */
   type?: VegaTransferType
 }
-
 /**
  *
  * @export
@@ -4912,7 +4765,6 @@ export interface VegaLedgerMovement {
    */
   entries?: Array<VegaLedgerEntry>
 }
-
 /**
  *
  * @export
@@ -4938,7 +4790,6 @@ export interface VegaLiquidityMonitoringParameters {
    */
   triggeringRatio?: string
 }
-
 /**
  *
  * @export
@@ -4964,7 +4815,6 @@ export interface VegaLiquidityOrder {
    */
   reference?: VegaPeggedReference
 }
-
 /**
  *
  * @export
@@ -4984,7 +4834,6 @@ export interface VegaLiquidityOrderReference {
    */
   orderId?: string
 }
-
 /**
  *
  * @export
@@ -5016,7 +4865,6 @@ export interface VegaLiquidityProviderFeeShare {
    */
   party?: string
 }
-
 /**
  *
  * @export
@@ -5096,7 +4944,6 @@ export interface VegaLiquidityProvision {
    */
   version?: string
 }
-
 /**
  * Status of a liquidity provision order.   - STATUS_UNSPECIFIED: Default value  - STATUS_ACTIVE: Liquidity provision is active  - STATUS_STOPPED: Liquidity provision was stopped by the network  - STATUS_CANCELLED: Liquidity provision was cancelled by the liquidity provider  - STATUS_REJECTED: Liquidity provision was invalid and got rejected  - STATUS_UNDEPLOYED: Liquidity provision is valid and accepted by network, but orders aren't deployed  - STATUS_PENDING: Liquidity provision is valid and accepted by network but has never been deployed. If when it's possible to deploy the orders for the first time margin check fails, then they will be cancelled without any penalties.
  * @export
@@ -5111,7 +4958,6 @@ export enum VegaLiquidityProvisionStatus {
   UNDEPLOYED = 'STATUS_UNDEPLOYED' as any,
   PENDING = 'STATUS_PENDING' as any
 }
-
 /**
  *
  * @export
@@ -5137,7 +4983,6 @@ export interface VegaLogNormalModelParams {
    */
   sigma?: number
 }
-
 /**
  *
  * @export
@@ -5163,7 +5008,6 @@ export interface VegaLogNormalRiskModel {
    */
   tau?: number
 }
-
 /**
  *
  * @export
@@ -5177,7 +5021,6 @@ export interface VegaMarginCalculator {
    */
   scalingFactors?: VegaScalingFactors
 }
-
 /**
  *
  * @export
@@ -5233,7 +5076,6 @@ export interface VegaMarginLevels {
    */
   timestamp?: string
 }
-
 /**
  *
  * @export
@@ -5325,7 +5167,6 @@ export interface VegaMarket {
    */
   tradingMode?: MarketTradingMode
 }
-
 /**
  *
  * @export
@@ -5507,7 +5348,6 @@ export interface VegaMarketData {
    */
   trigger?: VegaAuctionTrigger
 }
-
 /**
  * - STATE_UNSPECIFIED: Default value, invalid  - STATE_PROPOSED: Governance proposal valid and accepted  - STATE_REJECTED: Outcome of governance votes is to reject the market  - STATE_PENDING: Governance vote passes/wins  - STATE_CANCELLED: Market triggers cancellation condition or governance votes to close before market becomes Active  - STATE_ACTIVE: Enactment date reached and usual auction exit checks pass  - STATE_SUSPENDED: Price monitoring or liquidity monitoring trigger  - STATE_CLOSED: Governance vote to close (Not currently implemented)  - STATE_TRADING_TERMINATED: Defined by the product (i.e. from a product parameter, specified in market definition, giving close date/time)  - STATE_SETTLED: Settlement triggered and completed as defined by product
  * @export
@@ -5525,7 +5365,6 @@ export enum VegaMarketState {
   TRADINGTERMINATED = 'STATE_TRADING_TERMINATED' as any,
   SETTLED = 'STATE_SETTLED' as any
 }
-
 /**
  *
  * @export
@@ -5557,7 +5396,6 @@ export interface VegaMarketTimestamps {
    */
   proposed?: string
 }
-
 /**
  *
  * @export
@@ -5607,7 +5445,6 @@ export interface VegaNetworkLimits {
    */
   proposeMarketEnabledFrom?: string
 }
-
 /**
  *
  * @export
@@ -5627,7 +5464,6 @@ export interface VegaNetworkParameter {
    */
   value?: string
 }
-
 /**
  *
  * @export
@@ -5641,14 +5477,12 @@ export interface VegaNewAsset {
    */
   changes?: VegaAssetDetails
 }
-
 /**
  * Freeform proposal This message is just used as a placeholder to sort out the nature of the proposal once parsed.
  * @export
  * @interface VegaNewFreeform
  */
 export interface VegaNewFreeform {}
-
 /**
  *
  * @export
@@ -5662,7 +5496,6 @@ export interface VegaNewMarket {
    */
   changes?: VegaNewMarketConfiguration
 }
-
 /**
  *
  * @export
@@ -5736,7 +5569,6 @@ export interface VegaNewMarketConfiguration {
    */
   simple?: VegaSimpleModelParams
 }
-
 /**
  *
  * @export
@@ -5750,7 +5582,6 @@ export interface VegaOracleData {
    */
   externalData?: V1ExternalData
 }
-
 /**
  *
  * @export
@@ -5764,7 +5595,6 @@ export interface VegaOracleSpec {
    */
   externalDataSourceSpec?: VegaExternalDataSourceSpec
 }
-
 /**
  *
  * @export
@@ -5898,7 +5728,6 @@ export interface VegaOrder {
    */
   version?: string
 }
-
 /**
  * - ORDER_ERROR_UNSPECIFIED: Default value, no error reported  - ORDER_ERROR_INVALID_MARKET_ID: Order was submitted for a market that does not exist  - ORDER_ERROR_INVALID_ORDER_ID: Order was submitted with an invalid ID  - ORDER_ERROR_OUT_OF_SEQUENCE: Order was amended with a sequence number that was not previous version + 1  - ORDER_ERROR_INVALID_REMAINING_SIZE: Order was amended with an invalid remaining size (e.g. remaining greater than total size)  - ORDER_ERROR_TIME_FAILURE: Node was unable to get Vega (blockchain) time  - ORDER_ERROR_REMOVAL_FAILURE: Failed to remove an order from the book  - ORDER_ERROR_INVALID_EXPIRATION_DATETIME: Order with `TimeInForce.TIME_IN_FORCE_GTT` was submitted or amended with an expiration that was badly formatted or otherwise invalid  - ORDER_ERROR_INVALID_ORDER_REFERENCE: Order was submitted or amended with an invalid reference field  - ORDER_ERROR_EDIT_NOT_ALLOWED: Order amend was submitted for an order field that cannot not be amended (e.g. order ID)  - ORDER_ERROR_AMEND_FAILURE: Amend failure because amend details do not match original order  - ORDER_ERROR_NOT_FOUND: Order not found in an order book or store  - ORDER_ERROR_INVALID_PARTY_ID: Order was submitted with an invalid or missing party ID  - ORDER_ERROR_MARKET_CLOSED: Order was submitted for a market that has closed  - ORDER_ERROR_MARGIN_CHECK_FAILED: Order was submitted, but the party did not have enough collateral to cover the order  - ORDER_ERROR_MISSING_GENERAL_ACCOUNT: Order was submitted, but the party did not have an account for this asset  - ORDER_ERROR_INTERNAL_ERROR: Unspecified internal error  - ORDER_ERROR_INVALID_SIZE: Order was submitted with an invalid or missing size (e.g. 0)  - ORDER_ERROR_INVALID_PERSISTENCE: Order was submitted with an invalid persistence for its type  - ORDER_ERROR_INVALID_TYPE: Order was submitted with an invalid type field  - ORDER_ERROR_SELF_TRADING: Order was stopped as it would have traded with another order submitted from the same party  - ORDER_ERROR_INSUFFICIENT_FUNDS_TO_PAY_FEES: Order was submitted, but the party did not have enough collateral to cover the fees for the order  - ORDER_ERROR_INCORRECT_MARKET_TYPE: Order was submitted with an incorrect or invalid market type  - ORDER_ERROR_INVALID_TIME_IN_FORCE: Order was submitted with invalid time in force  - ORDER_ERROR_CANNOT_SEND_GFN_ORDER_DURING_AN_AUCTION: Good For Normal order has reached the market when it is in auction mode  - ORDER_ERROR_CANNOT_SEND_GFA_ORDER_DURING_CONTINUOUS_TRADING: Good For Auction order has reached the market when it is in continuous trading mode  - ORDER_ERROR_CANNOT_AMEND_TO_GTT_WITHOUT_EXPIRYAT: Attempt to amend order to GTT without ExpiryAt  - ORDER_ERROR_EXPIRYAT_BEFORE_CREATEDAT: Attempt to amend ExpiryAt to a value before CreatedAt  - ORDER_ERROR_CANNOT_HAVE_GTC_AND_EXPIRYAT: Attempt to amend to GTC without an ExpiryAt value  - ORDER_ERROR_CANNOT_AMEND_TO_FOK_OR_IOC: Amending to FOK or IOC is invalid  - ORDER_ERROR_CANNOT_AMEND_TO_GFA_OR_GFN: Amending to GFA or GFN is invalid  - ORDER_ERROR_CANNOT_AMEND_FROM_GFA_OR_GFN: Amending from GFA or GFN is invalid  - ORDER_ERROR_CANNOT_SEND_IOC_ORDER_DURING_AUCTION: IOC orders are not allowed during auction  - ORDER_ERROR_CANNOT_SEND_FOK_ORDER_DURING_AUCTION: FOK orders are not allowed during auction  - ORDER_ERROR_MUST_BE_LIMIT_ORDER: Pegged orders must be LIMIT orders  - ORDER_ERROR_MUST_BE_GTT_OR_GTC: Pegged orders can only have TIF GTC or GTT  - ORDER_ERROR_WITHOUT_REFERENCE_PRICE: Pegged order must have a reference price  - ORDER_ERROR_BUY_CANNOT_REFERENCE_BEST_ASK_PRICE: Buy pegged order cannot reference best ask price  - ORDER_ERROR_OFFSET_MUST_BE_GREATER_OR_EQUAL_TO_ZERO: Pegged order offset must be >= 0  - ORDER_ERROR_SELL_CANNOT_REFERENCE_BEST_BID_PRICE: Sell pegged order cannot reference best bid price  - ORDER_ERROR_OFFSET_MUST_BE_GREATER_THAN_ZERO: Pegged order offset must be > zero  - ORDER_ERROR_INSUFFICIENT_ASSET_BALANCE: Party has an insufficient balance, or does not have a general account to submit the order (no deposits made for the required asset)  - ORDER_ERROR_CANNOT_AMEND_PEGGED_ORDER_DETAILS_ON_NON_PEGGED_ORDER: Cannot amend details of a non pegged details  - ORDER_ERROR_UNABLE_TO_REPRICE_PEGGED_ORDER: Could not re-price a pegged order because a market price is unavailable  - ORDER_ERROR_UNABLE_TO_AMEND_PRICE_ON_PEGGED_ORDER: It is not possible to amend the price of an existing pegged order  - ORDER_ERROR_NON_PERSISTENT_ORDER_OUT_OF_PRICE_BOUNDS: FOK, IOC, or GFN order was rejected because it resulted in trades outside the price bounds  - ORDER_ERROR_TOO_MANY_PEGGED_ORDERS: Unable to submit pegged order, temporarily too many pegged orders across all markets  - ORDER_ERROR_POST_ONLY_ORDER_WOULD_TRADE: Post order would trade  - ORDER_ERROR_REDUCE_ONLY_ORDER_WOULD_NOT_REDUCE_POSITION: Post order would trade
  * @export
@@ -5955,7 +5784,6 @@ export enum VegaOrderError {
   POSTONLYORDERWOULDTRADE = 'ORDER_ERROR_POST_ONLY_ORDER_WOULD_TRADE' as any,
   REDUCEONLYORDERWOULDNOTREDUCEPOSITION = 'ORDER_ERROR_REDUCE_ONLY_ORDER_WOULD_NOT_REDUCE_POSITION' as any
 }
-
 /**
  * - STATUS_UNSPECIFIED: Default value, always invalid  - STATUS_ACTIVE: Used for active unfilled or partially filled orders  - STATUS_EXPIRED: Used for expired GTT orders  - STATUS_CANCELLED: Used for orders cancelled by the party that created the order  - STATUS_STOPPED: Used for unfilled FOK or IOC orders, and for orders that were stopped by the network  - STATUS_FILLED: Used for closed fully filled orders  - STATUS_REJECTED: Used for orders when not enough collateral was available to fill the margin requirements  - STATUS_PARTIALLY_FILLED: Used for closed partially filled IOC orders  - STATUS_PARKED: Order has been removed from the order book and has been parked, this applies to pegged orders and liquidity orders (orders created from a liquidity provision shape)
  * @export
@@ -5972,7 +5800,6 @@ export enum VegaOrderStatus {
   PARTIALLYFILLED = 'STATUS_PARTIALLY_FILLED' as any,
   PARKED = 'STATUS_PARKED' as any
 }
-
 /**
  * - TYPE_UNSPECIFIED: Default value, always invalid  - TYPE_LIMIT: Used for Limit orders  - TYPE_MARKET: Used for Market orders  - TYPE_NETWORK: Used for orders where the initiating party is the network (with distressed parties)
  * @export
@@ -5984,7 +5811,6 @@ export enum VegaOrderType {
   MARKET = 'TYPE_MARKET' as any,
   NETWORK = 'TYPE_NETWORK' as any
 }
-
 /**
  *
  * @export
@@ -5998,7 +5824,6 @@ export interface VegaParty {
    */
   id?: string
 }
-
 /**
  *
  * @export
@@ -6018,7 +5843,6 @@ export interface VegaPeggedOrder {
    */
   reference?: VegaPeggedReference
 }
-
 /**
  * - PEGGED_REFERENCE_UNSPECIFIED: Default value for PeggedReference, no reference given  - PEGGED_REFERENCE_MID: Mid price reference  - PEGGED_REFERENCE_BEST_BID: Best bid price reference  - PEGGED_REFERENCE_BEST_ASK: Best ask price reference
  * @export
@@ -6030,7 +5854,6 @@ export enum VegaPeggedReference {
   BESTBID = 'PEGGED_REFERENCE_BEST_BID' as any,
   BESTASK = 'PEGGED_REFERENCE_BEST_ASK' as any
 }
-
 /**
  *
  * @export
@@ -6050,7 +5873,6 @@ export interface VegaPostTransferBalance {
    */
   balance?: string
 }
-
 /**
  *
  * @export
@@ -6082,7 +5904,6 @@ export interface VegaPriceMonitoringBounds {
    */
   trigger?: VegaPriceMonitoringTrigger
 }
-
 /**
  *
  * @export
@@ -6096,7 +5917,6 @@ export interface VegaPriceMonitoringParameters {
    */
   triggers?: Array<VegaPriceMonitoringTrigger>
 }
-
 /**
  *
  * @export
@@ -6110,7 +5930,6 @@ export interface VegaPriceMonitoringSettings {
    */
   parameters?: VegaPriceMonitoringParameters
 }
-
 /**
  *
  * @export
@@ -6136,7 +5955,6 @@ export interface VegaPriceMonitoringTrigger {
    */
   probability?: string
 }
-
 /**
  *
  * @export
@@ -6222,7 +6040,6 @@ export interface VegaProposal {
    */
   timestamp?: string
 }
-
 /**
  * - PROPOSAL_ERROR_UNSPECIFIED: Default value  - PROPOSAL_ERROR_CLOSE_TIME_TOO_SOON: Specified close time is too early based on network parameters  - PROPOSAL_ERROR_CLOSE_TIME_TOO_LATE: Specified close time is too late based on network parameters  - PROPOSAL_ERROR_ENACT_TIME_TOO_SOON: Specified enactment time is too early based on network parameters  - PROPOSAL_ERROR_ENACT_TIME_TOO_LATE: Specified enactment time is too late based on network parameters  - PROPOSAL_ERROR_INSUFFICIENT_TOKENS: Proposer for this proposal has insufficient tokens  - PROPOSAL_ERROR_INVALID_INSTRUMENT_SECURITY: Instrument quote name and base name were the same  - PROPOSAL_ERROR_NO_PRODUCT: Proposal has no product  - PROPOSAL_ERROR_UNSUPPORTED_PRODUCT: Specified product is not supported  - PROPOSAL_ERROR_NO_TRADING_MODE: Proposal has no trading mode  - PROPOSAL_ERROR_UNSUPPORTED_TRADING_MODE: Proposal has an unsupported trading mode  - PROPOSAL_ERROR_NODE_VALIDATION_FAILED: Proposal failed node validation  - PROPOSAL_ERROR_MISSING_BUILTIN_ASSET_FIELD: Field is missing in a builtin asset source  - PROPOSAL_ERROR_MISSING_ERC20_CONTRACT_ADDRESS: Contract address is missing in the ERC20 asset source  - PROPOSAL_ERROR_INVALID_ASSET: Asset ID is invalid or does not exist on the Vega network  - PROPOSAL_ERROR_INCOMPATIBLE_TIMESTAMPS: Proposal terms timestamps are not compatible (Validation < Closing < Enactment)  - PROPOSAL_ERROR_NO_RISK_PARAMETERS: No risk parameters were specified  - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_KEY: Invalid key in update network parameter proposal  - PROPOSAL_ERROR_NETWORK_PARAMETER_INVALID_VALUE: Invalid value in update network parameter proposal  - PROPOSAL_ERROR_NETWORK_PARAMETER_VALIDATION_FAILED: Validation failed for network parameter proposal  - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_SMALL: Opening auction duration is less than the network minimum opening auction time  - PROPOSAL_ERROR_OPENING_AUCTION_DURATION_TOO_LARGE: Opening auction duration is more than the network minimum opening auction time  - PROPOSAL_ERROR_COULD_NOT_INSTANTIATE_MARKET: Market proposal market could not be instantiated in execution  - PROPOSAL_ERROR_INVALID_FUTURE_PRODUCT: Market proposal market contained invalid product definition  - PROPOSAL_ERROR_INVALID_RISK_PARAMETER: Market proposal has invalid risk parameter  - PROPOSAL_ERROR_MAJORITY_THRESHOLD_NOT_REACHED: Proposal was declined because vote didn't reach the majority threshold required  - PROPOSAL_ERROR_PARTICIPATION_THRESHOLD_NOT_REACHED: Proposal declined because the participation threshold was not reached  - PROPOSAL_ERROR_INVALID_ASSET_DETAILS: Asset proposal has invalid asset details  - PROPOSAL_ERROR_UNKNOWN_TYPE: Proposal is an unknown type  - PROPOSAL_ERROR_UNKNOWN_RISK_PARAMETER_TYPE: Proposal has an unknown risk parameter type  - PROPOSAL_ERROR_INVALID_FREEFORM: Validation failed for freeform proposal  - PROPOSAL_ERROR_INSUFFICIENT_EQUITY_LIKE_SHARE: Party doesn't have enough equity-like share to propose an update on the market targeted by the proposal  - PROPOSAL_ERROR_INVALID_MARKET: Market targeted by the proposal does not exist or is not eligible for modification  - PROPOSAL_ERROR_TOO_MANY_MARKET_DECIMAL_PLACES: Market proposal decimal place is higher than the market settlement asset decimal places  - PROPOSAL_ERROR_TOO_MANY_PRICE_MONITORING_TRIGGERS: Market proposal contains too many price monitoring triggers  - PROPOSAL_ERROR_ERC20_ADDRESS_ALREADY_IN_USE: Market proposal contains too many price monitoring triggers  - PROPOSAL_ERROR_LP_PRICE_RANGE_NONPOSITIVE: LP price range must be larger than 0  - PROPOSAL_ERROR_LP_PRICE_RANGE_TOO_LARGE: LP price range must not be larger than 100  - PROPOSAL_ERROR_LINEAR_SLIPPAGE_FACTOR_OUT_OF_RANGE: Linear slippage factor is out of range, either negative or too large  - PROPOSAL_ERROR_QUADRATIC_SLIPPAGE_FACTOR_OUT_OF_RANGE: Quadratic slippage factor is out of range, either negative or too large
  * @export
@@ -6270,7 +6087,6 @@ export enum VegaProposalError {
   LINEARSLIPPAGEFACTOROUTOFRANGE = 'PROPOSAL_ERROR_LINEAR_SLIPPAGE_FACTOR_OUT_OF_RANGE' as any,
   QUADRATICSLIPPAGEFACTOROUTOFRANGE = 'PROPOSAL_ERROR_QUADRATIC_SLIPPAGE_FACTOR_OUT_OF_RANGE' as any
 }
-
 /**
  * Rationale behind a proposal.
  * @export
@@ -6290,7 +6106,6 @@ export interface VegaProposalRationale {
    */
   title?: string
 }
-
 /**
  * - STATE_UNSPECIFIED: Default value, always invalid  - STATE_FAILED: Proposal enactment has failed - even though proposal has passed, its execution could not be performed  - STATE_OPEN: Proposal is open for voting  - STATE_PASSED: Proposal has gained enough support to be executed  - STATE_REJECTED: Proposal wasn't accepted i.e. proposal terms failed validation due to wrong configuration or failed to meet network requirements.  - STATE_DECLINED: Proposal didn't get enough votes, e.g. either failed to gain required participation or majority level.  - STATE_ENACTED: Proposal enacted  - STATE_WAITING_FOR_NODE_VOTE: Waiting for node validation of the proposal
  * @export
@@ -6306,7 +6121,6 @@ export enum VegaProposalState {
   ENACTED = 'STATE_ENACTED' as any,
   WAITINGFORNODEVOTE = 'STATE_WAITING_FOR_NODE_VOTE' as any
 }
-
 /**
  *
  * @export
@@ -6368,7 +6182,6 @@ export interface VegaProposalTerms {
    */
   validationTimestamp?: string
 }
-
 /**
  *
  * @export
@@ -6394,7 +6207,6 @@ export interface VegaRiskFactor {
    */
   _short?: string
 }
-
 /**
  *
  * @export
@@ -6420,7 +6232,6 @@ export interface VegaScalingFactors {
    */
   searchLevel?: number
 }
-
 /**
  * - SIDE_UNSPECIFIED: Default value, always invalid  - SIDE_BUY: Buy order  - SIDE_SELL: Sell order
  * @export
@@ -6431,7 +6242,6 @@ export enum VegaSide {
   BUY = 'SIDE_BUY' as any,
   SELL = 'SIDE_SELL' as any
 }
-
 /**
  *
  * @export
@@ -6469,7 +6279,6 @@ export interface VegaSimpleModelParams {
    */
   probabilityOfTrading?: number
 }
-
 /**
  *
  * @export
@@ -6483,7 +6292,6 @@ export interface VegaSimpleRiskModel {
    */
   params?: VegaSimpleModelParams
 }
-
 /**
  *
  * @export
@@ -6503,7 +6311,6 @@ export interface VegaTargetStakeParameters {
    */
   timeWindow?: string
 }
-
 /**
  *
  * @export
@@ -6535,7 +6342,6 @@ export interface VegaTradableInstrument {
    */
   simpleRiskModel?: VegaSimpleRiskModel
 }
-
 /**
  *
  * @export
@@ -6633,7 +6439,6 @@ export interface VegaTrade {
    */
   type?: VegaTradeType
 }
-
 /**
  * - TYPE_UNSPECIFIED: Default value, always invalid  - TYPE_DEFAULT: Normal trading between two parties  - TYPE_NETWORK_CLOSE_OUT_GOOD: Trading initiated by the network with another party on the book, which helps to zero-out the positions of one or more distressed parties  - TYPE_NETWORK_CLOSE_OUT_BAD: Trading initiated by the network with another party off the book, with a distressed party in order to zero-out the position of the party
  * @export
@@ -6645,7 +6450,6 @@ export enum VegaTradeType {
   NETWORKCLOSEOUTGOOD = 'TYPE_NETWORK_CLOSE_OUT_GOOD' as any,
   NETWORKCLOSEOUTBAD = 'TYPE_NETWORK_CLOSE_OUT_BAD' as any
 }
-
 /**
  * - TRANSFER_TYPE_UNSPECIFIED: Default value, always invalid  - TRANSFER_TYPE_LOSS: Funds deducted after final settlement loss  - TRANSFER_TYPE_WIN: Funds added to general account after final settlement gain  - TRANSFER_TYPE_MTM_LOSS: Funds deducted from margin account after mark to market loss  - TRANSFER_TYPE_MTM_WIN: Funds added to margin account after mark to market gain  - TRANSFER_TYPE_MARGIN_LOW: Funds transferred from general account to meet margin requirement  - TRANSFER_TYPE_MARGIN_HIGH: Excess margin amount returned to general account  - TRANSFER_TYPE_MARGIN_CONFISCATED: Margin confiscated from margin account to fulfil closeout  - TRANSFER_TYPE_MAKER_FEE_PAY: Maker fee paid from general account  - TRANSFER_TYPE_MAKER_FEE_RECEIVE: Maker fee received into general account  - TRANSFER_TYPE_INFRASTRUCTURE_FEE_PAY: Infrastructure fee paid from general account  - TRANSFER_TYPE_INFRASTRUCTURE_FEE_DISTRIBUTE: Infrastructure fee received into general account  - TRANSFER_TYPE_LIQUIDITY_FEE_PAY: Liquidity fee paid from general account  - TRANSFER_TYPE_LIQUIDITY_FEE_DISTRIBUTE: Liquidity fee received into general account  - TRANSFER_TYPE_BOND_LOW: Bond account funded from general account to meet required bond amount  - TRANSFER_TYPE_BOND_HIGH: Bond returned to general account after liquidity commitment was reduced  - TRANSFER_TYPE_WITHDRAW: Funds withdrawn from general account  - TRANSFER_TYPE_DEPOSIT: Funds deposited to general account  - TRANSFER_TYPE_BOND_SLASHING: Bond account penalised when liquidity commitment not met  - TRANSFER_TYPE_REWARD_PAYOUT: Reward payout received  - TRANSFER_TYPE_TRANSFER_FUNDS_SEND: Internal Vega network instruction for the collateral engine to move funds from a user's general account into the pending transfers pool  - TRANSFER_TYPE_TRANSFER_FUNDS_DISTRIBUTE: Internal Vega network instruction for the collateral engine to move funds from the pending transfers pool account into the destination account  - TRANSFER_TYPE_CLEAR_ACCOUNT: Market-related accounts emptied because market has closed  - TRANSFER_TYPE_CHECKPOINT_BALANCE_RESTORE: Balances restored after network restart
  * @export
@@ -6677,7 +6481,6 @@ export enum VegaTransferType {
   CLEARACCOUNT = 'TRANSFER_TYPE_CLEAR_ACCOUNT' as any,
   CHECKPOINTBALANCERESTORE = 'TRANSFER_TYPE_CHECKPOINT_BALANCE_RESTORE' as any
 }
-
 /**
  *
  * @export
@@ -6697,7 +6500,6 @@ export interface VegaUpdateAsset {
    */
   changes?: VegaAssetDetailsUpdate
 }
-
 /**
  *
  * @export
@@ -6729,7 +6531,6 @@ export interface VegaUpdateFutureProduct {
    */
   quoteName?: string
 }
-
 /**
  *
  * @export
@@ -6749,7 +6550,6 @@ export interface VegaUpdateInstrumentConfiguration {
    */
   future?: VegaUpdateFutureProduct
 }
-
 /**
  *
  * @export
@@ -6769,7 +6569,6 @@ export interface VegaUpdateMarket {
    */
   marketId?: string
 }
-
 /**
  *
  * @export
@@ -6831,7 +6630,6 @@ export interface VegaUpdateMarketConfiguration {
    */
   simple?: VegaSimpleModelParams
 }
-
 /**
  *
  * @export
@@ -6845,7 +6643,6 @@ export interface VegaUpdateNetworkParameter {
    */
   changes?: VegaNetworkParameter
 }
-
 /**
  *
  * @export
@@ -6895,7 +6692,6 @@ export interface VegaVote {
    */
   value?: VegaVoteValue
 }
-
 /**
  * - VALUE_UNSPECIFIED: Default value, always invalid  - VALUE_NO: Vote against the proposal  - VALUE_YES: Vote in favour of the proposal
  * @export
@@ -6906,7 +6702,6 @@ export enum VegaVoteValue {
   NO = 'VALUE_NO' as any,
   YES = 'VALUE_YES' as any
 }
-
 /**
  *
  * @export
@@ -6920,7 +6715,6 @@ export interface VegaWithdrawExt {
    */
   erc20?: VegaErc20WithdrawExt
 }
-
 /**
  *
  * @export
@@ -6988,7 +6782,6 @@ export interface VegaWithdrawal {
    */
   withdrawnTimestamp?: string
 }
-
 /**
  * - STATUS_UNSPECIFIED: Default value, always invalid  - STATUS_OPEN: Withdrawal is open and being processed by the network  - STATUS_REJECTED: Withdrawal have been cancelled  - STATUS_FINALIZED: Withdrawal went through and is fully finalised, the funds are removed from the Vega network and are unlocked on the foreign chain bridge, for example, on the Ethereum network
  * @export
@@ -7000,7 +6793,6 @@ export enum VegaWithdrawalStatus {
   REJECTED = 'STATUS_REJECTED' as any,
   FINALIZED = 'STATUS_FINALIZED' as any
 }
-
 /**
  *
  * @export
@@ -7014,7 +6806,6 @@ export interface Vegacommandsv1OneOffTransfer {
    */
   deliverOn?: string
 }
-
 /**
  *
  * @export
@@ -7046,7 +6837,6 @@ export interface Vegacommandsv1RecurringTransfer {
    */
   startEpoch?: string
 }
-
 /**
  *
  * @export
@@ -7102,7 +6892,6 @@ export interface Vegacommandsv1Transfer {
    */
   toAccountType?: VegaAccountType
 }
-
 /**
  *
  * @export
@@ -7116,7 +6905,6 @@ export interface Vegaeventsv1OneOffTransfer {
    */
   deliverOn?: string
 }
-
 /**
  *
  * @export
@@ -7148,7 +6936,6 @@ export interface Vegaeventsv1RecurringTransfer {
    */
   startEpoch?: string
 }
-
 /**
  *
  * @export

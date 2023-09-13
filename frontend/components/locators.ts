@@ -15,7 +15,6 @@ const locators = {
   connectionModal: 'connection-modal',
   collapsiblePanel: 'collapsible-panel',
   collapsiblePanelButton: 'collapsible-panel-button',
-  collapsiblePanelTitle: 'collapsible-panel-title',
   collapsiblePanelContent: 'collapsible-panel-content',
   copyWithCheck: 'copy-with-check',
   dAppHostname: 'dapp-hostname',

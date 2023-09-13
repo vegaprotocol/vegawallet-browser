@@ -10,13 +10,13 @@ import { ImportWallet } from './onboarding/import-wallet'
 import { Telemetry } from './onboarding/telemetry'
 
 import { Auth } from './auth'
-import { Wallets } from './auth/wallets'
+import { Wallets } from './auth/wallets/home'
 import { Settings } from './auth/settings'
 import { Connections } from './auth/connections'
 
 import { usePersistLocation } from '../hooks/persist-location'
-import { ComingSoon } from '../components/coming-soon'
 import { FULL_ROUTES, ROUTES } from './route-names'
+import { Key } from './auth/wallets/key'
 
 export const Routing = () => {
   usePersistLocation()
@@ -25,7 +25,7 @@ export const Routing = () => {
       <Route element={<Outlet />}>
         <Route index path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.auth} element={<Auth />}>
-          <Route path={ROUTES.wallets} element={<Wallets />} />
+          <Route path={ROUTES.wallets} element={<Outlet />}>
             <Route index element={<Wallets />} />
             <Route path={':id'} element={<Key />} />
           </Route>

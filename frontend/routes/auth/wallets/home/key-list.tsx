@@ -1,10 +1,12 @@
 import { ButtonLink } from '@vegaprotocol/ui-toolkit'
-import { List } from '../../../components/list'
-import { Key, Wallet, useWalletStore } from '../../../stores/wallets'
-import { MessageIcon } from '../../../components/icons/message'
+import { List } from '../../../../components/list'
+import { Key, Wallet, useWalletStore } from '../../../../stores/wallets'
+import { MessageIcon } from '../../../../components/icons/message'
 import { useState } from 'react'
-import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { VegaKey } from '../../../components/keys/vega-key'
+import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
+import { VegaKey } from '../../../../components/keys/vega-key'
+import { NavLink } from 'react-router-dom'
+import { FULL_ROUTES } from '../../../route-names'
 
 export const locators = {
   walletsCreateKey: 'wallets-create-key',
@@ -28,23 +30,27 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
     await createNewKey(request, wallet.name)
     setCreatingKey(false)
   }
+
   return (
     <section>
       <h1 className="uppercase text-sm mt-6 mb-2 text-vega-dark-300">Keys</h1>
       <List<Key>
         idProp="publicKey"
         items={wallet.keys}
+        clickable={true}
         renderItem={(k) => (
-          <VegaKey publicKey={k.publicKey} name={k.name}>
-            &nbsp;
-            <button
-              data-testid={locators.walletsSignMessageButton}
-              onClick={() => onIconClick(k.publicKey)}
-              className="cursor-pointer mt-2"
-            >
-              <MessageIcon />
-            </button>
-          </VegaKey>
+          <NavLink to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}>
+            <VegaKey publicKey={k.publicKey} name={k.name}>
+              &nbsp;
+              <button
+                data-testid={locators.walletsSignMessageButton}
+                onClick={() => onIconClick(k.publicKey)}
+                className="cursor-pointer mt-2"
+              >
+                <MessageIcon />
+              </button>
+            </VegaKey>
+          </NavLink>
         )}
       />
       <div className="mt-3 text-white">

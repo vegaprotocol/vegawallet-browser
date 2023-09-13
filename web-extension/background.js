@@ -3,7 +3,7 @@ import { WalletCollection } from './backend/wallets.js'
 import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from '../lib/port-server.js'
 import { PopupClient } from './backend/popup-client.js'
-import { createWindow } from './backend/windows.js'
+import { createWindow, createNotificationWindow } from './backend/windows.js'
 
 import StorageLocalMap from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
@@ -90,7 +90,7 @@ runtime.onConnect.addListener(async (port) => {
 
 runtime.onInstalled.addListener(async (details) => {
   const { reason } = details
-  if (reason === 'install') {
+  if (config.autoOpenOnInstall && reason === 'install') {
     const id = config.network.name.toLowerCase()
     await Promise.allSettled([
       networks.set(id, {

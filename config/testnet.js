@@ -20,7 +20,8 @@ const testnet = {
     buildName: 'Fairground',
     geckoId: 'browser-extension@vega.xyz',
     iconPrefix: 'Fairground'
-  }
+  },
+  autoOpenOnInstall: true
 }
 
 export default testnet

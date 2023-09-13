@@ -1,7 +1,7 @@
-import { useWalletStore } from '../../../stores/wallets'
+import { useWalletStore } from '../../../../stores/wallets'
 import { KeyList } from './key-list'
 import { DepositAssetsCallout } from './deposit-assets-callout'
-import { SignMessageDialog } from '../../../components/sign-message-dialog'
+import { SignMessageDialog } from '../../../../components/sign-message-dialog'
 import { useState } from 'react'
 
 export const locators = {

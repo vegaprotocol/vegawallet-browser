@@ -5,6 +5,18 @@ import GlobalErrorBoundary from './components/global-error-boundary'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'
 import { useListenForPopups } from './hooks/listen-for-popups'
+import { useJsonRpcClient } from './contexts/json-rpc/json-rpc-context'
+
+const AppLoader = () => {
+  const { request } = useJsonRpcClient
+  // Load assets
+  // Load markets
+  return (
+    <main className="w-full h-full bg-black font-alpha text-vega-dark-400">
+      <Routing />
+    </main>
+  )
+}
 
 function App() {
   useListenForPopups()
@@ -14,9 +26,7 @@ function App() {
     <Router>
       <GlobalErrorBoundary>
         <JsonRPCProvider>
-          <main className="w-full h-full bg-black font-alpha text-vega-dark-400">
-            <Routing />
-          </main>
+          <AppLoader />
         </JsonRPCProvider>
       </GlobalErrorBoundary>
     </Router>

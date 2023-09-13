@@ -1,7 +1,7 @@
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { OrderTimeInForce } from '@vegaprotocol/types'
 import { ReactNode } from 'react'
-import { getDateTimeFormat } from '@vegaprotocol/utils'
+import { formatNanoDate } from '../../../../lib/utils'
 
 const TIF_MAP: { [key in OrderTimeInForce]: string } = {
   [OrderTimeInForce.TIME_IN_FORCE_GTC]: 'GTC',
@@ -21,8 +21,7 @@ const TifBadge = ({ timeInForce, expiresAt }: { timeInForce: OrderTimeInForce; e
     if (!expiresAt) {
       throw new Error('GTT order without expiresAt')
     }
-    const time = Math.floor(+expiresAt / 1e6) // nano seconds to milliseconds
-    return <OrderBadge>Good til {getDateTimeFormat().format(new Date(time))}</OrderBadge>
+    return <OrderBadge>Good til {formatNanoDate(expiresAt)}</OrderBadge>
   }
   return <OrderBadge>{TIF_MAP[timeInForce]}</OrderBadge>
 }

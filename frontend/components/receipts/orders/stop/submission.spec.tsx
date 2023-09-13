@@ -91,7 +91,7 @@ describe('StopOrderSubmission', () => {
       }
     }
     render(<StopOrderSubmission transaction={transaction} />)
-    const rows = screen.getAllByTestId(tableLocators.dataRow)
+    const rows = screen.queryAllByTestId(tableLocators.dataRow)
     expect(rows).toHaveLength(0)
   })
 })

@@ -13,6 +13,7 @@ declare module '!/config' {
           [key: string]: boolean
         }
       | undefined
+    autoOpenOnInstall: boolean
   }
 
   export interface Network {

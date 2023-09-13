@@ -32,7 +32,8 @@ const test = {
   },
   features: {
     popoutHeader: true
-  }
+  },
+  autoOpenOnInstall: false
 }
 
 export default test

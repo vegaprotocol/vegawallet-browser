@@ -27,7 +27,8 @@ const mainnet = {
     buildName: 'Mainnet',
     geckoId: 'browser-extension-mainnet@vega.xyz',
     iconPrefix: 'Mainnet'
-  }
+  },
+  autoOpenOnInstall: true
 }
 
 export default mainnet

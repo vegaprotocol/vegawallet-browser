@@ -6,17 +6,37 @@ import { ModalWrapper } from '../../components/modals'
 import { useEffect } from 'react'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { useWalletStore } from '../../stores/wallets'
+import { useMarketsStore } from '../../stores/markets-store'
+import { useAssetsStore } from '../../stores/assets-store'
 import { FULL_ROUTES } from '../route-names'
 import { DappsHeader } from '../../components/dapps-header/dapps-header'
 
 export const Auth = () => {
   const { request } = useJsonRpcClient()
+
+  // Wallets store
   const { loadWallets } = useWalletStore((state) => ({
     loadWallets: state.loadWallets
   }))
+
+  // Markets store
+  const { fetchMarkets, markets } = useMarketsStore((state) => ({
+    fetchMarkets: state.fetchMarkets,
+    markets: state.markets
+  }))
+
+  // Assets store
+  const { fetchAssets, assets } = useAssetsStore((state) => ({
+    fetchAssets: state.fetchAssets,
+    assets: state.assets
+  }))
+
   useEffect(() => {
     loadWallets(request)
-  }, [request, loadWallets])
+    // fetchMarkets(request)
+    fetchAssets(request)
+  }, [request, loadWallets, fetchMarkets, fetchAssets])
+
   const isWallets = !!useMatch(FULL_ROUTES.wallets)
 
   return (

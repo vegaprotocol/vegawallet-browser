@@ -203,7 +203,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
           const network = await networks.get(selectedNetwork)
           const rpc = await network.rpc()
 
-          return await rpc.getJSON(params.url)
+          return await rpc.getJSON(params.path)
         } catch (ex) {
           throw new JSONRPCServer.Error('Failed to fetch data', -1, ex.message)
         }

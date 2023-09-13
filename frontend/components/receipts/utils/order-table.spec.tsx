@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { OrderTable } from './order-table'
 import { locators } from '../../data-table/data-table'
-import { OrderType, Side } from '@vegaprotocol/types'
+import { OrderType, PeggedReference, Side } from '@vegaprotocol/types'
 
 describe('OrderTable', () => {
   it('renders a row for each property', () => {
@@ -16,6 +16,8 @@ describe('OrderTable', () => {
     // 1114-RCPT-020 If present I can see the order id relating to the order
     // 1114-RCPT-021 I can see the order id of the order I am amending
     // 1114-RCPT-022 I can see the market id relating to the order I am amending
+    // 1114-RCPT-026 I can see the offset price of a pegged order
+    // 1114-RCPT-027 I can see the reference value of a peg
     render(
       <OrderTable
         direction={Side.SIDE_BUY}
@@ -25,13 +27,19 @@ describe('OrderTable', () => {
         price={'123'}
         reference="ref"
         type={OrderType.TYPE_MARKET}
+        peggedOrder={{
+          reference: PeggedReference.PEGGED_REFERENCE_BEST_BID,
+          offset: '6'
+        }}
       />
     )
-    const [priceRow, sizeRow, marketRow, orderRow, directionRow, typeRow, referenceRow] = screen.getAllByTestId(
-      locators.dataRow
-    )
+    const [priceRow, peggedInfoRow, sizeRow, marketRow, orderRow, directionRow, typeRow, referenceRow] =
+      screen.getAllByTestId(locators.dataRow)
     expect(priceRow).toHaveTextContent('Price')
     expect(priceRow).toHaveTextContent('123')
+
+    expect(peggedInfoRow).toHaveTextContent('6')
+    expect(peggedInfoRow).toHaveTextContent('from best bid')
 
     expect(sizeRow).toHaveTextContent('Size')
     expect(sizeRow).toHaveTextContent('12')
@@ -50,7 +58,7 @@ describe('OrderTable', () => {
 
     expect(referenceRow).toHaveTextContent('Reference')
     expect(referenceRow).toHaveTextContent('ref')
-    expect(screen.getAllByTestId(locators.dataRow)).toHaveLength(7)
+    expect(screen.getAllByTestId(locators.dataRow)).toHaveLength(8)
   })
 
   it('does not render row if the property is undefined', () => {

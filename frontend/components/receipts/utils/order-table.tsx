@@ -33,7 +33,7 @@ export const OrderTable = ({
       ? ['Price', <PriceWithTooltip key="order-details-price" marketId={marketId} price={price} />]
       : null,
     peggedOrder && marketId
-      ? ['Price', <PeggedOrderInfo key="order-details-pegged" peggedOrder={peggedOrder} marketId={marketId} />]
+      ? ['Pegged price', <PeggedOrderInfo key="order-details-pegged" peggedOrder={peggedOrder} marketId={marketId} />]
       : null,
     size && marketId ? ['Size', <SizeWithTooltip key="order-details-price" marketId={marketId} size={size} />] : null,
     marketId ? ['Market', <MarketLink key="order-details-market" marketId={marketId} />] : null,

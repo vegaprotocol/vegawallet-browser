@@ -4,9 +4,9 @@ import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { DataTable } from '../../../data-table/data-table'
 import { OrderTable } from '../../utils/order-table'
 import { OrderBadges } from '../../utils/order/badges'
-import { getDateTimeFormat } from '@vegaprotocol/utils'
 import { PriceWithTooltip } from '../../utils/string-amounts/price-with-tooltip'
 import { ExpiryStrategyComponent } from './expiry-strategy'
+import { formatNanoDate } from '../../../../lib/utils'
 
 export const locators = {
   sectionHeader: 'section-header',
@@ -27,7 +27,7 @@ const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrd
           <ExpiryStrategyComponent key={`${title}-expiry-strategy`} expiryStrategy={expiryStrategy} />
         ]
       : null,
-    expiresAt && Number(expiresAt) !== 0 ? ['Expires at', getDateTimeFormat().format(new Date(+expiresAt / 1e6))] : null
+    expiresAt && Number(expiresAt) !== 0 ? ['Expires at', formatNanoDate(expiresAt)] : null
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
   return (

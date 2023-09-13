@@ -88,16 +88,19 @@ runtime.onConnect.addListener(async (port) => {
   }
 })
 
-runtime.onInstalled.addListener(async () => {
-  const id = config.network.name.toLowerCase()
-  await Promise.allSettled([
-    networks.set(id, {
-      name: config.network.name,
-      rest: config.network.rest,
-      explorer: config.network.explorer
-    }),
-    settings.set('selectedNetwork', id)
-  ])
+runtime.onInstalled.addListener(async (details) => {
+  const { reason } = details
+  if (reason === 'install') {
+    const id = config.network.name.toLowerCase()
+    await Promise.allSettled([
+      networks.set(id, {
+        name: config.network.name,
+        rest: config.network.rest,
+        explorer: config.network.explorer
+      }),
+      settings.set('selectedNetwork', id)
+    ])
+  }
   createWindow()
 })
 

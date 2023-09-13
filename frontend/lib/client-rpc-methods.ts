@@ -22,5 +22,6 @@ export const RpcMethods = {
   RemoveConnection: 'admin.remove_connection',
 
   // Misc
-  SignMessage: 'admin.sign_message'
+  SignMessage: 'admin.sign_message',
+  Fetch: 'admin.fetch'
 }

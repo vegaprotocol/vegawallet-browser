@@ -100,8 +100,8 @@ runtime.onInstalled.addListener(async (details) => {
       }),
       settings.set('selectedNetwork', id)
     ])
+    createWindow()
   }
-  createWindow()
 })
 
 async function setPending() {

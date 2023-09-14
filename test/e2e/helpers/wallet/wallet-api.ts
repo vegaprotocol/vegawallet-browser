@@ -107,7 +107,7 @@ export class APIHelper {
     walletName = 'Wallet 1',
     keyName = 'Key 1',
     telemetryOptIn = false,
-    recoveryPhrase = undefined
+    recoveryPhrase: undefined | string = undefined
   ) {
     let resp: any
     await this.createPassphraseAndCheckSuccess(passphrase)

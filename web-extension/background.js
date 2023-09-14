@@ -90,7 +90,7 @@ runtime.onConnect.addListener(async (port) => {
 
 runtime.onInstalled.addListener(async (details) => {
   const { reason } = details
-  if (config.autoOpenOnInstall && reason === 'install') {
+  if (reason === 'install') {
     const id = config.network.name.toLowerCase()
     await Promise.allSettled([
       networks.set(id, {
@@ -100,7 +100,9 @@ runtime.onInstalled.addListener(async (details) => {
       }),
       settings.set('selectedNetwork', id)
     ])
-    createWindow()
+    if (config.autoOpenOnInstall) {
+      createWindow()
+    }
   }
 })
 

@@ -96,6 +96,5 @@ Vega.
 
 ### Pegged Orders
 
-- I can see the offset price (<a name="1114-RCPT-026" href="#1114-RCPT-026">1114-RCPT-026</a>)
-- I can see the reference price (<a name="1114-RCPT-027" href="#1114-RCPT-027">1114-RCPT-027</a>)
-
+- I can see the offset price (<a name="1114-RCPT-029" href="#1114-RCPT-029">1114-RCPT-029</a>)
+- I can see the reference price (<a name="1114-RCPT-030" href="#1114-RCPT-030">1114-RCPT-030</a>)

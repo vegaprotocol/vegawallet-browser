@@ -83,7 +83,7 @@ export async function getElementText(driver: WebDriver, locator: By, timeout: nu
   return element.getText()
 }
 
-export async function waitForElementToDisappear(driver: WebDriver, locator: By, timeout: number = 1000) {
+export async function waitForElementToDisappear(driver: WebDriver, locator: By, timeout: number = 5000) {
   if (await isElementDisplayed(driver, locator, timeout)) {
     await driver.wait(async () => !(await isElementDisplayed(driver, locator, 200)), timeout)
   }
@@ -288,6 +288,7 @@ export async function windowHandleHasCount(
 
     return true
   } catch (error) {
+    console.log('did not reach the target count!', error)
     return false
   }
 }

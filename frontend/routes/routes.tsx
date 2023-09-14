@@ -16,7 +16,7 @@ import { Connections } from './auth/connections'
 
 import { usePersistLocation } from '../hooks/persist-location'
 import { FULL_ROUTES, ROUTES } from './route-names'
-import { Key } from './auth/wallets/key'
+import { KeyDetails } from './auth/wallets/key-details'
 
 export const Routing = () => {
   usePersistLocation()
@@ -27,7 +27,7 @@ export const Routing = () => {
         <Route path={ROUTES.auth} element={<Auth />}>
           <Route path={ROUTES.wallets} element={<Outlet />}>
             <Route index element={<Wallets />} />
-            <Route path={':id'} element={<Key />} />
+            <Route path={':id'} element={<KeyDetails />} />
           </Route>
           <Route path={ROUTES.connections} element={<Connections />} />
           <Route path={ROUTES.settings} element={<Settings />} />

@@ -1,17 +1,14 @@
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
-import { ReactNode, useEffect } from 'react'
-import { usePartyStore } from './party-store'
+import { ReactNode, useEffect, useState } from 'react'
+import { useAccountsStore } from './accounts-store'
 import { CollapsiblePanel } from '../../../../components/collapsible-panel'
 import { DataTable } from '../../../../components/data-table/data-table'
 import { AccountType } from '@vegaprotocol/types'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
-import { useParams } from 'react-router-dom'
-
-interface Account {
-  type: AccountType
-  balance: string
-  decimals: number
-}
+// import { useParams } from 'react-router-dom'
+import { addDecimalsFormatNumber } from '@vegaprotocol/utils'
+import { Key, useWalletStore } from '../../../../stores/wallets'
+import { VegaAccount } from '../../../../types/rest-api'
 
 export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
@@ -32,7 +29,7 @@ export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS]: 'Market proposers'
 }
 
-const AccountList = ({ accounts }: { accounts: Account[] }) => {
+const AccountList = ({ accounts }: { accounts: VegaAccount[] }) => {
   const items: [ReactNode, ReactNode][] = accounts.map(({ type, balance, decimals }) => [
     ACCOUNT_TYPE_MAP[type] || type,
     addDecimalsFormatNumber(balance, decimals)
@@ -77,31 +74,37 @@ const CurrentMarkets = ({ assetId }: { assetId: string }) => {
   )
 }
 
-const AssetCard = () => {
+const AssetCard = ({ accounts, assetId }: { accounts: VegaAccount[]; assetId: string }) => {
   return <CollapsiblePanel title={<div></div>}>foo</CollapsiblePanel>
 }
 
-export const Key = () => {
-  let { id } = useParams()
+export const KeyDetails = () => {
+  // let { id } = useParams()
+  const id = 'cccc705061cfbc53ad32fe495d25897f5bb8a6a857eab2366e268c0d6f56cb0a'
   const { request } = useJsonRpcClient()
-  const { startPoll, stopPoll, reset, fetchParty } = usePartyStore()
+  const { startPoll, stopPoll, reset, fetchAccounts: fetchParty, accountsByAsset } = useAccountsStore()
+  const { getKeyById } = useWalletStore()
+  const [key, setKey] = useState<Key>()
   useEffect(() => {
     if (id) {
       fetchParty(id, request)
       startPoll(id, request)
+      const key = getKeyById(id)
+      setKey(key)
       return () => {
         stopPoll()
         reset()
       }
     }
-  }, [fetchParty, id, request, reset, startPoll, stopPoll])
+  }, [fetchParty, getKeyById, id, request, reset, startPoll, stopPoll])
   if (!id) throw new Error('Id not found')
+
   return (
     <div>
-      <h1>{id}</h1>
+      <h1>{key?.name || 'Unknown key'}</h1>
+      {Object.entries(accountsByAsset).map(([assetId, val]) => (
+        <AssetCard accounts={val} assetId={assetId} />
+      ))}
     </div>
   )
-}
-function addDecimalsFormatNumber(balance: string, decimals: number): any {
-  throw new Error('Function not implemented.')
 }

@@ -35,7 +35,7 @@ describe('TransactionHeader', () => {
       />
     )
     expect(screen.getByTestId(hostImageLocators.hostImage)).toBeVisible()
-    expect(screen.getByTestId(locators.transactionType)).toHaveTextContent('Order submission')
+    expect(screen.getByTestId(locators.transactionType)).toHaveTextContent('Order Submission')
     expect(screen.getByTestId(locators.transactionRequest)).toHaveTextContent('Request from https://www.google.com')
     expect(screen.getByTestId(locators.transactionKey)).toHaveTextContent('Signing with')
   })

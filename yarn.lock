@@ -3797,6 +3797,15 @@
   resolved "https://registry.yarnpkg.com/@vegaprotocol/utils/-/utils-0.0.6.tgz#85c03ead0a46658f966a66b018c341de607d8953"
   integrity sha512-neYOBebKguIym/0oIYPm6kTFmQia/o/TErZsObMRqmCAeF7GKBNvoDojdH85Y79V/PlRb0gsL2//YqjJl+bXgw==
 
+"@vegaprotocol/utils@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/utils/-/utils-0.0.10.tgz#80a0b9978cf890a75286ce3d6f9fe64936a85f17"
+  integrity sha512-1yQt17asCbiT20DflwG2zXUg9XH+LdM2RV4Jf2LUkn2c50ekawIGOLK1X1+MEFE6mbO43Z4kRLBtxThKgNBa8w==
+  dependencies:
+    bignumber.js "^9.0.2"
+    date-fns "^2.28.0"
+    lodash "^4.17.21"
+
 abab@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
@@ -5077,7 +5086,7 @@ data-urls@^3.0.2:
     whatwg-mimetype "^3.0.0"
     whatwg-url "^11.0.0"
 
-date-fns@^2.30.0:
+date-fns@^2.28.0, date-fns@^2.30.0:
   version "2.30.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
   integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==

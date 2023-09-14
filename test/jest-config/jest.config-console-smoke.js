@@ -1,10 +1,12 @@
-import jestConfigE2E from './jest.config-e2e.js'
+import baseConfig from './base-config.js'
 
 const projectRoot = 'test';
 const testReportName = 'console-smoke-test-result';
 
 const jestConsoleE2E = {
-  ...jestConfigE2E(projectRoot, testReportName),
+  ...baseConfig(projectRoot, testReportName),
+  setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],
+  
 };
 
 export default jestConsoleE2E

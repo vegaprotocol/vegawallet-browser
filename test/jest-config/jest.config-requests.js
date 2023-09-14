@@ -7,7 +7,8 @@ const jestRequestsConfig = {
   ...backendConfig(projectRoot, testReportName),
 };
 
-export default jestRequestsConfig
+export default jestRequestsConfig;
+
 // export default {
 //     rootDir: '../..',
 //     roots: ['<rootDir>/web-extension'],

@@ -1,4 +1,4 @@
-import baseConfig from './base-config'
+import baseConfig from './base-config.js'
 
 const projectRoot = 'test';
 const testReportName = `${process.env.BROWSER}-e2e-test-results`;

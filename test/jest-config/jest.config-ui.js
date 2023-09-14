@@ -1,4 +1,4 @@
-import baseConfig from './base-config'
+import baseConfig from './base-config.js'
 
 const projectRoot = 'frontend';
 const testReportName = 'unit-test-results';

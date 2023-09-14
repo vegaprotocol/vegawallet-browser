@@ -30,7 +30,7 @@ export type WalletsStore = {
 export const useWalletStore = create<WalletsStore>()((set, get) => ({
   wallets: [],
   loading: true,
-  createKey: async (request: SendMessage, walletName: string) => {
+  async createKey(request: SendMessage, walletName: string) {
     const wallets = get().wallets
     const wallet = wallets.find(({ name }) => name === walletName)
     if (!wallet) {
@@ -51,7 +51,17 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       wallets: newWallets
     })
   },
-  loadWallets: async (request: SendMessage) => {
+  // @ts-ignore
+  getKeyById(id: string) {
+    const allKeys = get().wallets.flatMap(({ keys }) => keys)
+    const key = allKeys.find(({ publicKey }) => publicKey === id)
+    if (!key) {
+      // TODO put back
+      // throw new Error('Could not find key')
+    }
+    return key
+  },
+  async loadWallets(request: SendMessage) {
     try {
       set({ loading: true })
       const { wallets } = await request(RpcMethods.ListWallets, null)

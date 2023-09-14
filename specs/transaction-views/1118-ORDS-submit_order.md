@@ -10,5 +10,5 @@
 
 ### Pegged Orders
 
-- I can see the raw offset price of the order (#decimal-numbers) (<a name="1118-ORDS-008" href="#1118-ORDS-008">1118-ORDS-008</a>)
+- I can see the raw offset price of the order (<a name="1118-ORDS-008" href="#1118-ORDS-008">1118-ORDS-008</a>)
 - I can see the reference price of the order (<a name="1118-ORDS-009" href="#1118-ORDS-009">1118-ORDS-009</a>)

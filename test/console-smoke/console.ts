@@ -38,9 +38,7 @@ export class Console {
   }
 
   async connectToWallet() {
-    console.log('clicking connect')
     await clickElement(this.driver, this.connect)
-    console.log('clicked connect')
     expect(
       await isElementDisplayed(this.driver, this.connectToBrowserWallet),
       'expected to see the connect to browser wallet button',
@@ -68,9 +66,10 @@ export class Console {
     for (const market of markets) {
       if ((await getWebElementText(this.driver, market)).includes('tBTC')) {
         await clickWebElement(this.driver, market)
-        break
+        return
       }
     }
+    throw new Error('could not find tBTC market')
   }
 
   async submitOrder(orderSize: string, orderPrice: string) {

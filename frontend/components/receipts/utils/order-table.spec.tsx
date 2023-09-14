@@ -5,19 +5,18 @@ import { OrderType, PeggedReference, Side } from '@vegaprotocol/types'
 
 describe('OrderTable', () => {
   it('renders a row for each property', () => {
-    // 1114-RCPT-012 I can see the market id of the order I am submitting
-    // 1114-RCPT-013 I can see the direction of order I am submitting
-    // 1114-RCPT-014 I can see the type of the order I am submitting
-    // 1114-RCPT-015 I can see the reference of the order I am submitting
-    // 1114-RCPT-016 I can see any relevant order badges
-    // 1114-RCPT-017 I can see the price of the order
-    // 1114-RCPT-018 I can see the size of the order
-    // 1114-RCPT-019 If present I can see the market id relating to the order
-    // 1114-RCPT-020 If present I can see the order id relating to the order
-    // 1114-RCPT-021 I can see the order id of the order I am amending
-    // 1114-RCPT-022 I can see the market id relating to the order I am amending
-    // 1114-RCPT-029 I can see the offset price of a pegged order
-    // 1114-RCPT-030 I can see the reference value of a peg
+    // 1118-ORDS-001 I can see the market id of the order I am submitting
+    // 1118-ORDS-002 I can see the direction of order I am submitting
+    // 1118-ORDS-003 I can see the type of the order I am submitting
+    // 1118-ORDS-004 I can see the reference of the order I am submitting
+    // 1118-ORDS-006 I can see the price of the order
+    // 1118-ORDS-007 I can see the size of the order
+    // 1118-ORDS-008 I can see the raw offset price of the order
+    // 1118-ORDS-009 I can see the reference price of the order
+    // 1117-ORDC-001 If present I can see the market id relating to the order
+    // 1117-ORDC-002 If present I can see the order id relating to the order
+    // 1116-ORDA-001 I can see the order id of the order I am amending
+    // 1116-ORDA-002 I can see the market id relating to the order I am amending
     render(
       <OrderTable
         direction={Side.SIDE_BUY}

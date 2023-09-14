@@ -17,7 +17,7 @@ describe('Withdrawal', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('renders ethereum address', () => {
-    // 1114-RCPT-007 I can see the Ethereum key I am withdrawing the assets to
+    // 1123-WITH-001 I can see the Ethereum key I am withdrawing the assets to
     render(
       <Withdraw
         transaction={{

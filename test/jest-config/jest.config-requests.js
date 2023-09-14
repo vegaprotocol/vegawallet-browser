@@ -1,13 +1,22 @@
-import backendConfig from "./jest.config-backend.js";
+import { createBackendConfig } from './backendConfig.js';
 
 const projectRoot = 'web-extension';
 const testReportName = 'request-test-results';
 
-const jestRequestsConfig = {
-  ...backendConfig(projectRoot, testReportName),
-};
+const generateRequestsConfig = createBackendConfig(projectRoot, testReportName);
 
-export default jestRequestsConfig;
+export default generateRequestsConfig;
+
+
+// import backendConfig from "./jest.config-backend.js";
+
+
+
+// const jestRequestsConfig = {
+//   ...backendConfig(projectRoot, testReportName),
+// };
+
+// export default jestRequestsConfig;
 
 // export default {
 //     rootDir: '../..',

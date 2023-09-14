@@ -1,15 +1,13 @@
 import baseConfig from './base-config.js'
 
-const projectRoot = 'test';
-const testReportName = `${process.env.BROWSER}-e2e-test-results`;
-
-const jestConfigE2E = {
-  ...baseConfig(projectRoot, testReportName),
-  setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],
-  
+export const jestE2EConfig = (projectRoot = 'test', testReportName = `${process.env.BROWSER}-e2e-test-results`) => {
+  return {
+    ...baseConfig(projectRoot, testReportName),
+    setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],
+  };
 };
 
-export default jestConfigE2E
+export default jestE2EConfig;
 
 // const jestConfigE2E = {
 //   rootDir: '../..',

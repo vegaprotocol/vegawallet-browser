@@ -1,11 +1,10 @@
 import baseConfig from './base-config.js'
 
-const projectRoot = 'frontend';
-const testReportName = 'unit-test-results';
 
-const frontendConfig = {
-  ...baseConfig(projectRoot, testReportName),
-  setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
+export const createFrontendConfig = (projectRoot = 'frontend', testReportName = 'unit-test-results') => {
+  return {
+    ...baseConfig(projectRoot, testReportName),
+    setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
   globalSetup: '<rootDir>/frontend/global-setup.ts',
   coverageReporters: ['html', 'lcov'],
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],
@@ -18,9 +17,29 @@ const frontendConfig = {
       statements: 100
     }
   },
+  };
 };
 
-export default frontendConfig;
+export default createFrontendConfig;
+
+// const frontendConfig = {
+//   ...baseConfig(projectRoot, testReportName),
+//   setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
+//   globalSetup: '<rootDir>/frontend/global-setup.ts',
+//   coverageReporters: ['html', 'lcov'],
+//   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],
+//   coverageDirectory: 'coverage/frontend',
+//   coverageThreshold: {
+//     global: {
+//       branches: 96,
+//       functions: 99.5,
+//       lines: 100,
+//       statements: 100
+//     }
+//   },
+// };
+
+// export default frontendConfig;
 
 // export default {
 //   rootDir: '../..',

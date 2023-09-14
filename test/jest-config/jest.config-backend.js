@@ -1,17 +1,17 @@
-import baseConfig from './base-config.js'
+import baseConfig from './base-config.js';
 
-const projectRoot = 'web-extension';
-const testReportName = 'backend-test-results';
-
-const backendConfig = {
-  ...baseConfig(projectRoot, testReportName),
-  setupFiles: ['jest-webextension-mock', './web-extension/test/setup-tests.js'],
-  collectCoverageFrom: ['**/*.js', '!**/node_modules/**'],
-  coverageDirectory: 'coverage/backend',
-  coverageReporters: ['html', 'lcov'],
+export const createBackendConfig = (projectRoot = 'web-extension', testReportName = 'backend-test-results') => {
+  return {
+    ...baseConfig(projectRoot, testReportName),
+    setupFiles: ['jest-webextension-mock', './web-extension/test/setup-tests.js'],
+    collectCoverageFrom: ['**/*.js', '!**/node_modules/**'],
+    coverageDirectory: 'coverage/backend',
+    coverageReporters: ['html', 'lcov'],
+  };
 };
 
-export default backendConfig;
+export default createBackendConfig;
+
 
 
 // const backendConfig =  {

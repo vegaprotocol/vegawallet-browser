@@ -1,7 +1,7 @@
 import baseConfig from './base-config.js'
 
 
-export const createFrontendConfig = (projectRoot = 'frontend', testReportName = 'unit-test-results') => {
+const createFrontendConfig = (projectRoot = 'frontend', testReportName = 'unit-test-results') => {
   return {
     ...baseConfig(projectRoot, testReportName),
     setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],

@@ -1,6 +1,6 @@
 import baseConfig from './base-config.js';
 
-export const createBackendConfig = (projectRoot = 'web-extension', testReportName = 'backend-test-results') => {
+const createBackendConfig = (projectRoot = 'web-extension', testReportName = 'backend-test-results') => {
   return {
     ...baseConfig(projectRoot, testReportName),
     setupFiles: ['jest-webextension-mock', './web-extension/test/setup-tests.js'],

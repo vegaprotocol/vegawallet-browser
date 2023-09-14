@@ -4,30 +4,30 @@ const baseConfig = (projectRoot, reportName) => {
     }
   
     return {
-        rootDir: '../..',
-        roots: ['<rootDir>/' + projectRoot],
-        transform: {
-          '^.+\\.tsx?$': 'ts-jest',
-          '^.+\\.jsx?$': 'ts-jest',
-        },
-        testEnvironment: 'jest-environment-node',
-        testTimeout: 30000,
-        reporters: [
-          'default',
-          [
-            'jest-junit',
-            {
-              outputDirectory: './test/test-reports',
-              outputName: reportName + '.xml',
-            },
-          ],
+      rootDir: '../..',
+      roots: [projectRoot],
+      transform: {
+        '^.+\\.tsx?$': 'ts-jest',
+        '^.+\\.jsx?$': 'ts-jest',
+      },
+      testEnvironment: 'jest-environment-node',
+      testTimeout: 30000,
+      reporters: [
+        'default',
+        [
+          'jest-junit',
+          {
+            outputDirectory: './test/test-reports',
+            outputName: reportName + '.xml',
+          },
         ],
-        transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/'],
-        moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-        moduleNameMapper: {
-          '!/config': '<rootDir>/config/test.js',
-        },
-      };
+      ],
+      transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/'],
+      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+      moduleNameMapper: {
+        '!/config': '<rootDir>/config/test.js',
+      },
     };
-    
-    export default baseConfig;
+  };
+  
+  export default baseConfig;

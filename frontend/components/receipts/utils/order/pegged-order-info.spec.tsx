@@ -3,8 +3,6 @@ import { PeggedOrderInfo } from './pegged-order-info'
 import { PeggedOrder, PeggedReference } from '@vegaprotocol/types'
 
 describe('PeggedOrderInfo', () => {
-  // 1114-RCPT-026 I can see the offset price
-  // 1114-RCPT-027 I can see the reference price
   const marketId = 'someMarketId'
 
   it('should render without crashing', () => {

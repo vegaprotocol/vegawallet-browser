@@ -37,6 +37,7 @@ export const Auth = () => {
 
   const isWallets = !!useMatch(FULL_ROUTES.wallets)
 
+  if (loading) return null
   return (
     <div className="h-full w-full grid grid-rows-[min-content_1fr_min-content] bg-vega-dark-100">
       <ModalWrapper />

@@ -5,8 +5,8 @@ import { locators as decimalTooltipLocators } from './decimal-tooltip'
 
 describe('AmountWithTooltip', () => {
   test('renders the amount and asset link', () => {
-    // 1114-RCPT-007 I can see the amount of the asset being transferred
-    // 1114-RCPT-008 I can see a link to the block explorer for that asset
+    // 1124-TRAN-004 I can see the amount of the asset being transferred
+    // 1124-TRAN-005 I can see a link to the block explorer for that asset
     const assetId = 'your-asset-id'
     const amount = '100'
     render(<AmountWithTooltip assetId={assetId} amount={amount} />)

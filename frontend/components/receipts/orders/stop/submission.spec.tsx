@@ -28,9 +28,9 @@ const validateStopOrderDetails = (type: string) => {
 
 describe('StopOrderSubmission', () => {
   test('renders the component with "Rises above" details', () => {
-    // 1114-RCPT-025 If a rises above order is present I see the rises above section
-    // 1114-RCPT-027 In each section I can see the trigger price
-    // 1114-RCPT-028 In each section I can see the all the details of the order
+    // 1121-STPS-001 If a rises above order is present I see the rises above section
+    // 1121-STPS-003 In each section I can see the trigger price
+    // 1121-STPS-004 In each section I can see the all the details of the order
     const transaction = {
       stopOrdersSubmission: {
         risesAbove: {
@@ -51,9 +51,9 @@ describe('StopOrderSubmission', () => {
   })
 
   test('renders the component with "Falls below" details', () => {
-    // 1114-RCPT-026 If a falls below is present I see the falls below section
-    // 1114-RCPT-027 In each section I can see the trigger price
-    // 1114-RCPT-028 In each section I can see the all the details of the order
+    // 1121-STPS-002 If a falls below is present I see the falls below section
+    // 1121-STPS-003 In each section I can see the trigger price
+    // 1121-STPS-004 In each section I can see the all the details of the order
     const transaction = {
       stopOrdersSubmission: {
         risesAbove: null,

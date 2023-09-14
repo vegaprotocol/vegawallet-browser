@@ -50,7 +50,8 @@ describe('TransferReceipt', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('should render wrapper, amount, receiving key and when the transaction is scheduled to be delivered', () => {
-    // 1114-RCPT-004 I can see the receiving key of the transfer
+    // 1124-TRAN-001 I can see the receiving key of the transfer
+    // 1124-TRAN-006 I can see the price
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -68,7 +69,7 @@ describe('TransferReceipt', () => {
     expect(screen.getByTestId(locators.whenSection)).toHaveTextContent('When')
   })
   it('if transfer time is in the past renders now', () => {
-    // 1114-RCPT-005 For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately
+    // 1124-TRAN-002 For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -90,7 +91,7 @@ describe('TransferReceipt', () => {
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
   })
   it('if transfer is in future then it renders relative & absolute time', () => {
-    // 1114-RCPT-006 For a oneOff transfer which is has a delivery date in the future there is a way to see when the transfer will be delivered
+    // 1124-TRAN-003 For a oneOff transfer which is has a delivery date in the future there is a way to see when the transfer will be delivered
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,

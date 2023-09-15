@@ -7,6 +7,8 @@ import { StopOrdersSubmissionView } from '../orders/stop-submission'
 import { StopOrderCancellationView } from '../orders/stop-cancellation'
 import { CollapsiblePanel } from '../../collapsible-panel'
 import classNames from 'classnames'
+import objectHash from 'object-hash'
+import { Fragment } from 'react'
 
 export const locators = {
   header: 'header',
@@ -35,12 +37,12 @@ const CommandSection = ({
           <>
             {/* TODO hash item to get key */}
             {items.map((s: any, i: number) => (
-              <>
+              <Fragment key={objectHash(s)}>
                 <h2 data-testid={locators.header} className={classNames('text-white', { 'mt-4': i !== 0 })}>
                   {i + 1}.
                 </h2>
                 {renderItem(s, i)}
-              </>
+              </Fragment>
             ))}
           </>
         }

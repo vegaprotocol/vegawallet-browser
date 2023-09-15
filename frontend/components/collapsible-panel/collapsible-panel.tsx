@@ -17,7 +17,7 @@ export const CollapsiblePanel = ({
   return (
     <div data-testid={locators.collapsiblePanel}>
       <button
-        className="flex justify-between w-full"
+        className={classnames('flex justify-between w-full', { 'mb-4': isOpen })}
         onClick={() => setIsOpen(!isOpen)}
         data-testid={locators.collapsiblePanelButton}
       >

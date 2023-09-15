@@ -1,5 +1,5 @@
 import testnet from './testnet.js'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep.js'
 
 const smokeConsole = cloneDeep(testnet)
 

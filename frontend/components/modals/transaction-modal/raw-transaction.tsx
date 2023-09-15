@@ -7,7 +7,7 @@ export const RawTransaction = ({ transaction }: { transaction: Transaction }) =>
   return (
     <VegaSection>
       <CollapsiblePanel
-        title="View raw Transaction"
+        title="View raw transaction"
         initiallyOpen={true}
         panelContent={
           <CodeWindow

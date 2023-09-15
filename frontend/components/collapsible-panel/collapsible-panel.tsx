@@ -16,7 +16,11 @@ export const CollapsiblePanel = ({
   const [isOpen, setIsOpen] = useState(initiallyOpen)
   return (
     <div data-testid={locators.collapsiblePanel}>
-      <button onClick={() => setIsOpen(!isOpen)} data-testid={locators.collapsiblePanelButton}>
+      <button
+        className="flex justify-between w-full"
+        onClick={() => setIsOpen(!isOpen)}
+        data-testid={locators.collapsiblePanelButton}
+      >
         <span className="text-vega-dark-300 text-sm uppercase" data-testid={locators.collapsiblePanelTitle}>
           {title}
         </span>

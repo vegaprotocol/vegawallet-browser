@@ -45,12 +45,24 @@ const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrd
   )
 }
 
+export const StopOrdersSubmissionView = ({ stopOrdersSubmission }: { stopOrdersSubmission: any }) => {
+  return (
+    <>
+      {stopOrdersSubmission.risesAbove ? (
+        <SubmissionDetails title="Rises above ↗" stopOrderDetails={stopOrdersSubmission.risesAbove} />
+      ) : null}
+      {stopOrdersSubmission.fallsBelow ? (
+        <SubmissionDetails title="Falls below ↘" stopOrderDetails={stopOrdersSubmission.fallsBelow} />
+      ) : null}
+    </>
+  )
+}
+
 export const StopOrderSubmission = ({ transaction }: ReceiptComponentProps) => {
   const order = transaction.stopOrdersSubmission
   return (
     <ReceiptWrapper>
-      {order.risesAbove ? <SubmissionDetails title="Rises above ↗" stopOrderDetails={order.risesAbove} /> : null}
-      {order.fallsBelow ? <SubmissionDetails title="Falls below ↘" stopOrderDetails={order.fallsBelow} /> : null}
+      <StopOrdersSubmissionView stopOrdersSubmission={order} />
     </ReceiptWrapper>
   )
 }

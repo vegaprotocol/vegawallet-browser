@@ -1,4 +1,5 @@
 import { Transaction, TransactionKeys } from '../../lib/transactions'
+import { BatchMarketInstructions } from './batch-market-instructions'
 import { Amendment } from './orders/amend'
 import { Cancellation } from './orders/cancellation'
 import { StopOrderCancellation } from './orders/stop-cancellation'
@@ -21,5 +22,6 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.ORDER_CANCELLATION]: Cancellation,
   [TransactionKeys.ORDER_SUBMISSION]: Submission,
   [TransactionKeys.STOP_ORDERS_SUBMISSION]: StopOrderSubmission,
-  [TransactionKeys.STOP_ORDERS_CANCELLATION]: StopOrderCancellation
+  [TransactionKeys.STOP_ORDERS_CANCELLATION]: StopOrderCancellation,
+  [TransactionKeys.BATCH_MARKET_INSTRUCTIONS]: BatchMarketInstructions
 }

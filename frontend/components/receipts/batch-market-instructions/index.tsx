@@ -1,5 +1,12 @@
+import { AmendmentView } from '../orders/amend'
+import { CancellationView } from '../orders/cancellation'
+import { SubmissionView } from '../orders/submission'
 import { ReceiptComponentProps } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
+import { StopOrdersSubmissionView } from '../orders/stop-submission'
+import { StopOrderCancellationView } from '../orders/stop-cancellation'
+import { CollapsiblePanel } from '../../collapsible-panel'
+import classNames from 'classnames'
 
 export const locators = {
   header: 'header',
@@ -10,24 +17,70 @@ export const locators = {
   stopOrderCancellations: 'stop-order-cancellations'
 }
 
+const CommandSection = ({
+  items,
+  command,
+  renderItem
+}: {
+  items: any[]
+  command: string
+  renderItem: (item: any, index: number) => JSX.Element
+}) => {
+  if (!items.length) return null
+  return (
+    <div className="mt-4">
+      <CollapsiblePanel
+        title={command}
+        panelContent={
+          <>
+            {/* TODO hash item to get key */}
+            {items.map((s: any, i: number) => (
+              <>
+                <h2 data-testid={locators.header} className={classNames('text-white', { 'mt-4': i !== 0 })}>
+                  {i + 1}.
+                </h2>
+                {renderItem(s, i)}
+              </>
+            ))}
+          </>
+        }
+      />
+    </div>
+  )
+}
+
 export const BatchMarketInstructions = ({ transaction }: ReceiptComponentProps) => {
+  const { batchMarketInstructions } = transaction
+  const {
+    cancellations,
+    amendments,
+    submissions,
+    stopOrdersSubmission: stopOrdersSubmissions, // For some reason this is not plural in the command
+    stopOrdersCancellation: stopOrdersCancellations // For some reason this is not plural in the command
+  } = batchMarketInstructions
   return (
     <ReceiptWrapper>
-      <h1 data-testid={locators.header} className="text-white text-lg">
-        Submissions
-      </h1>
-      <h1 data-testid={locators.header} className="text-white text-lg">
-        Cancellations
-      </h1>
-      <h1 data-testid={locators.header} className="text-white text-lg">
-        Amendments
-      </h1>
-      <h1 data-testid={locators.header} className="text-white text-lg">
-        Stop Order Submissions
-      </h1>
-      <h1 data-testid={locators.header} className="text-white text-lg">
-        Stop Order Cancellations
-      </h1>
+      <CommandSection
+        items={submissions}
+        command="Submission"
+        renderItem={(s) => <SubmissionView orderSubmission={s} />}
+      />
+      <CommandSection
+        items={cancellations}
+        command="Cancellation"
+        renderItem={(c) => <CancellationView cancellation={c} />}
+      />
+      <CommandSection items={amendments} command="Amendment" renderItem={(a) => <AmendmentView amendment={a} />} />
+      <CommandSection
+        items={stopOrdersSubmissions}
+        command="Stop Order Submission"
+        renderItem={(s) => <StopOrdersSubmissionView stopOrdersSubmission={s} />}
+      />
+      <CommandSection
+        items={stopOrdersCancellations}
+        command="Stop Order Cancellation"
+        renderItem={(c) => <StopOrderCancellationView stopOrdersCancellation={c} />}
+      />
     </ReceiptWrapper>
   )
 }

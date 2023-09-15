@@ -5,17 +5,22 @@ import { ReactNode } from 'react'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { DataTable } from '../../../data-table/data-table'
 
-export const StopOrderCancellation = ({ transaction }: ReceiptComponentProps) => {
-  const { marketId, stopOrderId } = transaction.stopOrdersCancellation
+export const StopOrderCancellationView = ({ stopOrdersCancellation }: { stopOrdersCancellation: any }) => {
+  const { marketId, stopOrderId } = stopOrdersCancellation
   const columns = [
     marketId ? ['Market', <MarketLink key="order-details-market" marketId={marketId} />] : null,
     stopOrderId ? ['Stop Order', truncateMiddle(stopOrderId)] : null
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
+  return <DataTable items={data} />
+}
+
+export const StopOrderCancellation = ({ transaction }: ReceiptComponentProps) => {
+  const { stopOrdersCancellation } = transaction
 
   return (
     <ReceiptWrapper>
-      <DataTable items={data} />
+      <StopOrderCancellationView stopOrdersCancellation={stopOrdersCancellation} />
     </ReceiptWrapper>
   )
 }

@@ -1,4 +1,4 @@
-import { createBackendConfig } from './jest.config-backend.js';
+import createBackendConfig from './jest.config-backend.js';
 
 const projectRoot = 'web-extension';
 const testReportName = 'request-test-results';

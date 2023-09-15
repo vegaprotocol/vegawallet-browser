@@ -1,6 +1,6 @@
 import baseConfig from './base-config.js'
-
-const jestConfigE2E = (projectRoot = 'test', testReportName = `bob-e2e-test-results`) => {
+/** @type {import('ts-jest').JestConfigWithTsJest} */
+const jestConfigE2E = (projectRoot = 'test', testReportName = `${process.env.BROWSER}-e2e-test-results.xml`) => {
   return {
     ...baseConfig(projectRoot, testReportName),
     setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],

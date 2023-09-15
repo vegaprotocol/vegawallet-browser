@@ -9,6 +9,7 @@ const createFrontendConfig = (projectRoot = 'frontend', testReportName = 'unit-t
   coverageReporters: ['html', 'lcov'],
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],
   coverageDirectory: 'coverage/frontend',
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   coverageThreshold: {
     global: {
       branches: 96,

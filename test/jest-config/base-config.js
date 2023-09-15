@@ -5,7 +5,7 @@ const baseConfig = (projectRoot, reportName) => {
   
     return {
       rootDir: '../..',
-      roots: [projectRoot],
+      roots: ['<rootDir>/' + projectRoot],
       transform: {
         '^.+\\.tsx?$': 'ts-jest',
         '^.+\\.jsx?$': 'ts-jest',

@@ -1,4 +1,4 @@
-import { jestE2EConfig } from './jest.config-e2e.js';
+import jestE2EConfig from './jest.config-e2e.js';
 
 const projectRoot = 'test';
 const testReportName = 'console-smoke-test-result';

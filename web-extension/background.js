@@ -3,7 +3,8 @@ import { WalletCollection } from './backend/wallets.js'
 import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from '../lib/port-server.js'
 import { PopupClient } from './backend/popup-client.js'
-import { createWindow, createNotificationWindow } from './backend/windows.js'
+import { createNotificationWindow } from './backend/windows.js'
+import { setupListeners } from './lib/setup-listeners.js'
 
 import StorageLocalMap from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
@@ -80,31 +81,7 @@ connections.listen((ev, connection) => {
   }
 })
 
-runtime.onConnect.addListener(async (port) => {
-  if (port.name === 'content-script') return clientPorts.listen(port)
-  if (port.name === 'popup') {
-    popupPorts.listen(port)
-    interactor.connect(port)
-  }
-})
-
-runtime.onInstalled.addListener(async (details) => {
-  const { reason } = details
-  if (reason === 'install') {
-    const id = config.network.name.toLowerCase()
-    await Promise.allSettled([
-      networks.set(id, {
-        name: config.network.name,
-        rest: config.network.rest,
-        explorer: config.network.explorer
-      }),
-      settings.set('selectedNetwork', id)
-    ])
-    if (config.autoOpenOnInstall) {
-      createWindow()
-    }
-  }
-})
+setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor)
 
 async function setPending() {
   const pending = interactor.totalPending()

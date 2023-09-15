@@ -1,10 +1,11 @@
 import { AmendmentView } from '../orders/amend'
 import { CancellationView } from '../orders/cancellation'
 import { SubmissionView } from '../orders/submission'
-import { ReceiptComponentProps } from '../receipts'
-import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { StopOrdersSubmissionView } from '../orders/stop-submission'
 import { StopOrderCancellationView } from '../orders/stop-cancellation'
+
+import { ReceiptComponentProps } from '../receipts'
+import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { CollapsiblePanel } from '../../collapsible-panel'
 import objectHash from 'object-hash'
 import { Fragment } from 'react'

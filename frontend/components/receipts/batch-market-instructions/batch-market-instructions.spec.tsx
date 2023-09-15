@@ -31,6 +31,11 @@ describe('BatchMarketInstructions component', () => {
 
   test('renders all command sections', () => {
     render(<BatchMarketInstructions transaction={transaction} />)
+    // 1114-BMKI-001 If there is at least one present I can see all submission details
+    // 1114-BMKI-002 If there is at least one present I can see all amendment details
+    // 1114-BMKI-003 If there is at least one present I can see all cancellation details
+    // 1114-BMKI-004 If there is at least one present I can see all stop order submission details
+    // 1114-BMKI-005 If there is at least one present I can see all stop order cancellation details
     const [submission, cancellation, amendment, stopOrderSubmission, stopOrderCancellation] = screen.getAllByTestId(
       locators.collapsiblePanelTitle
     )

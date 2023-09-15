@@ -7,6 +7,7 @@
   "dependencies": {
     "@sentry/browser": "^7.57.0",
     "@sentry/react": "^7.57.0",
+    "@types/object-hash": "^3.0.4",
     "@vegaprotocol/crypto": "0.11.0",
     "@vegaprotocol/protos": "^0.7.2",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
@@ -18,6 +19,7 @@
     "lodash": "^4.17.21",
     "mutexify": "^1.4.0",
     "nanoassert": "^2.0.0",
+    "object-hash": "^3.0.0",
     "protobuf-codec": "^1.0.6",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",

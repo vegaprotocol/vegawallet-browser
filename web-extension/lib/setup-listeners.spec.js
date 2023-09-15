@@ -52,6 +52,7 @@ describe('SetupListeners', () => {
   })
 
   it('should create a window if autoOpenOnInstall is true', async () => {
+    // 1113-POPT-009 The browser wallet opens in a pop-up window when the extension is installed
     const networksMock = { set: jest.fn() }
     const settingsMock = { set: jest.fn() }
     const detailsMock = { reason: 'install' }

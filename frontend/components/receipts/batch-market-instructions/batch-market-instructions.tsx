@@ -17,7 +17,8 @@ export const locators = {
   amendments: 'amendments',
   submissions: 'submissions',
   stopOrderSubmissions: 'stop-order-submissions',
-  stopOrderCancellations: 'stop-order-cancellations'
+  stopOrderCancellations: 'stop-order-cancellations',
+  noTransactionsNotification: 'no-transactions-notification'
 }
 
 const CommandSection = ({
@@ -73,6 +74,7 @@ export const BatchMarketInstructions = ({ transaction }: ReceiptComponentProps) 
   )
     return (
       <Notification
+        testId={locators.noTransactionsNotification}
         message="Batch market instructions contained no transactions. Please check the JSON and validate that this is the transaction you wish to send."
         intent={Intent.Warning}
       />

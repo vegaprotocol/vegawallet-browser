@@ -10,6 +10,9 @@ jest.mock('./version-section', () => ({
 jest.mock('./telemetry-section', () => ({
   TelemetrySection: () => <div data-testid="telemetry-section" />
 }))
+jest.mock('./auto-open-section', () => ({
+  AutoOpen: () => <div data-testid="auto-open-section" />
+}))
 jest.mock('./lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
@@ -36,5 +39,6 @@ describe('Settings', () => {
     expect(screen.getByTestId('version-section')).toBeVisible()
     expect(screen.getByTestId('telemetry-section')).toBeVisible()
     expect(screen.getByTestId('lock-section')).toBeVisible()
+    expect(screen.getByTestId('auto-open-section')).toBeVisible()
   })
 })

@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils'
 import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer.js'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType.js'
 import { render, screen } from '@testing-library/react'
@@ -120,10 +119,7 @@ describe('TransferReceipt', () => {
       }
     }
 
-    act(() => {
-      render(<Transfer transaction={oneOffTransfer} />)
-    })
-
+    render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.loading)).toBeVisible()
   })
 
@@ -146,10 +142,7 @@ describe('TransferReceipt', () => {
       }
     }
 
-    act(() => {
-      render(<Transfer transaction={oneOffTransfer} />)
-    })
-
+    render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.basicSection)).toBeVisible()
   })
 
@@ -171,10 +164,7 @@ describe('TransferReceipt', () => {
       }
     }
 
-    act(() => {
-      render(<Transfer transaction={oneOffTransfer} />)
-    })
-
+    render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.enrichedSection)).toBeVisible()
   })
 

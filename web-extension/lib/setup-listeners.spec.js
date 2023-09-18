@@ -47,8 +47,9 @@ describe('SetupListeners', () => {
       name: 'Test',
       rest: ['http://localhost:9090']
     })
-    expect(settingsMock.set).toHaveBeenCalledTimes(1)
+    expect(settingsMock.set).toHaveBeenCalledTimes(2)
     expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', 'test')
+    expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
   })
 
   it('should create a window if autoOpenOnInstall is true', async () => {

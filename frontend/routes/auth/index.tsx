@@ -6,8 +6,6 @@ import { ModalWrapper } from '../../components/modals'
 import { useEffect } from 'react'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { useWalletStore } from '../../stores/wallets'
-import { useMarketsStore } from '../../stores/markets-store'
-import { useAssetsStore } from '../../stores/assets-store'
 import { FULL_ROUTES } from '../route-names'
 import { DappsHeader } from '../../components/dapps-header/dapps-header'
 

@@ -21,7 +21,7 @@ export const AutoOpen = () => {
   const handleChange = async (value: string) => {
     const newVal = value === 'true'
     await saveSettings(request, {
-      telemetry: newVal
+      autoOpen: newVal
     })
   }
 

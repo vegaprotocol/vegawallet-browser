@@ -8,6 +8,9 @@ on:
 
 jobs:
   console-smoke-test:
+    strategy:
+      matrix:
+        environment: ['mainnet', 'testnet']
     runs-on: ubuntu-latest
 
     steps:
@@ -28,20 +31,21 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn build:test-console
+        run: yarn build:console:${{ matrix.environment }}
         env:
           REACT_APP_TEST: true
 
-      - name: Run wallet with console smoke tests using Xvfb
+      - name: Run wallet with console ${{ matrix.environment }} smoke tests using Xvfb
         uses: coactions/setup-xvfb@v1
         with:
-          run: yarn test:console:ci
+          run: yarn test:console:${{ matrix.environment }}:ci
+
       - name: Test Report
         uses: phoenix-actions/test-reporting@v12
         if: always()
         with:
           name: JEST Wallet With Console Smoke Tests - Chrome
-          path: ./test/test-reports/console-smoke-test-results.xml
+          path: ./test/test-reports/console-smoke-test-${{ matrix.environment }}-results.xml
           reporter: jest-junit
           output-to: step-summary
 

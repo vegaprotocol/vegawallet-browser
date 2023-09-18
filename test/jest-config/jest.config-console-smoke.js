@@ -7,7 +7,7 @@ jestConsoleE2e.reporters = [
     'jest-junit',
     {
       outputDirectory: './test/test-reports',
-      outputName: 'console-smoke-test-results.xml'
+      outputName: `console-smoke-test-${process.env.ENV}-results.xml`
     }
   ]
 ];

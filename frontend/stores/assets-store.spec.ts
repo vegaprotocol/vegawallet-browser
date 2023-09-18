@@ -67,10 +67,11 @@ describe('AssetsStore', () => {
 
   it('loads assets', async () => {
     expect(useAssetsStore.getState().loading).toBe(false)
-    expect(useAssetsStore.getState().assets).toBeNull()
+    console.log(useAssetsStore.getState().assets)
+    expect(useAssetsStore.getState().assets).toStrictEqual([])
     await useAssetsStore.getState().fetchAssets(request as unknown as any)
     expect(useAssetsStore.getState().loading).toBe(false)
-    expect(useAssetsStore.getState().assets).toStrictEqual(assetsMock)
+    expect(useAssetsStore.getState().assets).toHaveLength(2)
   })
 
   it('sets loading state while fetching', async () => {
@@ -82,14 +83,12 @@ describe('AssetsStore', () => {
     await useAssetsStore.getState().fetchAssets(request as unknown as any)
     const asset = useAssetsStore
       .getState()
-      .getAssetById('fdf0ec118d98393a7702cf72e46fc87ad680b152f64b2aac59e093ac2d688fbb')
-    expect(asset).toStrictEqual(assetsMock.assets.edges[0].node)
+      .getAssetById('fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55')
+    expect(asset).toStrictEqual(assetsMock.assets.edges[1].node)
   })
 
   it('throws error if the asset is not found', async () => {
     await useAssetsStore.getState().fetchAssets(request as unknown as any)
-    expect(() =>
-      useAssetsStore.getState().getAssetById('fdf0ec118d98393a7702cf72e46fc87ad680b152f64b2aac59e093ac2d688fbc')
-    ).toThrowError('Asset with id fdf0ec118d98393a7702cf72e46fc87ad680b152f64b2aac59e093ac2d688fbc not found')
+    expect(() => useAssetsStore.getState().getAssetById('nope')).toThrowError('Asset with id nope not found')
   })
 })

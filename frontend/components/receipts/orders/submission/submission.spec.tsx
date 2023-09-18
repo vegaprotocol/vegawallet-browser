@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Submission } from '.'
-import { locators } from '../../../data-table/data-table'
+import { Submission, SubmissionView, locators } from '.'
+import { locators as dataTableLocators } from '../../../data-table/data-table'
 
 describe('SubmissionReceipt', () => {
   it('renders nothing if the transaction is an iceberg order', () => {
@@ -27,8 +27,23 @@ describe('SubmissionReceipt', () => {
         }}
       />
     )
-    const [referenceRow] = screen.getAllByTestId(locators.dataRow)
+    const [referenceRow] = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(referenceRow).toHaveTextContent('foo')
     expect(screen.getByText('Post only')).toBeVisible()
+  })
+  it('submission view renders iceberg message if order type is iceberg', () => {
+    render(
+      <SubmissionView
+        orderSubmission={{
+          icebergOpts: {
+            displayQty: '1',
+            totalQty: '2'
+          }
+        }}
+      />
+    )
+    expect(screen.getByTestId(locators.icebergMessage)).toHaveTextContent(
+      'Iceberg Order, see raw JSON for more information'
+    )
   })
 })

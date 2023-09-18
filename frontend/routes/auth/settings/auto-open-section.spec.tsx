@@ -84,6 +84,7 @@ describe('autoOpenSection', () => {
   })
 
   it('calls save function on autoOpen option change', async () => {
+    // 1113-POPT-011 There is a way to change the auto open setting
     ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
       return fn({
         globals: {

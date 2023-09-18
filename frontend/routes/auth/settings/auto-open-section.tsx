@@ -5,10 +5,10 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { VegaSection } from '../../../components/vega-section'
 
 export const locators = {
-  settingsDescription: 'settings-description',
-  settingsDataPolicy: 'settings-data-policy',
-  settingsTelemetryYes: 'settings-telemetry-yes',
-  settingsTelemetryNo: 'settings-telemetry-no'
+  autoOpen: 'auto-open-description',
+  autoOpenDataPolicy: 'auto-open-data-policy',
+  autoOpenYes: 'auto-open-telemetry-yes',
+  autoOpenNo: 'auto-open-telemetry-no'
 }
 
 export const AutoOpen = () => {
@@ -32,13 +32,13 @@ export const AutoOpen = () => {
   return (
     <VegaSection>
       <SettingsHeader text="Auto Open" />
-      <p data-testid={locators.settingsDescription} className="my-4">
+      <p data-testid={locators.autoOpen} className="my-4">
         Automatically open the wallet when a dApp requests to connect or sends a transaction.
       </p>
       <form>
         <RadioGroup onChange={handleChange} value={globals.settings.autoOpen?.toString()}>
-          <Radio disabled={loading} id={locators.settingsTelemetryYes} label="Yes" value="true" />
-          <Radio disabled={loading} id={locators.settingsTelemetryNo} label="No" value="false" />
+          <Radio disabled={loading} id={locators.autoOpenYes} label="Yes" value="true" />
+          <Radio disabled={loading} id={locators.autoOpenNo} label="No" value="false" />
         </RadioGroup>
       </form>
     </VegaSection>

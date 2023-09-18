@@ -1,44 +1,55 @@
 import { RpcMethods } from '../lib/client-rpc-methods'
 import { useAssetsStore } from './assets-store'
 
-const assetsMock = [
-  {
-    id: 'd1984e3d365faa05bcafbe41f50f90e3663ee7c0da22bb1e24b164e9532691b2',
-    name: 'VEGA',
-    symbol: 'VEGA',
-    decimals: 18,
-    quantum: '1000000000000000000',
-    source: {
-      __typename: 'ERC20',
-      contractAddress: '0xcB84d72e61e383767C4DFEb2d8ff7f4FB89abc6e',
-      lifetimeLimit: '0',
-      withdrawThreshold: '0'
-    },
-    status: 'STATUS_ENABLED',
-    infrastructureFeeAccount: {
-      balance: '72',
-      __typename: 'AccountBalance'
-    },
-    globalRewardPoolAccount: {
-      balance: '136085',
-      __typename: 'AccountBalance'
-    },
-    takerFeeRewardAccount: {
-      balance: '2',
-      __typename: 'AccountBalance'
-    },
-    makerFeeRewardAccount: {
-      balance: '18468',
-      __typename: 'AccountBalance'
-    },
-    lpFeeRewardAccount: {
-      balance: '0',
-      __typename: 'AccountBalance'
-    },
-    marketProposerRewardAccount: null,
-    __typename: 'Asset'
+const assetsMock = {
+  assets: {
+    edges: [
+      {
+        node: {
+          id: 'b340c130096819428a62e5df407fd6abe66e444b89ad64f670beb98621c9c663',
+          details: {
+            name: 'tDAI TEST',
+            symbol: 'tDAI',
+            decimals: '5',
+            quantum: '1',
+            erc20: {
+              contractAddress: '0x26223f9C67871CFcEa329975f7BC0C9cB8FBDb9b',
+              lifetimeLimit: '0',
+              withdrawThreshold: '0'
+            }
+          },
+          status: 'STATUS_ENABLED'
+        },
+        cursor: 'eyJpZCI6ImIzNDBjMTMwMDk2ODE5NDI4YTYyZTVkZjQwN2ZkNmFiZTY2ZTQ0NGI4OWFkNjRmNjcwYmViOTg2MjFjOWM2NjMifQ=='
+      },
+      {
+        node: {
+          id: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+          details: {
+            name: 'Vega (fairground)',
+            symbol: 'VEGA',
+            decimals: '18',
+            quantum: '1',
+            erc20: {
+              contractAddress: '0xdf1B0F223cb8c7aB3Ef8469e529fe81E73089BD9',
+              lifetimeLimit: '0',
+              withdrawThreshold: '0'
+            }
+          },
+          status: 'STATUS_ENABLED'
+        },
+        cursor: 'eyJpZCI6ImZjN2ZkOTU2MDc4ZmIxZmM5ZGI1YzE5Yjg4ZjA4NzRjNDI5OWIyYTc2MzlhZDA1YTQ3YTI4YzBhZWYyOTFiNTUifQ=='
+      }
+    ],
+    pageInfo: {
+      hasNextPage: false,
+      hasPreviousPage: false,
+      startCursor:
+        'eyJpZCI6ImZkZjBlYzExOGQ5ODM5M2E3NzAyY2Y3MmU0NmZjODdhZDY4MGIxNTJmNjRiMmFhYzU5ZTA5M2FjMmQ2ODhmYmIifQ==',
+      endCursor: 'eyJpZCI6IlhZWmFscGhhIn0='
+    }
   }
-]
+}
 
 const request = async (method: string) => {
   if (method === RpcMethods.Fetch) {
@@ -67,11 +78,18 @@ describe('AssetsStore', () => {
     expect(useAssetsStore.getState().loading).toBe(true)
   })
 
-  it('sets error state on failure', async () => {
-    const failingRequest = async () => {
-      throw new Error('Failed to fetch')
-    }
-    await useAssetsStore.getState().fetchAssets(failingRequest as unknown as any)
-    expect(useAssetsStore.getState().error).toBe('Failed to fetch assets')
+  it('allows you to fetch an asset by id', async () => {
+    await useAssetsStore.getState().fetchAssets(request as unknown as any)
+    const asset = useAssetsStore
+      .getState()
+      .getAssetById('fdf0ec118d98393a7702cf72e46fc87ad680b152f64b2aac59e093ac2d688fbb')
+    expect(asset).toStrictEqual(assetsMock.assets.edges[0].node)
+  })
+
+  it('throws error if the asset is not found', async () => {
+    await useAssetsStore.getState().fetchAssets(request as unknown as any)
+    expect(() =>
+      useAssetsStore.getState().getAssetById('fdf0ec118d98393a7702cf72e46fc87ad680b152f64b2aac59e093ac2d688fbc')
+    ).toThrowError('Asset with id fdf0ec118d98393a7702cf72e46fc87ad680b152f64b2aac59e093ac2d688fbc not found')
   })
 })

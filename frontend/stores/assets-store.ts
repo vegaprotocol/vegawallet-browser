@@ -4,25 +4,29 @@ import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
 import type { Asset } from '@vegaprotocol/types'
 
 export type AssetsStore = {
-  assets: Asset[] | null
+  assets: Asset[]
   loading: boolean
-  error: string | null
   fetchAssets: (request: SendMessage) => Promise<void>
+  getAssetById: (id: string) => Asset
 }
 
 export const useAssetsStore = create<AssetsStore>((set, get) => ({
-  assets: null,
+  assets: [],
   loading: false,
-  error: null,
   async fetchAssets(request) {
     try {
-      set({ loading: true, error: null })
+      set({ loading: true })
       const assets = await request(RpcMethods.Fetch, { path: 'api/v2/assets' })
       set({ assets })
-    } catch (error) {
-      set({ error: 'Failed to fetch assets' })
     } finally {
       set({ loading: false })
     }
+  },
+  getAssetById(id: string) {
+    const asset = get().assets.find((asset) => asset.id === id)
+    if (!asset) {
+      throw new Error(`Asset with id ${id} not found`)
+    }
+    return asset
   }
 }))

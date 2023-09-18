@@ -9,6 +9,7 @@ import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { CollapsiblePanel } from '../../collapsible-panel'
 import objectHash from 'object-hash'
 import { Fragment } from 'react'
+import { Notification, Intent } from '@vegaprotocol/ui-toolkit'
 
 export const locators = {
   header: 'header',
@@ -60,6 +61,22 @@ export const BatchMarketInstructions = ({ transaction }: ReceiptComponentProps) 
     stopOrdersSubmission: stopOrdersSubmissions, // For some reason this is not plural in the command
     stopOrdersCancellation: stopOrdersCancellations // For some reason this is not plural in the command
   } = batchMarketInstructions
+
+  if (
+    [
+      ...cancellations,
+      ...amendments,
+      ...submissions,
+      ...stopOrdersSubmissions, // For some reason this is not plural in the command
+      ...stopOrdersCancellations
+    ].length === 0
+  )
+    return (
+      <Notification
+        message="Batch market instructions contained no transactions. Please check the JSON and validate that this is the transaction you wish to send."
+        intent={Intent.Warning}
+      />
+    )
   return (
     <ReceiptWrapper>
       <CommandSection

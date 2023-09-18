@@ -1,11 +1,12 @@
 {
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "telemetry"
-  ],
+  "required": [],
   "properties": {
     "telemetry": {
+      "type": "boolean"
+    },
+    "autoOpen": {
       "type": "boolean"
     }
   }

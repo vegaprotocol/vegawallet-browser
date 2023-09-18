@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { BatchMarketInstructions } from './batch-market-instructions'
-import locators from '../../locators'
+import { BatchMarketInstructions, locators } from './batch-market-instructions'
+import componentLocators from '../../locators'
 
 jest.mock('../orders/amend', () => ({
   AmendmentView: () => <div data-testid="amendment-view" />
@@ -37,7 +37,7 @@ describe('BatchMarketInstructions component', () => {
     // 1114-BMKI-004 If there is at least one present I can see all stop order submission details
     // 1114-BMKI-005 If there is at least one present I can see all stop order cancellation details
     const [submission, cancellation, amendment, stopOrderSubmission, stopOrderCancellation] = screen.getAllByTestId(
-      locators.collapsiblePanelTitle
+      componentLocators.collapsiblePanelTitle
     )
     expect(submission).toHaveTextContent('Submission')
     expect(cancellation).toHaveTextContent('Cancellation')
@@ -63,7 +63,7 @@ describe('BatchMarketInstructions component', () => {
       }
     }
     render(<BatchMarketInstructions transaction={transaction} />)
-    expect(screen.queryByTestId(locators.collapsiblePanelTitle)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(componentLocators.collapsiblePanelTitle)).not.toBeInTheDocument()
   })
 
   test('renders item for each submission', () => {
@@ -84,5 +84,22 @@ describe('BatchMarketInstructions component', () => {
     expect(screen.getAllByTestId('header')).toHaveLength(2)
     expect(screen.getAllByTestId('header')[0]).toHaveTextContent('1.')
     expect(screen.getAllByTestId('header')[1]).toHaveTextContent('2.')
+  })
+
+  it('renders warning message if there are no transactions', () => {
+    // 1114-BMKI-006 If there are no transactions present in any of the fields then I see a warning notification letting me know about this
+    const transactionWithNoTransactions = {
+      batchMarketInstructions: {
+        cancellations: [],
+        amendments: [],
+        stopOrdersSubmission: [],
+        stopOrdersCancellation: [],
+        submissions: []
+      }
+    }
+    render(<BatchMarketInstructions transaction={transactionWithNoTransactions} />)
+    expect(screen.getByTestId(locators.noTransactionsNotification)).toHaveTextContent(
+      'Batch market instructions contained no transactions. Please check the JSON and validate that this is the transaction you wish to send.'
+    )
   })
 })

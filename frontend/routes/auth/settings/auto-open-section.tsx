@@ -5,7 +5,7 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { VegaSection } from '../../../components/vega-section'
 
 export const locators = {
-  autoOpen: 'auto-open-description',
+  autoOpenDescription: 'auto-open-description',
   autoOpenDataPolicy: 'auto-open-data-policy',
   autoOpenYes: 'auto-open-telemetry-yes',
   autoOpenNo: 'auto-open-telemetry-no'
@@ -32,7 +32,7 @@ export const AutoOpen = () => {
   return (
     <VegaSection>
       <SettingsHeader text="Auto Open" />
-      <p data-testid={locators.autoOpen} className="my-4">
+      <p data-testid={locators.autoOpenDescription} className="my-4">
         Automatically open the wallet when a dApp requests to connect or sends a transaction.
       </p>
       <form>

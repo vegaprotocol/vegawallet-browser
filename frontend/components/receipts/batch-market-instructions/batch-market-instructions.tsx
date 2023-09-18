@@ -30,7 +30,7 @@ const CommandSection = ({
 }) => {
   if (!items.length) return null
   return (
-    <div className="mb-4">
+    <div className="last-of-type:mb-0 mb-4">
       <CollapsiblePanel
         title={command}
         panelContent={

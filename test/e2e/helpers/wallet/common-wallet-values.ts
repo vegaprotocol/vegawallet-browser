@@ -7,6 +7,8 @@ export const testDAppUrl = 'https://vegaprotocol.github.io/vegawallet-browser/'
 export const consoleSmokePublicKey = '10743917237e3f76eabcec06acc4e56807c468c6a84f437c4c9ff75dc2822851'
 export const consoleSmokeRecoveryPhrase =
   'deny puzzle bitter bright cost rival foam wall cook urban rotate beach improve problem trumpet happy basket glad total message nuclear indoor media pumpkin'
+export const consoleSmokeMainnetRecoveryPhrase =
+  'fog tissue potato witness render oven scan diet nut carpet light question intact cook twist index citizen saddle boy snake dust you first chair'
 
 //PASSWORDS
 export const defaultPassword = 'password1'

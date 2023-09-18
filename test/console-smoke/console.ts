@@ -3,7 +3,6 @@ import {
   clickElement,
   clickWebElement,
   getByDataTestID,
-  getElementText,
   getElements,
   getWebElementText,
   isElementDisplayed,
@@ -11,7 +10,6 @@ import {
   waitForElementToBeReady,
   waitForElementToDisappear
 } from '../e2e/helpers/selenium-util'
-import { elementIsDisabled } from 'selenium-webdriver/lib/until'
 
 export class Console {
   private readonly connect: By = getByDataTestID('connect-vega-wallet')
@@ -28,6 +26,7 @@ export class Console {
   private readonly marketsParentElement: By = By.css("[data-testid*='pathname-/markets']")
   private readonly marketSelector: By = getByDataTestID('popover-trigger')
   private readonly marketSelectorPrice: By = By.css("[data-testid='market-selector-price']")
+  private readonly iAgreeButton: By = By.xpath("//button[contains(text(), 'I agree')]")
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -59,27 +58,39 @@ export class Console {
     await clickElement(this.driver, this.orderTab)
   }
 
-  async selectTBTCMarket() {
+  async agreeToUnderstandRisk() {
+    await clickElement(this.driver, this.iAgreeButton)
+  }
+
+  async selectMarketBySubstring(marketSubstring: string) {
     const marketParentElement = await waitForElementToBeReady(this.driver, this.marketsParentElement)
     await clickWebElement(this.driver, marketParentElement.findElement(this.marketSelector))
     const markets = await getElements(this.driver, this.marketSelectorPrice)
     for (const market of markets) {
-      if ((await getWebElementText(this.driver, market)).includes('tBTC')) {
+      if ((await getWebElementText(this.driver, market)).includes(marketSubstring)) {
         await clickWebElement(this.driver, market)
         return
       }
     }
-    throw new Error('could not find tBTC market')
+    throw new Error(`could not find ${marketSubstring} market`)
+  }
+
+  async clearAllToast() {
+    if (await isElementDisplayed(this.driver, this.closeAnyToast, 1)) {
+      const toastElements = await getElements(this.driver, this.closeAnyToast)
+      for (const toastElement of toastElements) {
+        await clickWebElement(this.driver, toastElement)
+      }
+      await waitForElementToDisappear(this.driver, this.closeAnyToast)
+    }
   }
 
   async submitOrder(orderSize: string, orderPrice: string) {
     await sendKeysToElement(this.driver, this.orderPrice, orderPrice)
     await sendKeysToElement(this.driver, this.orderSize, orderSize)
-    if (await isElementDisplayed(this.driver, this.closeAnyToast, 1)) {
-      await clickElement(this.driver, this.closeAnyToast)
-      await waitForElementToDisappear(this.driver, this.closeAnyToast)
-    }
+    await this.clearAllToast()
     await clickElement(this.driver, this.placeOrder)
+    console.log('clicked place order')
   }
 
   async clearWelcomeDialogIfShown() {

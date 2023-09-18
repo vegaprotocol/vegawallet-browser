@@ -121,7 +121,10 @@ export async function getElements(driver: WebDriver, childElementLocator: By, ti
   return await driver.findElements(childElementLocator)
 }
 
-export async function sendKeysToElement(driver: WebDriver, locator: By, text: string): Promise<void> {
+export async function sendKeysToElement(driver: WebDriver, locator: By, text: string, clearField = true): Promise<void> {
+  if (clearField) {
+    await clearTextField(driver, locator)
+  }
   const element = await waitForElementToBeReady(driver, locator)
   await element.sendKeys(text)
 }

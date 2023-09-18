@@ -1,6 +1,6 @@
 ## Auto popout
 
-As a user I want the wallet to automatically open if I send a request to the wallet from a dapp so that I can instantly action any requests
+As a user I want the wallet to automatically open if I send a request to the wallet from a dapp so that I can instantly action any requests.
 
 ### Connection
 
@@ -19,3 +19,8 @@ As a user I want the wallet to automatically open if I send a request to the wal
 ### Install
 
 - The browser wallet opens in a pop-up window when the extension is installed (<a name="1113-POPT-009" href="#1113-POPT-009">1113-POPT-009</a>)
+
+### Setting
+
+- The browser wallet does not open in a pop-up window if the autoOpen setting is set to false (<a name="1113-POPT-010" href="#1113-POPT-010">1113-POPT-010</a>)
+- There is a way to change the auto open setting (<a name="1113-POPT-011" href="#1113-POPT-011">1113-POPT-011</a>)

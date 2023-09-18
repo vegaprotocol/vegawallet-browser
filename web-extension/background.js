@@ -86,7 +86,8 @@ setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor)
 async function setPending() {
   const pending = interactor.totalPending()
   try {
-    if (pending > 0 && popupPorts.ports.size < 1) {
+    const autoOpen = await settings.get('autoOpen')
+    if (pending > 0 && popupPorts.ports.size < 1 && autoOpen) {
       await createNotificationWindow()
     }
   } catch (_) {}

@@ -18,9 +18,10 @@ export const createOnInstalledListener = (networks, settings) => async (details)
         name: config.network.name,
         rest: config.network.rest,
         explorer: config.network.explorer
-      }),
-      settings.set('selectedNetwork', id)
+      })
     ])
+    await settings.set('selectedNetwork', id)
+    await settings.set('autoOpen', true)
     if (config.autoOpenOnInstall) {
       createWindow()
     }

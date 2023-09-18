@@ -20,20 +20,20 @@ export const Auth = () => {
   }))
 
   // Markets store
-  const { fetchMarkets, markets } = useMarketsStore((state) => ({
+  const { fetchMarkets } = useMarketsStore((state) => ({
     fetchMarkets: state.fetchMarkets,
-    markets: state.markets
+    marketsLoading: state.loading
   }))
 
   // Assets store
-  const { fetchAssets, assets } = useAssetsStore((state) => ({
+  const { fetchAssets } = useAssetsStore((state) => ({
     fetchAssets: state.fetchAssets,
-    assets: state.assets
+    assetsLoading: state.loading
   }))
 
   useEffect(() => {
     loadWallets(request)
-    // fetchMarkets(request)
+    fetchMarkets(request)
     fetchAssets(request)
   }, [request, loadWallets, fetchMarkets, fetchAssets])
 

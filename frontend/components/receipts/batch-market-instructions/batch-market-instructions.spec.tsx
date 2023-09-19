@@ -69,11 +69,11 @@ describe('BatchMarketInstructions component', () => {
 
     expect(submission).toHaveTextContent('Submission')
     expect(cancellation).toHaveTextContent('Cancellation')
-    expect(stopOrderSubmission).toHaveTextContent('Stop Order Submission')
+    expect(stopOrderSubmission).toHaveTextContent('Stop Order Cancellations')
 
     expect(screen.getByTestId('cancellation-view')).toBeInTheDocument()
     expect(screen.getByTestId('submission-view')).toBeInTheDocument()
-    expect(screen.getByTestId('stop-orders-submission-view')).toBeInTheDocument()
+    expect(screen.getByTestId('stop-order-cancellation-view')).toBeInTheDocument()
   })
 
   test('does not render command section if no items', () => {

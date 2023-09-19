@@ -99,7 +99,7 @@ describe('BatchMarketInstructions component', () => {
     }
     render(<BatchMarketInstructions transaction={transactionWithNoTransactions} />)
     expect(screen.getByTestId(locators.noTransactionsNotification)).toHaveTextContent(
-      'Batch market instructions contained no transactions. Please check the JSON and validate that this is the transaction you wish to send.'
+      'Batch market instructions did not contain any transactions. Please view the raw transaction and check this is the transaction you wish to send.'
     )
   })
 })

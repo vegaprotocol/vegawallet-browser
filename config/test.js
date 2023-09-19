@@ -12,7 +12,9 @@ const test = {
     ethereumExplorerLink: 'https://sepolia.etherscan.io',
     explorer: 'https://explorer.fairground.wtf',
     governance: 'https://governance.fairground.wtf',
-    vegaDapps: 'https://vega.xyz/apps',
+    deposit: 'https://console.fairground.wtf/deposit',
+    transfer: 'https://console.fairground.wtf/transfer',
+    withdraw: 'https://console.fairground.wtf/withdraw',
     docs: 'https://docs.vega.xyz/testnet'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',

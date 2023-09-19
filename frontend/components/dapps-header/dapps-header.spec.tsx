@@ -24,11 +24,11 @@ describe('WalletsHeader', () => {
     expect(governButton).toHaveTextContent('Vote')
     expect(governButton).toHaveAttribute('href', config.network.governance)
     expect(transferButton).toHaveTextContent('Transfer')
-    expect(transferButton).toHaveAttribute('href', config.network.console)
+    expect(transferButton).toHaveAttribute('href', config.network.transfer)
     expect(depositButton).toHaveTextContent('Deposit')
-    expect(depositButton).toHaveAttribute('href', config.network.console)
+    expect(depositButton).toHaveAttribute('href', config.network.deposit)
     expect(withdrawButton).toHaveTextContent('Withdraw')
-    expect(withdrawButton).toHaveAttribute('href', config.network.console)
+    expect(withdrawButton).toHaveAttribute('href', config.network.withdraw)
   })
 
   it('renders the correct tooltip content', async () => {

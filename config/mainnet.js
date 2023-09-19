@@ -19,7 +19,9 @@ const mainnet = {
     ethereumExplorerLink: 'https://etherscan.io',
     explorer: 'https://explorer.vega.xyz',
     governance: 'https://governance.vega.xyz',
-    vegaDapps: 'https://vega.xyz/apps',
+    deposit: 'https://console.vega.xyz/deposit',
+    transfer: 'https://console.vega.xyz/transfer',
+    withdraw: 'https://console.vega.xyz/withdraw',
     docs: 'https://docs.vega.xyz/mainnet'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',

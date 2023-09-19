@@ -30,4 +30,16 @@ describe('Store', () => {
     expect(useGlobalsStore.getState().loading).toBe(false)
     expect(useGlobalsStore.getState().globals).toStrictEqual(globalsMock)
   })
+  it('saves settings', async () => {
+    const requestMock = jest.fn()
+    const promise = useGlobalsStore.getState().saveSettings(requestMock as unknown as any, {
+      setting: 'value'
+    })
+    expect(useGlobalsStore.getState().settingsLoading).toBe(true)
+    await promise
+    expect(useGlobalsStore.getState().settingsLoading).toBe(false)
+    expect(requestMock).toBeCalledWith(RpcMethods.UpdateSettings, {
+      setting: 'value'
+    })
+  })
 })

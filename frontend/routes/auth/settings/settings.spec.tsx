@@ -7,11 +7,8 @@ import { locators } from '../../../../frontend/routes/auth/settings'
 jest.mock('./version-section', () => ({
   VersionSection: () => <div data-testid="version-section" />
 }))
-jest.mock('./telemetry-section', () => ({
-  TelemetrySection: () => <div data-testid="telemetry-section" />
-}))
-jest.mock('./auto-open-section', () => ({
-  AutoOpen: () => <div data-testid="auto-open-section" />
+jest.mock('./settings-form-elements/radio', () => ({
+  SettingsRadio: () => <div data-testid="radio" />
 }))
 jest.mock('./lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
@@ -35,10 +32,9 @@ describe('Settings', () => {
     // 1107-SETT-008 I can see the feedback link
     mockClient()
     renderComponent()
-    expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
     expect(screen.getByTestId('version-section')).toBeVisible()
-    expect(screen.getByTestId('telemetry-section')).toBeVisible()
+    expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
+    expect(screen.getAllByTestId('radio')).toHaveLength(2)
     expect(screen.getByTestId('lock-section')).toBeVisible()
-    expect(screen.getByTestId('auto-open-section')).toBeVisible()
   })
 })

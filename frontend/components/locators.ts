@@ -16,6 +16,7 @@ const locators = {
   collapsiblePanel: 'collapsible-panel',
   collapsiblePanelButton: 'collapsible-panel-button',
   collapsiblePanelContent: 'collapsible-panel-content',
+  collapsiblePanelTitle: 'collapsible-panel-title',
   copyWithCheck: 'copy-with-check',
   dAppHostname: 'dapp-hostname',
   frame: 'frame',

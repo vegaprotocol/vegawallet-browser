@@ -71,7 +71,8 @@ describe('Settings test', () => {
   })
 
   it('can navigate to settings and update auto open settings, behaviour will be correctly modified after update', async () => {
-    // 1111-TELE-008 There is a way to change whether I want to opt in / out of error reporting later (e.g. in settings)
+    // 1113-POPT-010 The browser wallet does not open in a pop-up window if the autoOpen setting is set to false
+    // 1113-POPT-011 There is a way to change the auto open setting
     const navPanel = new NavPanel(driver)
     const settingsPage = await navPanel.goToSettings()
     expect(await settingsPage.isAutoOpenSelected(), expectedTelemetryDisabledMessage).toBe(true)

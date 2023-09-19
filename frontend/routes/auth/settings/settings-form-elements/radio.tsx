@@ -7,8 +7,8 @@ import { ReactNode } from 'react'
 
 export const locators = {
   settingsRadioDescription: 'settings-radio-description',
-  settingsRadioYes: 'auto-open-telemetry-yes',
-  settingsRadioNo: 'auto-open-telemetry-no'
+  settingsRadioYes: 'settings-radio-yes',
+  settingsRadioNo: 'settings-radio-no'
 }
 
 export const SettingsRadio = ({

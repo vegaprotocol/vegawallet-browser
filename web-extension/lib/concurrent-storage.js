@@ -1,22 +1,4 @@
-import mutexify from 'mutexify'
-
-function mutexifyPromise() {
-  const lock = mutexify()
-
-  const acquire = function (failFast = false) {
-    if (failFast === true && acquire.locked === true) throw new Error('Deadlock detected')
-    return new Promise(lock)
-  }
-
-  Object.defineProperty(acquire, 'locked', {
-    get: function () {
-      return lock.locked
-    },
-    enumerable: true
-  })
-
-  return acquire
-}
+import mutexifyPromise from 'mutexify/promise'
 
 /**
  * Storage proxy that wraps all methods in a mutex to prevent concurrent access
@@ -30,7 +12,6 @@ export default class ConcurrentStorage {
   constructor(storage) {
     this._storage = storage
     this._lock = mutexifyPromise()
-    this._transaction = false
 
     /**
      * @param {string} key
@@ -80,7 +61,7 @@ export default class ConcurrentStorage {
     const self = this
     function wrapMutexify(fn) {
       return async (...args) => {
-        const release = await self._lock(self._transaction)
+        const release = await self._lock()
         try {
           return await fn(...args)
         } finally {
@@ -97,13 +78,11 @@ export default class ConcurrentStorage {
    * @throws {Error} if lock is already acquired
    */
   async transaction(fn) {
-    const release = await this._lock(true)
-    this._transaction = true
+    const release = await this._lock()
     try {
       return await fn(this._storage)
     } finally {
       release()
-      this._transaction = false
     }
   }
 }

@@ -159,7 +159,7 @@ describe('Settings test', () => {
   }
 
   async function connectWalletAndCheckNumberOfHandles(numExpectedHandles: number) {
-    await vegaAPI.connectWallet(true)
+    await vegaAPI.connectWallet()
     await connectWalletModal.checkOnConnectWallet()
     const handles = await driver.getAllWindowHandles()
     expect(handles.length).toBe(numExpectedHandles)

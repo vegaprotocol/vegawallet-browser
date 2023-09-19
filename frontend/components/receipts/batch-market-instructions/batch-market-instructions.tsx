@@ -35,6 +35,7 @@ const CommandSection = ({
     <div className="last-of-type:mb-0 mb-4">
       <CollapsiblePanel
         title={command}
+        initiallyOpen={true}
         panelContent={
           <>
             {/* TODO hash item to get key */}

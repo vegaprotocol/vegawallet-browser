@@ -52,6 +52,30 @@ describe('BatchMarketInstructions component', () => {
     expect(screen.getByTestId('stop-order-cancellation-view')).toBeInTheDocument()
   })
 
+  test('renders sections with populated transactions', () => {
+    const transaction = {
+      batchMarketInstructions: {
+        cancellations: [{}],
+        amendments: [],
+        submissions: [{}],
+        stopOrdersSubmission: [],
+        stopOrdersCancellation: [{}]
+      }
+    }
+    render(<BatchMarketInstructions transaction={transaction} />)
+    const [cancellation, submission, stopOrderSubmission] = screen.getAllByTestId(
+      componentLocators.collapsiblePanelTitle
+    )
+
+    expect(submission).toHaveTextContent('Submission')
+    expect(cancellation).toHaveTextContent('Cancellation')
+    expect(stopOrderSubmission).toHaveTextContent('Stop Order Submission')
+
+    expect(screen.getByTestId('cancellation-view')).toBeInTheDocument()
+    expect(screen.getByTestId('submission-view')).toBeInTheDocument()
+    expect(screen.getByTestId('stop-orders-submission-view')).toBeInTheDocument()
+  })
+
   test('does not render command section if no items', () => {
     const transaction = {
       batchMarketInstructions: {

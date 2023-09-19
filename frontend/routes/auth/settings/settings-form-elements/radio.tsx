@@ -42,13 +42,13 @@ export const SettingsRadio = ({
   return (
     <VegaSection>
       <SettingsHeader text={sectionHeader} />
-      <p data-testid={locators.settingsRadioDescription} className="my-4">
+      <p data-testid={`${setting}-${locators.settingsRadioDescription}`} className="my-4">
         {description}
       </p>
       <form>
         <RadioGroup onChange={handleChange} value={globals.settings[setting]?.toString()}>
-          <Radio disabled={loading} id={locators.settingsRadioYes} label="Yes" value="true" />
-          <Radio disabled={loading} id={locators.settingsRadioNo} label="No" value="false" />
+          <Radio disabled={loading} id={`${setting}-${locators.settingsRadioYes}`} label="Yes" value="true" />
+          <Radio disabled={loading} id={`${setting}-${locators.settingsRadioNo}`} label="No" value="false" />
         </RadioGroup>
       </form>
       {children}

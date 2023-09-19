@@ -9,6 +9,9 @@ import { Settings } from './page-objects/settings'
 import { ExtensionHeader } from './page-objects/extension-header'
 import { WalletOpenInOtherWindow } from './page-objects/wallet-open-in-other-window'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import { Wallet } from '../../frontend/components/icons/wallet'
+import { APIHelper } from './helpers/wallet/wallet-api'
+import { dummyTransaction } from './helpers/wallet/common-wallet-values'
 
 describe('Settings test', () => {
   let driver: WebDriver
@@ -17,6 +20,8 @@ describe('Settings test', () => {
   let settingsPage: Settings
   let transaction: Transaction
   let header: ExtensionHeader
+  let vegaAPI: VegaAPI
+  let walletAPI: APIHelper
   const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled initially but it was not'
   const expectedTelemetryEnabledMessage = 'expected telemetry to be enabled initially but it was not'
 
@@ -38,11 +43,13 @@ describe('Settings test', () => {
     transaction = new Transaction(driver)
     header = new ExtensionHeader(driver)
     settingsPage = await navPanel.goToSettings()
+    vegaAPI = new VegaAPI(driver)
+    walletAPI = new APIHelper(driver)
   })
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('can navigate to settings and lock the wallet, wallent version is visible', async () => {
@@ -61,6 +68,27 @@ describe('Settings test', () => {
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
     await navigateToExtensionLandingPage(driver)
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+  })
+
+  it('can navigate to settings and update auto open settings, behaviour will be correctly modified after update', async () => {
+    // 1111-TELE-008 There is a way to change whether I want to opt in / out of error reporting later (e.g. in settings)
+    const navPanel = new NavPanel(driver)
+    const settingsPage = await navPanel.goToSettings()
+    expect(await settingsPage.isAutoOpenSelected(), expectedTelemetryDisabledMessage).toBe(true)
+    await settingsPage.selectAutoOpenNo()
+    expect(await settingsPage.isAutoOpenSelected(), expectedTelemetryEnabledMessage).toBe(false)
+
+    await navigateToExtensionLandingPage(driver)
+    await connectWalletAndCheckNumberOfHandles(2)
+    await sendTransactionAndCheckNumberOfHandles(2)
+
+    await navPanel.goToSettings()
+    expect(await settingsPage.isAutoOpenSelected(), expectedTelemetryDisabledMessage).toBe(false)
+    await settingsPage.selectAutoOpenYes()
+    expect(await settingsPage.isAutoOpenSelected(), expectedTelemetryEnabledMessage).toBe(true)
+
+    await connectWalletAndCheckNumberOfHandles(3)
+    await sendTransactionAndCheckNumberOfHandles(3)
   })
 
   // TODO this test shouldn't be hidden in settings tests as is available across all of the app
@@ -115,4 +143,29 @@ describe('Settings test', () => {
       "expected the popout window handle to be closed after clicking the 'continue here button' but it was still found in the window handles"
     ).not.toContain(popoutWindowHandle)
   })
+
+  async function sendTransactionAndCheckNumberOfHandles(numExpectedHandles: number) {
+    const keys = await vegaAPI.listKeys()
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    const handles = await driver.getAllWindowHandles()
+    expect(handles.length).toBe(numExpectedHandles)
+
+    if (numExpectedHandles > 2) {
+      await switchWindowHandles(driver, false, handles[2])
+    }
+    await transaction.rejectTransaction()
+    await switchWindowHandles(driver, false, handles[0])
+  }
+
+  async function connectWalletAndCheckNumberOfHandles(numExpectedHandles: number) {
+    await vegaAPI.connectWallet(true)
+    await connectWalletModal.checkOnConnectWallet()
+    const handles = await driver.getAllWindowHandles()
+    expect(handles.length).toBe(numExpectedHandles)
+    if (numExpectedHandles > 2) {
+      await switchWindowHandles(driver, false, handles[2])
+    }
+    await connectWalletModal.approveConnectionAndCheckSuccess()
+    await switchWindowHandles(driver, false, handles[0])
+  }
 })

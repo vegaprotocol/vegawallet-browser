@@ -38,7 +38,6 @@ const CommandSection = ({
         initiallyOpen={true}
         panelContent={
           <>
-            {/* TODO hash item to get key */}
             {items.map((s: any, i: number) => (
               <Fragment key={objectHash(s)}>
                 <h2 data-testid={locators.header} className={'text-white mt-4'}>

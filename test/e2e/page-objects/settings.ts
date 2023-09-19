@@ -8,12 +8,12 @@ import {
 } from '../helpers/selenium-util'
 import { Login } from './login'
 import * as settingsLock from '../../../frontend/routes/auth/settings/lock-section'
-import * as telemetry from '../../../frontend/routes/auth/settings/telemetry-section'
+import * as radioLocators from '../../../frontend/routes/auth/settings/settings-form-elements/radio'
 
 export class Settings {
   private readonly lockWalletButton: By = getByDataTestID(settingsLock.locators.settingsLockButton)
-  private readonly telemetryYes: By = getByDataTestID(telemetry.locators.settingsTelemetryYes)
-  private readonly telemetryNo: By = getByDataTestID(telemetry.locators.settingsTelemetryNo)
+  private readonly telemetryYes: By = getByDataTestID(radioLocators.locators.settingsRadioYes)
+  private readonly telemetryNo: By = getByDataTestID(radioLocators.locators.settingsRadioNo)
 
   constructor(private readonly driver: WebDriver) {}
 

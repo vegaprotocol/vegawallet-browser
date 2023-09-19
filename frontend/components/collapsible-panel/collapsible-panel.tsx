@@ -21,7 +21,7 @@ export const CollapsiblePanel = ({
         onClick={() => setIsOpen(!isOpen)}
         data-testid={locators.collapsiblePanelButton}
       >
-        <span className="text-vega-dark-300 text-sm uppercase" data-testid={locators.collapsiblePanelTitle}>
+        <span className="text-sm uppercase" data-testid={locators.collapsiblePanelTitle}>
           {title}
         </span>
         <DropdownArrow

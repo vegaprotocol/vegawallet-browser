@@ -27,7 +27,6 @@ export const useAccountsStore = create<PartyStore>()((set, get) => ({
     const accountsResponse = await request(RpcMethods.Fetch, { path: `api/v2/accounts?filter.partyIds=${id}` })
     const accounts = accountsResponse.accounts.edges.map(({ node }: { node: VegaAccount }) => node) as VegaAccount[]
     const accountsByAsset = groupBy(accounts, 'asset')
-    console.log(accounts)
     set({
       accounts,
       accountsByAsset

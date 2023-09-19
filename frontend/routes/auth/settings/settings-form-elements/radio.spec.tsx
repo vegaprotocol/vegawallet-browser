@@ -12,9 +12,10 @@ jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
 }))
 
 const saveSettings = jest.fn()
+const testSettingName = 'setting'
 
 const renderComponent = () =>
-  render(<SettingsRadio sectionHeader="Header" setting="setting" description="description" />)
+  render(<SettingsRadio sectionHeader="Header" setting={testSettingName} description="description" />)
 
 describe('SettingsRadio', () => {
   beforeEach(() => {
@@ -60,7 +61,7 @@ describe('SettingsRadio', () => {
     })
 
     renderComponent()
-    const descriptionElement = screen.getByTestId(locators.settingsRadioDescription)
+    const descriptionElement = screen.getByTestId(`${testSettingName}-${locators.settingsRadioDescription}`)
     expect(descriptionElement).toBeInTheDocument()
     expect(descriptionElement).toHaveTextContent('description')
   })

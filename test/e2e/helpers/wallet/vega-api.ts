@@ -36,8 +36,8 @@ export class VegaAPI {
     return this.vegaDappWindowHandle
   }
 
-  async openNewWindow() {
-    this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver)
+  async openNewWindow(closeOld = false) {
+    this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver, closeOld)
     await this.driver.get(this.dappUrl)
     await this.waitForVegaDefined()
     return await this.driver.getWindowHandle()
@@ -80,7 +80,7 @@ export class VegaAPI {
       'there was no window handle defined for the browser extension, this should be explicitly declared in the constructor or automatically assigned when calling connectWallet()'
     ).toBeTruthy()
     if (withNewTab) {
-      this.vegaDappWindowHandle = await this.openNewWindow()
+      this.vegaDappWindowHandle = await this.openNewWindow(closeTab)
     } else {
       expect(
         this.vegaDappWindowHandle,
@@ -141,8 +141,6 @@ export class VegaAPI {
       console.log(keysString)
       return keysArray
     }
-
-    console.log('keys string is ', keysString)
     keysArray = JSON.parse(keysString).keys as Key[]
     return keysArray
   }

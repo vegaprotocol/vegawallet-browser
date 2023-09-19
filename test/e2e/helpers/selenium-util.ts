@@ -1,4 +1,6 @@
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
+import { consoleSmokeRecoveryPhrase } from './wallet/common-wallet-values'
+import { initial } from 'lodash'
 
 const defaultTimeoutMillis = 10000
 
@@ -237,17 +239,15 @@ async function waitForTextFieldToBeEmpty(driver: WebDriver, locator: By, timeout
 }
 
 export async function openNewWindowAndSwitchToIt(driver: WebDriver, closeOld = false) {
-  const initialHandle = await driver.getWindowHandle()
-  const currentHandles = await driver.getAllWindowHandles()
+  const initialHandles = await driver.getAllWindowHandles()
+  const initialActiveHandle = await driver.getWindowHandle()
   await driver.executeScript('window.open();')
+  await driver.switchTo().window(initialActiveHandle)
   const handlesAfterOpen = await driver.getAllWindowHandles()
-  const newTab = getDifference(handlesAfterOpen, currentHandles)
+  const newTab = getDifference(handlesAfterOpen, initialHandles)
+
   expect(newTab.length).toBe(1)
-  if (closeOld) {
-    driver.switchTo().window(initialHandle)
-    await driver.close()
-  }
-  await switchWindowHandles(driver, false, newTab[0])
+  await switchWindowHandles(driver, closeOld, newTab[0], initialActiveHandle)
   return newTab[0]
 }
 
@@ -262,8 +262,11 @@ export async function openLatestWindowHandle(driver: WebDriver) {
   return await driver.getWindowHandle()
 }
 
-export async function switchWindowHandles(driver: WebDriver, closeCurrent = true, windowHandle = '') {
-  if (closeCurrent) {
+export async function switchWindowHandles(driver: WebDriver, closeOld = true, windowHandle = '', oldHandleName = '') {
+  if (closeOld) {
+    if (oldHandleName) {
+      await driver.switchTo().window(oldHandleName)
+    }
     await driver.close()
   }
 

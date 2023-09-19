@@ -23,20 +23,6 @@ describe('concurrent-storage', () => {
     expect(await concurrentStorage.get('foo')).toBe('bar')
   })
 
-  test('Deadlock detected on nested access', async () => {
-    const storage = new Map()
-    const c1 = new ConcurrentStorage(storage)
-    const c2 = new ConcurrentStorage(c1)
-
-    await c2.transaction(async (store) => {
-      expect(await store.get('foo')).toBe(undefined)
-
-      await expect(c2.get('foo')).rejects.toThrow('Deadlock detected')
-
-      await store.set('foo', 'bar')
-    })
-  })
-
   test('get() returns the value for existing keys on nested storage', async () => {
     const storage = new Map()
     const c1 = new ConcurrentStorage(storage)

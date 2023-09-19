@@ -237,14 +237,14 @@ async function waitForTextFieldToBeEmpty(driver: WebDriver, locator: By, timeout
 }
 
 export async function openNewWindowAndSwitchToIt(driver: WebDriver, closeOld = false) {
-  let currentWindowHandle: string
+  const initialHandle = await driver.getWindowHandle()
   const currentHandles = await driver.getAllWindowHandles()
   await driver.executeScript('window.open();')
   const handlesAfterOpen = await driver.getAllWindowHandles()
   const newTab = getDifference(handlesAfterOpen, currentHandles)
   expect(newTab.length).toBe(1)
   if (closeOld) {
-    currentWindowHandle = await driver.getWindowHandle()
+    driver.switchTo().window(initialHandle)
     await driver.close()
   }
   await switchWindowHandles(driver, false, newTab[0])
@@ -264,11 +264,7 @@ export async function openLatestWindowHandle(driver: WebDriver) {
 
 export async function switchWindowHandles(driver: WebDriver, closeCurrent = true, windowHandle = '') {
   if (closeCurrent) {
-    if (windowHandle != (await driver.getWindowHandle())) {
-      await driver.close()
-    } else {
-      return
-    }
+    await driver.close()
   }
 
   if (windowHandle) {

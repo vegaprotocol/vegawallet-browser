@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto'
 import { WebDriver } from 'selenium-webdriver'
 import { testDAppUrl } from './common-wallet-values'
-import { openNewWindowAndSwitchToIt, switchWindowHandles } from '../selenium-util'
+import { openNewWindowAndSwitchToIt, staticWait, switchWindowHandles } from '../selenium-util'
 
 interface Key {
   index: number
@@ -40,6 +40,7 @@ export class VegaAPI {
     this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver)
     await this.driver.get(this.dappUrl)
     await this.waitForVegaDefined()
+    return await this.driver.getWindowHandle()
   }
 
   async connectWallet(withNewTab = true, closeTab = false) {
@@ -79,7 +80,7 @@ export class VegaAPI {
       'there was no window handle defined for the browser extension, this should be explicitly declared in the constructor or automatically assigned when calling connectWallet()'
     ).toBeTruthy()
     if (withNewTab) {
-      await this.openNewWindow()
+      this.vegaDappWindowHandle = await this.openNewWindow()
     } else {
       expect(
         this.vegaDappWindowHandle,

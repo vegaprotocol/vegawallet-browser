@@ -14,6 +14,14 @@ export const CollapsiblePanel = ({
   panelContent: ReactNode
 }) => {
   const [isOpen, setIsOpen] = useState(initiallyOpen)
+  const titleElement =
+    typeof title === 'string' ? (
+      <span className="text-vega-dark-300 text-sm uppercase" data-testid={locators.collapsiblePanelTitle}>
+        {title}
+      </span>
+    ) : (
+      title
+    )
   return (
     <div data-testid={locators.collapsiblePanel}>
       <button

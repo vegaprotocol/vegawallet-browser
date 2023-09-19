@@ -36,7 +36,7 @@ describe('BatchMarketInstructions component', () => {
     // 1114-BMKI-003 If there is at least one present I can see all cancellation details
     // 1114-BMKI-004 If there is at least one present I can see all stop order submission details
     // 1114-BMKI-005 If there is at least one present I can see all stop order cancellation details
-    const [submission, cancellation, amendment, stopOrderSubmission, stopOrderCancellation] = screen.getAllByTestId(
+    const [cancellation, amendment, submission, stopOrderCancellation, stopOrderSubmission] = screen.getAllByTestId(
       componentLocators.collapsiblePanelTitle
     )
     expect(submission).toHaveTextContent('Submission')

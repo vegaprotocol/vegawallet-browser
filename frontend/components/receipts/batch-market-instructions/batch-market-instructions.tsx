@@ -82,25 +82,25 @@ export const BatchMarketInstructions = ({ transaction }: ReceiptComponentProps) 
   return (
     <ReceiptWrapper>
       <CommandSection
-        items={submissions}
-        command="Submission"
-        renderItem={(s) => <SubmissionView orderSubmission={s} />}
-      />
-      <CommandSection
         items={cancellations}
         command="Cancellation"
         renderItem={(c) => <CancellationView cancellation={c} />}
       />
       <CommandSection items={amendments} command="Amendment" renderItem={(a) => <AmendmentView amendment={a} />} />
       <CommandSection
-        items={stopOrdersSubmissions}
-        command="Stop Order Submission"
-        renderItem={(s) => <StopOrdersSubmissionView stopOrdersSubmission={s} />}
+        items={submissions}
+        command="Submission"
+        renderItem={(s) => <SubmissionView orderSubmission={s} />}
       />
       <CommandSection
         items={stopOrdersCancellations}
         command="Stop Order Cancellation"
         renderItem={(c) => <StopOrderCancellationView stopOrdersCancellation={c} />}
+      />
+      <CommandSection
+        items={stopOrdersSubmissions}
+        command="Stop Order Submission"
+        renderItem={(s) => <StopOrdersSubmissionView stopOrdersSubmission={s} />}
       />
     </ReceiptWrapper>
   )

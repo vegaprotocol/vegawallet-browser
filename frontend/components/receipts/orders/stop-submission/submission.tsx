@@ -32,11 +32,11 @@ const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrd
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
   return (
     <div className="mb-2">
-      <h1 data-testid={locators.sectionHeader} className="text-white text-lg">
+      <h1 data-testid={locators.sectionHeader} className="text-vega-dark-400">
         {title}
       </h1>
       <DataTable items={data} />
-      <h2 data-testid={locators.orderDetails} className="text-white">
+      <h2 data-testid={locators.orderDetails} className="text-vega-dark-300">
         Order details
       </h2>
       <OrderTable {...orderSubmission} />
@@ -49,10 +49,10 @@ export const StopOrdersSubmissionView = ({ stopOrdersSubmission }: { stopOrdersS
   return (
     <>
       {stopOrdersSubmission.risesAbove ? (
-        <SubmissionDetails title="Rises above ↗" stopOrderDetails={stopOrdersSubmission.risesAbove} />
+        <SubmissionDetails title="Rises Above ↗" stopOrderDetails={stopOrdersSubmission.risesAbove} />
       ) : null}
       {stopOrdersSubmission.fallsBelow ? (
-        <SubmissionDetails title="Falls below ↘" stopOrderDetails={stopOrdersSubmission.fallsBelow} />
+        <SubmissionDetails title="Falls Below ↘" stopOrderDetails={stopOrdersSubmission.fallsBelow} />
       ) : null}
     </>
   )

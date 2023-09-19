@@ -47,7 +47,7 @@ describe('StopOrderSubmission', () => {
     }
 
     render(<StopOrderSubmission transaction={transaction} />)
-    validateStopOrderDetails('Rises above ↗')
+    validateStopOrderDetails('Rises Above ↗')
   })
 
   test('renders the component with "Falls below" details', () => {
@@ -71,7 +71,7 @@ describe('StopOrderSubmission', () => {
 
     render(<StopOrderSubmission transaction={transaction} />)
 
-    validateStopOrderDetails('Falls below ↘')
+    validateStopOrderDetails('Falls Below ↘')
   })
 
   test('does not render falls below or rises above if not present', () => {

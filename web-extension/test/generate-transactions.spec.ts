@@ -1,43 +1,49 @@
 import fs from 'node:fs'
 import path from 'node:path'
-
-import { TransferRequest } from '@vegaprotocol/protos/vega/TransferRequest'
-import { Account } from '@vegaprotocol/protos/vega/Account'
-import { OrderAmendment } from '@vegaprotocol/protos/vega/commands/v1/OrderAmendment.js'
-import { RecurringTransfer } from '@vegaprotocol/protos/vega/commands/v1/RecurringTransfer.js'
-import { VoteSubmission } from '@vegaprotocol/protos/vega/commands/v1/VoteSubmission.js'
-import { WithdrawSubmission } from '@vegaprotocol/protos/vega/commands/v1/WithdrawSubmission.js'
-import { TimeInForce } from '@vegaprotocol/protos/vega/Order/TimeInForce.js'
-import { DispatchMetric } from '@vegaprotocol/protos/vega/DispatchMetric.js'
-import { Value } from '@vegaprotocol/protos/vega/Vote/Value.js'
-import { Erc20WithdrawExt } from '@vegaprotocol/protos/vega/Erc20WithdrawExt.js'
-import { UndelegateSubmission } from '@vegaprotocol/protos/vega/commands/v1/UndelegateSubmission.js'
-import { Method } from '@vegaprotocol/protos/vega/commands/v1/UndelegateSubmission/Method.js'
-import { BatchMarketInstructions } from '@vegaprotocol/protos/vega/commands/v1/BatchMarketInstructions.js'
-import { OrderCancellation } from '@vegaprotocol/protos/vega/commands/v1/OrderCancellation.js'
-import { OrderSubmission } from '@vegaprotocol/protos/vega/commands/v1/OrderSubmission.js'
-import { PeggedOrder } from '@vegaprotocol/protos/vega/PeggedOrder.js'
-import { IcebergOpts } from '@vegaprotocol/protos/vega/commands/v1/IcebergOpts.js'
-import { StopOrdersCancellation } from '@vegaprotocol/protos/vega/commands/v1/StopOrdersCancellation.js'
-import { StopOrderSetup } from '@vegaprotocol/protos/vega/commands/v1/StopOrderSetup.js'
-import { ExpiryStrategy } from '@vegaprotocol/protos/vega/StopOrder/ExpiryStrategy.js'
-import { StopOrdersSubmission } from '@vegaprotocol/protos/vega/commands/v1/StopOrdersSubmission.js'
-import { CancelTransfer } from '@vegaprotocol/protos/vega/CancelTransfer.js'
-import { DelegateSubmission } from '@vegaprotocol/protos/vega/commands/v1/DelegateSubmission.js'
-import { IssueSignatures } from '@vegaprotocol/protos/vega/commands/v1/IssueSignatures.js'
-import { NodeSignatureKind } from '@vegaprotocol/protos/vega/commands/v1/NodeSignatureKind.js'
-import { LiquidityProvisionAmendment } from '@vegaprotocol/protos/vega/commands/v1/LiquidityProvisionAmendment.js'
-import { LiquidityProvisionCancellation } from '@vegaprotocol/protos/vega/commands/v1/LiquidityProvisionCancellation.js'
-import { LiquidityProvisionSubmission } from '@vegaprotocol/protos/vega/commands/v1/LiquidityProvisionSubmission.js'
-import { OneOffTransfer } from '@vegaprotocol/protos/vega/commands/v1/OneOffTransfer.js'
-import { PeggedReference } from '@vegaprotocol/protos/vega/PeggedReference.js'
-import { ProposalSubmission } from '@vegaprotocol/protos/vega/commands/v1/ProposalSubmission.js'
-import { ProposalTerms } from '@vegaprotocol/protos/vega/ProposalTerms.js'
-import { ProposalRationale } from '@vegaprotocol/protos/vega/ProposalRationale.js'
-import { Transfer } from '@vegaprotocol/protos/vega/commands/v1/Transfer.js'
-import { AccountType } from '@vegaprotocol/protos/vega/AccountType.js'
-
 import * as txHelpers from '../backend/tx-helpers.js'
+
+import type { Account } from '@vegaprotocol/protos/vega/Account'
+import type { ApplyReferralCode } from '@vegaprotocol/protos/vega/commands/v1/ApplyReferralCode'
+import type { BatchMarketInstructions } from '@vegaprotocol/protos/vega/commands/v1/BatchMarketInstructions'
+import type { CancelTransfer } from '@vegaprotocol/protos/vega/CancelTransfer'
+import type { CreateReferralSet } from '@vegaprotocol/protos/vega/commands/v1/CreateReferralSet'
+import type { DelegateSubmission } from '@vegaprotocol/protos/vega/commands/v1/DelegateSubmission'
+import type { Erc20WithdrawExt } from '@vegaprotocol/protos/vega/Erc20WithdrawExt'
+import type { IcebergOpts } from '@vegaprotocol/protos/vega/commands/v1/IcebergOpts'
+import type { IssueSignatures } from '@vegaprotocol/protos/vega/commands/v1/IssueSignatures'
+import type { LiquidityProvisionAmendment } from '@vegaprotocol/protos/vega/commands/v1/LiquidityProvisionAmendment'
+import type { LiquidityProvisionCancellation } from '@vegaprotocol/protos/vega/commands/v1/LiquidityProvisionCancellation'
+import type { LiquidityProvisionSubmission } from '@vegaprotocol/protos/vega/commands/v1/LiquidityProvisionSubmission'
+import type { OneOffTransfer } from '@vegaprotocol/protos/vega/commands/v1/OneOffTransfer'
+import type { OrderAmendment } from '@vegaprotocol/protos/vega/commands/v1/OrderAmendment'
+import type { OrderCancellation } from '@vegaprotocol/protos/vega/commands/v1/OrderCancellation'
+import type { OrderSubmission } from '@vegaprotocol/protos/vega/commands/v1/OrderSubmission'
+import type { PeggedOrder } from '@vegaprotocol/protos/vega/PeggedOrder'
+import type { ProposalRationale } from '@vegaprotocol/protos/vega/ProposalRationale'
+import type { ProposalSubmission } from '@vegaprotocol/protos/vega/commands/v1/ProposalSubmission'
+import type { ProposalTerms } from '@vegaprotocol/protos/vega/ProposalTerms'
+import type { RecurringTransfer } from '@vegaprotocol/protos/vega/commands/v1/RecurringTransfer'
+import type { StopOrdersCancellation } from '@vegaprotocol/protos/vega/commands/v1/StopOrdersCancellation'
+import type { StopOrdersSubmission } from '@vegaprotocol/protos/vega/commands/v1/StopOrdersSubmission'
+import type { Transfer } from '@vegaprotocol/protos/vega/commands/v1/Transfer'
+import type { TransferRequest } from '@vegaprotocol/protos/vega/TransferRequest'
+import type { UndelegateSubmission } from '@vegaprotocol/protos/vega/commands/v1/UndelegateSubmission'
+import type { UpdateReferralSet } from '@vegaprotocol/protos/vega/commands/v1/UpdateReferralSet'
+import type { VoteSubmission } from '@vegaprotocol/protos/vega/commands/v1/VoteSubmission'
+import type { WithdrawSubmission } from '@vegaprotocol/protos/vega/commands/v1/WithdrawSubmission'
+
+import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
+import { DispatchMetric } from '@vegaprotocol/protos/vega/DispatchMetric'
+import { DistributionStrategy } from '@vegaprotocol/protos/vega/DistributionStrategy'
+import { EntityScope } from '@vegaprotocol/protos/vega/EntityScope'
+import { ExpiryStrategy } from '@vegaprotocol/protos/vega/StopOrder/ExpiryStrategy'
+import { IndividualScope } from '@vegaprotocol/protos/vega/IndividualScope'
+import { Method } from '@vegaprotocol/protos/vega/commands/v1/UndelegateSubmission/Method'
+import { NodeSignatureKind } from '@vegaprotocol/protos/vega/commands/v1/NodeSignatureKind'
+import { PeggedReference } from '@vegaprotocol/protos/vega/PeggedReference'
+import { StopOrderSetup } from '@vegaprotocol/protos/vega/commands/v1/StopOrderSetup'
+import { TimeInForce } from '@vegaprotocol/protos/vega/Order/TimeInForce'
+import { Value } from '@vegaprotocol/protos/vega/Vote/Value'
 
 export const solvePoWMock = jest.fn(async () => {
   return 'mocked-pow'
@@ -96,7 +102,17 @@ const recurringTransfer: RecurringTransfer = {
   dispatchStrategy: {
     assetForMetric: '',
     metric: DispatchMetric.DISPATCH_METRIC_LP_FEES_RECEIVED,
-    markets: []
+    markets: ['foo'],
+    rankTable: [{ startRank: 1, shareRatio: 1 }],
+    teamScope: [''],
+    lockPeriod: 1n,
+    entityScope: EntityScope.ENTITY_SCOPE_TEAMS,
+    windowLength: 1n,
+    nTopPerformers: 'foo',
+    individualScope: IndividualScope.INDIVIDUAL_SCOPE_ALL,
+    stakingRequirement: '',
+    distributionStrategy: DistributionStrategy.DISTRIBUTION_STRATEGY_PRO_RATA,
+    notionalTimeWeightedAveragePositionRequirement: ''
   }
 }
 
@@ -169,7 +185,7 @@ const stopOrdersCancellation: StopOrdersCancellation = {
   stopOrderId: 'stopOrderId'
 }
 
-const stopOrderSetUp: StopOrderSetup = {
+const stopOrderSetup: StopOrderSetup = {
   orderSubmission: orderSubmission,
   expiresAt: BigInt(1),
   expiryStrategy: ExpiryStrategy.EXPIRY_STRATEGY_CANCELS,
@@ -177,8 +193,8 @@ const stopOrderSetUp: StopOrderSetup = {
 }
 
 const stopOrdersSubmission: StopOrdersSubmission = {
-  risesAbove: stopOrderSetUp,
-  fallsBelow: stopOrderSetUp
+  risesAbove: stopOrderSetup,
+  fallsBelow: stopOrderSetup
 }
 
 const batchMarketInstructions: BatchMarketInstructions = {
@@ -252,6 +268,31 @@ const oneOffTransfer: OneOffTransfer = {
   deliverOn: BigInt(1)
 }
 
+const createReferralSet: CreateReferralSet = {
+  isTeam: true,
+  team: {
+    name: 'Baked Beans',
+    teamUrl: 'https://en.wikipedia.org/wiki/Baked_beans',
+    avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Baked_beans_in_tomato_sauce.jpg',
+    closed: true
+  }
+}
+
+const updateReferralSet: UpdateReferralSet = {
+  isTeam: true,
+  id: 'foo',
+  team: {
+    closed: null,
+    avatarUrl: null,
+    teamUrl: null,
+    name: null
+  }
+}
+
+const applyReferralCode: ApplyReferralCode = {
+  id: 'foo'
+}
+
 class NodeRPCMock {
   blockchainHeight() {
     return Promise.resolve({
@@ -298,7 +339,10 @@ const transactionList: { transaction: any; transactionType: string }[] = [
   { transaction: transferRequest, transactionType: 'TransferRequest' },
   { transaction: undelegateSubmission, transactionType: 'UndelegateSubmission' },
   { transaction: voteSubmission, transactionType: 'VoteSubmission' },
-  { transaction: withdrawSubmission, transactionType: 'WithdrawSubmission' }
+  { transaction: withdrawSubmission, transactionType: 'WithdrawSubmission' },
+  { transaction: createReferralSet, transactionType: 'CreateReferralSet' },
+  { transaction: updateReferralSet, transactionType: 'UpdateReferralSet' },
+  { transaction: applyReferralCode, transactionType: 'ApplyReferralCode' }
 ]
 
 describe('encoding and decoding', () => {

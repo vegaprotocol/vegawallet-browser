@@ -2,9 +2,7 @@ import baseConfig from './jest.config-base-config.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import merge from 'lodash/merge.js'
 
-/** @type {import('ts-jest').JestConfigWithTsJest} */
 const jestConfigE2E = cloneDeep(baseConfig)
-
 let overrides = {
   preset: 'ts-jest',
   testEnvironment: 'node',

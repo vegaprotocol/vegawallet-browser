@@ -18,10 +18,10 @@ const baseConfig =  {
         ],
       ],
       transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/'],
-      // moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-      // moduleNameMapper: {
-      //   '!/config': '<rootDir>/config/test.js',
-      // },
+      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+      moduleNameMapper: {
+        '!/config': '<rootDir>/config/test.js',
+      },
     };
   
   export default baseConfig;

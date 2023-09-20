@@ -2,9 +2,7 @@ import baseConfig from './jest.config-base-config.js';
 import cloneDeep from 'lodash/cloneDeep.js'
 import merge from 'lodash/merge.js'
 
-/** @type {import('ts-jest').JestConfigWithTsJest} */
 const backendConfig = cloneDeep(baseConfig)
-
 let overrides = {
   roots: ['<rootDir>/web-extension'],
   setupFiles: ['jest-webextension-mock', './web-extension/test/setup-tests.js'],

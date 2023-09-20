@@ -16,4 +16,6 @@ let overrides = {
   ]
 }
 
-export default merge(generateRequestsConfig, overrides)
+merge(generateRequestsConfig, overrides)
+export default generateRequestsConfig;
+  

@@ -1,4 +1,5 @@
-import jestConfigE2E from './jest.config-e2e.js'
+
+import jestConfigE2E from "./jest.config-e2e.js";
 import cloneDeep from 'lodash/cloneDeep.js'
 import merge from 'lodash/merge.js'
 

@@ -5,10 +5,11 @@ import { CollapsiblePanel } from '../../../../components/collapsible-panel'
 import { DataTable } from '../../../../components/data-table/data-table'
 import { AccountType } from '@vegaprotocol/types'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
-// import { useParams } from 'react-router-dom'
-import { addDecimalsFormatNumber } from '@vegaprotocol/utils'
+import { addDecimalsFormatNumber, toBigNum, formatNumber } from '@vegaprotocol/utils'
 import { Key, useWalletStore } from '../../../../stores/wallets'
 import { VegaAccount } from '../../../../types/rest-api'
+import { useAssetsStore } from '../../../../stores/assets-store'
+import BigNumber from 'bignumber.js'
 
 export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
@@ -44,14 +45,16 @@ const AccountList = ({ accounts }: { accounts: VegaAccount[] }) => {
 const AssetHeader = ({
   symbol,
   name,
-  balance,
+  accounts,
   decimals
 }: {
   symbol: string
   name: string
-  balance: string
+  accounts: VegaAccount[]
   decimals: number
 }) => {
+  const total = accounts.reduce((acc, { balance }) => acc.plus(toBigNum(balance ?? '0', decimals)), new BigNumber(0))
+
   return (
     <div>
       <div>
@@ -59,7 +62,7 @@ const AssetHeader = ({
         <div>{name}</div>
       </div>
       <div>
-        {addDecimalsFormatNumber(balance, decimals)} {symbol}
+        {formatNumber(total)} {symbol}
       </div>
     </div>
   )
@@ -75,12 +78,24 @@ const CurrentMarkets = ({ assetId }: { assetId: string }) => {
 }
 
 const AssetCard = ({ accounts, assetId }: { accounts: VegaAccount[]; assetId: string }) => {
-  return <CollapsiblePanel title={<div></div>}>foo</CollapsiblePanel>
+  const { getAssetById } = useAssetsStore()
+  const { symbol, name, decimals } = getAssetById(assetId)
+  return (
+    <CollapsiblePanel
+      title={<AssetHeader symbol={symbol} name={name} decimals={decimals} accounts={accounts} />}
+      panelContent={
+        <div>
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      }
+    />
+  )
 }
 
-export const KeyDetails = () => {
-  // let { id } = useParams()
-  const id = 'cccc705061cfbc53ad32fe495d25897f5bb8a6a857eab2366e268c0d6f56cb0a'
+const useAccounts = (id: string) => {
   const { request } = useJsonRpcClient()
   const { startPoll, stopPoll, reset, fetchAccounts: fetchParty, accountsByAsset } = useAccountsStore()
   const { getKeyById } = useWalletStore()
@@ -97,13 +112,22 @@ export const KeyDetails = () => {
       }
     }
   }, [fetchParty, getKeyById, id, request, reset, startPoll, stopPoll])
+  return {
+    accountsByAsset,
+    key
+  }
+}
+
+export const KeyDetails = () => {
+  const id = 'cccc705061cfbc53ad32fe495d25897f5bb8a6a857eab2366e268c0d6f56cb0a'
+  const { accountsByAsset, key } = useAccounts(id)
   if (!id) throw new Error('Id not found')
 
   return (
     <div>
       <h1>{key?.name || 'Unknown key'}</h1>
       {Object.entries(accountsByAsset).map(([assetId, val]) => (
-        <AssetCard accounts={val} assetId={assetId} />
+        <AssetCard key={assetId} accounts={val} assetId={assetId} />
       ))}
     </div>
   )

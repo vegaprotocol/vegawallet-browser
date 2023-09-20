@@ -2,11 +2,11 @@ import { AccountType } from '@vegaprotocol/types'
 import { useAssetsStore } from '../../../../stores/assets-store'
 import { VegaAccount } from '../../../../types/rest-api'
 import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/utils'
-import { CollapsiblePanel } from '../../../../components/collapsible-panel'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { useMarketsStore } from '../../../../stores/markets-store'
 import { DataTable } from '../../../../components/data-table/data-table'
 import BigNumber from 'bignumber.js'
+import { CollapsibleCard } from '../../../../components/collapsible-card/collapsible-card'
 
 export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
@@ -28,9 +28,8 @@ export const ACCOUNT_TYPE_MAP = {
 }
 
 const CurrentMarkets = ({ assetId }: { assetId: string }) => {
-  const { getMarketsByAssetId, markets: m } = useMarketsStore((state) => ({
-    getMarketsByAssetId: state.getMarketsByAssetId,
-    markets: state.markets
+  const { getMarketsByAssetId } = useMarketsStore((state) => ({
+    getMarketsByAssetId: state.getMarketsByAssetId
   }))
   const markets = getMarketsByAssetId(assetId)
 
@@ -67,7 +66,7 @@ const AssetHeader = ({
       <div className="flex items-center justify-between w-full">
         <div className="text-left">
           <div className="text-white">{symbol}</div>
-          <div>{name}</div>
+          <div className="text-sm">{name}</div>
         </div>
         <div className="text-right text-white">{formatNumber(total)}</div>
       </div>
@@ -90,9 +89,9 @@ export const AssetCard = ({ accounts, assetId }: { accounts: VegaAccount[]; asse
     ]) as [string, string][]
   return (
     <div className="border border-vega-dark-150 mb-4">
-      <CollapsiblePanel
+      <CollapsibleCard
         title={<AssetHeader assetId={assetId} symbol={symbol} name={name} decimals={+decimals} accounts={accounts} />}
-        panelContent={
+        cardContent={
           <div>
             <DataTable items={filteredAccounts} />
           </div>

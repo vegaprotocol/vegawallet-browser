@@ -13,9 +13,9 @@ const testnet = {
     explorer: 'https://explorer.fairground.wtf',
     governance: 'https://governance.fairground.wtf',
     docs: 'https://docs.vega.xyz/testnet',
-    deposit: 'https://console.fairground.wtf/deposit',
-    transfer: 'https://console.fairground.wtf/transfer',
-    withdraw: 'https://console.fairground.wtf/withdraw'
+    deposit: 'https://console.fairground.wtf/portfolio/assets/deposit',
+    transfer: 'https://console.fairground.wtf/portfolio/assets/transfer',
+    withdraw: 'https://console.fairground.wtf/portfolio/assets/withdraw'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   encryptionSettings: undefined,

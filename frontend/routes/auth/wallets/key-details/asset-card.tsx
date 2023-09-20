@@ -62,7 +62,7 @@ const AssetHeader = ({
   const total = accounts.reduce((acc, { balance }) => acc.plus(toBigNum(balance ?? '0', decimals)), new BigNumber(0))
 
   return (
-    <div className="mt-4 w-full">
+    <div className="w-full">
       <div className="flex items-center justify-between w-full">
         <div className="text-left">
           <div className="text-white">{symbol}</div>

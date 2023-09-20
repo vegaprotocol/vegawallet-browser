@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot } from './helpers/driver'
 import { NavPanel } from './page-objects/navpanel'
-import { switchWindowHandles } from './helpers/selenium-util'
+import { goToNewWindowHandle, staticWait, switchWindowHandles, windowHandleHasCount } from './helpers/selenium-util'
 import { VegaAPI } from './helpers/wallet/vega-api'
 import { Transaction } from './page-objects/transaction'
 import { ConnectWallet } from './page-objects/connect-wallet'
@@ -12,6 +12,9 @@ import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers
 import { Wallet } from '../../frontend/components/icons/wallet'
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { dummyTransaction } from './helpers/wallet/common-wallet-values'
+import { ListConnections } from './page-objects/list-connections'
+import { list } from 'postcss'
+import { stat } from 'fs'
 
 describe('Settings test', () => {
   let driver: WebDriver
@@ -80,16 +83,15 @@ describe('Settings test', () => {
     expect(await settingsPage.isAutoOpenSelected(), expectedTelemetryEnabledMessage).toBe(false)
 
     await navigateToExtensionLandingPage(driver)
-    await connectWalletAndCheckNumberOfHandles(2)
-    await sendTransactionAndCheckNumberOfHandles(2)
+    await connectWalletAndCheckNumberOfHandles(driver, vegaAPI, false)
+    await sendTransactionAndCheckNumberOfHandles(driver, vegaAPI, false)
 
     await navPanel.goToSettings()
     expect(await settingsPage.isAutoOpenSelected(), expectedTelemetryDisabledMessage).toBe(false)
     await settingsPage.selectAutoOpenYes()
     expect(await settingsPage.isAutoOpenSelected(), expectedTelemetryEnabledMessage).toBe(true)
-
-    await connectWalletAndCheckNumberOfHandles(3)
-    await sendTransactionAndCheckNumberOfHandles(3)
+    console.log('SECOND PASS')
+    await sendTransactionAndCheckNumberOfHandles(driver, vegaAPI, true)
   })
 
   // TODO this test shouldn't be hidden in settings tests as is available across all of the app
@@ -145,28 +147,48 @@ describe('Settings test', () => {
     ).not.toContain(popoutWindowHandle)
   })
 
-  async function sendTransactionAndCheckNumberOfHandles(numExpectedHandles: number) {
-    const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
-    const handles = await driver.getAllWindowHandles()
-    expect(handles.length).toBe(numExpectedHandles)
+  async function sendTransactionAndCheckNumberOfHandles(driver: WebDriver, vegaAPI: VegaAPI, popoutEnabled: boolean) {
+    const originalHandles = await driver.getAllWindowHandles()
+    const originalActiveWindowHandle = await driver.getWindowHandle()
 
-    if (numExpectedHandles > 2) {
-      await switchWindowHandles(driver, false, handles[2])
+    const keys = await vegaAPI.listKeys()
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq }, false, false, false)
+    const originalNumHandles = originalHandles.length
+    const numExpectedHandles = popoutEnabled ? originalNumHandles + 1 : originalNumHandles
+    expect(await windowHandleHasCount(driver, numExpectedHandles)).toBe(true)
+    const newHandles = await driver.getAllWindowHandles()
+
+    if (popoutEnabled) {
+      await goToNewWindowHandle(driver, originalHandles, newHandles)
+    } else {
+      await switchWindowHandles(driver, false, originalActiveWindowHandle)
     }
+
     await transaction.rejectTransaction()
-    await switchWindowHandles(driver, false, handles[0])
+    expect(await windowHandleHasCount(driver, numExpectedHandles)).toBe(true)
+    await switchWindowHandles(driver, false, originalActiveWindowHandle)
+    await staticWait(5000)
   }
 
-  async function connectWalletAndCheckNumberOfHandles(numExpectedHandles: number) {
-    await vegaAPI.connectWallet()
-    await connectWalletModal.checkOnConnectWallet()
-    const handles = await driver.getAllWindowHandles()
-    expect(handles.length).toBe(numExpectedHandles)
-    if (numExpectedHandles > 2) {
-      await switchWindowHandles(driver, false, handles[2])
+  async function connectWalletAndCheckNumberOfHandles(driver: WebDriver, vegaAPI: VegaAPI, popoutEnabled: boolean) {
+    const originalHandles = await driver.getAllWindowHandles()
+    const originalActiveWindowHandle = await driver.getWindowHandle()
+
+    await vegaAPI.connectWallet(true, false, false)
+    const originalNumHandles = originalHandles.length + 1
+    const numExpectedHandles = popoutEnabled ? originalNumHandles + 1 : originalNumHandles
+    expect(await windowHandleHasCount(driver, numExpectedHandles)).toBe(true)
+    const newHandles = await driver.getAllWindowHandles()
+
+    if (popoutEnabled) {
+      await goToNewWindowHandle(driver, originalHandles, newHandles)
+    } else {
+      await switchWindowHandles(driver, false, originalActiveWindowHandle)
     }
+
+    await connectWalletModal.checkOnConnectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
-    await switchWindowHandles(driver, false, handles[0])
+    await switchWindowHandles(driver, false, originalActiveWindowHandle)
+    expect(await windowHandleHasCount(driver, originalNumHandles)).toBe(true)
   }
 })

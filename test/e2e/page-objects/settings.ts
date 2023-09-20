@@ -57,8 +57,6 @@ export class Settings {
     await this.checkOnSettingsPage()
     const autoOpenYesSelected = await isElementSelected(this.driver, this.autoOpenYes)
     const autoOpenNoSelected = await isElementSelected(this.driver, this.autoOpenNo)
-    console.log('autoOpenYesSelected', autoOpenYesSelected)
-    console.log('autoOpenNoSelected', autoOpenNoSelected)
 
     if (autoOpenYesSelected) {
       return true

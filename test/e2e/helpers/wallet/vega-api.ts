@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto'
 import { WebDriver } from 'selenium-webdriver'
 import { testDAppUrl } from './common-wallet-values'
-import { openNewWindowAndSwitchToIt, switchWindowHandles } from '../selenium-util'
+import { openNewWindowAndSwitchToIt, staticWait, switchWindowHandles } from '../selenium-util'
 
 interface Key {
   index: number
@@ -43,11 +43,11 @@ export class VegaAPI {
     return await this.driver.getWindowHandle()
   }
 
-  async connectWallet(withNewTab = true, closeTab = false) {
+  async connectWallet(withNewTab = true, closeTab = false, switchBackToOriginalTab = true) {
     if (!this.vegaExtensionWindowHandle) {
       this.vegaExtensionWindowHandle = await this.driver.getWindowHandle()
     }
-    return await this.controlTabs(withNewTab, closeTab, () => this.executeConnectWallet())
+    return await this.controlTabs(withNewTab, closeTab, () => this.executeConnectWallet(), switchBackToOriginalTab)
   }
 
   async disconnectWallet(withNewTab = true, closeTab = false) {
@@ -62,8 +62,19 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeListKeys())
   }
 
-  async sendTransaction(publicKey: string, transaction: any, withNewTab = false, closeTab = false) {
-    return await this.controlTabs(withNewTab, closeTab, () => this.executeSendTransaction(publicKey, transaction))
+  async sendTransaction(
+    publicKey: string,
+    transaction: any,
+    withNewTab = false,
+    closeTab = false,
+    switchBackToOriginalTab = true
+  ) {
+    return await this.controlTabs(
+      withNewTab,
+      closeTab,
+      () => this.executeSendTransaction(publicKey, transaction),
+      switchBackToOriginalTab
+    )
   }
 
   async getTransactionResult(withNewTab = false, closeTab = false) {
@@ -74,7 +85,12 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeGetConnectionResult())
   }
 
-  private async controlTabs<T>(withNewTab: boolean, closeTab: boolean, func: () => Promise<T>): Promise<T> {
+  private async controlTabs<T>(
+    withNewTab: boolean,
+    closeTab: boolean,
+    func: () => Promise<T>,
+    switchBackToOriginalTab = true
+  ): Promise<T> {
     expect(
       this.vegaExtensionWindowHandle,
       'there was no window handle defined for the browser extension, this should be explicitly declared in the constructor or automatically assigned when calling connectWallet()'
@@ -92,7 +108,7 @@ export class VegaAPI {
     const result = await func()
     if (closeTab) {
       await switchWindowHandles(this.driver, true, this.vegaDappWindowHandle)
-    } else {
+    } else if (switchBackToOriginalTab) {
       this.driver.switchTo().window(this.vegaExtensionWindowHandle)
     }
     return result

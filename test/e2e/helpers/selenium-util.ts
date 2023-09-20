@@ -1,6 +1,4 @@
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
-import { consoleSmokeRecoveryPhrase } from './wallet/common-wallet-values'
-import { initial } from 'lodash'
 
 const defaultTimeoutMillis = 10000
 
@@ -260,6 +258,17 @@ export async function openLatestWindowHandle(driver: WebDriver) {
   const latestHandle = handles[handles.length - 1]
   await driver.switchTo().window(latestHandle)
   return await driver.getWindowHandle()
+}
+
+export async function goToNewWindowHandle(
+  driver: WebDriver,
+  windowHandlesBeforeNewHandle: string[],
+  windowHandlesAfterNewHandle: string[]
+) {
+  const newWindowHandle = await openLatestWindowHandle(driver)
+  const newHandle = getDifference(windowHandlesAfterNewHandle, windowHandlesBeforeNewHandle)
+  await switchWindowHandles(driver, false, newHandle[0])
+  return newWindowHandle
 }
 
 export async function switchWindowHandles(driver: WebDriver, closeOld = true, windowHandle = '', oldHandleName = '') {

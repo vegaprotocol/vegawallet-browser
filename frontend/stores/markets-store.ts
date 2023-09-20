@@ -4,11 +4,23 @@ import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
 import { removePaginationWrapper } from '../lib/remove-pagination.ts'
 import { VegaMarket } from '../types/rest-api.ts'
 
+const getSettlementAssetId = (market: VegaMarket) => {
+  const assetId =
+    market.tradableInstrument?.instrument?.future?.settlementAsset ??
+    // @ts-ignore TODO remove this once types are update to include perps
+    market.tradableInstrument?.instrument?.perpetual?.settlementAsset
+  if (!assetId) {
+    throw new Error('Could not find settlement asset from market')
+  }
+  return assetId
+}
+
 export type MarketsStore = {
   markets: VegaMarket[]
   loading: boolean
   fetchMarkets: (request: SendMessage) => Promise<void>
   getMarketById: (id: string) => VegaMarket
+  getMarketsByAssetId: (assetId: string) => VegaMarket[]
 }
 
 export const useMarketsStore = create<MarketsStore>((set, get) => ({
@@ -30,5 +42,9 @@ export const useMarketsStore = create<MarketsStore>((set, get) => ({
       throw new Error(`Market with id ${id} not found`)
     }
     return market
+  },
+  getMarketsByAssetId(assetId: string) {
+    const markets = get().markets.filter((market) => getSettlementAssetId(market) === assetId)
+    return markets
   }
 }))

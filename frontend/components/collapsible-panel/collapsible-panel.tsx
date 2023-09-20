@@ -10,18 +10,10 @@ export const CollapsiblePanel = ({
   panelContent
 }: {
   initiallyOpen?: boolean
-  title: string | ReactNode
+  title: string
   panelContent: ReactNode
 }) => {
   const [isOpen, setIsOpen] = useState(initiallyOpen)
-  const titleElement =
-    typeof title === 'string' ? (
-      <span className="text-vega-dark-300 text-sm uppercase" data-testid={locators.collapsiblePanelTitle}>
-        {title}
-      </span>
-    ) : (
-      title
-    )
   return (
     <div data-testid={locators.collapsiblePanel}>
       <button
@@ -38,9 +30,7 @@ export const CollapsiblePanel = ({
           })}
         />
       </button>
-      <div data-testid={locators.collapsiblePanelContent} className={
-        classnames('p-3', { 'hidden': !isOpen })
-        }>
+      <div data-testid={locators.collapsiblePanelContent} className={!isOpen ? 'hidden' : ''}>
         {panelContent}
       </div>
     </div>

@@ -13,6 +13,7 @@
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
     "@vegaprotocol/ui-toolkit": "0.12.6",
     "@vegaprotocol/utils": "^0.0.10",
+    "bignumber.js": "^9.0.2",
     "classnames": "^2.2.0",
     "date-fns": "^2.30.0",
     "immer": "^10.0.2",

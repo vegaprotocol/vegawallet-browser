@@ -64,6 +64,6 @@ describe('List', () => {
     const items = screen.queryAllByTestId('list-item')
     expect(items).toHaveLength(3)
     expect(items.at(0)).toHaveTextContent('Item 1')
-    expect(items.at(0)).toHaveClass('hover:bg-vega-dark-150')
+    expect(items.at(0)).toHaveClass('hover:bg-vega-dark-200')
   })
 })

@@ -1,11 +1,6 @@
-const baseConfig = (projectRoot, reportName) => {
-    if (!projectRoot || !reportName) {
-      throw new Error("Both 'projectRoot' and 'reportName' must be provided.");
-    }
-  
-    return {
+const baseConfig =  {
       rootDir: '../..',
-      roots: ['<rootDir>/' + projectRoot],
+      roots: ['<rootDir>/test'],
       transform: {
         '^.+\\.tsx?$': 'ts-jest',
         '^.+\\.jsx?$': 'ts-jest',
@@ -18,7 +13,7 @@ const baseConfig = (projectRoot, reportName) => {
           'jest-junit',
           {
             outputDirectory: './test/test-reports',
-            outputName: reportName + '.xml',
+            outputName: 'override-me.xml',
           },
         ],
       ],
@@ -28,6 +23,5 @@ const baseConfig = (projectRoot, reportName) => {
         '!/config': '<rootDir>/config/test.js',
       },
     };
-  };
   
   export default baseConfig;

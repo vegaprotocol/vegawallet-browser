@@ -1,20 +1,32 @@
-import baseConfig from './base-config.js';
+import baseConfig from './jest.config-base-config.js';
+import cloneDeep from 'lodash/cloneDeep.js'
+import merge from 'lodash/merge.js'
 
-const createBackendConfig = (projectRoot = 'web-extension', testReportName = 'backend-test-results') => {
-  return {
-    ...baseConfig(projectRoot, testReportName),
-    setupFiles: ['jest-webextension-mock', './web-extension/test/setup-tests.js'],
-    collectCoverageFrom: ['**/*.js', '!**/node_modules/**'],
-    coverageDirectory: 'coverage/backend',
-    coverageReporters: ['html', 'lcov'],
-  };
-};
+/** @type {import('ts-jest').JestConfigWithTsJest} */
+const backendConfig = cloneDeep(baseConfig)
 
-export default createBackendConfig;
+let overrides = {
+  roots: ['<rootDir>/web-extension'],
+  setupFiles: ['jest-webextension-mock', './web-extension/test/setup-tests.js'],
+  collectCoverageFrom: ['**/*.js', '!**/node_modules/**'],
+  coverageDirectory: 'coverage/backend',
+  coverageReporters: ['html', 'lcov'],
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'backend-test-results.xml'
+      }
+    ]
+  ]
+}
+
+merge(backendConfig, overrides)
+export default backendConfig;
 
 
-
-// const backendConfig =  {
+// const backendConfig = {
 //   rootDir: '../..',
 //   roots: ['<rootDir>/web-extension'],
 //   transform: {

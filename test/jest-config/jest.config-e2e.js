@@ -1,42 +1,26 @@
-import baseConfig from './base-config.js'
+import baseConfig from './jest.config-base-config.js'
+import cloneDeep from 'lodash/cloneDeep.js'
+import merge from 'lodash/merge.js'
+
 /** @type {import('ts-jest').JestConfigWithTsJest} */
-const jestConfigE2E = (projectRoot = 'test', testReportName = `${process.env.BROWSER}-e2e-test-results.xml`) => {
-  return {
-    ...baseConfig(projectRoot, testReportName),
-    setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],
-    preset: 'ts-jest',
-    testEnvironment: 'node',
-  };
-};
+const jestConfigE2E = cloneDeep(baseConfig)
 
+let overrides = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],
+  testTimeout: 120000,
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: './test/test-reports',
+        outputName: `${process.env.BROWSER}-e2e-test-results.xml`
+      }
+    ]
+  ]
+}
 
+merge(jestConfigE2E, overrides)
 export default jestConfigE2E;
-
-// const jestConfigE2E = {
-//   rootDir: '../..',
-//   roots: ['<rootDir>/test'],
-//   transform: {
-//     '^.+\\.tsx?$': 'ts-jest',
-//     '^.+\\.jsx?$': 'ts-jest'
-//   },
-//   preset: 'ts-jest',
-//   testEnvironment: 'node',
-//   testTimeout: 120000,
-//   setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],
-//   reporters: [
-//     'default',
-//     [
-//       'jest-junit',
-//       {
-//         outputDirectory: './test/test-reports',
-//         outputName: `${process.env.BROWSER}-e2e-test-results.xml`
-//       }
-//     ]
-//   ],
-//   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-//   moduleNameMapper: {
-//     '!/config': '<rootDir>/config/test.js'
-//   }
-// }
-
-// export default jestConfigE2E

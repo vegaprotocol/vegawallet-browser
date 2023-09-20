@@ -1,45 +1,21 @@
-import createBackendConfig from './jest.config-backend.js';
+import backendConfig from './jest.config-backend.js'
+import cloneDeep from 'lodash/cloneDeep.js'
+import merge from 'lodash/merge.js'
 
-const projectRoot = 'web-extension';
-const testReportName = 'request-test-results';
+const generateRequestsConfig = cloneDeep(backendConfig)
 
-const generateRequestsConfig = createBackendConfig(projectRoot, testReportName);
+let overrides = {
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'request-test-results'
+      }
+    ]
+  ]
+}
 
+merge(generateRequestsConfig, overrides)
 export default generateRequestsConfig;
-
-
-// import backendConfig from "./jest.config-backend.js";
-
-
-
-// const jestRequestsConfig = {
-//   ...backendConfig(projectRoot, testReportName),
-// };
-
-// export default jestRequestsConfig;
-
-// export default {
-//     rootDir: '../..',
-//     roots: ['<rootDir>/web-extension'],
-//     transform: {
-//       '^.+\\.tsx?$': 'ts-jest',
-//       '^.+\\.jsx?$': 'ts-jest'
-//     },
-//     testEnvironment: 'jest-environment-node',
-//     testTimeout: 30000,
-//     reporters: [
-//       'default',
-//       [
-//         'jest-junit',
-//         {
-//           outputDirectory: './test/test-reports',
-//           outputName: 'request-test-results.xml'
-//         }
-//       ]
-//     ],
-//     transformIgnorePatterns: ['/node_modules/(?!(@vegaprotocol)/protos)/'],
-//     moduleNameMapper: {
-//       '!/config': '<rootDir>/config/test.js'
-//     }
-//   }
   

@@ -1,15 +1,17 @@
-import baseConfig from './base-config.js'
+import baseConfig from './jest.config-base-config.js'
+import cloneDeep from 'lodash/cloneDeep.js'
+import merge from 'lodash/merge.js'
 
+/** @type {import('ts-jest').JestConfigWithTsJest} */
+const jestConfigUI = cloneDeep(baseConfig)
 
-const createFrontendConfig = (projectRoot = 'frontend', testReportName = 'unit-test-results') => {
-  return {
-    ...baseConfig(projectRoot, testReportName),
-    setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
-  globalSetup: '<rootDir>/frontend/global-setup.ts',
-  coverageReporters: ['html', 'lcov'],
+let overrides = {
+  roots: ['<rootDir>/frontend'],
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],
   coverageDirectory: 'coverage/frontend',
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  coverageReporters: ['html', 'lcov'],
   coverageThreshold: {
     global: {
       branches: 96,
@@ -18,27 +20,19 @@ const createFrontendConfig = (projectRoot = 'frontend', testReportName = 'unit-t
       statements: 100
     }
   },
-  };
-};
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'unit-test-results.xml'
+      }
+    ]
+  ]
+}
 
-export default createFrontendConfig;
-
-// const frontendConfig = {
-//   ...baseConfig(projectRoot, testReportName),
-//   setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
-//   globalSetup: '<rootDir>/frontend/global-setup.ts',
-//   coverageReporters: ['html', 'lcov'],
-//   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],
-//   coverageDirectory: 'coverage/frontend',
-//   coverageThreshold: {
-//     global: {
-//       branches: 96,
-//       functions: 99.5,
-//       lines: 100,
-//       statements: 100
-//     }
-//   },
-// };
+merge(jestConfigUI, overrides)
+export default jestConfigUI;
 
 // export default frontendConfig;
 

@@ -5,7 +5,7 @@ import { MessageIcon } from '../../../../components/icons/message'
 import { useState } from 'react'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { VegaKey } from '../../../../components/keys/vega-key'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../route-names'
 
 export const locators = {
@@ -30,6 +30,7 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
     await createNewKey(request, wallet.name)
     setCreatingKey(false)
   }
+  const navigate = useNavigate()
 
   return (
     <section>
@@ -39,7 +40,7 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
         items={wallet.keys}
         clickable={true}
         renderItem={(k) => (
-          <NavLink to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}>
+          <button className="w-full" onClick={() => navigate({ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` })}>
             <VegaKey publicKey={k.publicKey} name={k.name}>
               &nbsp;
               <button
@@ -50,7 +51,7 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
                 <MessageIcon />
               </button>
             </VegaKey>
-          </NavLink>
+          </button>
         )}
       />
       <div className="mt-3 text-white">

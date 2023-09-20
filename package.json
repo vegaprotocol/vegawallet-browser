@@ -9,7 +9,7 @@
     "@sentry/react": "^7.57.0",
     "@types/object-hash": "^3.0.4",
     "@vegaprotocol/crypto": "0.11.0",
-    "@vegaprotocol/protos": "^0.7.2",
+    "@vegaprotocol/protos": "0.8.0",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
     "@vegaprotocol/ui-toolkit": "0.12.6",
     "classnames": "^2.2.0",

@@ -15,5 +15,3 @@ let overrides = {
 
 merge(smokeConsoleTestnet, overrides)
 export default smokeConsoleTestnet
-
-//test

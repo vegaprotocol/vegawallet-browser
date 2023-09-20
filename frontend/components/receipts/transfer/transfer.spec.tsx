@@ -2,9 +2,11 @@ import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType.js'
 import { render, screen } from '@testing-library/react'
 import { locators, Transfer } from '.'
-import { Asset, useAssetsStore } from '../../../stores/assets-store.ts'
+import { locators as basicLocators } from './basic-transfer-view.tsx'
+import { locators as enrichedLocators } from './enriched-transfer-view.tsx'
+import { useAssetsStore } from '../../../stores/assets-store.ts'
 import { useWalletStore } from '../../../stores/wallets.ts'
-import { AssetStatus } from '@vegaprotocol/types'
+import { VegaAsset, VegaAssetStatus } from '../../../types/rest-api.ts'
 
 jest.mock('../utils/receipt-wrapper', () => ({
   ReceiptWrapper: ({ children }: { children: React.ReactNode }) => {
@@ -42,7 +44,7 @@ const baseTransfer: TransferType = {
   kind: null
 }
 
-const mockAsset: Asset = {
+const mockAsset: VegaAsset = {
   id: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
   details: {
     name: 'Vega (fairground)',
@@ -55,7 +57,7 @@ const mockAsset: Asset = {
       withdrawThreshold: '0'
     }
   },
-  status: AssetStatus.STATUS_ENABLED
+  status: VegaAssetStatus.ENABLED
 }
 
 const mockWallets = [
@@ -103,7 +105,7 @@ describe('TransferReceipt', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('should render loading state', async () => {
+  it('should render BasicTransferView whilst loading', async () => {
     ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
       loading: true
     })
@@ -120,7 +122,7 @@ describe('TransferReceipt', () => {
     }
 
     render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(locators.loading)).toBeVisible()
+    expect(screen.getByTestId(basicLocators.basicSection)).toBeVisible()
   })
 
   it('should render BasicTransferView on error', async () => {
@@ -143,10 +145,10 @@ describe('TransferReceipt', () => {
     }
 
     render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(locators.basicSection)).toBeVisible()
+    expect(screen.getByTestId(basicLocators.basicSection)).toBeVisible()
   })
 
-  it('should render EnrichedTransferView when assetInfo is available', () => {
+  it('should render EnrichedTransferView when loading is false and assetInfo is available', () => {
     ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
       loading: false,
       getAssetById: jest.fn().mockReturnValue(mockAsset)
@@ -165,7 +167,7 @@ describe('TransferReceipt', () => {
     }
 
     render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(locators.enrichedSection)).toBeVisible()
+    expect(screen.getByTestId(enrichedLocators.enrichedSection)).toBeVisible()
   })
 
   it('should render wrapper, amount, receiving key and when the transaction is scheduled to be delivered', () => {

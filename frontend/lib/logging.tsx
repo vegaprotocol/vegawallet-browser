@@ -8,6 +8,7 @@ type ConsoleMethod = {
 export const log = (level: ConsoleMethod, ...args: any[]) => {
   /* istanbul ignore next */
   if (config.logging) {
-    console[level].apply(console, args)
+    // @ts-ignore
+    console[level](...args)
   }
 }

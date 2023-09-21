@@ -1,14 +1,14 @@
 import { create } from 'zustand'
 import { RpcMethods } from '../lib/client-rpc-methods.ts'
 import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
-import type { Asset } from '@vegaprotocol/types'
 import { removePaginationWrapper } from '../lib/remove-pagination.ts'
+import { VegaAsset } from '../types/rest-api.ts'
 
 export type AssetsStore = {
-  assets: Asset[]
+  assets: VegaAsset[]
   loading: boolean
   fetchAssets: (request: SendMessage) => Promise<void>
-  getAssetById: (id: string) => Asset
+  getAssetById: (id: string) => VegaAsset
 }
 
 export const useAssetsStore = create<AssetsStore>((set, get) => ({
@@ -18,7 +18,7 @@ export const useAssetsStore = create<AssetsStore>((set, get) => ({
     try {
       set({ loading: true })
       const response = await request(RpcMethods.Fetch, { path: 'api/v2/assets' })
-      const assets = removePaginationWrapper<Asset>(response.assets.edges)
+      const assets = removePaginationWrapper<VegaAsset>(response.assets.edges)
       set({ assets })
     } finally {
       set({ loading: false })

@@ -83,8 +83,11 @@ describe('TransferReceipt', () => {
       getAssetById: jest.fn().mockReturnValue(mockAsset)
     })
     ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      wallets: mockWallets
+      loading: true,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
     })
     const recurringTransfer = {
       transfer: {
@@ -110,7 +113,10 @@ describe('TransferReceipt', () => {
     })
     ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
       loading: false,
-      wallets: mockWallets
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
     })
     const oneOffTransfer = {
       transfer: {
@@ -129,6 +135,13 @@ describe('TransferReceipt', () => {
 
   it('if transfer time is in the past renders now', () => {
     // 1124-TRAN-002 For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately
+    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
+      loading: true,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
+    })
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -142,6 +155,13 @@ describe('TransferReceipt', () => {
   })
 
   it('if deliverOn is not provided renders now', () => {
+    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
+      loading: true,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
+    })
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer
@@ -153,6 +173,13 @@ describe('TransferReceipt', () => {
 
   it('if transfer is in future then it renders relative & absolute time', () => {
     // 1124-TRAN-003 For a oneOff transfer which is has a delivery date in the future there is a way to see when the transfer will be delivered
+    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
+      loading: true,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
+    })
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -172,7 +199,11 @@ describe('TransferReceipt', () => {
       assets: []
     })
     ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: true
+      loading: true,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
     })
     const oneOffTransfer = {
       transfer: {
@@ -195,7 +226,11 @@ describe('TransferReceipt', () => {
     })
     ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
       loading: false,
-      wallets: mockWallets
+      wallets: mockWallets,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
     })
     const oneOffTransfer = {
       transfer: {
@@ -218,7 +253,11 @@ describe('TransferReceipt', () => {
     })
     ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
       loading: false,
-      wallets: mockWallets
+      wallets: mockWallets,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
     })
     const oneOffTransfer = {
       transfer: {
@@ -244,7 +283,11 @@ describe('TransferReceipt', () => {
     })
     ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
       loading: false,
-      wallets: mockWallets
+      wallets: mockWallets,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: true,
+        keyName: 'Key 1'
+      })
     })
     const oneOffTransfer = {
       transfer: {
@@ -269,7 +312,11 @@ describe('TransferReceipt', () => {
     })
     ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
       loading: false,
-      wallets: mockWallets
+      wallets: mockWallets,
+      getKeyInfo: jest.fn().mockReturnValue({
+        isOwnKey: false,
+        keyName: undefined
+      })
     })
     const oneOffTransfer = {
       transfer: {

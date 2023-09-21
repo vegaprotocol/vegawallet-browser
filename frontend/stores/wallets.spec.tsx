@@ -68,4 +68,17 @@ describe('Store', () => {
     expect(key1.name).toBe('Key 1')
     expect(key2.name).toBe('Key 2')
   })
+  it('retrieves key info based on public key', async () => {
+    await useWalletStore.getState().loadWallets(request as unknown as any)
+
+    // Test when the key exists in the wallet
+    const result1 = useWalletStore.getState().getKeyInfo(keys[0].publicKey)
+    expect(result1.isOwnKey).toBe(true)
+    expect(result1.keyName).toBe('Key 1')
+
+    // Test when the key doesn't exist in the wallet
+    const result2 = useWalletStore.getState().getKeyInfo('nonexistent_public_key')
+    expect(result2.isOwnKey).toBe(false)
+    expect(result2.keyName).toBeUndefined()
+  })
 })

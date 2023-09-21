@@ -34,8 +34,7 @@ let overrides = {
   ]
 }
 
-merge(jestConfigUI, overrides)
-export default jestConfigUI;
+export default merge(jestConfigUI, overrides)
 
 // export default frontendConfig;
 

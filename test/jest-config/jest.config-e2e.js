@@ -20,5 +20,4 @@ let overrides = {
   ]
 }
 
-merge(jestConfigE2E, overrides)
-export default jestConfigE2E;
+export default merge(jestConfigE2E, overrides)

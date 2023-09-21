@@ -1,4 +1,4 @@
-import jestConfigE2E from "./jest.config-e2e.js";
+import jestConfigE2E from './jest.config-e2e.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import merge from 'lodash/merge.js'
 
@@ -6,7 +6,7 @@ const jestConfigConsoleSmoke = cloneDeep(jestConfigE2E)
 
 let overrides = {
   moduleNameMapper: {
-    '!/config': `<rootDir>/config/console-smoke-${process.env.ENV}.js`,
+    '!/config': `<rootDir>/config/console-smoke-${process.env.ENV}.js`
   },
   reporters: [
     'default',
@@ -19,5 +19,4 @@ let overrides = {
   ]
 }
 
-merge(jestConfigConsoleSmoke, overrides)
-export default jestConfigConsoleSmoke;
+export default merge(jestConfigConsoleSmoke, overrides)

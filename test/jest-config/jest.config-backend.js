@@ -1,4 +1,4 @@
-import baseConfig from './jest.config-base-config.js';
+import baseConfig from './jest.config-base-config.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import merge from 'lodash/merge.js'
 
@@ -20,9 +20,7 @@ let overrides = {
   ]
 }
 
-merge(backendConfig, overrides)
-export default backendConfig;
-
+export default merge(backendConfig, overrides)
 
 // const backendConfig = {
 //   rootDir: '../..',

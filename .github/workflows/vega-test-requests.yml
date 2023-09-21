@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js Latest
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
@@ -27,7 +27,7 @@ jobs:
         id: generate-requests
 
       - name: Archive request files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact
         with:
           name: request-files
           path: request-files
@@ -41,16 +41,16 @@ jobs:
         configFile: ['$(pwd)/config/testnet.js', ''] # Add '$(pwd)/config/mainnet.js' when mainnet has the check-tx functionality.
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js Latest
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Download request files
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: request-files
           path: request-files

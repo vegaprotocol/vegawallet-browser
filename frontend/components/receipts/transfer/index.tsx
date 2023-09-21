@@ -30,7 +30,8 @@ export const locators = {
 
 export const Transfer = ({ transaction }: ReceiptComponentProps) => {
   const { loading: assetsLoading, assets, getAssetById } = useAssetsStore()
-  const { wallets, loading: walletsLoading } = useWalletStore()
+  // We check whether wallets are loading as wallet data is used to enrich the transfer view
+  const { loading: walletsLoading } = useWalletStore()
   const { asset } = transaction.transfer
   const [assetInfo, setAssetInfo] = useState<VegaAsset | null>(null)
 
@@ -54,7 +55,7 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
       {assetsLoading || walletsLoading || !assetInfo ? (
         <BasicTransferView transaction={transaction} />
       ) : (
-        <EnrichedTransferView transaction={transaction} assetInfo={assetInfo} wallets={wallets} />
+        <EnrichedTransferView transaction={transaction} assetInfo={assetInfo} />
       )}
 
       <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>

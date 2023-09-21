@@ -154,7 +154,6 @@ export class VegaAPI {
       }
     })
     if (keysString.includes('Error:')) {
-      console.log(keysString)
       return keysArray
     }
     keysArray = JSON.parse(keysString).keys as Key[]

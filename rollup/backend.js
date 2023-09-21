@@ -5,10 +5,11 @@ import terser from '@rollup/plugin-terser'
 import alias from '@rollup/plugin-alias'
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
+import copy from 'rollup-plugin-copy'
 
 const backend = (isProduction, outputPath, walletConfig, analyze) => [
   // The files that need to each be built for the backend
-  ...['background', 'content-script', 'in-page', 'pow-worker'].map((name) => ({
+  ...['background', 'content-script', 'in-page', 'pow-worker', 'chrome-pow'].map((name) => ({
     input: `web-extension/${name}.js`,
     output: {
       dir: outputPath,
@@ -20,13 +21,16 @@ const backend = (isProduction, outputPath, walletConfig, analyze) => [
       json({ compact: isProduction }),
       commonjs(),
       isProduction && terser(),
+      copy({
+        targets: [{ src: 'web-extension/chrome-pow.html', dest: outputPath }]
+      }),
       alias({
         entries: [{ find: '!/config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
       }),
       analyze &&
-        visualizer({
-          filename: `./build/analyze/${name}.html`
-        })
+      visualizer({
+        filename: `./build/analyze/${name}.html`
+      })
     ]
   }))
 ]

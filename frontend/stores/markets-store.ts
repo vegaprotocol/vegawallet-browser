@@ -1,14 +1,14 @@
 import { create } from 'zustand'
 import { RpcMethods } from '../lib/client-rpc-methods.ts'
 import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
-import type { Market } from '@vegaprotocol/types'
 import { removePaginationWrapper } from '../lib/remove-pagination.ts'
+import { VegaMarket } from '../types/rest-api.ts'
 
 export type MarketsStore = {
-  markets: Market[]
+  markets: VegaMarket[]
   loading: boolean
   fetchMarkets: (request: SendMessage) => Promise<void>
-  getMarketById: (id: string) => Market
+  getMarketById: (id: string) => VegaMarket
 }
 
 export const useMarketsStore = create<MarketsStore>((set, get) => ({
@@ -18,7 +18,7 @@ export const useMarketsStore = create<MarketsStore>((set, get) => ({
     try {
       set({ loading: true })
       const response = await request(RpcMethods.Fetch, { path: 'api/v2/markets' })
-      const markets = removePaginationWrapper<Market>(response.markets.edges)
+      const markets = removePaginationWrapper<VegaMarket>(response.markets.edges)
       set({ markets })
     } finally {
       set({ loading: false })

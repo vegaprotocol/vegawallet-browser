@@ -184,6 +184,33 @@
         {
           "additionalProperties": false,
           "required": [
+            "createReferralSet"
+          ],
+          "properties": {
+            "createReferralSet": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "updateReferralSet"
+          ],
+          "properties": {
+            "updateReferralSet": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "applyReferralCode"
+          ],
+          "properties": {
+            "applyReferralCode": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
             "nodeVote"
           ],
           "properties": {

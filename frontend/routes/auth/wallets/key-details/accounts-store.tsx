@@ -6,10 +6,7 @@ import groupBy from 'lodash/groupBy'
 
 const POLL_INTERVAL = 10000
 
-// TODO this should be generated from the types from swagger
-export interface Party {}
-
-export type PartyStore = {
+export type AccountsStore = {
   accounts: VegaAccount[]
   accountsByAsset: Record<string, VegaAccount[]>
   interval: NodeJS.Timer | null
@@ -19,7 +16,7 @@ export type PartyStore = {
   reset: () => void
 }
 
-export const useAccountsStore = create<PartyStore>()((set, get) => ({
+export const useAccountsStore = create<AccountsStore>()((set, get) => ({
   accounts: [],
   accountsByAsset: {},
   interval: null,

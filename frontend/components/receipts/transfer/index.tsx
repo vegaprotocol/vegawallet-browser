@@ -42,7 +42,7 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
         setAssetInfo(res)
       }
     }
-  }, [assets, asset])
+  }, [assets, asset, getAssetById])
 
   // Not supporting recurring transfers yet
   if (transaction.transfer.recurring) return null

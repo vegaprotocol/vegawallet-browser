@@ -157,13 +157,12 @@ describe('Settings test', () => {
 
   async function sendTransactionAndCheckNumberOfHandles(driver: WebDriver, vegaAPI: VegaAPI, popoutEnabled: boolean) {
     const originalActiveTab = await driver.getWindowHandle()
+    const tabsBeforeVegaAPITransaction = await driver.getAllWindowHandles()
 
     await driver.get('https://google.co.uk')
-    await vegaAPI.connectWalletAndCheckSuccess()
+    await vegaAPI.connectWalletAndCheckSuccess(true, false)
     const keys = await vegaAPI.listKeys(false, false)
-    const tabsBeforeVegaAPITransaction = await driver.getAllWindowHandles()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq }, false, true)
-    await staticWait(5000)
     const numExpectedTabs = popoutEnabled
       ? tabsBeforeVegaAPITransaction.length + 1
       : tabsBeforeVegaAPITransaction.length

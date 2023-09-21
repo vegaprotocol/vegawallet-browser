@@ -1,3 +1,4 @@
+import { stat } from 'fs'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 
 const defaultTimeoutMillis = 10000
@@ -240,7 +241,6 @@ export async function openNewWindowAndSwitchToIt(driver: WebDriver, closeOld = f
   const initialHandles = await driver.getAllWindowHandles()
   const initialActiveHandle = await driver.getWindowHandle()
   await driver.executeScript('window.open();')
-  await driver.switchTo().window(initialActiveHandle)
   const handlesAfterOpen = await driver.getAllWindowHandles()
   const newTab = getDifference(handlesAfterOpen, initialHandles)
 
@@ -271,10 +271,10 @@ export async function goToNewWindowHandle(
   return newWindowHandle
 }
 
-export async function switchWindowHandles(driver: WebDriver, closeOld = true, windowHandle = '', oldHandleName = '') {
+export async function switchWindowHandles(driver: WebDriver, closeOld = true, windowHandle = '', handleToClose = '') {
   if (closeOld) {
-    if (oldHandleName) {
-      await driver.switchTo().window(oldHandleName)
+    if (handleToClose) {
+      await driver.switchTo().window(handleToClose)
     }
     await driver.close()
   }

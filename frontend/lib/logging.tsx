@@ -6,7 +6,6 @@ type ConsoleMethod = {
   string
 
 export const log = (level: ConsoleMethod, ...args: any[]) => {
-  console.log(config.logging, level, args)
   /* istanbul ignore next */
   if (config.logging) {
     console[level].apply(console, args)

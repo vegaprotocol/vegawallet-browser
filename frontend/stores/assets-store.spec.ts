@@ -67,7 +67,6 @@ describe('AssetsStore', () => {
 
   it('loads assets', async () => {
     expect(useAssetsStore.getState().loading).toBe(false)
-    console.log(useAssetsStore.getState().assets)
     expect(useAssetsStore.getState().assets).toStrictEqual([])
     await useAssetsStore.getState().fetchAssets(request as unknown as any)
     expect(useAssetsStore.getState().loading).toBe(false)

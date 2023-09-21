@@ -3,8 +3,6 @@ import mutex from 'mutexify/promise.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
-const WORKER_SCRIPT_URL = runtime.getURL('pow-worker.js')
-
 const U64_MAX = 2n ** 64n - 1n
 
 // Increase to make buckets twice as big, which will make
@@ -16,6 +14,8 @@ const PARTITION_DIVISOR = U64_MAX >> BUCKET_SIZE
 
 export default async function initWorkers() {
   if (globalThis?.Worker == null) return false
+
+  const WORKER_SCRIPT_URL = runtime.getURL('pow-worker.js')
 
   // Use all but two cores for solving
   const NUM_WORKERS = Math.max(navigator.hardwareConcurrency - 2, 1)

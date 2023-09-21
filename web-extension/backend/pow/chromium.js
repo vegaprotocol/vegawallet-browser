@@ -2,10 +2,12 @@ import JSONRPCClient from '../../../lib/json-rpc-client.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
-const OFFSCREEN_DOCUMENT_URL = runtime.getURL('chrome-pow.html')
-
+// "Mutex" for creating offscreen documents
+let offscreenDocumentPending = null
 export default async function initChrome() {
   if (globalThis?.chrome?.offscreen == null) return false
+
+  const OFFSCREEN_DOCUMENT_URL = runtime.getURL('chrome-pow.html')
 
   const client = new JSONRPCClient({
     idPrefix: 'chrome-pow-',
@@ -43,30 +45,29 @@ export default async function initChrome() {
 
     return sol
   }
-}
 
-let offscreenDocumentPending = null
-async function ensureOffscreenDocument() {
-  // Is the page still alive?
-  if (await hasDocument()) return
+  async function ensureOffscreenDocument() {
+    // Is the page still alive?
+    if (await hasDocument()) return
 
-  // Are we concurrently trying to create the page?
-  if (offscreenDocumentPending != null) return await offscreenDocumentPending
+    // Are we concurrently trying to create the page?
+    if (offscreenDocumentPending != null) return await offscreenDocumentPending
 
-  offscreenDocumentPending = globalThis.chrome.offscreen.createDocument({
-    url: OFFSCREEN_DOCUMENT_URL,
-    reasons: ['WORKERS'],
-    justification: 'This will speed up Vega transaction creation by solving anti-spam PoW challenges in parallel'
-  })
+    offscreenDocumentPending = globalThis.chrome.offscreen.createDocument({
+      url: OFFSCREEN_DOCUMENT_URL,
+      reasons: ['WORKERS'],
+      justification: 'This will speed up Vega transaction creation by solving anti-spam PoW challenges in parallel'
+    })
 
-  await offscreenDocumentPending
-  // Cleanup after, so next call does not await a page that might be removed
-  offscreenDocumentPending = null
-}
+    await offscreenDocumentPending
+    // Cleanup after, so next call does not await a page that might be removed
+    offscreenDocumentPending = null
+  }
 
-async function hasDocument() {
-  const allClients = await clients.matchAll()
-  return allClients.some((client) => client.url === OFFSCREEN_DOCUMENT_URL)
+  async function hasDocument() {
+    const allClients = await globalThis.clients.matchAll()
+    return allClients.some((client) => client.url === OFFSCREEN_DOCUMENT_URL)
+  }
 }
 
 

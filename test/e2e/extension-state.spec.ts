@@ -11,6 +11,8 @@ import { Login } from './page-objects/login'
 import { switchWindowHandles, openNewWindowAndSwitchToIt } from './helpers/selenium-util'
 import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import { closeServerAndWait, server } from './helpers/wallet/http-server'
+import test from '../../config/test'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver
@@ -39,6 +41,14 @@ describe('Check correct app state persists after closing the extension', () => {
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
+  })
+
+  beforeAll(async () => {
+    server.listen(test.test.mockPort)
+  })
+
+  afterAll(async () => {
+    await closeServerAndWait()
   })
 
   const switchToNewWindow = async () => {

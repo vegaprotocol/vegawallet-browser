@@ -5,6 +5,8 @@ import { VegaAPI } from './helpers/wallet/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { ListConnections } from './page-objects/list-connections'
 import { createWalletAndDriver } from './helpers/wallet/wallet-setup'
+import { closeServerAndWait, server } from './helpers/wallet/http-server'
+import test from '../../config/test'
 
 const transferReq = {
   fromAccountType: 4,
@@ -24,6 +26,14 @@ describe('list connections tests', () => {
   let firstDapp: VegaAPI
   let secondDapp: VegaAPI
   let connectWalletModal: ConnectWallet
+
+  beforeAll(async () => {
+    server.listen(test.test.mockPort)
+  })
+
+  afterAll(async () => {
+    await closeServerAndWait()
+  })
 
   beforeEach(async () => {
     driver = await createWalletAndDriver()

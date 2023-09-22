@@ -11,6 +11,8 @@ import { CreateAWallet } from './page-objects/create-a-wallet'
 import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
 import { testDAppUrl } from './helpers/wallet/common-wallet-values'
+import { closeServerAndWait, server } from './helpers/wallet/http-server'
+import test from '../../config/test'
 
 describe('Connect wallet', () => {
   let driver: WebDriver
@@ -28,6 +30,14 @@ describe('Connect wallet', () => {
     telemetry = new Telemetry(driver)
     apiHelper = new APIHelper(driver)
     await navigateToExtensionLandingPage(driver)
+  })
+
+  beforeAll(async () => {
+    server.listen(test.test.mockPort)
+  })
+
+  afterAll(async () => {
+    await closeServerAndWait()
   })
 
   afterEach(async () => {

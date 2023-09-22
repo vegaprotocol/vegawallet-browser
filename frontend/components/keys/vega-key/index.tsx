@@ -9,14 +9,16 @@ export const locators = {
   explorerLink: 'vega-explorer-link'
 }
 
-export const VegaKey = ({ publicKey, name, children }: { publicKey: string; name: string; children?: ReactNode }) => {
+export const VegaKey = ({ publicKey, name, children }: { publicKey: string; name?: string; children?: ReactNode }) => {
   return (
     <div className="flex items-center">
       <KeyIcon publicKey={publicKey} />
       <div className="ml-4">
-        <div data-testid={locators.keyName} className="text-left text-white">
-          {name}
-        </div>
+        {name ? (
+          <div data-testid={locators.keyName} className="text-left text-white">
+            {name}
+          </div>
+        ) : null}
         <ExternalLink
           className="text-vega-dark-400"
           data-testid={locators.explorerLink}

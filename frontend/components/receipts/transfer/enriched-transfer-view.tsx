@@ -20,6 +20,7 @@ export const EnrichedTransferView = ({ transaction, assetInfo }: EnrichedTransfe
   const price = amount && decimals ? formatNumber(toBigNum(amount, decimals), decimals) : undefined
   const symbol = assetInfo?.details?.symbol
   const keyInfo = getKeyInfo(transaction.transfer.to)
+  const isOwnKey = keyInfo?.publicKey === transaction.transfer.to
 
   return (
     <div data-testid={locators.enrichedSection}>
@@ -27,10 +28,7 @@ export const EnrichedTransferView = ({ transaction, assetInfo }: EnrichedTransfe
         {price && symbol ? <PriceWithSymbol price={price} symbol={symbol} /> : null}
       </div>
       <h1 className="text-vega-dark-300 mt-4">To</h1>
-      <VegaKey
-        publicKey={transaction.transfer.to}
-        name={keyInfo.isOwnKey ? `${keyInfo.keyName} (own key)` : 'External key'}
-      />
+      <VegaKey publicKey={transaction.transfer.to} name={isOwnKey ? `${keyInfo?.name} (own key)` : 'External key'} />
     </div>
   )
 }

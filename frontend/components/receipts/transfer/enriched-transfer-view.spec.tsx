@@ -42,8 +42,10 @@ describe('EnrichedTransferView', () => {
   it('renders correctly', () => {
     ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
       getKeyInfo: () => ({
-        isOwnKey: true,
-        keyName: 'MyKey'
+        index: 0,
+        metadata: [],
+        name: 'MyKey',
+        publicKey: '1'.repeat(64)
       })
     })
 

@@ -12,6 +12,8 @@ import { openNewWindowAndSwitchToIt } from './helpers/selenium-util'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 import { deleteDirectory } from './helpers/file-system'
+import { closeServerAndWait, server } from './helpers/wallet/http-server'
+import test from '../../config/test'
 
 describe('Login', () => {
   let driver: WebDriver
@@ -37,6 +39,14 @@ describe('Login', () => {
       deleteDirectory(firefoxTestProfileDirectory)
     }
     await driver.quit()
+  })
+
+  beforeAll(async () => {
+    server.listen(test.test.mockPort)
+  })
+
+  afterAll(async () => {
+    await closeServerAndWait()
   })
 
   it('Check can log in via the login page after quitting the browser(firefox) or loading in a new tab(chrome)', async () => {

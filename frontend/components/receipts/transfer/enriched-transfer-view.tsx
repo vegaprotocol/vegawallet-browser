@@ -14,7 +14,7 @@ interface EnrichedTransferViewProps extends ReceiptComponentProps {
 }
 
 export const EnrichedTransferView = ({ transaction, assetInfo }: EnrichedTransferViewProps) => {
-  const { getKeyInfo } = useWalletStore()
+  const { getKeyInfo } = useWalletStore((state) => ({ getKeyInfo: state.getKeyInfo }))
   const { amount } = transaction.transfer
   const decimals = Number(assetInfo?.details?.decimals)
   const price = amount && decimals ? formatNumber(toBigNum(amount, decimals), decimals) : undefined

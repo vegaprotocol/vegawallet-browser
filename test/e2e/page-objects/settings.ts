@@ -8,12 +8,14 @@ import {
 } from '../helpers/selenium-util'
 import { Login } from './login'
 import * as settingsLock from '../../../frontend/routes/auth/settings/lock-section'
-import * as telemetry from '../../../frontend/routes/auth/settings/telemetry-section'
+import * as radioLocators from '../../../frontend/routes/auth/settings/settings-form-elements/radio'
 
 export class Settings {
   private readonly lockWalletButton: By = getByDataTestID(settingsLock.locators.settingsLockButton)
-  private readonly telemetryYes: By = getByDataTestID(telemetry.locators.settingsTelemetryYes)
-  private readonly telemetryNo: By = getByDataTestID(telemetry.locators.settingsTelemetryNo)
+  private readonly telemetryYes: By = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioYes}`)
+  private readonly telemetryNo: By = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioNo}`)
+  private readonly autoOpenYes: By = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioYes}`)
+  private readonly autoOpenNo: By = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioNo}`)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -49,6 +51,31 @@ export class Settings {
     await this.checkOnSettingsPage()
     await clickElement(this.driver, this.telemetryNo)
     await waitForElementToBeSelected(this.driver, this.telemetryNo)
+  }
+
+  async isAutoOpenSelected() {
+    await this.checkOnSettingsPage()
+    const autoOpenYesSelected = await isElementSelected(this.driver, this.autoOpenYes)
+    const autoOpenNoSelected = await isElementSelected(this.driver, this.autoOpenNo)
+
+    if (autoOpenYesSelected) {
+      return true
+    }
+    if (autoOpenNoSelected) {
+      return false
+    }
+  }
+
+  async selectAutoOpenYes() {
+    await this.checkOnSettingsPage()
+    await clickElement(this.driver, this.autoOpenYes)
+    await waitForElementToBeSelected(this.driver, this.autoOpenYes)
+  }
+
+  async selectAutoOpenNo() {
+    await this.checkOnSettingsPage()
+    await clickElement(this.driver, this.autoOpenNo)
+    await waitForElementToBeSelected(this.driver, this.autoOpenNo)
   }
 
   async isSettingsPage() {

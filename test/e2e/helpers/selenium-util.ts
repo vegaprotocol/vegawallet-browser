@@ -1,3 +1,4 @@
+import { stat } from 'fs'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 
 const defaultTimeoutMillis = 10000
@@ -237,17 +238,14 @@ async function waitForTextFieldToBeEmpty(driver: WebDriver, locator: By, timeout
 }
 
 export async function openNewWindowAndSwitchToIt(driver: WebDriver, closeOld = false) {
-  let currentWindowHandle: string
-  const currentHandles = await driver.getAllWindowHandles()
+  const initialHandles = await driver.getAllWindowHandles()
+  const initialActiveHandle = await driver.getWindowHandle()
   await driver.executeScript('window.open();')
   const handlesAfterOpen = await driver.getAllWindowHandles()
-  const newTab = getDifference(handlesAfterOpen, currentHandles)
+  const newTab = getDifference(handlesAfterOpen, initialHandles)
+
   expect(newTab.length).toBe(1)
-  if (closeOld) {
-    currentWindowHandle = await driver.getWindowHandle()
-    await driver.close()
-  }
-  await switchWindowHandles(driver, false, newTab[0])
+  await switchWindowHandles(driver, closeOld, newTab[0], initialActiveHandle)
   return newTab[0]
 }
 
@@ -262,13 +260,23 @@ export async function openLatestWindowHandle(driver: WebDriver) {
   return await driver.getWindowHandle()
 }
 
-export async function switchWindowHandles(driver: WebDriver, closeCurrent = true, windowHandle = '') {
-  if (closeCurrent) {
-    if (windowHandle != (await driver.getWindowHandle())) {
-      await driver.close()
-    } else {
-      return
+export async function goToNewWindowHandle(
+  driver: WebDriver,
+  windowHandlesBeforeNewHandle: string[],
+  windowHandlesAfterNewHandle: string[]
+) {
+  const newWindowHandle = await openLatestWindowHandle(driver)
+  const newHandle = getDifference(windowHandlesAfterNewHandle, windowHandlesBeforeNewHandle)
+  await switchWindowHandles(driver, false, newHandle[0])
+  return newWindowHandle
+}
+
+export async function switchWindowHandles(driver: WebDriver, closeOld = true, windowHandle = '', handleToClose = '') {
+  if (closeOld) {
+    if (handleToClose) {
+      await driver.switchTo().window(handleToClose)
     }
+    await driver.close()
   }
 
   if (windowHandle) {

@@ -36,17 +36,18 @@ export class VegaAPI {
     return this.vegaDappWindowHandle
   }
 
-  async openNewWindow() {
-    this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver)
+  async openNewWindow(closeOld = false) {
+    this.vegaDappWindowHandle = await openNewWindowAndSwitchToIt(this.driver, closeOld)
     await this.driver.get(this.dappUrl)
     await this.waitForVegaDefined()
+    return await this.driver.getWindowHandle()
   }
 
-  async connectWallet(withNewTab = true, closeTab = false) {
+  async connectWallet(withNewTab = true, closeTab = false, switchBackToOriginalTab = true) {
     if (!this.vegaExtensionWindowHandle) {
       this.vegaExtensionWindowHandle = await this.driver.getWindowHandle()
     }
-    return await this.controlTabs(withNewTab, closeTab, () => this.executeConnectWallet())
+    return await this.controlTabs(withNewTab, closeTab, () => this.executeConnectWallet(), switchBackToOriginalTab)
   }
 
   async disconnectWallet(withNewTab = true, closeTab = false) {
@@ -61,8 +62,19 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeListKeys())
   }
 
-  async sendTransaction(publicKey: string, transaction: any, withNewTab = false, closeTab = false) {
-    return await this.controlTabs(withNewTab, closeTab, () => this.executeSendTransaction(publicKey, transaction))
+  async sendTransaction(
+    publicKey: string,
+    transaction: any,
+    withNewTab = false,
+    closeTab = false,
+    switchBackToOriginalTab = true
+  ) {
+    return await this.controlTabs(
+      withNewTab,
+      closeTab,
+      () => this.executeSendTransaction(publicKey, transaction),
+      switchBackToOriginalTab
+    )
   }
 
   async getTransactionResult(withNewTab = false, closeTab = false) {
@@ -73,13 +85,18 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeGetConnectionResult())
   }
 
-  private async controlTabs<T>(withNewTab: boolean, closeTab: boolean, func: () => Promise<T>): Promise<T> {
+  private async controlTabs<T>(
+    withNewTab: boolean,
+    closeTab: boolean,
+    func: () => Promise<T>,
+    switchBackToOriginalTab = true
+  ): Promise<T> {
     expect(
       this.vegaExtensionWindowHandle,
       'there was no window handle defined for the browser extension, this should be explicitly declared in the constructor or automatically assigned when calling connectWallet()'
     ).toBeTruthy()
     if (withNewTab) {
-      await this.openNewWindow()
+      this.vegaDappWindowHandle = await this.openNewWindow()
     } else {
       expect(
         this.vegaDappWindowHandle,
@@ -90,8 +107,8 @@ export class VegaAPI {
 
     const result = await func()
     if (closeTab) {
-      await switchWindowHandles(this.driver, true, this.vegaDappWindowHandle)
-    } else {
+      await switchWindowHandles(this.driver, true, this.vegaExtensionWindowHandle, this.vegaDappWindowHandle)
+    } else if (switchBackToOriginalTab) {
       this.driver.switchTo().window(this.vegaExtensionWindowHandle)
     }
     return result
@@ -137,11 +154,8 @@ export class VegaAPI {
       }
     })
     if (keysString.includes('Error:')) {
-      console.log(keysString)
       return keysArray
     }
-
-    console.log('keys string is ', keysString)
     keysArray = JSON.parse(keysString).keys as Key[]
     return keysArray
   }

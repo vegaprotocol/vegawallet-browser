@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot } from './helpers/driver'
 import { NavPanel } from './page-objects/navpanel'
-import { switchWindowHandles } from './helpers/selenium-util'
+import { goToNewWindowHandle, staticWait, switchWindowHandles, windowHandleHasCount } from './helpers/selenium-util'
 import { VegaAPI } from './helpers/wallet/vega-api'
 import { Transaction } from './page-objects/transaction'
 import { ConnectWallet } from './page-objects/connect-wallet'
@@ -9,6 +9,7 @@ import { Settings } from './page-objects/settings'
 import { ExtensionHeader } from './page-objects/extension-header'
 import { WalletOpenInOtherWindow } from './page-objects/wallet-open-in-other-window'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import { APIHelper } from './helpers/wallet/wallet-api'
 
 describe('Settings test', () => {
   let driver: WebDriver
@@ -17,8 +18,11 @@ describe('Settings test', () => {
   let settingsPage: Settings
   let transaction: Transaction
   let header: ExtensionHeader
-  const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled initially but it was not'
-  const expectedTelemetryEnabledMessage = 'expected telemetry to be enabled initially but it was not'
+  let vegaAPI: VegaAPI
+  const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled but it was not'
+  const expectedTelemetryEnabledMessage = 'expected telemetry to be enabled but it was not'
+  const expectedAutoOpenDisabledMessage = 'expected auto open to be disabled but it was not'
+  const expectedAutoOpenEnabledMessage = 'expected auto open to be enabled but it was not'
 
   const transferReq = {
     fromAccountType: 4,
@@ -38,6 +42,7 @@ describe('Settings test', () => {
     transaction = new Transaction(driver)
     header = new ExtensionHeader(driver)
     settingsPage = await navPanel.goToSettings()
+    vegaAPI = new VegaAPI(driver)
   })
 
   afterEach(async () => {
@@ -61,6 +66,26 @@ describe('Settings test', () => {
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
     await navigateToExtensionLandingPage(driver)
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+  })
+
+  it('can navigate to settings and update auto open settings, behaviour will be correctly modified after update', async () => {
+    // 1113-POPT-010 The browser wallet does not open in a pop-up window if the autoOpen setting is set to false
+    // 1113-POPT-011 There is a way to change the auto open setting
+    const navPanel = new NavPanel(driver)
+    const settingsPage = await navPanel.goToSettings()
+    expect(await settingsPage.isAutoOpenSelected(), expectedAutoOpenEnabledMessage).toBe(true)
+    await settingsPage.selectAutoOpenNo()
+    expect(await settingsPage.isAutoOpenSelected(), expectedAutoOpenDisabledMessage).toBe(false)
+
+    await navigateToExtensionLandingPage(driver)
+    await connectWalletAndCheckNumberOfHandles(driver, vegaAPI, false)
+    await sendTransactionAndCheckNumberOfHandles(driver, vegaAPI, false)
+
+    await navPanel.goToSettings()
+    expect(await settingsPage.isAutoOpenSelected(), expectedAutoOpenDisabledMessage).toBe(false)
+    await settingsPage.selectAutoOpenYes()
+    expect(await settingsPage.isAutoOpenSelected(), expectedAutoOpenEnabledMessage).toBe(true)
+    await sendTransactionAndCheckNumberOfHandles(driver, vegaAPI, true)
   })
 
   // TODO this test shouldn't be hidden in settings tests as is available across all of the app
@@ -115,4 +140,61 @@ describe('Settings test', () => {
       "expected the popout window handle to be closed after clicking the 'continue here button' but it was still found in the window handles"
     ).not.toContain(popoutWindowHandle)
   })
+
+  async function switchToExtensionTab(
+    popoutEnabled: boolean,
+    originalActiveTab: string,
+    tabsBeforeVegaAPIRequest: string[],
+    tabsAfterVegaAPIRequest: string[]
+  ) {
+    if (popoutEnabled) {
+      await goToNewWindowHandle(driver, tabsBeforeVegaAPIRequest, tabsAfterVegaAPIRequest)
+    } else {
+      await switchWindowHandles(driver, false, originalActiveTab)
+      await navigateToExtensionLandingPage(driver)
+    }
+  }
+
+  async function sendTransactionAndCheckNumberOfHandles(driver: WebDriver, vegaAPI: VegaAPI, popoutEnabled: boolean) {
+    const originalActiveTab = await driver.getWindowHandle()
+    const tabsBeforeVegaAPITransaction = await driver.getAllWindowHandles()
+
+    await driver.get('https://google.co.uk')
+    await vegaAPI.connectWalletAndCheckSuccess(true, false)
+    const keys = await vegaAPI.listKeys(false, false)
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq }, false, true)
+    const numExpectedTabs = popoutEnabled
+      ? tabsBeforeVegaAPITransaction.length + 1
+      : tabsBeforeVegaAPITransaction.length
+    expect(await windowHandleHasCount(driver, numExpectedTabs)).toBe(true)
+
+    const tabsAfterVegaAPITransaction = await driver.getAllWindowHandles()
+    await switchToExtensionTab(
+      popoutEnabled,
+      originalActiveTab,
+      tabsBeforeVegaAPITransaction,
+      tabsAfterVegaAPITransaction
+    )
+    await transaction.rejectTransaction()
+    await switchWindowHandles(driver, false)
+  }
+
+  async function connectWalletAndCheckNumberOfHandles(driver: WebDriver, vegaAPI: VegaAPI, popoutEnabled: boolean) {
+    const tabsBeforeVegaAPIRequest = await driver.getAllWindowHandles()
+    const originalActiveTab = await driver.getWindowHandle()
+
+    await driver.get('https://google.co.uk')
+    await vegaAPI.connectWallet(true, true)
+
+    const numExpectedTabs = popoutEnabled ? tabsBeforeVegaAPIRequest.length + 1 : tabsBeforeVegaAPIRequest.length
+    expect(await windowHandleHasCount(driver, numExpectedTabs)).toBe(true)
+
+    const tabsAfterVegaAPIRequest = await driver.getAllWindowHandles()
+    await switchToExtensionTab(popoutEnabled, originalActiveTab, tabsBeforeVegaAPIRequest, tabsAfterVegaAPIRequest)
+
+    await connectWalletModal.checkOnConnectWallet()
+    await connectWalletModal.approveConnectionAndCheckSuccess()
+    await switchWindowHandles(driver, false, originalActiveTab)
+    expect(await windowHandleHasCount(driver, tabsBeforeVegaAPIRequest.length)).toBe(true)
+  }
 })

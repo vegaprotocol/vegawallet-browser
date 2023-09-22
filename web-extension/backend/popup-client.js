@@ -1,5 +1,6 @@
 import JSONRPCClient from '../../lib/json-rpc-client.js'
 import assert from 'nanoassert'
+import { isResponse } from '../../lib/json-rpc.js'
 
 /**
  * Popup client
@@ -38,9 +39,8 @@ export class PopupClient {
   async _send(method, params) {
     const res = this.client.request(method, params)
     // Wait for the request to be added to the send queue
-    if (method !== 'ping') {
-      this.onbeforerequest?.() // TODO: ask @emil about this, we aren't awaiting this but it is a promise. Should we be? What if it errors?
-    }
+    this.onbeforerequest?.()
+
     return res
   }
 
@@ -57,7 +57,7 @@ export class PopupClient {
 
     const self = this
     function _onmessage(message) {
-      if (message.id != null) {
+      if (isResponse(message)) {
         const idx = self.persistentQueue.findIndex((msg) => msg.id === message.id)
         if (idx !== -1) {
           self.persistentQueue.splice(idx, 1)
@@ -65,8 +65,9 @@ export class PopupClient {
       }
 
       self.client.onmessage(message)
-      if (message.method !== 'ping') {
-        self.onafterrequest?.() // TODO: ask @emil about this, we aren't awaiting this but it is a promise. Should we be? What if it errors?
+
+      if (isResponse(message)) {
+        self.onafterrequest?.()
       }
     }
 

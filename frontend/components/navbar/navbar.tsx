@@ -27,10 +27,10 @@ const TEXT_COLOR = {
   }
 }
 
-export const NavButton = ({ icon, text, to, end, isFairground }: NavButtonProps) => {
+export const NavButton = ({ icon, text, to, isFairground }: NavButtonProps) => {
   const textColors = isFairground ? TEXT_COLOR.fairground : TEXT_COLOR.default
   return (
-    <NavLink end={end} data-testid={locators.navButton} to={to} className="text-center">
+    <NavLink data-testid={locators.navButton} to={to} className="text-center">
       {({ isActive }) => {
         const textColor = isActive ? textColors.active : textColors.inactive
 
@@ -63,7 +63,6 @@ export const NavBar = ({ isFairground }: { isFairground: boolean }) => {
     >
       <NavButton
         isFairground={isFairground}
-        end={true}
         icon={<Wallet className="m-auto" squareFill={isFairground ? '#D7FB50' : 'black'} />}
         to={{ pathname: FULL_ROUTES.wallets }}
         text="Wallets"

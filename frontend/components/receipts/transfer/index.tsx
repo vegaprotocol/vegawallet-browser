@@ -29,9 +29,13 @@ export const locators = {
 }
 
 export const Transfer = ({ transaction }: ReceiptComponentProps) => {
-  const { loading: assetsLoading, assets, getAssetById } = useAssetsStore()
+  const {
+    loading: assetsLoading,
+    assets,
+    getAssetById
+  } = useAssetsStore((state) => ({ loading: state.loading, assets: state.assets, getAssetById: state.getAssetById }))
   // We check whether wallets are loading as wallet data is used to enrich the transfer view
-  const { loading: walletsLoading } = useWalletStore()
+  const { loading: walletsLoading } = useWalletStore((state) => ({ loading: state.loading }))
   const { asset } = transaction.transfer
   const [assetInfo, setAssetInfo] = useState<VegaAsset | null>(null)
 

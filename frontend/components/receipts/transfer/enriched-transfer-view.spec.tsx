@@ -40,14 +40,16 @@ const mockAssetInfo: VegaAsset = {
 
 describe('EnrichedTransferView', () => {
   it('renders correctly', () => {
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      getKeyInfo: () => ({
-        index: 0,
-        metadata: [],
-        name: 'MyKey',
-        publicKey: '1'.repeat(64)
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        getKeyInfo: () => ({
+          index: 0,
+          metadata: [],
+          name: 'MyKey',
+          publicKey: '1'.repeat(64)
+        })
       })
-    })
+    )
 
     render(<EnrichedTransferView transaction={mockTransaction} assetInfo={mockAssetInfo} />)
 

@@ -77,15 +77,20 @@ describe('TransferReceipt', () => {
   })
 
   it('should render nothing if the transfer type is recurring', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      assets: [],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: true,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        assets: [],
+        getAssetById: jest.fn().mockReturnValue(mockAsset)
+      })
+    )
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const recurringTransfer = {
       transfer: {
         ...baseTransfer,
@@ -103,15 +108,20 @@ describe('TransferReceipt', () => {
   it('should render wrapper, amount, receiving key and when the transaction is scheduled to be delivered', () => {
     // 1124-TRAN-001 I can see the receiving key of the transfer
     // 1124-TRAN-006 I can see the price
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        assets: [mockAsset],
+        getAssetById: jest.fn().mockReturnValue(mockAsset)
+      })
+    )
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -129,10 +139,13 @@ describe('TransferReceipt', () => {
 
   it('if transfer time is in the past renders now', () => {
     // 1124-TRAN-002 For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: true,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -146,10 +159,13 @@ describe('TransferReceipt', () => {
   })
 
   it('if deliverOn is not provided renders now', () => {
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: true,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer
@@ -161,10 +177,13 @@ describe('TransferReceipt', () => {
 
   it('if transfer is in future then it renders relative & absolute time', () => {
     // 1124-TRAN-003 For a oneOff transfer which is has a delivery date in the future there is a way to see when the transfer will be delivered
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: true,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -179,14 +198,20 @@ describe('TransferReceipt', () => {
   })
 
   it('should render BasicTransferView whilst loading', async () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: true,
-      assets: []
-    })
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: true,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: true,
+        assets: [],
+        getAssetById: jest.fn().mockReturnValue(mockAsset)
+      })
+    )
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -201,16 +226,20 @@ describe('TransferReceipt', () => {
   })
 
   it('should render BasicTransferView if assets array is empty', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      assets: [],
-      getAssetById: jest.fn()
-    })
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      wallets: mockWallets,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        assets: [],
+        getAssetById: jest.fn()
+      })
+    )
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -225,16 +254,20 @@ describe('TransferReceipt', () => {
 
   it('should render EnrichedTransferView when loading is false and assets array is not empty', () => {
     // 1124-TRAN-007 I can see the enriched price details if the data is provided - correctly formatted decimals and asset name
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      wallets: mockWallets,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        assets: [mockAsset],
+        getAssetById: jest.fn().mockReturnValue(mockAsset)
+      })
+    )
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -252,21 +285,26 @@ describe('TransferReceipt', () => {
 
   it('should render show EnrichedTransferView showing key data when available - transferring to own key', () => {
     // 1124-TRAN-008 - I can see enriched key details if the data is provided - whether the transfer is between own keys
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      wallets: mockWallets,
-      getKeyInfo: jest.fn().mockReturnValue({
-        index: 0,
-        metadata: [],
-        name: 'Key 1',
-        publicKey: '1'.repeat(64)
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        assets: [mockAsset],
+        getAssetById: jest.fn().mockReturnValue(mockAsset)
       })
-    })
+    )
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: () => ({
+          index: 0,
+          metadata: [],
+          name: 'Key 1',
+          publicKey: '1'.repeat(64)
+        })
+      })
+    )
+
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -283,16 +321,20 @@ describe('TransferReceipt', () => {
 
   it('should render show EnrichedTransferView showing key data when available - transferring to external key', () => {
     // 1124-TRAN-009 - I can see enriched key details if the data is provided - whether the transfer is to an external key
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-    ;(useWalletStore as unknown as jest.Mock).mockReturnValue({
-      loading: false,
-      wallets: mockWallets,
-      getKeyInfo: jest.fn().mockReturnValue(undefined)
-    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        assets: [mockAsset],
+        getAssetById: jest.fn().mockReturnValue(mockAsset)
+      })
+    )
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        wallets: mockWallets,
+        getKeyInfo: jest.fn().mockReturnValue(undefined)
+      })
+    )
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,

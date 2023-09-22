@@ -35,7 +35,7 @@ export const KeyDetails = () => {
               </DropdownMenuTrigger>
             }
           >
-            <DropdownMenuContent>
+            <DropdownMenuContent style={{ overflow: 'hidden', overflowY: 'auto', maxHeight: 360 }}>
               <div className="m-4">
                 <h1 className="text-vega-dark-300 text-sm uppercase">Keys</h1>
                 {keys.map((k) => (
@@ -53,7 +53,7 @@ export const KeyDetails = () => {
       </section>
       <VegaSection>
         <h1 className="text-vega-dark-300 text-sm uppercase">Funds</h1>
-        <p className="text-vega-dark-400 my-2">If you have open positions, funds totals below may differ.</p>
+        <p className="text-vega-dark-400 my-3">If you have open positions, funds totals below may differ.</p>
         {Object.entries(accountsByAsset).map(([assetId, val]) => (
           <AssetCard key={assetId} accounts={val} assetId={assetId} />
         ))}

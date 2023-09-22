@@ -7,6 +7,8 @@ import { dummyTransaction } from './helpers/wallet/common-wallet-values'
 import { openLatestWindowHandle, switchWindowHandles, windowHandleHasCount } from './helpers/selenium-util'
 import { Transaction } from './page-objects/transaction'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
+import test from '../../config/test'
+import { closeServerAndWait, server } from './helpers/wallet/http-server'
 
 describe('check popout functionality', () => {
   let dappHandle = ''
@@ -15,6 +17,14 @@ describe('check popout functionality', () => {
   let connectWallet: ConnectWallet
   let apiHelper: APIHelper
   let transaction: Transaction
+
+  beforeAll(async () => {
+    server.listen(test.test.mockPort)
+  })
+
+  afterAll(async () => {
+    await closeServerAndWait()
+  })
 
   beforeEach(async () => {
     driver = await initDriver()

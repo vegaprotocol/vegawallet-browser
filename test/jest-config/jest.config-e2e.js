@@ -4,6 +4,7 @@ import merge from 'lodash/merge.js'
 
 const jestConfigE2E = cloneDeep(baseConfig)
 let overrides = {
+  roots: ['<rootDir>/test'],
   preset: 'ts-jest',
   testEnvironment: 'node',
   setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],

@@ -1,6 +1,5 @@
 const baseConfig =  {
       rootDir: '../..',
-      roots: ['<rootDir>/test'],
       transform: {
         '^.+\\.tsx?$': 'ts-jest',
         '^.+\\.jsx?$': 'ts-jest',

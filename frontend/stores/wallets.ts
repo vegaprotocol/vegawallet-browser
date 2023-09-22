@@ -24,10 +24,7 @@ export type WalletsStore = {
   loading: boolean
   loadWallets: (client: SendMessage) => Promise<void>
   createKey: (client: SendMessage, walletName: string) => Promise<void>
-  getKeyInfo: (pubKey: string) => {
-    isOwnKey: boolean
-    keyName: string | undefined
-  }
+  getKeyInfo: (pubKey: string) => Key | undefined
 }
 
 export const useWalletStore = create<WalletsStore>()((set, get) => ({
@@ -72,21 +69,8 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       set({ loading: false })
     }
   },
-  getKeyInfo: (pubKey: string) => {
-    const wallets = get().wallets
-    for (const wallet of wallets) {
-      for (const key of wallet.keys) {
-        if (key.publicKey === pubKey) {
-          return {
-            isOwnKey: true,
-            keyName: key.name
-          }
-        }
-      }
-    }
-    return {
-      isOwnKey: false,
-      keyName: undefined
-    }
-  }
+  getKeyInfo: (pubKey: string) =>
+    get()
+      .wallets.flatMap((w) => w.keys)
+      .find(({ publicKey }) => publicKey === pubKey)
 }))

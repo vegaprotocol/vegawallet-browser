@@ -3,6 +3,8 @@ import { captureScreenshot } from './helpers/driver'
 import { ViewWallet } from './page-objects/view-wallet'
 import { NavPanel } from './page-objects/navpanel'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import { closeServerAndWait, server } from './helpers/wallet/http-server'
+import test from '../../config/test'
 
 describe('View wallet page', () => {
   let driver: WebDriver
@@ -16,6 +18,14 @@ describe('View wallet page', () => {
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
+  })
+
+  beforeAll(async () => {
+    server.listen(test.test.mockPort)
+  })
+
+  afterAll(async () => {
+    await closeServerAndWait()
   })
 
   it('can create new key pair in the view wallet screen', async () => {

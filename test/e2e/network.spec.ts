@@ -3,6 +3,7 @@ import { captureScreenshot } from './helpers/driver'
 import test from '../../config/test'
 import { ExtensionHeader } from './page-objects/extension-header'
 import { createWalletAndDriver } from './helpers/wallet/wallet-setup'
+import { closeServerAndWait, server } from './helpers/wallet/http-server'
 
 describe('Network tests', () => {
   let driver: WebDriver
@@ -16,6 +17,14 @@ describe('Network tests', () => {
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
+  })
+
+  beforeAll(async () => {
+    server.listen(test.test.mockPort)
+  })
+
+  afterAll(async () => {
+    await closeServerAndWait()
   })
 
   it('defaults to the fairground network', async () => {

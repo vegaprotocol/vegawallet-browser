@@ -1,15 +1,13 @@
 import ReactTimeAgo from 'react-time-ago'
-import { useEffect, useState } from 'react'
 import { isBefore } from 'date-fns'
 import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
-import { BasicTransferView } from './basic-transfer-view.tsx'
-import { EnrichedTransferView } from './enriched-transfer-view.tsx'
+import { BasicTransferView } from './basic-transfer-view'
+import { EnrichedTransferView } from './enriched-transfer-view'
 import { getDateTimeFormat } from '@vegaprotocol/utils'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
-import { useAssetsStore } from '../../../stores/assets-store.ts'
-import { useWalletStore } from '../../../stores/wallets.ts'
-import { VegaAsset } from '../../../types/rest-api.ts'
+import { useAssetsStore } from '../../../stores/assets-store'
+import { useWalletStore } from '../../../stores/wallets'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn
@@ -29,24 +27,11 @@ export const locators = {
 }
 
 export const Transfer = ({ transaction }: ReceiptComponentProps) => {
-  const {
-    loading: assetsLoading,
-    assets,
-    getAssetById
-  } = useAssetsStore((state) => ({ loading: state.loading, assets: state.assets, getAssetById: state.getAssetById }))
+  const { loading: assetsLoading } = useAssetsStore((state) => ({
+    loading: state.loading
+  }))
   // We check whether wallets are loading as wallet data is used to enrich the transfer view
   const { loading: walletsLoading } = useWalletStore((state) => ({ loading: state.loading }))
-  const { asset } = transaction.transfer
-  const [assetInfo, setAssetInfo] = useState<VegaAsset | null>(null)
-
-  useEffect(() => {
-    if (assets.length > 0) {
-      const res = getAssetById(asset)
-      if (res.id) {
-        setAssetInfo(res)
-      }
-    }
-  }, [assets, asset, getAssetById])
 
   // Not supporting recurring transfers yet
   if (transaction.transfer.recurring) return null
@@ -56,10 +41,10 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
     <ReceiptWrapper>
       <h1 className="text-vega-dark-300">Amount</h1>
 
-      {assetsLoading || walletsLoading || !assetInfo ? (
+      {assetsLoading || walletsLoading ? (
         <BasicTransferView transaction={transaction} />
       ) : (
-        <EnrichedTransferView transaction={transaction} assetInfo={assetInfo} />
+        <EnrichedTransferView transaction={transaction} />
       )}
 
       <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>

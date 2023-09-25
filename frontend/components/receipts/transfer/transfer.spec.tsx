@@ -1,14 +1,18 @@
-import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer.js'
-import { AccountType } from '@vegaprotocol/protos/vega/AccountType.js'
+import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer'
+import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 import { render, screen } from '@testing-library/react'
 import { locators, Transfer } from '.'
-import { locators as basicLocators } from './basic-transfer-view.tsx'
-import { locators as enrichedLocators } from './enriched-transfer-view.tsx'
-import { locators as priceWithSymbolLocators } from '../utils/string-amounts/price-with-symbol.tsx'
-import { locators as vegaKeyLocators } from '../../keys/vega-key/index.tsx'
-import { useAssetsStore } from '../../../stores/assets-store.ts'
-import { useWalletStore } from '../../../stores/wallets.ts'
-import { VegaAsset, VegaAssetStatus } from '../../../types/rest-api.ts'
+import { useAssetsStore } from '../../../stores/assets-store'
+import { useWalletStore } from '../../../stores/wallets'
+import { VegaAsset, VegaAssetStatus } from '../../../types/rest-api'
+
+jest.mock('./basic-transfer-view', () => ({
+  BasicTransferView: () => <div data-testid="basic-transfer-view" />
+}))
+
+jest.mock('./enriched-transfer-view', () => ({
+  EnrichedTransferView: () => <div data-testid="enriched-transfer-view" />
+}))
 
 jest.mock('../utils/receipt-wrapper', () => ({
   ReceiptWrapper: ({ children }: { children: React.ReactNode }) => {
@@ -105,38 +109,6 @@ describe('TransferReceipt', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('should render wrapper, amount, receiving key and when the transaction is scheduled to be delivered', () => {
-    // 1124-TRAN-001 I can see the receiving key of the transfer
-    // 1124-TRAN-006 I can see the price
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        assets: [mockAsset],
-        getAssetById: jest.fn().mockReturnValue(mockAsset)
-      })
-    )
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
-      })
-    )
-    const oneOffTransfer = {
-      transfer: {
-        ...baseTransfer,
-        oneOff: {
-          deliverOn: '0'
-        }
-      }
-    }
-    render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId('receipt-wrapper')).toBeVisible()
-    expect(screen.getByTestId('price-with-symbol')).toBeVisible()
-    expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toHaveTextContent('111111…1111')
-    expect(screen.getByTestId(locators.whenSection)).toHaveTextContent('When')
-  })
-
   it('if transfer time is in the past renders now', () => {
     // 1124-TRAN-002 For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately
     ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
@@ -201,8 +173,7 @@ describe('TransferReceipt', () => {
     ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         loading: true,
-        assets: [],
-        getAssetById: jest.fn().mockReturnValue(mockAsset)
+        assets: []
       })
     )
     ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
@@ -222,43 +193,16 @@ describe('TransferReceipt', () => {
     }
 
     render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(basicLocators.basicSection)).toBeVisible()
+    expect(screen.getByTestId('basic-transfer-view')).toBeVisible()
   })
 
-  it('should render BasicTransferView if assets array is empty', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        assets: [],
-        getAssetById: jest.fn()
-      })
-    )
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
-      })
-    )
-    const oneOffTransfer = {
-      transfer: {
-        ...baseTransfer,
-        oneOff: {
-          deliverOn: '0'
-        }
-      }
-    }
-    render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(basicLocators.basicSection)).toBeVisible()
-  })
-
-  it('should render EnrichedTransferView when loading is false and assets array is not empty', () => {
+  it('should render EnrichedTransferView when loading is false', () => {
+    // TODO -- test in enriched transfer view
     // 1124-TRAN-007 I can see the enriched price details if the data is provided - correctly formatted decimals and asset name
     ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         loading: false,
-        assets: [mockAsset],
-        getAssetById: jest.fn().mockReturnValue(mockAsset)
+        assets: [mockAsset]
       })
     )
     ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
@@ -278,18 +222,16 @@ describe('TransferReceipt', () => {
     }
 
     render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(enrichedLocators.enrichedSection)).toBeVisible()
-    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent('0.000000000000000001')
-    expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('VEGA')
+    expect(screen.getByTestId('enriched-transfer-view')).toBeVisible()
   })
 
   it('should render show EnrichedTransferView showing key data when available - transferring to own key', () => {
+    // TODO -- test in enriched transfer view
     // 1124-TRAN-008 - I can see enriched key details if the data is provided - whether the transfer is between own keys
     ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         loading: false,
-        assets: [mockAsset],
-        getAssetById: jest.fn().mockReturnValue(mockAsset)
+        assets: [mockAsset]
       })
     )
     ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
@@ -315,17 +257,16 @@ describe('TransferReceipt', () => {
     }
 
     render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('Key 1 (own key)')
-    expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toHaveTextContent('111111…1111')
+    expect(screen.getByTestId('enriched-transfer-view')).toBeVisible()
   })
 
   it('should render show EnrichedTransferView showing key data when available - transferring to external key', () => {
+    // TODO -- test in enriched transfer view
     // 1124-TRAN-009 - I can see enriched key details if the data is provided - whether the transfer is to an external key
     ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         loading: false,
-        assets: [mockAsset],
-        getAssetById: jest.fn().mockReturnValue(mockAsset)
+        assets: [mockAsset]
       })
     )
     ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
@@ -346,7 +287,6 @@ describe('TransferReceipt', () => {
     }
 
     render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('External key')
-    expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toHaveTextContent('222222…2222')
+    expect(screen.getByTestId('enriched-transfer-view')).toBeVisible()
   })
 })

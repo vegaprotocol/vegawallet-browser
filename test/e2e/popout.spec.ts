@@ -39,7 +39,7 @@ describe('check popout functionality', () => {
     await openLatestWindowHandle(driver)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
 
     await switchWindowHandles(driver, false, dappHandle)
     await navigateToExtensionLandingPage(driver)
@@ -53,7 +53,7 @@ describe('check popout functionality', () => {
     await openLatestWindowHandle(driver)
     await connectWallet.checkOnConnectWallet()
     await driver.close()
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
 
     await switchWindowHandles(driver, false, dappHandle)
     await navigateToExtensionLandingPage(driver)
@@ -67,7 +67,7 @@ describe('check popout functionality', () => {
     await openLatestWindowHandle(driver)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
     await switchWindowHandles(driver, false, dappHandle)
   })
 
@@ -76,11 +76,11 @@ describe('check popout functionality', () => {
     await sendTransactionAndCheckPopoutAppears()
     await openLatestWindowHandle(driver)
     await transaction.checkOnTransactionPage()
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await windowHandleHasCount(driver, 3)).toBe(true)
     await driver.close()
 
     await switchWindowHandles(driver, false, dappHandle)
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
@@ -92,7 +92,7 @@ describe('check popout functionality', () => {
     await transaction.confirmTransaction()
 
     await switchWindowHandles(driver, false, dappHandle)
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {

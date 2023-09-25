@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { EnrichedTransferView, locators as enrichedLocators } from './enriched-transfer-view'
 import { VegaAsset, VegaAssetStatus } from '../../../types/rest-api'
-import { useWalletStore } from '../../../stores/wallets'
+import { Key, useWalletStore } from '../../../stores/wallets'
 import { locators as vegaKeyLocators } from '../../keys/vega-key'
 import { locators as priceWithSymbolLocators } from '../utils/string-amounts/price-with-symbol'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
@@ -43,25 +43,31 @@ const mockAsset: VegaAsset = {
   status: VegaAssetStatus.ENABLED
 }
 
+const mockStores = (keyDetails: Key | undefined) => {
+  ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+    selector({
+      loading: false,
+      assets: [],
+      getAssetById: jest.fn().mockReturnValue(mockAsset)
+    })
+  )
+  ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+    selector({
+      getKeyInfo: () => keyDetails
+    })
+  )
+}
+
 describe('EnrichedTransferView', () => {
   it('renders correctly', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        assets: [],
-        getAssetById: jest.fn().mockReturnValue(mockAsset)
-      })
-    )
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        getKeyInfo: () => ({
-          index: 0,
-          metadata: [],
-          name: 'MyKey',
-          publicKey: '1'.repeat(64)
-        })
-      })
-    )
+    // 1124-TRAN-007 I can see the enriched price details if the data is provided - correctly formatted decimals and asset name
+    // 1124-TRAN-008 - I can see enriched key details if the data is provided - whether the transfer is between own keys
+    mockStores({
+      index: 0,
+      metadata: [],
+      name: 'MyKey',
+      publicKey: '1'.repeat(64)
+    })
 
     render(<EnrichedTransferView transaction={mockTransaction} />)
 
@@ -70,5 +76,18 @@ describe('EnrichedTransferView', () => {
     expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent('0.00001')
     expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('tDAI')
     expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('MyKey (own key)')
+  })
+
+  it('renders external key if the transfer is not between own keys', () => {
+    // 1124-TRAN-009 - I can see enriched key details if the data is provided - whether the transfer is to an external key
+    mockStores(undefined)
+
+    render(<EnrichedTransferView transaction={mockTransaction} />)
+
+    expect(screen.getByTestId(enrichedLocators.enrichedSection)).toBeInTheDocument()
+    expect(screen.getByTestId(priceWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
+    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent('0.00001')
+    expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('tDAI')
+    expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('External key')
   })
 })

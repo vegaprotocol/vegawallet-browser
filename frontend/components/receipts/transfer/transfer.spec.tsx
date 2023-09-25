@@ -24,11 +24,11 @@ jest.mock('../utils/string-amounts/amount-with-tooltip', () => ({
   AmountWithTooltip: () => <div data-testid="amount-with-tooltip" />
 }))
 
-jest.mock('../../../stores/assets-store.ts', () => ({
+jest.mock('../../../stores/assets-store', () => ({
   useAssetsStore: jest.fn()
 }))
 
-jest.mock('../../../stores/wallets.ts', () => ({
+jest.mock('../../../stores/wallets', () => ({
   useWalletStore: jest.fn()
 }))
 
@@ -197,8 +197,6 @@ describe('TransferReceipt', () => {
   })
 
   it('should render EnrichedTransferView when loading is false', () => {
-    // TODO -- test in enriched transfer view
-    // 1124-TRAN-007 I can see the enriched price details if the data is provided - correctly formatted decimals and asset name
     ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         loading: false,
@@ -226,8 +224,6 @@ describe('TransferReceipt', () => {
   })
 
   it('should render show EnrichedTransferView showing key data when available - transferring to own key', () => {
-    // TODO -- test in enriched transfer view
-    // 1124-TRAN-008 - I can see enriched key details if the data is provided - whether the transfer is between own keys
     ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         loading: false,
@@ -261,8 +257,6 @@ describe('TransferReceipt', () => {
   })
 
   it('should render show EnrichedTransferView showing key data when available - transferring to external key', () => {
-    // TODO -- test in enriched transfer view
-    // 1124-TRAN-009 - I can see enriched key details if the data is provided - whether the transfer is to an external key
     ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         loading: false,

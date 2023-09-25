@@ -36,7 +36,7 @@ const poll = () => {
   const currentTime = Date.now();
   if (currentTime - startTime >= timeoutDuration) {
     console.error('Timeout: Endpoint health check failed');
-    process.exit(1); // Exit with an error code if the timeout is reached
+    process.exit(1);
   }
 
   pollEndpoint();

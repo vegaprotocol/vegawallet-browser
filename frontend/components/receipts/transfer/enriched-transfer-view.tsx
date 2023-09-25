@@ -1,19 +1,19 @@
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
-import { PriceWithSymbol } from '../utils/string-amounts/price-with-symbol.tsx'
+import { PriceWithSymbol } from '../utils/string-amounts/price-with-symbol'
 import { VegaKey } from '../../keys/vega-key'
-import { useWalletStore } from '../../../stores/wallets.ts'
+import { useWalletStore } from '../../../stores/wallets'
 import { ReceiptComponentProps } from '../receipts'
-import { VegaAsset } from '../../../types/rest-api.ts'
+import { useAssetsStore } from '../../../stores/assets-store'
 
 export const locators = {
   enrichedSection: 'enriched-section'
 }
 
-interface EnrichedTransferViewProps extends ReceiptComponentProps {
-  assetInfo: VegaAsset | undefined
-}
-
-export const EnrichedTransferView = ({ transaction, assetInfo }: EnrichedTransferViewProps) => {
+export const EnrichedTransferView = ({ transaction }: ReceiptComponentProps) => {
+  const { getAssetById } = useAssetsStore((state) => ({
+    getAssetById: state.getAssetById
+  }))
+  const assetInfo = getAssetById(transaction.transfer.asset)
   const { getKeyInfo } = useWalletStore((state) => ({ getKeyInfo: state.getKeyInfo }))
   const { amount } = transaction.transfer
   const decimals = Number(assetInfo?.details?.decimals)

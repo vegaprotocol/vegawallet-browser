@@ -5,9 +5,14 @@ import { useWalletStore } from '../../../stores/wallets'
 import { locators as vegaKeyLocators } from '../../keys/vega-key'
 import { locators as priceWithSymbolLocators } from '../utils/string-amounts/price-with-symbol'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
+import { useAssetsStore } from '../../../stores/assets-store'
 
 jest.mock('../../../stores/wallets', () => ({
   useWalletStore: jest.fn()
+}))
+
+jest.mock('../../../stores/assets-store', () => ({
+  useAssetsStore: jest.fn()
 }))
 
 const mockTransaction = {
@@ -22,7 +27,7 @@ const mockTransaction = {
   }
 }
 
-const mockAssetInfo: VegaAsset = {
+const mockAsset: VegaAsset = {
   id: 'b340c130096819428a62e5df407fd6abe66e444b89ad64f670beb98621c9c663',
   details: {
     name: 'tDAI TEST',
@@ -40,6 +45,13 @@ const mockAssetInfo: VegaAsset = {
 
 describe('EnrichedTransferView', () => {
   it('renders correctly', () => {
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        loading: false,
+        assets: [],
+        getAssetById: jest.fn().mockReturnValue(mockAsset)
+      })
+    )
     ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         getKeyInfo: () => ({
@@ -51,7 +63,7 @@ describe('EnrichedTransferView', () => {
       })
     )
 
-    render(<EnrichedTransferView transaction={mockTransaction} assetInfo={mockAssetInfo} />)
+    render(<EnrichedTransferView transaction={mockTransaction} />)
 
     expect(screen.getByTestId(enrichedLocators.enrichedSection)).toBeInTheDocument()
     expect(screen.getByTestId(priceWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()

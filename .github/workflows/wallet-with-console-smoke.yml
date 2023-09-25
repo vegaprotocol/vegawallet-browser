@@ -53,5 +53,5 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: test screenshots chrome
-          path: test screenshots chrome ${{ matrix.environment }}
+          name: test screenshots chrome ${{ matrix.environment }}
+          path: ./test/test-screenshots

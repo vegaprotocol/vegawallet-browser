@@ -1,4 +1,4 @@
-import { AmountWithTooltip } from '../utils/string-amounts/amount-with-tooltip.tsx'
+import { AmountWithTooltip } from '../utils/string-amounts/amount-with-tooltip'
 import { VegaKey } from '../../keys/vega-key'
 import { ReceiptComponentProps } from '../receipts'
 

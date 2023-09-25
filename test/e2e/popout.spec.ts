@@ -103,7 +103,7 @@ describe('check popout functionality', () => {
     await transaction.rejectTransaction()
 
     await switchWindowHandles(driver, false, dappHandle)
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
   async function sendTransactionAndCheckPopoutAppears() {
@@ -114,19 +114,19 @@ describe('check popout functionality', () => {
 
     const keys = await vegaAPI.listKeys(false, false)
     const handles = await driver.getAllWindowHandles()
-    expect(handles.length).toBe(1)
+    expect(handles.length).toBe(2)
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction }, false, false)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await windowHandleHasCount(driver, 3)).toBe(true)
   }
 
   async function sendConnectionRequestAndCheckPopoutWindowHandlePresent() {
     dappHandle = await createDappWindowHandle()
-    await driver.close()
+    await driver.get('http://google.co.uk')
     await switchWindowHandles(driver, false, dappHandle)
 
-    expect(await windowHandleHasCount(driver, 1)).toBe(true)
-    await vegaAPI.connectWallet(false, false)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    await vegaAPI.connectWallet(false, false)
+    expect(await windowHandleHasCount(driver, 3)).toBe(true)
   }
 
   async function createDappWindowHandle() {

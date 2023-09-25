@@ -9,7 +9,6 @@ import { EthereumKeyRotateSubmission } from '@vegaprotocol/protos/vega/commands/
 import { VegaAPI } from './helpers/wallet/vega-api'
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { captureScreenshot, initDriver } from './helpers/driver'
-import { closeServerAndWait, server } from './helpers/wallet/http-server'
 import { openNewWindowAndSwitchToIt } from './helpers/selenium-util'
 import { dummyTransaction } from './helpers/wallet/common-wallet-values'
 
@@ -49,17 +48,9 @@ describe('transactions', () => {
     await viewWallet.checkOnViewWalletPage()
   })
 
-  beforeAll(async () => {
-    server.listen(test.test.mockPort)
-  })
-
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
     await driver.quit()
-  })
-
-  afterAll(async () => {
-    await closeServerAndWait()
   })
 
   it('can confirm a transaction', async () => {

@@ -9,7 +9,6 @@ import { defaultPassword, validRecoveryPhrase } from './helpers/wallet/common-wa
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
-import { closeServerAndWait, server } from './helpers/wallet/http-server'
 import test from '../../config/test'
 
 const incorrectRecoveryPhrase =
@@ -23,14 +22,6 @@ describe('Onboarding', () => {
   let createAWallet: CreateAWallet
   let viewWallet: ViewWallet
   let telemetry: Telemetry
-
-  beforeAll(async () => {
-    server.listen(test.test.mockPort)
-  })
-
-  afterAll(async () => {
-    await closeServerAndWait()
-  })
 
   beforeEach(async () => {
     driver = await initDriver()

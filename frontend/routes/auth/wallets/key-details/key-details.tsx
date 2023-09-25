@@ -52,8 +52,10 @@ export const KeyDetails = () => {
         <VegaKey publicKey={key.publicKey} />
       </section>
       <VegaSection>
-        <h1 className="text-vega-dark-300 text-sm uppercase">Funds</h1>
-        <p className="text-vega-dark-400 my-3">If you have open positions, funds totals below may differ.</p>
+        <h1 className="text-vega-dark-300 text-sm uppercase">Balances</h1>
+        <p className="text-vega-dark-400 my-3">
+          Recent balance changes caused by your open positions may not be reflected below
+        </p>
         {Object.entries(accountsByAsset).map(([assetId, val]) => (
           <AssetCard key={assetId} accounts={val} assetId={assetId} />
         ))}

@@ -1,9 +1,9 @@
 import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 import { render, screen } from '@testing-library/react'
-import { locators, Transfer } from '.'
+import { locators, Transfer } from './transfer'
 import { useAssetsStore } from '../../../stores/assets-store'
-import { useWalletStore } from '../../../stores/wallets'
+import { Key, useWalletStore } from '../../../stores/wallets'
 import { VegaAsset, VegaAssetStatus } from '../../../types/rest-api'
 
 jest.mock('./basic-transfer-view', () => ({
@@ -18,10 +18,6 @@ jest.mock('../utils/receipt-wrapper', () => ({
   ReceiptWrapper: ({ children }: { children: React.ReactNode }) => {
     return <div data-testid="receipt-wrapper">{children}</div>
   }
-}))
-
-jest.mock('../utils/string-amounts/amount-with-tooltip', () => ({
-  AmountWithTooltip: () => <div data-testid="amount-with-tooltip" />
 }))
 
 jest.mock('../../../stores/assets-store', () => ({
@@ -71,6 +67,23 @@ const mockWallets = [
   }
 ]
 
+const mockStores = (asset: VegaAsset | undefined, key: Key | undefined) => {
+  ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
+    selector({
+      loading: false,
+      assets: [],
+      getAssetById: jest.fn().mockReturnValue(asset)
+    })
+  )
+  ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
+    selector({
+      loading: false,
+      wallets: mockWallets,
+      getKeyInfo: jest.fn().mockReturnValue(key)
+    })
+  )
+}
+
 describe('TransferReceipt', () => {
   beforeEach(() => {
     jest.useFakeTimers()
@@ -81,20 +94,7 @@ describe('TransferReceipt', () => {
   })
 
   it('should render nothing if the transfer type is recurring', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        assets: [],
-        getAssetById: jest.fn().mockReturnValue(mockAsset)
-      })
-    )
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
-      })
-    )
+    mockStores(mockAsset, undefined)
     const recurringTransfer = {
       transfer: {
         ...baseTransfer,
@@ -131,13 +131,8 @@ describe('TransferReceipt', () => {
   })
 
   it('if deliverOn is not provided renders now', () => {
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
-      })
-    )
+    mockStores(mockAsset, undefined)
+
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer
@@ -149,13 +144,8 @@ describe('TransferReceipt', () => {
 
   it('if transfer is in future then it renders relative & absolute time', () => {
     // 1124-TRAN-003 For a oneOff transfer which is has a delivery date in the future there is a way to see when the transfer will be delivered
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
-      })
-    )
+    mockStores(mockAsset, undefined)
+
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -197,51 +187,7 @@ describe('TransferReceipt', () => {
   })
 
   it('should render EnrichedTransferView when loading is false', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        assets: [mockAsset]
-      })
-    )
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
-      })
-    )
-    const oneOffTransfer = {
-      transfer: {
-        ...baseTransfer,
-        oneOff: {
-          deliverOn: '0'
-        }
-      }
-    }
-
-    render(<Transfer transaction={oneOffTransfer} />)
-    expect(screen.getByTestId('enriched-transfer-view')).toBeVisible()
-  })
-
-  it('should render show EnrichedTransferView showing key data when available - transferring to own key', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        assets: [mockAsset]
-      })
-    )
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyInfo: () => ({
-          index: 0,
-          metadata: [],
-          name: 'Key 1',
-          publicKey: '1'.repeat(64)
-        })
-      })
-    )
+    mockStores(mockAsset, undefined)
 
     const oneOffTransfer = {
       transfer: {
@@ -256,24 +202,17 @@ describe('TransferReceipt', () => {
     expect(screen.getByTestId('enriched-transfer-view')).toBeVisible()
   })
 
-  it('should render show EnrichedTransferView showing key data when available - transferring to external key', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        assets: [mockAsset]
-      })
-    )
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
-      })
-    )
+  it('should render show EnrichedTransferView showing key data when available', () => {
+    mockStores(mockAsset, {
+      index: 0,
+      metadata: [],
+      name: 'Key 1',
+      publicKey: '1'.repeat(64)
+    })
+
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
-        to: '2'.repeat(64),
         oneOff: {
           deliverOn: '0'
         }

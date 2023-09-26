@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom'
 import { usePersistLocation } from '../hooks/persist-location'
 
 jest.mock('../hooks/persist-location')
-jest.mock('../components/coming-soon')
 
 jest.mock('./home')
 jest.mock('./login')

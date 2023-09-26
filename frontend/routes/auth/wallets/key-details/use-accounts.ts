@@ -3,7 +3,7 @@ import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context
 import { useWalletStore } from '../../../../stores/wallets'
 import { useAccountsStore } from './accounts-store'
 
-export const useAccounts = (id: string) => {
+export const useAccounts = (publicKey: string) => {
   const { request } = useJsonRpcClient()
   const { startPoll, stopPoll, reset, fetchParty, accountsByAsset } = useAccountsStore((state) => ({
     startPoll: state.startPoll,
@@ -15,17 +15,15 @@ export const useAccounts = (id: string) => {
   const { getKeyById } = useWalletStore((state) => ({
     getKeyById: state.getKeyById
   }))
-  const key = getKeyById(id)
+  const key = getKeyById(publicKey)
   useEffect(() => {
-    if (id) {
-      fetchParty(id, request)
-      startPoll(id, request)
-      return () => {
-        stopPoll()
-        reset()
-      }
+    fetchParty(publicKey, request)
+    startPoll(publicKey, request)
+    return () => {
+      stopPoll()
+      reset()
     }
-  }, [fetchParty, getKeyById, id, request, reset, startPoll, stopPoll])
+  }, [fetchParty, getKeyById, publicKey, request, reset, startPoll, stopPoll])
   return {
     accountsByAsset,
     key

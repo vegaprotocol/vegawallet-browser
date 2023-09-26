@@ -2,11 +2,10 @@ import { AccountType } from '@vegaprotocol/types'
 import { useAssetsStore } from '../../../../stores/assets-store'
 import { Apiv1Account } from '../../../../types/rest-api'
 import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/utils'
-import { Lozenge } from '@vegaprotocol/ui-toolkit'
-import { useMarketsStore } from '../../../../stores/markets-store'
 import { DataTable } from '../../../../components/data-table/data-table'
 import BigNumber from 'bignumber.js'
 import { CollapsibleCard } from '../../../../components/collapsible-card'
+import { CurrentMarkets } from './markets-lozenges'
 
 export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
@@ -25,26 +24,6 @@ export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES]: 'Maker received fees',
   [AccountType.ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES]: 'LP received fees',
   [AccountType.ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS]: 'Market proposers'
-}
-
-const CurrentMarkets = ({ assetId }: { assetId: string }) => {
-  const { getMarketsByAssetId } = useMarketsStore((state) => ({
-    getMarketsByAssetId: state.getMarketsByAssetId
-  }))
-  const markets = getMarketsByAssetId(assetId)
-
-  const top5Markets = markets.slice(0, 5)
-  if (top5Markets.length === 0) return null
-  return (
-    <div className="text-left">
-      <p className="mb-1 text-sm">Currently traded in:</p>
-      {top5Markets.map((m) => (
-        <span key={m.id} className="text-xs">
-          <Lozenge>{m.tradableInstrument?.instrument?.name}</Lozenge>
-        </span>
-      ))}
-    </div>
-  )
 }
 
 const AssetHeader = ({

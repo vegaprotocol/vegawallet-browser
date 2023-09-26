@@ -5,6 +5,8 @@ import locators from '../../components/locators'
 
 import { useWalletStore } from '../../stores/wallets'
 import { FULL_ROUTES } from '../route-names'
+import { useAssetsStore } from '../../stores/assets-store'
+import { useMarketsStore } from '../../stores/markets-store'
 
 jest.mock('../../components/page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
@@ -19,9 +21,9 @@ jest.mock('../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({ client: jest.fn() })
 }))
 
-jest.mock('../../stores/wallets', () => ({
-  useWalletStore: jest.fn()
-}))
+jest.mock('../../stores/wallets')
+jest.mock('../../stores/assets-store')
+jest.mock('../../stores/markets-store')
 
 jest.mock('../../components/modals', () => ({
   ModalWrapper: () => <div data-testid="modal-wrapper" />
@@ -31,17 +33,31 @@ jest.mock('../../components/dapps-header/dapps-header', () => ({
   DappsHeader: () => <div data-testid="dapps-header" />
 }))
 
-jest.mock('../../stores/markets-store', () => ({
-  useMarketsStore: jest.fn().mockReturnValue({
-    fetchMarkets: jest.fn()
+const mockStores = () => {
+  const loadWallets = jest.fn()
+  const fetchAssets = jest.fn()
+  const fetchMarkets = jest.fn()
+  ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => {
+    return fn({
+      loadWallets
+    })
   })
-}))
-
-jest.mock('../../stores/assets-store', () => ({
-  useAssetsStore: jest.fn().mockReturnValue({
-    fetchAssets: jest.fn()
-  })
-}))
+  ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
+    fn({
+      fetchAssets
+    })
+  )
+  ;(useMarketsStore as unknown as jest.Mock).mockImplementation((fn) =>
+    fn({
+      fetchMarkets
+    })
+  )
+  return {
+    loadWallets,
+    fetchAssets,
+    fetchMarkets
+  }
+}
 
 const renderComponent = (route: string = '') => {
   return render(
@@ -53,11 +69,7 @@ const renderComponent = (route: string = '') => {
 
 describe('Auth', () => {
   it('renders outlet, header and navbar', () => {
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        loadWallets: jest.fn()
-      })
-    })
+    mockStores()
     renderComponent()
 
     expect(screen.getByTestId(locators.navBar)).toBeInTheDocument()
@@ -65,24 +77,16 @@ describe('Auth', () => {
     expect(screen.getByTestId('modal-wrapper')).toBeInTheDocument()
     expect(screen.getByTestId('page-header')).toBeInTheDocument()
   })
-  it('loads the users wallets', () => {
-    const mockLoad = jest.fn()
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        loadWallets: mockLoad
-      })
-    })
+  it('loads the users wallets, assets and markets', () => {
+    const { loadWallets, fetchAssets, fetchMarkets } = mockStores()
     renderComponent()
 
-    expect(mockLoad).toBeCalledTimes(1)
+    expect(loadWallets).toBeCalledTimes(1)
+    expect(fetchAssets).toBeCalledTimes(1)
+    expect(fetchMarkets).toBeCalledTimes(1)
   })
   it('renders wallets header on wallets page', () => {
-    const mockLoad = jest.fn()
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        loadWallets: mockLoad
-      })
-    })
+    mockStores()
     renderComponent(FULL_ROUTES.wallets)
 
     expect(screen.getByTestId('dapps-header')).toBeVisible()

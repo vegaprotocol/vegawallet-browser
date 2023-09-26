@@ -4,8 +4,9 @@ import smokeConsoleMainnet from '../../config/console-smoke-mainnet.js';
 
 const networkArg = process.argv[2];
 
-if (!networkArg || (networkArg !== 'testnet' && networkArg !== 'mainnet')) {
-  console.error('Usage: node script.js [testnet/mainnet]');
+const PERMITTED_NETWORKS = ['testnet', 'mainnet']
+if (!PERMITTED_NETWORKS.includes(networkArg)) {
+  console.error(`Usage: network must be provided and must be one of ${PERMITTED_NETWORKS.join(' ')}`);
   process.exit(1);
 }
 

@@ -2,10 +2,12 @@ import ReactTimeAgo from 'react-time-ago'
 import { isBefore } from 'date-fns'
 import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
-import { VegaKey } from '../../keys/vega-key'
+import { BasicTransferView } from './basic-transfer-view'
+import { EnrichedTransferView } from './enriched-transfer-view'
 import { getDateTimeFormat } from '@vegaprotocol/utils'
-import { AmountWithTooltip } from '../utils/string-amounts/amount-with-tooltip'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
+import { useAssetsStore } from '../../../stores/assets-store'
+import { useWalletStore } from '../../../stores/wallets'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn
@@ -20,22 +22,31 @@ const getTime = (transaction: Transaction) => {
 
 export const locators = {
   whenSection: 'when-section',
-  whenElement: 'when-element'
+  whenElement: 'when-element',
+  loading: 'loading'
 }
 
 export const Transfer = ({ transaction }: ReceiptComponentProps) => {
+  const { loading: assetsLoading } = useAssetsStore((state) => ({
+    loading: state.loading
+  }))
+  // We check whether wallets are loading as wallet data is used to enrich the transfer view
+  const { loading: walletsLoading } = useWalletStore((state) => ({ loading: state.loading }))
+
   // Not supporting recurring transfers yet
   if (transaction.transfer.recurring) return null
   const time = getTime(transaction)
-  const { asset, amount } = transaction.transfer
+
   return (
     <ReceiptWrapper>
       <h1 className="text-vega-dark-300">Amount</h1>
-      <div className="text-2xl text-white">
-        <AmountWithTooltip assetId={asset} amount={amount} />
-      </div>
-      <h1 className="text-vega-dark-300 mt-4">To</h1>
-      <VegaKey publicKey={transaction.transfer.to} name="Receiving Key" />
+
+      {assetsLoading || walletsLoading ? (
+        <BasicTransferView transaction={transaction} />
+      ) : (
+        <EnrichedTransferView transaction={transaction} />
+      )}
+
       <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
         When
       </h1>

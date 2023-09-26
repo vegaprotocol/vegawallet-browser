@@ -4,6 +4,7 @@ import { ViewWallet } from './page-objects/view-wallet'
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { ErrorModal } from './page-objects/error'
 import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import test from '../../config/test'
 
 describe('Global error', () => {
   let driver: WebDriver

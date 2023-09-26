@@ -24,6 +24,7 @@ export type WalletsStore = {
   loading: boolean
   loadWallets: (client: SendMessage) => Promise<void>
   createKey: (client: SendMessage, walletName: string) => Promise<void>
+  getKeyInfo: (pubKey: string) => Key | undefined
 }
 
 export const useWalletStore = create<WalletsStore>()((set, get) => ({
@@ -67,5 +68,9 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
     } finally {
       set({ loading: false })
     }
-  }
+  },
+  getKeyInfo: (pubKey: string) =>
+    get()
+      .wallets.flatMap((w) => w.keys)
+      .find(({ publicKey }) => publicKey === pubKey)
 }))

@@ -12,6 +12,7 @@ import { openNewWindowAndSwitchToIt } from './helpers/selenium-util'
 import { ViewWallet } from './page-objects/view-wallet'
 import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 import { deleteDirectory } from './helpers/file-system'
+import test from '../../config/test'
 
 describe('Login', () => {
   let driver: WebDriver

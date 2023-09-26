@@ -9,6 +9,7 @@ import { defaultPassword, validRecoveryPhrase } from './helpers/wallet/common-wa
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import test from '../../config/test'
 
 const incorrectRecoveryPhrase =
   'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic bob'

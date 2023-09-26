@@ -7,10 +7,9 @@ import { VegaMarket } from '../types/rest-api.ts'
 const getSettlementAssetId = (market: VegaMarket) => {
   const assetId =
     market.tradableInstrument?.instrument?.future?.settlementAsset ??
-    // @ts-ignore TODO remove this once types are update to include perps
     market.tradableInstrument?.instrument?.perpetual?.settlementAsset
   if (!assetId) {
-    throw new Error('Could not find settlement asset from market')
+    throw new Error(`Could not find settlement asset from market ${market.id}`)
   }
   return assetId
 }

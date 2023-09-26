@@ -1,6 +1,7 @@
 import initAdminServer from '../backend/admin-ns.js'
 import { WalletCollection } from '../backend/wallets.js'
 import { NetworkCollection } from '../backend/network.js'
+import InmemoryStorage from '../lib/inmemory-storage.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 import { ConnectionsCollection } from '../backend/connections.js'
@@ -8,20 +9,20 @@ import { createHTTPServer, createJSONHTTPServer } from './helpers.js'
 import { CONSTANTS } from '../../lib/constants.js'
 
 const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
-  const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
-  const publicKeyIndexStore = new ConcurrentStorage(new Map())
+  const enc = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
+  const publicKeyIndexStore = new ConcurrentStorage(new InmemoryStorage())
   const server = initAdminServer({
     encryptedStore: enc,
-    settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
+    settings: new ConcurrentStorage(new InmemoryStorage([['selectedNetwork', 'fairground']])),
     wallets: new WalletCollection({
       walletsStore: enc,
       publicKeyIndexStore
     }),
     connections: new ConnectionsCollection({
-      connectionsStore: new ConcurrentStorage(new Map()),
+      connectionsStore: new ConcurrentStorage(new InmemoryStorage()),
       publicKeyIndexStore
     }),
-    networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
+    networks: new NetworkCollection(new InmemoryStorage([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
     onerror(err) {
       throw err
     }

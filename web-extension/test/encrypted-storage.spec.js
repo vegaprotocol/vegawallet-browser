@@ -1,9 +1,9 @@
 import EncryptedStorage from '../lib/encrypted-storage.js'
+import InmemoryStorage from '../lib/inmemory-storage.js'
 
 describe('encrypted-storage', () => {
   it('Invalid passphrase', async () => {
-    const store = new Map()
-    const encryptedStorage = new EncryptedStorage(store, { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
     await encryptedStorage.lock()
@@ -11,13 +11,13 @@ describe('encrypted-storage', () => {
   })
 
   it('Storage is not open', async () => {
-    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await expect(encryptedStorage.get('foo')).rejects.toThrow('Storage is locked')
   })
 
   it('get() returns undefined for missing keys', async () => {
-    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
 
@@ -25,7 +25,7 @@ describe('encrypted-storage', () => {
   })
 
   it('get() returns the value for existing keys', async () => {
-    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
 
@@ -41,7 +41,7 @@ describe('encrypted-storage', () => {
   })
 
   it('Storage is cleared when closed', async () => {
-    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
 
@@ -53,7 +53,7 @@ describe('encrypted-storage', () => {
   })
 
   it('Change passphrase', async () => {
-    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
 
@@ -69,7 +69,7 @@ describe('encrypted-storage', () => {
   })
 
   it('Create storage twice', async () => {
-    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
 
@@ -77,7 +77,7 @@ describe('encrypted-storage', () => {
   })
 
   it('Create storage twice with overwrite', async () => {
-    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
 
@@ -87,7 +87,7 @@ describe('encrypted-storage', () => {
   })
 
   it('Lock storage twice', async () => {
-    const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const encryptedStorage = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
 

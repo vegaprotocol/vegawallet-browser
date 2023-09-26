@@ -31,6 +31,18 @@ jest.mock('../../components/dapps-header/dapps-header', () => ({
   DappsHeader: () => <div data-testid="dapps-header" />
 }))
 
+jest.mock('../../stores/markets-store', () => ({
+  useMarketsStore: jest.fn().mockReturnValue({
+    fetchMarkets: jest.fn()
+  })
+}))
+
+jest.mock('../../stores/assets-store', () => ({
+  useAssetsStore: jest.fn().mockReturnValue({
+    fetchAssets: jest.fn()
+  })
+}))
+
 const renderComponent = (route: string = '') => {
   return render(
     <MemoryRouter initialEntries={[route]}>

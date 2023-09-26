@@ -51,13 +51,11 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       wallets: newWallets
     })
   },
-  // @ts-ignore
   getKeyById(id: string) {
     const allKeys = get().wallets.flatMap(({ keys }) => keys)
     const key = allKeys.find(({ publicKey }) => publicKey === id)
     if (!key) {
-      // TODO put back
-      // throw new Error('Could not find key')
+      throw new Error('Could not find key')
     }
     return key
   },

@@ -11,8 +11,10 @@ import { locators as depositAssetsCalloutLocators } from './deposit-assets-callo
 import { locators as signMessageLocators } from '../../../../components/sign-message-dialog/sign-message'
 import { locators as signedMessageLocators } from '../../../../components/sign-message-dialog/signed-message'
 import { locators as vegaKeyLocators } from '../../../../components/keys/vega-key'
+import { MemoryRouter } from 'react-router-dom'
 
-const mockLoadedState = () => {
+const renderComponent = () => {
+  mockClient()
   const state = useWalletStore.getState()
 
   useWalletStore.setState({
@@ -32,6 +34,13 @@ const mockLoadedState = () => {
       }
     ]
   })
+  render(
+    <MemoryRouter>
+      <JsonRPCProvider>
+        <Wallets />
+      </JsonRPCProvider>
+    </MemoryRouter>
+  )
 }
 
 describe('Wallets', () => {
@@ -49,14 +58,7 @@ describe('Wallets', () => {
 
   it('renders the wallet page', async () => {
     // 1106-KEYS-005 There is a link from a key to the Block Explorer filtered transaction view
-
-    mockClient()
-    mockLoadedState()
-    render(
-      <JsonRPCProvider>
-        <Wallets />
-      </JsonRPCProvider>
-    )
+    renderComponent()
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
     expect(screen.getByTestId(walletLocators.walletsWalletName)).toHaveTextContent('wallet 1')
@@ -81,14 +83,8 @@ describe('Wallets', () => {
   })
 
   it('allows you to create another key', async () => {
-    mockClient()
-    mockLoadedState()
+    renderComponent()
 
-    render(
-      <JsonRPCProvider>
-        <Wallets />
-      </JsonRPCProvider>
-    )
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
     fireEvent.click(screen.getByTestId(keyLocators.walletsCreateKey))
@@ -99,14 +95,8 @@ describe('Wallets', () => {
   })
 
   it('allows you to sign a message with a key', async () => {
-    mockClient()
-    mockLoadedState()
+    renderComponent()
 
-    render(
-      <JsonRPCProvider>
-        <Wallets />
-      </JsonRPCProvider>
-    )
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
     fireEvent.click(screen.getByTestId(keyLocators.walletsSignMessageButton))

@@ -5,7 +5,7 @@ import { MessageIcon } from '../../../../components/icons/message'
 import { useState } from 'react'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { VegaKey } from '../../../../components/keys/vega-key'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../route-names'
 
 export const locators = {
@@ -40,7 +40,8 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
         items={wallet.keys}
         clickable={true}
         renderItem={(k) => (
-          <button className="w-full" onClick={() => navigate({ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` })}>
+          // TODO this is a massive hack for the tests. Bigger issues that need to be solved from a UX perspective here.
+          <div className="w-full" onClick={() => navigate({ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` })}>
             <VegaKey publicKey={k.publicKey} name={k.name}>
               &nbsp;
               <button
@@ -51,7 +52,7 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
                 <MessageIcon />
               </button>
             </VegaKey>
-          </button>
+          </div>
         )}
       />
       <div className="mt-3 text-white">

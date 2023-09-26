@@ -29,7 +29,7 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
             trigger={
               <DropdownMenuTrigger className="text-white">
                 <div className="flex items-center">
-                  <span className="mr-1 text-2xl">{key.name ?? 'Unknown key'}</span> <IconChevronDown size={16} />
+                  <span className="mr-1 text-2xl">{key.name}</span> <IconChevronDown size={16} />
                 </div>
               </DropdownMenuTrigger>
             }

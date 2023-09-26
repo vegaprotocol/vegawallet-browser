@@ -16,7 +16,8 @@ jest.mock('./onboarding/save-mnemonic')
 jest.mock('./onboarding/telemetry')
 
 jest.mock('./auth')
-jest.mock('./auth/wallets')
+jest.mock('./auth/wallets/home')
+jest.mock('./auth/wallets/key-details')
 jest.mock('./auth/settings')
 jest.mock('./auth/connections')
 

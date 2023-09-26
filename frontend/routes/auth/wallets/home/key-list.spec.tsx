@@ -5,20 +5,23 @@ import { JsonRPCProvider } from '../../../../contexts/json-rpc/json-rpc-provider
 import { mockClient } from '../../../../test-helpers/mock-client'
 import componentLocators from '../../../../components/locators'
 import { locators as vegaKeyLocators } from '../../../../components/keys/vega-key'
+import { MemoryRouter } from 'react-router-dom'
 
 const storeMock = {
   createKey: jest.fn()
 }
 
-jest.mock('../../../stores/wallets', () => ({
+jest.mock('../../../../stores/wallets', () => ({
   useWalletStore: (fn: any) => fn(storeMock)
 }))
 
 const renderComponent = (props: KeyListProps) =>
   render(
-    <JsonRPCProvider>
-      <KeyList {...props} />
-    </JsonRPCProvider>
+    <MemoryRouter>
+      <JsonRPCProvider>
+        <KeyList {...props} />
+      </JsonRPCProvider>
+    </MemoryRouter>
   )
 
 describe('KeyList', () => {

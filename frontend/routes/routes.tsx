@@ -11,12 +11,12 @@ import { Telemetry } from './onboarding/telemetry'
 
 import { Auth } from './auth'
 import { Wallets } from './auth/wallets/home'
+import { KeyDetails } from './auth/wallets/key-details'
 import { Settings } from './auth/settings'
 import { Connections } from './auth/connections'
 
 import { usePersistLocation } from '../hooks/persist-location'
 import { FULL_ROUTES, ROUTES } from './route-names'
-import { KeyDetails } from './auth/wallets/key-details'
 
 export const Routing = () => {
   usePersistLocation()

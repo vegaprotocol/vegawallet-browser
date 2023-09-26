@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { SendMessage } from '../../../../contexts/json-rpc/json-rpc-provider'
 import { Apiv1Account } from '../../../../types/rest-api'
 import groupBy from 'lodash/groupBy'
+import { removePaginationWrapper } from '../../../../lib/remove-pagination'
 
 const POLL_INTERVAL = 10000
 
@@ -22,7 +23,7 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
   interval: null,
   async fetchAccounts(id, request) {
     const accountsResponse = await request(RpcMethods.Fetch, { path: `api/v2/accounts?filter.partyIds=${id}` })
-    const accounts = accountsResponse.accounts.edges.map(({ node }: { node: Apiv1Account }) => node) as Apiv1Account[]
+    const accounts = removePaginationWrapper<Apiv1Account>(accountsResponse.accounts.edges)
     const accountsByAsset = groupBy(accounts, 'asset')
     set({
       accounts,
@@ -42,10 +43,14 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
     if (interval) {
       clearInterval(interval)
     }
+    set({
+      interval: null
+    })
   },
   reset() {
     set({
-      accounts: []
+      accounts: [],
+      accountsByAsset: {}
     })
   }
 }))

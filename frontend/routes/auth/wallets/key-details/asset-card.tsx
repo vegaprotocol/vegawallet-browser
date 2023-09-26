@@ -5,7 +5,7 @@ import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/u
 import { DataTable } from '../../../../components/data-table/data-table'
 import BigNumber from 'bignumber.js'
 import { CollapsibleCard } from '../../../../components/collapsible-card'
-import { CurrentMarkets } from './markets-lozenges'
+import { MarketLozenges } from './markets-lozenges'
 
 export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
@@ -50,7 +50,7 @@ const AssetHeader = ({
         </div>
         <div className="text-right text-white">{formatNumber(total)}</div>
       </div>
-      <CurrentMarkets assetId={assetId} />
+      <MarketLozenges assetId={assetId} />
     </div>
   )
 }

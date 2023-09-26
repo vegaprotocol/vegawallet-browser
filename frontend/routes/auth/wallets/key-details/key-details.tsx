@@ -19,7 +19,8 @@ export const KeyDetails = () => {
     loading: state.loading
   }))
   if (!id) throw new Error('Id not found')
-  if (loading || !key) return null
+  if (!key) throw new Error(`Key with id ${id} not found`)
+  if (loading) return null
 
   return (
     <div>

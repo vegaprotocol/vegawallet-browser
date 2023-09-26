@@ -9452,6 +9452,11 @@ read-cache@^1.0.0:
   dependencies:
     pify "^2.3.0"
 
+read-write-mutexify@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/read-write-mutexify/-/read-write-mutexify-2.1.0.tgz#d8915be88863070d44a069163ef69007acd7c622"
+  integrity sha512-fDw/p5/acI1ytVY1UbxEDma/ej1yJH/n9NcjS9YNzcE6sPBPWdlru3ydRa/UBowUg4zqOvNMD5SOGYJrlQ6MzQ==
+
 readable-stream@^2.0.0, readable-stream@^2.0.5, readable-stream@^2.2.2, readable-stream@~2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.8.tgz#91125e8042bba1b9887f49345f6277027ce8be9b"

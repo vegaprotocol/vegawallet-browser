@@ -26,6 +26,12 @@ export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS]: 'Market proposers'
 }
 
+export const locators = {
+  assetHeaderSymbol: 'asset-header-symbol',
+  assetHeaderName: 'asset-header-name',
+  assetHeaderTotal: 'asset-header-total'
+}
+
 const AssetHeader = ({
   symbol,
   name,
@@ -40,15 +46,20 @@ const AssetHeader = ({
   assetId: string
 }) => {
   const total = accounts.reduce((acc, { balance }) => acc.plus(toBigNum(balance ?? '0', decimals)), new BigNumber(0))
-
   return (
     <div className="w-full">
       <div className="flex items-center justify-between w-full">
         <div className="text-left">
-          <div className="text-white">{symbol}</div>
-          <div className="text-sm">{name}</div>
+          <div data-testid={locators.assetHeaderSymbol} className="text-white">
+            {symbol}
+          </div>
+          <div data-testid={locators.assetHeaderName} className="text-sm">
+            {name}
+          </div>
         </div>
-        <div className="text-right text-white">{formatNumber(total)}</div>
+        <div data-testid={locators.assetHeaderTotal} className="text-right text-white">
+          {formatNumber(total, decimals)}
+        </div>
       </div>
       <MarketLozenges assetId={assetId} />
     </div>
@@ -56,7 +67,9 @@ const AssetHeader = ({
 }
 
 export const AssetCard = ({ accounts, assetId }: { accounts: Apiv1Account[]; assetId: string }) => {
-  const { getAssetById } = useAssetsStore()
+  const { getAssetById } = useAssetsStore((state) => ({
+    getAssetById: state.getAssetById
+  }))
   const asset = getAssetById(assetId)
   const { details: { decimals, symbol, name } = {} } = asset
   if (!decimals || !symbol || !name) throw new Error('Asset details not populated')

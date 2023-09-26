@@ -1,12 +1,12 @@
 import { AccountType } from '@vegaprotocol/types'
 import { useAssetsStore } from '../../../../stores/assets-store'
-import { VegaAccount } from '../../../../types/rest-api'
+import { Apiv1Account } from '../../../../types/rest-api'
 import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { useMarketsStore } from '../../../../stores/markets-store'
 import { DataTable } from '../../../../components/data-table/data-table'
 import BigNumber from 'bignumber.js'
-import { CollapsibleCard } from '../../../../components/collapsible-card/collapsible-card'
+import { CollapsibleCard } from '../../../../components/collapsible-card'
 
 export const ACCOUNT_TYPE_MAP = {
   [AccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
@@ -56,7 +56,7 @@ const AssetHeader = ({
 }: {
   symbol: string
   name: string
-  accounts: VegaAccount[]
+  accounts: Apiv1Account[]
   decimals: number
   assetId: string
 }) => {
@@ -76,7 +76,7 @@ const AssetHeader = ({
   )
 }
 
-export const AssetCard = ({ accounts, assetId }: { accounts: VegaAccount[]; assetId: string }) => {
+export const AssetCard = ({ accounts, assetId }: { accounts: Apiv1Account[]; assetId: string }) => {
   const { getAssetById } = useAssetsStore()
   const asset = getAssetById(assetId)
   const { details: { decimals, symbol, name } = {} } = asset

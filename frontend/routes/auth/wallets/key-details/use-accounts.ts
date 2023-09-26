@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
-import { Key, useWalletStore } from '../../../../stores/wallets'
+import { useWalletStore } from '../../../../stores/wallets'
 import { useAccountsStore } from './accounts-store'
 
 export const useAccounts = (id: string) => {
   const { request } = useJsonRpcClient()
-  const { startPoll, stopPoll, reset, fetchAccounts: fetchParty, accountsByAsset } = useAccountsStore()
-  const { getKeyById } = useWalletStore()
-  const [key, setKey] = useState<Key>()
+  const { startPoll, stopPoll, reset, fetchParty, accountsByAsset } = useAccountsStore((state) => ({
+    startPoll: state.startPoll,
+    stopPoll: state.stopPoll,
+    reset: state.reset,
+    fetchParty: state.fetchAccounts,
+    accountsByAsset: state.accountsByAsset
+  }))
+  const { getKeyById } = useWalletStore((state) => ({
+    getKeyById: state.getKeyById
+  }))
+  const key = getKeyById(id)
   useEffect(() => {
     if (id) {
       fetchParty(id, request)
       startPoll(id, request)
-      const key = getKeyById(id)
-      setKey(key)
       return () => {
         stopPoll()
         reset()

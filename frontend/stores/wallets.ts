@@ -24,7 +24,7 @@ export type WalletsStore = {
   loading: boolean
   loadWallets: (client: SendMessage) => Promise<void>
   createKey: (client: SendMessage, walletName: string) => Promise<void>
-  getKeyInfo: (pubKey: string) => Key | undefined
+  getKeyById: (pubKey: string) => Key | undefined
 }
 
 export const useWalletStore = create<WalletsStore>()((set, get) => ({
@@ -51,14 +51,6 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       wallets: newWallets
     })
   },
-  getKeyById(id: string) {
-    const allKeys = get().wallets.flatMap(({ keys }) => keys)
-    const key = allKeys.find(({ publicKey }) => publicKey === id)
-    if (!key) {
-      throw new Error('Could not find key')
-    }
-    return key
-  },
   async loadWallets(request: SendMessage) {
     try {
       set({ loading: true })
@@ -77,7 +69,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       set({ loading: false })
     }
   },
-  getKeyInfo: (pubKey: string) =>
+  getKeyById: (pubKey: string) =>
     get()
       .wallets.flatMap((w) => w.keys)
       .find(({ publicKey }) => publicKey === pubKey)

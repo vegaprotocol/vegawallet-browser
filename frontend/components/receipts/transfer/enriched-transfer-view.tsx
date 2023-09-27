@@ -14,12 +14,12 @@ export const EnrichedTransferView = ({ transaction }: ReceiptComponentProps) => 
     getAssetById: state.getAssetById
   }))
   const assetInfo = getAssetById(transaction.transfer.asset)
-  const { getKeyInfo } = useWalletStore((state) => ({ getKeyInfo: state.getKeyInfo }))
+  const { getKeyById } = useWalletStore((state) => ({ getKeyById: state.getKeyById }))
   const { amount } = transaction.transfer
   const decimals = Number(assetInfo?.details?.decimals)
   const price = amount && decimals ? formatNumber(toBigNum(amount, decimals), decimals) : undefined
   const symbol = assetInfo?.details?.symbol
-  const keyInfo = getKeyInfo(transaction.transfer.to)
+  const keyInfo = getKeyById(transaction.transfer.to)
   const isOwnKey = keyInfo?.publicKey === transaction.transfer.to
 
   return (

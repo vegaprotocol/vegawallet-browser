@@ -53,7 +53,7 @@ const mockStores = (keyDetails: Key | undefined) => {
   )
   ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
     selector({
-      getKeyInfo: () => keyDetails
+      getKeyById: () => keyDetails
     })
   )
 }

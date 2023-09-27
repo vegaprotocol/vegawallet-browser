@@ -72,11 +72,11 @@ describe('Store', () => {
     await useWalletStore.getState().loadWallets(request as unknown as any)
 
     // Test when the key exists in the wallet
-    const result1 = useWalletStore.getState().getKeyInfo(keys[0].publicKey)
+    const result1 = useWalletStore.getState().getKeyById(keys[0].publicKey)
     expect(result1?.name).toBe('Key 1')
 
     // Test when the key doesn't exist in the wallet
-    const result2 = useWalletStore.getState().getKeyInfo('nonexistent_public_key')
+    const result2 = useWalletStore.getState().getKeyById('nonexistent_public_key')
     expect(result2).toBeUndefined()
   })
 })

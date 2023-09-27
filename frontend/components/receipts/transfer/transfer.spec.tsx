@@ -79,7 +79,7 @@ const mockStores = (asset: VegaAsset | undefined, key: Key | undefined) => {
     selector({
       loading: false,
       wallets: mockWallets,
-      getKeyInfo: jest.fn().mockReturnValue(key)
+      getKeyById: jest.fn().mockReturnValue(key)
     })
   )
 }
@@ -115,7 +115,7 @@ describe('TransferReceipt', () => {
       selector({
         loading: false,
         wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
+        getKeyById: jest.fn().mockReturnValue(undefined)
       })
     )
     const oneOffTransfer = {
@@ -170,7 +170,7 @@ describe('TransferReceipt', () => {
       selector({
         loading: false,
         wallets: mockWallets,
-        getKeyInfo: jest.fn().mockReturnValue(undefined)
+        getKeyById: jest.fn().mockReturnValue(undefined)
       })
     )
     const oneOffTransfer = {

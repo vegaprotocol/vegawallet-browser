@@ -44,9 +44,7 @@ export const CollapsibleCard = ({
           />
         </div>
       </button>
-      <div data-testid={locators.collapsibleCardContent} className={
-        classnames('p-3', { 'hidden': !isOpen })
-        }>
+      <div data-testid={locators.collapsibleCardContent} className={classnames('p-3', { hidden: !isOpen })}>
         {cardContent}
       </div>
     </div>

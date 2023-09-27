@@ -33,4 +33,9 @@ describe('VegaKey component', () => {
 
     expect(screen.getByTestId('copy-with-checkmark')).toBeInTheDocument()
   })
+
+  test('does not render name if not passed in', () => {
+    render(<VegaKey publicKey={mockPublicKey} />)
+    expect(screen.queryByTestId(locators.keyName)).not.toBeInTheDocument()
+  })
 })

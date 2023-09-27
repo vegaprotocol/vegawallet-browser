@@ -27,9 +27,11 @@ describe('KeyDetailsPage', () => {
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
       key: undefined
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: false
-    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
+      fn({
+        loading: false
+      })
+    )
     expect(() => render(<KeyDetailsPage id={id} />)).toThrowError(`Key with id ${id} not found`)
   })
 
@@ -40,9 +42,11 @@ describe('KeyDetailsPage', () => {
         name: 'test'
       }
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
-      loading: true
-    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
+      fn({
+        loading: true
+      })
+    )
     const { container } = render(<KeyDetailsPage id={id} />)
     expect(container).toBeEmptyDOMElement()
   })

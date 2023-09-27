@@ -56,11 +56,11 @@ const CommandSection = ({
 export const BatchMarketInstructions = ({ transaction }: ReceiptComponentProps) => {
   const { batchMarketInstructions } = transaction
   const {
-    cancellations,
-    amendments,
-    submissions,
-    stopOrdersSubmission: stopOrdersSubmissions, // For some reason this is not plural in the command
-    stopOrdersCancellation: stopOrdersCancellations // For some reason this is not plural in the command
+    cancellations = [],
+    amendments = [],
+    submissions = [],
+    stopOrdersSubmission: stopOrdersSubmissions = [], // For some reason this is not plural in the command
+    stopOrdersCancellation: stopOrdersCancellations = [] // For some reason this is not plural in the command
   } = batchMarketInstructions
 
   if (

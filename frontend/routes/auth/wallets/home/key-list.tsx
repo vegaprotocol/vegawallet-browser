@@ -10,7 +10,10 @@ import { FULL_ROUTES } from '../../../route-names'
 
 export const locators = {
   walletsCreateKey: 'wallets-create-key',
-  walletsSignMessageButton: 'sign-message-button'
+  walletsSignMessageButton: 'sign-message-button',
+  viewDetails: function (keyName: string) {
+    return `${keyName}-view-details`
+  }
 }
 
 export interface KeyListProps {
@@ -54,6 +57,7 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
           >
             <NavLink
               to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}
+              data-testid={locators.viewDetails(k.name)}
               className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
             >
               <svg width={24} height={24} viewBox="0 0 16 16">

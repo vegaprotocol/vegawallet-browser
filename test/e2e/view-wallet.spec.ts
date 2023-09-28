@@ -3,6 +3,7 @@ import { captureScreenshot } from './helpers/driver'
 import { ViewWallet } from './page-objects/view-wallet'
 import { NavPanel } from './page-objects/navpanel'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import { staticWait } from './helpers/selenium-util'
 
 describe('View wallet page', () => {
   let driver: WebDriver
@@ -15,7 +16,7 @@ describe('View wallet page', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('can create new key pair in the view wallet screen', async () => {
@@ -23,6 +24,8 @@ describe('View wallet page', () => {
     // 1106-KEYS-007 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
     // 1106-KEYS-008 New key pairs are listed in order they were created - oldest first
     // 1106-KEYS-001 I can see a list of the keys in my wallet
+    // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)
+
     await viewWallet.createNewKeyPair()
     expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2'])
 
@@ -31,6 +34,9 @@ describe('View wallet page', () => {
 
     await navigateToExtensionLandingPage(driver)
     expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
+
+    await viewWallet.openKeyDetails('Key 1')
+    await staticWait(60000)
   })
 
   it('can copy public key to clipboard and see where I am in the extension', async () => {

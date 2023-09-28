@@ -24,4 +24,4 @@ As a wallet user I want to be able to create multiple key pairs in my wallet So 
 
 ## Key details
 
-- From the main wallets screen I can click on a key to be shown the list of assets on that key (<a name="1125-KEYS-015" href="#1125-KEYS-015">1125-KEYS-015</a>)
+- From the main wallets screen I can click on a key to be shown the list of assets on that key (<a name="1106-KEYS-015" href="#1106-KEYS-015">1106-KEYS-015</a>)

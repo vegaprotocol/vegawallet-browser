@@ -46,7 +46,7 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
               <button
                 data-testid={locators.walletsSignMessageButton}
                 onClick={() => onIconClick(k.publicKey)}
-                className="cursor-pointer mt-2"
+                className="cursor-pointer mt-2 ml-1"
               >
                 <MessageIcon />
               </button>

@@ -1,6 +1,7 @@
 import { VegaKey } from '../../../../components/keys/vega-key'
 import { VegaSection } from '../../../../components/vega-section'
 import { useAssetsStore } from '../../../../stores/assets-store'
+import { useWalletStore } from '../../../../stores/wallets'
 import { AssetCard } from './asset-card'
 import { KeySelector } from './key-selector'
 import { useAccounts } from './use-accounts'
@@ -15,8 +16,11 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
   const { loading } = useAssetsStore((state) => ({
     loading: state.loading
   }))
+  const { loading: walletsLoading } = useWalletStore((state) => ({
+    loading: state.loading
+  }))
+  if (loading || walletsLoading) return null
   if (!key) throw new Error(`Key with id ${id} not found`)
-  if (loading) return null
 
   return (
     <div>

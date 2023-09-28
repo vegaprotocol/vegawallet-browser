@@ -3,6 +3,7 @@ import { KeyDetailsPage, locators } from './key-details-page'
 import { useAssetsStore } from '../../../../stores/assets-store'
 import { useAccounts } from './use-accounts'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
+import { useWalletStore } from '../../../../stores/wallets'
 
 jest.mock('./key-selector', () => ({
   KeySelector: () => <div data-testid="key-selector" />
@@ -18,12 +19,14 @@ jest.mock('./asset-card', () => ({
 
 jest.mock('./use-accounts')
 jest.mock('../../../../stores/assets-store')
+jest.mock('../../../../stores/wallets')
 
 const id = '1'.repeat(64)
 
 describe('KeyDetailsPage', () => {
   it('throws error if the key cannot be found', () => {
     silenceErrors()
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: false }))
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
       key: undefined
     })
@@ -35,7 +38,8 @@ describe('KeyDetailsPage', () => {
     expect(() => render(<KeyDetailsPage id={id} />)).toThrowError(`Key with id ${id} not found`)
   })
 
-  it('renders nothing while loading', () => {
+  it('renders nothing while loading assets', () => {
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: false }))
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
       key: {
         publicKey: id,
@@ -45,6 +49,23 @@ describe('KeyDetailsPage', () => {
     ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
       fn({
         loading: true
+      })
+    )
+    const { container } = render(<KeyDetailsPage id={id} />)
+    expect(container).toBeEmptyDOMElement()
+  })
+
+  it('renders nothing while loading wallets', () => {
+    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: true }))
+    ;(useAccounts as unknown as jest.Mock).mockReturnValue({
+      key: {
+        publicKey: id,
+        name: 'test'
+      }
+    })
+    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
+      fn({
+        loading: false
       })
     )
     const { container } = render(<KeyDetailsPage id={id} />)

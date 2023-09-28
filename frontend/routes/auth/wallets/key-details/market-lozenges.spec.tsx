@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { MarketLozenges, locators } from './markets-lozenges'
 import { useMarketsStore } from '../../../../stores/markets-store'
+import config from '../../../../lib/config'
 
 jest.mock('../../../../stores/markets-store')
 
@@ -88,7 +89,14 @@ describe('MarketLozenges', () => {
       })
     )
     render(<MarketLozenges assetId="1" />)
-    expect(screen.getAllByTestId(locators.marketLozenge)).toHaveLength(5)
+    const lozenges = screen.getAllByTestId(locators.marketLozenge)
+    expect(lozenges).toHaveLength(5)
+    expect(lozenges[0]).toHaveAttribute('href', `${config.network.console}/#/markets/1`)
+    expect(lozenges[1]).toHaveAttribute('href', `${config.network.console}/#/markets/2`)
+    expect(lozenges[2]).toHaveAttribute('href', `${config.network.console}/#/markets/3`)
+    expect(lozenges[3]).toHaveAttribute('href', `${config.network.console}/#/markets/4`)
+    expect(lozenges[4]).toHaveAttribute('href', `${config.network.console}/#/markets/5`)
+    expect(lozenges[5]).toHaveAttribute('href', `${config.network.console}/#/markets/6`)
   })
   it('renders nothing if there are no markets', () => {
     ;(useMarketsStore as unknown as jest.Mock).mockImplementation((fn) =>

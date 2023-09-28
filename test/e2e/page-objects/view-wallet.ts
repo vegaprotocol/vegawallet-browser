@@ -7,8 +7,8 @@ import {
   isElementDisplayed,
   waitForChildElementsCount
 } from '../helpers/selenium-util'
-import { locators as walletLocators } from '../../../frontend/routes/auth/wallets'
-import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/key-list'
+import { locators as walletLocators } from '../../../frontend/routes/auth/wallets/home'
+import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/home/key-list'
 import { SignMessage } from './sign-message'
 
 import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'

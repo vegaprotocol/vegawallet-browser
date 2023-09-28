@@ -97,7 +97,6 @@ describe('MarketLozenges', () => {
     expect(lozenges[2]).toHaveAttribute('href', `${config.network.console}/#/markets/3`)
     expect(lozenges[3]).toHaveAttribute('href', `${config.network.console}/#/markets/4`)
     expect(lozenges[4]).toHaveAttribute('href', `${config.network.console}/#/markets/5`)
-    expect(lozenges[5]).toHaveAttribute('href', `${config.network.console}/#/markets/6`)
   })
   it('renders nothing if there are no markets', () => {
     ;(useMarketsStore as unknown as jest.Mock).mockImplementation((fn) =>

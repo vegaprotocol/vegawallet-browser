@@ -5,7 +5,7 @@ import { MessageIcon } from '../../../../components/icons/message'
 import { useState } from 'react'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { VegaKey } from '../../../../components/keys/vega-key'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../route-names'
 
 export const locators = {

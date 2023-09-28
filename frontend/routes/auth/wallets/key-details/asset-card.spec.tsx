@@ -71,7 +71,7 @@ describe('AssetCard', () => {
       )
     ).toThrowError('Asset details not populated')
   })
-  it('renders header with total, symbol, name and market lozenges', () => {
+  it('renders header with total, symbol, name, market lozenges and row for each account', () => {
     renderComponent(
       {
         details: {
@@ -102,33 +102,7 @@ describe('AssetCard', () => {
     expect(screen.getByTestId(locators.assetHeaderSymbol)).toHaveTextContent('Foo')
     expect(screen.getByTestId(locators.assetHeaderTotal)).toHaveTextContent('0.00003')
     expect(screen.getByTestId('market-lozenges')).toBeInTheDocument()
-  })
-  it('renders table with each account', () => {
-    renderComponent(
-      {
-        details: {
-          decimals: '5',
-          symbol: 'Foo',
-          name: 'Foobarbaz'
-        }
-      },
-      [
-        {
-          balance: '1',
-          asset: assetId,
-          market: '2'.repeat(64),
-          party: '3'.repeat(64),
-          type: AccountType.ACCOUNT_TYPE_GENERAL
-        },
-        {
-          balance: '2',
-          asset: assetId,
-          market: '2'.repeat(64),
-          party: '3'.repeat(64),
-          type: AccountType.ACCOUNT_TYPE_FEES_MAKER
-        }
-      ]
-    )
+
     const rows = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(rows).toHaveLength(2)
     expect(rows[0]).toHaveTextContent('General')

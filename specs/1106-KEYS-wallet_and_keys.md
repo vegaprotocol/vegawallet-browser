@@ -21,3 +21,7 @@ As a wallet user I want to be able to create multiple key pairs in my wallet So 
 - There is a link to transfer which takes me to console transfer screen (<a name="1106-KEYS-012" href="#1106-KEYS-012">1106-KEYS-012</a>)
 - There is a way to withdraw which takes me to console withdraw screen (<a name="1106-KEYS-013" href="#1106-KEYS-013">1106-KEYS-013</a>)
 - There is a link to deposit which takes me to console deposit screen (<a name="1106-KEYS-014" href="#1106-KEYS-014">1106-KEYS-014</a>)
+
+## Key details
+
+- From the main wallets screen I can click on a key to be shown the list of assets on that key (<a name="1125-KEYS-015" href="#1125-KEYS-015">1125-KEYS-015</a>)

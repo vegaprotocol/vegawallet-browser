@@ -46,9 +46,9 @@ export function CopyWithCheckmark({ text, children, iconSide = 'right' }: CopyWi
 
   return (
     <CopyToClipboard text={text} onCopy={() => setCopied(true)}>
-      <span data-testid={locators.copyWithCheck} className="cursor-pointer">
+      <button data-testid={locators.copyWithCheck} className="cursor-pointer">
         {content}
-      </span>
+      </button>
     </CopyToClipboard>
   )
 }

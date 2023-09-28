@@ -1,5 +1,6 @@
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { useMarketsStore } from '../../../../stores/markets-store'
+import config from '!/config'
 
 export const locators = {
   marketsDescription: 'markets-description',
@@ -20,9 +21,14 @@ export const MarketLozenges = ({ assetId }: { assetId: string }) => {
         Currently traded in:
       </p>
       {top5Markets.map((m) => (
-        <span data-testid={locators.marketLozenge} key={m.id} className="text-xs">
+        <a
+          href={`${config.network.console}#/markets/${m.id}`}
+          data-testid={locators.marketLozenge}
+          key={m.id}
+          className="text-xs"
+        >
           <Lozenge>{m.tradableInstrument?.instrument?.name}</Lozenge>
-        </span>
+        </a>
       ))}
     </div>
   )

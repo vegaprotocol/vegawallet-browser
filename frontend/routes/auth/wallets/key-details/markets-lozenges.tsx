@@ -22,7 +22,7 @@ export const MarketLozenges = ({ assetId }: { assetId: string }) => {
       </p>
       {top5Markets.map((m) => (
         <a
-          href={`${config.network.console}#/markets/${m.id}`}
+          href={`${config.network.console}/#/markets/${m.id}`}
           data-testid={locators.marketLozenge}
           key={m.id}
           className="text-xs"

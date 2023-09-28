@@ -72,6 +72,8 @@ describe('AssetCard', () => {
     ).toThrowError('Asset details not populated')
   })
   it('renders header with total, symbol, name, market lozenges and row for each account', () => {
+    // 1125-KEYD-003 I can see the balance of each (the sum across ALL account types)
+    // 1125-KEYD-004 There is a button / icon that allows me to expand the view to show the breakdown of all non-zero accounts for that asset
     renderComponent(
       {
         details: {

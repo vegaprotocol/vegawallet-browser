@@ -33,7 +33,8 @@ describe('MarketLozenges', () => {
     expect(screen.getByTestId(locators.marketsDescription)).toHaveTextContent('Currently traded in:')
     expect(screen.getAllByTestId(locators.marketLozenge)).toHaveLength(2)
   })
-  it('renders only the first 5 markets if many are present', () => {
+  it('renders only the first 5 markets if many are present, with links to console', () => {
+    // 1125-KEYD-001 The lozenges shown link to that market in Console
     ;(useMarketsStore as unknown as jest.Mock).mockImplementation((fn) =>
       fn({
         getMarketsByAssetId: () => [

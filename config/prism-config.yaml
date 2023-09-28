@@ -1,0 +1,10 @@
+prism:
+  port: 4010 # Prism server port
+
+stubs:
+  - name: all
+    request:
+      path: '/.*' # Match all incoming requests
+    response:
+      proxy:
+        url: 'http://0.0.0.0:4010' # Proxy all requests to Prism itself

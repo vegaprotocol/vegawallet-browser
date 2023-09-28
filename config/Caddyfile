@@ -1,0 +1,9 @@
+http://localhost
+route /app_1/* {
+uri strip_prefix /app_1
+reverse_proxy prism_1:4010
+}
+route /app_2/* {
+uri strip_prefix /app_2
+reverse_proxy prism_2:4010
+}

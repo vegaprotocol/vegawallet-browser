@@ -5,7 +5,7 @@ import { MessageIcon } from '../../../../components/icons/message'
 import { useState } from 'react'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { VegaKey } from '../../../../components/keys/vega-key'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../route-names'
 
 export const locators = {
@@ -30,7 +30,6 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
     await createNewKey(request, wallet.name)
     setCreatingKey(false)
   }
-  const navigate = useNavigate()
 
   return (
     <section>
@@ -38,12 +37,12 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
       <List<Key>
         idProp="publicKey"
         items={wallet.keys}
-        clickable={true}
         renderItem={(k) => (
           // TODO this is a massive hack for the tests. Bigger issues that need to be solved from a UX perspective here.
-          <div className="w-full" onClick={() => navigate({ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` })}>
-            <VegaKey publicKey={k.publicKey} name={k.name}>
-              &nbsp;
+          <VegaKey
+            publicKey={k.publicKey}
+            name={k.name}
+            actions={
               <button
                 data-testid={locators.walletsSignMessageButton}
                 onClick={() => onIconClick(k.publicKey)}
@@ -51,8 +50,22 @@ export const KeyList = ({ wallet, onIconClick }: KeyListProps) => {
               >
                 <MessageIcon />
               </button>
-            </VegaKey>
-          </div>
+            }
+          >
+            <NavLink
+              to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}
+              className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
+            >
+              <svg width={24} height={24} viewBox="0 0 16 16">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M4.75 14.38L4 13.62L9.63 8.00001L4 2.38001L4.75 1.62001L11.13 8.00001L4.75 14.38Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </svg>
+            </NavLink>
+          </VegaKey>
         )}
       />
       <div className="mt-3 text-white">

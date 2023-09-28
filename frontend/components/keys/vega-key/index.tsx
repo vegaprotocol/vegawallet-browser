@@ -9,26 +9,41 @@ export const locators = {
   explorerLink: 'vega-explorer-link'
 }
 
-export const VegaKey = ({ publicKey, name, children }: { publicKey: string; name?: string; children?: ReactNode }) => {
+export const VegaKey = ({
+  publicKey,
+  name,
+  children,
+  actions
+}: {
+  publicKey: string
+  name?: string
+  children?: ReactNode
+  actions?: ReactNode
+}) => {
   return (
-    <div className="flex items-center">
-      <KeyIcon publicKey={publicKey} />
-      <div className="ml-4">
-        {name ? (
-          <div data-testid={locators.keyName} className="text-left text-white">
-            {name}
+    <div className="flex items-center justify-between h-12">
+      <div className="flex items-center">
+        <KeyIcon publicKey={publicKey} />
+        <div className="ml-4">
+          {name ? (
+            <div data-testid={locators.keyName} className="text-left text-white">
+              {name}
+            </div>
+          ) : null}
+          <div>
+            <ExternalLink
+              className="text-vega-dark-400"
+              data-testid={locators.explorerLink}
+              href={`${config.network.explorer}/parties/${publicKey}`}
+            >
+              {truncateMiddle(publicKey)}
+            </ExternalLink>
+            <CopyWithCheckmark text={publicKey} />
+            {actions}
           </div>
-        ) : null}
-        <ExternalLink
-          className="text-vega-dark-400"
-          data-testid={locators.explorerLink}
-          href={`${config.network.explorer}/parties/${publicKey}`}
-        >
-          {truncateMiddle(publicKey)}
-        </ExternalLink>
-        <CopyWithCheckmark text={publicKey} />
-        {children}
+        </div>
       </div>
+      {children}
     </div>
   )
 }

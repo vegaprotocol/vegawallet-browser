@@ -84,11 +84,7 @@ export const AssetCard = ({ accounts, assetId }: { accounts: Apiv1Account[]; ass
     <div className="border border-vega-dark-150 mb-4">
       <CollapsibleCard
         title={<AssetHeader assetId={assetId} symbol={symbol} name={name} decimals={+decimals} accounts={accounts} />}
-        cardContent={
-          <div>
-            <DataTable items={filteredAccounts} />
-          </div>
-        }
+        cardContent={<DataTable items={filteredAccounts} />}
       />
     </div>
   )

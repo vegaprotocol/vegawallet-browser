@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { KeySelector, locators } from './key-selector'
+import { MemoryRouter } from 'react-router-dom'
+import { FULL_ROUTES } from '../../../route-names'
 
 const ID = '1'.repeat(64)
 
@@ -27,13 +29,13 @@ jest.mock('../../../../stores/wallets', () => ({
               metadata: []
             },
             {
-              publicKey: '2'.repeat(24),
+              publicKey: '2'.repeat(64),
               name: 'test2',
               index: 1,
               metadata: []
             },
             {
-              publicKey: '3'.repeat(24),
+              publicKey: '3'.repeat(64),
               name: 'test3',
               index: 2,
               metadata: []
@@ -45,9 +47,28 @@ jest.mock('../../../../stores/wallets', () => ({
   )
 }))
 
+const renderComponent = () => {
+  return render(
+    <MemoryRouter>
+      <KeySelector currentKey={MOCK_KEY} />
+    </MemoryRouter>
+  )
+}
+
 describe('KeySelector', () => {
   it('renders the currently selected key', () => {
-    render(<KeySelector currentKey={MOCK_KEY} />)
+    renderComponent()
     expect(screen.getByTestId(locators.keySelectedCurrentKey)).toHaveTextContent('test')
+  })
+
+  it('renders keys in dropdown menu', async () => {
+    renderComponent()
+    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
+    await screen.findByTestId(locators.keySelectedDropdown)
+    expect(screen.getAllByTestId('vega-key')).toHaveLength(3)
+    const [key1, key2, key3] = screen.getAllByTestId(locators.keySelectorLink)
+    expect(key1).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'1'.repeat(64)}`)
+    expect(key2).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'2'.repeat(64)}`)
+    expect(key3).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'3'.repeat(64)}`)
   })
 })

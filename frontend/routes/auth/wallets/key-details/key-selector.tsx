@@ -10,7 +10,8 @@ export const locators = {
   keySelectedCurrentKey: 'key-selected-current-key',
   keySelectedDropdown: 'key-selected-dropdown',
   keySelectedDropdownItem: 'key-selected-dropdown-item',
-  keySelectorTrigger: 'key-selector-trigger'
+  keySelectorTrigger: 'key-selector-trigger',
+  keySelectorLink: 'key-selector-link'
 }
 
 export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
@@ -44,7 +45,11 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
                 className="p-3 text-base hover:bg-vega-dark-200"
                 key={k.publicKey}
               >
-                <NavLink onClick={() => setOpen(false)} to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}>
+                <NavLink
+                  data-testid={locators.keySelectorLink}
+                  onClick={() => setOpen(false)}
+                  to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}
+                >
                   <VegaKey publicKey={k.publicKey} name={k.name} />
                 </NavLink>
               </div>

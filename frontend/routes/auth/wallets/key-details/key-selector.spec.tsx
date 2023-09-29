@@ -58,7 +58,7 @@ const renderComponent = () => {
 describe('KeySelector', () => {
   it('renders the currently selected key', () => {
     renderComponent()
-    expect(screen.getByTestId(locators.keySelectedCurrentKey)).toHaveTextContent('test')
+    expect(screen.getByTestId(locators.keySelectedCurrentKey(MOCK_KEY.name))).toHaveTextContent('test')
   })
 
   it('renders keys in open dropdown menu and closes when an item is clicked', async () => {

@@ -16,7 +16,10 @@ jest.mock('../../copy-with-check', () => ({
 describe('VegaKey component', () => {
   test('renders the name and truncated publicKey with explorer link', () => {
     // 1115-EXPL-003 When I see a party id I can see a link to the party on the Vega block explorer
-    render(<VegaKey publicKey={mockPublicKey} name={mockName} />)
+    // 1126-VKEY-001 Shows the name of the key 
+    // 1126-VKEY-002 Shows a truncated view of the key 
+    // 1126-VKEY-003 Shows a copy icon so I can copy the full key 
+    // 1126-VKEY-004 Shows an icon associated with the key 
 
     const nameElement = screen.getByTestId(locators.keyName)
     const explorerLinkElement = screen.getByTestId(locators.explorerLink)

@@ -150,13 +150,13 @@ describe('TransferReceipt', () => {
       transfer: {
         ...baseTransfer,
         oneOff: {
-          deliverOn: (1000 * 1000 * 100 * 60 * 60 * 24).toString()
+          deliverOn: (1000 * 1000 * 1000 * 60 * 60 * 24 * 100).toString()
         }
       }
     }
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('in 3 months')
-    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('1/1/1970, 12:00:08 AM')
+    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('4/11/1970, 12:00:00 AM')
   })
 
   it('should render BasicTransferView whilst loading', async () => {

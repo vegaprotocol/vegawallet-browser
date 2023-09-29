@@ -62,6 +62,7 @@ describe('KeySelector', () => {
   })
 
   it('renders keys in dropdown menu', async () => {
+    // 1125-KEYD-006 When switching, I can see key name, key icon and key address (truncated)
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
     await screen.findByTestId(locators.keySelectedDropdown)

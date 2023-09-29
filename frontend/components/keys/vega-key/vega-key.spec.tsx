@@ -20,6 +20,7 @@ describe('VegaKey component', () => {
     // 1126-VKEY-002 Shows a truncated view of the key
     // 1126-VKEY-003 Shows a copy icon so I can copy the full key
     // 1126-VKEY-004 Shows an icon associated with the key
+    render(<VegaKey publicKey={mockPublicKey} name={mockName} />)
 
     const nameElement = screen.getByTestId(locators.keyName)
     const explorerLinkElement = screen.getByTestId(locators.explorerLink)

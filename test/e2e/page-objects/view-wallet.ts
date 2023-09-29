@@ -12,9 +12,11 @@ import {
 } from '../helpers/selenium-util'
 import { locators as walletLocators } from '../../../frontend/routes/auth/wallets/home'
 import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/home/key-list'
+import { locators as keyDropdownLocators } from '../../../frontend/routes/auth/wallets/key-details/key-selector'
 import { SignMessage } from './sign-message'
 
 import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'
+import generalLocators from '../../../frontend/components/locators'
 
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
@@ -24,8 +26,7 @@ export class ViewWallet {
   private readonly copyIcon: By = getByDataTestID('copy-icon')
   private readonly copyableKey: By = getByDataTestID(vegaKeyLocators.explorerLink)
   private readonly signMessageButton: By = getByDataTestID(keyListLocators.walletsSignMessageButton)
-  private readonly keyName: By = getByDataTestID(vegaKeyLocators.keyName)
-  private viewDetails(keyName: string): By {
+  private viewDetailsButton(keyName: string): By {
     return getByDataTestID(keyListLocators.viewDetails(keyName))
   }
 
@@ -83,7 +84,7 @@ export class ViewWallet {
 
   async openKeyDetails(keyName: string) {
     await this.checkOnViewWalletPage()
-    await clickElement(this.driver, this.viewDetails(keyName))
+    await clickElement(this.driver, this.viewDetailsButton(keyName))
   }
 
   async getVisiblePublicKeyText() {

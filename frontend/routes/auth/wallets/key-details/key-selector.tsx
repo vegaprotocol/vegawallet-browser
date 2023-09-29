@@ -7,9 +7,9 @@ import { FULL_ROUTES } from '../../../route-names'
 import { useState } from 'react'
 
 export const locators = {
-  keySelectedCurrentKey: 'key-selected-current-key',
+  keySelectedCurrentKey: (keyName: string) => `${keyName}-selected-current-key`,
   keySelectedDropdown: 'key-selected-dropdown',
-  keySelectedDropdownItem: 'key-selected-dropdown-item',
+  keySelectedDropdownItem: (keyName: string) => `${keyName}-selected-dropdown-item`,
   keySelectorTrigger: 'key-selector-trigger',
   keySelectorLink: 'key-selector-link'
 }
@@ -30,7 +30,7 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
             data-testid={locators.keySelectorTrigger}
             className="text-white"
           >
-            <div data-testid={locators.keySelectedCurrentKey} className="flex items-center">
+            <div data-testid={locators.keySelectedCurrentKey(currentKey.name)} className="flex items-center">
               <span className="mr-1 text-2xl">{currentKey.name}</span> <IconChevronDown size={16} />
             </div>
           </DropdownMenuTrigger>
@@ -41,7 +41,7 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
             <h1 className="text-vega-dark-300 text-sm uppercase mx-4">Keys</h1>
             {keys.map((k) => (
               <div
-                data-testid={locators.keySelectedDropdownItem}
+                data-testid={locators.keySelectedDropdownItem(k.name)}
                 className="p-3 text-base hover:bg-vega-dark-200"
                 key={k.publicKey}
               >

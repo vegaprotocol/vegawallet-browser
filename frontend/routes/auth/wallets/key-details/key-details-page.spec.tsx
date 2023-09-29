@@ -85,6 +85,7 @@ describe('KeyDetailsPage', () => {
   it('renders the back button, key selector, vega key indicator, title and description', () => {
     // 1125-KEYD-002 There is a warning to remember that if I hold an open position the balance / totals may not be accurate as is constantly changing
     // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)
+    // 1125-KEYD-007 In the key details screen I can see my currently selected key and associated info
     const assetId1 = '2'.repeat(64)
     ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: false }))
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({

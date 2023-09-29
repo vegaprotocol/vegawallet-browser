@@ -26,6 +26,7 @@ describe('View wallet page', () => {
   })
 
   it('can navigate into the details of a specific key', async () => {
+    // 1106-KEYS-015 From the main wallets screen I can click on a key to be shown the list of assets on that key
     // 1125-KEYD-003 I can see the balance of each (the sum across ALL account types)
     // 1125-KEYD-004 There is a button / icon that allows me to expand the view to show the breakdown of all non-zero accounts for that asset
     // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)

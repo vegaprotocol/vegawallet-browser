@@ -4,10 +4,10 @@ import { ReceiptComponentProps } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
 import { BasicTransferView } from './basic-transfer-view'
 import { EnrichedTransferView } from './enriched-transfer-view'
-import { getDateTimeFormat } from '@vegaprotocol/utils'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { useWalletStore } from '../../../stores/wallets'
+import { formatNanoDate } from '../../../lib/utils'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn
@@ -15,7 +15,7 @@ const getTime = (transaction: Transaction) => {
     const deliverOnInSeconds = Math.floor(deliverOn / 1000)
     const date = new Date(deliverOnInSeconds)
     if (isBefore(date, new Date())) return null
-    return date
+    return deliverOnInSeconds
   }
   return null
 }
@@ -53,7 +53,7 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
       <p data-testid={locators.whenElement}>
         {time ? (
           <>
-            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({getDateTimeFormat().format(new Date(time))})
+            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({formatNanoDate(time)})
           </>
         ) : (
           'Now'

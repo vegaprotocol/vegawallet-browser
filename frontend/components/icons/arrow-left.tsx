@@ -1,4 +1,4 @@
-export const ArrowLeft = ({ size = 16 }: { size?: number }) => {
+export const ArrowLeft = ({ size }: { size: number }) => {
   return (
     <svg width={size} height={size} viewBox="0 0 16 16">
       <path

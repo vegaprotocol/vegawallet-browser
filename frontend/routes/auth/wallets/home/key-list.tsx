@@ -11,9 +11,7 @@ import { FULL_ROUTES } from '../../../route-names'
 export const locators = {
   walletsCreateKey: 'wallets-create-key',
   walletsSignMessageButton: 'sign-message-button',
-  viewDetails: function (keyName: string) {
-    return `${keyName}-view-details`
-  }
+  viewDetails: (keyName: string) => `${keyName}-view-details`
 }
 
 export interface KeyListProps {

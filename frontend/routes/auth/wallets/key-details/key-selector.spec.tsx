@@ -61,7 +61,7 @@ describe('KeySelector', () => {
     expect(screen.getByTestId(locators.keySelectedCurrentKey)).toHaveTextContent('test')
   })
 
-  it('renders keys in dropdown menu', async () => {
+  it('renders keys in open dropdown menu and closes when an item is clicked', async () => {
     // 1125-KEYD-006 When switching, I can see key name, key icon and key address (truncated)
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
@@ -71,5 +71,7 @@ describe('KeySelector', () => {
     expect(key1).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'1'.repeat(64)}`)
     expect(key2).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'2'.repeat(64)}`)
     expect(key3).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'3'.repeat(64)}`)
+    await fireEvent.click(key2)
+    expect(screen.queryByTestId(locators.keySelectedDropdown)).not.toBeInTheDocument()
   })
 })

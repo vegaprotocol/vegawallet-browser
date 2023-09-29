@@ -5,24 +5,17 @@ import {
   getElementText,
   waitForElementToBeReady,
   isElementDisplayed,
-  waitForChildElementsCount,
-  getElements,
-  getWebElementText,
-  clickWebElement
+  waitForChildElementsCount
 } from '../helpers/selenium-util'
 import { locators as walletLocators } from '../../../frontend/routes/auth/wallets/home'
 import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/home/key-list'
-import { locators as keyDropdownLocators } from '../../../frontend/routes/auth/wallets/key-details/key-selector'
 import { SignMessage } from './sign-message'
-
 import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'
-import generalLocators from '../../../frontend/components/locators'
 
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
   private readonly createNewKeyPairButton: By = getByDataTestID(keyListLocators.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
-  private readonly walletKeyItems: By = getByDataTestID('list-item')
   private readonly copyIcon: By = getByDataTestID('copy-icon')
   private readonly copyableKey: By = getByDataTestID(vegaKeyLocators.explorerLink)
   private readonly signMessageButton: By = getByDataTestID(keyListLocators.walletsSignMessageButton)

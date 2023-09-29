@@ -23,11 +23,6 @@ describe('View wallet page', () => {
     // 1106-KEYS-007 New key pairs are assigned a name automatically "Key 1" "Key 2" etc.
     // 1106-KEYS-008 New key pairs are listed in order they were created - oldest first
     // 1106-KEYS-001 I can see a list of the keys in my wallet
-    // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)
-    // 1125-KEYD-006 When switching, I can see key name, key icon and key address (truncated)
-    // There is a button / icon that allows me to expand the view to show the breakdown of all non-zero accounts for that asset
-    // I can see the balance of each (the sum across ALL account types)
-
     await viewWallet.createNewKeyPair()
     expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2'])
 

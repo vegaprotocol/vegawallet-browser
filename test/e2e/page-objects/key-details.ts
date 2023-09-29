@@ -8,11 +8,7 @@ import { locators as vegaKeyLocators } from '../../../frontend/components/keys/v
 import generalLocators from '../../../frontend/components/locators'
 
 export class KeyDetails {
-  private readonly copyIcon: By = getByDataTestID('copy-icon')
-  private readonly copyableKey: By = getByDataTestID(vegaKeyLocators.explorerLink)
-  private readonly signMessageButton: By = getByDataTestID(keyListLocators.walletsSignMessageButton)
   private readonly keysDropdownMenu: By = getByDataTestID(keyDropdownLocators.keySelectorTrigger)
-  private readonly keyName: By = getByDataTestID(vegaKeyLocators.keyName)
   private readonly assetBalance: By = getByDataTestID(assetCardLocators.assetHeaderTotal)
   private readonly expandAssetBalanceDetails: By = getByDataTestID(generalLocators.dropdownArrow)
   private viewDetailsButton(keyName: string): By {
@@ -51,10 +47,5 @@ export class KeyDetails {
       await isElementDisplayed(this.driver, this.keysDropdownMenu),
       'expected to be able to locate the keys dropdown menu but could not'
     ).toBe(true)
-  }
-
-  async getVisiblePublicKeyText() {
-    const publicKey = await getElementText(this.driver, this.copyableKey)
-    return publicKey
   }
 }

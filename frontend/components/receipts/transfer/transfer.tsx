@@ -7,15 +7,14 @@ import { EnrichedTransferView } from './enriched-transfer-view'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { useWalletStore } from '../../../stores/wallets'
-import { formatNanoDate } from '../../../lib/utils'
+import { formatDate, nanoSecondsToMilliseconds } from '../../../lib/utils'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn
   if (deliverOn) {
-    const deliverOnInSeconds = Math.floor(deliverOn / 1000)
-    const date = new Date(deliverOnInSeconds)
+    const date = nanoSecondsToMilliseconds(deliverOn)
     if (isBefore(date, new Date())) return null
-    return deliverOnInSeconds
+    return date
   }
   return null
 }
@@ -36,7 +35,6 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
   // Not supporting recurring transfers yet
   if (transaction.transfer.recurring) return null
   const time = getTime(transaction)
-
   return (
     <ReceiptWrapper>
       <h1 className="text-vega-dark-300">Amount</h1>
@@ -53,7 +51,7 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
       <p data-testid={locators.whenElement}>
         {time ? (
           <>
-            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({formatNanoDate(time)})
+            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({formatDate(time)})
           </>
         ) : (
           'Now'

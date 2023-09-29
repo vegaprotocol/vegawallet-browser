@@ -17,7 +17,7 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
     keys: state.wallets.flatMap((w) => w.keys)
   }))
   return (
-    <div className="mb-6">
+    <div className="item-center">
       <DropdownMenu
         modal={false}
         trigger={

@@ -1,6 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, getElementText, isElementDisplayed } from '../helpers/selenium-util'
-import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/home/key-list'
+import { locators as keyListLocators } from '../../../frontend/components/key-list'
 import { locators as keyDropdownLocators } from '../../../frontend/routes/auth/wallets/key-details/key-selector'
 import { locators as assetCardLocators } from '../../../frontend/routes/auth/wallets/key-details/asset-card'
 
@@ -15,7 +15,7 @@ export class KeyDetails {
     return getByDataTestID(keyListLocators.viewDetails(keyName))
   }
   private keyDropdownItem(keyName: string): By {
-    return getByDataTestID(keyDropdownLocators.keySelectedDropdownItem(keyName))
+    return getByDataTestID(keyListLocators.viewDetails(keyName))
   }
   private currentSelectedKey(keyName: string): By {
     return getByDataTestID(keyDropdownLocators.keySelectedCurrentKey(keyName))

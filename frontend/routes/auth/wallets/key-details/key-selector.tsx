@@ -1,17 +1,13 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@vegaprotocol/ui-toolkit'
-import { VegaKey } from '../../../../components/keys/vega-key'
 import { IconChevronDown } from '../../../../components/icons/chevron-down'
 import { Key, useWalletStore } from '../../../../stores/wallets'
-import { NavLink } from 'react-router-dom'
-import { FULL_ROUTES } from '../../../route-names'
 import { useState } from 'react'
+import { KeyList } from '../../../../components/key-list'
 
 export const locators = {
   keySelectedCurrentKey: (keyName: string) => `${keyName}-selected-current-key`,
   keySelectedDropdown: 'key-selected-dropdown',
-  keySelectedDropdownItem: (keyName: string) => `${keyName}-selected-dropdown-item`,
-  keySelectorTrigger: 'key-selector-trigger',
-  keySelectorLink: 'key-selector-link'
+  keySelectorTrigger: 'key-selector-trigger'
 }
 
 export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
@@ -38,22 +34,7 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
       >
         <DropdownMenuContent style={{ overflow: 'hidden', overflowY: 'auto', maxHeight: 360 }}>
           <div data-testid={locators.keySelectedDropdown} className="my-4">
-            <h1 className="text-vega-dark-300 text-sm uppercase mx-4">Keys</h1>
-            {keys.map((k) => (
-              <div
-                data-testid={locators.keySelectedDropdownItem(k.name)}
-                className="p-3 text-base hover:bg-vega-dark-200"
-                key={k.publicKey}
-              >
-                <NavLink
-                  data-testid={locators.keySelectorLink}
-                  onClick={() => setOpen(false)}
-                  to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}
-                >
-                  <VegaKey publicKey={k.publicKey} name={k.name} />
-                </NavLink>
-              </div>
-            ))}
+            <KeyList keys={keys} onClick={() => setOpen(false)} />
           </div>
         </DropdownMenuContent>
       </DropdownMenu>

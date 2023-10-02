@@ -3738,6 +3738,11 @@
     react-dom "18.2.0"
     zustand "^4.3.2"
 
+"@vegaprotocol/rest-clients@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/rest-clients/-/rest-clients-0.0.3.tgz#23d1afa0a716ebdc1c38959e00488ad6b2d18972"
+  integrity sha512-R/JlpYA/0y3eO1CXPYjiAjF6nS6Yx98OwATChg82XEgTvqmD8J/elCAW/9/uJgQOPS7NiVxyBYiu85aruh6EeQ==
+
 "@vegaprotocol/tailwindcss-config@0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@vegaprotocol/tailwindcss-config/-/tailwindcss-config-0.0.3.tgz#b0bf6277f8d77fe03947fac322402d56c7142797"

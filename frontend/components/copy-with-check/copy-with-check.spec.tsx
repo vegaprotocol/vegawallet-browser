@@ -9,7 +9,7 @@ describe('CopyWithCheckmark', () => {
   const text = 'Some code to copy'
   const children = <code>{text}</code>
 
-  it('renders the component with the correct text and icon side', () => {
+  it('renders the component with the correct text and icon side', async () => {
     render(<CopyWithCheckmark text={text}>{children}</CopyWithCheckmark>)
     const copyButton = screen.getByTestId('copy-with-check')
     const codeElement = screen.getByText(text)
@@ -22,14 +22,14 @@ describe('CopyWithCheckmark', () => {
 
     userEvent.click(copyButton)
 
-    const tick = screen.getByTestId(locators.tickIcon)
+    const tick = await screen.findByTestId(locators.tickIcon)
 
     expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
     expect(tick).toHaveClass('text-vega-green-550')
   })
 
-  it('renders the icon on the left hand side if passed left', () => {
+  it('renders the icon on the left hand side if passed left', async () => {
     render(
       <CopyWithCheckmark text={text} iconSide="left">
         {children}
@@ -41,14 +41,14 @@ describe('CopyWithCheckmark', () => {
 
     userEvent.click(copyButton)
 
-    const tick = screen.getByTestId(locators.tickIcon)
+    const tick = await screen.findByTestId(locators.tickIcon)
 
     expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
     expect(tick).toHaveClass('text-vega-green-550')
   })
 
-  it('changes back to a copy button after a second', () => {
+  it('changes back to a copy button after a second', async () => {
     jest.useFakeTimers()
     render(
       <CopyWithCheckmark text={text} iconSide="right">
@@ -59,7 +59,7 @@ describe('CopyWithCheckmark', () => {
 
     userEvent.click(copyButton)
 
-    const tick = screen.getByTestId(locators.tickIcon)
+    const tick = await screen.findByTestId(locators.tickIcon)
 
     expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()

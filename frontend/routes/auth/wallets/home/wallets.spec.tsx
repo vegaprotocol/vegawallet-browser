@@ -6,11 +6,12 @@ import locators from '../../../../components/locators'
 import { locators as walletLocators } from '../../wallets/home/index'
 import { mockClient } from '../../../../test-helpers/mock-client'
 import { WalletsStore, useWalletStore } from '../../../../stores/wallets'
-import { locators as keyLocators } from './key-list'
+import { locators as keyLocators } from '../../../../components/key-list'
 import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
 import { locators as signMessageLocators } from '../../../../components/sign-message-dialog/sign-message'
 import { locators as signedMessageLocators } from '../../../../components/sign-message-dialog/signed-message'
 import { locators as vegaKeyLocators } from '../../../../components/keys/vega-key'
+import { locators as walletPageKeyListLocators } from './wallets-page-key-list'
 import { MemoryRouter } from 'react-router-dom'
 
 const renderComponent = () => {
@@ -70,7 +71,7 @@ describe('Wallets', () => {
     )
     expect(screen.getByTestId(locators.copyWithCheck)).toBeInTheDocument()
     expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('Key 1')
-    expect(screen.getByTestId(keyLocators.walletsCreateKey)).toHaveTextContent('Create new key/pair')
+    expect(screen.getByTestId(walletPageKeyListLocators.walletsCreateKey)).toHaveTextContent('Create new key/pair')
     expect(screen.getByTestId(depositAssetsCalloutLocators.walletsAssetHeader)).toHaveTextContent(
       'Connect to console to deposit funds'
     )
@@ -87,7 +88,7 @@ describe('Wallets', () => {
 
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
-    fireEvent.click(screen.getByTestId(keyLocators.walletsCreateKey))
+    fireEvent.click(screen.getByTestId(walletPageKeyListLocators.walletsCreateKey))
     await waitFor(() => expect(screen.queryAllByTestId(locators.listItem)).toHaveLength(2))
     const [key1, key2] = screen.queryAllByTestId(locators.listItem)
     expect(key1).toHaveTextContent('Key 1')

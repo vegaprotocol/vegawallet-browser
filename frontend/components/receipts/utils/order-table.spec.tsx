@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { OrderTable } from './order-table'
 import { locators } from '../../data-table/data-table'
-import { OrderType, PeggedReference, Side } from '@vegaprotocol/types'
+import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 describe('OrderTable', () => {
   it('renders a row for each property', () => {
@@ -19,15 +19,15 @@ describe('OrderTable', () => {
     // 1116-ORDA-002 I can see the market id relating to the order I am amending
     render(
       <OrderTable
-        direction={Side.SIDE_BUY}
+        direction={vegaSide.SIDE_BUY}
         marketId={'1'.repeat(64)}
         orderId={'2'.repeat(64)}
         size={'12'}
         price={'123'}
         reference="ref"
-        type={OrderType.TYPE_MARKET}
+        type={vegaOrderType.TYPE_MARKET}
         peggedOrder={{
-          reference: PeggedReference.PEGGED_REFERENCE_BEST_BID,
+          reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID,
           offset: '6'
         }}
       />
@@ -65,13 +65,13 @@ describe('OrderTable', () => {
     expect(screen.queryAllByTestId(locators.dataRow)).toHaveLength(0)
   })
   it('renders short for buy orders', () => {
-    render(<OrderTable direction={Side.SIDE_BUY} />)
+    render(<OrderTable direction={vegaSide.SIDE_BUY} />)
     const [directionRow] = screen.getAllByTestId(locators.dataRow)
     expect(directionRow).toHaveTextContent('Direction')
     expect(directionRow).toHaveTextContent('Long')
   })
   it('renders long for sell orders', () => {
-    render(<OrderTable direction={Side.SIDE_SELL} />)
+    render(<OrderTable direction={vegaSide.SIDE_SELL} />)
     const [directionRow] = screen.getAllByTestId(locators.dataRow)
     expect(directionRow).toHaveTextContent('Direction')
     expect(directionRow).toHaveTextContent('Short')

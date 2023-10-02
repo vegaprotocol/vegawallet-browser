@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react'
 import { locators, Transfer } from './transfer'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { Key, useWalletStore } from '../../../stores/wallets'
-import { VegaAsset, VegaAssetStatus } from '../../../types/rest-api'
+import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 jest.mock('./basic-transfer-view', () => ({
   BasicTransferView: () => <div data-testid="basic-transfer-view" />
@@ -38,7 +38,7 @@ const baseTransfer: TransferType = {
   kind: null
 }
 
-const mockAsset: VegaAsset = {
+const mockAsset: vegaAsset = {
   id: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
   details: {
     name: 'Vega (fairground)',
@@ -51,7 +51,7 @@ const mockAsset: VegaAsset = {
       withdrawThreshold: '0'
     }
   },
-  status: VegaAssetStatus.ENABLED
+  status: vegaAssetStatus.STATUS_ENABLED
 }
 
 const mockWallets = [
@@ -67,7 +67,7 @@ const mockWallets = [
   }
 ]
 
-const mockStores = (asset: VegaAsset | undefined, key: Key | undefined) => {
+const mockStores = (asset: vegaAsset | undefined, key: Key | undefined) => {
   ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
     selector({
       loading: false,

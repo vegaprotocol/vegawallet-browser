@@ -1,14 +1,16 @@
-import { PriceWithTooltip } from '../string-amounts/price-with-tooltip.tsx'
-import { PeggedOrder, PeggedReference } from '@vegaprotocol/types'
+import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
+import { PeggedOrderOptions } from '../../../../types/transactions'
 
-export const referenceText: Record<PeggedReference, string> = {
-  PEGGED_REFERENCE_BEST_ASK: 'best ask',
-  PEGGED_REFERENCE_BEST_BID: 'best bid',
-  PEGGED_REFERENCE_MID: 'mid'
+export const referenceText: Record<vegaPeggedReference, string> = {
+  [vegaPeggedReference.PEGGED_REFERENCE_BEST_ASK]: 'best ask',
+  [vegaPeggedReference.PEGGED_REFERENCE_BEST_BID]: 'best bid',
+  [vegaPeggedReference.PEGGED_REFERENCE_MID]: 'mid',
+  [vegaPeggedReference.PEGGED_REFERENCE_UNSPECIFIED]: 'unspecified'
 }
 
 interface PeggedOrderInfoProps {
-  peggedOrder: PeggedOrder
+  peggedOrder: PeggedOrderOptions
   marketId: string
 }
 

@@ -18,7 +18,7 @@ export interface KeyListProps {
 
 export const KeyList = ({ keys, renderActions, onClick }: KeyListProps) => {
   return (
-    <section>
+    <section className="text-base">
       <h1 className="uppercase text-sm mt-6 mb-2 text-vega-dark-300">Keys</h1>
       <List<Key>
         idProp="publicKey"

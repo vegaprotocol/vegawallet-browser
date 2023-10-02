@@ -10,6 +10,7 @@
     "@types/object-hash": "^3.0.4",
     "@vegaprotocol/crypto": "0.11.0",
     "@vegaprotocol/protos": "0.8.0",
+    "@vegaprotocol/rest-clients": "^0.0.3",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
     "@vegaprotocol/ui-toolkit": "0.12.6",
     "@vegaprotocol/utils": "^0.0.10",

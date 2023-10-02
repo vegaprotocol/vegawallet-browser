@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { KeySelector, locators } from './key-selector'
 import { MemoryRouter } from 'react-router-dom'
+import { KeyListProps } from '../../../../components/key-list'
 
 const ID = '1'.repeat(64)
 
@@ -12,7 +13,7 @@ const MOCK_KEY = {
 }
 
 jest.mock('../../../../components/key-list', () => ({
-  KeyList: () => <div data-testid="key-list" />
+  KeyList: ({ onClick }: KeyListProps) => <button onClick={onClick} data-testid="key-list" />
 }))
 
 jest.mock('../../../../components/keys/vega-key', () => ({
@@ -59,12 +60,15 @@ const renderComponent = () => {
 }
 
 describe('KeySelector', () => {
-  it('renders the currently selected key and opens key list', async () => {
+  it('renders the currently selected key, opens key list and closes after a key is clicked', async () => {
     // 1125-KEYD-006 When switching, I can see key name, key icon and key address (truncated)
     renderComponent()
     expect(screen.getByTestId(locators.keySelectedCurrentKey(MOCK_KEY.name))).toHaveTextContent('test')
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
     await screen.findByTestId(locators.keySelectedDropdown)
-    expect(screen.getByTestId('key-list')).toBeInTheDocument()
+    const keyList = screen.getByTestId('key-list')
+    expect(keyList).toBeInTheDocument()
+    fireEvent.click(keyList)
+    await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
   })
 })

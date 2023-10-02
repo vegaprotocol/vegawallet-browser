@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { FULL_ROUTES } from '../../routes/route-names'
 
 export const locators = {
+  walletsSignMessageButton: 'sign-message-button',
   viewDetails: (keyName: string) => `${keyName}-view-details`
 }
 
@@ -23,7 +24,7 @@ export const KeyList = ({ keys, renderActions, onClick }: KeyListProps) => {
         idProp="publicKey"
         items={keys}
         renderItem={(k) => (
-          <VegaKey publicKey={k.publicKey} name={k.name}>
+          <VegaKey publicKey={k.publicKey} name={k.name} actions={renderActions?.(k)}>
             <NavLink
               onClick={onClick}
               to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}

@@ -1,12 +1,11 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { KeyList, KeyListProps, locators } from './key-list'
+import { render, screen } from '@testing-library/react'
+import { KeyList, KeyListProps } from './key-list'
 import config from '!/config'
 import { JsonRPCProvider } from '../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../test-helpers/mock-client'
 import componentLocators from '../locators'
 import { locators as vegaKeyLocators } from '../keys/vega-key'
 import { MemoryRouter } from 'react-router-dom'
-import { Key } from '../../stores/wallets'
 
 const storeMock = {
   createKey: jest.fn()

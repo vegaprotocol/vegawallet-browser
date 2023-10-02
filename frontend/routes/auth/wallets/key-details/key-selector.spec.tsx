@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { KeySelector, locators } from './key-selector'
 import { MemoryRouter } from 'react-router-dom'
-import { FULL_ROUTES } from '../../../route-names'
 
 const ID = '1'.repeat(64)
 
@@ -11,6 +10,10 @@ const MOCK_KEY = {
   index: 0,
   metadata: []
 }
+
+jest.mock('../../../../components/key-list', () => ({
+  KeyList: () => <div data-testid="key-list" />
+}))
 
 jest.mock('../../../../components/keys/vega-key', () => ({
   VegaKey: () => <div data-testid="vega-key" />
@@ -56,22 +59,12 @@ const renderComponent = () => {
 }
 
 describe('KeySelector', () => {
-  it('renders the currently selected key', () => {
-    renderComponent()
-    expect(screen.getByTestId(locators.keySelectedCurrentKey(MOCK_KEY.name))).toHaveTextContent('test')
-  })
-
-  it('renders keys in open dropdown menu and closes when an item is clicked', async () => {
+  it('renders the currently selected key and opens key list', async () => {
     // 1125-KEYD-006 When switching, I can see key name, key icon and key address (truncated)
     renderComponent()
+    expect(screen.getByTestId(locators.keySelectedCurrentKey(MOCK_KEY.name))).toHaveTextContent('test')
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
     await screen.findByTestId(locators.keySelectedDropdown)
-    expect(screen.getAllByTestId('vega-key')).toHaveLength(3)
-    const [key1, key2, key3] = screen.getAllByTestId(locators.keySelectorLink)
-    expect(key1).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'1'.repeat(64)}`)
-    expect(key2).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'2'.repeat(64)}`)
-    expect(key3).toHaveAttribute('href', `${FULL_ROUTES.wallets}/${'3'.repeat(64)}`)
-    await fireEvent.click(key2)
-    expect(screen.queryByTestId(locators.keySelectedDropdown)).not.toBeInTheDocument()
+    expect(screen.getByTestId('key-list')).toBeInTheDocument()
   })
 })

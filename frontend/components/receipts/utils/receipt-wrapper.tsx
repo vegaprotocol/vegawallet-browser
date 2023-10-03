@@ -52,13 +52,11 @@ export const ReceiptWrapper = ({
     loading: state.loading,
     error: state.error
   }))
-  // We check whether wallets are loading as wallet data is used to enrich the transfer view
   const { loading: walletsLoading } = useWalletStore((state) => ({ loading: state.loading }))
   const isLoading = [assetsLoading, marketsLoading, walletsLoading].some(Boolean)
   const errors = [assetsError, marketsError].filter(Boolean)
   const hasError = errors.some(Boolean)
   const content = getContent(loadingState, isLoading, hasError, unenrichedState, children)
-
   return (
     <VegaSection>
       <section data-testid={locators.receiptWrapper}>{content}</section>

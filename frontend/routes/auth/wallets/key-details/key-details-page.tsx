@@ -8,6 +8,7 @@ import { FULL_ROUTES } from '../../../route-names'
 import { AssetCard } from './asset-card'
 import { KeySelector } from './key-selector'
 import { useAccounts } from './use-accounts'
+import { SubHeader } from '../../../../components/sub-header'
 
 export const locators = {
   keyDetailsHeading: 'key-details-heading',
@@ -42,9 +43,7 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
         <VegaKey publicKey={key.publicKey} />
       </section>
       <VegaSection>
-        <h1 data-testid={locators.keyDetailsHeading} className="text-vega-dark-300 text-sm uppercase">
-          Balances
-        </h1>
+        <SubHeader content="Balances" />
         <p data-testid={locators.keyDetailsDescription} className="text-vega-dark-400 my-3">
           Recent balance changes caused by your open positions may not be reflected below
         </p>

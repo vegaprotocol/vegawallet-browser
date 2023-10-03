@@ -53,9 +53,12 @@ jest.mock('../../../../stores/wallets', () => ({
 
 const renderComponent = () => {
   return render(
-    <MemoryRouter>
-      <KeySelector currentKey={MOCK_KEY} />
-    </MemoryRouter>
+    <>
+      <MemoryRouter>
+        <KeySelector currentKey={MOCK_KEY} />
+      </MemoryRouter>
+      <div data-testid="outside-element" />
+    </>
   )
 }
 
@@ -69,6 +72,41 @@ describe('KeySelector', () => {
     const keyList = screen.getByTestId('key-list')
     expect(keyList).toBeInTheDocument()
     fireEvent.click(keyList)
+    await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
+  })
+
+  it('closes modal when clicking trigger', async () => {
+    renderComponent()
+    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
+    await screen.findByTestId(locators.keySelectedDropdown)
+    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
+    await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
+  })
+
+  it('closes dropdown when clicking outside', async () => {
+    const { container } = renderComponent()
+    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
+    await screen.findByTestId(locators.keySelectedDropdown)
+    fireEvent.pointerDown(
+      container,
+      new PointerEvent('pointerdown', {
+        ctrlKey: false,
+        button: 0
+      })
+    )
+    await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
+  })
+
+  it('closes dropdown when escape key is pressed', async () => {
+    const { container } = renderComponent()
+    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
+    await screen.findByTestId(locators.keySelectedDropdown)
+    fireEvent.keyDown(container, {
+      key: 'Escape',
+      code: 'Escape',
+      keyCode: 27,
+      charCode: 27
+    })
     await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
   })
 })

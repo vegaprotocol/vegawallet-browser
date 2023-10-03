@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CopyWithCheckmark } from './copy-with-check'
 import locators from '../locators'
@@ -27,6 +27,7 @@ describe('CopyWithCheckmark', () => {
     expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
     expect(tick).toHaveClass('text-vega-green-550')
+    await waitFor(() => expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument())
   })
 
   it('renders the icon on the left hand side if passed left', async () => {
@@ -46,6 +47,7 @@ describe('CopyWithCheckmark', () => {
     expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
     expect(tick).toHaveClass('text-vega-green-550')
+    await waitFor(() => expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument())
   })
 
   it('changes back to a copy button after a second', async () => {
@@ -69,5 +71,6 @@ describe('CopyWithCheckmark', () => {
 
     expect(screen.getByTestId(locators.copyIcon)).toBeInTheDocument()
     expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument()
+    await waitFor(() => expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument())
   })
 })

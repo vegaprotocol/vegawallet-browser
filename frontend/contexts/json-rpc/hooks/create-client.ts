@@ -49,12 +49,20 @@ export const useCreateClient = () => {
   )
   const client = useMemo(() => createClient(notificationHandler), [notificationHandler])
   const request = useCallback(
-    async (method: string, params: any = null, propagate: boolean = false) => {
+    /**
+     *
+     * @param method The RPC method to call
+     * @param params And params to provide to the RPC method
+     * @param propagateErrors If not set to true, errors will be set in the error store and a global error case will be shown
+     * This should be set to true when you want to handle errors yourself, for example recovery phrases that are not valid
+     * @returns A promise with the response from the backend
+     */
+    async (method: string, params: any = null, propagateErrors: boolean = false) => {
       try {
         const result = await client.request(method, params)
         return result
       } catch (e) {
-        if (!propagate) {
+        if (!propagateErrors) {
           setError(e as Error)
         } else {
           throw e

@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import { AssetCard, locators } from './asset-card'
-import { AccountType } from '@vegaprotocol/types'
 import { useAssetsStore } from '../../../../stores/assets-store'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { locators as dataTableLocators } from '../../../../components/data-table/data-table'
-import { Apiv1Account, VegaAsset } from '../../../../types/rest-api'
+import { vegaAccount, vegaAccountType, vegaAsset } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 const assetId = '1'.repeat(64)
 
@@ -13,7 +12,7 @@ jest.mock('./markets-lozenges', () => ({
   MarketLozenges: () => <div data-testid="market-lozenges" />
 }))
 
-const renderComponent = (assetInfo: VegaAsset | undefined, accounts: Apiv1Account[]) => {
+const renderComponent = (assetInfo: vegaAsset | undefined, accounts: vegaAccount[]) => {
   ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
     fn({
       getAssetById: () => assetInfo
@@ -30,7 +29,7 @@ describe('AssetCard', () => {
       asset: assetId,
       market: '2'.repeat(64),
       party: '3'.repeat(64),
-      type: AccountType.ACCOUNT_TYPE_GENERAL
+      type: vegaAccountType.ACCOUNT_TYPE_GENERAL
     }
     expect(() =>
       renderComponent(
@@ -86,16 +85,12 @@ describe('AssetCard', () => {
         {
           balance: '1',
           asset: assetId,
-          market: '2'.repeat(64),
-          party: '3'.repeat(64),
-          type: AccountType.ACCOUNT_TYPE_GENERAL
+          type: vegaAccountType.ACCOUNT_TYPE_GENERAL
         },
         {
           balance: '2',
           asset: assetId,
-          market: '2'.repeat(64),
-          party: '3'.repeat(64),
-          type: AccountType.ACCOUNT_TYPE_FEES_MAKER
+          type: vegaAccountType.ACCOUNT_TYPE_FEES_MAKER
         }
       ]
     )

@@ -1,29 +1,40 @@
-import { AccountType } from '@vegaprotocol/types'
 import { useAssetsStore } from '../../../../stores/assets-store'
-import { Apiv1Account } from '../../../../types/rest-api'
 import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { DataTable } from '../../../../components/data-table/data-table'
 import BigNumber from 'bignumber.js'
 import { CollapsibleCard } from '../../../../components/collapsible-card'
 import { MarketLozenges } from './markets-lozenges'
+import { vegaAccount, vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-export const ACCOUNT_TYPE_MAP = {
-  [AccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
-  [AccountType.ACCOUNT_TYPE_SETTLEMENT]: 'Settlement',
-  [AccountType.ACCOUNT_TYPE_MARGIN]: 'Margin',
-  [AccountType.ACCOUNT_TYPE_GENERAL]: 'General',
-  [AccountType.ACCOUNT_TYPE_FEES_INFRASTRUCTURE]: 'Fees (infra)',
-  [AccountType.ACCOUNT_TYPE_FEES_LIQUIDITY]: 'Fees (liquidity)',
-  [AccountType.ACCOUNT_TYPE_FEES_MAKER]: 'Fees (maker)',
-  [AccountType.ACCOUNT_TYPE_BOND]: 'Bond',
-  [AccountType.ACCOUNT_TYPE_EXTERNAL]: 'External',
-  [AccountType.ACCOUNT_TYPE_GLOBAL_INSURANCE]: 'Global insurance',
-  [AccountType.ACCOUNT_TYPE_GLOBAL_REWARD]: 'Global reward',
-  [AccountType.ACCOUNT_TYPE_PENDING_TRANSFERS]: 'Pending transfers',
-  [AccountType.ACCOUNT_TYPE_REWARD_MAKER_PAID_FEES]: 'Maker paid fees',
-  [AccountType.ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES]: 'Maker received fees',
-  [AccountType.ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES]: 'LP received fees',
-  [AccountType.ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS]: 'Market proposers'
+export const ACCOUNT_TYPE_MAP: Record<vegaAccountType, string> = {
+  [vegaAccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
+  [vegaAccountType.ACCOUNT_TYPE_SETTLEMENT]: 'Settlement',
+  [vegaAccountType.ACCOUNT_TYPE_MARGIN]: 'Margin',
+  [vegaAccountType.ACCOUNT_TYPE_GENERAL]: 'General',
+  [vegaAccountType.ACCOUNT_TYPE_FEES_INFRASTRUCTURE]: 'Fees (infra)',
+  [vegaAccountType.ACCOUNT_TYPE_FEES_LIQUIDITY]: 'Fees (liquidity)',
+  [vegaAccountType.ACCOUNT_TYPE_FEES_MAKER]: 'Fees (maker)',
+  [vegaAccountType.ACCOUNT_TYPE_BOND]: 'Bond',
+  [vegaAccountType.ACCOUNT_TYPE_EXTERNAL]: 'External',
+  [vegaAccountType.ACCOUNT_TYPE_GLOBAL_INSURANCE]: 'Global insurance',
+  [vegaAccountType.ACCOUNT_TYPE_GLOBAL_REWARD]: 'Global reward',
+  [vegaAccountType.ACCOUNT_TYPE_PENDING_TRANSFERS]: 'Pending transfers',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_MAKER_PAID_FEES]: 'Maker paid fees',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES]: 'Maker received fees',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES]: 'LP received fees',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS]: 'Market proposers',
+  [vegaAccountType.ACCOUNT_TYPE_UNSPECIFIED]: 'Unspecified',
+  [vegaAccountType.ACCOUNT_TYPE_HOLDING]: 'Holding',
+  [vegaAccountType.ACCOUNT_TYPE_LP_LIQUIDITY_FEES]: 'LP liquidity fees',
+  [vegaAccountType.ACCOUNT_TYPE_LIQUIDITY_FEES_BONUS_DISTRIBUTION]: '',
+  [vegaAccountType.ACCOUNT_TYPE_NETWORK_TREASURY]: 'Network treasury',
+  [vegaAccountType.ACCOUNT_TYPE_VESTING_REWARDS]: 'Vesting rewards',
+  [vegaAccountType.ACCOUNT_TYPE_VESTED_REWARDS]: 'Vested rewards',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_AVERAGE_POSITION]: 'Average position rewards',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_RELATIVE_RETURN]: 'Relative return rewards',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_RETURN_VOLATILITY]: 'Volatility rewards',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_VALIDATOR_RANKING]: 'Validator ranking rewards',
+  [vegaAccountType.ACCOUNT_TYPE_PENDING_FEE_REFERRAL_REWARD]: 'Pending fee referral rewards'
 }
 
 export const locators = {
@@ -41,7 +52,7 @@ const AssetHeader = ({
 }: {
   symbol: string
   name: string
-  accounts: Apiv1Account[]
+  accounts: vegaAccount[]
   decimals: number
   assetId: string
 }) => {
@@ -66,7 +77,7 @@ const AssetHeader = ({
   )
 }
 
-export const AssetCard = ({ accounts, assetId }: { accounts: Apiv1Account[]; assetId: string }) => {
+export const AssetCard = ({ accounts, assetId }: { accounts: vegaAccount[]; assetId: string }) => {
   const { getAssetById } = useAssetsStore((state) => ({
     getAssetById: state.getAssetById
   }))
@@ -76,8 +87,7 @@ export const AssetCard = ({ accounts, assetId }: { accounts: Apiv1Account[]; ass
   const filteredAccounts = accounts
     .filter((a) => !!a.balance && toBigNum(a.balance, +decimals).gt(0))
     .map((a) => [
-      // TODO how do we handle differences between VegaTypes (from FE mono) and the VegaTypes from REST?
-      ACCOUNT_TYPE_MAP[a.type as unknown as AccountType],
+      a.type ? ACCOUNT_TYPE_MAP[a.type] : 'Unknown',
       addDecimalsFormatNumber(a.balance ?? 0, +decimals)
     ]) as [string, string][]
   return (

@@ -16,6 +16,7 @@ const getSettlementAssetId = (market: vegaMarket) => {
 
 export type MarketsStore = {
   markets: vegaMarket[]
+  error: Error | null
   loading: boolean
   fetchMarkets: (request: SendMessage) => Promise<void>
   getMarketById: (id: string) => vegaMarket
@@ -25,12 +26,15 @@ export type MarketsStore = {
 export const useMarketsStore = create<MarketsStore>((set, get) => ({
   markets: [],
   loading: false,
+  error: null,
   async fetchMarkets(request) {
     try {
       set({ loading: true })
-      const response = await request(RpcMethods.Fetch, { path: 'api/v2/markets' })
+      const response = await request(RpcMethods.Fetch, { path: 'api/v2/markets' }, true)
       const markets = removePaginationWrapper<vegaMarket>(response.markets.edges)
       set({ markets })
+    } catch (error) {
+      set({ error: error as Error })
     } finally {
       set({ loading: false })
     }

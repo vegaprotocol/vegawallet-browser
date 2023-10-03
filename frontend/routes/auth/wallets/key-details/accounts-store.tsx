@@ -1,15 +1,15 @@
 import { RpcMethods } from '../../../../lib/client-rpc-methods'
 import { create } from 'zustand'
 import { SendMessage } from '../../../../contexts/json-rpc/json-rpc-provider'
-import { Apiv1Account } from '../../../../types/rest-api'
 import groupBy from 'lodash/groupBy'
 import { removePaginationWrapper } from '../../../../lib/remove-pagination'
+import { vegaAccount } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 const POLL_INTERVAL = 10000
 
 export type AccountsStore = {
-  accounts: Apiv1Account[]
-  accountsByAsset: Record<string, Apiv1Account[]>
+  accounts: vegaAccount[]
+  accountsByAsset: Record<string, vegaAccount[]>
   interval: NodeJS.Timer | null
   fetchAccounts: (id: string, request: SendMessage) => Promise<void>
   startPoll: (id: string, request: SendMessage) => void
@@ -23,7 +23,7 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
   interval: null,
   async fetchAccounts(id, request) {
     const accountsResponse = await request(RpcMethods.Fetch, { path: `api/v2/accounts?filter.partyIds=${id}` })
-    const accounts = removePaginationWrapper<Apiv1Account>(accountsResponse.accounts.edges)
+    const accounts = removePaginationWrapper<vegaAccount>(accountsResponse.accounts.edges)
     const accountsByAsset = groupBy(accounts, 'asset')
     set({
       accounts,

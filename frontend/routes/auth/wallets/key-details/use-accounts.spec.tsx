@@ -1,8 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import { useAccounts } from './use-accounts'
-import { AccountType } from '@vegaprotocol/types'
 import { useAccountsStore } from './accounts-store'
-
+import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 const MOCK_KEY = '1'.repeat(64)
 const ASSET_ID = '2'.repeat(64)
 const MARKET_ID = '3'.repeat(64)
@@ -45,7 +44,7 @@ describe('UseAccounts', () => {
             asset: ASSET_ID,
             market: MARKET_ID,
             party: MOCK_KEY,
-            type: AccountType.ACCOUNT_TYPE_GENERAL
+            type: vegaAccountType.ACCOUNT_TYPE_GENERAL
           }
         },
         fetchAccounts,

@@ -27,10 +27,7 @@ export const Connections = () => {
   if (loading) return null
 
   return (
-    <section>
-      <h1 data-testid={connectionsHeader} className="flex justify-center flex-col text-2xl text-white mb-6">
-        Connections
-      </h1>
+    <AuthPage dataTestId={connectionsHeader} title="Connections">
       {connections.length === 0 ? (
         <NoAppsConnected />
       ) : (
@@ -54,6 +51,6 @@ export const Connections = () => {
           </p>
         </Frame>
       </div>
-    </section>
+    </AuthPage>
   )
 }

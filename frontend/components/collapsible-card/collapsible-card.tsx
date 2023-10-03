@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { DropdownArrow } from '../icons/dropdown-arrow'
 
 export const locators = {
-  collapsibleCardTitle: 'collapsible-card-title',
   collapsibleCard: 'collapsible-card',
   collapsibleCardButton: 'collapsible-card-button',
   collapsibleCardContent: 'collapsible-card-content'

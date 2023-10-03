@@ -10,7 +10,7 @@ describe('Collapsible panel', () => {
   it('renders title, arrow and does not render content', () => {
     renderComponent({})
     expect(screen.getByTestId(locators.collapsibleCard)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.collapsibleCardTitle)).toHaveTextContent('Title')
+    expect(screen.getByText('Title')).toBeInTheDocument()
     expect(screen.getByTestId(locators.collapsibleCardContent)).toHaveClass('hidden')
     expect(screen.getByTestId(generalLocators.dropdownArrow)).toBeInTheDocument()
   })

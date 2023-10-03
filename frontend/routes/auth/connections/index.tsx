@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { connectionsHeader } from '../../../locator-ids'
 import { useConnectionStore } from '../../../stores/connections'
+import { AuthPage } from '../../../components/auth-page'
 
 export const locators = {
   connectionInstructions: 'connection-instructions',

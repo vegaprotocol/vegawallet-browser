@@ -6,8 +6,7 @@ import { useState } from 'react'
 import { AuthPage } from '../../../../components/auth-page'
 
 export const locators = {
-  walletsPage: 'wallets-page',
-  walletsWalletName: 'wallets-wallet-name'
+  walletsPage: 'wallets-page'
 }
 
 export const Wallets = () => {

@@ -1,16 +1,10 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { CopyWithCheckmark } from './copy-with-check'
 import locators from '../locators'
 
 jest.mock('react-copy-to-clipboard', () => ({ children, onCopy }: any) => <div onClick={onCopy}>{children}</div>)
 
 describe('CopyWithCheckmark', () => {
-  beforeEach(() => {
-    jest.useFakeTimers()
-  })
-  afterEach(() => {
-    jest.useRealTimers()
-  })
   const text = 'Some code to copy'
   const children = <code>{text}</code>
 

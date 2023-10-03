@@ -35,7 +35,6 @@ const getContent = (
   return <>{children}</>
 }
 
-// TODO handle data loading here, with render prop and loading/error states
 export const ReceiptWrapper = ({
   children,
   loadingState,

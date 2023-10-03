@@ -78,13 +78,7 @@ describe('BatchMarketInstructions component', () => {
 
   test('does not render command section if no items', () => {
     const transaction = {
-      batchMarketInstructions: {
-        cancellations: [],
-        amendments: [],
-        submissions: [],
-        stopOrdersSubmission: [],
-        stopOrdersCancellation: []
-      }
+      batchMarketInstructions: {}
     }
     render(<BatchMarketInstructions transaction={transaction} />)
     expect(screen.queryByTestId(componentLocators.collapsiblePanelTitle)).not.toBeInTheDocument()

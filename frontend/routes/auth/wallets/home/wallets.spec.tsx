@@ -1,18 +1,21 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Wallets } from '.'
-import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
-import locators from '../../../components/locators'
+import { JsonRPCProvider } from '../../../../contexts/json-rpc/json-rpc-provider'
+import locators from '../../../../components/locators'
 
-import { locators as walletLocators } from '../wallets/index'
-import { mockClient } from '../../../test-helpers/mock-client'
-import { WalletsStore, useWalletStore } from '../../../stores/wallets'
-import { locators as keyLocators } from './key-list'
+import { locators as walletLocators } from '../../wallets/home/index'
+import { mockClient } from '../../../../test-helpers/mock-client'
+import { WalletsStore, useWalletStore } from '../../../../stores/wallets'
+import { locators as keyLocators } from '../../../../components/key-list'
 import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
-import { locators as signMessageLocators } from '../../../components/sign-message-dialog/sign-message'
-import { locators as signedMessageLocators } from '../../../components/sign-message-dialog/signed-message'
-import { locators as vegaKeyLocators } from '../../../components/keys/vega-key'
+import { locators as signMessageLocators } from '../../../../components/sign-message-dialog/sign-message'
+import { locators as signedMessageLocators } from '../../../../components/sign-message-dialog/signed-message'
+import { locators as vegaKeyLocators } from '../../../../components/keys/vega-key'
+import { locators as walletPageKeyListLocators } from './wallets-page-key-list'
+import { MemoryRouter } from 'react-router-dom'
 
-const mockLoadedState = () => {
+const renderComponent = () => {
+  mockClient()
   const state = useWalletStore.getState()
 
   useWalletStore.setState({
@@ -32,6 +35,13 @@ const mockLoadedState = () => {
       }
     ]
   })
+  render(
+    <MemoryRouter>
+      <JsonRPCProvider>
+        <Wallets />
+      </JsonRPCProvider>
+    </MemoryRouter>
+  )
 }
 
 describe('Wallets', () => {
@@ -49,14 +59,7 @@ describe('Wallets', () => {
 
   it('renders the wallet page', async () => {
     // 1106-KEYS-005 There is a link from a key to the Block Explorer filtered transaction view
-
-    mockClient()
-    mockLoadedState()
-    render(
-      <JsonRPCProvider>
-        <Wallets />
-      </JsonRPCProvider>
-    )
+    renderComponent()
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
     expect(screen.getByTestId(walletLocators.walletsWalletName)).toHaveTextContent('wallet 1')
@@ -68,7 +71,7 @@ describe('Wallets', () => {
     )
     expect(screen.getByTestId(locators.copyWithCheck)).toBeInTheDocument()
     expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('Key 1')
-    expect(screen.getByTestId(keyLocators.walletsCreateKey)).toHaveTextContent('Create new key/pair')
+    expect(screen.getByTestId(walletPageKeyListLocators.walletsCreateKey)).toHaveTextContent('Create new key/pair')
     expect(screen.getByTestId(depositAssetsCalloutLocators.walletsAssetHeader)).toHaveTextContent(
       'Connect to console to deposit funds'
     )
@@ -81,17 +84,11 @@ describe('Wallets', () => {
   })
 
   it('allows you to create another key', async () => {
-    mockClient()
-    mockLoadedState()
+    renderComponent()
 
-    render(
-      <JsonRPCProvider>
-        <Wallets />
-      </JsonRPCProvider>
-    )
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
-    fireEvent.click(screen.getByTestId(keyLocators.walletsCreateKey))
+    fireEvent.click(screen.getByTestId(walletPageKeyListLocators.walletsCreateKey))
     await waitFor(() => expect(screen.queryAllByTestId(locators.listItem)).toHaveLength(2))
     const [key1, key2] = screen.queryAllByTestId(locators.listItem)
     expect(key1).toHaveTextContent('Key 1')
@@ -99,14 +96,8 @@ describe('Wallets', () => {
   })
 
   it('allows you to sign a message with a key', async () => {
-    mockClient()
-    mockLoadedState()
+    renderComponent()
 
-    render(
-      <JsonRPCProvider>
-        <Wallets />
-      </JsonRPCProvider>
-    )
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
     fireEvent.click(screen.getByTestId(keyLocators.walletsSignMessageButton))

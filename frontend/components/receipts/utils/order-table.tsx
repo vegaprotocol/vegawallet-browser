@@ -1,13 +1,14 @@
 import { ReactNode } from 'react'
 import { DataTable } from '../../data-table/data-table'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { OrderType, Side, PeggedOrder } from '@vegaprotocol/types'
 import { MarketLink } from './order/market-link'
 import { Direction } from './order/direction'
 import { OrderTypeComponent } from './order/order-type'
 import { PeggedOrderInfo } from './order/pegged-order-info.tsx'
 import { PriceWithTooltip } from './string-amounts/price-with-tooltip'
 import { SizeWithTooltip } from './string-amounts/size-with-tooltip'
+import { vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { PeggedOrderOptions } from '../../../types/transactions.ts'
 
 export const OrderTable = ({
   marketId,
@@ -21,12 +22,12 @@ export const OrderTable = ({
 }: Partial<{
   marketId: string
   orderId: string
-  direction: Side
+  direction: vegaSide
   size: string
   price: string
   reference: string
-  type: OrderType
-  peggedOrder?: PeggedOrder
+  type: vegaOrderType
+  peggedOrder?: PeggedOrderOptions
 }>) => {
   const columns = [
     price && price !== '0' && marketId

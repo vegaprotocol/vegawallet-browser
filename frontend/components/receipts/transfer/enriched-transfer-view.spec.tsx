@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { EnrichedTransferView, locators as enrichedLocators } from './enriched-transfer-view'
-import { VegaAsset, VegaAssetStatus } from '../../../types/rest-api'
 import { Key, useWalletStore } from '../../../stores/wallets'
 import { locators as vegaKeyLocators } from '../../keys/vega-key'
 import { locators as priceWithSymbolLocators } from '../utils/string-amounts/price-with-symbol'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 import { useAssetsStore } from '../../../stores/assets-store'
+import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 jest.mock('../../../stores/wallets', () => ({
   useWalletStore: jest.fn()
@@ -27,7 +27,7 @@ const mockTransaction = {
   }
 }
 
-const mockAsset: VegaAsset = {
+const mockAsset: vegaAsset = {
   id: 'b340c130096819428a62e5df407fd6abe66e444b89ad64f670beb98621c9c663',
   details: {
     name: 'tDAI TEST',
@@ -40,7 +40,7 @@ const mockAsset: VegaAsset = {
       withdrawThreshold: '0'
     }
   },
-  status: VegaAssetStatus.ENABLED
+  status: vegaAssetStatus.STATUS_ENABLED
 }
 
 const mockStores = (keyDetails: Key | undefined) => {
@@ -53,7 +53,7 @@ const mockStores = (keyDetails: Key | undefined) => {
   )
   ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
     selector({
-      getKeyInfo: () => keyDetails
+      getKeyById: () => keyDetails
     })
   )
 }

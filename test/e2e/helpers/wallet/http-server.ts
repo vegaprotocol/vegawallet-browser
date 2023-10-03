@@ -1,5 +1,13 @@
 import http from 'node:http'
 
+const ACCOUNT_FIXTURE = {
+  owner: 'a44f8757128286b5c82271ae781ab819f18f3e4feb4a64014980aa98ec1fad0a',
+  balance: '40000000000000000000',
+  asset: 'b340c130096819428a62e5df407fd6abe66e444b89ad64f670beb98621c9c663',
+  marketId: '',
+  type: 'ACCOUNT_TYPE_GENERAL'
+}
+
 export const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*') /* @dev First, read about security */
   res.setHeader('Access-Control-Allow-Methods', '*')
@@ -37,6 +45,30 @@ export const server = http.createServer((req, res) => {
         spamPowNumberOfTxPerBlock: 2,
         spamPowIncreasingDifficulty: false,
         chainId: 'testnet'
+      })
+    )
+    return
+  }
+
+  if (req.url?.includes('api/v2/accounts')) {
+    res.end(
+      JSON.stringify({
+        accounts: {
+          edges: [
+            {
+              node: ACCOUNT_FIXTURE,
+              cursor:
+                'eyJpZCI6ImIzNDBjMTMwMDk2ODE5NDI4YTYyZTVkZjQwN2ZkNmFiZTY2ZTQ0NGI4OWFkNjRmNjcwYmViOTg2MjFjOWM2NjMifQ=='
+            }
+          ],
+          pageInfo: {
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor:
+              'eyJpZCI6ImZkZjBlYzExOGQ5ODM5M2E3NzAyY2Y3MmU0NmZjODdhZDY4MGIxNTJmNjRiMmFhYzU5ZTA5M2FjMmQ2ODhmYmIifQ==',
+            endCursor: 'eyJpZCI6IlhZWmFscGhhIn0='
+          }
+        }
       })
     )
     return

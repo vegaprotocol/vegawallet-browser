@@ -31,14 +31,12 @@ const getColorList = (publicKey: string) => {
           color = color2
         }
         return color
+      } else if (bits[bitIdx]) {
+        bitIdx++
+        return color2
       } else {
-        if (bits[bitIdx]) {
-          bitIdx++
-          return color2
-        } else {
-          bitIdx++
-          return color1
-        }
+        bitIdx++
+        return color1
       }
     })
   })
@@ -92,7 +90,7 @@ export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
   }, [publicKey])
 
   return (
-    <div className="rounded-md overflow-hidden">
+    <div className="rounded-md overflow-hidden" style={{ minWidth: 42 }}>
       <canvas data-testid={locators.keyIcon} ref={canvasRef} />
     </div>
   )

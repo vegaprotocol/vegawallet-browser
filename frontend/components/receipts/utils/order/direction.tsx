@@ -1,9 +1,9 @@
-import { Side } from '@vegaprotocol/types'
+import { vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-export const sideText: Record<Side, string> = {
+export const sideText: Record<vegaSide, string> = {
   SIDE_UNSPECIFIED: 'Unspecified',
   SIDE_BUY: 'Long',
   SIDE_SELL: 'Short'
 }
 
-export const Direction = ({ direction }: { direction: Side }) => <>{sideText[direction]}</>
+export const Direction = ({ direction }: { direction: vegaSide }) => <>{sideText[direction]}</>

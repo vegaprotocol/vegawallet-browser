@@ -28,3 +28,21 @@ global.DOMRect = class DOMRect {
     return JSON.stringify(this)
   }
 }
+
+// Mock for broken JSDOM which makes testing radix dropdowns harder than it should be.
+// https://github.com/radix-ui/primitives/issues/1207
+class PointerEvent extends Event {
+  button: number
+  ctrlKey: boolean
+
+  constructor(type: string, props: EventInit | undefined) {
+    super(type, props)
+    // @ts-ignore
+    this.button = props?.button
+    // @ts-ignore
+    this.ctrlKey = props?.ctrlKey
+  }
+}
+
+// @ts-ignore
+window.PointerEvent = PointerEvent

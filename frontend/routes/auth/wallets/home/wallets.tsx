@@ -1,7 +1,7 @@
-import { useWalletStore } from '../../../stores/wallets'
-import { KeyList } from './key-list'
+import { useWalletStore } from '../../../../stores/wallets'
+import { WalletsPageKeyList } from './wallets-page-key-list'
 import { DepositAssetsCallout } from './deposit-assets-callout'
-import { SignMessageDialog } from '../../../components/sign-message-dialog'
+import { SignMessageDialog } from '../../../../components/sign-message-dialog'
 import { useState } from 'react'
 
 export const locators = {
@@ -25,7 +25,7 @@ export const Wallets = () => {
       <h1 data-testid={locators.walletsWalletName} className="flex justify-center flex-col text-2xl text-white">
         {wallet.name}
       </h1>
-      <KeyList onIconClick={setSelectedPubkey} wallet={wallet} />
+      <WalletsPageKeyList onSignMessage={setSelectedPubkey} wallet={wallet} />
       <DepositAssetsCallout />
       <SignMessageDialog open={!!selectedPubkey} onClose={() => setSelectedPubkey(null)} publicKey={selectedPubkey} />
     </section>

@@ -4,6 +4,17 @@
     "es2020": true
   },
   "rules": {
-    "import/no-webpack-loader-syntax": 0
+    "import/no-webpack-loader-syntax": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "@vegaprotocol/types",
+            "message": "Please use @vegaprotocol/rest-clients instead"
+          }
+        ]
+      }
+    ]
   }
 }

@@ -2,7 +2,7 @@
 
 As a browser wallet user I want to view my vega wallet (and key pair(s)) So that I can see that I've been successful creating the wallet / see my key ID
 
-- I can see a list of the keys in my wallet (<a name="1106-KEYS-001" href="#1106-KEYS-001">1106-KEYS-001</a>)
+- I can see a list of the keys in my wallet with [associated info](./1126-VKEY-vega_key.md) (<a name="1106-KEYS-001" href="#1106-KEYS-001">1106-KEYS-001</a>)
 - I can copy the public key ID to my clipboard (<a name="1106-KEYS-002" href="#1106-KEYS-002">1106-KEYS-002</a>)
 - I can see information of where to go to deposit and manage my assets (<a name="1106-KEYS-003" href="#1106-KEYS-003">1106-KEYS-003</a>)
 - I can see where I am in the app when viewing my wallet and key pair(s) (<a name="1106-KEYS-004" href="#1106-KEYS-004">1106-KEYS-004</a>)
@@ -21,3 +21,7 @@ As a wallet user I want to be able to create multiple key pairs in my wallet So 
 - There is a link to transfer which takes me to console transfer screen (<a name="1106-KEYS-012" href="#1106-KEYS-012">1106-KEYS-012</a>)
 - There is a way to withdraw which takes me to console withdraw screen (<a name="1106-KEYS-013" href="#1106-KEYS-013">1106-KEYS-013</a>)
 - There is a link to deposit which takes me to console deposit screen (<a name="1106-KEYS-014" href="#1106-KEYS-014">1106-KEYS-014</a>)
+
+## Key details
+
+- From the main wallets screen I can click on a key to be shown the list of assets on that key (<a name="1106-KEYS-015" href="#1106-KEYS-015">1106-KEYS-015</a>)

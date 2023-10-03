@@ -1,5 +1,5 @@
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
-import { Frame } from '../../../components/frame'
+import { Frame } from '../../../../components/frame'
 import config from '!/config'
 
 export const locators = {

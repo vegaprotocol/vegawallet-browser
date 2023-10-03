@@ -1,7 +1,7 @@
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
-import { OrderTimeInForce } from '@vegaprotocol/types'
 import { ReactNode } from 'react'
 import { formatNanoDate } from '../../../../lib/utils'
+import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 const TIF_MAP: { [key in OrderTimeInForce]: string } = {
   [OrderTimeInForce.TIME_IN_FORCE_GTC]: 'GTC',
@@ -9,7 +9,8 @@ const TIF_MAP: { [key in OrderTimeInForce]: string } = {
   [OrderTimeInForce.TIME_IN_FORCE_IOC]: 'IOC',
   [OrderTimeInForce.TIME_IN_FORCE_FOK]: 'FOK',
   [OrderTimeInForce.TIME_IN_FORCE_GFA]: 'GFA',
-  [OrderTimeInForce.TIME_IN_FORCE_GFN]: 'GFN'
+  [OrderTimeInForce.TIME_IN_FORCE_GFN]: 'GFN',
+  [OrderTimeInForce.TIME_IN_FORCE_UNSPECIFIED]: 'Unspecified'
 }
 
 const OrderBadge = ({ children }: { children: ReactNode }) => {

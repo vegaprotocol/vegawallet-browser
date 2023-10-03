@@ -7,19 +7,22 @@ import {
   isElementDisplayed,
   waitForChildElementsCount
 } from '../helpers/selenium-util'
-import { locators as walletLocators } from '../../../frontend/routes/auth/wallets'
-import { locators as keyListLocators } from '../../../frontend/routes/auth/wallets/key-list'
+import { locators as walletLocators } from '../../../frontend/routes/auth/wallets/home'
+import { locators as keyListLocators } from '../../../frontend/components/key-list'
+import { locators as walletPageKeyList } from '../../../frontend/routes/auth/wallets/home/wallets-page-key-list'
 import { SignMessage } from './sign-message'
-
 import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'
 
 export class ViewWallet {
   private readonly walletName: By = getByDataTestID(walletLocators.walletsWalletName)
-  private readonly createNewKeyPairButton: By = getByDataTestID(keyListLocators.walletsCreateKey)
+  private readonly createNewKeyPairButton: By = getByDataTestID(walletPageKeyList.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly copyIcon: By = getByDataTestID('copy-icon')
   private readonly copyableKey: By = getByDataTestID(vegaKeyLocators.explorerLink)
   private readonly signMessageButton: By = getByDataTestID(keyListLocators.walletsSignMessageButton)
+  private viewDetailsButton(keyName: string): By {
+    return getByDataTestID(keyListLocators.viewDetails(keyName))
+  }
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -71,6 +74,11 @@ export class ViewWallet {
   async copyPublicKeyToClipboard() {
     await this.checkOnViewWalletPage()
     await clickElement(this.driver, this.copyIcon)
+  }
+
+  async openKeyDetails(keyName: string) {
+    await this.checkOnViewWalletPage()
+    await clickElement(this.driver, this.viewDetailsButton(keyName))
   }
 
   async getVisiblePublicKeyText() {

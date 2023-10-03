@@ -24,9 +24,10 @@ const getTime = (transaction: Transaction) => {
 
 export const BaseTransferView = ({ transaction, children }: { children: ReactNode } & ReceiptComponentProps) => {
   const time = getTime(transaction)
-  const { getKeyById } = useWalletStore((state) => ({ getKeyById: state.getKeyById }))
+  const { getKeyById, loading } = useWalletStore((state) => ({ getKeyById: state.getKeyById, loading: state.loading }))
   const keyInfo = getKeyById(transaction.transfer.to)
-  const isOwnKey = keyInfo?.publicKey === transaction.transfer.to
+  const foundKeyName = !!keyInfo ? `${keyInfo?.name} (own key)` : 'Receiving Key (external)'
+  const keyName = loading ? 'Receiving Key' : foundKeyName
 
   return (
     <>
@@ -35,7 +36,7 @@ export const BaseTransferView = ({ transaction, children }: { children: ReactNod
       {children}
 
       <h1 className="text-vega-dark-300 mt-4">To</h1>
-      <VegaKey publicKey={transaction.transfer.to} name={isOwnKey ? `${keyInfo?.name} (own key)` : 'External key'} />
+      <VegaKey publicKey={transaction.transfer.to} name={keyName} />
 
       <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
         When

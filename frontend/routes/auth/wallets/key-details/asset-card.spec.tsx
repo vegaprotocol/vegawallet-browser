@@ -107,4 +107,26 @@ describe('AssetCard', () => {
     expect(rows[1]).toHaveTextContent('Fees (maker)')
     expect(rows[1]).toHaveTextContent('0.00002')
   })
+  it('renders unknown if account type could not be found', () => {
+    renderComponent(
+      {
+        details: {
+          decimals: '5',
+          symbol: 'Foo',
+          name: 'Foobarbaz'
+        }
+      },
+      [
+        {
+          balance: '1',
+          asset: assetId
+        }
+      ]
+    )
+
+    const rows = screen.getAllByTestId(dataTableLocators.dataRow)
+    expect(rows).toHaveLength(1)
+    expect(rows[0]).toHaveTextContent('Unknown')
+    expect(rows[0]).toHaveTextContent('0.00001')
+  })
 })

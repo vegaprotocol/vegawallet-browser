@@ -1,5 +1,5 @@
+import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { RpcMethods } from '../lib/client-rpc-methods'
-import { VegaMarket } from '../types/rest-api'
 import { useMarketsStore } from './markets-store'
 
 const MARKET_FIXTURE = {
@@ -160,7 +160,7 @@ const MARKET_FIXTURE = {
   lpPriceRange: '0.5',
   linearSlippageFactor: '0.1',
   quadraticSlippageFactor: '0.1'
-} as unknown as VegaMarket
+} as unknown as vegaMarket
 
 const marketsMock = {
   markets: {

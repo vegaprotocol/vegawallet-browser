@@ -15,6 +15,7 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
     keys: state.wallets.flatMap((w) => w.keys)
   }))
   const [open, setOpen] = useState<boolean>(false)
+
   return (
     <div className="item-center">
       <DropdownMenu

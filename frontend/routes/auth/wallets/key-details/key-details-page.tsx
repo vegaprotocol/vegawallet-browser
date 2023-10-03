@@ -11,7 +11,6 @@ import { useAccounts } from './use-accounts'
 import { SubHeader } from '../../../../components/sub-header'
 
 export const locators = {
-  keyDetailsHeading: 'key-details-heading',
   keyDetailsDescription: 'key-details-description',
   keyDetailsBack: 'key-details-back'
 }

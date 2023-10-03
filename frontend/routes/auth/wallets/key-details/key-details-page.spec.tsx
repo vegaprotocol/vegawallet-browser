@@ -6,6 +6,7 @@ import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { useWalletStore } from '../../../../stores/wallets'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../route-names'
+import { locators as subHeaderLocators } from '../../../../components/sub-header'
 import { mockStore } from '../../../../test-helpers/mock-store'
 
 jest.mock('./key-selector', () => ({
@@ -106,7 +107,7 @@ describe('KeyDetailsPage', () => {
     renderComponent()
     expect(screen.getByTestId('key-selector')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()
-    expect(screen.getByTestId(locators.keyDetailsHeading)).toHaveTextContent('Balances')
+    expect(screen.getByTestId(subHeaderLocators.subHeader)).toHaveTextContent('Balances')
     expect(screen.getByTestId(locators.keyDetailsBack)).toHaveAttribute('href', FULL_ROUTES.wallets)
     expect(screen.getByTestId(locators.keyDetailsDescription)).toHaveTextContent(
       'Recent balance changes caused by your open positions may not be reflected below'

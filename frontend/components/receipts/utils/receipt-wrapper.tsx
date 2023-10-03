@@ -14,22 +14,25 @@ const getContent = (
   loading: boolean,
   hasError: boolean,
   unenrichedState: ReactNode,
-  children: ReactNode
+  children: ReactNode,
+  errors: Error[]
 ) => {
   if (loading) return <>{loadingState}</>
   if (hasError)
     return (
       <>
         {unenrichedState}
-        <Notification
-          intent={Intent.Danger}
-          title="Error loading data"
-          message="An error ocurred when trying to load additional data to display your transaction. The transaction can still be sent, but additional data cannot be shown."
-          buttonProps={{
-            action: () => console.log('Copy errors'),
-            text: 'Copy error message(s)'
-          }}
-        />
+        <div className="mt-4">
+          <Notification
+            intent={Intent.Danger}
+            title="Error loading data"
+            message="An error ocurred when trying to load additional data to display your transaction. The transaction can still be sent, but old trascation data can be shown."
+            buttonProps={{
+              action: () => navigator.clipboard.writeText(errors.map(e => e.stack).join('. \n')),
+              text: 'Copy error message(s)'
+            }}
+          />
+        </div>
       </>
     )
   return <>{children}</>
@@ -56,7 +59,7 @@ export const ReceiptWrapper = ({
   const isLoading = [assetsLoading, marketsLoading, walletsLoading].some(Boolean)
   const errors = [assetsError, marketsError].filter(Boolean)
   const hasError = errors.some(Boolean)
-  const content = getContent(loadingState, isLoading, hasError, unenrichedState, children)
+  const content = getContent(loadingState, isLoading, hasError, unenrichedState, children, errors)
   return (
     <VegaSection>
       <section data-testid={locators.receiptWrapper}>{content}</section>

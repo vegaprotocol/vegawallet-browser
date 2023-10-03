@@ -1,0 +1,24 @@
+version: '3'
+services:
+  proxy:
+    image: caddy
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./trading_data_v2.swagger.json:/etc/swagger/trading_data_v2.swagger.json
+      - ./core.swagger.json:/etc/swagger/core.swagger.json
+    ports:
+      - '8080:80'
+    depends_on:
+      - prism_1
+      - prism_2
+  prism_1:
+    image: stoplight/prism
+    command: >
+      mock -p 4010 --host 0.0.0.0
+      https://raw.githubusercontent.com/vegaprotocol/documentation/main/specs/v0.73.0/core.swagger.json
+
+  prism_2:
+    image: stoplight/prism
+    command: >
+      mock -p 4010 --host 0.0.0.0
+      https://raw.githubusercontent.com/vegaprotocol/documentation/main/specs/v0.73.0/trading_data_v2.swagger.json

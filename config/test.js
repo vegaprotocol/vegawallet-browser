@@ -6,7 +6,7 @@ const test = {
   },
   network: {
     name: 'Test',
-    rest: [`http://localhost:${mockPort}`],
+    rest: [`http://127.0.0.1:4010`],
     console: 'https://console.fairground.wtf',
     ethereumExplorerLink: 'https://sepolia.etherscan.io',
     explorer: 'https://explorer.fairground.wtf',

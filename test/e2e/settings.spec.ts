@@ -10,6 +10,7 @@ import { ExtensionHeader } from './page-objects/extension-header'
 import { WalletOpenInOtherWindow } from './page-objects/wallet-open-in-other-window'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 import { APIHelper } from './helpers/wallet/wallet-api'
+import { dummyTransaction } from './helpers/wallet/common-wallet-values'
 
 describe('Settings test', () => {
   let driver: WebDriver
@@ -104,7 +105,7 @@ describe('Settings test', () => {
     await settingsPage.checkOnSettingsPage()
 
     const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: transferReq })
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
 
     await switchWindowHandles(driver, false, popoutWindowHandle)
     await transaction.checkOnTransactionPage()

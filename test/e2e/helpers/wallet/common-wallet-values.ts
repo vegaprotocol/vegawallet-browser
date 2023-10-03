@@ -20,7 +20,7 @@ export const dummyTransaction = {
   fromAccountType: 4,
   toAccountType: 4,
   amount: '1',
-  asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+  asset: 'string',
   to: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
   kind: {
     oneOff: {}

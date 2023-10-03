@@ -1,11 +1,11 @@
 import 'jest-expect-message'
-import test from '../../config/test'
-import { closeServerAndWait, server } from './helpers/wallet/http-server'
+// import test from '../../config/test'
+// import { closeServerAndWait, server } from './helpers/wallet/http-server'
 
-beforeAll(() => {
-  server.listen(test.test.mockPort)
-})
+// beforeAll(() => {
+//   server.listen(test.test.mockPort)
+// })
 
-afterAll(async () => {
-  await closeServerAndWait()
-})
+// afterAll(async () => {
+//   await closeServerAndWait()
+// })

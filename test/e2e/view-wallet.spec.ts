@@ -15,7 +15,7 @@ describe('View wallet page', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('can create new key pair in the view wallet screen', async () => {

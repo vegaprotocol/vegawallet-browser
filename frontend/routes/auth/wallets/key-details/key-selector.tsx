@@ -15,14 +15,15 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
     keys: state.wallets.flatMap((w) => w.keys)
   }))
   const [open, setOpen] = useState<boolean>(false)
+  console.log(open)
   return (
     <div className="item-center">
       <DropdownMenu
-        modal={false}
+        modal={true}
         open={open}
         trigger={
           <DropdownMenuTrigger
-            onClick={() => setOpen(true)}
+            onClick={() => setOpen(!open)}
             data-testid={locators.keySelectorTrigger}
             className="text-white"
           >
@@ -32,7 +33,11 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
           </DropdownMenuTrigger>
         }
       >
-        <DropdownMenuContent style={{ overflow: 'hidden', overflowY: 'auto', maxHeight: 360 }}>
+        <DropdownMenuContent
+          style={{ overflow: 'hidden', overflowY: 'auto', maxHeight: 360 }}
+          onInteractOutside={() => setOpen(false)}
+          onEscapeKeyDown={() => setOpen(false)}
+        >
           <div data-testid={locators.keySelectedDropdown} className="my-4">
             <KeyList keys={keys} onClick={() => setOpen(false)} />
           </div>

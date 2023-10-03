@@ -21,7 +21,7 @@ describe('BasicTransferView', () => {
   it('renders correctly', () => {
     render(<BasicTransferView transaction={mockTransaction} />)
 
-    expect(screen.getByTestId(basicLocators.basicSection)).toBeInTheDocument()
+    expect(screen.getByTestId(basicLocators.basicTransferView)).toBeInTheDocument()
     expect(screen.getByTestId(amountWithTooltipLocators.amountWithTooltip)).toBeInTheDocument()
     expect(screen.getByTestId(amountWithTooltipLocators.amount)).toHaveTextContent('10')
     expect(screen.getByTestId(amountWithTooltipLocators.assetExplorerLink)).toHaveTextContent('000000…0000')

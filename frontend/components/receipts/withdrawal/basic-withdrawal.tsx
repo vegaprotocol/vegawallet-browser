@@ -12,7 +12,9 @@ export const BasicWithdrawal = ({
 }) => {
   return (
     <BaseWithdrawal receiverAddress={receiverAddress}>
-      <AmountWithTooltip amount={amount} assetId={asset} />
+      <div className="text-2xl text-white mb-4">
+        <AmountWithTooltip amount={amount} assetId={asset} />
+      </div>
     </BaseWithdrawal>
   )
 }

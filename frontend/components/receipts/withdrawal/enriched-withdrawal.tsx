@@ -14,7 +14,9 @@ export const EnrichedWithdrawal = ({
   const { formattedAmount, symbol } = useFormatAssetAmount(asset, amount)
   return (
     <BaseWithdrawal receiverAddress={receiverAddress}>
-      <AmountWithSymbol amount={formattedAmount} symbol={symbol} />
+      <div className="text-2xl text-white mb-4">
+        <AmountWithSymbol amount={formattedAmount} symbol={symbol} />
+      </div>
     </BaseWithdrawal>
   )
 }

@@ -17,24 +17,25 @@ const getContent = (
   children: ReactNode,
   errors: Error[]
 ) => {
-  if (loading) return <>{loadingState}</>
-  if (hasError)
+  if (loading && loadingState) return <>{loadingState}</>
+  if (hasError) {
     return (
       <>
-        {unenrichedState}
+        {unenrichedState ? unenrichedState : children}
         <div className="mt-4">
           <Notification
             intent={Intent.Danger}
             title="Error loading data"
-            message="An error ocurred when trying to load additional data to display your transaction. The transaction can still be sent, but old trascation data can be shown."
+            message="An error ocurred when trying to load additional data to display your transaction. The transaction can still be sent, but only transaction data can be shown."
             buttonProps={{
-              action: () => navigator.clipboard.writeText(errors.map(e => e.stack).join('. \n')),
+              action: () => navigator.clipboard.writeText(errors.map((e) => e.stack).join('. \n')),
               text: 'Copy error message(s)'
             }}
           />
         </div>
       </>
     )
+  }
   return <>{children}</>
 }
 
@@ -57,7 +58,7 @@ export const ReceiptWrapper = ({
   }))
   const { loading: walletsLoading } = useWalletStore((state) => ({ loading: state.loading }))
   const isLoading = [assetsLoading, marketsLoading, walletsLoading].some(Boolean)
-  const errors = [assetsError, marketsError].filter(Boolean)
+  const errors = [assetsError, marketsError].filter(Boolean) as Error[]
   const hasError = errors.some(Boolean)
   const content = getContent(loadingState, isLoading, hasError, unenrichedState, children, errors)
   return (

@@ -29,7 +29,7 @@ export const useMarketsStore = create<MarketsStore>((set, get) => ({
   error: null,
   async fetchMarkets(request) {
     try {
-      set({ loading: true })
+      set({ loading: true, error: null })
       const response = await request(RpcMethods.Fetch, { path: 'api/v2/markets' }, true)
       const markets = removePaginationWrapper<vegaMarket>(response.markets.edges)
       set({ markets })

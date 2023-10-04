@@ -197,7 +197,7 @@ describe('MarketsStore', () => {
   })
 
   it('loads markets', async () => {
-    expect(useMarketsStore.getState().loading).toBe(false)
+    expect(useMarketsStore.getState().loading).toBe(true)
     expect(useMarketsStore.getState().markets).toStrictEqual([])
     await useMarketsStore.getState().fetchMarkets(request as unknown as any)
     expect(useMarketsStore.getState().loading).toBe(false)
@@ -205,8 +205,11 @@ describe('MarketsStore', () => {
   })
 
   it('sets loading state while fetching', async () => {
-    useMarketsStore.getState().fetchMarkets(request as unknown as any)
+    useMarketsStore.setState({ loading: false })
+    const promise = useMarketsStore.getState().fetchMarkets(request as unknown as any)
     expect(useMarketsStore.getState().loading).toBe(true)
+    await promise
+    expect(useMarketsStore.getState().loading).toBe(false)
   })
 
   it('allows you to fetch a market by id', async () => {

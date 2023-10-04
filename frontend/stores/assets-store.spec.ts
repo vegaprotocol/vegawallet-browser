@@ -66,7 +66,7 @@ describe('AssetsStore', () => {
   })
 
   it('loads assets', async () => {
-    expect(useAssetsStore.getState().loading).toBe(false)
+    expect(useAssetsStore.getState().loading).toBe(true)
     expect(useAssetsStore.getState().assets).toStrictEqual([])
     await useAssetsStore.getState().fetchAssets(request as unknown as any)
     expect(useAssetsStore.getState().loading).toBe(false)
@@ -74,8 +74,11 @@ describe('AssetsStore', () => {
   })
 
   it('sets loading state while fetching', async () => {
-    useAssetsStore.getState().fetchAssets(request as unknown as any)
+    useAssetsStore.setState({ loading: false })
+    const promise = useAssetsStore.getState().fetchAssets(request as unknown as any)
     expect(useAssetsStore.getState().loading).toBe(true)
+    await promise
+    expect(useAssetsStore.getState().loading).toBe(false)
   })
 
   it('allows you to fetch an asset by id', async () => {

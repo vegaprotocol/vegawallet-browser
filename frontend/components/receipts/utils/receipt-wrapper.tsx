@@ -26,9 +26,11 @@ const getContent = (
           <Notification
             intent={Intent.Danger}
             title="Error loading data"
-            message="An error ocurred when trying to load additional data to display your transaction. The transaction can still be sent, but only transaction data can be shown."
+            message="Additional data to display your transaction could not be loaded. The transaction can still be sent, but only transaction data can be shown."
             buttonProps={{
-              action: () => navigator.clipboard.writeText(errors.map((e) => e.stack).join('. \n')),
+              action: () => {
+                navigator.clipboard.writeText(errors.map((e) => e.stack).join('. \n'))
+              },
               text: 'Copy error message(s)'
             }}
           />

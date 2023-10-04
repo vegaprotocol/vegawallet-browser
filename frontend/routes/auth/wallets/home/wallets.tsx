@@ -18,7 +18,7 @@ export const Wallets = () => {
   const [selectedPubkey, setSelectedPubkey] = useState<string | null>(null)
   const [wallet] = wallets
 
-  if (loading) return <WalletsLoading />
+  if (loading) return null
 
   return (
     <AuthPage dataTestId={locators.walletsPage} title={wallet.name}>

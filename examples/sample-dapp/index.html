@@ -157,13 +157,16 @@
               publicKey: Transfer.selectedKey.publicKey,
               sendingMode: 'TYPE_SYNC',
               transaction: {
-                withdrawSubmission: {
-                  amount: '21490500406451343194',
-                  asset: 'fdf0ec118d98393a7702cf72e46fc87ad680b152f64b2aac59e093ac2d688fbb',
-                  ext: {
-                    erc20: {
-                      receiverAddress: '0x854a6b84ad48645eac476D0D8197f854C06DD79D'
-                    }
+                transfer: {
+                  fromAccountType: 'ACCOUNT_TYPE_GENERAL',
+                  toAccountType: 'ACCOUNT_TYPE_GENERAL',
+
+                  asset: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
+                  amount: '1',
+                  to: Transfer.selectedKey.publicKey,
+
+                  kind: {
+                    oneOff: {}
                   }
                 }
               }

@@ -24,7 +24,7 @@ export type MarketsStore = {
 
 export const useMarketsStore = create<MarketsStore>((set, get) => ({
   markets: [],
-  loading: false,
+  loading: true,
   async fetchMarkets(request) {
     try {
       set({ loading: true })

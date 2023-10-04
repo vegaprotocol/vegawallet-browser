@@ -21,18 +21,16 @@ export const Bone = ({ width, height, baseSize = 1 }: { width: number; height: n
   }, [])
 
   return (
-    <div className="flex flex-col items-center" data-testid="bone">
-      <div className={`flex flex-wrap bg-vega-dark-150`}>
+    <div data-testid="bone">
+      <div className="flex flex-wrap">
         {new Array(width).fill(null).map((_, i) => (
           <div key={`bone-row-${i}`} data-testid="bone-row">
             {new Array(height).fill(null).map((_, j) => (
               <div
                 key={`bone-sqaure-${j}`}
                 data-testid="bone-sqaure"
-                className={`bg-white w-${baseSize} h-${baseSize}`}
-                style={{
-                  opacity: generate() > 1.5 ? 1 : 0
-                }}
+                style={{ height: baseSize, width: baseSize, opacity: generate() > 1.5 ? 1 : 0 }}
+                className="bg-white"
               />
             ))}
           </div>

@@ -1,4 +1,4 @@
-import { formatNumber, toBigNum } from '@vegaprotocol/utils'
+import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
 import { PriceWithSymbol } from '../utils/string-amounts/price-with-symbol'
 import { VegaKey } from '../../keys/vega-key'
 import { useWalletStore } from '../../../stores/wallets'
@@ -25,7 +25,7 @@ export const EnrichedTransferView = ({ transaction }: ReceiptComponentProps) => 
   return (
     <div data-testid={locators.enrichedSection}>
       <div className="text-xl text-white">
-        {price && symbol ? <PriceWithSymbol price={price} symbol={symbol} /> : null}
+        <AmountWithSymbol amount={formattedAmount} symbol={symbol} />
       </div>
       <h1 className="text-vega-dark-300 mt-4">To</h1>
       <VegaKey publicKey={transaction.transfer.to} name={isOwnKey ? `${keyInfo?.name} (own key)` : 'External key'} />

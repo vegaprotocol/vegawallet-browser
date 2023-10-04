@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { AmountWithSymbol, locators } from './amount-with-symbol'
 
-describe('PriceWithSymbol component', () => {
+describe('AmountWithSymbol', () => {
   it('renders price and symbol correctly', () => {
     const price = 9.99
     const symbol = 'USD'

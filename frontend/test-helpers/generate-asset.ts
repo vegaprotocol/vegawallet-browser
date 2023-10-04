@@ -1,9 +1,9 @@
 import merge from 'lodash/merge'
 import type { PartialDeep } from 'type-fest'
-import { VegaAsset, VegaAssetStatus } from '../types/rest-api.ts'
+import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-export function generateAsset(override?: PartialDeep<VegaAsset>): VegaAsset {
-  const defaultAsset: VegaAsset = {
+export function generateAsset(override?: PartialDeep<vegaAsset>): vegaAsset {
+  const defaultAsset: vegaAsset = {
     id: 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55',
     details: {
       name: 'Vega (fairground)',
@@ -16,7 +16,7 @@ export function generateAsset(override?: PartialDeep<VegaAsset>): VegaAsset {
         withdrawThreshold: '0'
       }
     },
-    status: VegaAssetStatus.ENABLED
+    status: vegaAssetStatus.STATUS_ENABLED
   }
   return merge(defaultAsset, override)
 }

@@ -1,5 +1,5 @@
 import { screen, render } from '@testing-library/react'
-import { OrderType } from '@vegaprotocol/types'
+import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { OrderPriceComponent, locators as OrderPriceLocators } from './order-price'
 import { locators as PriceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
 import { locators as PriceWithSymbolLocators } from '../string-amounts/price-with-symbol'
@@ -14,7 +14,7 @@ describe('OrderPriceComponent', () => {
         marketId="someMarketId"
         formattedPrice="10"
         symbol="BTC"
-        type={OrderType.TYPE_MARKET}
+        type={vegaOrderType.TYPE_MARKET}
       />
     )
     expect(screen.getByTestId(OrderPriceLocators.orderDetailsMarketPrice).textContent).toBe('Market price')

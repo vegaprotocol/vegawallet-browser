@@ -4,10 +4,10 @@ export const locators = {
   priceWithSymbol: 'price-with-symbol'
 }
 
-export const PriceWithSymbol = ({ price, symbol }: { price: string | number; symbol?: string }) => {
+export const AmountWithSymbol = ({ amount, symbol }: { amount: string | number; symbol?: string }) => {
   return (
     <div data-testid={locators.priceWithSymbol}>
-      <span data-testid={locators.price}>{price}</span>
+      <span data-testid={locators.price}>{amount}</span>
       &nbsp;
       {symbol ? (
         <span className="text-vega-dark-300" data-testid={locators.symbol}>

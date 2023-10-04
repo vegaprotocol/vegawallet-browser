@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { generateMarket } from '../../../../test-helpers/generate-market.ts'
@@ -23,7 +24,7 @@ describe('PeggedOrderInfo', () => {
       reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID
     }
 
-    const mockMarket: VegaMarket = generateMarket({
+    const mockMarket: vegaMarket = generateMarket({
       decimalPlaces: '2'
     })
 

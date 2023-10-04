@@ -2,15 +2,15 @@ import merge from 'lodash/merge'
 import type { PartialDeep } from 'type-fest'
 import {
   ConditionOperator,
-  MarketTradingMode,
-  V1PropertyKeyType,
-  VegaDataSourceSpecStatus,
-  VegaMarket,
-  VegaMarketState
-} from '../types/rest-api'
+  v1PropertyKeyType,
+  vegaMarket,
+  vegaMarketState,
+  vegaDataSourceSpecStatus,
+  MarketTradingMode
+} from '@vegaprotocol/rest-clients/dist/trading-data'
 
-export function generateMarket(override?: PartialDeep<VegaMarket>): VegaMarket {
-  const defaultMarket: VegaMarket = {
+export function generateMarket(override?: PartialDeep<vegaMarket>): vegaMarket {
+  const defaultMarket: vegaMarket = {
     id: '4c90031caf280b02f3e5441819e315806dc5c445cc36b0fe00cd42cf7c73b462',
     tradableInstrument: {
       instrument: {
@@ -47,12 +47,12 @@ export function generateMarket(override?: PartialDeep<VegaMarket>): VegaMarket {
                     {
                       key: {
                         name: 'prices.ETH.value',
-                        type: V1PropertyKeyType.INTEGER,
+                        type: v1PropertyKeyType.TYPE_INTEGER,
                         numberDecimalPlaces: '5'
                       },
                       conditions: [
                         {
-                          operator: ConditionOperator.GREATERTHAN,
+                          operator: ConditionOperator.OPERATOR_GREATER_THAN,
                           value: '0'
                         }
                       ]
@@ -61,7 +61,7 @@ export function generateMarket(override?: PartialDeep<VegaMarket>): VegaMarket {
                 }
               }
             },
-            status: VegaDataSourceSpecStatus.UNSPECIFIED
+            status: vegaDataSourceSpecStatus.STATUS_UNSPECIFIED
           },
           dataSourceSpecForTradingTermination: {
             id: '7fa23716a4458d64f71a40a73399604bb636c5b1dfde169e434162e9bfa681f6',
@@ -81,11 +81,11 @@ export function generateMarket(override?: PartialDeep<VegaMarket>): VegaMarket {
                     {
                       key: {
                         name: 'trading.terminated.ETH',
-                        type: V1PropertyKeyType.BOOLEAN
+                        type: v1PropertyKeyType.TYPE_BOOLEAN
                       },
                       conditions: [
                         {
-                          operator: ConditionOperator.EQUALS,
+                          operator: ConditionOperator.OPERATOR_EQUALS,
                           value: 'true'
                         }
                       ]
@@ -94,7 +94,7 @@ export function generateMarket(override?: PartialDeep<VegaMarket>): VegaMarket {
                 }
               }
             },
-            status: VegaDataSourceSpecStatus.UNSPECIFIED
+            status: vegaDataSourceSpecStatus.STATUS_UNSPECIFIED
           },
           dataSourceSpecBinding: {
             settlementDataProperty: 'prices.ETH.value',
@@ -150,8 +150,8 @@ export function generateMarket(override?: PartialDeep<VegaMarket>): VegaMarket {
       triggeringRatio: '0.3',
       auctionExtension: '1'
     },
-    tradingMode: MarketTradingMode.OPENINGAUCTION,
-    state: VegaMarketState.PENDING,
+    tradingMode: MarketTradingMode.TRADING_MODE_OPENING_AUCTION,
+    state: vegaMarketState.STATE_PENDING,
     marketTimestamps: {
       proposed: '1683309952620203148',
       pending: '1683309952620203148',

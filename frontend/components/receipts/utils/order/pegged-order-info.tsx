@@ -1,5 +1,6 @@
-import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
 import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
 import { PriceWithSymbol } from '../string-amounts/price-with-symbol'
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { PeggedOrderOptions } from '../../../../types/transactions'

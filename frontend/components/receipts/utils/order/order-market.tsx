@@ -1,4 +1,4 @@
-import { VegaMarket } from '../../../../types/rest-api'
+import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { MarketLink } from './market-link'
 
 export const locators = {
@@ -12,7 +12,7 @@ export const OrderMarketComponent = ({
 }: {
   marketsLoading: boolean
   marketId: string
-  market: VegaMarket | undefined
+  market: vegaMarket | undefined
 }) => {
   if (marketsLoading || !market) {
     return <MarketLink key="order-details-market" marketId={marketId} />

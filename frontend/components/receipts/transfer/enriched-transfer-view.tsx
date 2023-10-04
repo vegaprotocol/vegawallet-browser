@@ -17,10 +17,10 @@ export const EnrichedTransferView = ({ transaction }: ReceiptComponentProps) => 
 
   return (
     <div data-testid={locators.enrichedSection}>
-      <div className="text-xl text-white">
+      <div className="text-2xl text-white mb-4">
         <AmountWithSymbol amount={formattedAmount} symbol={symbol} />
       </div>
-      <h1 className="text-vega-dark-300 mt-4">To</h1>
+      <h1 className="text-vega-dark-300">To</h1>
       <VegaKey publicKey={transaction.transfer.to} name={isOwnKey ? `${keyInfo?.name} (own key)` : 'External key'} />
     </div>
   )

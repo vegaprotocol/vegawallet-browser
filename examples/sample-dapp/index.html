@@ -1,408 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sample dApp</title>
-  </head>
-  <body style="max-width: 40rem; margin: auto">
-    <h1>Sample dApp</h1>
-    <p>
-      This sample dApp allows you to interact with the extension either by clicking the button below or by using one of
-      the following commands in the console
-    </p>
-    <code>
-      <pre style="background-color: #ececec; padding: 1rem">
+<html lang='en'>
+<head>
+  <meta charset='UTF-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Sample dApp</title>
+</head>
+<body style='max-width: 40rem; margin: auto'>
+<h1>Sample dApp</h1>
+<p>
+  This sample dApp allows you to interact with the extension either by clicking the button below or by using one of
+  the following commands in the console
+</p>
+<code>
+      <pre style='background-color: #ececec; padding: 1rem'>
   await vega.connectWallet()
   await vega.disconnectWallet()
   await vega.getChainId()
   await vega.listKeys()
   await vega.sendTransaction({ publicKey, transaction, sendingMode })</pre
       >
-    </code>
-    <main id="app"></main>
+</code>
+<main id='app'></main>
 
-    <script src="https://unpkg.com/mithril/mithril.js"></script>
-    <script>
-      const App = {
-        connected: false,
-        busy: false,
-        chainId: null,
+<script src='https://unpkg.com/mithril/mithril.js'></script>
+<script>
+  const App = {
+    connected: false,
+    busy: false,
+    chainId: null,
 
-        getChainId() {
-          if (App.connected === false) return
-          App.busy = true
+    getChainId() {
+      if (App.connected === false) return
+      App.busy = true
 
-          vega
-            .getChainId()
-            .then(({ chainID }) => {
-              App.chainId = chainID
-            })
-            .finally(() => {
-              App.busy = false
-              m.redraw()
-            })
-        },
+      vega
+        .getChainId()
+        .then(({ chainID }) => {
+          App.chainId = chainID
+        })
+        .finally(() => {
+          App.busy = false
+          m.redraw()
+        })
+    },
 
-        view() {
-          if (window.vega == null) {
-            return [
-              m('h1', 'No browser extension detected'),
-              m('p', [
-                'No installation of the Vega Wallet browser extension was found. Follow the installation instructions to download and install the latest release.',
-                m('br'),
-                m(
-                  'a',
-                  {
-                    href: 'https://github.com/vegaprotocol/vegawallet-browser#readme',
-                    target: '_blank'
-                  },
-                  'Installation instructions'
-                ),
-                m('br'),
-                m('button', { onclick() {} }, 'Retry')
-              ])
-            ]
-          }
-
-          return [
-            App.connected === false
-              ? m(
-                  'button',
-                  {
-                    disabled: App.busy,
-                    onclick() {
-                      App.busy = true
-
-                      vega
-                        .connectWallet({ hostname: 'Test dApp' })
-                        .then(() => {
-                          App.connected = true
-                        })
-                        .finally(() => {
-                          App.busy = false
-                          m.redraw()
-
-                          App.getChainId()
-                        })
-                    }
-                  },
-                  'Connect wallet'
-                )
-              : m(
-                  'button',
-                  {
-                    disabled: App.busy,
-                    onclick() {
-                      App.busy = true
-
-                      vega
-                        .disconnectWallet()
-                        .then(() => {
-                          App.connected = false
-                          App.chainId = null
-                        })
-                        .finally(() => {
-                          App.busy = false
-                          m.redraw()
-                        })
-                    }
-                  },
-                  'Disconnect wallet'
-                ),
-            App.chainId == null ? null : m('span', [' Connected to: ', m('code', App.chainId)]),
-            App.connected === false ? null : m(Transfer)
-          ]
-        }
+    view() {
+      if (window.vega == null) {
+        return [
+          m('h1', 'No browser extension detected'),
+          m('p', [
+            'No installation of the Vega Wallet browser extension was found. Follow the installation instructions to download and install the latest release.',
+            m('br'),
+            m(
+              'a',
+              {
+                href: 'https://github.com/vegaprotocol/vegawallet-browser#readme',
+                target: '_blank'
+              },
+              'Installation instructions'
+            ),
+            m('br'),
+            m('button', {
+              onclick() {
+              }
+            }, 'Retry')
+          ])
+        ]
       }
 
-      const Transfer = {
-        keys: [],
-        loading: true,
-        selectedKey: null,
+      return [
+        App.connected === false
+          ? m(
+            'button',
+            {
+              disabled: App.busy,
+              onclick() {
+                App.busy = true
 
-        error: null,
-        txHash: null,
+                vega
+                  .connectWallet({ hostname: 'Test dApp' })
+                  .then(() => {
+                    App.connected = true
+                  })
+                  .finally(() => {
+                    App.busy = false
+                    m.redraw()
 
-        oninit() {
-          Transfer.refreshKeys()
-        },
-
-        refreshKeys() {
-          Transfer.error = null
-          Transfer.loading = true
-          Transfer.keys = []
-          Transfer.selectedKey = null
-
-          vega
-            .listKeys()
-            .then(({ keys }) => {
-              Transfer.keys = keys
-              Transfer.selectedKey = keys[0]
-            })
-            .finally(() => {
-              Transfer.loading = false
-              m.redraw()
-            })
-        },
-
-        sendTransaction() {
-          Transfer.error = null
-          Transfer.txHash = null
-          Transfer.loading = true
-
-          vega
-            .sendTransaction({
-              publicKey: Transfer.selectedKey.publicKey,
-              sendingMode: 'TYPE_SYNC',
-              transaction: {
-                batchMarketInstructions: {
-                  cancellations: [
-                    {
-                      orderId: '',
-                      marketId: '2c2ea995d7366e423be7604f63ce047aa7186eb030ecc7b77395eae2fcbffcc5'
-                    },
-                    {
-                      orderId: '',
-                      marketId: 'd957e1d0ce9dcc08bdbb5bfe637f1a601050d67f81fa6cdaeef64801166f6a28'
-                    },
-                    {
-                      orderId: '',
-                      marketId: '074c929bba8faeeeba352b2569fc5360a59e12cdcbf60f915b492c4ac228b566'
-                    },
-                    {
-                      orderId: '',
-                      marketId: '5b05109662e7434fea498c4a1c91d3179b80e9b8950d6106cec60e1f342fc604'
-                    }
-                  ],
-                  amendments: [],
-                  submissions: [
-                    {
-                      marketId: '2c2ea995d7366e423be7604f63ce047aa7186eb030ecc7b77395eae2fcbffcc5',
-                      price: '162949',
-                      size: '3',
-                      side: 'SIDE_BUY',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: '2c2ea995d7366e423be7604f63ce047aa7186eb030ecc7b77395eae2fcbffcc5',
-                      price: '162951',
-                      size: '3',
-                      side: 'SIDE_SELL',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: '2c2ea995d7366e423be7604f63ce047aa7186eb030ecc7b77395eae2fcbffcc5',
-                      price: '162951',
-                      size: '1',
-                      side: 'SIDE_SELL',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: 'd957e1d0ce9dcc08bdbb5bfe637f1a601050d67f81fa6cdaeef64801166f6a28',
-                      price: '6200',
-                      size: '3',
-                      side: 'SIDE_BUY',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: 'd957e1d0ce9dcc08bdbb5bfe637f1a601050d67f81fa6cdaeef64801166f6a28',
-                      price: '6204',
-                      size: '3',
-                      side: 'SIDE_SELL',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: '074c929bba8faeeeba352b2569fc5360a59e12cdcbf60f915b492c4ac228b566',
-                      price: '6189',
-                      size: '8',
-                      side: 'SIDE_BUY',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: '074c929bba8faeeeba352b2569fc5360a59e12cdcbf60f915b492c4ac228b566',
-                      price: '6189',
-                      size: '87',
-                      side: 'SIDE_BUY',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: '074c929bba8faeeeba352b2569fc5360a59e12cdcbf60f915b492c4ac228b566',
-                      price: '6189',
-                      size: '8',
-                      side: 'SIDE_SELL',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: '5b05109662e7434fea498c4a1c91d3179b80e9b8950d6106cec60e1f342fc604',
-                      price: '265742',
-                      size: '1',
-                      side: 'SIDE_BUY',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: '5b05109662e7434fea498c4a1c91d3179b80e9b8950d6106cec60e1f342fc604',
-                      price: '265742',
-                      size: '15',
-                      side: 'SIDE_BUY',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    },
-                    {
-                      marketId: '5b05109662e7434fea498c4a1c91d3179b80e9b8950d6106cec60e1f342fc604',
-                      price: '265891',
-                      size: '1',
-                      side: 'SIDE_SELL',
-                      timeInForce: 'TIME_IN_FORCE_GTT',
-                      expiresAt: '1694758071570114300',
-                      type: 'TYPE_LIMIT',
-                      reference: '',
-                      peggedOrder: null,
-                      postOnly: true,
-                      reduceOnly: false
-                    }
-                  ],
-                  stopOrdersCancellation: [],
-                  stopOrdersSubmission: [
-                    {
-                      risesAbove: {
-                        orderSubmission: {
-                          marketId: 'f308a23f5f5e2623b35846f4e7d26820c6f554802c8b73963b1977385c6f7184',
-                          price: '',
-                          size: '5000',
-                          side: 'SIDE_SELL',
-                          timeInForce: 'TIME_IN_FORCE_FOK',
-                          expiresAt: '0',
-                          type: 'TYPE_MARKET',
-                          reference: '',
-                          peggedOrder: null,
-                          postOnly: false,
-                          reduceOnly: true
-                        },
-                        price: '6600000'
-                      }
-                    }
-                  ]
-                }
+                    App.getChainId()
+                  })
               }
-            })
-            .then((res) => {
-              Transfer.txHash = res.txHash
-            })
-            .catch((err) => {
-              Transfer.error = err
-            })
-            .finally(() => {
-              Transfer.loading = false
-              m.redraw()
-            })
-        },
+            },
+            'Connect wallet'
+          )
+          : m(
+            'button',
+            {
+              disabled: App.busy,
+              onclick() {
+                App.busy = true
 
-        view() {
-          const hasKeys = Transfer.keys.length > 0
+                vega
+                  .disconnectWallet()
+                  .then(() => {
+                    App.connected = false
+                    App.chainId = null
+                  })
+                  .finally(() => {
+                    App.busy = false
+                    m.redraw()
+                  })
+              }
+            },
+            'Disconnect wallet'
+          ),
+        App.chainId == null ? null : m('span', [' Connected to: ', m('code', App.chainId)]),
+        App.connected === false ? null : m(Transfer)
+      ]
+    }
+  }
 
-          let keyOptions
-          if (!hasKeys && Transfer.loading) {
-            keyOptions = [m('option', 'Loading keys...')]
-          } else if (!hasKeys) {
-            keyOptions = [m('option', 'No keys found')]
-          } else {
-            keyOptions = Transfer.keys.map((k) => {
-              const shortKey = k.publicKey.slice(0, 6) + '...' + k.publicKey.slice(-6)
-              const label = `${k.name} (${shortKey})`
+  const Transfer = {
+    keys: [],
+    loading: true,
+    selectedKey: null,
 
-              return m(
-                'option',
-                {
-                  value: k.publicKey,
-                  selected: k.publicKey === Transfer.selectedKey
-                },
-                label
-              )
-            })
+    error: null,
+    txHash: null,
+
+    oninit() {
+      Transfer.refreshKeys()
+    },
+
+    refreshKeys() {
+      Transfer.error = null
+      Transfer.loading = true
+      Transfer.keys = []
+      Transfer.selectedKey = null
+
+      vega
+        .listKeys()
+        .then(({ keys }) => {
+          Transfer.keys = keys
+          Transfer.selectedKey = keys[0]
+        })
+        .finally(() => {
+          Transfer.loading = false
+          m.redraw()
+        })
+    },
+
+    sendTransaction() {
+      Transfer.error = null
+      Transfer.txHash = null
+      Transfer.loading = true
+
+      vega
+        .sendTransaction({
+          publicKey: Transfer.selectedKey.publicKey,
+          sendingMode: 'TYPE_SYNC',
+          transaction: {
+            orderSubmission: {
+              marketId: '4c90031caf280b02f3e5441819e315806dc5c445cc36b0fe00cd42cf7c73b462',
+              price: '0',
+              size: '64',
+              side: 'SIDE_SELL',
+              timeInForce: 'TIME_IN_FORCE_GTT',
+              expiresAt: '1678959957494396062',
+              type: 'TYPE_LIMIT',
+              reference: 'test',
+              peggedOrder: {
+                reference: 'PEGGED_REFERENCE_BEST_ASK',
+                offset: '15'
+              }
+            }
           }
+        })
+        .then((res) => {
+          Transfer.txHash = res.txHash
+        })
+        .catch((err) => {
+          Transfer.error = err
+        })
+        .finally(() => {
+          Transfer.loading = false
+          m.redraw()
+        })
+    },
 
-          return [
-            m('h1', 'Transfer'),
-            m('p', 'This sample makes a transfer for the VEGA assert from the selected key to itself'),
-            m(
-              'select',
-              {
-                disabled: !hasKeys,
-                onchange(ev) {
-                  Transfer.selectedKey = ev.target.value
-                }
-              },
-              keyOptions
-            ),
-            m('button', { style: { margin: '0 0.5rem' }, onclick: Transfer.refreshKeys }, 'Refresh keys'),
-            m('p', 'Proposed transaction'),
-            Transfer.selectedKey == null
-              ? null
-              : m(
-                  'pre',
-                  { style: 'background-color: #ececec; padding: 1rem;' },
-                  `{
+    view() {
+      const hasKeys = Transfer.keys.length > 0
+
+      let keyOptions
+      if (!hasKeys && Transfer.loading) {
+        keyOptions = [m('option', 'Loading keys...')]
+      } else if (!hasKeys) {
+        keyOptions = [m('option', 'No keys found')]
+      } else {
+        keyOptions = Transfer.keys.map((k) => {
+          const shortKey = k.publicKey.slice(0, 6) + '...' + k.publicKey.slice(-6)
+          const label = `${k.name} (${shortKey})`
+
+          return m(
+            'option',
+            {
+              value: k.publicKey,
+              selected: k.publicKey === Transfer.selectedKey
+            },
+            label
+          )
+        })
+      }
+
+      return [
+        m('h1', 'Transfer'),
+        m('p', 'This sample makes a transfer for the VEGA assert from the selected key to itself'),
+        m(
+          'select',
+          {
+            disabled: !hasKeys,
+            onchange(ev) {
+              Transfer.selectedKey = ev.target.value
+            }
+          },
+          keyOptions
+        ),
+        m('button', { style: { margin: '0 0.5rem' }, onclick: Transfer.refreshKeys }, 'Refresh keys'),
+        m('p', 'Proposed transaction'),
+        Transfer.selectedKey == null
+          ? null
+          : m(
+            'pre',
+            { style: 'background-color: #ececec; padding: 1rem;' },
+            `{
                     "publicKey": "${Transfer.selectedKey.publicKey}",
                     "sendingMode": "TYPE_SYNC",
                     "transaction": {
@@ -420,70 +250,70 @@
                       }
                     }
                   }`
-                ),
+          ),
+        m('br'),
+        m(
+          'button',
+          {
+            disabled: Transfer.loading || Transfer.selectedKey == null,
+            style: { fontSize: '1.5rem', margin: '0.8rem 0' },
+            onclick: Transfer.sendTransaction
+          },
+          'Transfer'
+        ),
+        Transfer.error == null
+          ? null
+          : m(
+            'p',
+            { style: { color: 'red' } },
+            `Error: ${Transfer.error.message} (${Transfer.error.data?.code ?? ''}) - ${
+              Transfer.error.data?.message ?? ''
+            }`
+          ),
+        Transfer.txHash == null
+          ? null
+          : [
+            m('p', [
+              'Transaction hash ',
+              m('code', Transfer.txHash),
+              '. Find your transaction on one of the block explorers (depending on your chosen network):'
+            ]),
+            m(
+              'a',
+              {
+                target: '_blank',
+                href: 'https://explorer.fairground.wtf/txs/' + Transfer.txHash
+              },
+              'View on Fairground'
+            ),
             m('br'),
             m(
-              'button',
+              'a',
               {
-                disabled: Transfer.loading || Transfer.selectedKey == null,
-                style: { fontSize: '1.5rem', margin: '0.8rem 0' },
-                onclick: Transfer.sendTransaction
+                target: '_blank',
+                href: 'https://explorer.stagnet1.vega.xyz/txs/' + Transfer.txHash
               },
-              'Transfer'
+              'View on Stagnet1'
             ),
-            Transfer.error == null
-              ? null
-              : m(
-                  'p',
-                  { style: { color: 'red' } },
-                  `Error: ${Transfer.error.message} (${Transfer.error.data?.code ?? ''}) - ${
-                    Transfer.error.data?.message ?? ''
-                  }`
-                ),
-            Transfer.txHash == null
-              ? null
-              : [
-                  m('p', [
-                    'Transaction hash ',
-                    m('code', Transfer.txHash),
-                    '. Find your transaction on one of the block explorers (depending on your chosen network):'
-                  ]),
-                  m(
-                    'a',
-                    {
-                      target: '_blank',
-                      href: 'https://explorer.fairground.wtf/txs/' + Transfer.txHash
-                    },
-                    'View on Fairground'
-                  ),
-                  m('br'),
-                  m(
-                    'a',
-                    {
-                      target: '_blank',
-                      href: 'https://explorer.stagnet1.vega.xyz/txs/' + Transfer.txHash
-                    },
-                    'View on Stagnet1'
-                  ),
-                  m('br'),
-                  m(
-                    'a',
-                    {
-                      target: '_blank',
-                      href: 'https://explorer.stagnet3.vega.xyz/txs/' + Transfer.txHash
-                    },
-                    'View on Stagnet3'
-                  ),
-                  m('br')
-                ]
+            m('br'),
+            m(
+              'a',
+              {
+                target: '_blank',
+                href: 'https://explorer.stagnet3.vega.xyz/txs/' + Transfer.txHash
+              },
+              'View on Stagnet3'
+            ),
+            m('br')
           ]
-        }
-      }
+      ]
+    }
+  }
 
-      const root = document.getElementById('app')
-      window.onload = () => {
-        m.mount(root, App)
-      }
-    </script>
-  </body>
+  const root = document.getElementById('app')
+  window.onload = () => {
+    m.mount(root, App)
+  }
+</script>
+</body>
 </html>

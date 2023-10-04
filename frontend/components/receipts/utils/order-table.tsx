@@ -1,13 +1,16 @@
 import { ReactNode } from 'react'
-import { DataTable } from '../../data-table/data-table'
-import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { OrderType, Side, PeggedOrder } from '@vegaprotocol/types'
-import { MarketLink } from './order/market-link'
+import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { DataTable } from '../../data-table/data-table'
 import { Direction } from './order/direction'
 import { OrderTypeComponent } from './order/order-type'
-import { PeggedOrderInfo } from './order/pegged-order-info.tsx'
-import { PriceWithTooltip } from './string-amounts/price-with-tooltip'
-import { SizeWithTooltip } from './string-amounts/size-with-tooltip'
+import { OrderPriceComponent } from './order/order-price'
+import { OrderSizeComponent } from './order/order-size'
+import { OrderMarketComponent } from './order/order-market'
+import { PeggedOrderInfo } from './order/pegged-order-info'
+import { useMarketsStore } from '../../../stores/markets-store'
+import { useAssetsStore } from '../../../stores/assets-store'
 
 export const OrderTable = ({
   marketId,
@@ -19,24 +22,105 @@ export const OrderTable = ({
   type,
   peggedOrder
 }: Partial<{
-  marketId: string
-  orderId: string
-  direction: Side
-  size: string
-  price: string
-  reference: string
-  type: OrderType
+  marketId?: string
+  orderId?: string
+  direction?: Side
+  size?: string
+  price?: string
+  reference?: string
+  type?: OrderType
   peggedOrder?: PeggedOrder
 }>) => {
+  const {
+    loading: assetsLoading,
+    assets,
+    getAssetById
+  } = useAssetsStore((state) => ({
+    loading: state.loading,
+    assets: state.assets,
+    getAssetById: state.getAssetById
+  }))
+  const {
+    loading: marketsLoading,
+    markets,
+    getMarketById
+  } = useMarketsStore((state) => ({
+    loading: state.loading,
+    markets: state.markets,
+    getMarketById: state.getMarketById
+  }))
+
+  const market = marketId && markets.length > 0 ? getMarketById(marketId) : undefined
+  const marketDecimals = Number(market?.decimalPlaces)
+  const positionDecimals = Number(market?.positionDecimalPlaces)
+  const formattedPrice =
+    price && marketDecimals ? formatNumber(toBigNum(price, marketDecimals), marketDecimals) : undefined
+  const formattedSize =
+    size && positionDecimals ? formatNumber(toBigNum(size, positionDecimals), positionDecimals) : undefined
+  let assetInfo
+  if (market && assets.length > 0) {
+    const settlementAsset = market.tradableInstrument?.instrument?.future?.settlementAsset
+    if (settlementAsset) {
+      assetInfo = getAssetById(settlementAsset)
+    }
+  }
+  const symbol = assetInfo?.details?.symbol
+  // We display the price field if a price is provided and isn't '0', except in the case of market orders.
+  const shouldDisplayPrice = (price: string | undefined, type: OrderType | undefined) =>
+    type === OrderType.TYPE_MARKET || (price && price !== '0')
+
   const columns = [
-    price && price !== '0' && marketId
-      ? ['Price', <PriceWithTooltip key="order-details-price" marketId={marketId} price={price} />]
+    shouldDisplayPrice(price, type)
+      ? [
+          'Price',
+          <OrderPriceComponent
+            key="order-details-price"
+            assetsLoading={assetsLoading}
+            price={price}
+            marketId={marketId}
+            formattedPrice={formattedPrice}
+            symbol={symbol}
+            type={type}
+          />
+        ]
       : null,
     peggedOrder && marketId
-      ? ['Pegged price', <PeggedOrderInfo key="order-details-pegged" peggedOrder={peggedOrder} marketId={marketId} />]
+      ? [
+          'Pegged price',
+          <PeggedOrderInfo
+            key="order-details-pegged"
+            marketsLoading={marketsLoading}
+            market={market}
+            peggedOrder={peggedOrder}
+            marketId={marketId}
+            symbol={symbol}
+          />
+        ]
       : null,
-    size && marketId ? ['Size', <SizeWithTooltip key="order-details-price" marketId={marketId} size={size} />] : null,
-    marketId ? ['Market', <MarketLink key="order-details-market" marketId={marketId} />] : null,
+    size && marketId
+      ? [
+          'Size',
+          <OrderSizeComponent
+            key="order-details-size"
+            marketsLoading={marketsLoading}
+            size={size}
+            marketId={marketId}
+            formattedSize={formattedSize}
+            symbol={symbol}
+          />
+        ]
+      : null,
+    marketId
+      ? [
+          'Market',
+          <OrderMarketComponent
+            key="order-details-market"
+            marketsLoading={marketsLoading}
+            marketId={marketId}
+            market={market}
+          />
+        ]
+      : null,
     orderId ? ['Order', truncateMiddle(orderId)] : null,
     direction ? ['Direction', <Direction key="order-details-direction" direction={direction} />] : null,
     type ? ['Type', <OrderTypeComponent key="order-details-type" type={type} />] : null,

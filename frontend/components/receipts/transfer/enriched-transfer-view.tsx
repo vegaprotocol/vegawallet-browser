@@ -1,26 +1,19 @@
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
-import { PriceWithSymbol } from '../utils/string-amounts/price-with-symbol'
 import { VegaKey } from '../../keys/vega-key'
 import { useWalletStore } from '../../../stores/wallets'
 import { ReceiptComponentProps } from '../receipts'
-import { useAssetsStore } from '../../../stores/assets-store'
+import { useFormatAssetAmount } from '../../../hooks/format-asset-amount'
 
 export const locators = {
   enrichedSection: 'enriched-section'
 }
 
 export const EnrichedTransferView = ({ transaction }: ReceiptComponentProps) => {
-  const { getAssetById } = useAssetsStore((state) => ({
-    getAssetById: state.getAssetById
-  }))
-  const assetInfo = getAssetById(transaction.transfer.asset)
-  const { getKeyById } = useWalletStore((state) => ({ getKeyById: state.getKeyById }))
   const { amount } = transaction.transfer
-  const decimals = Number(assetInfo?.details?.decimals)
-  const price = amount && decimals ? formatNumber(toBigNum(amount, decimals), decimals) : undefined
-  const symbol = assetInfo?.details?.symbol
+  const { formattedAmount, symbol } = useFormatAssetAmount(transaction.transfer.asset, amount)
+  const { getKeyById } = useWalletStore((state) => ({ getKeyById: state.getKeyById }))
   const keyInfo = getKeyById(transaction.transfer.to)
-  const isOwnKey = keyInfo?.publicKey === transaction.transfer.to
+  const isOwnKey = !!keyInfo
 
   return (
     <div data-testid={locators.enrichedSection}>

@@ -8,9 +8,8 @@ export const Withdraw = ({ transaction }: ReceiptComponentProps) => {
     loading: state.loading
   }))
 
-  const { receiverAddress } = transaction.withdrawSubmission.ext.erc20
-
   if (!transaction.withdrawSubmission.ext?.erc20) return null
+  const { receiverAddress } = transaction.withdrawSubmission.ext.erc20
   if (loading)
     return (
       <BasicWithdrawal

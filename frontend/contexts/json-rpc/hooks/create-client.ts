@@ -6,6 +6,7 @@ import { JsonRpcNotification } from '../json-rpc-provider'
 import { getExtensionApi } from '../../../lib/extension-apis'
 import JSONRPCClient from '../../../../lib/json-rpc-client'
 import { log } from '../../../lib/logging'
+import { captureException } from '@sentry/browser'
 
 const createClient = (notificationHandler: Function) => {
   const { runtime } = getExtensionApi()
@@ -62,6 +63,7 @@ export const useCreateClient = () => {
         const result = await client.request(method, params)
         return result
       } catch (e) {
+        captureException(e)
         if (!propagateErrors) {
           setError(e as Error)
         } else {

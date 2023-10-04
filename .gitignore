@@ -11,6 +11,7 @@
 /test/test-reports
 /test/test-screenshots
 /test/e2e/firefox-profile
+/test/e2e/generated-test-data
 /.vscode/launch.json
 
 # production

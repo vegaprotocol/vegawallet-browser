@@ -6,14 +6,13 @@ import componentLocators from '../locators'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 
 import { usePopoverStore } from '../../stores/popover-store'
+import { mockStore } from '../../test-helpers/mock-store'
 
 const mockPopoverStore = (isPopoverInstance: boolean) => {
   const focusPopover = jest.fn()
-  ;(usePopoverStore as unknown as jest.Mock).mockImplementation((fn) => {
-    return fn({
-      isPopoverInstance,
-      focusPopover
-    })
+  mockStore(usePopoverStore, {
+    isPopoverInstance,
+    focusPopover
   })
   return focusPopover
 }

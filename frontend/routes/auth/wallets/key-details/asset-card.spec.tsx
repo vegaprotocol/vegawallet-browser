@@ -4,6 +4,7 @@ import { useAssetsStore } from '../../../../stores/assets-store'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { locators as dataTableLocators } from '../../../../components/data-table/data-table'
 import { vegaAccount, vegaAccountType, vegaAsset } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { mockStore } from '../../../../test-helpers/mock-store'
 
 const assetId = '1'.repeat(64)
 
@@ -13,11 +14,10 @@ jest.mock('./markets-lozenges', () => ({
 }))
 
 const renderComponent = (assetInfo: vegaAsset | undefined, accounts: vegaAccount[]) => {
-  ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
-    fn({
-      getAssetById: () => assetInfo
-    })
-  )
+  mockStore(useAssetsStore, {
+    getAssetById: () => assetInfo
+  })
+
   render(<AssetCard accounts={accounts} assetId={assetId} />)
 }
 

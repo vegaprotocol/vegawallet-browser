@@ -9,6 +9,7 @@ import { useConnectionStore } from '../../stores/connections'
 import { useErrorStore } from '../../stores/error'
 import { mockClient } from '../../test-helpers/mock-client'
 import { silenceErrors } from '../../test-helpers/silence-errors'
+import { mockStore } from '../../test-helpers/mock-store'
 
 jest.mock('../../stores/modal-store')
 jest.mock('../../stores/error')
@@ -41,10 +42,8 @@ const mockConnectionStore = () => {
 
 const mockErrorStore = () => {
   const setError = jest.fn()
-  ;(useErrorStore as unknown as jest.Mock).mockImplementation((fn) => {
-    return fn({
-      setError
-    })
+  mockStore(useErrorStore, {
+    setError
   })
   return {
     setError

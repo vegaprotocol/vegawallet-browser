@@ -47,7 +47,7 @@
     "dev": "web-ext run --start-url=examples/sample-dapp/index.html",
     "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium",
     "dev:firefox": "yarn dev --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition",
-    "format": "prettier frontend --check",
+    "format": "prettier --check frontend specs",
     "format:write": "yarn format --write",
     "lint": "eslint --ext js,ts,tsx frontend --max-warnings=0",
     "test:backend": "jest --config=test/jest-config/jest.config-backend.js -t --testPathIgnorePatterns='.*\\/generate-transactions\\.spec\\.ts'",

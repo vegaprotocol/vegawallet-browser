@@ -3,7 +3,7 @@ import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { generateMarket } from '../../../../test-helpers/generate-market.ts'
-import { locators as priceWithSymbolLocators } from '../string-amounts/price-with-symbol'
+import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
 
 describe('PeggedOrderInfo', () => {
@@ -37,8 +37,8 @@ describe('PeggedOrderInfo', () => {
         symbol="BTC"
       />
     )
-    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent('0.12')
-    expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('BTC')
+    expect(screen.getByTestId(amountWithSymbolLocators.price)).toHaveTextContent('0.12')
+    expect(screen.getByTestId(amountWithSymbolLocators.symbol)).toHaveTextContent('BTC')
   })
 
   it('should display PeggedReference values correctly', () => {

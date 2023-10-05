@@ -1,5 +1,5 @@
 import { SizeWithTooltip } from '../string-amounts/size-with-tooltip'
-import { PriceWithSymbol } from '../string-amounts/price-with-symbol'
+import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
 
 export const OrderSizeComponent = ({
   marketsLoading,
@@ -18,5 +18,5 @@ export const OrderSizeComponent = ({
     return <SizeWithTooltip key="order-details-size" marketId={marketId} size={size} />
   }
 
-  return <PriceWithSymbol price={formattedSize} symbol={symbol} />
+  return <AmountWithSymbol amount={formattedSize} symbol={symbol} />
 }

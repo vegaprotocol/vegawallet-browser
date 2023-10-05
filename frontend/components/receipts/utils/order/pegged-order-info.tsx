@@ -1,7 +1,7 @@
 import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
-import { PriceWithSymbol } from '../string-amounts/price-with-symbol'
+import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { PeggedOrderOptions } from '../../../../types/transactions'
 
@@ -33,7 +33,7 @@ export const PeggedOrderInfo = ({ marketsLoading, peggedOrder, market, marketId,
     marketsLoading || !market ? (
       <PriceWithTooltip price={offset} marketId={marketId} />
     ) : (
-      <PriceWithSymbol price={formattedOffset} symbol={symbol} />
+      <AmountWithSymbol amount={formattedOffset} symbol={symbol} />
     )
 
   return (

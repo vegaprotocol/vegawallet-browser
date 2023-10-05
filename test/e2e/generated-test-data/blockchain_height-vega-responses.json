@@ -1,0 +1,10 @@
+{
+  "height": "14503577",
+  "hash": "4c5154f7873b6c1fe483b19822d5423af1ea755b3b8feae7866379d44a3caf39",
+  "spamPowHashFunction": "sha3_24_rounds",
+  "spamPowDifficulty": 15,
+  "spamPowNumberOfPastBlocks": 100,
+  "spamPowNumberOfTxPerBlock": 100,
+  "spamPowIncreasingDifficulty": true,
+  "chainId": "vega-fairground-202305051805"
+}

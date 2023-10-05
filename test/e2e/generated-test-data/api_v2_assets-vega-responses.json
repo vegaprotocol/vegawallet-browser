@@ -1,0 +1,1360 @@
+{
+  "assets": {
+    "edges": [
+      {
+        "node": {
+          "id": "fdf0ec118d98393a7702cf72e46fc87ad680b152f64b2aac59e093ac2d688fbb",
+          "details": {
+            "name": "USDT-T",
+            "symbol": "USDT-T",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x6381dD9f86646FD058e0abc95ec204A0a1054333",
+              "lifetimeLimit": "3000000000000000000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImZkZjBlYzExOGQ5ODM5M2E3NzAyY2Y3MmU0NmZjODdhZDY4MGIxNTJmNjRiMmFhYzU5ZTA5M2FjMmQ2ODhmYmIifQ=="
+      },
+      {
+        "node": {
+          "id": "fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55",
+          "details": {
+            "name": "Vega (fairground)",
+            "symbol": "VEGA",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xdf1B0F223cb8c7aB3Ef8469e529fe81E73089BD9",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImZjN2ZkOTU2MDc4ZmIxZmM5ZGI1YzE5Yjg4ZjA4NzRjNDI5OWIyYTc2MzlhZDA1YTQ3YTI4YzBhZWYyOTFiNTUifQ=="
+      },
+      {
+        "node": {
+          "id": "f7355ec52730c2e6ba02216da8501b4b6934cd363511e9d47ae5b97056d02703",
+          "details": {
+            "name": "BUSD-I",
+            "symbol": "BUSD-I",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xB5052A3D5A755D4710f6eA9D25E8f705281BaB25",
+              "lifetimeLimit": "999999999999999999999999999999",
+              "withdrawThreshold": "3333333"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImY3MzU1ZWM1MjczMGMyZTZiYTAyMjE2ZGE4NTAxYjRiNjkzNGNkMzYzNTExZTlkNDdhZTViOTcwNTZkMDI3MDMifQ=="
+      },
+      {
+        "node": {
+          "id": "f481abe5700c6940ca996adfa9d07c9d9f07a486a7ce9cdb2e6ee0fa6450fe31",
+          "details": {
+            "name": "USDT-5",
+            "symbol": "USDT-5",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xDA2966f6DF460ECA9C522593d98F3f51b1D2139d",
+              "lifetimeLimit": "10000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImY0ODFhYmU1NzAwYzY5NDBjYTk5NmFkZmE5ZDA3YzlkOWYwN2E0ODZhN2NlOWNkYjJlNmVlMGZhNjQ1MGZlMzEifQ=="
+      },
+      {
+        "node": {
+          "id": "ede4076aef07fd79502d14326c54ab3911558371baaf697a19d077f4f89de399",
+          "details": {
+            "name": "tUSDC Fairground",
+            "symbol": "tUSDC",
+            "decimals": "6",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x40ff2D218740EF033b43B8Ce0342aEBC81934554",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImVkZTQwNzZhZWYwN2ZkNzk1MDJkMTQzMjZjNTRhYjM5MTE1NTgzNzFiYWFmNjk3YTE5ZDA3N2Y0Zjg5ZGUzOTkifQ=="
+      },
+      {
+        "node": {
+          "id": "eb30d55e90e1f9e5c4727d6fa2a5a8cd36ab9ae9738eb8f3faf53e2bee4861ee",
+          "details": {
+            "name": "mUSDT-II",
+            "symbol": "mUSDT-II",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x8961550f17376896D2a473003ffde70BB963bd7A",
+              "lifetimeLimit": "10000000000000000000000000",
+              "withdrawThreshold": "10000000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImViMzBkNTVlOTBlMWY5ZTVjNDcyN2Q2ZmEyYTVhOGNkMzZhYjlhZTk3MzhlYjhmM2ZhZjUzZTJiZWU0ODYxZWUifQ=="
+      },
+      {
+        "node": {
+          "id": "e1cc8e2598d11c4c3ccc4521f0fc06f4b6d940a8607ca38b72bec138600f0525",
+          "details": {
+            "name": "tBTC Fairground",
+            "symbol": "tBTC",
+            "decimals": "8",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x123cB4a2AB190F88a50646D5436aB3F5859107Ed",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImUxY2M4ZTI1OThkMTFjNGMzY2NjNDUyMWYwZmMwNmY0YjZkOTQwYTg2MDdjYTM4YjcyYmVjMTM4NjAwZjA1MjUifQ=="
+      },
+      {
+        "node": {
+          "id": "deadbeef00000000000000000000000000000000000000000000000000000005",
+          "details": {
+            "name": "XYZ (γ gamma)",
+            "symbol": "XYZgamma",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "100000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImRlYWRiZWVmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDUifQ=="
+      },
+      {
+        "node": {
+          "id": "deadbeef00000000000000000000000000000000000000000000000000000004",
+          "details": {
+            "name": "XYZ (ε epsilon)",
+            "symbol": "XYZepsilon",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "100000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImRlYWRiZWVmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDQifQ=="
+      },
+      {
+        "node": {
+          "id": "deadbeef00000000000000000000000000000000000000000000000000000003",
+          "details": {
+            "name": "XYZ (δ delta)",
+            "symbol": "XYZdelta",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "100000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImRlYWRiZWVmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDMifQ=="
+      },
+      {
+        "node": {
+          "id": "deadbeef00000000000000000000000000000000000000000000000000000002",
+          "details": {
+            "name": "XYZ (β beta)",
+            "symbol": "XYZbeta",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "100000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImRlYWRiZWVmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDIifQ=="
+      },
+      {
+        "node": {
+          "id": "deadbeef00000000000000000000000000000000000000000000000000000001",
+          "details": {
+            "name": "XYZ (α alpha)",
+            "symbol": "XYZalpha",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "5000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImRlYWRiZWVmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEifQ=="
+      },
+      {
+        "node": {
+          "id": "dd73f7d1e721ef5cba95f454a3019521456c1b43b97084ad29e3e6509148d45d",
+          "details": {
+            "name": "Heat Rewards",
+            "symbol": "HEAT",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0xEC41950cB1B92c4A086Ca9707A8a5f61a4DECc0A",
+              "lifetimeLimit": "7000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImRkNzNmN2QxZTcyMWVmNWNiYTk1ZjQ1NGEzMDE5NTIxNDU2YzFiNDNiOTcwODRhZDI5ZTNlNjUwOTE0OGQ0NWQifQ=="
+      },
+      {
+        "node": {
+          "id": "d9a9ab00bb79ce7dca7f6329ab627dcea2e53e5c16b85bf4aa8c3980b76fad57",
+          "details": {
+            "name": "USDC-II",
+            "symbol": "USDC-II",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x50feFE9256151DABdf1D86820dEf9e8d80ab9Aa1",
+              "lifetimeLimit": "100000000000000000000000",
+              "withdrawThreshold": "100000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImQ5YTlhYjAwYmI3OWNlN2RjYTdmNjMyOWFiNjI3ZGNlYTJlNTNlNWMxNmI4NWJmNGFhOGMzOTgwYjc2ZmFkNTcifQ=="
+      },
+      {
+        "node": {
+          "id": "d3f9cf6e1711595b4588366a96b725fc039f72a8a28b2e4c1b630016dd2eed39",
+          "details": {
+            "name": "DAI Iceberg incentive",
+            "symbol": "DAI-CE",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0xBdb5A88020B30367Ad1Dd4ddF43d0BF895016d1b",
+              "lifetimeLimit": "7000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImQzZjljZjZlMTcxMTU5NWI0NTg4MzY2YTk2YjcyNWZjMDM5ZjcyYThhMjhiMmU0YzFiNjMwMDE2ZGQyZWVkMzkifQ=="
+      },
+      {
+        "node": {
+          "id": "d2239a7c92bc5c72a959a73ccee7727ba0966f4d88a33d71dbbc26e3f171555d",
+          "details": {
+            "name": "USDC-CE Rewards and Browser incentive",
+            "symbol": "USDC-CE",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0x4D2dd34A2004b45878056933eC690427b610Ea99",
+              "lifetimeLimit": "7000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6ImQyMjM5YTdjOTJiYzVjNzJhOTU5YTczY2NlZTc3MjdiYTA5NjZmNGQ4OGEzM2Q3MWRiYmMyNmUzZjE3MTU1NWQifQ=="
+      },
+      {
+        "node": {
+          "id": "cee709223217281d7893b650850ae8ee8a18b7539b5658f9b4cc24de95dd18ad",
+          "details": {
+            "name": "tBTC TEST",
+            "symbol": "tBTC",
+            "decimals": "5",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x1d525fB145Af5c51766a89706C09fE07E6058D1D",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImNlZTcwOTIyMzIxNzI4MWQ3ODkzYjY1MDg1MGFlOGVlOGExOGI3NTM5YjU2NThmOWI0Y2MyNGRlOTVkZDE4YWQifQ=="
+      },
+      {
+        "node": {
+          "id": "c9fe6fc24fce121b2cc72680543a886055abb560043fda394ba5376203b7527d",
+          "details": {
+            "name": "tUSDC TEST",
+            "symbol": "tUSDC",
+            "decimals": "5",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xdBa6373d0DAAAA44bfAd663Ff93B1bF34cE054E9",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImM5ZmU2ZmMyNGZjZTEyMWIyY2M3MjY4MDU0M2E4ODYwNTVhYmI1NjAwNDNmZGEzOTRiYTUzNzYyMDNiNzUyN2QifQ=="
+      },
+      {
+        "node": {
+          "id": "c398a73a07a9b51dfa0f20302be3003d2d3fc09f2523d71547ac2b8ccb074665",
+          "details": {
+            "name": "DAI - Faucet Open",
+            "symbol": "DAI",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x3aC67Bde59F4Cf4ed9daB695Fe61959d1c2b3B09",
+              "lifetimeLimit": "100000000000000000000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImMzOThhNzNhMDdhOWI1MWRmYTBmMjAzMDJiZTMwMDNkMmQzZmMwOWYyNTIzZDcxNTQ3YWMyYjhjY2IwNzQ2NjUifQ=="
+      },
+      {
+        "node": {
+          "id": "bf5b9464d154ffeff57f05f90b223c1045f0754befd01a9a42c99382115e7833",
+          "details": {
+            "name": "USDT-IV",
+            "symbol": "USDT-IV",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x7ab7892abecB6CB719EB640214378B38895e2dC4",
+              "lifetimeLimit": "100000000000000000000000000",
+              "withdrawThreshold": "10000000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImJmNWI5NDY0ZDE1NGZmZWZmNTdmMDVmOTBiMjIzYzEwNDVmMDc1NGJlZmQwMWE5YTQyYzk5MzgyMTE1ZTc4MzMifQ=="
+      },
+      {
+        "node": {
+          "id": "befde6d78ea1c996ae1d959342730220e274992097aeeae00c908a971314e6ae",
+          "details": {
+            "name": "USDT-X",
+            "symbol": "USDT-X",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xF4624bd1E301ac4Be2f70acB12437D3b0b551015",
+              "lifetimeLimit": "5000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImJlZmRlNmQ3OGVhMWM5OTZhZTFkOTU5MzQyNzMwMjIwZTI3NDk5MjA5N2FlZWFlMDBjOTA4YTk3MTMxNGU2YWUifQ=="
+      },
+      {
+        "node": {
+          "id": "be478570584211521890fb65a41bded4d2bf29beb0b61ac3cc3b97f828a27b22",
+          "details": {
+            "name": "MAKer-I",
+            "symbol": "MAKer-I",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x5aE856a639a92623b8ecf1c6DFf77Cf665fd7e14",
+              "lifetimeLimit": "1000000000000000000000000",
+              "withdrawThreshold": "1000000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImJlNDc4NTcwNTg0MjExNTIxODkwZmI2NWE0MWJkZWQ0ZDJiZjI5YmViMGI2MWFjM2NjM2I5N2Y4MjhhMjdiMjIifQ=="
+      },
+      {
+        "node": {
+          "id": "b6d11705cb456768ff8271074dd8adcd78bd042a27fc205e9b52f9f945f42ea1",
+          "details": {
+            "name": "USDC-W Faucet open",
+            "symbol": "USDC-W",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x664E621aaB21fdA37ac28DF82fb799d63D5Cf0Fa",
+              "lifetimeLimit": "10000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImI2ZDExNzA1Y2I0NTY3NjhmZjgyNzEwNzRkZDhhZGNkNzhiZDA0MmEyN2ZjMjA1ZTliNTJmOWY5NDVmNDJlYTEifQ=="
+      },
+      {
+        "node": {
+          "id": "b340c130096819428a62e5df407fd6abe66e444b89ad64f670beb98621c9c663",
+          "details": {
+            "name": "tDAI TEST",
+            "symbol": "tDAI",
+            "decimals": "5",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x26223f9C67871CFcEa329975f7BC0C9cB8FBDb9b",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImIzNDBjMTMwMDk2ODE5NDI4YTYyZTVkZjQwN2ZkNmFiZTY2ZTQ0NGI4OWFkNjRmNjcwYmViOTg2MjFjOWM2NjMifQ=="
+      },
+      {
+        "node": {
+          "id": "b0cf8be4e4d1d2ac5156c2298aa42edc7a74d25b7838d06e2279e94018a47f3f",
+          "details": {
+            "name": "USDC Crossgems II",
+            "symbol": "USDC-C",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xcB9758709f3cA0afe1040CBf3770724f08A16884",
+              "lifetimeLimit": "100000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImIwY2Y4YmU0ZTRkMWQyYWM1MTU2YzIyOThhYTQyZWRjN2E3NGQyNWI3ODM4ZDA2ZTIyNzllOTQwMThhNDdmM2YifQ=="
+      },
+      {
+        "node": {
+          "id": "ae28c1043e79bdb95cae0e9919d4436157d14b183e24ab4572793812f3d89222",
+          "details": {
+            "name": "USDC-9",
+            "symbol": "USDC-9",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x8Eaa42706ABEaCf97c5Cf6d4379dC2b59Df6354e",
+              "lifetimeLimit": "100000000000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImFlMjhjMTA0M2U3OWJkYjk1Y2FlMGU5OTE5ZDQ0MzYxNTdkMTRiMTgzZTI0YWI0NTcyNzkzODEyZjNkODkyMjIifQ=="
+      },
+      {
+        "node": {
+          "id": "a7cb2a2855b992b08fa612e3189c317ad54c3934b9e9ba3be4ba33457c1152a2",
+          "details": {
+            "name": "USDT Faucet",
+            "symbol": "USDT",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x607c609C21171578847d7c31f29C235850f47Bb7",
+              "lifetimeLimit": "10000000000000000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImE3Y2IyYTI4NTViOTkyYjA4ZmE2MTJlMzE4OWMzMTdhZDU0YzM5MzRiOWU5YmEzYmU0YmEzMzQ1N2MxMTUyYTIifQ=="
+      },
+      {
+        "node": {
+          "id": "a4c945aea50ef321eabf8a3bcf0b8bb74288452c4638876ee4df5fb59be4a0ec",
+          "details": {
+            "name": "Wrapped Ether",
+            "symbol": "WETH",
+            "decimals": "18",
+            "quantum": "555555555600000",
+            "erc20": {
+              "contractAddress": "0x3BbCB7bB7606C7afAad97e2c5135a97e94103B6f",
+              "lifetimeLimit": "6000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6ImE0Yzk0NWFlYTUwZWYzMjFlYWJmOGEzYmNmMGI4YmI3NDI4ODQ1MmM0NjM4ODc2ZWU0ZGY1ZmI1OWJlNGEwZWMifQ=="
+      },
+      {
+        "node": {
+          "id": "a26dc4f6dea91e80d42e4736da7fe3c42f6275df9c4dca48be3ef96850192242",
+          "details": {
+            "name": "DAI (INCENTIVE)",
+            "symbol": "DAI-INC",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xC34457e8C2F52197c41348Be4750F641e8044F37",
+              "lifetimeLimit": "50000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImEyNmRjNGY2ZGVhOTFlODBkNDJlNDczNmRhN2ZlM2M0MmY2Mjc1ZGY5YzRkY2E0OGJlM2VmOTY4NTAxOTIyNDIifQ=="
+      },
+      {
+        "node": {
+          "id": "a0cf0835cb5af7bd03c56d12d846eed81c182eab36ea61c074961c115da9c8c4",
+          "details": {
+            "name": "XUSDT Mainnet Sims II",
+            "symbol": "XUSDT",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xF74b6cb3125fe68eC8eaaE10c77Bd93B130A38d1",
+              "lifetimeLimit": "100000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6ImEwY2YwODM1Y2I1YWY3YmQwM2M1NmQxMmQ4NDZlZWQ4MWMxODJlYWIzNmVhNjFjMDc0OTYxYzExNWRhOWM4YzQifQ=="
+      },
+      {
+        "node": {
+          "id": "9e0bb9bd7ea2ec51efcdc98b432b6f0b055b2ed7973cfac9b44899d6e6c5deab",
+          "details": {
+            "name": "mUSDT",
+            "symbol": "mUSDT",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x1d3591a131f6C1951dae5a4dE3AfEF0Fc1d63e64",
+              "lifetimeLimit": "10000000000000000000000000000",
+              "withdrawThreshold": "100000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjllMGJiOWJkN2VhMmVjNTFlZmNkYzk4YjQzMmI2ZjBiMDU1YjJlZDc5NzNjZmFjOWI0NDg5OWQ2ZTZjNWRlYWIifQ=="
+      },
+      {
+        "node": {
+          "id": "9b43c6791aebed5f7b38d91907539173aa278de88294b6422f3dd8282cd2c6e2",
+          "details": {
+            "name": "Water iceberg incentive",
+            "symbol": "WATER",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0xC42f39c6bBf176F6a90f941540cb91C61c806749",
+              "lifetimeLimit": "100000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6IjliNDNjNjc5MWFlYmVkNWY3YjM4ZDkxOTA3NTM5MTczYWEyNzhkZTg4Mjk0YjY0MjJmM2RkODI4MmNkMmM2ZTIifQ=="
+      },
+      {
+        "node": {
+          "id": "92747340d922e9cda5bde17c46af8b409e47d6342f3b9c8fb058a34c6206d373",
+          "details": {
+            "name": "Water iceberg incentive",
+            "symbol": "WATER",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0xC42f39c6bBf176F6a90f941540cb91C61c806749",
+              "lifetimeLimit": "100000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjkyNzQ3MzQwZDkyMmU5Y2RhNWJkZTE3YzQ2YWY4YjQwOWU0N2Q2MzQyZjNiOWM4ZmIwNThhMzRjNjIwNmQzNzMifQ=="
+      },
+      {
+        "node": {
+          "id": "8e5553ee4e95db51523640d1d03b00c8ab31dd69d787e169b0d958ef52e19a0a",
+          "details": {
+            "name": "USDT-II",
+            "symbol": "USDT-II",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xFbfFAE4f52E4901c0F5F7141210e8B018925DE68",
+              "lifetimeLimit": "1000000000000000000000000",
+              "withdrawThreshold": "1000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjhlNTU1M2VlNGU5NWRiNTE1MjM2NDBkMWQwM2IwMGM4YWIzMWRkNjlkNzg3ZTE2OWIwZDk1OGVmNTJlMTlhMGEifQ=="
+      },
+      {
+        "node": {
+          "id": "8a246b15bf185065d3f41a710f3eea0fbbe8754a8464501cf4a6d253d69c6423",
+          "details": {
+            "name": "USD-PERP",
+            "symbol": "USD-P",
+            "decimals": "6",
+            "quantum": "1000000",
+            "erc20": {
+              "contractAddress": "0x891d60837F978A3A473f81c0e58B22e42d764A88",
+              "lifetimeLimit": "10000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjhhMjQ2YjE1YmYxODUwNjVkM2Y0MWE3MTBmM2VlYTBmYmJlODc1NGE4NDY0NTAxY2Y0YTZkMjUzZDY5YzY0MjMifQ=="
+      },
+      {
+        "node": {
+          "id": "85771250f0aa84727a1c01ba8926e59217ca13a7706ba03cf2ad95abbbc2e3bc",
+          "details": {
+            "name": "USD-XIV",
+            "symbol": "USD-XIV",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x3871974EFbcfeda36375e0Eb23D84e03B3fE007b",
+              "lifetimeLimit": "5000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6Ijg1NzcxMjUwZjBhYTg0NzI3YTFjMDFiYTg5MjZlNTkyMTdjYTEzYTc3MDZiYTAzY2YyYWQ5NWFiYmJjMmUzYmMifQ=="
+      },
+      {
+        "node": {
+          "id": "84fff099818dc4f5319477f0812b4341565cfb32ccf735beede734e386b8108f",
+          "details": {
+            "name": "XDAI (Mainnet sims)",
+            "symbol": "XDAI",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xB197C5A543be154C9F267A3a3F033EEb443bBDEc",
+              "lifetimeLimit": "40000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6Ijg0ZmZmMDk5ODE4ZGM0ZjUzMTk0NzdmMDgxMmI0MzQxNTY1Y2ZiMzJjY2Y3MzViZWVkZTczNGUzODZiODEwOGYifQ=="
+      },
+      {
+        "node": {
+          "id": "84a20b554854c9af10ef84d308795dfae455834d1a207798292d66e19fd72c92",
+          "details": {
+            "name": "USDC-XV Testnet asset",
+            "symbol": "USDC-XV",
+            "decimals": "18",
+            "quantum": "555555555600000",
+            "erc20": {
+              "contractAddress": "0x45e4Da8Ed28631449F0D60F35F23AB87E91D2Eb7",
+              "lifetimeLimit": "6000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6Ijg0YTIwYjU1NDg1NGM5YWYxMGVmODRkMzA4Nzk1ZGZhZTQ1NTgzNGQxYTIwNzc5ODI5MmQ2NmUxOWZkNzJjOTIifQ=="
+      },
+      {
+        "node": {
+          "id": "83f4970aa1aeab85d01d8a976cbfd0fb3afedf391e18197e8c94c4021b3dffa1",
+          "details": {
+            "name": "USDT-V",
+            "symbol": "USDT-V",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x509739853C88c38195f1920A6631C9dEE2ff644A",
+              "lifetimeLimit": "1000000000000000000000000000",
+              "withdrawThreshold": "100000000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjgzZjQ5NzBhYTFhZWFiODVkMDFkOGE5NzZjYmZkMGZiM2FmZWRmMzkxZTE4MTk3ZThjOTRjNDAyMWIzZGZmYTEifQ=="
+      },
+      {
+        "node": {
+          "id": "827bbacde0dd5bfec857933dbbf642147f2afe6a9db0a543839b1b5239ca6786",
+          "details": {
+            "name": "Heat Rewards",
+            "symbol": "HEAT",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0xEC41950cB1B92c4A086Ca9707A8a5f61a4DECc0A",
+              "lifetimeLimit": "7000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6IjgyN2JiYWNkZTBkZDViZmVjODU3OTMzZGJiZjY0MjE0N2YyYWZlNmE5ZGIwYTU0MzgzOWIxYjUyMzljYTY3ODYifQ=="
+      },
+      {
+        "node": {
+          "id": "72f051ea66686ae004086f1ad086866f720f25896319abf3427cae101a58d985",
+          "details": {
+            "name": "BUSD-II",
+            "symbol": "BUSD-II",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xe1E6c2431Dc5a20dE405A294D70522CFE0e12AFe",
+              "lifetimeLimit": "1000000000000000000000000000",
+              "withdrawThreshold": "1000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjcyZjA1MWVhNjY2ODZhZTAwNDA4NmYxYWQwODY4NjZmNzIwZjI1ODk2MzE5YWJmMzQyN2NhZTEwMWE1OGQ5ODUifQ=="
+      },
+      {
+        "node": {
+          "id": "71ea74ef1aa7582bcdd4ef843b3e79584ded4d16e692f3946cac4c9d61aed4f2",
+          "details": {
+            "name": "USD2",
+            "symbol": "USD2",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x3BEeCfa3f4d374AC58aC5ba655a48184DC45c451",
+              "lifetimeLimit": "10000000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjcxZWE3NGVmMWFhNzU4MmJjZGQ0ZWY4NDNiM2U3OTU4NGRlZDRkMTZlNjkyZjM5NDZjYWM0YzlkNjFhZWQ0ZjIifQ=="
+      },
+      {
+        "node": {
+          "id": "644c3a6e258382542a108c4dca16fae93657b6ff40238b2bb55854a125316052",
+          "details": {
+            "name": "findme",
+            "symbol": "findme",
+            "decimals": "18",
+            "quantum": "0",
+            "erc20": {
+              "contractAddress": "0xc3045c37316bbf8ff590e0D308927745633827aE",
+              "lifetimeLimit": "30000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjY0NGMzYTZlMjU4MzgyNTQyYTEwOGM0ZGNhMTZmYWU5MzY1N2I2ZmY0MDIzOGIyYmI1NTg1NGExMjUzMTYwNTIifQ=="
+      },
+      {
+        "node": {
+          "id": "638b4dbe4f3ce5b81546bef29108e8374a7293012c6189ca00f287f8c62a98a5",
+          "details": {
+            "name": "USD-XX (incentive Feb)",
+            "symbol": "USD-XX",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x307eF9528CeC85F8f472d62f4EFcD8583C354562",
+              "lifetimeLimit": "10000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjYzOGI0ZGJlNGYzY2U1YjgxNTQ2YmVmMjkxMDhlODM3NGE3MjkzMDEyYzYxODljYTAwZjI4N2Y4YzYyYTk4YTUifQ=="
+      },
+      {
+        "node": {
+          "id": "5dd5c226e944b4c3df3e8dbbbc473e72fb134f4c5b82a1968cc3cf7c1b40fe9e",
+          "details": {
+            "name": "mUSDT",
+            "symbol": "mUSDT",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x1d3591a131f6C1951dae5a4dE3AfEF0Fc1d63e64",
+              "lifetimeLimit": "10000000000000000000000000000",
+              "withdrawThreshold": "100000000000000000000000"
+            }
+          },
+          "status": "STATUS_PENDING_LISTING"
+        },
+        "cursor": "eyJpZCI6IjVkZDVjMjI2ZTk0NGI0YzNkZjNlOGRiYmJjNDczZTcyZmIxMzRmNGM1YjgyYTE5NjhjYzNjZjdjMWI0MGZlOWUifQ=="
+      },
+      {
+        "node": {
+          "id": "5d8eb4e4e385b85c5c11f47111f315d5d201e04f4ef5e294763bf51036974b91",
+          "details": {
+            "name": "tDAI-V",
+            "symbol": "tDAI-V",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x74c86c1d1D94C754c02b10957767e8A656A6EF0e",
+              "lifetimeLimit": "100000000000000000000000000000",
+              "withdrawThreshold": "10000000000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjVkOGViNGU0ZTM4NWI4NWM1YzExZjQ3MTExZjMxNWQ1ZDIwMWUwNGY0ZWY1ZTI5NDc2M2JmNTEwMzY5NzRiOTEifQ=="
+      },
+      {
+        "node": {
+          "id": "5d3c96acc788a9591c230330f87e21368fcad5a7371520050f1cde95e7f8062c",
+          "details": {
+            "name": "DAI Perp incentive",
+            "symbol": "DAI-P",
+            "decimals": "6",
+            "quantum": "1000000",
+            "erc20": {
+              "contractAddress": "0x4C0c54E64FF1628Aa14a650fb64B6Ea61B4c15cd",
+              "lifetimeLimit": "30000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjVkM2M5NmFjYzc4OGE5NTkxYzIzMDMzMGY4N2UyMTM2OGZjYWQ1YTczNzE1MjAwNTBmMWNkZTk1ZTdmODA2MmMifQ=="
+      },
+      {
+        "node": {
+          "id": "5c950d4cfe1aaf9174c4358ee5df03f7e6bc556eac06a012cf6c07db154e20c4",
+          "details": {
+            "name": "USDC-CE Rewards and Browser incentive",
+            "symbol": "USDC-CE",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0x4D2dd34A2004b45878056933eC690427b610Ea99",
+              "lifetimeLimit": "7000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjVjOTUwZDRjZmUxYWFmOTE3NGM0MzU4ZWU1ZGYwM2Y3ZTZiYzU1NmVhYzA2YTAxMmNmNmMwN2RiMTU0ZTIwYzQifQ=="
+      },
+      {
+        "node": {
+          "id": "522e09779d984ae77b60036f4ecd80f0491f5f0c8cc386a0712b78a020ab62e6",
+          "details": {
+            "name": "Wrapped Ether",
+            "symbol": "WETH",
+            "decimals": "18",
+            "quantum": "555555555600000",
+            "erc20": {
+              "contractAddress": "0x9d1bEf8F95F5D8bb581E7bFB02F9b46d55Ae21aF",
+              "lifetimeLimit": "6000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6IjUyMmUwOTc3OWQ5ODRhZTc3YjYwMDM2ZjRlY2Q4MGYwNDkxZjVmMGM4Y2MzODZhMDcxMmI3OGEwMjBhYjYyZTYifQ=="
+      },
+      {
+        "node": {
+          "id": "51eed0c17e3287996ba6006ce56de2591550ebfad46631f3a0129886967420e1",
+          "details": {
+            "name": "secret",
+            "symbol": "secret",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x2c99724ee9AB5d8C823e205a1Be6f6FF146c938E",
+              "lifetimeLimit": "100000000000000000000000000000",
+              "withdrawThreshold": "10000000000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjUxZWVkMGMxN2UzMjg3OTk2YmE2MDA2Y2U1NmRlMjU5MTU1MGViZmFkNDY2MzFmM2EwMTI5ODg2OTY3NDIwZTEifQ=="
+      },
+      {
+        "node": {
+          "id": "4e4e80abff30cab933b8c4ac6befc618372eb76b2cbddc337eff0b4a3a4d25b8",
+          "details": {
+            "name": "tEURO Fairground",
+            "symbol": "tEURO",
+            "decimals": "5",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x7119500C6327928ae4E64531feBB258f0a33A617",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjRlNGU4MGFiZmYzMGNhYjkzM2I4YzRhYzZiZWZjNjE4MzcyZWI3NmIyY2JkZGMzMzdlZmYwYjRhM2E0ZDI1YjgifQ=="
+      },
+      {
+        "node": {
+          "id": "4cbe1ad4cf232fb2232176e3f440f6e6fdc3ba7b1d95a99cb69116b9e379eae8",
+          "details": {
+            "name": "Wrapped Ether",
+            "symbol": "WETH",
+            "decimals": "18",
+            "quantum": "555555555600000",
+            "erc20": {
+              "contractAddress": "0x9d1bEf8F95F5D8bb581E7bFB02F9b46d55Ae21aF",
+              "lifetimeLimit": "6000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjRjYmUxYWQ0Y2YyMzJmYjIyMzIxNzZlM2Y0NDBmNmU2ZmRjM2JhN2IxZDk1YTk5Y2I2OTExNmI5ZTM3OWVhZTgifQ=="
+      },
+      {
+        "node": {
+          "id": "4b6957c6a184b002db80c7a4dd811d0e70866be4a4c8fffa4894e78aa132b407",
+          "details": {
+            "name": "USDC (Dodgems)",
+            "symbol": "USDC-D",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x99634bD7534B432d6B0c944bD8AD7f9269e55c1E",
+              "lifetimeLimit": "50000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjRiNjk1N2M2YTE4NGIwMDJkYjgwYzdhNGRkODExZDBlNzA4NjZiZTRhNGM4ZmZmYTQ4OTRlNzhhYTEzMmI0MDcifQ=="
+      },
+      {
+        "node": {
+          "id": "46e9d23142762db57751b1b507e15747fe9478de504cbc4a0bffd828c39e3776",
+          "details": {
+            "name": "DAI Iceberg incentive",
+            "symbol": "DAI-CE",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0xBdb5A88020B30367Ad1Dd4ddF43d0BF895016d1b",
+              "lifetimeLimit": "7000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6IjQ2ZTlkMjMxNDI3NjJkYjU3NzUxYjFiNTA3ZTE1NzQ3ZmU5NDc4ZGU1MDRjYmM0YTBiZmZkODI4YzM5ZTM3NzYifQ=="
+      },
+      {
+        "node": {
+          "id": "43bb50d6ba0a871088014cb204079ace4811970ce3d52b15896f6e7a88f900b7",
+          "details": {
+            "name": "Wrapped Ether",
+            "symbol": "WETH",
+            "decimals": "18",
+            "quantum": "555555555600000",
+            "erc20": {
+              "contractAddress": "0x9d1bEf8F95F5D8bb581E7bFB02F9b46d55Ae21aF",
+              "lifetimeLimit": "6000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6IjQzYmI1MGQ2YmEwYTg3MTA4ODAxNGNiMjA0MDc5YWNlNDgxMTk3MGNlM2Q1MmIxNTg5NmY2ZTdhODhmOTAwYjcifQ=="
+      },
+      {
+        "node": {
+          "id": "434b502cabb7a9a36d3036a599d589537da293d8bbab224692629351a7926249",
+          "details": {
+            "name": "TAKer",
+            "symbol": "TAKer",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xd50805A3cA0F3E996A52d4F44fB9100723894c6C",
+              "lifetimeLimit": "1000000000000000000000000",
+              "withdrawThreshold": "1000000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjQzNGI1MDJjYWJiN2E5YTM2ZDMwMzZhNTk5ZDU4OTUzN2RhMjkzZDhiYmFiMjI0NjkyNjI5MzUxYTc5MjYyNDkifQ=="
+      },
+      {
+        "node": {
+          "id": "3c7d6bd83dac3174923ba65f3af01f42858e267ca5b722fe2b0b3fec14e98ec2",
+          "details": {
+            "name": "tEURO",
+            "symbol": "tEURO",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xc03aeA40536Fe231fF633F2c60FD6e885f306007",
+              "lifetimeLimit": "100000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_PENDING_LISTING"
+        },
+        "cursor": "eyJpZCI6IjNjN2Q2YmQ4M2RhYzMxNzQ5MjNiYTY1ZjNhZjAxZjQyODU4ZTI2N2NhNWI3MjJmZTJiMGIzZmVjMTRlOThlYzIifQ=="
+      },
+      {
+        "node": {
+          "id": "373d90d97bd3f97f0c13cf449926cfd7f1ed5f3746c3091e8dd894d60bf5eac8",
+          "details": {
+            "name": "USDT-TII",
+            "symbol": "USDT-TII",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xDab7dEeB4e8186A5b6503dB512D0FDA41aE25f3E",
+              "lifetimeLimit": "10000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjM3M2Q5MGQ5N2JkM2Y5N2YwYzEzY2Y0NDk5MjZjZmQ3ZjFlZDVmMzc0NmMzMDkxZThkZDg5NGQ2MGJmNWVhYzgifQ=="
+      },
+      {
+        "node": {
+          "id": "341800aac826be90b97bbd93df7467bfd808d031c0bd09d4d3326acbb2804534",
+          "details": {
+            "name": "Liquidity Reward",
+            "symbol": "LIQ-R",
+            "decimals": "6",
+            "quantum": "1000000",
+            "erc20": {
+              "contractAddress": "0xB452Ea45499CAE5C55Fde060fD3d9731BA603f3b",
+              "lifetimeLimit": "100000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjM0MTgwMGFhYzgyNmJlOTBiOTdiYmQ5M2RmNzQ2N2JmZDgwOGQwMzFjMGJkMDlkNGQzMzI2YWNiYjI4MDQ1MzQifQ=="
+      },
+      {
+        "node": {
+          "id": "2bf406160d06280d92412605eb397d08142736f4e17967e404dc892da278e9da",
+          "details": {
+            "name": "MAKer",
+            "symbol": "MAKer",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x0a710Aa121f3f5D8D5Ffe286D40f1b3601d955dd",
+              "lifetimeLimit": "1000000000000000000000000",
+              "withdrawThreshold": "1000000000000000000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjJiZjQwNjE2MGQwNjI4MGQ5MjQxMjYwNWViMzk3ZDA4MTQyNzM2ZjRlMTc5NjdlNDA0ZGM4OTJkYTI3OGU5ZGEifQ=="
+      },
+      {
+        "node": {
+          "id": "2af02165ef5ea1d1284b4251117eaae45faa961ec918e3f69b66903a18822387",
+          "details": {
+            "name": "Wrapped Ether",
+            "symbol": "WETH",
+            "decimals": "18",
+            "quantum": "555555555600000",
+            "erc20": {
+              "contractAddress": "0x9d1bEf8F95F5D8bb581E7bFB02F9b46d55Ae21aF",
+              "lifetimeLimit": "6000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6IjJhZjAyMTY1ZWY1ZWExZDEyODRiNDI1MTExN2VhYWU0NWZhYTk2MWVjOTE4ZTNmNjliNjY5MDNhMTg4MjIzODcifQ=="
+      },
+      {
+        "node": {
+          "id": "285923fed8c66ffb416b163e8ec72d3a87b9b8e2570e7ee7fe97d7092a918bc8",
+          "details": {
+            "name": "USD1",
+            "symbol": "USD1",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x0dB8C54c0C81F05241b4Fd13a5769F4465Ea2707",
+              "lifetimeLimit": "10000000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjI4NTkyM2ZlZDhjNjZmZmI0MTZiMTYzZThlYzcyZDNhODdiOWI4ZTI1NzBlN2VlN2ZlOTdkNzA5MmE5MThiYzgifQ=="
+      },
+      {
+        "node": {
+          "id": "27c0229ab9edc6a3ba6a3e9716c1b324d6515a3168004256879e2de7c240f453",
+          "details": {
+            "name": "BUSD-I",
+            "symbol": "BUSD-I",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xB5052A3D5A755D4710f6eA9D25E8f705281BaB25",
+              "lifetimeLimit": "100000000000000000000000000",
+              "withdrawThreshold": "1000000000000000000000"
+            }
+          },
+          "status": "STATUS_PENDING_LISTING"
+        },
+        "cursor": "eyJpZCI6IjI3YzAyMjlhYjllZGM2YTNiYTZhM2U5NzE2YzFiMzI0ZDY1MTVhMzE2ODAwNDI1Njg3OWUyZGU3YzI0MGY0NTMifQ=="
+      },
+      {
+        "node": {
+          "id": "2792b6ead78a812bd0169b2adbe9c2ea5b8c21510e40b93bf8d2cba6a0838e90",
+          "details": {
+            "name": "MAKerTAKer",
+            "symbol": "MAKerTAKer",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x49EE29c306fEF77B71B3d8d9460Ad16754b3F7b0",
+              "lifetimeLimit": "1000000000000000000000000",
+              "withdrawThreshold": "1000000000000000000000000"
+            }
+          },
+          "status": "STATUS_PENDING_LISTING"
+        },
+        "cursor": "eyJpZCI6IjI3OTJiNmVhZDc4YTgxMmJkMDE2OWIyYWRiZTljMmVhNWI4YzIxNTEwZTQwYjkzYmY4ZDJjYmE2YTA4MzhlOTAifQ=="
+      },
+      {
+        "node": {
+          "id": "20ffe5b1f70364a6b976007d96d306345bc7b880256ddffbbea2c590096ef375",
+          "details": {
+            "name": "TOMS",
+            "symbol": "TOMTOM",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x30189a59FFFe92cE75D4D012ee6DFedF2cFFC0bb",
+              "lifetimeLimit": "10000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjIwZmZlNWIxZjcwMzY0YTZiOTc2MDA3ZDk2ZDMwNjM0NWJjN2I4ODAyNTZkZGZmYmJlYTJjNTkwMDk2ZWYzNzUifQ=="
+      },
+      {
+        "node": {
+          "id": "177e8f6c25a955bd18475084b99b2b1d37f28f3dec393fab7755a7e69c3d8c3b",
+          "details": {
+            "name": "tEURO TEST",
+            "symbol": "tEURO",
+            "decimals": "5",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x0158031158Bb4dF2AD02eAA31e8963E84EA978a4",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjE3N2U4ZjZjMjVhOTU1YmQxODQ3NTA4NGI5OWIyYjFkMzdmMjhmM2RlYzM5M2ZhYjc3NTVhN2U2OWMzZDhjM2IifQ=="
+      },
+      {
+        "node": {
+          "id": "16ae5dbb1fd7aa2ddef725703bfe66b3647a4da7b844bfdd04e985756f53d9d6",
+          "details": {
+            "name": "tDAI Fairground",
+            "symbol": "tDAI",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0x973cB2a51F83a707509fe7cBafB9206982E1c3ad",
+              "lifetimeLimit": "0",
+              "withdrawThreshold": "0"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjE2YWU1ZGJiMWZkN2FhMmRkZWY3MjU3MDNiZmU2NmIzNjQ3YTRkYTdiODQ0YmZkZDA0ZTk4NTc1NmY1M2Q5ZDYifQ=="
+      },
+      {
+        "node": {
+          "id": "169fd651dd1303fc6f3e1dee8349439140cf467a190bc9a04bff3e617509cfd4",
+          "details": {
+            "name": "USDC-S Stop Orders",
+            "symbol": "USDC-S",
+            "decimals": "18",
+            "quantum": "1000000000000000000",
+            "erc20": {
+              "contractAddress": "0xb016c478c60b6E2971DE0a12F9607eFc2bFBb10d",
+              "lifetimeLimit": "10000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjE2OWZkNjUxZGQxMzAzZmM2ZjNlMWRlZTgzNDk0MzkxNDBjZjQ2N2ExOTBiYzlhMDRiZmYzZTYxNzUwOWNmZDQifQ=="
+      },
+      {
+        "node": {
+          "id": "0b87ac58d4af7fc11c8b417153fcb62631cfd9643835ef28db3f5a1caef0b379",
+          "details": {
+            "name": "GBP",
+            "symbol": "GBP",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xb063f5504610Ba4B8Db230d9f884BFaDC1E31DA0",
+              "lifetimeLimit": "1337000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_PENDING_LISTING"
+        },
+        "cursor": "eyJpZCI6IjBiODdhYzU4ZDRhZjdmYzExYzhiNDE3MTUzZmNiNjI2MzFjZmQ5NjQzODM1ZWYyOGRiM2Y1YTFjYWVmMGIzNzkifQ=="
+      },
+      {
+        "node": {
+          "id": "087cbbb06b6be3fbe2dd554d713be48a19eb93f98fcd3045cb00d02785b23040",
+          "details": {
+            "name": "DAI Crossgems III",
+            "symbol": "DAI-C",
+            "decimals": "18",
+            "quantum": "1",
+            "erc20": {
+              "contractAddress": "0xd202Ddf3a2B6f5c084f0DC2956fafb018A8Ec74B",
+              "lifetimeLimit": "10000000000000000000000000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IjA4N2NiYmIwNmI2YmUzZmJlMmRkNTU0ZDcxM2JlNDhhMTllYjkzZjk4ZmNkMzA0NWNiMDBkMDI3ODViMjMwNDAifQ=="
+      },
+      {
+        "node": {
+          "id": "XYZgamma",
+          "details": {
+            "name": "XYZ (γ gamma)",
+            "symbol": "XYZgamma",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "100000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IlhZWmdhbW1hIn0="
+      },
+      {
+        "node": {
+          "id": "07f8ce4e3df6c649f3fd794112f545ede9fbd9cfa76a9e380a7502a8d525e4db",
+          "details": {
+            "name": "Test Asset",
+            "symbol": "TESTA",
+            "decimals": "18",
+            "quantum": "5",
+            "erc20": {
+              "contractAddress": "0x00000000000000000000000000adD385B5127135",
+              "lifetimeLimit": "25000000000000000000000",
+              "withdrawThreshold": "1"
+            }
+          },
+          "status": "STATUS_REJECTED"
+        },
+        "cursor": "eyJpZCI6IjA3ZjhjZTRlM2RmNmM2NDlmM2ZkNzk0MTEyZjU0NWVkZTlmYmQ5Y2ZhNzZhOWUzODBhNzUwMmE4ZDUyNWU0ZGIifQ=="
+      },
+      {
+        "node": {
+          "id": "XYZepsilon",
+          "details": {
+            "name": "XYZ (ε epsilon)",
+            "symbol": "XYZepsilon",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "100000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IlhZWmVwc2lsb24ifQ=="
+      },
+      {
+        "node": {
+          "id": "XYZdelta",
+          "details": {
+            "name": "XYZ (δ delta)",
+            "symbol": "XYZdelta",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "100000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IlhZWmRlbHRhIn0="
+      },
+      {
+        "node": {
+          "id": "XYZbeta",
+          "details": {
+            "name": "XYZ (β beta)",
+            "symbol": "XYZbeta",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "100000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IlhZWmJldGEifQ=="
+      },
+      {
+        "node": {
+          "id": "XYZalpha",
+          "details": {
+            "name": "XYZ (α alpha)",
+            "symbol": "XYZalpha",
+            "decimals": "5",
+            "quantum": "1",
+            "builtinAsset": {
+              "maxFaucetAmountMint": "5000000000"
+            }
+          },
+          "status": "STATUS_ENABLED"
+        },
+        "cursor": "eyJpZCI6IlhZWmFscGhhIn0="
+      }
+    ],
+    "pageInfo": {
+      "hasNextPage": false,
+      "hasPreviousPage": false,
+      "startCursor": "eyJpZCI6ImZkZjBlYzExOGQ5ODM5M2E3NzAyY2Y3MmU0NmZjODdhZDY4MGIxNTJmNjRiMmFhYzU5ZTA5M2FjMmQ2ODhmYmIifQ==",
+      "endCursor": "eyJpZCI6IlhZWmFscGhhIn0="
+    }
+  }
+}

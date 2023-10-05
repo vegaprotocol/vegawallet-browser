@@ -6,7 +6,7 @@ export const locators = {
 
 export const AmountWithSymbol = ({ amount, symbol }: { amount: string | number; symbol?: string }) => {
   return (
-    <div data-testid={locators.priceWithSymbol}>
+    <div className="flex items-center flex-wrap" data-testid={locators.priceWithSymbol}>
       <span data-testid={locators.price}>{amount}</span>
       &nbsp;
       {symbol ? (

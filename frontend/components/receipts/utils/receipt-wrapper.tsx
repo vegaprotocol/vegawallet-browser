@@ -24,7 +24,7 @@ const getContent = (
         {unenrichedState ? unenrichedState : children}
         <div className="mt-4">
           <Notification
-            intent={Intent.Danger}
+            intent={Intent.Warning}
             title="Error loading data"
             message="Additional data to display your transaction could not be loaded. The transaction can still be sent, but only transaction data can be shown."
             buttonProps={{

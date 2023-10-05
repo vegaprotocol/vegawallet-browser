@@ -3,8 +3,8 @@ import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { generateMarket } from '../../../../test-helpers/generate-market.ts'
-import { locators as PriceWithSymbolLocators } from '../string-amounts/price-with-symbol'
-import { locators as PriceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
+import { locators as priceWithSymbolLocators } from '../string-amounts/price-with-symbol'
+import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
 
 describe('PeggedOrderInfo', () => {
   const marketId = 'someMarketId'
@@ -15,7 +15,7 @@ describe('PeggedOrderInfo', () => {
       reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID
     }
     render(<PeggedOrderInfo marketsLoading={true} peggedOrder={peggedOrder} marketId={marketId} />)
-    expect(screen.getByTestId(PriceWithTooltipLocators.priceWithTooltip)).toHaveTextContent('12')
+    expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toHaveTextContent('12')
   })
 
   it('should render enriched data when markets are not loading and market is defined', () => {
@@ -37,8 +37,8 @@ describe('PeggedOrderInfo', () => {
         symbol="BTC"
       />
     )
-    expect(screen.getByTestId(PriceWithSymbolLocators.price)).toHaveTextContent('0.12')
-    expect(screen.getByTestId(PriceWithSymbolLocators.symbol)).toHaveTextContent('BTC')
+    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent('0.12')
+    expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('BTC')
   })
 
   it('should display PeggedReference values correctly', () => {

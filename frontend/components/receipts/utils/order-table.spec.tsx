@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { OrderTable } from './order-table'
-import { locators as DataTableLocators } from '../../data-table/data-table'
-import { locators as OrderMarketLocators } from './order/order-market'
-import { locators as OrderPriceLocators } from './order/order-price'
-import { locators as PriceWithSymbolLocators } from './string-amounts/price-with-symbol'
-import { locators as PriceWithTooltipLocators } from './string-amounts/price-with-tooltip'
+import { locators as dataTableLocators } from '../../data-table/data-table'
+import { locators as orderMarketLocators } from './order/order-market'
+import { locators as orderPriceLocators } from './order/order-price'
+import { locators as priceWithSymbolLocators } from './string-amounts/price-with-symbol'
+import { locators as priceWithTooltipLocators } from './string-amounts/price-with-tooltip'
 import { useMarketsStore } from '../../../stores/markets-store'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { generateMarket } from '../../../test-helpers/generate-market'
@@ -13,9 +13,19 @@ import { generateAsset } from '../../../test-helpers/generate-asset'
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-jest.mock('../../../stores/markets-store')
+jest.mock('../../../stores/markets-store', () => ({
+  ...jest.requireActual('../../../stores/markets-store'),
+  useMarketsStore: jest.fn(() => {
+    return {
+      loading: false,
+      markets: [],
+      getMarketById: jest.fn()
+    }
+  })
+}))
 jest.mock('../../../stores/assets-store')
 
+// @todo refactor store mocks to use new mocking component when available
 describe('OrderTable', () => {
   const mockMarket = generateMarket()
   const mockAsset = generateAsset()
@@ -63,7 +73,7 @@ describe('OrderTable', () => {
       />
     )
     const [priceRow, peggedInfoRow, sizeRow, marketRow, orderRow, directionRow, typeRow, referenceRow] =
-      screen.getAllByTestId(DataTableLocators.dataRow)
+      screen.getAllByTestId(dataTableLocators.dataRow)
     expect(priceRow).toHaveTextContent('Price')
     expect(priceRow).toHaveTextContent('123')
 
@@ -87,22 +97,22 @@ describe('OrderTable', () => {
 
     expect(referenceRow).toHaveTextContent('Reference')
     expect(referenceRow).toHaveTextContent('ref')
-    expect(screen.getAllByTestId(DataTableLocators.dataRow)).toHaveLength(8)
+    expect(screen.getAllByTestId(dataTableLocators.dataRow)).toHaveLength(8)
   })
 
   it('does not render row if the property is undefined', () => {
     render(<OrderTable />)
-    expect(screen.queryAllByTestId(DataTableLocators.dataRow)).toHaveLength(0)
+    expect(screen.queryAllByTestId(dataTableLocators.dataRow)).toHaveLength(0)
   })
   it('renders short for buy orders', () => {
     render(<OrderTable direction={vegaSide.SIDE_BUY} />)
-    const [directionRow] = screen.getAllByTestId(DataTableLocators.dataRow)
+    const [directionRow] = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(directionRow).toHaveTextContent('Direction')
     expect(directionRow).toHaveTextContent('Long')
   })
   it('renders long for sell orders', () => {
     render(<OrderTable direction={vegaSide.SIDE_SELL} />)
-    const [directionRow] = screen.getAllByTestId(DataTableLocators.dataRow)
+    const [directionRow] = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(directionRow).toHaveTextContent('Direction')
     expect(directionRow).toHaveTextContent('Short')
   })
@@ -116,14 +126,14 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId={mockMarket.id} />)
-    expect(screen.getByTestId(OrderMarketLocators.orderDetailsMarketCode)).toHaveTextContent(
+    expect(screen.getByTestId(orderMarketLocators.orderDetailsMarketCode)).toHaveTextContent(
       mockMarket.tradableInstrument?.instrument?.code as string
     )
   })
 
   it("doesn't render enriched market when marketId and markets are not provided", () => {
     render(<OrderTable />)
-    expect(screen.queryByTestId(OrderMarketLocators.orderDetailsMarketCode)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(orderMarketLocators.orderDetailsMarketCode)).not.toBeInTheDocument()
   })
 
   it("doesn't render enriched market when marketId does not match available markets", () => {
@@ -134,7 +144,7 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="blah" />)
-    expect(screen.queryByTestId(OrderMarketLocators.orderDetailsMarketCode)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(orderMarketLocators.orderDetailsMarketCode)).not.toBeInTheDocument()
   })
 
   // testing code branches dealing with enriched asset data - ACs for this are in the component tests
@@ -154,14 +164,14 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="1" price={mockPrice} />)
-    expect(screen.getByTestId(PriceWithSymbolLocators.price)).toHaveTextContent(
+    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent(
       formatNumber(toBigNum(mockPrice, mockDecimals), mockDecimals)
     )
   })
 
   it('does not render enriched price info when market or nested properties do not exist', () => {
     render(<OrderTable />)
-    expect(screen.queryByTestId(PriceWithSymbolLocators.price)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(priceWithSymbolLocators.price)).not.toBeInTheDocument()
   })
 
   it('renders symbol when asset information exists', () => {
@@ -177,12 +187,12 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="1" price="123" />)
-    expect(screen.getByTestId(PriceWithSymbolLocators.symbol)).toHaveTextContent(mockAsset.details?.symbol as string)
+    expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent(mockAsset.details?.symbol as string)
   })
 
   it("doesn't render symbol when asset information doesn't exist", () => {
     render(<OrderTable marketId="1" price="123" />)
-    expect(screen.queryByTestId(PriceWithSymbolLocators.symbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(priceWithSymbolLocators.symbol)).not.toBeInTheDocument()
   })
 
   it('sets assetInfo to undefined when market exists but nested properties do not', () => {
@@ -206,7 +216,7 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="1" />)
-    expect(screen.queryByTestId(PriceWithSymbolLocators.symbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(priceWithSymbolLocators.symbol)).not.toBeInTheDocument()
   })
 
   it('sets assetInfo to undefined when assets array is empty', () => {
@@ -222,26 +232,26 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="1" />)
-    expect(screen.queryByTestId(PriceWithSymbolLocators.symbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(priceWithSymbolLocators.symbol)).not.toBeInTheDocument()
   })
 
   // testing code branches dealing with price field display behavior
   it('displays "market price" for market order types', () => {
     render(<OrderTable price="100" type={vegaOrderType.TYPE_MARKET} marketId="1" />)
 
-    expect(screen.getByTestId(OrderPriceLocators.orderDetailsMarketPrice)).toBeInTheDocument()
+    expect(screen.getByTestId(orderPriceLocators.orderDetailsMarketPrice)).toBeInTheDocument()
   })
 
   it('displays price for non-zero prices in non-market orders', () => {
     render(<OrderTable price="100" type={vegaOrderType.TYPE_LIMIT} marketId="1" />)
 
-    expect(screen.getByTestId(PriceWithTooltipLocators.priceWithTooltip)).toBeInTheDocument()
+    expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toBeInTheDocument()
   })
 
   it('does not display price for zero prices in non-market orders', () => {
     render(<OrderTable price="0" type={vegaOrderType.TYPE_LIMIT} marketId="1" />)
 
-    expect(screen.queryByTestId(PriceWithTooltipLocators.priceWithTooltip)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(priceWithTooltipLocators.priceWithTooltip)).not.toBeInTheDocument()
   })
 
   it('displays enriched size data when markets (and size) are provided', () => {
@@ -261,13 +271,13 @@ describe('OrderTable', () => {
 
     render(<OrderTable marketId="1" size={mockSize} />)
 
-    expect(screen.getByTestId(PriceWithSymbolLocators.price)).toHaveTextContent(
+    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent(
       formatNumber(toBigNum(mockSize, mockPositionDecimals), mockPositionDecimals)
     )
   })
 
   it('does not display enriched size when markets are not provided', () => {
     render(<OrderTable marketId="1" size="100" />)
-    expect(screen.queryByTestId(PriceWithSymbolLocators.price)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(priceWithSymbolLocators.price)).not.toBeInTheDocument()
   })
 })

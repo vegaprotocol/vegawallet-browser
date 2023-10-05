@@ -1,12 +1,12 @@
 import { screen, render } from '@testing-library/react'
 import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { OrderPriceComponent, locators as OrderPriceLocators } from './order-price'
-import { locators as PriceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
-import { locators as PriceWithSymbolLocators } from '../string-amounts/price-with-symbol'
+import { OrderPriceComponent, locators as orderPriceLocators } from './order-price'
+import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
+import { locators as priceWithSymbolLocators } from '../string-amounts/price-with-symbol'
 
 describe('OrderPriceComponent', () => {
-  // 1118-ORDS-013 I can see 'Market price'
   it('should return "Market price" if tx is of market type', () => {
+    // 1118-ORDS-013 I can see 'Market price'
     render(
       <OrderPriceComponent
         assetsLoading={false}
@@ -17,7 +17,7 @@ describe('OrderPriceComponent', () => {
         type={vegaOrderType.TYPE_MARKET}
       />
     )
-    expect(screen.getByTestId(OrderPriceLocators.orderDetailsMarketPrice).textContent).toBe('Market price')
+    expect(screen.getByTestId(orderPriceLocators.orderDetailsMarketPrice).textContent).toBe('Market price')
   })
 
   it('should not display if price or marketId is not defined or zero (and not market type)', () => {
@@ -31,9 +31,9 @@ describe('OrderPriceComponent', () => {
         type={undefined}
       />
     )
-    expect(screen.queryByTestId(OrderPriceLocators.orderDetailsMarketPrice)).not.toBeInTheDocument()
-    expect(screen.queryByTestId(PriceWithTooltipLocators.priceWithTooltip)).not.toBeInTheDocument()
-    expect(screen.queryByTestId(PriceWithSymbolLocators.priceWithSymbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(orderPriceLocators.orderDetailsMarketPrice)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(priceWithTooltipLocators.priceWithTooltip)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(priceWithSymbolLocators.priceWithSymbol)).not.toBeInTheDocument()
   })
 
   it('should return basic price tooltip if assets are loading or formattedPrice or symbol is not defined', () => {
@@ -47,11 +47,11 @@ describe('OrderPriceComponent', () => {
         type={undefined}
       />
     )
-    expect(screen.getByTestId(PriceWithTooltipLocators.priceWithTooltip)).toBeInTheDocument()
+    expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toBeInTheDocument()
   })
 
-  // 1118-ORDS-013 When available, I see enriched data for the order price (Correctly formatted asset decimals and suffix)
   it('should return enriched data otherwise', () => {
+    // 1118-ORDS-013 I see enriched data for the order price when data has been loaded appropriately
     render(
       <OrderPriceComponent
         assetsLoading={false}
@@ -62,6 +62,6 @@ describe('OrderPriceComponent', () => {
         type={undefined}
       />
     )
-    expect(screen.getByTestId(PriceWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
+    expect(screen.getByTestId(priceWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
   })
 })

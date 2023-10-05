@@ -4,7 +4,7 @@ import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
 import { removePaginationWrapper } from '../lib/remove-pagination.ts'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-const getSettlementAssetId = (market: vegaMarket) => {
+export const getSettlementAssetId = (market: vegaMarket) => {
   const assetId =
     market.tradableInstrument?.instrument?.future?.settlementAsset ??
     market.tradableInstrument?.instrument?.perpetual?.settlementAsset

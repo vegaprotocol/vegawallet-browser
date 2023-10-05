@@ -14,9 +14,15 @@ export const OrderMarketComponent = ({
   marketId: string
   market: vegaMarket | undefined
 }) => {
-  if (marketsLoading || !market) {
+  if (
+    marketsLoading ||
+    !market ||
+    !market.tradableInstrument ||
+    !market.tradableInstrument.instrument ||
+    !market.tradableInstrument.instrument.code
+  ) {
     return <MarketLink key="order-details-market" marketId={marketId} />
   }
 
-  return <div data-testid={locators.orderDetailsMarketCode}>{market?.tradableInstrument?.instrument?.code}</div>
+  return <div data-testid={locators.orderDetailsMarketCode}>{market.tradableInstrument.instrument.code}</div>
 }

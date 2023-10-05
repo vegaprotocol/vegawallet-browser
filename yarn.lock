@@ -3802,10 +3802,10 @@
   resolved "https://registry.yarnpkg.com/@vegaprotocol/i18n/-/i18n-0.0.3.tgz#36344549db815a720381b7fa4d155120bcc036c3"
   integrity sha512-ExZi8VXZ2Cpf6k7j5P8PfNW2+eWL+766C1bXvKR9zd2p79oGL8TRqObS+q+UWHz1hL3vLepdVEel5rW/I0E3lw==
 
-"@vegaprotocol/protos@0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/protos/-/protos-0.8.0.tgz#d388b58861cbb7832cf75fd516969f60a4b16e6e"
-  integrity sha512-oxj7M+8qnmIBdDVC2fGHyVOecam+IchdrRdXBBVPlrzrCXPM5aBTYCHKm/K2coRm5UA2wS5oyvX5Rc+nJK1yvw==
+"@vegaprotocol/protos@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/protos/-/protos-0.10.0.tgz#ea45e983b022143d1f186fa8c8c8616a2e65a145"
+  integrity sha512-CXx5aRoPRst8PSzb4BAzqG3z1YT761aML11LV6vcWNvNmMzDLcUUS2a6dBOOgENd20tYOGZ/NCgXDyWRkH4AkQ==
   dependencies:
     protobuf-codec "^2.0.1"
     type-fest "^3.6.0"

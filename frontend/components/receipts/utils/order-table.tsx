@@ -32,26 +32,17 @@ export const OrderTable = ({
   type?: vegaOrderType
   peggedOrder?: PeggedOrderOptions
 }>) => {
-  const {
-    loading: assetsLoading,
-    assets,
-    getAssetById
-  } = useAssetsStore((state) => ({
+  const { loading: assetsLoading, getAssetById } = useAssetsStore((state) => ({
     loading: state.loading,
     assets: state.assets,
     getAssetById: state.getAssetById
   }))
-  const {
-    loading: marketsLoading,
-    markets,
-    getMarketById
-  } = useMarketsStore((state) => ({
+  const { loading: marketsLoading, getMarketById } = useMarketsStore((state) => ({
     loading: state.loading,
-    markets: state.markets,
     getMarketById: state.getMarketById
   }))
 
-  const market = marketId && markets.length > 0 ? getMarketById(marketId) : undefined
+  const market = marketId && !marketsLoading ? getMarketById(marketId) : undefined
   const marketDecimals = Number(market?.decimalPlaces)
   const positionDecimals = Number(market?.positionDecimalPlaces)
   const formattedPrice =
@@ -59,7 +50,7 @@ export const OrderTable = ({
   const formattedSize =
     size && positionDecimals ? formatNumber(toBigNum(size, positionDecimals), positionDecimals) : undefined
   let assetInfo
-  if (market && assets.length > 0) {
+  if (market && !assetsLoading) {
     const settlementAsset = getSettlementAssetId(market)
     if (settlementAsset) {
       assetInfo = getAssetById(settlementAsset)

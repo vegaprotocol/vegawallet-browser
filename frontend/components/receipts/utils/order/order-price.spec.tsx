@@ -2,7 +2,7 @@ import { screen, render } from '@testing-library/react'
 import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { OrderPriceComponent, locators as orderPriceLocators } from './order-price'
 import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
-import { locators as priceWithSymbolLocators } from '../string-amounts/price-with-symbol'
+import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 
 describe('OrderPriceComponent', () => {
   it('should return "Market price" if tx is of market type', () => {
@@ -33,7 +33,7 @@ describe('OrderPriceComponent', () => {
     )
     expect(screen.queryByTestId(orderPriceLocators.orderDetailsMarketPrice)).not.toBeInTheDocument()
     expect(screen.queryByTestId(priceWithTooltipLocators.priceWithTooltip)).not.toBeInTheDocument()
-    expect(screen.queryByTestId(priceWithSymbolLocators.priceWithSymbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(amountWithSymbolLocators.priceWithSymbol)).not.toBeInTheDocument()
   })
 
   it('should return basic price tooltip if assets are loading or formattedPrice or symbol is not defined', () => {
@@ -62,6 +62,6 @@ describe('OrderPriceComponent', () => {
         type={undefined}
       />
     )
-    expect(screen.getByTestId(priceWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
+    expect(screen.getByTestId(amountWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
   })
 })

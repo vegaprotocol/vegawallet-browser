@@ -1,6 +1,6 @@
 import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { PriceWithTooltip } from '../string-amounts/price-with-tooltip.tsx'
-import { PriceWithSymbol } from '../string-amounts/price-with-symbol.tsx'
+import { AmountWithSymbol } from '../string-amounts/amount-with-symbol.tsx'
 
 export const locators = {
   orderDetailsMarketPrice: 'order-details-market-price'
@@ -29,5 +29,5 @@ export const OrderPriceComponent = ({
     return <PriceWithTooltip key="order-details-price" marketId={marketId} price={price} />
   }
 
-  return <PriceWithSymbol price={formattedPrice} symbol={symbol} />
+  return <AmountWithSymbol amount={formattedPrice} symbol={symbol} />
 }

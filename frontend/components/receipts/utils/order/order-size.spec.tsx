@@ -1,7 +1,7 @@
 import { screen, render } from '@testing-library/react'
 import { OrderSizeComponent } from './order-size'
 import { locators as sizeWithTooltipLocators } from '../string-amounts/size-with-tooltip'
-import { locators as priceWithSymbolLocators } from '../string-amounts/price-with-symbol'
+import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 
 describe('OrderSizeComponent', () => {
   it('should return basic data if markets are loading or formattedSize or symbol is not defined', () => {
@@ -16,6 +16,6 @@ describe('OrderSizeComponent', () => {
     render(
       <OrderSizeComponent marketsLoading={false} size="100" marketId="someMarketId" formattedSize="100" symbol="BTC" />
     )
-    expect(screen.getByTestId(priceWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
+    expect(screen.getByTestId(amountWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
   })
 })

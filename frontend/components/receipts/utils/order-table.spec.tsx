@@ -4,7 +4,7 @@ import { OrderTable } from './order-table'
 import { locators as dataTableLocators } from '../../data-table/data-table'
 import { locators as orderMarketLocators } from './order/order-market'
 import { locators as orderPriceLocators } from './order/order-price'
-import { locators as priceWithSymbolLocators } from './string-amounts/price-with-symbol'
+import { locators as amountWithSymbolLocators } from './string-amounts/amount-with-symbol'
 import { locators as priceWithTooltipLocators } from './string-amounts/price-with-tooltip'
 import { useMarketsStore } from '../../../stores/markets-store'
 import { useAssetsStore } from '../../../stores/assets-store'
@@ -164,14 +164,14 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="1" price={mockPrice} />)
-    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent(
+    expect(screen.getByTestId(amountWithSymbolLocators.price)).toHaveTextContent(
       formatNumber(toBigNum(mockPrice, mockDecimals), mockDecimals)
     )
   })
 
   it('does not render enriched price info when market or nested properties do not exist', () => {
     render(<OrderTable />)
-    expect(screen.queryByTestId(priceWithSymbolLocators.price)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(amountWithSymbolLocators.price)).not.toBeInTheDocument()
   })
 
   it('renders symbol when asset information exists', () => {
@@ -187,12 +187,12 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="1" price="123" />)
-    expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent(mockAsset.details?.symbol as string)
+    expect(screen.getByTestId(amountWithSymbolLocators.symbol)).toHaveTextContent(mockAsset.details?.symbol as string)
   })
 
   it("doesn't render symbol when asset information doesn't exist", () => {
     render(<OrderTable marketId="1" price="123" />)
-    expect(screen.queryByTestId(priceWithSymbolLocators.symbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(amountWithSymbolLocators.symbol)).not.toBeInTheDocument()
   })
 
   it('sets assetInfo to undefined when market exists but nested properties do not', () => {
@@ -216,7 +216,7 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="1" />)
-    expect(screen.queryByTestId(priceWithSymbolLocators.symbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(amountWithSymbolLocators.symbol)).not.toBeInTheDocument()
   })
 
   it('sets assetInfo to undefined when assets array is empty', () => {
@@ -232,7 +232,7 @@ describe('OrderTable', () => {
     })
 
     render(<OrderTable marketId="1" />)
-    expect(screen.queryByTestId(priceWithSymbolLocators.symbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(amountWithSymbolLocators.symbol)).not.toBeInTheDocument()
   })
 
   // testing code branches dealing with price field display behavior
@@ -271,13 +271,13 @@ describe('OrderTable', () => {
 
     render(<OrderTable marketId="1" size={mockSize} />)
 
-    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent(
+    expect(screen.getByTestId(amountWithSymbolLocators.price)).toHaveTextContent(
       formatNumber(toBigNum(mockSize, mockPositionDecimals), mockPositionDecimals)
     )
   })
 
   it('does not display enriched size when markets are not provided', () => {
     render(<OrderTable marketId="1" size="100" />)
-    expect(screen.queryByTestId(priceWithSymbolLocators.price)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(amountWithSymbolLocators.price)).not.toBeInTheDocument()
   })
 })

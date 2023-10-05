@@ -12,7 +12,7 @@
 - I can see the amount of the asset being transferred (<a name="1124-TRAN-004" href="#1124-TRAN-004">1124-TRAN-004</a>)
 - I can see a link to the block explorer for that asset (<a name="1124-TRAN-005" href="#1124-TRAN-005">
   1124-TRAN-005</a>)
-- I can see the [amount being transferred](./1127-DECM-decimal_numbers.md) (<a name="1124-TRAN-006" href="#1124-TRAN-006">1124-TRAN-006</a>)
+- I can see the [amount being transferred with tooltip](./1127-DECM-decimal_numbers.md) (<a name="1124-TRAN-006" href="#1124-TRAN-006">1124-TRAN-006</a>)
 
 #### Enriched
 

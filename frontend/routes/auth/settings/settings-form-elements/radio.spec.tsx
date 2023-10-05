@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { useGlobalsStore } from '../../../../stores/globals'
 import { SettingsRadio, locators } from './radio'
+import { mockStore } from '../../../../test-helpers/mock-store'
 
 jest.mock('../../../../stores/globals')
 
@@ -22,15 +23,13 @@ describe('SettingsRadio', () => {
     jest.clearAllMocks()
   })
   it('renders the section header correctly', () => {
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        globals: {
-          settings: {
-            autoOpen: true
-          }
-        },
-        saveSettings
-      })
+    mockStore(useGlobalsStore, {
+      globals: {
+        settings: {
+          autoOpen: true
+        }
+      },
+      saveSettings
     })
     renderComponent()
     const headerElement = screen.getByText('Header')
@@ -39,25 +38,21 @@ describe('SettingsRadio', () => {
 
   it('throws error if globals cannot be loaded', () => {
     silenceErrors()
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        globals: null,
-        saveSettings
-      })
+    mockStore(useGlobalsStore, {
+      globals: null,
+      saveSettings
     })
     expect(() => renderComponent()).toThrowError('Tried to render settings page without globals defined')
   })
 
   it('renders the description text correctly', () => {
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        globals: {
-          settings: {
-            setting: true
-          }
-        },
-        saveSettings
-      })
+    mockStore(useGlobalsStore, {
+      globals: {
+        settings: {
+          setting: true
+        }
+      },
+      saveSettings
     })
 
     renderComponent()
@@ -67,15 +62,13 @@ describe('SettingsRadio', () => {
   })
 
   it('renders the autoOpen options correctly', () => {
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        globals: {
-          settings: {
-            setting: true
-          }
-        },
-        saveSettings
-      })
+    mockStore(useGlobalsStore, {
+      globals: {
+        settings: {
+          setting: true
+        }
+      },
+      saveSettings
     })
     renderComponent()
     const noOption = screen.getByLabelText('No')
@@ -86,15 +79,13 @@ describe('SettingsRadio', () => {
 
   it('calls save function on option change', async () => {
     // 1113-POPT-011 There is a way to change the auto open setting
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        globals: {
-          settings: {
-            setting: true
-          }
-        },
-        saveSettings
-      })
+    mockStore(useGlobalsStore, {
+      globals: {
+        settings: {
+          setting: true
+        }
+      },
+      saveSettings
     })
     renderComponent()
 
@@ -106,15 +97,13 @@ describe('SettingsRadio', () => {
   })
 
   it('shows nothing selected if setting is not set', async () => {
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        globals: {
-          settings: {
-            setting: undefined
-          }
-        },
-        saveSettings
-      })
+    mockStore(useGlobalsStore, {
+      globals: {
+        settings: {
+          setting: undefined
+        }
+      },
+      saveSettings
     })
     renderComponent()
 
@@ -123,15 +112,13 @@ describe('SettingsRadio', () => {
   })
 
   it('renders children correctly', () => {
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
-      return fn({
-        globals: {
-          settings: {
-            setting: true
-          }
-        },
-        saveSettings
-      })
+    mockStore(useGlobalsStore, {
+      globals: {
+        settings: {
+          setting: true
+        }
+      },
+      saveSettings
     })
     render(
       <SettingsRadio sectionHeader="Header" setting="setting" description="description">

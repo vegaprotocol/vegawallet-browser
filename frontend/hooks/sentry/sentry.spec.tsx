@@ -3,6 +3,7 @@ import { useSentry } from '.'
 import { useGlobalsStore } from '../../stores/globals'
 import { init, close, setTag } from '@sentry/react'
 import { sanitizeEvent } from '../../../lib/sanitize-event'
+import { mockStore } from '../../test-helpers/mock-store'
 
 jest.mock('../../stores/globals')
 jest.mock('@sentry/react')
@@ -45,16 +46,14 @@ describe('useSentry', () => {
   })
 
   it('should initialize Sentry when telemetry is enabled and config is available', () => {
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        globals: {
-          settings: {
-            telemetry: true
-          },
-          version: '1.0.0'
-        }
-      })
-    )
+    mockStore(useGlobalsStore, {
+      globals: {
+        settings: {
+          telemetry: true
+        },
+        version: '1.0.0'
+      }
+    })
 
     useWalletStoreMock.mockReturnValue({
       wallets: []
@@ -75,16 +74,14 @@ describe('useSentry', () => {
   })
 
   it('should close Sentry when telemetry is disabled', () => {
-    ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        globals: {
-          settings: {
-            telemetry: false
-          },
-          version: '1.0.0'
-        }
-      })
-    )
+    mockStore(useGlobalsStore, {
+      globals: {
+        settings: {
+          telemetry: false
+        },
+        version: '1.0.0'
+      }
+    })
 
     renderHook(() => useSentry())
 

@@ -5,6 +5,7 @@ import { locators, Transfer } from './transfer'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { Key, useWalletStore } from '../../../stores/wallets'
 import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { mockStore } from '../../../test-helpers/mock-store'
 
 jest.mock('./basic-transfer-view', () => ({
   BasicTransferView: () => <div data-testid="basic-transfer-view" />
@@ -68,20 +69,16 @@ const mockWallets = [
 ]
 
 const mockStores = (asset: vegaAsset | undefined, key: Key | undefined) => {
-  ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-    selector({
-      loading: false,
-      assets: [],
-      getAssetById: jest.fn().mockReturnValue(asset)
-    })
-  )
-  ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-    selector({
-      loading: false,
-      wallets: mockWallets,
-      getKeyById: jest.fn().mockReturnValue(key)
-    })
-  )
+  mockStore(useAssetsStore, {
+    loading: false,
+    assets: [],
+    getAssetById: jest.fn().mockReturnValue(asset)
+  })
+  mockStore(useWalletStore, {
+    loading: false,
+    wallets: mockWallets,
+    getKeyById: jest.fn().mockReturnValue(key)
+  })
 }
 
 describe('TransferReceipt', () => {
@@ -111,13 +108,12 @@ describe('TransferReceipt', () => {
 
   it('if transfer time is in the past renders now', () => {
     // 1124-TRAN-002 For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyById: jest.fn().mockReturnValue(undefined)
-      })
-    )
+    mockStore(useWalletStore, {
+      loading: false,
+      wallets: mockWallets,
+      getKeyById: jest.fn().mockReturnValue(undefined)
+    })
+
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,
@@ -160,19 +156,15 @@ describe('TransferReceipt', () => {
   })
 
   it('should render BasicTransferView whilst loading', async () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: true,
-        assets: []
-      })
-    )
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((selector) =>
-      selector({
-        loading: false,
-        wallets: mockWallets,
-        getKeyById: jest.fn().mockReturnValue(undefined)
-      })
-    )
+    mockStore(useAssetsStore, {
+      loading: true,
+      assets: []
+    })
+    mockStore(useWalletStore, {
+      loading: false,
+      wallets: [],
+      getKeyById: jest.fn().mockReturnValue(undefined)
+    })
     const oneOffTransfer = {
       transfer: {
         ...baseTransfer,

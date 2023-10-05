@@ -64,13 +64,15 @@ describe('UseAccounts', () => {
       metadata: []
     })
     expect(accountsByAsset).toStrictEqual({
-      [ASSET_ID]: {
-        balance: '1',
-        asset: ASSET_ID,
-        market: MARKET_ID,
-        party: MOCK_KEY,
-        type: 'ACCOUNT_TYPE_GENERAL'
-      }
+      [ASSET_ID]: [
+        {
+          balance: '1',
+          asset: ASSET_ID,
+          marketId: MARKET_ID,
+          owner: MOCK_KEY,
+          type: vegaAccountType.ACCOUNT_TYPE_GENERAL
+        }
+      ]
     })
     expect(fetchAccounts).toBeCalledTimes(1)
     expect(startPoll).toBeCalledTimes(1)

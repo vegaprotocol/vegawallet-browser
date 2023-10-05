@@ -11,7 +11,7 @@ describe('OrderMarketComponent', () => {
   })
 
   it('should return the enriched market code otherwise', () => {
-    // 1118-ORDS-011 I see enriched data for the market (code) when data has been loaded appropriately
+    // 1118-ORDS-011 I see the market code in the enriched data view when data has been loaded successfully
     const mockMarket: vegaMarket = generateMarket()
 
     render(<OrderMarketComponent marketsLoading={false} marketId={mockMarket.id as string} market={mockMarket} />)

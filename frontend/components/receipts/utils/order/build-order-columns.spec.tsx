@@ -123,7 +123,7 @@ describe('buildOrderColumn', () => {
   })
 
   it('returns null when orderId is undefined', () => {
-    const result = buildOrderColumn(undefined)
+    const result = buildOrderColumn()
     expect(result).toBeNull()
   })
 })
@@ -137,7 +137,7 @@ describe('buildDirectionColumn', () => {
   })
 
   it('returns null when direction is undefined', () => {
-    const result = buildDirectionColumn(undefined)
+    const result = buildDirectionColumn()
     expect(result).toBeNull()
   })
 })
@@ -151,7 +151,7 @@ describe('buildTypeColumn', () => {
   })
 
   it('returns null when type is undefined', () => {
-    const result = buildTypeColumn(undefined)
+    const result = buildTypeColumn()
     expect(result).toBeNull()
   })
 })
@@ -165,7 +165,7 @@ describe('buildReferenceColumn', () => {
   })
 
   it('returns null when reference is undefined', () => {
-    const result = buildReferenceColumn(undefined)
+    const result = buildReferenceColumn()
     expect(result).toBeNull()
   })
 })

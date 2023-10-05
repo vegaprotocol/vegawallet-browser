@@ -22,12 +22,8 @@ describe('buildPriceColumn', () => {
   it('returns Price column when shouldDisplayPrice is true', () => {
     const result = buildPriceColumn(true, false, '100', '1', '100.00', 'USD', vegaOrderType.TYPE_LIMIT)
 
-    if (result) {
-      render(<>{result}</>)
-      expect(screen.getByTestId('order-price-component')).toBeInTheDocument()
-    } else {
-      fail('Expected result to not be null')
-    }
+    render(<>{result}</>)
+    expect(screen.getByTestId('order-price-component')).toBeInTheDocument()
   })
 
   it('returns null when shouldDisplayPrice is false', () => {
@@ -52,12 +48,8 @@ describe('buildPeggedOrderColumn', () => {
       'BTC'
     )
 
-    if (result) {
-      render(<>{result}</>)
-      expect(screen.getByTestId('pegged-order-info')).toBeInTheDocument()
-    } else {
-      fail('Expected result to not be null')
-    }
+    render(<>{result}</>)
+    expect(screen.getByTestId('pegged-order-info')).toBeInTheDocument()
   })
 
   it('returns null when peggedOrder is undefined', () => {
@@ -87,12 +79,8 @@ describe('buildSizeColumn', () => {
   it('returns Size column when size and marketId are defined', () => {
     const result = buildSizeColumn(false, '100', '1', '100.00', 'USD')
 
-    if (result) {
-      render(<>{result}</>)
-      expect(screen.getByTestId('order-size-component')).toBeInTheDocument()
-    } else {
-      fail('Expected result to not be null')
-    }
+    render(<>{result}</>)
+    expect(screen.getByTestId('order-size-component')).toBeInTheDocument()
   })
 
   it('returns null when size is undefined', () => {
@@ -116,12 +104,8 @@ describe('buildMarketColumn', () => {
   it('returns Market column when marketId is defined', () => {
     const result = buildMarketColumn(false, '1', {})
 
-    if (result) {
-      render(<>{result}</>)
-      expect(screen.getByTestId('order-market-component')).toBeInTheDocument()
-    } else {
-      fail('Expected result to not be null')
-    }
+    render(<>{result}</>)
+    expect(screen.getByTestId('order-market-component')).toBeInTheDocument()
   })
 
   it('returns null when marketId is undefined', () => {
@@ -134,12 +118,8 @@ describe('buildOrderColumn', () => {
   it('returns Order column when orderId is defined', () => {
     const result = buildOrderColumn('1')
 
-    if (result) {
-      render(<>{result}</>)
-      expect(screen.getByText('Order1')).toBeInTheDocument()
-    } else {
-      fail('Expected result to not be null')
-    }
+    render(<>{result}</>)
+    expect(screen.getByText('Order1')).toBeInTheDocument()
   })
 
   it('returns null when orderId is undefined', () => {
@@ -152,12 +132,8 @@ describe('buildDirectionColumn', () => {
   it('returns Direction column when direction is defined', () => {
     const result = buildDirectionColumn(vegaSide.SIDE_SELL)
 
-    if (result) {
-      render(<>{result}</>)
-      expect(screen.getByText('DirectionShort')).toBeInTheDocument()
-    } else {
-      fail('Expected result to not be null')
-    }
+    render(<>{result}</>)
+    expect(screen.getByText('DirectionShort')).toBeInTheDocument()
   })
 
   it('returns null when direction is undefined', () => {
@@ -170,12 +146,8 @@ describe('buildTypeColumn', () => {
   it('returns Type column when type is defined', () => {
     const result = buildTypeColumn(vegaOrderType.TYPE_LIMIT)
 
-    if (result) {
-      render(<>{result}</>)
-      expect(screen.getByText('TypeLimit')).toBeInTheDocument()
-    } else {
-      fail('Expected result to not be null')
-    }
+    render(<>{result}</>)
+    expect(screen.getByText('TypeLimit')).toBeInTheDocument()
   })
 
   it('returns null when type is undefined', () => {
@@ -188,12 +160,8 @@ describe('buildReferenceColumn', () => {
   it('returns Reference column when reference is defined', () => {
     const result = buildReferenceColumn('1')
 
-    if (result) {
-      render(<>{result}</>)
-      expect(screen.getByText('Reference1')).toBeInTheDocument()
-    } else {
-      fail('Expected result to not be null')
-    }
+    render(<>{result}</>)
+    expect(screen.getByText('Reference1')).toBeInTheDocument()
   })
 
   it('returns null when reference is undefined', () => {

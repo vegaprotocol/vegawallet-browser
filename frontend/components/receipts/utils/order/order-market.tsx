@@ -18,5 +18,5 @@ export const OrderMarketComponent = ({
     return <MarketLink key="order-details-market" marketId={marketId} />
   }
 
-  return <div data-testid="order-details-market-code">{market?.tradableInstrument?.instrument?.code}</div>
+  return <div data-testid={locators.orderDetailsMarketCode}>{market?.tradableInstrument?.instrument?.code}</div>
 }

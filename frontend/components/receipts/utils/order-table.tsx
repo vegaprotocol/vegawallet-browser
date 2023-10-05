@@ -10,7 +10,7 @@ import { OrderPriceComponent } from './order/order-price'
 import { OrderSizeComponent } from './order/order-size'
 import { OrderMarketComponent } from './order/order-market'
 import { PeggedOrderInfo } from './order/pegged-order-info'
-import { useMarketsStore } from '../../../stores/markets-store'
+import { useMarketsStore, getSettlementAssetId } from '../../../stores/markets-store'
 import { useAssetsStore } from '../../../stores/assets-store'
 
 export const OrderTable = ({
@@ -60,7 +60,7 @@ export const OrderTable = ({
     size && positionDecimals ? formatNumber(toBigNum(size, positionDecimals), positionDecimals) : undefined
   let assetInfo
   if (market && assets.length > 0) {
-    const settlementAsset = market.tradableInstrument?.instrument?.future?.settlementAsset
+    const settlementAsset = getSettlementAssetId(market)
     if (settlementAsset) {
       assetInfo = getAssetById(settlementAsset)
     }

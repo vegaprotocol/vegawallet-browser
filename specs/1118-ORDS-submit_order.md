@@ -19,10 +19,7 @@
 
 ### Enriched Orders
 
-- When available, I see enriched data for the market (code) (<a name="1118-ORDS-011" href="#1118-ORDS-011">
-  1118-ORDS-011</a>)
-- When available, I see enriched data for the order size (Correctly formatted position decimals and
-  suffix) (<a name="1118-ORDS-012" href="#1118-ORDS-012">1118-ORDS-012</a>)
-- When available, I see enriched data for the order price (Correctly formatted asset decimals and
-  suffix) (<a name="1118-ORDS-013" href="#1118-ORDS-013">1118-ORDS-013</a>)
+- I see enriched data for the market (code) when data has been loaded appropriately (<a name="1118-ORDS-011" href="#1118-ORDS-011">)
+- I see enriched data for the order size when data has been loaded appropriately (<a name="1118-ORDS-012" href="#1118-ORDS-012">1118-ORDS-012</a>)
+- I see enriched data for the order price when data has been loaded appropriately (<a name="1118-ORDS-013" href="#1118-ORDS-013">1118-ORDS-013</a>)
 

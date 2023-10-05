@@ -15,11 +15,11 @@
 
 ### Market Orders
 
-- I can see 'Market price' (<a name="1118-ORDS-013" href="#1118-ORDS-013">1118-ORDS-013</a>)
+- I can see 'Market price' (<a name="1118-ORDS-013" href="#1118-ORDS-010">1118-ORDS-010</a>)
 
 ### Enriched Orders
 
-- I see enriched data for the market (code) when data has been loaded appropriately (<a name="1118-ORDS-011" href="#1118-ORDS-011">)
-- I see enriched data for the order size when data has been loaded appropriately (<a name="1118-ORDS-012" href="#1118-ORDS-012">1118-ORDS-012</a>)
-- I see enriched data for the order price when data has been loaded appropriately (<a name="1118-ORDS-013" href="#1118-ORDS-013">1118-ORDS-013</a>)
+- I see the market code in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-011" href="#1118-ORDS-011">1118-ORDS-011</a>)
+- I see the order size in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-012" href="#1118-ORDS-012">1118-ORDS-012</a>)
+- I see the order price in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-013" href="#1118-ORDS-013">1118-ORDS-013</a>)
 

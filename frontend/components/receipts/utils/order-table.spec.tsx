@@ -25,7 +25,7 @@ jest.mock('../../../stores/markets-store', () => ({
 }))
 jest.mock('../../../stores/assets-store')
 
-// @todo refactor store mocks to use new mocking component when available
+// refactor store mocks to use new mocking component when available
 describe('OrderTable', () => {
   const mockMarket = generateMarket()
   const mockAsset = generateAsset()

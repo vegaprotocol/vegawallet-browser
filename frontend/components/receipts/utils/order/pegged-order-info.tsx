@@ -1,8 +1,7 @@
-import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { vegaMarket, vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
 import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
-import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { PeggedOrderOptions } from '../../../../types/transactions'
 
 export const referenceText: Record<vegaPeggedReference, string> = {
@@ -24,7 +23,7 @@ export const PeggedOrderInfo = ({ marketsLoading, peggedOrder, market, marketId,
   const { offset, reference } = peggedOrder
   let formattedOffset: string | number = offset
 
-  if (market && market.decimalPlaces) {
+  if (market?.decimalPlaces) {
     const marketDecimals = Number(market.decimalPlaces)
     formattedOffset = formatNumber(toBigNum(offset, marketDecimals), marketDecimals)
   }

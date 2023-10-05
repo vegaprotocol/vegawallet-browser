@@ -11,8 +11,8 @@ describe('OrderSizeComponent', () => {
     expect(screen.getByTestId(sizeWithTooltipLocators.sizeWithTooltip)).toBeInTheDocument()
   })
 
-  // 1118-ORDS-012 I see enriched data for the order size when data has been loaded appropriately
   it('should return enriched data otherwise', () => {
+    // 1118-ORDS-012 I see the order size in the enriched data view when data has been loaded successfully
     render(
       <OrderSizeComponent marketsLoading={false} size="100" marketId="someMarketId" formattedSize="100" symbol="BTC" />
     )

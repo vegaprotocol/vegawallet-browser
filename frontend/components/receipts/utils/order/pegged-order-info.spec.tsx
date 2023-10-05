@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { vegaMarket, vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { generateMarket } from '../../../../test-helpers/generate-market.ts'
 import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'

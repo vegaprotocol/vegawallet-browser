@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
-import { PriceWithSymbol, locators } from './price-with-symbol'
+import { AmountWithSymbol, locators } from './amount-with-symbol'
 
-describe('PriceWithSymbol component', () => {
+describe('AmountWithSymbol', () => {
   it('renders price and symbol correctly', () => {
     const price = 9.99
     const symbol = 'USD'
 
-    render(<PriceWithSymbol price={price} symbol={symbol} />)
+    render(<AmountWithSymbol amount={price} symbol={symbol} />)
 
     const priceElement = screen.getByTestId(locators.price)
     const symbolElement = screen.getByTestId(locators.symbol)
@@ -21,7 +21,7 @@ describe('PriceWithSymbol component', () => {
   it('does not render symbol when it is not passed in', () => {
     const price = 9.99
 
-    render(<PriceWithSymbol price={price} symbol={undefined} />)
+    render(<AmountWithSymbol amount={price} symbol={undefined} />)
 
     expect(screen.queryByTestId(locators.symbol)).not.toBeInTheDocument()
   })

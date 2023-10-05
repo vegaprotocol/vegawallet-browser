@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { EnrichedTransferView, locators as enrichedLocators } from './enriched-transfer-view'
 import { Key, useWalletStore } from '../../../stores/wallets'
 import { locators as vegaKeyLocators } from '../../keys/vega-key'
-import { locators as priceWithSymbolLocators } from '../utils/string-amounts/price-with-symbol'
+import { locators as priceWithSymbolLocators } from '../utils/string-amounts/amount-with-symbol'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
@@ -60,8 +60,8 @@ const mockStores = (keyDetails: Key | undefined) => {
 
 describe('EnrichedTransferView', () => {
   it('renders correctly', () => {
-    // 1124-TRAN-007 I can see the enriched price details if the data is provided - correctly formatted decimals and asset name
-    // 1124-TRAN-008 - I can see enriched key details if the data is provided - whether the transfer is between own keys
+    // 1124-TRAN-006 I can see the enriched price details if the data is provided - correctly formatted decimals and asset name
+    // 1124-TRAN-007 I can see enriched key details if the data is provided - whether the transfer is between own keys
     mockStores({
       index: 0,
       metadata: [],
@@ -79,7 +79,7 @@ describe('EnrichedTransferView', () => {
   })
 
   it('renders external key if the transfer is not between own keys', () => {
-    // 1124-TRAN-009 - I can see enriched key details if the data is provided - whether the transfer is to an external key
+    // 1124-TRAN-008 I can see enriched key details if the data is provided - whether the transfer is to an external key
     mockStores(undefined)
 
     render(<EnrichedTransferView transaction={mockTransaction} />)

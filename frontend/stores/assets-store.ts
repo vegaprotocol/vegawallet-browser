@@ -13,7 +13,7 @@ export type AssetsStore = {
 
 export const useAssetsStore = create<AssetsStore>((set, get) => ({
   assets: [],
-  loading: false,
+  loading: true,
   async fetchAssets(request) {
     try {
       set({ loading: true })

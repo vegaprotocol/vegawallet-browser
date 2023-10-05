@@ -1,4 +1,5 @@
 ## Opt in to error reporting
+
 As a wallet user, when I am using the browser extension for the first time I want to be able to decide whether to opt in to automatic error reporting or not so that I remain in full control of my privacy
 
 - I can see an explanation of what I am being asked to opt in/out to and why (<a name="1111-TELE-001" href="#1111-TELE-001">1111-TELE-001</a>)

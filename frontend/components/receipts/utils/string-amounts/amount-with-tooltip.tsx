@@ -12,7 +12,7 @@ export const locators = {
 export const AmountWithTooltip = ({ assetId, amount }: { assetId: string; amount: string }) => {
   const assetHref = `${config.network.explorer}/assets/${assetId}`
   return (
-    <span className="flex items-center" data-testid={locators.amountWithTooltip}>
+    <span className="flex items-center flex-wrap" data-testid={locators.amountWithTooltip}>
       <Tooltip description={<DecimalTooltip variableName="decimals" entityLink={assetHref} entityText="asset" />}>
         <span className="flex">
           <span className="mr-1" data-testid={locators.amount}>

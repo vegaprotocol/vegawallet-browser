@@ -4,7 +4,7 @@ import { APIHelper } from '../e2e/helpers/wallet/wallet-api'
 import { captureScreenshot, initDriver } from '../e2e/helpers/driver'
 import { navigateToExtensionLandingPage } from '../e2e/helpers/wallet/wallet-setup'
 import { Transaction } from '../e2e/page-objects/transaction'
-import { switchWindowHandles, windowHandleHasCount } from '../e2e/helpers/selenium-util'
+import { goToNewWindowHandle, switchWindowHandles, windowHandleHasCount } from '../e2e/helpers/selenium-util'
 import {
   consoleSmokeMainnetRecoveryPhrase,
   consoleSmokeRecoveryPhrase
@@ -56,18 +56,18 @@ afterEach(async () => {
 
 it('check console and browser wallet integrate', async () => {
   driver.get(config.network.console)
-  const handles = await driver.getAllWindowHandles()
-  expect(handles.length).toBe(1)
-  const consoleHandle = handles[0]
+  const handlesBeforeConnect = await driver.getAllWindowHandles()
+  expect(handlesBeforeConnect.length).toBe(1)
+  const consoleHandle = handlesBeforeConnect[0]
 
   await vegaConsole.clearWelcomeDialogIfShown()
   await vegaConsole.checkOnConsole()
   await vegaConsole.selectMarketBySubstring(market)
   await vegaConsole.connectToWallet()
   expect(await windowHandleHasCount(driver, 2)).toBe(true)
-  let walletHandle = (await driver.getAllWindowHandles())[1]
+  const handlesAfterConnect = await driver.getAllWindowHandles()
 
-  await switchWindowHandles(driver, false, walletHandle)
+  await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
   await connectWallet.checkOnConnectWallet()
   await connectWallet.approveConnectionAndCheckSuccess()
 
@@ -77,12 +77,15 @@ it('check console and browser wallet integrate', async () => {
     await vegaConsole.agreeToUnderstandRisk()
   }
   await vegaConsole.waitForConnectDialogToDissapear()
+  const handlesBeforeOrder = await driver.getAllWindowHandles()
   await vegaConsole.goToOrderTab()
   await vegaConsole.submitOrder('0.001', '0.01')
+  console.log('submitted order')
   expect(await windowHandleHasCount(driver, 2)).toBe(true)
+  console.log('the popout appears, 2 windows were registered')
+  const handlesAfterOrder = await driver.getAllWindowHandles()
 
-  const transactionWalletHandle = (await driver.getAllWindowHandles())[1]
-  await switchWindowHandles(driver, false, transactionWalletHandle)
+  await goToNewWindowHandle(driver, handlesBeforeOrder, handlesAfterOrder)
   if (approveTransaction) {
     await transaction.confirmTransaction()
     await switchWindowHandles(driver, false, consoleHandle)

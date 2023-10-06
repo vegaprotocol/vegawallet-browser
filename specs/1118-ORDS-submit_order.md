@@ -12,3 +12,13 @@
 
 - I can see the raw offset price of the order (<a name="1118-ORDS-008" href="#1118-ORDS-008">1118-ORDS-008</a>)
 - I can see the reference price of the order (<a name="1118-ORDS-009" href="#1118-ORDS-009">1118-ORDS-009</a>)
+
+### Market Orders
+
+- I can see 'Market price' (<a name="1118-ORDS-013" href="#1118-ORDS-010">1118-ORDS-010</a>)
+
+### Enriched Orders
+
+- I see the market code in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-011" href="#1118-ORDS-011">1118-ORDS-011</a>)
+- I see the order size in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-012" href="#1118-ORDS-012">1118-ORDS-012</a>)
+- I see the order price in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-013" href="#1118-ORDS-013">1118-ORDS-013</a>)

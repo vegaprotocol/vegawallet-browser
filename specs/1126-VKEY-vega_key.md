@@ -1,4 +1,5 @@
 ## Vega key
+
 As a user, when I see my vega key I want to see associated key information so I can make informed decisions on managing my assets
 
 - Shows the name of the key (<a name="1126-VKEY-001" href="#1126-VKEY-001">1126-VKEY-001</a>)

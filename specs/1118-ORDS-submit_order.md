@@ -22,4 +22,3 @@
 - I see the market code in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-011" href="#1118-ORDS-011">1118-ORDS-011</a>)
 - I see the order size in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-012" href="#1118-ORDS-012">1118-ORDS-012</a>)
 - I see the order price in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-013" href="#1118-ORDS-013">1118-ORDS-013</a>)
-

@@ -12,8 +12,8 @@ const BUCKET_SIZE = 14n
 
 const PARTITION_DIVISOR = U64_MAX >> BUCKET_SIZE
 
-export default async function initWorkers() {
-  if (globalThis?.Worker == null) return false
+export default async function initWorkers () {
+  if (globalThis?.Worker == null || globalThis?.navigator?.hardwareConcurrency == null) return false
 
   const WORKER_SCRIPT_URL = runtime.getURL('pow-worker.js')
 
@@ -24,7 +24,7 @@ export default async function initWorkers() {
     const worker = new Worker(WORKER_SCRIPT_URL)
 
     const client = new JSONRPCClient({
-      send(req) {
+      send (req) {
         worker.postMessage(req)
       }
     })
@@ -37,7 +37,7 @@ export default async function initWorkers() {
 
   // We create a lock queue so that we are not over-saturating with interleaved work
   const lock = mutex()
-  return async function(args) {
+  return async function (args) {
     const release = await lock()
 
     try {

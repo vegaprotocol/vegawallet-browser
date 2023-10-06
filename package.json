@@ -30,6 +30,7 @@
     "react-hook-form": "7.39.1",
     "react-router-dom": "^6.10.0",
     "react-time-ago": "^7.2.1",
+    "read-write-mutexify": "^2.1.0",
     "tailwindcss": "^3.3.2",
     "tldts": "^6.0.8",
     "zustand": "^4.3.2",

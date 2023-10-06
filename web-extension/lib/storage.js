@@ -40,6 +40,22 @@ export default class StorageLocalMap {
     return this
   }
 
+  async getMany(keys) {
+    const val = await this._load()
+    return keys.map(key => val[key])
+  }
+
+  async setMany(obj) {
+    const val = await this._load()
+    for (const [key, value] of Object.entries(obj)) {
+      val[key] = value
+    }
+    await storage.set({
+      [this._prefix]: val
+    })
+    return this
+  }
+
   async delete(key) {
     const val = await this._load()
     const hadKey = val[key] != null

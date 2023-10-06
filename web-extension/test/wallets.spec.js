@@ -1,16 +1,16 @@
 import { WalletCollection } from '../backend/wallets.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
-
+import InmemoryStorage from '../lib/inmemory-storage.js'
 
 describe('wallets', () => {
   it('should be able to list public key info while locked', async () => {
-    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const enc = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
     await enc.create('p')
 
     const wallets = new WalletCollection({
       walletsStore: new ConcurrentStorage(enc),
-      publicKeyIndexStore: new ConcurrentStorage(new Map())
+      publicKeyIndexStore: new ConcurrentStorage(new InmemoryStorage())
     })
 
     await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })

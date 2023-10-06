@@ -1,8 +1,9 @@
 import ConcurrentStorage from '../lib/concurrent-storage.js'
+import InmemoryStorage from '../lib/inmemory-storage.js'
 
 describe('concurrent-storage', () => {
   test('get() returns undefined for missing keys', async () => {
-    const storage = new Map()
+    const storage = new InmemoryStorage()
     const concurrentStorage = new ConcurrentStorage(storage)
 
     await concurrentStorage.transaction(async (store) => {
@@ -11,7 +12,7 @@ describe('concurrent-storage', () => {
   })
 
   test('get() returns the value for existing keys', async () => {
-    const storage = new Map()
+    const storage = new InmemoryStorage()
     const concurrentStorage = new ConcurrentStorage(storage)
 
     await concurrentStorage.transaction(async (store) => {
@@ -24,7 +25,7 @@ describe('concurrent-storage', () => {
   })
 
   test('get() returns the value for existing keys on nested storage', async () => {
-    const storage = new Map()
+    const storage = new InmemoryStorage()
     const c1 = new ConcurrentStorage(storage)
     const c2 = new ConcurrentStorage(c1)
 

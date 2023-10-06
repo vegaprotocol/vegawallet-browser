@@ -2,14 +2,15 @@ import initClientServer from '../backend/client-ns.js'
 import { WalletCollection } from '../backend/wallets.js'
 import { NetworkCollection } from '../backend/network.js'
 import { ConnectionsCollection } from '../backend/connections.js'
+import InmemoryStorage from '../lib/inmemory-storage.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 
 describe('client-ns', () => {
   it('should connect, then disconnect', async () => {
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const publicKeyIndexStore = new ConcurrentStorage(new InmemoryStorage())
     const connections = new ConnectionsCollection({
-      connectionsStore: new ConcurrentStorage(new Map()),
+      connectionsStore: new ConcurrentStorage(new InmemoryStorage()),
       publicKeyIndexStore
     })
 
@@ -22,16 +23,16 @@ describe('client-ns', () => {
       }
     }
 
-    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const enc = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
     await enc.create()
 
     const server = initClientServer({
-      settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
+      settings: new ConcurrentStorage(new InmemoryStorage([['selectedNetwork', 'fairground']])),
       wallets: new WalletCollection({
         walletsStore: enc,
         publicKeyIndexStore
       }),
-      networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: [] }]])),
+      networks: new NetworkCollection(new InmemoryStorage([['fairground', { name: 'Fairground', rest: [] }]])),
       connections,
       interactor,
       onerror(err) {
@@ -83,9 +84,9 @@ describe('client-ns', () => {
   it('reconnect should update access time', async () => {
     jest.useFakeTimers().setSystemTime(0)
 
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const publicKeyIndexStore = new ConcurrentStorage(new InmemoryStorage())
     const connections = new ConnectionsCollection({
-      connectionsStore: new ConcurrentStorage(new Map()),
+      connectionsStore: new ConcurrentStorage(new InmemoryStorage()),
       publicKeyIndexStore
     })
 
@@ -95,16 +96,16 @@ describe('client-ns', () => {
       }
     }
 
-    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    const enc = new EncryptedStorage(new InmemoryStorage(), { memory: 10, iterations: 1 })
     await enc.create()
 
     const server = initClientServer({
-      settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
+      settings: new ConcurrentStorage(new InmemoryStorage([['selectedNetwork', 'fairground']])),
       wallets: new WalletCollection({
         walletsStore: enc,
         publicKeyIndexStore
       }),
-      networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: [] }]])),
+      networks: new NetworkCollection(new InmemoryStorage([['fairground', { name: 'Fairground', rest: [] }]])),
       connections,
       interactor,
       onerror(err) {

@@ -1,10 +1,11 @@
 import { ConnectionsCollection } from '../backend/connections.js'
+import InmemoryStorage from '../lib/inmemory-storage.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 
 describe('ConnectionsCollection', () => {
   it('should be allowed on static key set', async () => {
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const connectionsStore = new ConcurrentStorage(new InmemoryStorage())
+    const publicKeyIndexStore = new ConcurrentStorage(new InmemoryStorage())
 
     const connections = new ConnectionsCollection({
       connectionsStore,
@@ -79,8 +80,8 @@ describe('ConnectionsCollection', () => {
   })
 
   it('should be allowed on dynamic key set', async () => {
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const connectionsStore = new ConcurrentStorage(new InmemoryStorage())
+    const publicKeyIndexStore = new ConcurrentStorage(new InmemoryStorage())
 
     const connections = new ConnectionsCollection({
       connectionsStore,
@@ -123,8 +124,8 @@ describe('ConnectionsCollection', () => {
   it('should emit events', async () => {
     jest.useFakeTimers().setSystemTime(0)
 
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const connectionsStore = new ConcurrentStorage(new InmemoryStorage())
+    const publicKeyIndexStore = new ConcurrentStorage(new InmemoryStorage())
 
     const connections = new ConnectionsCollection({
       connectionsStore,
@@ -158,8 +159,8 @@ describe('ConnectionsCollection', () => {
   it('should order origins by last accessed', async () => {
     jest.useFakeTimers().setSystemTime(0)
 
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const connectionsStore = new ConcurrentStorage(new InmemoryStorage())
+    const publicKeyIndexStore = new ConcurrentStorage(new InmemoryStorage())
 
     const connections = new ConnectionsCollection({
       connectionsStore,

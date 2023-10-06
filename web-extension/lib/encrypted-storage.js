@@ -62,11 +62,11 @@ export default class EncryptedStorage {
     const plaintext = fromString(JSON.stringify(Array.from(this._cache.entries())))
     const { ciphertext, salt, kdfParams } = await encrypt(this._passphrase, plaintext, this._kdfSettings)
 
-    await Promise.all([
-      this._storage.set('ciphertext', toBase64(ciphertext)),
-      this._storage.set('salt', toBase64(salt)),
-      this._storage.set('kdfParams', kdfParams)
-    ])
+    await this._storage.setMany({
+      ciphertext: toBase64(ciphertext),
+      salt: toBase64(salt),
+      kdfParams
+    })
   }
 
   /**
@@ -75,11 +75,7 @@ export default class EncryptedStorage {
    * @private
    */
   async _load() {
-    const [ciphertext, salt, kdfParams] = await Promise.all([
-      this._storage.get('ciphertext'),
-      this._storage.get('salt'),
-      this._storage.get('kdfParams')
-    ])
+    const [ciphertext, salt, kdfParams] = await this._storage.getMany(['ciphertext', 'salt', 'kdfParams'])
 
     if (ciphertext == null || salt == null || kdfParams == null) {
       return []

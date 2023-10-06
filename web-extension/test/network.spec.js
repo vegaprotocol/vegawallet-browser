@@ -1,9 +1,10 @@
 import { createJSONHTTPServer } from './helpers'
 import { NetworkCollection } from '../backend/network'
+import InmemoryStorage from '../lib/inmemory-storage'
 
 describe('NetworkCollection', () => {
   it('should set and get, returning a cached instance', async () => {
-    const networks = new NetworkCollection(new Map())
+    const networks = new NetworkCollection(new InmemoryStorage())
 
     const net = await networks.set('testnet', {
       name: 'Testnet',
@@ -17,7 +18,7 @@ describe('NetworkCollection', () => {
   })
 
   it('should set and set should update internal cache', async () => {
-    const networks = new NetworkCollection(new Map())
+    const networks = new NetworkCollection(new InmemoryStorage())
 
     const net = await networks.set('testnet', {
       name: 'Testnet',
@@ -36,7 +37,7 @@ describe('NetworkCollection', () => {
   })
 
   it('should delete and delete should remove from internal cache', async () => {
-    const networks = new NetworkCollection(new Map())
+    const networks = new NetworkCollection(new InmemoryStorage())
 
     await networks.set('testnet', {
       name: 'Testnet',
@@ -50,7 +51,7 @@ describe('NetworkCollection', () => {
   })
 
   it('should find a healthy data node and cache result', async () => {
-    const networks = new NetworkCollection(new Map())
+    const networks = new NetworkCollection(new InmemoryStorage())
 
     const dnHandler = jest.fn().mockResolvedValue({
       statusCode: 200,
@@ -79,7 +80,7 @@ describe('NetworkCollection', () => {
   })
 
   it('should reject all pending rpc calls and not cache unhealthy datanode, until healthy', async () => {
-    const networks = new NetworkCollection(new Map())
+    const networks = new NetworkCollection(new InmemoryStorage())
 
     const dnHandler = jest.fn().mockResolvedValue({
       statusCode: 400,
@@ -128,7 +129,7 @@ describe('NetworkCollection', () => {
   it('should cache healthy datanode for some time', async () => {
     jest.useFakeTimers()
 
-    const networks = new NetworkCollection(new Map())
+    const networks = new NetworkCollection(new InmemoryStorage())
 
     const dnHandler = jest.fn().mockResolvedValue({
       statusCode: 200,

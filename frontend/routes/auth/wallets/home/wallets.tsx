@@ -3,10 +3,10 @@ import { WalletsPageKeyList } from './wallets-page-key-list'
 import { DepositAssetsCallout } from './deposit-assets-callout'
 import { SignMessageDialog } from '../../../../components/sign-message-dialog'
 import { useState } from 'react'
+import { AuthPage } from '../../../../components/auth-page'
 
 export const locators = {
-  walletsPage: 'wallets-page',
-  walletsWalletName: 'wallets-wallet-name'
+  walletsPage: 'wallets-page'
 }
 
 export const Wallets = () => {
@@ -21,13 +21,10 @@ export const Wallets = () => {
   if (loading) return null
 
   return (
-    <section data-testid={locators.walletsPage}>
-      <h1 data-testid={locators.walletsWalletName} className="flex justify-center flex-col text-2xl text-white">
-        {wallet.name}
-      </h1>
+    <AuthPage dataTestId={locators.walletsPage} title={wallet.name}>
       <WalletsPageKeyList onSignMessage={setSelectedPubkey} wallet={wallet} />
       <DepositAssetsCallout />
       <SignMessageDialog open={!!selectedPubkey} onClose={() => setSelectedPubkey(null)} publicKey={selectedPubkey} />
-    </section>
+    </AuthPage>
   )
 }

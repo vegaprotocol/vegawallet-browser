@@ -3,6 +3,7 @@ import { LockSection } from './lock-section'
 import { SettingsRadio } from './settings-form-elements/radio'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import config from '!/config'
+import { AuthPage } from '../../../components/auth-page'
 
 export const locators = {
   settingsPage: 'settings-page',
@@ -11,9 +12,7 @@ export const locators = {
 
 export const Settings = () => {
   return (
-    <section data-testid={locators.settingsPage}>
-      <h1 className="flex justify-center flex-col text-2xl text-white">Settings</h1>
-
+    <AuthPage dataTestId={locators.settingsPage} title="Settings">
       <VersionSection />
 
       <SettingsRadio
@@ -37,6 +36,6 @@ export const Settings = () => {
       />
 
       <LockSection />
-    </section>
+    </AuthPage>
   )
 }

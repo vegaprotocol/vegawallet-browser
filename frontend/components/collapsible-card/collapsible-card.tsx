@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { DropdownArrow } from '../icons/dropdown-arrow'
 
 export const locators = {
-  collapsibleCardTitle: 'collapsible-card-title',
   collapsibleCard: 'collapsible-card',
   collapsibleCardButton: 'collapsible-card-button',
   collapsibleCardContent: 'collapsible-card-content'
@@ -16,18 +15,10 @@ export const CollapsibleCard = ({
   cardContent
 }: {
   initiallyOpen?: boolean
-  title: string | ReactNode
+  title: ReactNode
   cardContent: ReactNode
 }) => {
   const [isOpen, setIsOpen] = useState(initiallyOpen)
-  const titleElement =
-    typeof title === 'string' ? (
-      <span className="text-vega-dark-300 text-sm uppercase" data-testid={locators.collapsibleCardTitle}>
-        {title}
-      </span>
-    ) : (
-      title
-    )
   return (
     <div data-testid={locators.collapsibleCard}>
       <button
@@ -35,7 +26,7 @@ export const CollapsibleCard = ({
         onClick={() => setIsOpen(!isOpen)}
         data-testid={locators.collapsibleCardButton}
       >
-        {titleElement}
+        {title}
         <div>
           <DropdownArrow
             className={classnames('w-3 ml-3 mb-1', {

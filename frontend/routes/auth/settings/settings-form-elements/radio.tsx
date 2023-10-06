@@ -1,9 +1,9 @@
 import { Radio, RadioGroup } from '@vegaprotocol/ui-toolkit'
-import { SettingsHeader } from '../settings-header'
 import { useGlobalsStore } from '../../../../stores/globals'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { VegaSection } from '../../../../components/vega-section'
 import { ReactNode } from 'react'
+import { SubHeader } from '../../../../components/sub-header'
 
 export const locators = {
   settingsRadioDescription: 'settings-radio-description',
@@ -41,7 +41,7 @@ export const SettingsRadio = ({
 
   return (
     <VegaSection>
-      <SettingsHeader text={sectionHeader} />
+      <SubHeader content={sectionHeader} />
       <p data-testid={`${setting}-${locators.settingsRadioDescription}`} className="my-4">
         {description}
       </p>

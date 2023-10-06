@@ -1,6 +1,6 @@
-import { SettingsHeader } from './settings-header'
 import packageJson from '../../../../package.json'
 import { VegaSection } from '../../../components/vega-section'
+import { SubHeader } from '../../../components/sub-header'
 
 export const locators = {
   settingsVersionTitle: 'settings-version-title',
@@ -10,7 +10,7 @@ export const locators = {
 export const VersionSection = () => {
   return (
     <VegaSection>
-      <SettingsHeader text="Vega wallet version" />
+      <SubHeader content="Vega wallet version" />
       <div className="text-white text-lg mt-1" data-testid={locators.settingsVersionNumber}>
         {packageJson.version}
       </div>

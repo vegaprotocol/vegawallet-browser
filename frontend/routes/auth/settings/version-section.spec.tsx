@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { VersionSection, locators } from './version-section'
 import packageJson from '../../../../package.json'
-import { locators as headerLocators } from './settings-header'
+import { locators as headerLocators } from '../../../components/sub-header'
 
 describe('VersionSection', () => {
   it('renders the section header correctly', () => {
     render(<VersionSection />)
-    const headerElement = screen.getByTestId(headerLocators.settingsHeader)
+    const headerElement = screen.getByTestId(headerLocators.subHeader)
     expect(headerElement).toBeInTheDocument()
   })
 

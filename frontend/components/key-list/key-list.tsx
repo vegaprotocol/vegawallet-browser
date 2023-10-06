@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { VegaKey } from '../keys/vega-key'
 import { NavLink } from 'react-router-dom'
 import { FULL_ROUTES } from '../../routes/route-names'
+import { SubHeader } from '../sub-header'
 
 export const locators = {
   walletsSignMessageButton: 'sign-message-button',
@@ -18,9 +19,10 @@ export interface KeyListProps {
 
 export const KeyList = ({ keys, renderActions, onClick }: KeyListProps) => {
   return (
-    <section className="text-base">
-      <h1 className="uppercase text-sm mt-6 mb-2 text-vega-dark-300">Keys</h1>
+    <section className="text-base mt-6">
+      <SubHeader content="Keys" />
       <List<Key>
+        className="mt-2"
         idProp="publicKey"
         items={keys}
         renderItem={(k) => (

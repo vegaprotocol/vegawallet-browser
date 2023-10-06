@@ -12,6 +12,7 @@ import { generateMarket } from '../../../test-helpers/generate-market'
 import { generateAsset } from '../../../test-helpers/generate-asset'
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { mockStore } from '../../../test-helpers/mock-store'
 
 jest.mock('../../../stores/markets-store', () => ({
   ...jest.requireActual('../../../stores/markets-store'),
@@ -31,12 +32,12 @@ describe('OrderTable', () => {
   const mockAsset = generateAsset()
 
   beforeEach(() => {
-    ;(useMarketsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useMarketsStore, {
       loading: false,
       markets: [],
       getMarketById: jest.fn()
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useAssetsStore, {
       loading: false,
       assets: [],
       getAssetById: jest.fn()
@@ -119,7 +120,7 @@ describe('OrderTable', () => {
 
   // testing code branches dealing with enriched market data - ACs for this are in the component tests
   it('renders enriched market when marketId matches available markets', () => {
-    ;(useMarketsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useMarketsStore, {
       loading: false,
       markets: [mockMarket],
       getMarketById: jest.fn().mockReturnValue(mockMarket)
@@ -137,7 +138,7 @@ describe('OrderTable', () => {
   })
 
   it("doesn't render enriched market when marketId does not match available markets", () => {
-    ;(useMarketsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useMarketsStore, {
       loading: false,
       markets: [mockMarket],
       getMarketById: jest.fn().mockReturnValue(null)
@@ -151,13 +152,12 @@ describe('OrderTable', () => {
   it('renders enriched price info when market and nested properties exist', () => {
     const mockPrice = '123'
     const mockDecimals = Number(mockMarket.decimalPlaces as string)
-
-    ;(useMarketsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useMarketsStore, {
       loading: false,
       markets: [mockMarket],
       getMarketById: jest.fn().mockReturnValue(mockMarket)
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useAssetsStore, {
       loading: false,
       assets: [mockAsset],
       getAssetById: jest.fn().mockReturnValue(mockAsset)
@@ -175,12 +175,12 @@ describe('OrderTable', () => {
   })
 
   it('renders symbol when asset information exists', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useAssetsStore, {
       loading: false,
       assets: [mockAsset],
       getAssetById: jest.fn().mockReturnValue(mockAsset)
     })
-    ;(useMarketsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useMarketsStore, {
       loading: false,
       markets: [mockMarket],
       getMarketById: jest.fn().mockReturnValue(mockMarket)
@@ -203,13 +203,12 @@ describe('OrderTable', () => {
         }
       }
     })
-
-    ;(useMarketsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useMarketsStore, {
       loading: false,
       markets: [incompleteMockMarket],
       getMarketById: jest.fn().mockReturnValue(incompleteMockMarket)
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useAssetsStore, {
       loading: false,
       assets: [mockAsset],
       getAssetById: jest.fn().mockReturnValue(mockAsset)
@@ -220,12 +219,12 @@ describe('OrderTable', () => {
   })
 
   it('sets assetInfo to undefined when assets array is empty', () => {
-    ;(useMarketsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useMarketsStore, {
       loading: false,
       markets: [mockMarket],
       getMarketById: jest.fn().mockReturnValue(mockMarket)
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useAssetsStore, {
       loading: false,
       assets: [],
       getAssetById: jest.fn().mockReturnValue(null)
@@ -258,12 +257,12 @@ describe('OrderTable', () => {
     const mockSize = '100'
     const mockPositionDecimals = Number(mockMarket.positionDecimalPlaces as string)
 
-    ;(useMarketsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useMarketsStore, {
       loading: false,
       markets: [mockMarket],
       getMarketById: jest.fn().mockReturnValue(mockMarket)
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useAssetsStore, {
       loading: false,
       assets: [mockAsset],
       getAssetById: jest.fn().mockReturnValue(mockAsset)

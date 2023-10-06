@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Withdraw } from './withdrawal'
 import { useAssetsStore } from '../../../stores/assets-store'
+import { mockStore } from '../../../test-helpers/mock-store'
 
 jest.mock('./basic-withdrawal', () => ({
   BasicWithdrawal: () => <div data-testid="basic-withdrawal" />
@@ -14,11 +15,9 @@ jest.mock('../../../stores/assets-store')
 
 describe('Withdrawal', () => {
   it('renders nothing if withdrawal is not of type erc20', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        loading: true
-      })
-    )
+    mockStore(useAssetsStore, {
+      loading: true
+    })
     const { container } = render(
       <Withdraw
         transaction={{
@@ -29,11 +28,9 @@ describe('Withdrawal', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('renders basic withdrawal view if loading', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        loading: true
-      })
-    )
+    mockStore(useAssetsStore, {
+      loading: true
+    })
     render(
       <Withdraw
         transaction={{
@@ -48,11 +45,9 @@ describe('Withdrawal', () => {
     expect(screen.getByTestId('basic-withdrawal')).toBeInTheDocument()
   })
   it('renders enriched withdrawal view if loading was successful', () => {
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        loading: false
-      })
-    )
+    mockStore(useAssetsStore, {
+      loading: false
+    })
     render(
       <Withdraw
         transaction={{

@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { PopoverOpenModal, locators } from '.'
 import { usePopoverStore } from '../../../stores/popover-store'
+import { mockStore } from '../../../test-helpers/mock-store'
 
 jest.mock('../../../stores/popover-store')
 
@@ -10,13 +11,11 @@ describe('PopoverOpenModal', () => {
   })
 
   it('renders correctly when popoverOpen is false', () => {
-    ;(usePopoverStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        popoverOpen: false,
-        focusPopover: jest.fn(),
-        isPopoverInstance: false
-      })
-    )
+    mockStore(usePopoverStore, {
+      popoverOpen: false,
+      focusPopover: jest.fn(),
+      isPopoverInstance: false
+    })
 
     const { container } = render(<PopoverOpenModal />)
 
@@ -24,13 +23,11 @@ describe('PopoverOpenModal', () => {
   })
 
   it('renders correctly when popoverOpen is true and isPopoverInstance is true', () => {
-    ;(usePopoverStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        popoverOpen: true,
-        focusPopover: jest.fn(),
-        isPopoverInstance: true
-      })
-    )
+    mockStore(usePopoverStore, {
+      popoverOpen: true,
+      focusPopover: jest.fn(),
+      isPopoverInstance: true
+    })
 
     const { container } = render(<PopoverOpenModal />)
 
@@ -39,13 +36,11 @@ describe('PopoverOpenModal', () => {
 
   it('renders correctly when popoverOpen is true and isPopoverInstance is false', () => {
     const mockFocusPopover = jest.fn()
-    ;(usePopoverStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        popoverOpen: true,
-        focusPopover: mockFocusPopover,
-        isPopoverInstance: false
-      })
-    )
+    mockStore(usePopoverStore, {
+      popoverOpen: true,
+      focusPopover: mockFocusPopover,
+      isPopoverInstance: false
+    })
 
     render(<PopoverOpenModal />)
 

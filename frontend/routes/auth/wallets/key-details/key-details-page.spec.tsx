@@ -6,6 +6,7 @@ import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { useWalletStore } from '../../../../stores/wallets'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../route-names'
+import { mockStore } from '../../../../test-helpers/mock-store'
 
 jest.mock('./key-selector', () => ({
   KeySelector: () => <div data-testid="key-selector" />
@@ -36,48 +37,42 @@ const renderComponent = () => {
 describe('KeyDetailsPage', () => {
   it('throws error if the key cannot be found', () => {
     silenceErrors()
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: false }))
+    mockStore(useWalletStore, { loading: false })
+    mockStore(useAssetsStore, {
+      loading: false
+    })
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
       key: undefined
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        loading: false
-      })
-    )
     expect(() => render(<KeyDetailsPage id={ID} />)).toThrowError(`Key with id ${ID} not found`)
   })
 
   it('renders nothing while loading assets', () => {
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: false }))
+    mockStore(useWalletStore, { loading: false })
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
       key: {
         publicKey: ID,
         name: 'test'
       }
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        loading: true
-      })
-    )
+    mockStore(useAssetsStore, {
+      loading: true
+    })
     const { container } = render(<KeyDetailsPage id={ID} />)
     expect(container).toBeEmptyDOMElement()
   })
 
   it('renders nothing while loading wallets', () => {
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: true }))
+    mockStore(useWalletStore, { loading: true })
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
       key: {
         publicKey: ID,
         name: 'test'
       }
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        loading: false
-      })
-    )
+    mockStore(useAssetsStore, {
+      loading: false
+    })
     const { container } = render(<KeyDetailsPage id={ID} />)
     expect(container).toBeEmptyDOMElement()
   })
@@ -87,7 +82,7 @@ describe('KeyDetailsPage', () => {
     // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)
     // 1125-KEYD-007 In the key details screen I can see my currently selected key and associated info
     const assetId1 = '2'.repeat(64)
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: false }))
+    mockStore(useWalletStore, { loading: false })
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
       key: {
         publicKey: ID,
@@ -105,7 +100,7 @@ describe('KeyDetailsPage', () => {
         ]
       }
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useAssetsStore, {
       loading: false
     })
     renderComponent()
@@ -121,7 +116,7 @@ describe('KeyDetailsPage', () => {
   it('renders asset card for each asset', () => {
     const assetId1 = '2'.repeat(64)
     const assetId2 = '3'.repeat(64)
-    ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => fn({ loading: false }))
+    mockStore(useWalletStore, { loading: false })
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
       key: {
         publicKey: ID,
@@ -148,7 +143,7 @@ describe('KeyDetailsPage', () => {
         ]
       }
     })
-    ;(useAssetsStore as unknown as jest.Mock).mockReturnValue({
+    mockStore(useAssetsStore, {
       loading: false
     })
     renderComponent()

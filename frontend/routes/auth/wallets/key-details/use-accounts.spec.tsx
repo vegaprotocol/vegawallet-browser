@@ -2,6 +2,7 @@ import { renderHook } from '@testing-library/react'
 import { useAccounts } from './use-accounts'
 import { useAccountsStore } from './accounts-store'
 import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { mockStore } from '../../../../test-helpers/mock-store'
 const MOCK_KEY = '1'.repeat(64)
 const ASSET_ID = '2'.repeat(64)
 const MARKET_ID = '3'.repeat(64)
@@ -36,23 +37,24 @@ describe('UseAccounts', () => {
     const stopPoll = jest.fn()
     const reset = jest.fn()
 
-    ;(useAccountsStore as unknown as jest.Mock).mockImplementation((fn) =>
-      fn({
-        accountsByAsset: {
-          [ASSET_ID]: {
+    mockStore(useAccountsStore, {
+      accountsByAsset: {
+        [ASSET_ID]: [
+          {
             balance: '1',
             asset: ASSET_ID,
-            market: MARKET_ID,
-            party: MOCK_KEY,
+            marketId: MARKET_ID,
+            owner: MOCK_KEY,
             type: vegaAccountType.ACCOUNT_TYPE_GENERAL
           }
-        },
-        fetchAccounts,
-        startPoll,
-        stopPoll,
-        reset
-      })
-    )
+        ]
+      },
+      fetchAccounts,
+      startPoll,
+      stopPoll,
+      reset
+    })
+
     const view = renderHook(() => useAccounts(MOCK_KEY))
     const { key, accountsByAsset } = view.result.current
     expect(key).toStrictEqual({
@@ -62,13 +64,15 @@ describe('UseAccounts', () => {
       metadata: []
     })
     expect(accountsByAsset).toStrictEqual({
-      [ASSET_ID]: {
-        balance: '1',
-        asset: ASSET_ID,
-        market: MARKET_ID,
-        party: MOCK_KEY,
-        type: 'ACCOUNT_TYPE_GENERAL'
-      }
+      [ASSET_ID]: [
+        {
+          balance: '1',
+          asset: ASSET_ID,
+          marketId: MARKET_ID,
+          owner: MOCK_KEY,
+          type: vegaAccountType.ACCOUNT_TYPE_GENERAL
+        }
+      ]
     })
     expect(fetchAccounts).toBeCalledTimes(1)
     expect(startPoll).toBeCalledTimes(1)

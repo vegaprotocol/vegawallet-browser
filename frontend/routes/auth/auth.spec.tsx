@@ -7,6 +7,7 @@ import { useWalletStore } from '../../stores/wallets'
 import { FULL_ROUTES } from '../route-names'
 import { useAssetsStore } from '../../stores/assets-store'
 import { useMarketsStore } from '../../stores/markets-store'
+import { mockStore } from '../../test-helpers/mock-store'
 
 jest.mock('../../components/page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
@@ -37,21 +38,16 @@ const mockStores = () => {
   const loadWallets = jest.fn()
   const fetchAssets = jest.fn()
   const fetchMarkets = jest.fn()
-  ;(useWalletStore as unknown as jest.Mock).mockImplementation((fn) => {
-    return fn({
-      loadWallets
-    })
+  mockStore(useWalletStore, {
+    loadWallets
   })
-  ;(useAssetsStore as unknown as jest.Mock).mockImplementation((fn) =>
-    fn({
-      fetchAssets
-    })
-  )
-  ;(useMarketsStore as unknown as jest.Mock).mockImplementation((fn) =>
-    fn({
-      fetchMarkets
-    })
-  )
+  mockStore(useAssetsStore, {
+    fetchAssets
+  })
+  mockStore(useMarketsStore, {
+    fetchMarkets
+  })
+
   return {
     loadWallets,
     fetchAssets,

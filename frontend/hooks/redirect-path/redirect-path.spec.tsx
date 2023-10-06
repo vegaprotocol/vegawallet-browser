@@ -4,6 +4,7 @@ import { FULL_ROUTES } from '../../routes/route-names'
 import { AppGlobals, useGlobalsStore } from '../../stores/globals'
 import { mockStorage } from '../../test-helpers/mock-storage'
 import { SUGGESTED_MNEMONIC_KEY } from '../suggest-mnemonic'
+import { mockStore } from '../../test-helpers/mock-store'
 
 jest.mock('../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({ client: {} })
@@ -16,14 +17,10 @@ jest.mock('../../stores/globals', () => ({
 }))
 
 const renderRedirectHook = (globals: AppGlobals, loading: boolean = false) => {
-  ;(useGlobalsStore as unknown as jest.Mock).mockImplementation((fn) => {
-    const result = {
-      loading,
-      globals,
-      loadGlobals: mockLoadGlobals
-    }
-    fn(result)
-    return result
+  mockStore(useGlobalsStore, {
+    loading,
+    globals,
+    loadGlobals: mockLoadGlobals
   })
   return renderHook(() => useGetRedirectPath(), {
     initialProps: false

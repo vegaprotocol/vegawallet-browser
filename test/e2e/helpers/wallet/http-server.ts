@@ -4,12 +4,23 @@ import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 const tdaiAssetId = 'b340c130096819428a62e5df407fd6abe66e444b89ad64f670beb98621c9c663'
 const vegaAssetId = 'fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55'
+
 const blockHeightObj: Core.v1LastBlockHeightResponse = {
   height: '3144128',
-  hash: '07d5343f3f5645400c13d9576f13ec2f74511236b5f826951646164485f04ba6'
+  hash: '07d5343f3f5645400c13d9576f13ec2f74511236b5f826951646164485f04ba6',
+  spamPowHashFunction: 'sha3_24_rounds',
+  spamPowDifficulty: 15,
+  spamPowNumberOfPastBlocks: 100,
+  spamPowNumberOfTxPerBlock: 2,
+  spamPowIncreasingDifficulty: false,
+  chainId: 'testnet'
 }
 
 const rawTransactionObj: Core.v1SubmitRawTransactionResponse = {
+  code: 0,
+  data: '',
+  height: '0',
+  log: '',
   success: true,
   txHash: '33B3608EF89CDD64078BD64B2F3DC61AFC3082B9BF638828838D0B0E811EC533'
 }

@@ -86,9 +86,9 @@ export class Console {
   }
 
   async submitOrder(orderSize: string, orderPrice: string) {
+    await this.clearAllToast()
     await sendKeysToElement(this.driver, this.orderPrice, orderPrice)
     await sendKeysToElement(this.driver, this.orderSize, orderSize)
-    await this.clearAllToast()
     await clickElement(this.driver, this.placeOrder)
     console.log('clicked place order')
   }

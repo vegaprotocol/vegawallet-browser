@@ -40,7 +40,7 @@ describe('check popout functionality', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    //await driver.quit()
+    await driver.quit()
   })
 
   it('connect request opens in popout and can be approved when extension not already open', async () => {
@@ -88,11 +88,11 @@ describe('check popout functionality', () => {
     await sendTransactionAndCheckPopoutAppears()
     await openLatestWindowHandle(driver)
     await transaction.checkOnTransactionPage()
-    // expect(await windowHandleHasCount(driver, 3)).toBe(true)
-    // await driver.close()
+    expect(await windowHandleHasCount(driver, 3)).toBe(true)
+    await driver.close()
 
-    // await switchWindowHandles(driver, false, dappHandle)
-    // expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    await switchWindowHandles(driver, false, dappHandle)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {

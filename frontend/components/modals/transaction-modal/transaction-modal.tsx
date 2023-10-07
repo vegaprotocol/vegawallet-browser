@@ -1,4 +1,4 @@
-import { useModalStore } from '../../../stores/modal-store'
+import { useInteractionStore } from '../../../stores/interaction-store'
 import { Splash } from '../../splash'
 import { Button } from '@vegaprotocol/ui-toolkit'
 import { PageHeader } from '../../page-header'
@@ -15,7 +15,7 @@ export const locators = {
 }
 
 export const TransactionModal = () => {
-  const { isOpen, handleTransactionDecision, details } = useModalStore((store) => ({
+  const { isOpen, handleTransactionDecision, details } = useInteractionStore((store) => ({
     isOpen: store.transactionModalOpen,
     handleTransactionDecision: store.handleTransactionDecision,
     details: store.currentTransactionDetails

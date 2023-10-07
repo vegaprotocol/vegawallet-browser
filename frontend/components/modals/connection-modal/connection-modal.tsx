@@ -1,13 +1,13 @@
 import { Splash } from '../../splash'
 import { useCallback, useState } from 'react'
 
-import { useModalStore } from '../../../stores/modal-store'
+import { useInteractionStore } from '../../../stores/interaction-store'
 import locators from '../../locators'
 import { ConnectionSuccess } from './connection-success'
 import { ConnectionDetails } from './connection-details'
 
 export const ConnectionModal = () => {
-  const { isOpen, handleConnectionDecision, details } = useModalStore((store) => ({
+  const { isOpen, handleConnectionDecision, details } = useInteractionStore((store) => ({
     isOpen: store.connectionModalOpen,
     handleConnectionDecision: store.handleConnectionDecision,
     details: store.currentConnectionDetails

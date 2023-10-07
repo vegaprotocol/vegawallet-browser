@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Page } from '../../../components/page'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
-import { MnemonicContainer } from '../../../components/mnemonic-container'
+import { HiddenContainer } from '../../../components/hidden-container'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { createWallet } from '../../../lib/create-wallet'
 import { WalletCreated } from './wallet-created'
@@ -48,7 +48,7 @@ export const SaveMnemonic = () => {
           Write down or save this recovery phrase to a safe place. You'll need it to recover your wallet. Never share
           this with anyone else.
         </p>
-        <MnemonicContainer mnemonic={mnemonic} onChange={setMnemonicShown} />
+        <HiddenContainer text="Reveal recovery phrase" hiddenInformation={mnemonic} onChange={setMnemonicShown} />
         <SaveMnemonicForm onSubmit={submit} loading={loading} disabled={!mnemonicShown} />
       </>
     </Page>

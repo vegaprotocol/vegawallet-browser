@@ -21,3 +21,5 @@ export const formatDate = (milliseconds: number | string) => {
     return `Invalid time value: ${milliseconds}`
   }
 }
+
+export const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'

@@ -9,13 +9,12 @@ import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { LoadingButton } from '../../components/loading-button'
 import { VegaHeader } from '../../components/vega-header'
 import { useGlobalsStore } from '../../stores/globals'
+import { REJECTION_ERROR_MESSAGE } from '../../lib/utils'
 
 export const locators = {
   loginPassphrase: 'login-passphrase',
   loginButton: 'login-button'
 }
-
-const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
 
 interface FormFields {
   passphrase: string

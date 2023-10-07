@@ -1,4 +1,4 @@
-import { ConnectionMessage } from '../../../stores/modal-store'
+import { ConnectionMessage } from '../../../stores/interaction-store'
 import { ServerRpcMethods } from '../../../lib/server-rpc-methods'
 import JSONRPCServer from '../../../../lib/json-rpc-server'
 import { PortServer } from '../../../../lib/port-server'

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { JsonRpcContext } from './json-rpc-context'
-import { useModalStore } from '../../stores/modal-store'
+import { useInteractionStore } from '../../stores/interaction-store'
 import { createServer } from './hooks/create-server'
 import { useCreateClient } from './hooks/create-client'
 
@@ -17,7 +17,7 @@ export interface JsonRpcNotification {
  */
 export const JsonRPCProvider = ({ children }: { children: JSX.Element }) => {
   const { client, request } = useCreateClient()
-  const { handleConnection, handleTransaction } = useModalStore((store) => ({
+  const { handleConnection, handleTransaction } = useInteractionStore((store) => ({
     handleConnection: store.handleConnection,
     handleTransaction: store.handleTransaction
   }))

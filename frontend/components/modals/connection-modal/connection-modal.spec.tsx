@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { ConnectionModal } from './connection-modal'
-import { useModalStore } from '../../../stores/modal-store'
+import { useInteractionStore } from '../../../stores/interaction-store'
 import locators from '../../locators'
 import { ConnectionSuccessProps } from './connection-success'
 import { mockStore } from '../../../test-helpers/mock-store'
@@ -20,17 +20,17 @@ describe('ConnectionModal', () => {
     jest.clearAllMocks()
   })
   it('renders nothing when isOpen is false', () => {
-    mockStore(useModalStore, { connectionModalOpen: false })
+    mockStore(useInteractionStore, { connectionModalOpen: false })
     const { container } = render(<ConnectionModal />)
     expect(container).toBeEmptyDOMElement()
   })
   it('renders connection details when open but not yet connected', () => {
-    mockStore(useModalStore, { connectionModalOpen: true, currentConnectionDetails: {} })
+    mockStore(useInteractionStore, { connectionModalOpen: true, currentConnectionDetails: {} })
     render(<ConnectionModal />)
     expect(screen.getByTestId(locators.connectionModalApprove)).toBeInTheDocument()
   })
   it('renders connection success when hasConnected is true', () => {
-    mockStore(useModalStore, {
+    mockStore(useInteractionStore, {
       connectionModalOpen: true,
       handleConnectionDecision: jest.fn(),
       currentConnectionDetails: {}
@@ -40,7 +40,7 @@ describe('ConnectionModal', () => {
     expect(screen.getByTestId('connection-success')).toBeInTheDocument()
   })
   it('renders nothing if connection is not approved', () => {
-    mockStore(useModalStore, {
+    mockStore(useInteractionStore, {
       connectionModalOpen: true,
       handleConnectionDecision: jest.fn(),
       currentConnectionDetails: {}
@@ -51,7 +51,11 @@ describe('ConnectionModal', () => {
   })
   it('handle the interaction decision when connection is approve after showing success state', () => {
     const handleConnectionDecision = jest.fn()
-    mockStore(useModalStore, { connectionModalOpen: true, handleConnectionDecision, currentConnectionDetails: {} })
+    mockStore(useInteractionStore, {
+      connectionModalOpen: true,
+      handleConnectionDecision,
+      currentConnectionDetails: {}
+    })
     render(<ConnectionModal />)
     fireEvent.click(screen.getByTestId(locators.connectionModalApproveButton))
     fireEvent.click(screen.getByTestId('connection-success'))

@@ -1,0 +1,84 @@
+import { useState } from 'react'
+import { useJsonRpcClient } from '../../../../../contexts/json-rpc/json-rpc-context'
+import { FormGroup, InputError, Button, Input, Notification, Intent } from '@vegaprotocol/ui-toolkit'
+import { useForm, useWatch } from 'react-hook-form'
+import { LoadingButton } from '../../../../../components/loading-button'
+import { RpcMethods } from '../../../../../lib/client-rpc-methods'
+import { Validation } from '../../../../../lib/form-validation'
+import { REJECTION_ERROR_MESSAGE } from '../../../../../lib/utils'
+import { FormFields, locators } from './export-private-key-dialog'
+
+export const ExportPrivateKeyForm = ({
+  onSuccess,
+  onClose
+}: {
+  onSuccess: (passphrase: string) => void
+  onClose: () => void
+}) => {
+  const { request } = useJsonRpcClient()
+  const [loading, setLoading] = useState(false)
+  const {
+    control,
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors }
+  } = useForm<FormFields>()
+  const passphrase = useWatch({ control, name: 'passphrase' })
+
+  const exportPrivateKey = async ({ passphrase }: { passphrase: string }) => {
+    // TODO handle errors
+    try {
+      setLoading(true)
+      const { privateKey } = await request(RpcMethods.ExportPrivateKey, { passphrase }, true)
+      onSuccess(privateKey)
+    } catch (e) {
+      if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
+        setError('passphrase', { message: 'Incorrect passphrase' })
+      } else {
+        setError('passphrase', { message: `Unknown error occurred ${e}` })
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+  return (
+    <>
+      <Notification
+        message="Warning: Never disclose this key. Exposing this key will give anyone who has it access to all assets in your account."
+        intent={Intent.Danger}
+        data-testid={locators.privateKeyDescription}
+      />
+      <form className="text-left mt-3" onSubmit={handleSubmit(exportPrivateKey)}>
+        <FormGroup label="Password" labelFor="passphrase">
+          <Input
+            autoFocus
+            hasError={!!errors.passphrase?.message}
+            data-testid={locators.privateKeyModalPassphrase}
+            type="password"
+            {...register('passphrase', {
+              required: Validation.REQUIRED
+            })}
+          />
+          {errors.passphrase?.message && <InputError forInput="passphrase">{errors.passphrase.message}</InputError>}
+        </FormGroup>
+        <div className="flex flex-col gap-1 justify-between">
+          <LoadingButton
+            loading={loading}
+            fill={true}
+            loadingText="Exporting"
+            text="Export"
+            data-testid={locators.privateKeyModalSubmit}
+            className="mt-2"
+            variant="secondary"
+            type="submit"
+            disabled={!passphrase}
+          />
+          <Button fill={true} onClick={onClose} className="mt-2" variant="default" type="submit">
+            Close
+          </Button>
+        </div>
+      </form>
+    </>
+  )
+}

@@ -6,7 +6,14 @@ import { LoadingButton } from '../../../../../components/loading-button'
 import { RpcMethods } from '../../../../../lib/client-rpc-methods'
 import { Validation } from '../../../../../lib/form-validation'
 import { REJECTION_ERROR_MESSAGE } from '../../../../../lib/utils'
-import { FormFields, locators } from './export-private-key-dialog'
+import { FormFields } from './export-private-key-dialog'
+
+export const locators = {
+  privateKeyModalPassphrase: 'private-key-modal-passphrase',
+  privateKeyModalClose: 'private-key-modal-close',
+  privateKeyModalSubmit: 'private-key-modal-submit',
+  privateKeyDescription: 'private-key-description'
+}
 
 export const ExportPrivateKeyForm = ({
   onSuccess,
@@ -74,7 +81,14 @@ export const ExportPrivateKeyForm = ({
             type="submit"
             disabled={!passphrase}
           />
-          <Button fill={true} onClick={onClose} className="mt-2" variant="default" type="submit">
+          <Button
+            data-testid={locators.privateKeyModalClose}
+            fill={true}
+            onClick={onClose}
+            className="mt-2"
+            variant="default"
+            type="submit"
+          >
             Close
           </Button>
         </div>

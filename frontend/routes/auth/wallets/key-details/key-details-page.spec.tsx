@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { KeyDetailsPage, locators } from './key-details-page'
 import { useAssetsStore } from '../../../../stores/assets-store'
-import { useAccounts } from './use-accounts'
+import { useAccounts } from './assets-list//use-accounts'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { useWalletStore } from '../../../../stores/wallets'
 import { MemoryRouter } from 'react-router-dom'

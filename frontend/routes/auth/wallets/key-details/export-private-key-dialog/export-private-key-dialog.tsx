@@ -9,11 +9,7 @@ export interface FormFields {
 }
 
 export const locators = {
-  privateKeyModal: 'private-key-modal',
-  privateKeyModalPassphrase: 'private-key-modal-passphrase',
-  privateKeyModalClose: 'private-key-modal-close',
-  privateKeyModalSubmit: 'private-key-modal-submit',
-  privateKeyDescription: 'private-key-description',
+  privateKeyDialog: 'private-key-dialog',
   privateKeyTitle: 'private-key-title'
 }
 

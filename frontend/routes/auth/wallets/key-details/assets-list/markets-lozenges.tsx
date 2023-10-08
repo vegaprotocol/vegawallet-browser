@@ -1,5 +1,5 @@
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
-import { useMarketsStore } from '../../../../stores/markets-store'
+import { useMarketsStore } from '../../../../../stores/markets-store'
 import config from '!/config'
 import get from 'lodash/get'
 

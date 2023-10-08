@@ -5,7 +5,6 @@ import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { useWalletStore } from '../../../../stores/wallets'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../route-names'
-import { locators as subHeaderLocators } from '../../../../components/sub-header'
 import { mockStore } from '../../../../test-helpers/mock-store'
 
 jest.mock('./key-selector', () => ({

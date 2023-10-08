@@ -16,7 +16,7 @@ export const ViewPrivateKey = ({ privateKey, onClose }: { onClose: () => void; p
         variant="primary"
         onClick={onClose}
       >
-        Done
+        Close
       </Button>
     </>
   )

@@ -9,6 +9,7 @@ import { AssetCard } from './asset-card'
 import { KeySelector } from './key-selector'
 import { useAccounts } from './use-accounts'
 import { SubHeader } from '../../../../components/sub-header'
+import { ExportPrivateKeysDialog } from './export-private-keys-dialog'
 
 export const locators = {
   keyDetailsDescription: 'key-details-description',
@@ -50,6 +51,7 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
           <AssetCard key={assetId} accounts={val} assetId={assetId} />
         ))}
       </VegaSection>
+      <ExportPrivateKeysDialog />
     </div>
   )
 }

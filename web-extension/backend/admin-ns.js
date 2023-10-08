@@ -56,6 +56,12 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
 
         return null
       },
+      async 'admin.export_private_key'(params) {
+        if (params.passphrase === '123')
+          return {
+            privateKey: '123'
+          }
+      },
       async 'admin.app_globals'(params) {
         doValidate(adminValidation.appGlobals, params)
 

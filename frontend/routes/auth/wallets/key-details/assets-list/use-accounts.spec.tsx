@@ -7,13 +7,13 @@ const MOCK_KEY = '1'.repeat(64)
 const ASSET_ID = '2'.repeat(64)
 const MARKET_ID = '3'.repeat(64)
 
-jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
+jest.mock('../../../../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
     request: jest.fn()
   })
 }))
 
-jest.mock('../../../../stores/wallets', () => ({
+jest.mock('../../../../../stores/wallets', () => ({
   useWalletStore: jest.fn().mockImplementation((fn) =>
     fn({
       getKeyById: jest.fn().mockReturnValue({

@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import { AssetCard, locators } from './asset-card'
-import { useAssetsStore } from '../../../../stores/assets-store'
-import { silenceErrors } from '../../../../test-helpers/silence-errors'
-import { locators as dataTableLocators } from '../../../../components/data-table/data-table'
+import { useAssetsStore } from '../../../../../stores/assets-store'
+import { silenceErrors } from '../../../../../test-helpers/silence-errors'
+import { locators as dataTableLocators } from '../../../../../components/data-table/data-table'
 import { vegaAccount, vegaAccountType, vegaAsset } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { mockStore } from '../../../../test-helpers/mock-store'
+import { mockStore } from '../../../../../test-helpers/mock-store'
 
 const assetId = '1'.repeat(64)
 
-jest.mock('../../../../stores/assets-store')
+jest.mock('../../../../../stores/assets-store')
 jest.mock('./markets-lozenges', () => ({
   MarketLozenges: () => <div data-testid="market-lozenges" />
 }))

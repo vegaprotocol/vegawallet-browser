@@ -39,9 +39,7 @@ jest.mock('./transaction-header', () => ({
   TransactionHeader: () => <div data-testid="transaction-header" />
 }))
 
-jest.mock('../../../stores/modal-store', () => ({
-  useModalStore: jest.fn()
-}))
+jest.mock('../../../stores/interaction-store')
 
 jest.mock('../../page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />

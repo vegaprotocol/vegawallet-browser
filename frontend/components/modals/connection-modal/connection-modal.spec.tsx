@@ -5,9 +5,7 @@ import locators from '../../locators'
 import { ConnectionSuccessProps } from './connection-success'
 import { mockStore } from '../../../test-helpers/mock-store'
 
-jest.mock('../../../stores/modal-store', () => ({
-  useModalStore: jest.fn()
-}))
+jest.mock('../../../stores/interaction-store')
 
 jest.mock('./connection-success', () => ({
   ConnectionSuccess: ({ onClose }: ConnectionSuccessProps) => (

@@ -8,7 +8,6 @@ import { KeySelector } from './key-selector'
 import { ExportPrivateKeysDialog } from './export-private-key-dialog'
 import { AssetsList } from './assets-list'
 import { AuthPage } from '../../../../components/auth-page'
-import { VegaSection } from '../../../../components/vega-section'
 
 export const locators = {
   keyDetailsDescription: 'key-details-description',

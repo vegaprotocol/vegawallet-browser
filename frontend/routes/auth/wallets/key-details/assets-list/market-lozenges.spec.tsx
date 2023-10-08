@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import { MarketLozenges, locators } from './markets-lozenges'
-import { useMarketsStore } from '../../../../stores/markets-store'
-import config from '../../../../lib/config'
-import { mockStore } from '../../../../test-helpers/mock-store'
+import { useMarketsStore } from '../../../../../stores/markets-store'
+import config from '../../../../../lib/config'
+import { mockStore } from '../../../../../test-helpers/mock-store'
 
-jest.mock('../../../../stores/markets-store')
+jest.mock('../../../../../stores/markets-store')
 
 describe('MarketLozenges', () => {
   it('renders a lozenge for each market', () => {

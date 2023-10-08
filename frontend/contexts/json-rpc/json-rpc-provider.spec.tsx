@@ -11,7 +11,7 @@ import { mockClient } from '../../test-helpers/mock-client'
 import { silenceErrors } from '../../test-helpers/silence-errors'
 import { mockStore } from '../../test-helpers/mock-store'
 
-jest.mock('../../stores/modal-store')
+jest.mock('../../stores/interaction-store')
 jest.mock('../../stores/error')
 jest.mock('../../stores/connections')
 

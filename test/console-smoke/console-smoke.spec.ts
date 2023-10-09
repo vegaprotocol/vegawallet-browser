@@ -88,11 +88,11 @@ it('check console and browser wallet integrate', async () => {
   await goToNewWindowHandle(driver, handlesBeforeOrder, handlesAfterOrder)
   if (approveTransaction) {
     await transaction.confirmTransaction()
-    await switchWindowHandles(driver, false, consoleHandle)
+    await switchWindowHandles(driver, false)
     await vegaConsole.checkTransactionSuccess()
   } else {
     await transaction.rejectTransaction()
-    await switchWindowHandles(driver, false, consoleHandle)
+    await switchWindowHandles(driver, false)
   }
   expect(await windowHandleHasCount(driver, 1)).toBe(true)
 })

@@ -4,11 +4,14 @@ import { FULL_ROUTES } from '../../route-names'
 import { Frame } from '../../../components/frame'
 import { Tick } from '../../../components/icons/tick'
 import { StarsWrapper } from '../../../components/stars-wrapper'
-import { getStartedButton } from '../../../locator-ids'
 import { VegaHeader } from '../../../components/vega-header'
 import { Disclaimer } from './disclaimer'
 import config from '!/config'
 import { Incentives } from './incentives'
+
+export const locators = {
+  getStartedButton: 'get-started-button'
+}
 
 const ITEMS = ['Securely connect to Vega dapps', 'Instantly approve and reject transactions']
 
@@ -37,7 +40,7 @@ export const GetStarted = () => {
           navigate(FULL_ROUTES.createPassword)
         }}
         type="submit"
-        data-testid={getStartedButton}
+        data-testid={locators.getStartedButton}
         variant="primary"
         fill={true}
       >

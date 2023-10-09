@@ -9,11 +9,13 @@ import {
 import * as locators from '../../../frontend/locator-ids'
 import { defaultPassword } from '../helpers/wallet/common-wallet-values'
 
+export const passphraseWarningCheckbox = 'acceptedTerms' // by id
+
 export class Password {
   private readonly createPasswordBackButton: By = getByDataTestID('create-password-back')
   private readonly passwordInput: By = getByDataTestID(locators.passphraseInput)
   private readonly confirmPasswordInput: By = getByDataTestID(locators.confirmPassphraseInput)
-  private readonly acknowledgeWarningCheckbox: By = By.id(locators.passphraseWarningCheckbox)
+  private readonly acknowledgeWarningCheckbox: By = By.id(passphraseWarningCheckbox)
   private readonly submitButton: By = getByDataTestID(locators.submitPassphraseButton)
   private readonly errorMessage: By = getByDataTestID(locators.errorMessage)
 

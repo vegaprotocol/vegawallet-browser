@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { GetStarted } from '.'
+import { GetStarted, locators } from '.'
 import componentLocators from '../../../components/locators'
-import { getStartedButton } from '../../../locator-ids'
 import { FULL_ROUTES } from '../../route-names'
 import config from '!/config'
 import { locators as disclaimerLocators } from './disclaimer'
@@ -25,11 +24,11 @@ describe('GetStarted', () => {
     render(<GetStarted />)
     expect(screen.getByText('Securely connect to Vega dapps')).toBeInTheDocument()
     expect(screen.getByText('Instantly approve and reject transactions')).toBeInTheDocument()
-    expect(screen.getByTestId(getStartedButton)).toHaveTextContent('Get Started')
+    expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('Get Started')
   })
   it('Redirects to the create password route when button is clicked', () => {
     render(<GetStarted />)
-    const button = screen.getByTestId(getStartedButton)
+    const button = screen.getByTestId(locators.getStartedButton)
     expect(button).toHaveFocus()
     fireEvent.click(button)
     expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.createPassword)
@@ -42,7 +41,7 @@ describe('GetStarted', () => {
     render(<GetStarted />)
     expect(screen.getByTestId(disclaimerLocators.readMoreButton)).toBeInTheDocument()
     expect(screen.getByTestId(disclaimerLocators.previewText)).toBeInTheDocument()
-    expect(screen.getByTestId(getStartedButton)).toHaveTextContent('I understand')
+    expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('I understand')
     fireEvent.click(screen.getByTestId(disclaimerLocators.readMoreButton))
     await screen.findByTestId(disclaimerLocators.disclaimerText)
     expect(screen.getByTestId(disclaimerLocators.disclaimerText)).toBeInTheDocument()
@@ -51,7 +50,7 @@ describe('GetStarted', () => {
     // 1101-ONBD-035 If not built for mainnet I can see a message related to testnet
     config.showDisclaimer = false
     render(<GetStarted />)
-    expect(screen.getByTestId(getStartedButton)).toHaveTextContent('Get Started')
+    expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('Get Started')
     expect(screen.getByTestId(incentivesLocators.paragraph)).toBeInTheDocument()
   })
 })

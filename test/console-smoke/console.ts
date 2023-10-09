@@ -90,7 +90,6 @@ export class Console {
     await sendKeysToElement(this.driver, this.orderPrice, orderPrice)
     await sendKeysToElement(this.driver, this.orderSize, orderSize)
     await clickElement(this.driver, this.placeOrder)
-    console.log('clicked place order')
   }
 
   async clearWelcomeDialogIfShown() {

@@ -77,7 +77,6 @@ describe('list connections tests', () => {
     await connections.checkNumConnections(2)
 
     const keys = await firstDapp.listKeys()
-    console.log(keys)
 
     await connections.disconnectConnection('https://vegaprotocol.github.io')
     await connections.checkNumConnections(1)

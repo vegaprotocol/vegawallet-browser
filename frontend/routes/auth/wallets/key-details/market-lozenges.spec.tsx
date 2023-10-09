@@ -14,7 +14,7 @@ describe('MarketLozenges', () => {
           id: '1',
           tradableInstrument: {
             instrument: {
-              name: 'BTC/USD'
+              code: 'BTC/USD'
             }
           }
         },
@@ -22,7 +22,7 @@ describe('MarketLozenges', () => {
           id: '2',
           tradableInstrument: {
             instrument: {
-              name: 'ETH/USD'
+              code: 'ETH/USD'
             }
           }
         }
@@ -41,7 +41,7 @@ describe('MarketLozenges', () => {
           id: '1',
           tradableInstrument: {
             instrument: {
-              name: 'BTC/USD'
+              code: 'BTC/USD'
             }
           }
         },
@@ -49,7 +49,7 @@ describe('MarketLozenges', () => {
           id: '2',
           tradableInstrument: {
             instrument: {
-              name: 'ETH/USD'
+              code: 'ETH/USD'
             }
           }
         },
@@ -57,7 +57,7 @@ describe('MarketLozenges', () => {
           id: '3',
           tradableInstrument: {
             instrument: {
-              name: 'BTC/ETH'
+              code: 'BTC/ETH'
             }
           }
         },
@@ -65,7 +65,7 @@ describe('MarketLozenges', () => {
           id: '4',
           tradableInstrument: {
             instrument: {
-              name: 'USD/BTC'
+              code: 'USD/BTC'
             }
           }
         },
@@ -73,7 +73,7 @@ describe('MarketLozenges', () => {
           id: '5',
           tradableInstrument: {
             instrument: {
-              name: 'ETH/BTC'
+              code: 'ETH/BTC'
             }
           }
         },
@@ -81,7 +81,7 @@ describe('MarketLozenges', () => {
           id: '6',
           tradableInstrument: {
             instrument: {
-              name: 'USD/ETH'
+              code: 'USD/ETH'
             }
           }
         }

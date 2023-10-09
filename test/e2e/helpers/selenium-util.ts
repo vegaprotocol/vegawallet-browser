@@ -1,5 +1,6 @@
 import { stat } from 'fs'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
+import { captureScreenshot } from './driver'
 
 const defaultTimeoutMillis = 10000
 
@@ -309,6 +310,13 @@ export async function windowHandleHasCount(
       `did not reach the target count! Had ${handles.length} number of handles. Expected ${targetCount}`,
       error
     )
+
+    for (let i = 0; i < handles.length; i++) {
+      const handle = handles[i]
+      const screenshotFilename = `${expect.getState().currentTestName}_${i}.png`
+      await driver.switchTo().window(handle)
+      await captureScreenshot(driver, screenshotFilename)
+    }
     return false
   }
 }

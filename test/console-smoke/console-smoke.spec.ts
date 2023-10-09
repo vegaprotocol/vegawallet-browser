@@ -96,5 +96,5 @@ it('check console and browser wallet integrate', async () => {
     await transaction.rejectTransaction()
     await switchWindowHandles(driver, false)
   }
-  expect(await windowHandleHasCount(driver, 1)).toBe(true)
+  expect(await windowHandleHasCount(driver, 2)).toBe(true)
 })

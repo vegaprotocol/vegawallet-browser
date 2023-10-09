@@ -70,7 +70,7 @@ describe('ExportPrivateKeyForm', () => {
     expect(onClose).not.toHaveBeenCalled()
   })
 
-  it.only('calls onClose when close button is clicked', async () => {
+  it('calls onClose when close button is clicked', async () => {
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockReturnValue({ privateKey: '0x123' })
     })

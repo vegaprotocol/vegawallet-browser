@@ -4,12 +4,17 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FormGroup, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../../lib/form-validation'
-import { importMnemonic, importMnemonicDescription, importMnemonicSubmit } from '../../../locator-ids'
 import { FULL_ROUTES } from '../../route-names'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { createWallet } from '../../../lib/create-wallet'
 import { WalletImported } from './wallet-imported'
 import { LoadingButton } from '../../../components/loading-button'
+
+export const locators = {
+  importMnemonic: 'import-mnemonic',
+  importMnemonicSubmit: 'import-mnemonic-submit',
+  importMnemonicDescription: 'import-mnemonic-description'
+}
 
 interface FormFields {
   mnemonic: string
@@ -53,14 +58,14 @@ export const ImportWallet = () => {
   return (
     <Page name="Import wallet" backLocation={FULL_ROUTES.createWallet}>
       <div>
-        <p data-testid={importMnemonicDescription} className="mb-6">
+        <p data-testid={locators.importMnemonicDescription} className="mb-6">
           Enter or paste in your Vega wallet's recovery phrase.
         </p>
         <form onSubmit={handleSubmit(submit)}>
           <FormGroup label="" labelFor="mnemonic" className="mb-6">
             <TextArea
               autoFocus
-              data-testid={importMnemonic}
+              data-testid={locators.importMnemonic}
               hasError={!!errors.mnemonic?.message}
               placeholder="24 word recovery phrase"
               {...register('mnemonic', {
@@ -73,7 +78,7 @@ export const ImportWallet = () => {
             {errors.mnemonic?.message && <InputError forInput="mnemonic">{errors.mnemonic.message}</InputError>}
           </FormGroup>
           <LoadingButton
-            data-testid={importMnemonicSubmit}
+            data-testid={locators.importMnemonicSubmit}
             fill={true}
             className="mt-2"
             variant="primary"

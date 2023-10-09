@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { ImportWallet } from '.'
-import { importMnemonic, importMnemonicDescription, importMnemonicSubmit } from '../../../locator-ids'
+import { ImportWallet, locators } from '.'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { FULL_ROUTES } from '../../route-names'
@@ -33,13 +32,13 @@ describe('ImportWallet', () => {
     // 1101-ONBD-026 I can see an explanation of what I am being asked to do
     mockClient()
     renderComponent()
-    expect(screen.getByTestId(importMnemonicDescription)).toHaveTextContent(
+    expect(screen.getByTestId(locators.importMnemonicDescription)).toHaveTextContent(
       "Enter or paste in your Vega wallet's recovery phrase."
     )
-    expect(screen.getByTestId(importMnemonicDescription)).toBeVisible()
-    expect(screen.getByTestId(importMnemonic)).toBeInTheDocument()
-    expect(screen.getByTestId(importMnemonic)).toHaveFocus()
-    expect(screen.getByTestId(importMnemonicSubmit)).toHaveTextContent('Import wallet')
+    expect(screen.getByTestId(locators.importMnemonicDescription)).toBeVisible()
+    expect(screen.getByTestId(locators.importMnemonic)).toBeInTheDocument()
+    expect(screen.getByTestId(locators.importMnemonic)).toHaveFocus()
+    expect(screen.getByTestId(locators.importMnemonicSubmit)).toHaveTextContent('Import wallet')
   })
 
   it('renders loading state while wallet is being imported', async () => {
@@ -47,35 +46,35 @@ describe('ImportWallet', () => {
     mockClient()
     renderComponent()
 
-    expect(screen.getByTestId(importMnemonicDescription)).toHaveTextContent(
+    expect(screen.getByTestId(locators.importMnemonicDescription)).toHaveTextContent(
       "Enter or paste in your Vega wallet's recovery phrase."
     )
-    fireEvent.change(screen.getByTestId(importMnemonic), {
+    fireEvent.change(screen.getByTestId(locators.importMnemonic), {
       target: {
         value:
           'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
       }
     })
-    fireEvent.click(screen.getByTestId(importMnemonicSubmit))
+    fireEvent.click(screen.getByTestId(locators.importMnemonicSubmit))
 
-    await waitFor(() => expect(screen.getByTestId(importMnemonicSubmit)).toHaveTextContent('Importing…'))
-    expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
+    await waitFor(() => expect(screen.getByTestId(locators.importMnemonicSubmit)).toHaveTextContent('Importing…'))
+    expect(screen.getByTestId(locators.importMnemonicSubmit)).toBeDisabled()
   })
 
   it('after successfully importing a wallet it redirects to wallets page', async () => {
     mockClient()
     renderComponent()
 
-    expect(screen.getByTestId(importMnemonicDescription)).toHaveTextContent(
+    expect(screen.getByTestId(locators.importMnemonicDescription)).toHaveTextContent(
       "Enter or paste in your Vega wallet's recovery phrase."
     )
-    fireEvent.change(screen.getByTestId(importMnemonic), {
+    fireEvent.change(screen.getByTestId(locators.importMnemonic), {
       target: {
         value:
           'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
       }
     })
-    fireEvent.click(screen.getByTestId(importMnemonicSubmit))
+    fireEvent.click(screen.getByTestId(locators.importMnemonicSubmit))
 
     // Needs longer timeout as this shows for 1 full second
     await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.telemetry), { timeout: 1200 })
@@ -87,17 +86,17 @@ describe('ImportWallet', () => {
     const twentyThreeWords =
       'one two three four five six seven eight nine ten eleven twelve thirteen fouteen fifteen sixteen seventeen eighteen ninteen twenty twenty-one twenty-two twenty-three'
     renderComponent()
-    fireEvent.change(screen.getByTestId(importMnemonic), {
+    fireEvent.change(screen.getByTestId(locators.importMnemonic), {
       target: { value: twentyThreeWords }
     })
     const errorMessage = await screen.findByText('Recovery phrase must be 24 words')
     expect(errorMessage).toBeVisible()
-    expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
-    fireEvent.change(screen.getByTestId(importMnemonic), {
+    expect(screen.getByTestId(locators.importMnemonicSubmit)).toBeDisabled()
+    fireEvent.change(screen.getByTestId(locators.importMnemonic), {
       target: { value: twentyThreeWords + ' twentyfour' }
     })
 
-    await waitFor(() => expect(screen.getByTestId(importMnemonicSubmit)).not.toBeDisabled())
+    await waitFor(() => expect(screen.getByTestId(locators.importMnemonicSubmit)).not.toBeDisabled())
   })
 
   it('renders error message if recovery phrase is invalid', async () => {
@@ -133,13 +132,13 @@ describe('ImportWallet', () => {
       }
     }
     renderComponent()
-    fireEvent.change(screen.getByTestId(importMnemonic), {
+    fireEvent.change(screen.getByTestId(locators.importMnemonic), {
       target: {
         value: validRecoveryPhrase.slice(0, -1)
       }
     })
-    fireEvent.click(screen.getByTestId(importMnemonicSubmit))
+    fireEvent.click(screen.getByTestId(locators.importMnemonicSubmit))
     await screen.findByText('Error: Invalid recovery phrase')
-    expect(screen.getByTestId(importMnemonicSubmit)).toBeDisabled()
+    expect(screen.getByTestId(locators.importMnemonicSubmit)).toBeDisabled()
   })
 })

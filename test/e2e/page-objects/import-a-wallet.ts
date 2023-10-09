@@ -7,13 +7,14 @@ import {
   isElementDisplayed,
   sendKeysToElement
 } from '../helpers/selenium-util'
-import { errorMessage, importMnemonic, importMnemonicSubmit } from '../../../frontend/locator-ids'
 import { locators } from '../../../frontend/routes/onboarding/import-wallet/wallet-imported'
+import { locators as importWalletLocators } from '../../../frontend/routes/onboarding/import-wallet'
+import componentLocators from '../../../frontend/components/locators'
 
 export class ImportAWallet {
-  private readonly recoveryPhraseField: By = getByDataTestID(importMnemonic)
-  private readonly errorText: By = getByDataTestID(errorMessage)
-  private readonly recoveryPhraseSubmitButton: By = getByDataTestID(importMnemonicSubmit)
+  private readonly recoveryPhraseField: By = getByDataTestID(importWalletLocators.importMnemonic)
+  private readonly errorText: By = getByDataTestID(componentLocators.errorMessage)
+  private readonly recoveryPhraseSubmitButton: By = getByDataTestID(importWalletLocators.importMnemonicSubmit)
   private readonly walletImportedSuccess: By = getByDataTestID(locators.walletImported)
 
   constructor(private readonly driver: WebDriver) {}

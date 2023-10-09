@@ -10,6 +10,7 @@ import { LoadingButton } from '../../components/loading-button'
 import { VegaHeader } from '../../components/vega-header'
 import { useGlobalsStore } from '../../stores/globals'
 import { REJECTION_ERROR_MESSAGE } from '../../lib/utils'
+import { captureException } from '@sentry/browser'
 
 export const locators = {
   loginPassphrase: 'login-passphrase',
@@ -46,6 +47,7 @@ export const Login = () => {
         setError('passphrase', { message: 'Incorrect passphrase' })
       } else {
         setError('passphrase', { message: `Unknown error occurred ${e}` })
+        captureException(e)
       }
     } finally {
       setLoading(false)

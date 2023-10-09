@@ -7,6 +7,7 @@ import { RpcMethods } from '../../../../../lib/client-rpc-methods'
 import { Validation } from '../../../../../lib/form-validation'
 import { REJECTION_ERROR_MESSAGE } from '../../../../../lib/utils'
 import { FormFields } from './export-private-key-dialog'
+import { captureException } from '@sentry/browser'
 
 export const locators = {
   privateKeyModalPassphrase: 'private-key-modal-passphrase',
@@ -34,7 +35,6 @@ export const ExportPrivateKeyForm = ({
   const passphrase = useWatch({ control, name: 'passphrase' })
 
   const exportPrivateKey = async ({ passphrase }: { passphrase: string }) => {
-    // TODO handle errors
     try {
       setLoading(true)
       const { privateKey } = await request(RpcMethods.ExportPrivateKey, { passphrase }, true)
@@ -44,6 +44,7 @@ export const ExportPrivateKeyForm = ({
         setError('passphrase', { message: 'Incorrect passphrase' })
       } else {
         setError('passphrase', { message: `Unknown error occurred ${e}` })
+        captureException(e)
       }
     } finally {
       setLoading(false)

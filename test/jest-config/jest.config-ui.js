@@ -17,7 +17,7 @@ let overrides = {
   coverageReporters: ['html', 'lcov'],
   coverageThreshold: {
     global: {
-      branches: 95,
+      branches: 97.5,
       functions: 99.5,
       lines: 100,
       statements: 100

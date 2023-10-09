@@ -8,15 +8,15 @@ describe('AmountWithSymbol', () => {
 
     render(<AmountWithSymbol amount={price} symbol={symbol} />)
 
-    const priceElement = screen.getByTestId(locators.price)
+    const priceElement = screen.getByTestId(locators.amount)
     const symbolElement = screen.getByTestId(locators.symbol)
-    const priceWithSymbolElement = screen.getByTestId(locators.priceWithSymbol)
+    const priceWithSymbolElement = screen.getByTestId(locators.amountWithSymbol)
 
     expect(priceElement).toHaveTextContent(price.toString())
     expect(symbolElement).toHaveTextContent(symbol)
     expect(priceWithSymbolElement).toContainElement(priceElement)
     expect(priceWithSymbolElement).toContainElement(symbolElement)
-    expect(screen.getByTestId(locators.priceWithSymbol)).toHaveTextContent('9.99 USD')
+    expect(screen.getByTestId(locators.amountWithSymbol)).toHaveTextContent('9.99 USD')
   })
   it('does not render symbol when it is not passed in', () => {
     const price = 9.99

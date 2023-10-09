@@ -8,15 +8,16 @@ import {
 } from '../helpers/selenium-util'
 import * as locators from '../../../frontend/locator-ids'
 import { defaultPassword } from '../helpers/wallet/common-wallet-values'
+import { locators as createPasswordLocators } from '../../../frontend/routes/onboarding/create-password'
 
 export const passphraseWarningCheckbox = 'acceptedTerms' // by id
 
 export class Password {
   private readonly createPasswordBackButton: By = getByDataTestID('create-password-back')
-  private readonly passwordInput: By = getByDataTestID(locators.passphraseInput)
-  private readonly confirmPasswordInput: By = getByDataTestID(locators.confirmPassphraseInput)
+  private readonly passwordInput: By = getByDataTestID(createPasswordLocators.passphraseInput)
+  private readonly confirmPasswordInput: By = getByDataTestID(createPasswordLocators.confirmPassphraseInput)
   private readonly acknowledgeWarningCheckbox: By = By.id(passphraseWarningCheckbox)
-  private readonly submitButton: By = getByDataTestID(locators.submitPassphraseButton)
+  private readonly submitButton: By = getByDataTestID(createPasswordLocators.submitPassphraseButton)
   private readonly errorMessage: By = getByDataTestID(locators.errorMessage)
 
   constructor(private readonly driver: WebDriver) {}

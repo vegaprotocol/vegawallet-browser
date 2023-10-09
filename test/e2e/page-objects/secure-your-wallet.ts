@@ -11,6 +11,8 @@ import componentLocators from '../../../frontend/components/locators'
 import * as walletCreated from '../../../frontend/routes/onboarding/save-mnemonic/wallet-created'
 import { locators as mnemonicForm } from '../../../frontend/routes/onboarding/save-mnemonic/save-mnemonic-form'
 
+export const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
+
 export class SecureYourWallet {
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)
   private readonly hideRecoveryPhraseButton: By = getByDataTestID(componentLocators.hideIcon)
@@ -18,7 +20,7 @@ export class SecureYourWallet {
   private readonly recoveryPhraseText: By = getByDataTestID(componentLocators.mnemonicContainerMnemonic)
   private readonly secureYourWalletPage: By = getByDataTestID(locators.secureYourWalletPage)
   private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(componentLocators.copyWithCheck)
-  private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(locators.recoveryPhraseWarningCheckbox)
+  private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(recoveryPhraseWarningCheckbox)
   private readonly secureWalletContinueButton: By = getByDataTestID(mnemonicForm.saveMnemonicButton)
   private readonly walletCreatedIcon: By = getByDataTestID(walletCreated.locators.walletCreated)
 

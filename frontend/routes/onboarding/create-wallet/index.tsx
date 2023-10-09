@@ -2,7 +2,11 @@ import { Button } from '@vegaprotocol/ui-toolkit'
 import { Wallet } from '../../../components/icons/wallet'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
-import { createNewWalletButton, importWalletButton } from '../../../locator-ids'
+
+export const locators = {
+  createNewWalletButton: 'create-new-wallet',
+  importWalletButton: 'import-wallet'
+}
 
 export const CreateWallet = () => {
   const navigate = useNavigate()
@@ -14,7 +18,7 @@ export const CreateWallet = () => {
       <h1 className="text-2xl text-white pb-6">Create a wallet</h1>
       <Button
         autoFocus
-        data-testid={createNewWalletButton}
+        data-testid={locators.createNewWalletButton}
         onClick={() => {
           navigate(FULL_ROUTES.saveMnemonic)
         }}
@@ -24,7 +28,7 @@ export const CreateWallet = () => {
         Create a wallet
       </Button>
       <Button
-        data-testid={importWalletButton}
+        data-testid={locators.importWalletButton}
         onClick={() => {
           navigate(FULL_ROUTES.importWallet)
         }}

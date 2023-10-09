@@ -52,7 +52,7 @@ export const ExportPrivateKeyForm = ({ onSuccess, onClose }: ExportPrivateKeyFor
   return (
     <>
       <Notification
-        message="Warning: Never disclose this key. Exposing this key will give anyone who has it access to all assets in your account."
+        message="Warning: Never share this key. Anyone who has access to this key will have access to your assets."
         intent={Intent.Danger}
         data-testid={locators.privateKeyDescription}
       />

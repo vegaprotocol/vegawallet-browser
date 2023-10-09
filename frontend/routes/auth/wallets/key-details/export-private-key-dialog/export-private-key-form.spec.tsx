@@ -7,6 +7,8 @@ jest.mock('../../../../../contexts/json-rpc/json-rpc-context')
 
 describe('ExportPrivateKeyForm', () => {
   it('renders notification, passphrase input, export and close buttons', () => {
+    // 1128-EXPT-001 - I can see a notifications warning me about exporting my private keys
+    // 1128-EXPT-002 - There is a close button on the modal
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockReturnValue({ privateKey: '0x123' })
     })

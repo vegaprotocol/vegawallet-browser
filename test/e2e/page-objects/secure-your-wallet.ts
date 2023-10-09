@@ -6,19 +6,19 @@ import {
   isElementDisplayed,
   isElementEnabled
 } from '../helpers/selenium-util'
-import * as locators from '../../../frontend/locator-ids'
 import componentLocators from '../../../frontend/components/locators'
 import * as walletCreated from '../../../frontend/routes/onboarding/save-mnemonic/wallet-created'
 import { locators as mnemonicForm } from '../../../frontend/routes/onboarding/save-mnemonic/save-mnemonic-form'
 
-export const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
+const recoveryPhraseWarningCheckbox = 'acceptedTerms' // by id
+const secureYourWalletPage = 'secure-your-wallet'
 
 export class SecureYourWallet {
   private readonly revealRecoveryPhraseButton: By = getByDataTestID(componentLocators.mnemonicContainerHidden)
   private readonly hideRecoveryPhraseButton: By = getByDataTestID(componentLocators.hideIcon)
   private readonly recoveryPhraseElement: By = getByDataTestID(componentLocators.mnemonicContainerShown)
   private readonly recoveryPhraseText: By = getByDataTestID(componentLocators.mnemonicContainerMnemonic)
-  private readonly secureYourWalletPage: By = getByDataTestID(locators.secureYourWalletPage)
+  private readonly secureYourWalletPage: By = getByDataTestID(secureYourWalletPage)
   private readonly copyRecoveryPhraseToClipboardButton: By = getByDataTestID(componentLocators.copyWithCheck)
   private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(recoveryPhraseWarningCheckbox)
   private readonly secureWalletContinueButton: By = getByDataTestID(mnemonicForm.saveMnemonicButton)

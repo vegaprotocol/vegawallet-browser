@@ -122,7 +122,12 @@ export async function getElements(driver: WebDriver, childElementLocator: By, ti
   return await driver.findElements(childElementLocator)
 }
 
-export async function sendKeysToElement(driver: WebDriver, locator: By, text: string, clearField = true): Promise<void> {
+export async function sendKeysToElement(
+  driver: WebDriver,
+  locator: By,
+  text: string,
+  clearField = true
+): Promise<void> {
   if (clearField) {
     await clearTextField(driver, locator)
   }
@@ -299,7 +304,11 @@ export async function windowHandleHasCount(
 
     return true
   } catch (error) {
-    console.log('did not reach the target count!', error)
+    const handles = await driver.getAllWindowHandles()
+    console.log(
+      `did not reach the target count! Had ${handles.length} number of handles. Expected ${targetCount}`,
+      error
+    )
     return false
   }
 }

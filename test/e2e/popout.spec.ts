@@ -93,7 +93,7 @@ describe('check popout functionality', () => {
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
 
-    await switchWindowHandles(driver, false, dappHandle)
+    await switchWindowHandles(driver, false)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 

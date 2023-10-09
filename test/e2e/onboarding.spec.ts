@@ -106,9 +106,7 @@ describe('Onboarding', () => {
   })
 
   it('recovery phrase can be revealed and hidden, cannot continue without revealing and acknowledging warning', async () => {
-    // 1101-ONBD-016 - I am provided with a recovery phrase for my new wallet that is initially hidden from view
-    // 1101-ONBD-018 - I can choose when to reveal/show the recovery phrase
-    // 1101-ONBD-019 - I can copy the recovery phrase into my clipboard
+    // 1101-ONBD-016 - My recovery phrase is rendered in a hidden container
     await password.createPassword()
     await createAWallet.createNewWallet()
     expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)

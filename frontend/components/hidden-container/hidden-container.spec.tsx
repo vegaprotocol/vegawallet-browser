@@ -11,7 +11,8 @@ const renderComponent = (props: HiddenContainerProps) => {
 }
 
 describe('HiddenContainer', () => {
-  it('displays the mnemonic when the "Reveal" button is clicked', () => {
+  it('is hidden initially and displays the mnemonic when the "Reveal" button is clicked', () => {
+    // 1129-HDCN-001 - I am provided with a private information that is initially hidden from view
     const hiddenInformation = 'test mnemonic'
     renderComponent({
       hiddenInformation,
@@ -24,6 +25,7 @@ describe('HiddenContainer', () => {
   })
 
   it('hides the mnemonic when the "Hide" button is clicked', () => {
+    // 1129-HDCN-002 - I can choose when to reveal/show the information
     const hiddenInformation = 'test mnemonic'
     renderComponent({
       hiddenInformation,
@@ -38,6 +40,7 @@ describe('HiddenContainer', () => {
   })
 
   it('renders a copy button', async () => {
+    // 1129-HDCN-003 - I can copy the information into my clipboard
     const hiddenInformation = 'test mnemonic'
     renderComponent({
       hiddenInformation,

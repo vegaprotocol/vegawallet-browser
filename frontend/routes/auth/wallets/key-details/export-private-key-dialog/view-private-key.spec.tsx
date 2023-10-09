@@ -7,6 +7,7 @@ jest.mock('../../../../../components/hidden-container', () => ({
 
 describe('ViewPrivateKey', () => {
   it('renders hidden information container and close button', () => {
+    // 1128-EXPT-005 - If I enter the correct passphrase then I see the reveal hidden information component and a button to close the modal
     render(<ViewPrivateKey onClose={jest.fn()} privateKey="0x1" />)
     expect(screen.getByTestId('hidden-container')).toBeInTheDocument()
     expect(screen.getByTestId(locators.viewPrivateKeyClose)).toBeInTheDocument()

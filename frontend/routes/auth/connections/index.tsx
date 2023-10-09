@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { useConnectionStore } from '../../../stores/connections'
 import { AuthPage } from '../../../components/auth-page'
+import config from '!/config'
 
 export const locators = {
   connectionInstructions: 'connection-instructions',
@@ -44,7 +45,7 @@ export const Connections = () => {
             <ExternalLink
               data-testid={locators.connectionInstructionsLink}
               className="underline"
-              href="https://vega.xyz/use"
+              href={config.network.vegaDapps}
             >
               <span>Vega dapp?</span>
             </ExternalLink>{' '}

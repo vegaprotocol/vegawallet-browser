@@ -5,6 +5,7 @@ import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { ConnectionsStore, useConnectionStore } from '../../../stores/connections'
 import { locators as connectionListLocators } from './connection-list'
 import { locators as noConnectionsLocators } from './no-dapps-connected'
+import config from '!/config'
 
 const renderComponent = () =>
   render(
@@ -35,13 +36,13 @@ describe('Connections', () => {
       'These dapps have access to your public keys and permission to send transaction requests.'
     )
     // 1109-VCON-003 I can see instructions how to connect to a Vega dapp
-    // 1109-VCON-004 There is a way to see the dapps I could connect with (e.g. a link to https://vega.xyz/use)
+    // 1109-VCON-004 There is a way to see the dapps I could connect with (e.g. a link to https://vega.xyz/apps)
     expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toHaveTextContent(
       'Trying to connect to a Vega dapp? Look for the "Connect Wallet" button and press it to create a connection.'
     )
     expect(screen.getByTestId(connectionsLocators.connectionInstructionsLink)).toHaveAttribute(
       'href',
-      'https://vega.xyz/use'
+      config.network.vegaDapps
     )
   })
   it('renders empty state with instructions on how to connect', async () => {

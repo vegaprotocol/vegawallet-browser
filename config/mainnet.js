@@ -13,7 +13,7 @@ const mainnet = {
     ethereumExplorerLink: 'https://etherscan.io',
     explorer: 'https://explorer.vega.xyz',
     governance: 'https://governance.vega.xyz',
-    vegaDapps: 'https://vega.xyz/use',
+    vegaDapps: 'https://vega.xyz/apps',
     docs: 'https://docs.vega.xyz/mainnet'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',

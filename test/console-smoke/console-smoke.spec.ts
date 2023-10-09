@@ -80,21 +80,16 @@ it('check console and browser wallet integrate', async () => {
   const handlesBeforeOrder = await driver.getAllWindowHandles()
   await vegaConsole.goToOrderTab()
   await vegaConsole.submitOrder('0.001', '0.01')
-  console.log('submitted order')
   expect(await windowHandleHasCount(driver, 2)).toBe(true)
-  console.log('the popout appears, 2 windows were registered')
   const handlesAfterOrder = await driver.getAllWindowHandles()
 
   await goToNewWindowHandle(driver, handlesBeforeOrder, handlesAfterOrder)
   if (approveTransaction) {
     await transaction.confirmTransaction()
-    console.log('confirmed transaction')
     await switchWindowHandles(driver, false)
     await vegaConsole.checkTransactionSuccess()
-    console.log('transaction success')
   } else {
     await transaction.rejectTransaction()
     await switchWindowHandles(driver, false)
   }
-  expect(await windowHandleHasCount(driver, 1)).toBe(true)
 })

@@ -39,9 +39,8 @@ describe('check popout functionality', () => {
   it('connect request opens in popout and can be approved when extension not already open', async () => {
     // 1113-POPT-001 The browser wallet opens in a pop-up window when there is a connection request
     // 1113-POPT-003 If I approve the connection the pop-up window closes
-    await sendConnectionRequestAndCheckPopoutWindowHandlePresent()
-
-    await openLatestWindowHandle(driver)
+    const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
+    await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
@@ -53,9 +52,8 @@ describe('check popout functionality', () => {
 
   it('connection request persists when popout dismissed', async () => {
     // 1113-POPT-002 If I close the pop-up window the connection persists
-    await sendConnectionRequestAndCheckPopoutWindowHandlePresent()
-
-    await openLatestWindowHandle(driver)
+    const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
+    await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await driver.close()
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
@@ -67,8 +65,8 @@ describe('check popout functionality', () => {
 
   it('connect request opens in popout and can be denied when extension not already open', async () => {
     // 1113-POPT-004 If I reject the connection the pop-up window closes
-    await sendConnectionRequestAndCheckPopoutWindowHandlePresent()
-    await openLatestWindowHandle(driver)
+    const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
+    await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
@@ -77,8 +75,7 @@ describe('check popout functionality', () => {
 
   it('transaction request persists when popout dismissed without response', async () => {
     // 1113-POPT-006 If I close the pop-up window the transaction persists
-    const handlesBeforeTransaction = await driver.getAllWindowHandles()
-    const handlesAfterTransaction = await sendTransactionAndGetWindowHandles()
+    const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
     expect(await windowHandleHasCount(driver, 3)).toBe(true)
@@ -91,8 +88,7 @@ describe('check popout functionality', () => {
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
     // 1113-POPT-005 The browser wallet opens in a pop-up window when there is a transaction request
     // 1113-POPT-007 If I approve the transaction the pop-up window closes
-    const handlesBeforeTransaction = await driver.getAllWindowHandles()
-    const handlesAfterTransaction = await sendTransactionAndGetWindowHandles()
+    const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
@@ -103,8 +99,7 @@ describe('check popout functionality', () => {
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {
     // 1113-POPT-008 If I reject the transaction the pop-up window closes
-    const handlesBeforeTransaction = await driver.getAllWindowHandles()
-    const handlesAfterTransaction = await sendTransactionAndGetWindowHandles()
+    const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
@@ -114,9 +109,7 @@ describe('check popout functionality', () => {
   })
 
   async function sendTransactionAndGetWindowHandles() {
-    const handlesBeforeConnect = await driver.getAllWindowHandles()
-    await sendConnectionRequestAndCheckPopoutWindowHandlePresent()
-    const handlesAfterConnect = await driver.getAllWindowHandles()
+    const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
@@ -124,19 +117,25 @@ describe('check popout functionality', () => {
     const keys = await vegaAPI.listKeys(false, false)
     const handles = await driver.getAllWindowHandles()
     expect(handles.length).toBe(2)
+    const handlesBeforeTransaction = await driver.getAllWindowHandles()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction }, false, false)
     expect(await windowHandleHasCount(driver, 3)).toBe(true)
-    return await driver.getAllWindowHandles()
+    const handlesAfterTransaction = await driver.getAllWindowHandles()
+    return { handlesBeforeTransaction, handlesAfterTransaction }
   }
 
-  async function sendConnectionRequestAndCheckPopoutWindowHandlePresent() {
+  async function sendConnectionRequestAndReturnHandles() {
     dappHandle = await createDappWindowHandle()
     await driver.get('http://google.co.uk')
     await switchWindowHandles(driver, false, dappHandle)
 
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    const handlesBeforeConnect = await driver.getAllWindowHandles()
     await vegaAPI.connectWallet(false, false)
     expect(await windowHandleHasCount(driver, 3)).toBe(true)
+    const handlesAfterConnect = await driver.getAllWindowHandles()
+
+    return { handlesBeforeConnect, handlesAfterConnect }
   }
 
   async function createDappWindowHandle() {

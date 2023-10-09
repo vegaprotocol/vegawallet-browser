@@ -15,7 +15,7 @@ describe('ExportPrivateKeyForm', () => {
     render(<ExportPrivateKeyForm onSuccess={jest.fn()} onClose={jest.fn()} />)
 
     expect(screen.getByTestId('notification')).toHaveTextContent(
-      'Warning: Never disclose this key. Exposing this key will give anyone who has it access to all assets in your account.'
+      'Warning: Never share this key. Anyone who has access to this key will have access to your assets.'
     )
     expect(screen.getByTestId(locators.privateKeyModalPassphrase)).toBeInTheDocument()
     expect(screen.getByTestId(locators.privateKeyModalSubmit)).toBeInTheDocument()

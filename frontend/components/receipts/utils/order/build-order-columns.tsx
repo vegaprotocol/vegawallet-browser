@@ -59,8 +59,7 @@ export const buildSizeColumn = (
   marketsLoading: boolean,
   size?: string,
   marketId?: string,
-  formattedSize?: string,
-  symbol?: string
+  formattedSize?: string
 ): [ReactNode, ReactNode] | null => {
   if (!size || !marketId) return null
   return [
@@ -71,7 +70,6 @@ export const buildSizeColumn = (
       size={size}
       marketId={marketId}
       formattedSize={formattedSize}
-      symbol={symbol}
     />
   ]
 }

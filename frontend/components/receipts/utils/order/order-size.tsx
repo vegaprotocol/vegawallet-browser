@@ -5,18 +5,16 @@ export const OrderSizeComponent = ({
   marketsLoading,
   size,
   marketId,
-  formattedSize,
-  symbol
+  formattedSize
 }: {
   marketsLoading: boolean
   size: string
   marketId: string
   formattedSize: string | undefined
-  symbol: string | undefined
 }) => {
-  if (marketsLoading || !formattedSize || !symbol) {
+  if (marketsLoading || !formattedSize) {
     return <SizeWithTooltip key="order-details-size" marketId={marketId} size={size} />
   }
 
-  return <AmountWithSymbol amount={formattedSize} symbol={symbol} />
+  return <AmountWithSymbol amount={formattedSize} />
 }

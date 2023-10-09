@@ -66,7 +66,7 @@ export const OrderTable = ({
   const columns = [
     buildPriceColumn(shouldDisplayPrice(price, type), assetsLoading, price, marketId, formattedPrice, symbol, type),
     buildPeggedOrderColumn(marketsLoading, peggedOrder, marketId, market, symbol),
-    buildSizeColumn(marketsLoading, size, marketId, formattedSize, symbol),
+    buildSizeColumn(marketsLoading, size, marketId, formattedSize),
     buildMarketColumn(marketsLoading, marketId, market),
     buildOrderColumn(orderId),
     buildDirectionColumn(direction),

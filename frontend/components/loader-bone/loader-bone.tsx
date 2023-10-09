@@ -20,7 +20,6 @@ export const LoaderBone = ({ width, height, baseSize = 1 }: { width: number; hei
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log('redner')
       forceRender((x) => !x)
     }, 100)
 

@@ -43,9 +43,9 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
 
     await switchWindowHandles(driver, false)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
     await navigateToExtensionLandingPage(driver)
     expect((await apiHelper.listConnections()).length).toBe(1)
   })
@@ -69,8 +69,8 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
+    await switchWindowHandles(driver, false)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
-    await switchWindowHandles(driver, false, dappHandle)
   })
 
   it('transaction request persists when popout dismissed without response', async () => {
@@ -81,7 +81,7 @@ describe('check popout functionality', () => {
     expect(await windowHandleHasCount(driver, 3)).toBe(true)
     await driver.close()
 
-    await switchWindowHandles(driver, false, dappHandle)
+    await switchWindowHandles(driver, false)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
@@ -114,6 +114,7 @@ describe('check popout functionality', () => {
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
 
+    await switchWindowHandles(driver, false)
     const keys = await vegaAPI.listKeys(false, false)
     const handles = await driver.getAllWindowHandles()
     expect(handles.length).toBe(2)
@@ -134,7 +135,6 @@ describe('check popout functionality', () => {
     await vegaAPI.connectWallet(false, false)
     expect(await windowHandleHasCount(driver, 3)).toBe(true)
     const handlesAfterConnect = await driver.getAllWindowHandles()
-
     return { handlesBeforeConnect, handlesAfterConnect }
   }
 

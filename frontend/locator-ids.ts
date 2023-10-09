@@ -1,8 +1,3 @@
-/* We could potentially group a file like this with its corresponding html so for each page we have a corresponding locators file the tests and pages can consume? For now
- this is just a generic locators.ts, this should at least ensure that naming related changes to elements will not require any test maintenance */
-export const saveMnemonicDescription = 'save-mnemonic-description'
-export const secureYourWalletPage = 'secure-your-wallet'
-
 export const networkIndicator = 'network-indicator'
 export const revealRecoveryPhraseButton = 'reveal-recovery-phrase'
 export const copyRecoveryPhraseToClipboardButton = 'copy-recovery-phrase'

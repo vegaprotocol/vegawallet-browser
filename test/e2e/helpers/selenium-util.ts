@@ -311,9 +311,8 @@ export async function windowHandleHasCount(
       error
     )
 
-    for (let i = 0; i < handles.length; i++) {
-      const handle = handles[i]
-      const screenshotFilename = `${expect.getState().currentTestName}_${i}.png`
+    for (const handle of await driver.getAllWindowHandles()) {
+      const screenshotFilename = `${expect.getState().currentTestName}_${handle}`
       await driver.switchTo().window(handle)
       await captureScreenshot(driver, screenshotFilename)
     }

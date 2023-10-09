@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { LoaderBone, locators } from '.'
 
 describe('LoaderBone', () => {
@@ -17,19 +17,24 @@ describe('LoaderBone', () => {
     expect(screen.getAllByTestId(locators.boneSquare)).toHaveLength(4)
   })
 
-  it('should change which squares are visible on rerender', () => {
+  it('should change which squares are visible on rerender', async () => {
     render(<LoaderBone width={10} height={10} />)
     {
       const squares = screen.getAllByTestId(locators.boneSquare)
       const visibleSquares = squares.filter((square) => square.style.opacity === '1')
       expect(visibleSquares).toHaveLength(33)
     }
+
     jest.advanceTimersByTime(100)
+    await waitFor(() => {
+      const squares = screen.getAllByTestId(locators.boneSquare)
+      const visibleSquares = squares.filter((square) => square.style.opacity === '1')
+      return expect(visibleSquares).not.toHaveLength(33)
+    })
     {
       const squares = screen.getAllByTestId(locators.boneSquare)
       const visibleSquares = squares.filter((square) => square.style.opacity === '1')
-      expect(visibleSquares).toHaveLength(0)
+      expect(visibleSquares).toHaveLength(26)
     }
-    expect(screen.getAllByTestId(locators.boneSquare)).toHaveLength(4)
   })
 })

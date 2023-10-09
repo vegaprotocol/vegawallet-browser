@@ -5,7 +5,12 @@ export const locators = {
   viewPrivateKeyClose: 'view-private-key-close'
 }
 
-export const ViewPrivateKey = ({ privateKey, onClose }: { onClose: () => void; privateKey: string }) => {
+export interface ViewPrivateKeyProps {
+  onClose: () => void
+  privateKey: string
+}
+
+export const ViewPrivateKey = ({ privateKey, onClose }: ViewPrivateKeyProps) => {
   return (
     <>
       <HiddenContainer text="Reveal private key" hiddenInformation={privateKey} />

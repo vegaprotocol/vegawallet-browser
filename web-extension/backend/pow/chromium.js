@@ -9,6 +9,7 @@ export default async function initChrome() {
 
   const OFFSCREEN_DOCUMENT_URL = runtime.getURL('chrome-pow.html')
 
+  /* istanbul ignore next */
   const client = new JSONRPCClient({
     idPrefix: 'chrome-pow-',
     async send(req) {
@@ -25,6 +26,7 @@ export default async function initChrome() {
     }
   })
 
+  /* istanbul ignore next */
   runtime.onMessage.addListener(function listener(message, sender) {
     // ensure sender.id is the same as this extension id
     if (sender.id !== chrome.runtime.id) return
@@ -33,7 +35,6 @@ export default async function initChrome() {
     if (sender.url !== OFFSCREEN_DOCUMENT_URL) return
 
     if (message.target !== 'offscreen') return
-
 
     client.onmessage(message.data)
   })
@@ -46,6 +47,7 @@ export default async function initChrome() {
     return sol
   }
 
+  /* istanbul ignore next */
   async function ensureOffscreenDocument() {
     // Is the page still alive?
     if (await hasDocument()) return
@@ -64,10 +66,9 @@ export default async function initChrome() {
     offscreenDocumentPending = null
   }
 
+  /* istanbul ignore next */
   async function hasDocument() {
     const allClients = await globalThis.clients.matchAll()
     return allClients.some((client) => client.url === OFFSCREEN_DOCUMENT_URL)
   }
 }
-
-

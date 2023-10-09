@@ -2,12 +2,14 @@ import webworker from './backend/pow/web-worker.js'
 import inprocess from './backend/pow/in-process.js'
 import JSONRPCServer from '../lib/json-rpc-server.js'
 
+/* istanbul ignore next */
 const solver = (async () => {
   const pow = await webworker() || inprocess()
 
   return pow
 })()
 
+/* istanbul ignore next */
 const server = new JSONRPCServer({
   methods: {
     async solve(args) {
@@ -22,6 +24,7 @@ const server = new JSONRPCServer({
   }
 })
 
+/* istanbul ignore next */
 chrome.runtime.onMessage.addListener(async function listener(message, sender) {
   // ensure sender.id is the same as this extension id
   if (sender.id !== chrome.runtime.id) return
@@ -34,5 +37,3 @@ chrome.runtime.onMessage.addListener(async function listener(message, sender) {
     data: res
   })
 })
-
-

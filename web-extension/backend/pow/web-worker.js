@@ -20,6 +20,7 @@ export default async function initWorkers () {
   // Use all but two cores for solving
   const NUM_WORKERS = Math.max(navigator.hardwareConcurrency - 2, 1)
 
+  /* istanbul ignore next */
   const workers = Array.from({ length: NUM_WORKERS }, (_) => {
     const worker = new Worker(WORKER_SCRIPT_URL)
 
@@ -37,6 +38,8 @@ export default async function initWorkers () {
 
   // We create a lock queue so that we are not over-saturating with interleaved work
   const lock = mutex()
+
+  /* istanbul ignore next */
   return async function (args) {
     const release = await lock()
 

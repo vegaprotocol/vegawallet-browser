@@ -10,8 +10,12 @@ export const LoadingButton = ({ text, loading, loadingText, disabled, ...rest }:
   return (
     <Button {...rest} disabled={disabled || loading}>
       <div className="flex items-center justify-center">
-        <span className="mr-2">{loading ? `${loadingText}…` : text}</span>
-        {loading && <Loader size="small" forceTheme="light" />}
+        {loading ? `${loadingText}…` : text}
+        {loading && (
+          <span className="ml-2">
+            <Loader size="small" forceTheme="light" />
+          </span>
+        )}
       </div>
     </Button>
   )

@@ -2,10 +2,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { CreatePassword } from './create-password'
 import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
-import { confirmPassphraseInput, passphraseInput, submitPassphraseButton } from '../../../locator-ids'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { locators as passwordFeedbackLocators } from './password-feedback'
+import { locators } from '.'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
@@ -35,7 +35,7 @@ describe('CreatePassword', () => {
     const passwordInfo = screen.getByText(
       "Set a password to protect and unlock your Vega Wallet. Your password can't be recovered or used to recover a wallet."
     )
-    expect(screen.getByTestId(passphraseInput)).toHaveFocus()
+    expect(screen.getByTestId(locators.passphraseInput)).toHaveFocus()
     expect(passwordInfo).toBeInTheDocument()
   })
 
@@ -51,7 +51,7 @@ describe('CreatePassword', () => {
 
   it('cannot navigate to next page until button is enabled', async () => {
     renderComponent()
-    fireEvent.click(screen.getByTestId(submitPassphraseButton))
+    fireEvent.click(screen.getByTestId(locators.submitPassphraseButton))
     await waitFor(() => expect(mockNavigate).not.toHaveBeenCalled())
   })
 
@@ -59,11 +59,11 @@ describe('CreatePassword', () => {
     renderComponent()
     fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
 
-    fireEvent.change(screen.getByTestId(passphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.passphraseInput), {
       target: { value: 'password1' }
     })
 
-    expect(screen.getByTestId(submitPassphraseButton)).toBeDisabled()
+    expect(screen.getByTestId(locators.submitPassphraseButton)).toBeDisabled()
   })
 
   it('should keep button disabled if no passwords are filled in', async () => {
@@ -71,32 +71,32 @@ describe('CreatePassword', () => {
     renderComponent()
     fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
 
-    expect(screen.getByTestId(submitPassphraseButton)).toBeDisabled()
+    expect(screen.getByTestId(locators.submitPassphraseButton)).toBeDisabled()
   })
 
   it('should keep button disabled if only confirm password is filled in', async () => {
     renderComponent()
     fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
 
-    fireEvent.change(screen.getByTestId(confirmPassphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.confirmPassphraseInput), {
       target: { value: 'password1' }
     })
 
-    expect(screen.getByTestId(submitPassphraseButton)).toBeDisabled()
+    expect(screen.getByTestId(locators.submitPassphraseButton)).toBeDisabled()
   })
 
   it('should show error message when passwords do not match', async () => {
     // 1101-ONBD-004 I can verify the password I set for my browser wallet (to help ensure I typed it correctly and can replicate it)
     renderComponent()
-    fireEvent.change(screen.getByTestId(passphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.passphraseInput), {
       target: { value: 'password1' }
     })
-    fireEvent.change(screen.getByTestId(confirmPassphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.confirmPassphraseInput), {
       target: { value: 'Password1' }
     })
     fireEvent.click(screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it'))
 
-    fireEvent.click(screen.getByTestId(submitPassphraseButton))
+    fireEvent.click(screen.getByTestId(locators.submitPassphraseButton))
 
     expect(await screen.findByText('Passwords do not match')).toBeInTheDocument()
   })
@@ -105,19 +105,21 @@ describe('CreatePassword', () => {
     // 1101-ONBD-011 - I can see the button is disabled and a loading state after submitting
     renderComponent()
 
-    fireEvent.change(screen.getByTestId(passphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.passphraseInput), {
       target: { value: 'te$t1234' }
     })
-    fireEvent.change(screen.getByTestId(confirmPassphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.confirmPassphraseInput), {
       target: { value: 'te$t1234' }
     })
 
     const checkbox = screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it')
     fireEvent.click(checkbox)
     expect(checkbox).toBeChecked()
-    fireEvent.click(screen.getByTestId(submitPassphraseButton))
-    await waitFor(() => expect(screen.getByTestId(submitPassphraseButton)).toHaveTextContent('Creating password…'))
-    await waitFor(() => expect(screen.getByTestId(submitPassphraseButton)).toBeDisabled())
+    fireEvent.click(screen.getByTestId(locators.submitPassphraseButton))
+    await waitFor(() =>
+      expect(screen.getByTestId(locators.submitPassphraseButton)).toHaveTextContent('Creating password…')
+    )
+    await waitFor(() => expect(screen.getByTestId(locators.submitPassphraseButton)).toBeDisabled())
   })
 
   it('should navigate to create wallet page when form is submitted with valid data', async () => {
@@ -125,17 +127,17 @@ describe('CreatePassword', () => {
     // 1101-ONBD-005 I can verify that I understand that Vega doesn't store and therefore can't recover this password if I lose it
     renderComponent()
 
-    fireEvent.change(screen.getByTestId(passphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.passphraseInput), {
       target: { value: 'te$t1234' }
     })
-    fireEvent.change(screen.getByTestId(confirmPassphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.confirmPassphraseInput), {
       target: { value: 'te$t1234' }
     })
 
     const checkbox = screen.getByLabelText('I understand that Vega Wallet cannot recover this password if I lose it')
     fireEvent.click(checkbox)
     expect(checkbox).toBeChecked()
-    fireEvent.click(screen.getByTestId(submitPassphraseButton))
+    fireEvent.click(screen.getByTestId(locators.submitPassphraseButton))
 
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith(FULL_ROUTES.createWallet))
   })
@@ -143,7 +145,7 @@ describe('CreatePassword', () => {
   it('should render password security feedback', async () => {
     // 1101-ONBD-036 During password creation, there is a way to understand whether the password I have created is secure or no
     renderComponent()
-    fireEvent.change(screen.getByTestId(passphraseInput), {
+    fireEvent.change(screen.getByTestId(locators.passphraseInput), {
       target: { value: 'te$t1234' }
     })
     await screen.findByTestId(passwordFeedbackLocators.passwordFeedback)

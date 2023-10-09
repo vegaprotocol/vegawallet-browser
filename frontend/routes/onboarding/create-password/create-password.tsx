@@ -6,11 +6,16 @@ import { useState } from 'react'
 import { Checkbox } from '../../../components/checkbox'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
-import { confirmPassphraseInput, passphraseInput, submitPassphraseButton } from '../../../locator-ids'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 import { LoadingButton } from '../../../components/loading-button'
 import { PasswordFeedback } from './password-feedback'
+
+export const locators = {
+  passphraseInput: 'passphrase-input',
+  confirmPassphraseInput: 'confirm-passphrase-input',
+  submitPassphraseButton: 'submit-passphrase-button'
+}
 
 interface FormFields {
   password: string
@@ -58,7 +63,7 @@ export const CreatePassword = () => {
               autoFocus
               id="password"
               placeholder="Enter a password"
-              data-testid={passphraseInput}
+              data-testid={locators.passphraseInput}
               type="password"
               {...register('password')}
             />
@@ -69,7 +74,7 @@ export const CreatePassword = () => {
               id="confirmPassword"
               hasError={!!errors.confirmPassword?.message}
               placeholder="Enter password again"
-              data-testid={confirmPassphraseInput}
+              data-testid={locators.confirmPassphraseInput}
               type="password"
               {...register('confirmPassword', {
                 required: Validation.REQUIRED,
@@ -87,7 +92,7 @@ export const CreatePassword = () => {
           />
           <LoadingButton
             fill={true}
-            data-testid={submitPassphraseButton}
+            data-testid={locators.submitPassphraseButton}
             className="mt-8"
             variant="primary"
             type="submit"

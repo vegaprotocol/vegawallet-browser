@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react'
-import { NoAppsConnected } from './no-dapps-connected'
-import { connectionsNoConnections } from '../../../locator-ids'
+import { NoAppsConnected, locators } from './no-dapps-connected'
 
 describe('NoDappsConnected', () => {
   it('renders message', () => {
     render(<NoAppsConnected />)
-    expect(screen.getByTestId(connectionsNoConnections)).toHaveTextContent('Your wallet is not connected to any dapps.')
+    expect(screen.getByTestId(locators.connectionsNoConnections)).toHaveTextContent(
+      'Your wallet is not connected to any dapps.'
+    )
   })
 })

@@ -7,12 +7,13 @@ import {
   hasTotalNumElements,
   isElementDisplayed
 } from '../helpers/selenium-util'
-import * as locators from '../../../frontend/locator-ids'
+import { locators as noConnectionsLocators } from '../../../frontend/routes/auth/connections/no-dapps-connected'
+import { locators as connectionsLocators } from '../../../frontend/routes/auth/connections'
 import { locators as connectionsListLocators } from '../../../frontend/routes/auth/connections/connection-list'
 
 export class ListConnections {
-  private readonly noConnections: By = getByDataTestID(locators.connectionsNoConnections)
-  private readonly connectionsHeader: By = getByDataTestID(locators.connectionsHeader)
+  private readonly noConnections: By = getByDataTestID(noConnectionsLocators.connectionsNoConnections)
+  private readonly connectionsHeader: By = getByDataTestID(connectionsLocators.connectionsHeader)
   private readonly connections: By = getByDataTestID('list-item')
   private readonly connectionsRemoveConnection: By = getByDataTestID(connectionsListLocators.connectionRemoveConnection)
 
@@ -59,7 +60,7 @@ export class ListConnections {
   async checkNoConnectionsExist() {
     expect(
       await this.connectionsExist(),
-      `expected no connections to exist but could not find the ${locators.connectionsNoConnections} element, suggesting connections may be present`,
+      `expected no connections to exist but could not find the ${noConnectionsLocators.connectionsNoConnections} element, suggesting connections may be present`,
       { showPrefix: false }
     ).toBe(false)
   }

@@ -10,7 +10,8 @@ export interface FormFields {
 
 export const locators = {
   privateKeyDialog: 'private-key-dialog',
-  privateKeyTitle: 'private-key-title'
+  privateKeyTitle: 'private-key-title',
+  privateKeyTrigger: 'private-key-trigger'
 }
 
 export const ExportPrivateKeysDialog = () => {
@@ -24,7 +25,7 @@ export const ExportPrivateKeysDialog = () => {
   return (
     <>
       <VegaSection>
-        <ButtonLink onClick={() => setOpen(true)}>
+        <ButtonLink data-testid={locators.privateKeyTrigger} onClick={() => setOpen(true)}>
           <span className="underline flex">
             Export private key
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

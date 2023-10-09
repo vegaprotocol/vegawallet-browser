@@ -16,13 +16,12 @@ export const locators = {
   privateKeyDescription: 'private-key-description'
 }
 
-export const ExportPrivateKeyForm = ({
-  onSuccess,
-  onClose
-}: {
+export interface ExportPrivateKeyFormProps {
   onSuccess: (passphrase: string) => void
   onClose: () => void
-}) => {
+}
+
+export const ExportPrivateKeyForm = ({ onSuccess, onClose }: ExportPrivateKeyFormProps) => {
   const { request } = useJsonRpcClient()
   const [loading, setLoading] = useState(false)
   const {

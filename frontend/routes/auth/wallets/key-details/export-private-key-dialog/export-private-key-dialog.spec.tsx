@@ -1,15 +1,19 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { ExportPrivateKeysDialog, locators } from './export-private-key-dialog'
 import { ExportPrivateKeyFormProps } from './export-private-key-form'
+import { ViewPrivateKeyProps } from './view-private-key'
 
 jest.mock('./export-private-key-form', () => ({
   ExportPrivateKeyForm: (props: ExportPrivateKeyFormProps) => (
-    <button onClick={() => props.onSuccess('0x1')} data-testid="export-private-key-form" />
+    <div data-testid="export-private-key-form">
+      <button onClick={props.onClose} data-testid="close" />
+      <button onClick={() => props.onSuccess('0x1')} data-testid="set-private-key" />
+    </div>
   )
 }))
 
 jest.mock('./view-private-key', () => ({
-  ViewPrivateKey: () => <div data-testid="view-private-key" />
+  ViewPrivateKey: (props: ViewPrivateKeyProps) => <button onClick={props.onClose} data-testid="view-private-key" />
 }))
 
 describe('ExportPrivateKeyDialog', () => {
@@ -34,8 +38,35 @@ describe('ExportPrivateKeyDialog', () => {
     render(<ExportPrivateKeysDialog />)
     fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
     await screen.findByTestId(locators.privateKeyTitle)
-    fireEvent.click(screen.getByTestId('export-private-key-form'))
+    fireEvent.click(screen.getByTestId('set-private-key'))
     await screen.findByTestId('view-private-key')
     expect(screen.getByTestId('view-private-key')).toBeInTheDocument()
+  })
+  it('resets asset dialog on close of form', async () => {
+    render(<ExportPrivateKeysDialog />)
+    fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
+    await screen.findByTestId(locators.privateKeyTitle)
+    fireEvent.click(screen.getByTestId('close'))
+    expect(screen.queryByTestId(locators.privateKeyTitle)).not.toBeInTheDocument()
+    fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
+    await screen.findByTestId(locators.privateKeyTitle)
+    expect(screen.getByTestId('export-private-key-form')).toBeInTheDocument()
+  })
+  it('resets asset dialog on close of view', async () => {
+    render(<ExportPrivateKeysDialog />)
+    // Open dialog
+    fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
+    await screen.findByTestId(locators.privateKeyTitle)
+    // Set the private key
+    fireEvent.click(screen.getByTestId('set-private-key'))
+    await screen.findByTestId('view-private-key')
+    // Close the dialog
+    fireEvent.click(screen.getByTestId('view-private-key'))
+    expect(screen.queryByTestId(locators.privateKeyTitle)).not.toBeInTheDocument()
+    // Open the dialog again
+    fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
+    await screen.findByTestId(locators.privateKeyTitle)
+    // Ensure the dialog has been reset
+    expect(screen.getByTestId('export-private-key-form')).toBeInTheDocument()
   })
 })

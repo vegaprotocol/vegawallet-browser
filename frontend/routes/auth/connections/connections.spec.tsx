@@ -2,9 +2,9 @@ import { render, screen, act, waitFor, fireEvent } from '@testing-library/react'
 import { Connections, locators as connectionsLocators } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
-import { connectionsNoConnections } from '../../../locator-ids'
 import { ConnectionsStore, useConnectionStore } from '../../../stores/connections'
 import { locators as connectionListLocators } from './connection-list'
+import { locators as noConnectionsLocators } from './no-dapps-connected'
 
 const renderComponent = () =>
   render(
@@ -72,8 +72,8 @@ describe('Connections', () => {
       }
     }
     renderComponent()
-    await screen.findByTestId(connectionsNoConnections)
-    expect(screen.getByTestId(connectionsNoConnections)).toBeInTheDocument()
+    await screen.findByTestId(noConnectionsLocators.connectionsNoConnections)
+    expect(screen.getByTestId(noConnectionsLocators.connectionsNoConnections)).toBeInTheDocument()
     // 1109-VCON-005 When I have no connections I can see that and still see instructions on how to connect to a Vega dapp
     expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toBeVisible()
   })

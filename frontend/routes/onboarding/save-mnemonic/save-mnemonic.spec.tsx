@@ -2,13 +2,13 @@ import { MemoryRouter } from 'react-router-dom'
 import { SaveMnemonic } from '.'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import locators from '../../../components/locators'
-import { saveMnemonicDescription } from '../../../locator-ids'
 import { FULL_ROUTES } from '../../route-names'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { locators as saveMnemonicFormLocators } from './save-mnemonic-form'
 import { SUGGESTED_MNEMONIC_KEY } from '../../../hooks/suggest-mnemonic'
 import { mockStorage } from '../../../test-helpers/mock-storage'
+import { locators as saveMnemonicLocators } from '.'
 
 const mockedUsedNavigate = jest.fn()
 const saveMnemonicDescriptionText =
@@ -43,15 +43,19 @@ describe('Save mnemonic', () => {
     await screen.findByTestId(locators.mnemonicContainerHidden)
     expect(screen.getByTestId('secure-your-wallet')).toHaveTextContent('Secure your wallet')
     expect(screen.getByTestId(locators.mnemonicContainerHidden)).toHaveFocus()
-    expect(screen.getByTestId(saveMnemonicDescription)).toHaveTextContent(saveMnemonicDescriptionText)
+    expect(screen.getByTestId(saveMnemonicLocators.saveMnemonicDescription)).toHaveTextContent(
+      saveMnemonicDescriptionText
+    )
   })
   it('mnemonic and checkbox are shown when clicked', async () => {
     // 1101-ONBD-017 I can see an explanation of what the recovery phrase is for and that it cannot be recovered itself
     renderComponent()
     await screen.findByTestId(locators.mnemonicContainerHidden)
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
-    expect(screen.getByTestId(saveMnemonicDescription)).toHaveTextContent(saveMnemonicDescriptionText)
-    expect(screen.getByTestId(saveMnemonicDescription)).toBeVisible()
+    expect(screen.getByTestId(saveMnemonicLocators.saveMnemonicDescription)).toHaveTextContent(
+      saveMnemonicDescriptionText
+    )
+    expect(screen.getByTestId(saveMnemonicLocators.saveMnemonicDescription)).toBeVisible()
     expect(screen.getByTestId(locators.checkboxWrapper)).toHaveTextContent(checkboxDescription)
     expect(screen.getByLabelText(checkboxDescription)).toBeVisible()
     expect(screen.getByTestId(locators.mnemonicContainerMnemonic)).toHaveTextContent(

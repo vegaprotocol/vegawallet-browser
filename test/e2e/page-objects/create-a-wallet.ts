@@ -1,6 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../helpers/selenium-util'
-import * as locators from '../../../frontend/locator-ids'
+import { locators } from '../../../frontend/routes/onboarding/create-wallet'
 import { ImportAWallet } from './import-a-wallet'
 
 export class CreateAWallet {

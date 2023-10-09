@@ -7,13 +7,14 @@ import {
   isElementDisplayed,
   sendKeysToElement
 } from '../helpers/selenium-util'
-import { errorMessage, loginButton, loginPassphrase } from '../../../frontend/locator-ids'
 import { defaultPassword } from '../helpers/wallet/common-wallet-values'
+import { locators } from '../../../frontend/routes/login'
+import componentLocators from '../../../frontend/components/locators'
 
 export class Login {
-  private readonly loginButton: By = getByDataTestID(loginButton)
-  private readonly passwordField: By = getByDataTestID(loginPassphrase)
-  private readonly error: By = getByDataTestID(errorMessage)
+  private readonly loginButton: By = getByDataTestID(locators.loginButton)
+  private readonly passwordField: By = getByDataTestID(locators.loginPassphrase)
+  private readonly error: By = getByDataTestID(componentLocators.errorMessage)
 
   constructor(private readonly driver: WebDriver) {}
 

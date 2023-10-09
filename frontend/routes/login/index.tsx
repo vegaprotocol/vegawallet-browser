@@ -5,11 +5,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../route-names'
 import { StarsWrapper } from '../../components/stars-wrapper'
-import { loginButton, loginPassphrase } from '../../locator-ids'
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { LoadingButton } from '../../components/loading-button'
 import { VegaHeader } from '../../components/vega-header'
 import { useGlobalsStore } from '../../stores/globals'
+
+export const locators = {
+  loginPassphrase: 'login-passphrase',
+  loginButton: 'login-button'
+}
 
 const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
 
@@ -57,7 +61,7 @@ export const Login = () => {
           <Input
             autoFocus
             hasError={!!errors.passphrase?.message}
-            data-testid={loginPassphrase}
+            data-testid={locators.loginPassphrase}
             type="password"
             {...register('passphrase', {
               required: Validation.REQUIRED
@@ -69,7 +73,7 @@ export const Login = () => {
           loading={loading}
           loadingText="Logging in"
           text="Login"
-          data-testid={loginButton}
+          data-testid={locators.loginButton}
           fill={true}
           className="mt-2"
           variant="primary"

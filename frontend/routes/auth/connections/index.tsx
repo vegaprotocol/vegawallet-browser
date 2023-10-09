@@ -4,13 +4,13 @@ import { NoAppsConnected } from './no-dapps-connected'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { useEffect } from 'react'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
-import { connectionsHeader } from '../../../locator-ids'
 import { useConnectionStore } from '../../../stores/connections'
 import { AuthPage } from '../../../components/auth-page'
 
 export const locators = {
   connectionInstructions: 'connection-instructions',
-  connectionInstructionsLink: 'connection-instructions-link'
+  connectionInstructionsLink: 'connection-instructions-link',
+  connectionsHeader: 'connections-header'
 }
 
 export const Connections = () => {
@@ -28,7 +28,7 @@ export const Connections = () => {
   if (loading) return null
 
   return (
-    <AuthPage dataTestId={connectionsHeader} title="Connections">
+    <AuthPage dataTestId={locators.connectionsHeader} title="Connections">
       {connections.length === 0 ? (
         <NoAppsConnected />
       ) : (

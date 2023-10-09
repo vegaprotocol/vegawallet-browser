@@ -2,9 +2,8 @@ import { By, WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, getElementText, isElementDisplayed } from '../helpers/selenium-util'
 import { locators as keyListLocators } from '../../../frontend/components/key-list'
 import { locators as keyDropdownLocators } from '../../../frontend/routes/auth/wallets/key-details/key-selector'
-import { locators as assetCardLocators } from '../../../frontend/routes/auth/wallets/key-details/asset-card'
+import { locators as assetCardLocators } from '../../../frontend/routes/auth/wallets/key-details/assets-list/asset-card'
 
-import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'
 import generalLocators from '../../../frontend/components/locators'
 
 export class KeyDetails {

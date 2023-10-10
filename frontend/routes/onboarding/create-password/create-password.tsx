@@ -1,5 +1,5 @@
 import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
-import { Page } from '../../../components/page'
+import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useForm, useWatch } from 'react-hook-form'
 import { Validation } from '../../../lib/form-validation'
 import { useState } from 'react'
@@ -51,7 +51,7 @@ export const CreatePassword = () => {
   }
 
   return (
-    <Page name="Create Password" backLocation={FULL_ROUTES.getStarted}>
+    <OnboardingPage name="Create Password" backLocation={FULL_ROUTES.getStarted}>
       <>
         <p className="mb-6">
           Set a password to protect and unlock your Vega Wallet. Your password can't be recovered or used to recover a
@@ -103,6 +103,6 @@ export const CreatePassword = () => {
           />
         </form>
       </>
-    </Page>
+    </OnboardingPage>
   )
 }

@@ -1,5 +1,5 @@
 import { useForm, useWatch } from 'react-hook-form'
-import { Page } from '../../../components/page'
+import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FormGroup, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
@@ -56,7 +56,7 @@ export const ImportWallet = () => {
       />
     )
   return (
-    <Page name="Import wallet" backLocation={FULL_ROUTES.createWallet}>
+    <OnboardingPage name="Import wallet" backLocation={FULL_ROUTES.createWallet}>
       <div>
         <p data-testid={locators.importMnemonicDescription} className="mb-6">
           Enter or paste in your Vega wallet's recovery phrase.
@@ -90,6 +90,6 @@ export const ImportWallet = () => {
           />
         </form>
       </div>
-    </Page>
+    </OnboardingPage>
   )
 }

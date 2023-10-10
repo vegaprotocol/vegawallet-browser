@@ -1,5 +1,6 @@
 import { stat } from 'fs'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
+import { captureScreenshot } from './driver'
 
 const defaultTimeoutMillis = 10000
 
@@ -270,10 +271,9 @@ export async function goToNewWindowHandle(
   windowHandlesBeforeNewHandle: string[],
   windowHandlesAfterNewHandle: string[]
 ) {
-  const newWindowHandle = await openLatestWindowHandle(driver)
   const newHandle = getDifference(windowHandlesAfterNewHandle, windowHandlesBeforeNewHandle)
   await switchWindowHandles(driver, false, newHandle[0])
-  return newWindowHandle
+  return await driver.getWindowHandle()
 }
 
 export async function switchWindowHandles(driver: WebDriver, closeOld = true, windowHandle = '', handleToClose = '') {
@@ -305,6 +305,10 @@ export async function windowHandleHasCount(
     return true
   } catch (error) {
     const handles = await driver.getAllWindowHandles()
+    for (const handle of handles) {
+      await driver.switchTo().window(handle)
+      await captureScreenshot(driver, `${expect.getState().currentTestName as string}-handle-${handle}`)
+    }
     console.log(
       `did not reach the target count! Had ${handles.length} number of handles. Expected ${targetCount}`,
       error

@@ -11,10 +11,10 @@ import { locators as keyListLocators } from '../../../frontend/components/key-li
 import { locators as walletPageKeyList } from '../../../frontend/routes/auth/wallets/home/wallets-page-key-list'
 import { SignMessage } from './sign-message'
 import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'
-import { locators as authPageLocators } from '../../../frontend/components/auth-page'
+import { locators as headerLocators } from '../../../frontend/components/header'
 
 export class ViewWallet {
-  private readonly walletName: By = getByDataTestID(authPageLocators.authPageTitle)
+  private readonly walletName: By = getByDataTestID(headerLocators.header)
   private readonly createNewKeyPairButton: By = getByDataTestID(walletPageKeyList.walletsCreateKey)
   private readonly walletKeys: By = getByDataTestID('list')
   private readonly copyIcon: By = getByDataTestID('copy-icon')

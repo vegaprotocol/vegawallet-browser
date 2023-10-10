@@ -18,7 +18,7 @@ export const ErrorModal = ({ error, onClose }: { error: Error | null; onClose: (
           <ErrorIcon />
         </div>
         <Header content="Something's gone wrong" />
-        <div className="mb-8 mt-6 text-xs">
+        <div className="my-8 text-xs">
           {error ? (
             <CodeWindow content={error.stack} text={JSON.stringify(error.stack, null, 2)} />
           ) : (

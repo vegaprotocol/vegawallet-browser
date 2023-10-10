@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { Page } from './page'
+import { OnboardingPage } from './onboarding-page'
 import { MemoryRouter } from 'react-router-dom'
 
 const mockedUsedNavigate = jest.fn()
 
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
+  ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate
 }))
 
@@ -13,9 +13,9 @@ describe('Page', () => {
   it('renders page header correctly', () => {
     render(
       <MemoryRouter>
-        <Page name="Test Page">
+        <OnboardingPage name="Test Page">
           <span>Page</span>
-        </Page>
+        </OnboardingPage>
       </MemoryRouter>
     )
     expect(screen.getByTestId('test-page-header')).toBeInTheDocument()
@@ -24,9 +24,9 @@ describe('Page', () => {
 
   it('renders back button correctly', () => {
     render(
-      <Page name="Test Page" backLocation="/test">
+      <OnboardingPage name="Test Page" backLocation="/test">
         <span>Page</span>
-      </Page>,
+      </OnboardingPage>,
       {
         wrapper: ({ children }) => <MemoryRouter>{children}</MemoryRouter>
       }
@@ -38,9 +38,9 @@ describe('Page', () => {
   it('renders children correctly', () => {
     render(
       <MemoryRouter>
-        <Page name="Test Page">
+        <OnboardingPage name="Test Page">
           <div data-testid="test-child" />
-        </Page>
+        </OnboardingPage>
       </MemoryRouter>
     )
     expect(screen.getByTestId('test-child')).toBeInTheDocument()

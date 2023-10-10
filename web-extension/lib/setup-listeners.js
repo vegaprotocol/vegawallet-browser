@@ -14,9 +14,8 @@ export const createOnInstalledListener = (networks, settings) => async (details)
   if (reason === 'install') {
     await install({ networks, settings })
 
-    if (config.autoOpenOnInstall) {
-      createWindow()
-    }
+  if (config.autoOpenOnInstall) {
+    createWindow()
   }
 
   if (reason === 'update') {

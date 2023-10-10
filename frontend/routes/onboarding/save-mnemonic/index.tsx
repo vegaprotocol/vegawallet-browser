@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Page } from '../../../components/page'
+import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
 import { HiddenContainer } from '../../../components/hidden-container'
@@ -42,7 +42,7 @@ export const SaveMnemonic = () => {
       />
     )
   return (
-    <Page name="Secure your wallet">
+    <OnboardingPage name="Secure your wallet">
       <>
         <p data-testid={locators.saveMnemonicDescription} className="pb-6">
           Write down or save this recovery phrase to a safe place. You'll need it to recover your wallet. Never share
@@ -51,6 +51,6 @@ export const SaveMnemonic = () => {
         <HiddenContainer text="Reveal recovery phrase" hiddenInformation={mnemonic} onChange={setMnemonicShown} />
         <SaveMnemonicForm onSubmit={submit} loading={loading} disabled={!mnemonicShown} />
       </>
-    </Page>
+    </OnboardingPage>
   )
 }

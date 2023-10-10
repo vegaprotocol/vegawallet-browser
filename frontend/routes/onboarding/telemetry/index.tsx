@@ -1,5 +1,5 @@
 import { Button, ExternalLink } from '@vegaprotocol/ui-toolkit'
-import { Page } from '../../../components/page'
+import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { FULL_ROUTES } from '../../route-names'
@@ -34,7 +34,7 @@ export const Telemetry = () => {
   }
 
   return (
-    <Page name="Help improve Vega Wallet">
+    <OnboardingPage name="Help improve Vega Wallet">
       <>
         <p className="mb-6" data-testid={locators.description}>
           Improve Vega Wallet by automatically reporting bugs and crashes.
@@ -80,6 +80,6 @@ export const Telemetry = () => {
           </Button>
         </form>
       </>
-    </Page>
+    </OnboardingPage>
   )
 }

@@ -107,5 +107,3 @@ it('check console and browser wallet integrate', async () => {
     console.log('switched back tabs')
   }
 })
-
-//test

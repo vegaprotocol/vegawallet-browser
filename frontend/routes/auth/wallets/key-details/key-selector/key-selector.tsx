@@ -28,7 +28,10 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
             className="text-white"
           >
             <div data-testid={locators.keySelectedCurrentKey(currentKey.name)} className="flex items-center">
-              <span className="mr-1 text-2xl">{currentKey.name}</span> <IconChevronDown size={16} />
+              <Header content={currentKey.name} />{' '}
+              <span className="ml-2">
+                <IconChevronDown size={16} />
+              </span>
             </div>
           </DropdownMenuTrigger>
         }

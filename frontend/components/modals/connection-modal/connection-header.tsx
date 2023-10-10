@@ -1,6 +1,7 @@
 import { VegaIcon } from '../../icons/vega-icon'
 import { HostImage } from '../../host-image'
 import locators from '../../locators'
+import { Header } from '../../header'
 
 const LeftRightArrows = () => {
   return (
@@ -32,9 +33,7 @@ export const ConnectionHeader = ({ hostname, title }: { hostname: string; title:
         <VegaIcon color="black" backgroundColor="white" />
       </div>
       <div className="text-center mb-6 mt-8">
-        <h1 data-testid={locators.modalHeaderTitle} className="mb-1 text-2xl">
-          {title}
-        </h1>
+        <Header content={title} />
         <p data-testid={locators.dAppHostname} className="break-all text-neutral-light text-vega-dark-400">
           {hostname}
         </p>

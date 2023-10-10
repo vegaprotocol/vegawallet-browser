@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import locators from '../../locators'
 import { SuccessTick } from '../../icons/success-tick'
+import { Header } from '../../header'
 
 export interface ConnectionSuccessProps {
   onClose: () => void
@@ -22,10 +23,8 @@ export const ConnectionSuccess = ({ onClose, hostname }: ConnectionSuccessProps)
       className="w-full h-full flex flex-col py-24 justify-center items-center"
     >
       <SuccessTick />
-      <h1 data-testid={locators.connectionSuccessTitle} className="text-2xl text-center text-white mb-1">
-        Connected
-      </h1>
-      <h2 data-testid={locators.connectionSuccessHostname} className="break-all text-center text-vega-dark-400">
+      <Header content="Connected" />
+      <h2 data-testid={locators.connectionSuccessHostname} className="mt-1 break-all text-center text-vega-dark-400">
         {hostname}
       </h2>
     </div>

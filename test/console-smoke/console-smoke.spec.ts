@@ -108,4 +108,4 @@ it('check console and browser wallet integrate', async () => {
   }
 })
 
-//test
+//test test

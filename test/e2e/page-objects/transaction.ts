@@ -10,14 +10,18 @@ export class Transaction {
 
   constructor(private readonly driver: WebDriver) {}
 
-  async confirmTransaction() {
+  async confirmTransaction(waitForModalGone = true) {
     await clickElement(this.driver, this.confirm)
-    await waitForElementToDisappear(this.driver, this.confirm)
+    if (waitForModalGone) {
+      await waitForElementToDisappear(this.driver, this.confirm)
+    }
   }
 
-  async rejectTransaction() {
+  async rejectTransaction(waitForModalGone = true) {
     await clickElement(this.driver, this.reject)
-    await waitForElementToDisappear(this.driver, this.reject)
+    if (waitForModalGone) {
+      await waitForElementToDisappear(this.driver, this.reject)
+    }
   }
 
   async checkReceiptViewPresent() {

@@ -6,11 +6,12 @@ import { mockClient } from '../../../test-helpers/mock-client'
 import { FULL_ROUTES } from '../../route-names'
 import { validRecoveryPhrase } from '../../../../test/e2e/helpers/wallet/common-wallet-values'
 import { mockStorage } from '../../../test-helpers/mock-storage'
+import { locators as pageLocators } from '../../../components/pages/page'
 
 const mockedUsedNavigate = jest.fn()
 
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
+  ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate
 }))
 
@@ -28,7 +29,7 @@ describe('ImportWallet', () => {
   beforeEach(() => {
     mockStorage()
   })
-  it('renders description, input and submit button', () => {
+  it('renders back button, description, input and submit button', () => {
     // 1101-ONBD-026 I can see an explanation of what I am being asked to do
     mockClient()
     renderComponent()
@@ -39,6 +40,7 @@ describe('ImportWallet', () => {
     expect(screen.getByTestId(locators.importMnemonic)).toBeInTheDocument()
     expect(screen.getByTestId(locators.importMnemonic)).toHaveFocus()
     expect(screen.getByTestId(locators.importMnemonicSubmit)).toHaveTextContent('Import wallet')
+    expect(screen.getByTestId(pageLocators.basePageBack)).toHaveAttribute('href', FULL_ROUTES.createWallet)
   })
 
   it('renders loading state while wallet is being imported', async () => {

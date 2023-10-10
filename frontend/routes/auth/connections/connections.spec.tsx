@@ -6,12 +6,15 @@ import { ConnectionsStore, useConnectionStore } from '../../../stores/connection
 import { locators as connectionListLocators } from './connection-list'
 import { locators as noConnectionsLocators } from './no-dapps-connected'
 import config from '!/config'
+import { MemoryRouter } from 'react-router-dom'
 
 const renderComponent = () =>
   render(
-    <JsonRPCProvider>
-      <Connections />
-    </JsonRPCProvider>
+    <MemoryRouter>
+      <JsonRPCProvider>
+        <Connections />
+      </JsonRPCProvider>
+    </MemoryRouter>
   )
 
 describe('Connections', () => {

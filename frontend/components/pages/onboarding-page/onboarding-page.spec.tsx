@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { OnboardingPage } from './onboarding-page'
 import { MemoryRouter } from 'react-router-dom'
+import { locators } from '../../header'
 
 const mockedUsedNavigate = jest.fn()
 
@@ -18,7 +19,7 @@ describe('Page', () => {
         </OnboardingPage>
       </MemoryRouter>
     )
-    expect(screen.getByTestId('test-page-header')).toBeInTheDocument()
+    expect(screen.getByTestId(locators.header)).toBeInTheDocument()
     expect(screen.getByText('Test Page')).toBeInTheDocument()
   })
 

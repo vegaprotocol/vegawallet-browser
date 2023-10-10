@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { TransactionHeader, locators } from './transaction-header'
 import { locators as hostImageLocators } from '../../../components/host-image'
-
+import { locators as headerLocators } from '../../../components/header'
 const transaction = {
   orderSubmission: {
     marketId: '10c7d40afd910eeac0c2cad186d79cb194090d5d5f13bd31e14c49fd1bded7e2',
@@ -35,7 +35,7 @@ describe('TransactionHeader', () => {
       />
     )
     expect(screen.getByTestId(hostImageLocators.hostImage)).toBeVisible()
-    expect(screen.getByTestId(locators.transactionType)).toHaveTextContent('Order Submission')
+    expect(screen.getByTestId(headerLocators.header)).toHaveTextContent('Order Submission')
     expect(screen.getByTestId(locators.transactionRequest)).toHaveTextContent('Request from https://www.google.com')
     expect(screen.getByTestId(locators.transactionKey)).toHaveTextContent('Signing with')
   })

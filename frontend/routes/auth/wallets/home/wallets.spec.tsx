@@ -11,7 +11,7 @@ import { locators as signMessageLocators } from '../../../../components/sign-mes
 import { locators as signedMessageLocators } from '../../../../components/sign-message-dialog/signed-message'
 import { locators as vegaKeyLocators } from '../../../../components/keys/vega-key'
 import { locators as walletPageKeyListLocators } from './wallets-page-key-list'
-import { locators as authPageLocators } from '../../../../components/auth-page'
+import { locators as headerLocators } from '../../../../components/header'
 import { MemoryRouter } from 'react-router-dom'
 
 const renderComponent = () => {
@@ -62,7 +62,7 @@ describe('Wallets', () => {
     renderComponent()
     // Wait for list to load
     await screen.findByTestId(locators.listItem)
-    expect(screen.getByTestId(authPageLocators.authPageTitle)).toHaveTextContent('wallet 1')
+    expect(screen.getByTestId(headerLocators.header)).toHaveTextContent('wallet 1')
     expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toBeVisible()
     expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toHaveTextContent('07248a…3673')
     expect(screen.getByTestId(vegaKeyLocators.explorerLink)).toHaveAttribute(

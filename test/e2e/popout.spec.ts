@@ -30,11 +30,6 @@ describe('check popout functionality', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    const handles = await driver.getAllWindowHandles()
-    for (const handle of handles) {
-      await driver.switchTo().window(handle)
-      await driver.close()
-    }
     await driver.quit()
   })
 

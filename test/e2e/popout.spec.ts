@@ -137,11 +137,10 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
 
-    await switchWindowHandles(driver, false, dappHandle)
+    await switchWindowHandles(driver, false)
     const keys = await vegaAPI.listKeys(false, false)
-    const handles = await driver.getAllWindowHandles()
-    expect(handles.length).toBe(2)
     const handlesBeforeTransaction = await driver.getAllWindowHandles()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction }, false, false)
     expect(await windowHandleHasCount(driver, handlesBeforeTransaction.length + 1)).toBe(true)

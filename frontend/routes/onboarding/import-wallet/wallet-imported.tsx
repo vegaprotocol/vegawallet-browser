@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { SuccessTick } from '../../../components/icons/success-tick'
 import { StarsWrapper } from '../../../components/stars-wrapper'
+import { Header } from '../../../components/header'
 
 export const locators = {
-  walletImported: 'wallet-imported',
-  title: 'wallet-imported-title'
+  walletImported: 'wallet-imported'
 }
 
 export interface WalletImportedProps {
@@ -15,7 +15,7 @@ export const WalletImported = ({ onClose }: WalletImportedProps) => {
   useEffect(() => {
     const stamp = setTimeout(() => {
       onClose()
-    }, 1000)
+    }, 10000000)
 
     return () => clearTimeout(stamp)
   }, [onClose])
@@ -27,9 +27,7 @@ export const WalletImported = ({ onClose }: WalletImportedProps) => {
         className="w-full h-full flex flex-col py-24 justify-center items-center"
       >
         <SuccessTick />
-        <h1 data-testid={locators.title} className="text-2xl text-center text-white mb-1">
-          Wallet imported.
-        </h1>
+        <Header content="Wallet imported" />
       </div>
     </StarsWrapper>
   )

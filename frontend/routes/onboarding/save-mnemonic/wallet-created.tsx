@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { SuccessTick } from '../../../components/icons/success-tick'
 import { StarsWrapper } from '../../../components/stars-wrapper'
+import { Header } from '../../../components/header'
 
 export const locators = {
-  walletCreated: 'wallet-created',
-  title: 'wallet-created-title'
+  walletCreated: 'wallet-created'
 }
 
 export interface WalletCreatedProps {
@@ -26,9 +26,7 @@ export const WalletCreated = ({ onClose }: WalletCreatedProps) => {
         className="w-full h-full flex flex-col py-24 justify-center items-center"
       >
         <SuccessTick />
-        <h1 data-testid={locators.title} className="text-2xl text-center text-white mb-1">
-          Your new wallet is ready.
-        </h1>
+        <Header content="Your new wallet is ready" />
       </div>
     </StarsWrapper>
   )

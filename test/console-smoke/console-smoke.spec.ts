@@ -51,7 +51,7 @@ beforeEach(async () => {
 
 afterEach(async () => {
   await captureScreenshot(driver, expect.getState().currentTestName as string)
-  //await driver.quit()
+  await driver.quit()
 })
 
 it('check console and browser wallet integrate', async () => {

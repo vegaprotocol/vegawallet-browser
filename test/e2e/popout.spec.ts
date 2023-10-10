@@ -41,7 +41,7 @@ describe('check popout functionality', () => {
     console.log('opened new window handle, about to check if on connect wallet')
     await connectWallet.checkOnConnectWallet()
     console.log('was on connect wallet, about to approve connection')
-    await connectWallet.approveConnectionAndCheckSuccess(false)
+    await connectWallet.approveConnectionAndCheckSuccess()
     console.log('approved connection')
     expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
     console.log('driver instance was closed')
@@ -112,7 +112,7 @@ describe('check popout functionality', () => {
     const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
-    await connectWallet.approveConnectionAndCheckSuccess(false)
+    await connectWallet.approveConnectionAndCheckSuccess()
 
     await switchWindowHandles(driver, false)
     const keys = await vegaAPI.listKeys(false, false)

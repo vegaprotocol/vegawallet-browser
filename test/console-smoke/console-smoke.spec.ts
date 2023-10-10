@@ -57,14 +57,13 @@ afterEach(async () => {
 it('check console and browser wallet integrate', async () => {
   driver.get(config.network.console)
   const handlesBeforeConnect = await driver.getAllWindowHandles()
-  expect(handlesBeforeConnect.length).toBe(1)
-  const consoleHandle = handlesBeforeConnect[0]
+  const consoleHandle = await driver.getWindowHandle()
 
   await vegaConsole.clearWelcomeDialogIfShown()
   await vegaConsole.checkOnConsole()
   await vegaConsole.selectMarketBySubstring(market)
   await vegaConsole.connectToWallet()
-  expect(await windowHandleHasCount(driver, 2)).toBe(true)
+  expect(await windowHandleHasCount(driver, handlesBeforeConnect.length + 1)).toBe(true)
   const handlesAfterConnect = await driver.getAllWindowHandles()
 
   await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
@@ -72,7 +71,7 @@ it('check console and browser wallet integrate', async () => {
   await connectWallet.approveConnectionAndCheckSuccess()
 
   await switchWindowHandles(driver, false, consoleHandle)
-  expect(await windowHandleHasCount(driver, 1)).toBe(true)
+  expect(await windowHandleHasCount(driver, handlesBeforeConnect.length)).toBe(true)
   if (acceptRisk) {
     await vegaConsole.agreeToUnderstandRisk()
   }
@@ -80,7 +79,7 @@ it('check console and browser wallet integrate', async () => {
   const handlesBeforeOrder = await driver.getAllWindowHandles()
   await vegaConsole.goToOrderTab()
   await vegaConsole.submitOrder('0.001', '0.01')
-  expect(await windowHandleHasCount(driver, 2)).toBe(true)
+  expect(await windowHandleHasCount(driver, handlesBeforeConnect.length + 1)).toBe(true)
   const handlesAfterOrder = await driver.getAllWindowHandles()
 
   await goToNewWindowHandle(driver, handlesBeforeOrder, handlesAfterOrder)

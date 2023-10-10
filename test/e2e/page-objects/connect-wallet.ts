@@ -9,7 +9,7 @@ export class ConnectWallet {
 
   constructor(private readonly driver: WebDriver) {}
 
-  async approveConnectionAndCheckSuccess(waitForModalToDissapear = true) {
+  async approveConnectionAndCheckSuccess() {
     await clickElement(this.driver, this.approve)
     console.log('clicked approve')
     expect(
@@ -19,10 +19,8 @@ export class ConnectWallet {
     ).toBe(true)
     console.log('success was shown')
 
-    if (waitForModalToDissapear) {
-      await waitForElementToDisappear(this.driver, this.successModal)
-      console.log('success modal dissapeared')
-    }
+    await waitForElementToDisappear(this.driver, this.successModal)
+    console.log('success modal dissapeared')
   }
 
   async denyConnection() {

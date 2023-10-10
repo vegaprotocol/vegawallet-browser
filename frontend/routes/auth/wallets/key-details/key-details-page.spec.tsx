@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { locators as subHeaderLocators } from '../../../../components/sub-header'
 import { FULL_ROUTES } from '../../../route-names'
 import { mockStore } from '../../../../test-helpers/mock-store'
-import { locators as authPageLocators } from '../../../../components/pages/page'
+import { locators as headerLocators } from '../../../../components/header'
 
 jest.mock('./export-private-key-dialog', () => ({
   ExportPrivateKeysDialog: () => <div data-testid="export-private-key-dialog" />

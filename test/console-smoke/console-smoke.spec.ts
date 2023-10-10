@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { ConnectWallet } from '../e2e/page-objects/connect-wallet'
 import { APIHelper } from '../e2e/helpers/wallet/wallet-api'
-import { captureScreenshot, initDriver } from '../e2e/helpers/driver'
+import { captureScreenshot, initDriver, isDriverInstanceClosed } from '../e2e/helpers/driver'
 import { navigateToExtensionLandingPage } from '../e2e/helpers/wallet/wallet-setup'
 import { Transaction } from '../e2e/page-objects/transaction'
 import { goToNewWindowHandle, switchWindowHandles, windowHandleHasCount } from '../e2e/helpers/selenium-util'
@@ -12,6 +12,7 @@ import {
 import { Console } from './console'
 import smokeConsoleMainnet from '../../config/console-smoke-mainnet'
 import smokeConsoleTestnet from '../../config/console-smoke-testnet'
+import { EthCallTrigger } from '@vegaprotocol/protos/vega'
 
 let driver: WebDriver
 let connectWallet: ConnectWallet
@@ -69,9 +70,9 @@ it('check console and browser wallet integrate', async () => {
   await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
   await connectWallet.checkOnConnectWallet()
   await connectWallet.approveConnectionAndCheckSuccess()
+  console.log('about to check if driver instance closed')
+  expect(isDriverInstanceClosed(driver, consoleHandle)).toBe(true)
 
-  console.log('switching window handle')
-  await switchWindowHandles(driver, false, consoleHandle)
   console.log('switched window handle')
   expect(await windowHandleHasCount(driver, handlesBeforeConnect.length)).toBe(true)
   console.log('window handle has expected count')

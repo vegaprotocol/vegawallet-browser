@@ -137,6 +137,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
+    console.log('about to check if driver instance closed')
     expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
 
     await switchWindowHandles(driver, false)

@@ -71,7 +71,7 @@ it('check console and browser wallet integrate', async () => {
   await connectWallet.checkOnConnectWallet()
   await connectWallet.approveConnectionAndCheckSuccess()
   console.log('about to check if driver instance closed')
-  expect(isDriverInstanceClosed(driver, consoleHandle)).toBe(true)
+  expect(await isDriverInstanceClosed(driver, consoleHandle)).toBe(true)
 
   console.log('switched window handle')
   expect(await windowHandleHasCount(driver, handlesBeforeConnect.length)).toBe(true)

@@ -89,18 +89,16 @@ export async function copyProfile(driver: WebDriver) {
 
 export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBackTo: string, maxRetries = 3) {
   let retries = 0
-  while (retries < maxRetries) {
+  let correctException = false
+  while (retries < maxRetries && !correctException) {
     try {
       await navigateToExtensionLandingPage(driver)
       console.log('navigated successfully. This means the driver instance was not closed.')
-      return false
+      retries++
     } catch (error) {
-      // switch back to a valid instance of driver or test will fail for driver related reasons
-      await switchWindowHandles(driver, false, handleToSwitchBackTo)
-
       if ((error as Error).name.toLowerCase().includes('nosuchwindowerror')) {
         console.log('Got the expected error')
-        return true
+        correctException = true
       } else {
         console.log('An exception that was not expected was thrown. Error:', error)
         retries++
@@ -109,12 +107,13 @@ export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBa
           await staticWait(1000)
         } else {
           console.log('Max retry attempts reached.')
-          return false
         }
       }
     }
   }
-  return false
+  // switch back to a valid instance of driver or test will fail for driver related reasons
+  await switchWindowHandles(driver, false, handleToSwitchBackTo)
+  return correctException
 }
 
 export const captureScreenshot = async (driver: WebDriver, testName: string) => {

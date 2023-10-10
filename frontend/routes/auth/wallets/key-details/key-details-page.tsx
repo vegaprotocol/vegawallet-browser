@@ -10,6 +10,7 @@ import { AssetsList } from './assets-list'
 import { AuthPage } from '../../../../components/auth-page'
 
 export const locators = {
+  keyDetailsPage: 'key-details-page',
   keyDetailsDescription: 'key-details-description',
   keyDetailsBack: 'key-details-back',
   keyDetailsPage: 'key-details-page'

@@ -141,5 +141,5 @@ describe('check popout functionality', () => {
     return dappHandle
   }
 
-  //test comment 123456
+  //test comment 123
 })

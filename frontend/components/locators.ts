@@ -4,7 +4,6 @@ const locators = {
   codeWindowContent: 'code-window-content',
   copyIcon: 'copy-icon',
   connectionModalSuccess: 'connection-modal-success',
-  connectionSuccessTitle: 'connection-success-title',
   connectionSuccessHostname: 'connection-success-hostname',
   connectionModalApprove: 'connection-modal-approve',
   connectionModalAccessListTitle: 'connection-modal-access-list-title',

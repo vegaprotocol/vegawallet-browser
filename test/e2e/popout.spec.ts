@@ -2,7 +2,7 @@ import { WebDriver } from 'selenium-webdriver'
 import { VegaAPI } from './helpers/wallet/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { APIHelper } from './helpers/wallet/wallet-api'
-import { captureScreenshot, initDriver } from './helpers/driver'
+import { captureScreenshot, initDriver, isDriverInstanceClosed } from './helpers/driver'
 import { dummyTransaction } from './helpers/wallet/common-wallet-values'
 import { goToNewWindowHandle, switchWindowHandles, windowHandleHasCount } from './helpers/selenium-util'
 import { Transaction } from './page-objects/transaction'
@@ -71,7 +71,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
-    expect(await isDriverInstanceClosed(originalHandle)).toBe(true)
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
   })
 
   it('transaction request persists when popout dismissed without response', async () => {
@@ -94,7 +94,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
-    expect(await isDriverInstanceClosed(originalHandle)).toBe(true)
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {
@@ -103,7 +103,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
-    expect(await isDriverInstanceClosed(originalHandle)).toBe(true)
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
   })
 
   async function sendTransactionAndGetWindowHandles() {
@@ -134,24 +134,6 @@ describe('check popout functionality', () => {
     expect(await windowHandleHasCount(driver, 3)).toBe(true)
     const handlesAfterConnect = await driver.getAllWindowHandles()
     return { handlesBeforeConnect, handlesAfterConnect }
-  }
-
-  async function isDriverInstanceClosed(handleToSwitchBackTo: string) {
-    try {
-      await navigateToExtensionLandingPage(driver)
-      console.log('navigated successfully. This means the driver instance was not closed.')
-      return false
-    } catch (error) {
-      if ((error as Error).message.toLowerCase().includes('no such window: target window already closed')) {
-        //switch back to a valid instance of driver or test will fail for driver related reasons
-        await switchWindowHandles(driver, false, handleToSwitchBackTo)
-        return true
-      } else {
-        console.log('An exception that was not expected was thrown. Error:', error)
-        await switchWindowHandles(driver, false, handleToSwitchBackTo)
-        return false
-      }
-    }
   }
 
   async function createDappWindowHandle() {

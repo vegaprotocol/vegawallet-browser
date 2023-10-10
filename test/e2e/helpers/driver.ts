@@ -4,7 +4,8 @@ import * as firefox from 'selenium-webdriver/firefox'
 import * as fs from 'fs-extra'
 import path from 'path'
 import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } from './file-system'
-import { clickElement } from './selenium-util'
+import { clickElement, switchWindowHandles } from './selenium-util'
+import { navigateToExtensionLandingPage } from './wallet/wallet-setup'
 
 const extensionPath = './build'
 export const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
@@ -83,6 +84,24 @@ export async function copyProfile(driver: WebDriver) {
     await copyDirectoryToNewLocation(seleniumInstanceProfile, firefoxTestProfileDirectory)
   } else {
     console.log('Copying profile is only supported for Firefox. Skipping this step for Chrome.')
+  }
+}
+
+export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBackTo: string) {
+  try {
+    await navigateToExtensionLandingPage(driver)
+    console.log('navigated successfully. This means the driver instance was not closed.')
+    return false
+  } catch (error) {
+    if ((error as Error).message.toLowerCase().includes('no such window: target window already closed')) {
+      //switch back to a valid instance of driver or test will fail for driver related reasons
+      await switchWindowHandles(driver, false, handleToSwitchBackTo)
+      return true
+    } else {
+      console.log('An exception that was not expected was thrown. Error:', error)
+      await switchWindowHandles(driver, false, handleToSwitchBackTo)
+      return false
+    }
   }
 }
 

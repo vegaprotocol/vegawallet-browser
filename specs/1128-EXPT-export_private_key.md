@@ -5,3 +5,4 @@
 - I am required to enter my passphrase to export my private keys (<a name="1128-EXPT-003" href="#1128-EXPT-003">1128-EXPT-003</a>)
 - If my passphrase is incorrect I see an error informing me of this (<a name="1128-EXPT-004" href="#1128-EXPT-004">1128-EXPT-004</a>)
 - If I enter the correct passphrase then I see the [reveal hidden information component](./1129-HDCN-hidden_container.md) and a button to close the modal (<a name="1128-EXPT-005" href="#1128-EXPT-005">1128-EXPT-005</a>)
+- If my password is blank the export button will remain disabled (<a name="1128-EXPT-006" href="#1128-EXPT-006">1128-EXPT-006</a>)

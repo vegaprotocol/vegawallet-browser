@@ -93,7 +93,7 @@ export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBa
     console.log('navigated successfully. This means the driver instance was not closed.')
     return false
   } catch (error) {
-    if ((error as Error).message.toLowerCase().includes('no such window: target window already closed')) {
+    if ((error as Error).message.toLowerCase().includes('no such window')) {
       //switch back to a valid instance of driver or test will fail for driver related reasons
       await switchWindowHandles(driver, false, handleToSwitchBackTo)
       return true

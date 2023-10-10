@@ -4,12 +4,7 @@ import { ConnectWallet } from './page-objects/connect-wallet'
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { captureScreenshot, initDriver } from './helpers/driver'
 import { dummyTransaction } from './helpers/wallet/common-wallet-values'
-import {
-  goToNewWindowHandle,
-  openLatestWindowHandle,
-  switchWindowHandles,
-  windowHandleHasCount
-} from './helpers/selenium-util'
+import { goToNewWindowHandle, switchWindowHandles, windowHandleHasCount } from './helpers/selenium-util'
 import { Transaction } from './page-objects/transaction'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
 
@@ -20,6 +15,7 @@ describe('check popout functionality', () => {
   let connectWallet: ConnectWallet
   let apiHelper: APIHelper
   let transaction: Transaction
+  let originalHandle: string
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -29,6 +25,7 @@ describe('check popout functionality', () => {
     transaction = new Transaction(driver)
     await navigateToExtensionLandingPage(driver)
     await setUpWalletAndKey(driver)
+    originalHandle = await driver.getWindowHandle()
   })
 
   afterEach(async () => {
@@ -69,7 +66,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
-    await switchWindowHandles(driver, false)
+    await switchWindowHandles(driver, false, originalHandle)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
@@ -81,7 +78,7 @@ describe('check popout functionality', () => {
     expect(await windowHandleHasCount(driver, 3)).toBe(true)
     await driver.close()
 
-    await switchWindowHandles(driver, false)
+    await switchWindowHandles(driver, false, originalHandle)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
@@ -93,7 +90,7 @@ describe('check popout functionality', () => {
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
 
-    await switchWindowHandles(driver, false)
+    await switchWindowHandles(driver, false, originalHandle)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
@@ -104,7 +101,7 @@ describe('check popout functionality', () => {
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
 
-    await switchWindowHandles(driver, false, dappHandle)
+    await switchWindowHandles(driver, false, originalHandle)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
@@ -140,7 +137,7 @@ describe('check popout functionality', () => {
 
   async function createDappWindowHandle() {
     await vegaAPI.openNewWindow()
-    const dappHandle = await vegaAPI.getVegaDappWindowHandle()
+    dappHandle = await vegaAPI.getVegaDappWindowHandle()
     await switchWindowHandles(driver, false)
     return dappHandle
   }

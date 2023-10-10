@@ -8,6 +8,8 @@ import { locators as subHeaderLocators } from '../../../../components/sub-header
 import { FULL_ROUTES } from '../../../route-names'
 import { mockStore } from '../../../../test-helpers/mock-store'
 import { locators as headerLocators } from '../../../../components/header'
+import { locators as pageLocators } from '../../../../components/pages/page'
+import { FULL_ROUTES } from '../../../route-names'
 
 jest.mock('./export-private-key-dialog', () => ({
   ExportPrivateKeysDialog: () => <div data-testid="export-private-key-dialog" />

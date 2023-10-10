@@ -2,6 +2,7 @@ import { Button } from '@vegaprotocol/ui-toolkit'
 import { CodeWindow } from '../../code-window'
 import { Splash } from '../../splash'
 import { ErrorIcon } from '../../icons/error'
+import { Header } from '../../header'
 
 export const locators = {
   errorModal: 'error-modal',
@@ -16,8 +17,8 @@ export const ErrorModal = ({ error, onClose }: { error: Error | null; onClose: (
         <div className="text-center mx-auto">
           <ErrorIcon />
         </div>
-        <h1 className="text-2xl mb-6">Something's gone wrong</h1>
-        <div className="mb-8 text-xs">
+        <Header content="Something's gone wrong" />
+        <div className="mb-8 mt-6 text-xs">
           {error ? (
             <CodeWindow content={error.stack} text={JSON.stringify(error.stack, null, 2)} />
           ) : (

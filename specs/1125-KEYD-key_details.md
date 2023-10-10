@@ -7,3 +7,4 @@
 - There is a way to switch between keys (or to easily navigate back to the keys page to achieve this) (<a name="1125-KEYD-005" href="#1125-KEYD-005">1125-KEYD-005</a>)
 - When switching via the dropdown, I can see my [vega keys and associated info](./1126-VKEY-vega_key.md) (<a name="1125-KEYD-006" href="#1125-KEYD-006">1125-KEYD-006</a>)
 - In the key details screen I can see my currently selected [key and associated info](./1126-VKEY-vega_key.md) (<a name="1125-KEYD-007" href="#1125-KEYD-007">1125-KEYD-007</a>)
+- There is a way to export a private key (<a name="1125-KEYD-008" href="#1125-KEYD-008">1125-KEYD-008</a>)

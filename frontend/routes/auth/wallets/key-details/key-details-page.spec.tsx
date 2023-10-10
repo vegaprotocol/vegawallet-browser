@@ -7,6 +7,10 @@ import { MemoryRouter } from 'react-router-dom'
 import { FULL_ROUTES } from '../../../route-names'
 import { mockStore } from '../../../../test-helpers/mock-store'
 
+jest.mock('./export-private-key-dialog', () => ({
+  ExportPrivateKeysDialog: () => <div data-testid="export-private-key-dialog" />
+}))
+
 jest.mock('./key-selector', () => ({
   KeySelector: () => <div data-testid="key-selector" />
 }))
@@ -75,10 +79,11 @@ describe('KeyDetailsPage', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('renders the back button, key selector, vega key indicator, title and description', () => {
+  it('renders the back button, key selector, vega key indicator, title, description and export button', () => {
     // 1125-KEYD-002 There is a warning to remember that if I hold an open position the balance / totals may not be accurate as is constantly changing
     // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)
     // 1125-KEYD-007 In the key details screen I can see my currently selected key and associated info
+    // 1125-KEYD-008 There is a way to export a private key
     mockStore(useWalletStore, {
       loading: false,
       getKeyById: () => ({
@@ -92,6 +97,7 @@ describe('KeyDetailsPage', () => {
     renderComponent()
     expect(screen.getByTestId('key-selector')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()
+    expect(screen.getByTestId('export-private-key-dialog')).toBeInTheDocument()
     expect(screen.getByTestId(locators.keyDetailsBack)).toHaveAttribute('href', FULL_ROUTES.wallets)
   })
 

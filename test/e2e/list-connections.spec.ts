@@ -99,6 +99,8 @@ describe('list connections tests', () => {
     secondDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
+    await connections.checkOnListConnectionsPage()
+    await connections.checkNumConnections(1)
 
     await secondDapp.connectWallet()
     await connections.checkOnListConnectionsPage()

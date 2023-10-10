@@ -42,8 +42,8 @@ describe('check popout functionality', () => {
     await connectWallet.approveConnectionAndCheckSuccess()
 
     await switchWindowHandles(driver, false)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
     await navigateToExtensionLandingPage(driver)
+    expect(await windowHandleHasCount(driver, 2)).toBe(true)
     expect((await apiHelper.listConnections()).length).toBe(1)
   })
 
@@ -67,6 +67,7 @@ describe('check popout functionality', () => {
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
     await switchWindowHandles(driver, false, originalHandle)
+    await navigateToExtensionLandingPage(driver)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
@@ -79,6 +80,7 @@ describe('check popout functionality', () => {
     await driver.close()
 
     await switchWindowHandles(driver, false, originalHandle)
+    await navigateToExtensionLandingPage(driver)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
@@ -91,6 +93,7 @@ describe('check popout functionality', () => {
     await transaction.confirmTransaction()
 
     await switchWindowHandles(driver, false, originalHandle)
+    await navigateToExtensionLandingPage(driver)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 
@@ -102,6 +105,7 @@ describe('check popout functionality', () => {
     await transaction.rejectTransaction()
 
     await switchWindowHandles(driver, false, originalHandle)
+    await navigateToExtensionLandingPage(driver)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
   })
 

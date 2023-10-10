@@ -4,7 +4,6 @@ import { Icon } from '@vegaprotocol/ui-toolkit'
 import { useNavigate } from 'react-router-dom'
 
 export const locators = {
-  authPageTitle: 'auth-page-title',
   authPageBack: 'auth-page-back'
 }
 

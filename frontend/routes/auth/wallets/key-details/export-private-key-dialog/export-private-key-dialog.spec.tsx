@@ -26,7 +26,7 @@ describe('ExportPrivateKeyDialog', () => {
     render(<ExportPrivateKeysDialog />)
     fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
     await screen.findByTestId(locators.privateKeyTitle)
-    expect(screen.getByTestId(locators.privateKeyTitle)).toHaveTextContent('Export private key')
+    expect(screen.getByTestId(locators.privateKeyTitle)).toHaveTextContent('Export Private Key')
   })
   it('renders form when private key has yet to be loaded', async () => {
     render(<ExportPrivateKeysDialog />)

@@ -2,14 +2,9 @@ import { WebDriver } from 'selenium-webdriver'
 import { VegaAPI } from './helpers/wallet/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { APIHelper } from './helpers/wallet/wallet-api'
-import { captureScreenshot, initDriver } from './helpers/driver'
+import { captureScreenshot, initDriver, isDriverInstanceClosed } from './helpers/driver'
 import { dummyTransaction } from './helpers/wallet/common-wallet-values'
-import {
-  goToNewWindowHandle,
-  openLatestWindowHandle,
-  switchWindowHandles,
-  windowHandleHasCount
-} from './helpers/selenium-util'
+import { goToNewWindowHandle, switchWindowHandles, windowHandleHasCount } from './helpers/selenium-util'
 import { Transaction } from './page-objects/transaction'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
 
@@ -20,6 +15,7 @@ describe('check popout functionality', () => {
   let connectWallet: ConnectWallet
   let apiHelper: APIHelper
   let transaction: Transaction
+  let originalHandle: string
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -29,6 +25,7 @@ describe('check popout functionality', () => {
     transaction = new Transaction(driver)
     await navigateToExtensionLandingPage(driver)
     await setUpWalletAndKey(driver)
+    originalHandle = await driver.getWindowHandle()
   })
 
   afterEach(async () => {
@@ -43,9 +40,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
-
-    await switchWindowHandles(driver, false)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
     await navigateToExtensionLandingPage(driver)
     expect((await apiHelper.listConnections()).length).toBe(1)
   })
@@ -58,7 +53,7 @@ describe('check popout functionality', () => {
     await driver.close()
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
 
-    await switchWindowHandles(driver, false, dappHandle)
+    await switchWindowHandles(driver, false, originalHandle)
     await navigateToExtensionLandingPage(driver)
     await connectWallet.checkOnConnectWallet()
   })
@@ -69,8 +64,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
-    await switchWindowHandles(driver, false)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
   })
 
   it('transaction request persists when popout dismissed without response', async () => {
@@ -78,11 +72,11 @@ describe('check popout functionality', () => {
     const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
-    expect(await windowHandleHasCount(driver, 3)).toBe(true)
     await driver.close()
 
     await switchWindowHandles(driver, false)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    await navigateToExtensionLandingPage(driver)
+    await transaction.checkOnTransactionPage()
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
@@ -92,9 +86,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
     await transaction.confirmTransaction()
-
-    await switchWindowHandles(driver, false)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {
@@ -103,9 +95,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
-
-    await switchWindowHandles(driver, false, dappHandle)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
   })
 
   async function sendTransactionAndGetWindowHandles() {
@@ -113,34 +103,34 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
 
     await switchWindowHandles(driver, false)
     const keys = await vegaAPI.listKeys(false, false)
-    const handles = await driver.getAllWindowHandles()
-    expect(handles.length).toBe(2)
     const handlesBeforeTransaction = await driver.getAllWindowHandles()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction }, false, false)
-    expect(await windowHandleHasCount(driver, 3)).toBe(true)
+    expect(await windowHandleHasCount(driver, handlesBeforeTransaction.length + 1)).toBe(true)
     const handlesAfterTransaction = await driver.getAllWindowHandles()
     return { handlesBeforeTransaction, handlesAfterTransaction }
   }
 
   async function sendConnectionRequestAndReturnHandles() {
+    const handlesBeforeDappWindow = await driver.getAllWindowHandles()
     dappHandle = await createDappWindowHandle()
     await driver.get('http://google.co.uk')
     await switchWindowHandles(driver, false, dappHandle)
 
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await windowHandleHasCount(driver, handlesBeforeDappWindow.length + 1)).toBe(true)
     const handlesBeforeConnect = await driver.getAllWindowHandles()
     await vegaAPI.connectWallet(false, false)
-    expect(await windowHandleHasCount(driver, 3)).toBe(true)
+    expect(await windowHandleHasCount(driver, handlesBeforeConnect.length + 1)).toBe(true)
     const handlesAfterConnect = await driver.getAllWindowHandles()
     return { handlesBeforeConnect, handlesAfterConnect }
   }
 
   async function createDappWindowHandle() {
     await vegaAPI.openNewWindow()
-    const dappHandle = await vegaAPI.getVegaDappWindowHandle()
+    dappHandle = await vegaAPI.getVegaDappWindowHandle()
     await switchWindowHandles(driver, false)
     return dappHandle
   }

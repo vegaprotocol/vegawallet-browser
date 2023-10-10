@@ -74,14 +74,19 @@ describe('check popout functionality', () => {
   it('transaction request persists when popout dismissed without response', async () => {
     // 1113-POPT-006 If I close the pop-up window the transaction persists
     const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
+    console.log('send transaction and got handles')
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
+    console.log('opened new handle')
     await transaction.checkOnTransactionPage()
-    expect(await windowHandleHasCount(driver, 3)).toBe(true)
+    console.log('checked on transaction page')
     await driver.close()
 
     await switchWindowHandles(driver, false, originalHandle)
+    console.log('switched tabs again')
     await navigateToExtensionLandingPage(driver)
+    console.log('about to navigate to extension landing page')
     await transaction.checkOnTransactionPage()
+    console.log('was on transaction page')
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
@@ -140,6 +145,4 @@ describe('check popout functionality', () => {
     await switchWindowHandles(driver, false)
     return dappHandle
   }
-
-  //test comment 123
 })

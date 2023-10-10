@@ -1,5 +1,3 @@
-import { NavLink } from 'react-router-dom'
-import { ArrowLeft } from '../../../../components/icons/arrow-left'
 import { VegaKey } from '../../../../components/keys/vega-key'
 import { useAssetsStore } from '../../../../stores/assets-store'
 import { useWalletStore } from '../../../../stores/wallets'

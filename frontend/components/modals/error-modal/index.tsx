@@ -6,8 +6,7 @@ import { Header } from '../../header'
 
 export const locators = {
   errorModal: 'error-modal',
-  errorModalClose: 'error-modal-close',
-  errorModalHeader: 'error-modal-description'
+  errorModalClose: 'error-modal-close'
 }
 
 export const ErrorModal = ({ error, onClose }: { error: Error | null; onClose: () => void }) => {

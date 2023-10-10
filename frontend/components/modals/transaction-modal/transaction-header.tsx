@@ -6,7 +6,6 @@ import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { Header } from '../../header'
 
 export const locators = {
-  transactionType: 'transaction-type',
   transactionRequest: 'transaction-request',
   transactionKey: 'transaction-key'
 }

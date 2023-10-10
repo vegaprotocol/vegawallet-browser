@@ -1,4 +1,5 @@
 import { useFormatAssetAmount } from '../../../hooks/format-asset-amount'
+import { Header } from '../../header'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
 import { BaseWithdrawal } from './base-withdrawal'
 
@@ -14,9 +15,7 @@ export const EnrichedWithdrawal = ({
   const { formattedAmount, symbol } = useFormatAssetAmount(asset, amount)
   return (
     <BaseWithdrawal receiverAddress={receiverAddress}>
-      <div className="text-2xl text-white mb-4">
-        <AmountWithSymbol amount={formattedAmount} symbol={symbol} />
-      </div>
+      <Header content={<AmountWithSymbol amount={formattedAmount} symbol={symbol} />} />
     </BaseWithdrawal>
   )
 }

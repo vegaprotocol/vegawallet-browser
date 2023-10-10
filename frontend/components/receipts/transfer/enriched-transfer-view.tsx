@@ -3,6 +3,7 @@ import { VegaKey } from '../../keys/vega-key'
 import { useWalletStore } from '../../../stores/wallets'
 import { ReceiptComponentProps } from '../receipts'
 import { useFormatAssetAmount } from '../../../hooks/format-asset-amount'
+import { Header } from '../../header'
 
 export const locators = {
   enrichedSection: 'enriched-section'
@@ -17,10 +18,8 @@ export const EnrichedTransferView = ({ transaction }: ReceiptComponentProps) => 
 
   return (
     <div data-testid={locators.enrichedSection}>
-      <div className="text-2xl text-white mb-4">
-        <AmountWithSymbol amount={formattedAmount} symbol={symbol} />
-      </div>
-      <h1 className="text-vega-dark-300">To</h1>
+      <Header content={<AmountWithSymbol amount={formattedAmount} symbol={symbol} />} />
+      <h1 className="text-vega-dark-300 mt-4">To</h1>
       <VegaKey publicKey={transaction.transfer.to} name={isOwnKey ? `${keyInfo?.name} (own key)` : 'External key'} />
     </div>
   )

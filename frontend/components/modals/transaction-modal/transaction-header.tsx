@@ -3,6 +3,7 @@ import { VegaSection } from '../../vega-section'
 import { HostImage } from '../../host-image'
 import { KeyIcon } from '../../keys/vega-icon'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { Header } from '../../header'
 
 export const locators = {
   transactionType: 'transaction-type',
@@ -23,9 +24,7 @@ export const TransactionHeader = ({
 }) => {
   return (
     <VegaSection>
-      <h1 data-testid={locators.transactionType} className="flex justify-center flex-col text-2xl text-white">
-        {TRANSACTION_TITLES[Object.keys(transaction)[0] as TransactionKeys]}
-      </h1>
+      <Header content={TRANSACTION_TITLES[Object.keys(transaction)[0] as TransactionKeys]} />
       <div className="flex items-center mt-6 mb-4">
         <HostImage size={42} hostname={origin} />
         <div data-testid={locators.transactionRequest} className="ml-4">

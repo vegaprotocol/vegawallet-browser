@@ -6,7 +6,7 @@ import { HiddenContainer } from '../../../components/hidden-container'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { createWallet } from '../../../lib/create-wallet'
 import { WalletCreated } from './wallet-created'
-import { useSuggestMnemonic } from '../../../hooks/suggest-mnemonic'
+import { clearMnemonic, useSuggestMnemonic } from '../../../hooks/suggest-mnemonic'
 import { SaveMnemonicForm } from './save-mnemonic-form'
 
 export const locators = {
@@ -42,7 +42,7 @@ export const SaveMnemonic = () => {
       />
     )
   return (
-    <OnboardingPage name="Secure your wallet">
+    <OnboardingPage name="Secure your wallet" backLocation={FULL_ROUTES.createWallet} onBack={clearMnemonic}>
       <>
         <p data-testid={locators.saveMnemonicDescription} className="pb-6">
           Write down or save this recovery phrase to a safe place. You'll need it to recover your wallet. Never share

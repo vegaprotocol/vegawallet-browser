@@ -22,7 +22,6 @@ const locators = {
   pageHeader: 'page-header',
   hideIcon: 'hide-icon',
   modalHeader: 'modal-header',
-  modalHeaderTitle: 'modal-header-title',
   mnemonicContainerShown: 'mnemonic-container-shown',
   mnemonicContainerHidden: 'mnemonic-container-hidden',
   mnemonicContainerMnemonic: 'mnemonic-container-mnemonic',

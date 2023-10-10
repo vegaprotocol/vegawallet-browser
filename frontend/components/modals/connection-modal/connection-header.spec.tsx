@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import locators from '../../locators'
 import { ConnectionHeader } from './connection-header'
+import { locators as headerLocators } from '../../../components/header'
 
 jest.mock('../../host-image', () => ({
   HostImage: () => <div data-testid="host-image"></div>
@@ -14,7 +15,7 @@ describe('ModalHeader', () => {
     render(<ConnectionHeader hostname="https://www.google.com" title="title" />)
     expect(screen.getByTestId('host-image')).toBeInTheDocument()
     expect(screen.getByTestId('vega-icon')).toBeInTheDocument()
-    expect(screen.getByTestId(locators.modalHeaderTitle)).toHaveTextContent('title')
+    expect(screen.getByTestId(headerLocators.header)).toHaveTextContent('title')
     expect(screen.getByTestId(locators.dAppHostname)).toHaveTextContent('https://www.google.com')
   })
 })

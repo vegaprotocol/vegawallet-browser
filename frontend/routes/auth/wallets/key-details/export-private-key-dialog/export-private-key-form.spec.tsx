@@ -90,4 +90,20 @@ describe('ExportPrivateKeyForm', () => {
     // Check if the success callback is not called
     expect(onSuccess).not.toHaveBeenCalled()
   })
+
+  it('disabled export button if password is blank', async () => {
+    // 1128-EXPT-006 - If my password is blank the export button will remain disabled
+    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
+      request: jest.fn().mockReturnValue({ privateKey: '0x123' })
+    })
+    render(<ExportPrivateKeyForm onSuccess={jest.fn()} onClose={jest.fn()} />)
+    const exportButton = screen.getByTestId(locators.privateKeyModalSubmit)
+    expect(exportButton).toBeDisabled()
+
+    // Input password
+    const passwordInput = screen.getByTestId(locators.privateKeyModalPassphrase)
+    fireEvent.change(passwordInput, { target: { value: 'password123' } })
+
+    await waitFor(() => expect(exportButton).not.toBeDisabled())
+  })
 })

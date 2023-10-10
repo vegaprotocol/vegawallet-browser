@@ -6,7 +6,6 @@ import path from 'path'
 import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } from './file-system'
 import { clickElement, staticWait, switchWindowHandles } from './selenium-util'
 import { navigateToExtensionLandingPage } from './wallet/wallet-setup'
-import { el } from 'date-fns/locale'
 
 const extensionPath = './build'
 export const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'

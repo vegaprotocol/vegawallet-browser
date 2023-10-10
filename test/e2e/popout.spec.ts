@@ -147,5 +147,5 @@ describe('check popout functionality', () => {
   //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
   //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
   //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
-  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
 })

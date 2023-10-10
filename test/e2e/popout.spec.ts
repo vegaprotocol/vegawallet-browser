@@ -30,6 +30,11 @@ describe('check popout functionality', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
+    const handles = await driver.getAllWindowHandles()
+    for (const handle of handles) {
+      await driver.switchTo().window(handle)
+      await driver.close()
+    }
     await driver.quit()
   })
 
@@ -66,9 +71,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
-    await switchWindowHandles(driver, false, originalHandle)
-    await navigateToExtensionLandingPage(driver)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await isDriverInstanceClosed(originalHandle)).toBe(true)
   })
 
   it('transaction request persists when popout dismissed without response', async () => {
@@ -81,7 +84,7 @@ describe('check popout functionality', () => {
 
     await switchWindowHandles(driver, false, originalHandle)
     await navigateToExtensionLandingPage(driver)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    await transaction.checkOnTransactionPage()
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
@@ -90,15 +93,8 @@ describe('check popout functionality', () => {
     const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
-    const handlesBeforeConfirm = await driver.getAllWindowHandles()
-    console.log('handlesBeforeConfirm', handlesBeforeConfirm.length)
     await transaction.confirmTransaction()
-
-    await switchWindowHandles(driver, false, originalHandle)
-    await navigateToExtensionLandingPage(driver)
-    const handlesAfterConfirm = await driver.getAllWindowHandles()
-    console.log('handlesAfterConfirm', handlesAfterConfirm.length)
-    expect(await windowHandleHasCount(driver, handlesBeforeConfirm.length - 1)).toBe(true)
+    expect(await isDriverInstanceClosed(originalHandle)).toBe(true)
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {
@@ -107,10 +103,7 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
     await transaction.rejectTransaction()
-
-    await switchWindowHandles(driver, false, originalHandle)
-    await navigateToExtensionLandingPage(driver)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await isDriverInstanceClosed(originalHandle)).toBe(true)
   })
 
   async function sendTransactionAndGetWindowHandles() {
@@ -141,6 +134,24 @@ describe('check popout functionality', () => {
     expect(await windowHandleHasCount(driver, 3)).toBe(true)
     const handlesAfterConnect = await driver.getAllWindowHandles()
     return { handlesBeforeConnect, handlesAfterConnect }
+  }
+
+  async function isDriverInstanceClosed(handleToSwitchBackTo: string) {
+    try {
+      await navigateToExtensionLandingPage(driver)
+      console.log('navigated successfully. This means the driver instance was not closed.')
+      return false
+    } catch (error) {
+      if ((error as Error).message.toLowerCase().includes('no such window: target window already closed')) {
+        //switch back to a valid instance of driver or test will fail for driver related reasons
+        await switchWindowHandles(driver, false, handleToSwitchBackTo)
+        return true
+      } else {
+        console.log('An exception that was not expected was thrown. Error:', error)
+        await switchWindowHandles(driver, false, handleToSwitchBackTo)
+        return false
+      }
+    }
   }
 
   async function createDappWindowHandle() {

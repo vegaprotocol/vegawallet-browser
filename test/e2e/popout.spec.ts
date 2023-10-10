@@ -138,5 +138,14 @@ describe('check popout functionality', () => {
     return dappHandle
   }
 
-  //boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+  //boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
 })

@@ -3,6 +3,7 @@ import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { Settings } from '.'
 import { mockClient } from '../../../test-helpers/mock-client'
 import { locators } from '../../../../frontend/routes/auth/settings'
+import { MemoryRouter } from 'react-router-dom'
 
 jest.mock('./version-section', () => ({
   VersionSection: () => <div data-testid="version-section" />
@@ -21,9 +22,11 @@ jest.mock('!/config', () => ({
 
 const renderComponent = () =>
   render(
-    <JsonRPCProvider>
-      <Settings />
-    </JsonRPCProvider>
+    <MemoryRouter>
+      <JsonRPCProvider>
+        <Settings />
+      </JsonRPCProvider>
+    </MemoryRouter>
   )
 
 describe('Settings', () => {

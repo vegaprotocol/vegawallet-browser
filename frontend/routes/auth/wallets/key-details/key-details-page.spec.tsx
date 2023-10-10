@@ -4,8 +4,10 @@ import { useAssetsStore } from '../../../../stores/assets-store'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { useWalletStore } from '../../../../stores/wallets'
 import { MemoryRouter } from 'react-router-dom'
+import { locators as subHeaderLocators } from '../../../../components/sub-header'
 import { FULL_ROUTES } from '../../../route-names'
 import { mockStore } from '../../../../test-helpers/mock-store'
+import { locators as authPageLocators } from '../../../../components/auth-page'
 
 jest.mock('./export-private-key-dialog', () => ({
   ExportPrivateKeysDialog: () => <div data-testid="export-private-key-dialog" />
@@ -99,6 +101,10 @@ describe('KeyDetailsPage', () => {
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()
     expect(screen.getByTestId('export-private-key-dialog')).toBeInTheDocument()
     expect(screen.getByTestId(locators.keyDetailsBack)).toHaveAttribute('href', FULL_ROUTES.wallets)
+  })
+
+  it('clicking back navigates to the previous page', () => {
+    expect(false).toBeTruthy()
   })
 
   it('renders asset assets list', () => {

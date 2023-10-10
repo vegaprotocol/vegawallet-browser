@@ -1,3 +1,4 @@
+import { Header } from '../../header'
 import { AmountWithTooltip } from '../utils/string-amounts/amount-with-tooltip'
 import { BaseWithdrawal } from './base-withdrawal'
 
@@ -12,9 +13,7 @@ export const BasicWithdrawal = ({
 }) => {
   return (
     <BaseWithdrawal receiverAddress={receiverAddress}>
-      <div className="text-2xl text-white mb-4">
-        <AmountWithTooltip amount={amount} assetId={asset} />
-      </div>
+      <Header content={<AmountWithTooltip amount={amount} assetId={asset} />} />
     </BaseWithdrawal>
   )
 }

@@ -1,7 +1,7 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { locators as transactionModalLocators } from '../../../frontend/components/modals/transaction-modal'
 import { locators as transferLocators } from '../../../frontend/components/receipts/transfer'
-import { clickElement, getByDataTestID, isElementDisplayed } from '../helpers/selenium-util'
+import { clickElement, getByDataTestID, isElementDisplayed, waitForElementToDisappear } from '../helpers/selenium-util'
 
 export class Transaction {
   private readonly confirm: By = getByDataTestID(transactionModalLocators.transactionModalApproveButton)
@@ -12,6 +12,7 @@ export class Transaction {
 
   async confirmTransaction() {
     await clickElement(this.driver, this.confirm)
+    await waitForElementToDisappear(this.driver, this.confirm)
   }
 
   async rejectTransaction() {

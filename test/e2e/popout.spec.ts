@@ -145,4 +145,6 @@ describe('check popout functionality', () => {
     await switchWindowHandles(driver, false)
     return dappHandle
   }
+
+  //test
 })

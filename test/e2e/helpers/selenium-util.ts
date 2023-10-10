@@ -271,10 +271,9 @@ export async function goToNewWindowHandle(
   windowHandlesBeforeNewHandle: string[],
   windowHandlesAfterNewHandle: string[]
 ) {
-  const newWindowHandle = await openLatestWindowHandle(driver)
   const newHandle = getDifference(windowHandlesAfterNewHandle, windowHandlesBeforeNewHandle)
   await switchWindowHandles(driver, false, newHandle[0])
-  return newWindowHandle
+  return await driver.getWindowHandle()
 }
 
 export async function switchWindowHandles(driver: WebDriver, closeOld = true, windowHandle = '', handleToClose = '') {

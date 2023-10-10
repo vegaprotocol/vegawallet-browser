@@ -36,25 +36,17 @@ describe('check popout functionality', () => {
   it('connect request opens in popout and can be approved when extension not already open', async () => {
     // 1113-POPT-001 The browser wallet opens in a pop-up window when there is a connection request
     // 1113-POPT-003 If I approve the connection the pop-up window closes
-    console.log(
-      '----------------connect request opens in popout and can be approved when extension not already open------------------'
-    )
     const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
-    console.log('opened new window handle, about to check if on connect wallet')
     await connectWallet.checkOnConnectWallet()
-    console.log('was on connect wallet, about to approve connection')
     await connectWallet.approveConnectionAndCheckSuccess()
-    console.log('approved connection')
     expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    console.log('driver instance was closed')
     await navigateToExtensionLandingPage(driver)
     expect((await apiHelper.listConnections()).length).toBe(1)
   })
 
   it('connection request persists when popout dismissed', async () => {
     // 1113-POPT-002 If I close the pop-up window the connection persists
-    console.log('----------------connection request persists when popout dismissed------------------')
     const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
@@ -67,9 +59,6 @@ describe('check popout functionality', () => {
   })
 
   it('connect request opens in popout and can be denied when extension not already open', async () => {
-    console.log(
-      '----------------connect request opens in popout and can be denied when extension not already open------------------'
-    )
     // 1113-POPT-004 If I reject the connection the pop-up window closes
     const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
@@ -79,57 +68,34 @@ describe('check popout functionality', () => {
   })
 
   it('transaction request persists when popout dismissed without response', async () => {
-    console.log('----------------transaction request persists when popout dismissed without response------------------')
     // 1113-POPT-006 If I close the pop-up window the transaction persists
     const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
-    console.log('send transaction and got handles')
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
-    console.log('opened new handle')
     await transaction.checkOnTransactionPage()
-    console.log('checked on transaction page')
     await driver.close()
 
     await switchWindowHandles(driver, false)
-    console.log('switched tabs again')
     await navigateToExtensionLandingPage(driver)
-    console.log('about to navigate to extension landing page')
     await transaction.checkOnTransactionPage()
-    console.log('was on transaction page')
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
-    console.log(
-      '----------------transaction request opens in popout and can be confirmed when extension not already open------------------'
-    )
     // 1113-POPT-005 The browser wallet opens in a pop-up window when there is a transaction request
     // 1113-POPT-007 If I approve the transaction the pop-up window closes
     const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
-    console.log('got handles')
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
-    console.log('went to new window handle')
     await transaction.checkOnTransactionPage()
-    console.log('checked on transaction page')
     await transaction.confirmTransaction()
-    console.log('confirmed transaction')
     expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    console.log('driver instance was closed')
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {
-    console.log(
-      '----------------transaction request opens in popout and can be rejected when extension not already open------------------'
-    )
     // 1113-POPT-008 If I reject the transaction the pop-up window closes
     const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
-    console.log('got handles')
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
-    console.log('went to new window handle')
     await transaction.checkOnTransactionPage()
-    console.log('checked on transaction page')
     await transaction.rejectTransaction()
-    console.log('rejected transaction')
     expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    console.log('driver instance was closed')
   })
 
   async function sendTransactionAndGetWindowHandles() {
@@ -137,7 +103,6 @@ describe('check popout functionality', () => {
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
-    console.log('about to check if driver instance closed')
     expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
 
     await switchWindowHandles(driver, false)

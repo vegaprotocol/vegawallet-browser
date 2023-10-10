@@ -12,7 +12,6 @@ import {
 import { Console } from './console'
 import smokeConsoleMainnet from '../../config/console-smoke-mainnet'
 import smokeConsoleTestnet from '../../config/console-smoke-testnet'
-import { EthCallTrigger } from '@vegaprotocol/protos/vega'
 
 let driver: WebDriver
 let connectWallet: ConnectWallet
@@ -70,41 +69,25 @@ it('check console and browser wallet integrate', async () => {
   await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
   await connectWallet.checkOnConnectWallet()
   await connectWallet.approveConnectionAndCheckSuccess()
-  console.log('about to check if driver instance closed')
   expect(await isDriverInstanceClosed(driver, consoleHandle)).toBe(true)
 
-  console.log('switched window handle')
   expect(await windowHandleHasCount(driver, handlesBeforeConnect.length)).toBe(true)
-  console.log('window handle has expected count')
   if (acceptRisk) {
     await vegaConsole.agreeToUnderstandRisk()
   }
   await vegaConsole.waitForConnectDialogToDissapear()
-  console.log('connect dialog dissapeared')
   const handlesBeforeOrder = await driver.getAllWindowHandles()
   await vegaConsole.goToOrderTab()
-  console.log('went to order tab')
   await vegaConsole.submitOrder('0.001', '0.01')
-  console.log('about to check window handle count')
   expect(await windowHandleHasCount(driver, handlesBeforeConnect.length + 1)).toBe(true)
-  console.log('had expected count')
   const handlesAfterOrder = await driver.getAllWindowHandles()
-
-  console.log('going to new window handle')
   await goToNewWindowHandle(driver, handlesBeforeOrder, handlesAfterOrder)
   if (approveTransaction) {
-    console.log('about to confirm transaction')
     await transaction.confirmTransaction()
-    console.log('confirmed')
     await switchWindowHandles(driver, false)
-    console.log('switched back tabs')
     await vegaConsole.checkTransactionSuccess()
-    console.log('success!')
   } else {
-    console.log('about to reject transaction')
     await transaction.rejectTransaction()
-    console.log('rejected')
     await switchWindowHandles(driver, false)
-    console.log('switched back tabs')
   }
 })

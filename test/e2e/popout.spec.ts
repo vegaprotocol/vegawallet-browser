@@ -86,7 +86,7 @@ describe('check popout functionality', () => {
     await navigateToExtensionLandingPage(driver)
     console.log('about to navigate to extension landing page')
     await transaction.checkOnTransactionPage()
-    console.log('was on transaction page') //test
+    console.log('was on transaction page') //test test
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {

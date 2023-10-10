@@ -6,6 +6,7 @@ import path from 'path'
 import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } from './file-system'
 import { clickElement, staticWait, switchWindowHandles } from './selenium-util'
 import { navigateToExtensionLandingPage } from './wallet/wallet-setup'
+import { el } from 'date-fns/locale'
 
 const extensionPath = './build'
 export const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
@@ -87,7 +88,7 @@ export async function copyProfile(driver: WebDriver) {
   }
 }
 
-export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBackTo: string, maxRetries = 3) {
+export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBackTo: string, maxRetries = 5) {
   let retries = 0
   let correctException = false
   while (retries < maxRetries && !correctException) {
@@ -99,6 +100,8 @@ export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBa
       if ((error as Error).name.toLowerCase().includes('nosuchwindowerror')) {
         console.log('Got the expected error')
         correctException = true
+      } else if ((error as Error).name.toLowerCase().includes('ECONNREFUSED')) {
+        driver.close()
       } else {
         console.log('An exception that was not expected was thrown. Error:', error)
         retries++

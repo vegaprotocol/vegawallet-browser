@@ -99,8 +99,9 @@ export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBa
       if ((error as Error).name.toLowerCase().includes('nosuchwindowerror')) {
         correctException = true
       } else if ((error as Error).name.toLowerCase().includes('ECONNREFUSED')) {
-        console.log('got ECONNREFUSED, closing the driver instance')
-        driver.close()
+        console.log('got ECONNREFUSED, switching the driver instance')
+        await switchWindowHandles(driver, false, handleToSwitchBackTo)
+        return true
       } else {
         console.log('An exception that was not expected was thrown. Error:', error)
         retries++

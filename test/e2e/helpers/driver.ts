@@ -93,12 +93,13 @@ export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBa
     console.log('navigated successfully. This means the driver instance was not closed.')
     return false
   } catch (error) {
-    if ((error as Error).message.toLowerCase().includes('nosuchwindow')) {
+    if ((error as Error).name.toLowerCase().includes('nosuchwindowerror')) {
       //switch back to a valid instance of driver or test will fail for driver related reasons
       await switchWindowHandles(driver, false, handleToSwitchBackTo)
       return true
     } else {
       console.log('An exception that was not expected was thrown. Error:', error)
+      //switch back to a valid instance of driver or test will fail for driver related reasons
       await switchWindowHandles(driver, false, handleToSwitchBackTo)
       return false
     }

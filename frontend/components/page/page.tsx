@@ -16,18 +16,18 @@ export const Page = ({ name, children, backLocation }: PageProps) => {
   return (
     <section className="pt-14 px-5 h-full pb-8 overflow-y-auto" data-testid={testId}>
       {backLocation ? (
-        <button data-testid={`${testId}-back`} onClick={() => navigate(backLocation)}>
-          <Header
-            content={
-              <div className="flex">
+        <Header
+          content={
+            <div className="flex">
+              <button data-testid={`${testId}-back`} onClick={() => navigate(backLocation)}>
                 <div data-testid={locators.pageBack} className="flex flex-col justify-center mr-2 text-vega-dark-300">
                   <Icon size={6} name="chevron-left" />
                 </div>
-                {name}
-              </div>
-            }
-          />
-        </button>
+              </button>
+              {name}
+            </div>
+          }
+        />
       ) : (
         <Header content={name} />
       )}

@@ -37,3 +37,5 @@ describe('View wallet page', () => {
     expect(balance).toBeTruthy()
   })
 })
+
+//boop

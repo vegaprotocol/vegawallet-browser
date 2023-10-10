@@ -5,7 +5,7 @@ import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { useEffect } from 'react'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { useConnectionStore } from '../../../stores/connections'
-import { AuthPage } from '../../../components/auth-page'
+import { BasePage } from '../../../components/pages/page'
 import config from '!/config'
 
 export const locators = {
@@ -29,7 +29,7 @@ export const Connections = () => {
   if (loading) return null
 
   return (
-    <AuthPage dataTestId={locators.connectionsHeader} title="Connections">
+    <BasePage dataTestId={locators.connectionsHeader} title="Connections">
       {connections.length === 0 ? (
         <NoAppsConnected />
       ) : (
@@ -53,6 +53,6 @@ export const Connections = () => {
           </p>
         </Frame>
       </div>
-    </AuthPage>
+    </BasePage>
   )
 }

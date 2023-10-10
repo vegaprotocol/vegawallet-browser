@@ -41,7 +41,7 @@ describe('check popout functionality', () => {
     await connectWallet.checkOnConnectWallet()
     await connectWallet.approveConnectionAndCheckSuccess()
 
-    await switchWindowHandles(driver, false)
+    await switchWindowHandles(driver, false, originalHandle)
     await navigateToExtensionLandingPage(driver)
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
     expect((await apiHelper.listConnections()).length).toBe(1)
@@ -55,7 +55,7 @@ describe('check popout functionality', () => {
     await driver.close()
     expect(await windowHandleHasCount(driver, 2)).toBe(true)
 
-    await switchWindowHandles(driver, false, dappHandle)
+    await switchWindowHandles(driver, false, originalHandle)
     await navigateToExtensionLandingPage(driver)
     await connectWallet.checkOnConnectWallet()
   })
@@ -113,7 +113,7 @@ describe('check popout functionality', () => {
     expect(handles.length).toBe(2)
     const handlesBeforeTransaction = await driver.getAllWindowHandles()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction }, false, false)
-    expect(await windowHandleHasCount(driver, 3)).toBe(true)
+    expect(await windowHandleHasCount(driver, handlesBeforeTransaction.length + 1)).toBe(true)
     const handlesAfterTransaction = await driver.getAllWindowHandles()
     return { handlesBeforeTransaction, handlesAfterTransaction }
   }

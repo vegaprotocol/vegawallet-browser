@@ -34,6 +34,7 @@ export const Auth = () => {
     loadWallets(request)
   }, [request, loadWallets])
 
+  // TODO: Remove
   // HACK: This is work around to ensure that the wallets are loaded before network requests.
   // Ideally the backend should be capable of doing this in parallel, but increases perceived performance for now.
   useEffect(() => {

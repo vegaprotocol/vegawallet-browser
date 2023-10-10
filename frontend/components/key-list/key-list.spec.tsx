@@ -31,7 +31,7 @@ describe('KeyList', () => {
 
   test('renders component with correct header, explorer link, sign button and link to details page', () => {
     // 1106-KEYS-005 There is a link from a key to the Block Explorer filtered transaction view
-    // 1125-KEYS-015 From the main wallets screen I can click on a key to be shown the list of assets on that key
+    // 1106-KEYS-015 From the main wallets screen I can click on a key to be shown the list of assets on that key
     const keys = [
       {
         publicKey: 'publicKey1',

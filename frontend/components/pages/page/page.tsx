@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { Header } from '../../header'
 import { Icon } from '@vegaprotocol/ui-toolkit'
-import { useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export const locators = {
   basePageBack: 'base-page-back'
@@ -17,27 +17,23 @@ export interface BasePageProps {
 }
 
 export const BasePage = ({ className, dataTestId, title, children, backLocation, onBack }: BasePageProps) => {
-  const navigate = useNavigate()
   return (
     <section className={className} data-testid={dataTestId}>
       {backLocation ? (
         <Header
           content={
             <div className="flex">
-              <button
-                data-testid={`${dataTestId}-back`}
+              <NavLink
+                to={{ pathname: backLocation }}
+                data-testid={locators.basePageBack}
                 onClick={() => {
                   onBack?.()
-                  navigate(backLocation)
                 }}
               >
-                <div
-                  data-testid={locators.basePageBack}
-                  className="flex flex-col justify-center mr-2 text-vega-dark-300"
-                >
+                <div className="flex flex-col justify-center mr-2 text-vega-dark-300">
                   <Icon size={6} name="chevron-left" />
                 </div>
-              </button>
+              </NavLink>
               {title}
             </div>
           }

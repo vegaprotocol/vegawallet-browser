@@ -1,14 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { OnboardingPage } from './onboarding-page'
 import { MemoryRouter } from 'react-router-dom'
-import { locators } from '../../header'
-
-const mockedUsedNavigate = jest.fn()
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedUsedNavigate
-}))
+import { locators as headerLocators } from '../../header'
+import { locators } from '../page'
 
 describe('Page', () => {
   it('renders page header correctly', () => {
@@ -19,7 +13,7 @@ describe('Page', () => {
         </OnboardingPage>
       </MemoryRouter>
     )
-    expect(screen.getByTestId(locators.header)).toBeInTheDocument()
+    expect(screen.getByTestId(headerLocators.header)).toBeInTheDocument()
     expect(screen.getByText('Test Page')).toBeInTheDocument()
   })
 
@@ -32,8 +26,7 @@ describe('Page', () => {
         wrapper: ({ children }) => <MemoryRouter>{children}</MemoryRouter>
       }
     )
-    fireEvent.click(screen.getByTestId('test-page-back'))
-    expect(mockedUsedNavigate).toHaveBeenCalledWith('/test')
+    expect(screen.getByTestId(locators.basePageBack)).toHaveAttribute('href', '/test')
   })
 
   it('renders children correctly', () => {

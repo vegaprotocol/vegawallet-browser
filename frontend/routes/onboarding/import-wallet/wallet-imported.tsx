@@ -15,7 +15,7 @@ export const WalletImported = ({ onClose }: WalletImportedProps) => {
   useEffect(() => {
     const stamp = setTimeout(() => {
       onClose()
-    }, 10000000)
+    }, 1000)
 
     return () => clearTimeout(stamp)
   }, [onClose])

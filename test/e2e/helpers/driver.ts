@@ -113,4 +113,5 @@ export const captureScreenshot = async (driver: WebDriver, testName: string) => 
   fs.writeFileSync(screenshotPath, screenshotData, 'base64')
 }
 
-//booooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooop
+//boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop boop
+//boop boop boop boop boop boop boop

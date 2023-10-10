@@ -1,5 +1,6 @@
 import { stat } from 'fs'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
+import { captureScreenshot } from './driver'
 
 const defaultTimeoutMillis = 10000
 
@@ -305,6 +306,9 @@ export async function windowHandleHasCount(
     return true
   } catch (error) {
     const handles = await driver.getAllWindowHandles()
+    for (const handle of handles) {
+      await captureScreenshot(driver, `failing-handle-assertion-handle:${handle}`)
+    }
     console.log(
       `did not reach the target count! Had ${handles.length} number of handles. Expected ${targetCount}`,
       error

@@ -17,6 +17,7 @@ export class Transaction {
 
   async rejectTransaction() {
     await clickElement(this.driver, this.reject)
+    await waitForElementToDisappear(this.driver, this.reject)
   }
 
   async checkReceiptViewPresent() {

@@ -38,12 +38,14 @@ describe('check popout functionality', () => {
     // 1113-POPT-003 If I approve the connection the pop-up window closes
     const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
+    console.log('opened new window handle, about to check if on connect wallet')
     await connectWallet.checkOnConnectWallet()
+    console.log('was on connect wallet, about to approve connection')
     await connectWallet.approveConnectionAndCheckSuccess()
-
-    await switchWindowHandles(driver, false, originalHandle)
+    console.log('approved connection')
+    expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
+    console.log('driver instance was closed')
     await navigateToExtensionLandingPage(driver)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
     expect((await apiHelper.listConnections()).length).toBe(1)
   })
 
@@ -119,14 +121,15 @@ describe('check popout functionality', () => {
   }
 
   async function sendConnectionRequestAndReturnHandles() {
+    const handlesBeforeDappWindow = await driver.getAllWindowHandles()
     dappHandle = await createDappWindowHandle()
     await driver.get('http://google.co.uk')
     await switchWindowHandles(driver, false, dappHandle)
 
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    expect(await windowHandleHasCount(driver, handlesBeforeDappWindow.length + 1)).toBe(true)
     const handlesBeforeConnect = await driver.getAllWindowHandles()
     await vegaAPI.connectWallet(false, false)
-    expect(await windowHandleHasCount(driver, 3)).toBe(true)
+    expect(await windowHandleHasCount(driver, handlesBeforeConnect.length + 1)).toBe(true)
     const handlesAfterConnect = await driver.getAllWindowHandles()
     return { handlesBeforeConnect, handlesAfterConnect }
   }

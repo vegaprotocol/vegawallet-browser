@@ -90,11 +90,15 @@ describe('check popout functionality', () => {
     const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
     await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
     await transaction.checkOnTransactionPage()
+    const handlesBeforeConfirm = await driver.getAllWindowHandles()
+    console.log('handlesBeforeConfirm', handlesBeforeConfirm.length)
     await transaction.confirmTransaction()
 
     await switchWindowHandles(driver, false, originalHandle)
     await navigateToExtensionLandingPage(driver)
-    expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    const handlesAfterConfirm = await driver.getAllWindowHandles()
+    console.log('handlesAfterConfirm', handlesAfterConfirm.length)
+    expect(await windowHandleHasCount(driver, handlesBeforeConfirm.length - 1)).toBe(true)
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {

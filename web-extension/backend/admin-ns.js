@@ -173,7 +173,11 @@ export default function init ({ encryptedStore, settings, wallets, networks, con
 
         if ((await encryptedStore.verifyPassphrase(params.passphrase)) !== true) throw new JSONRPCServer.Error('Invalid passphrase', 1)
 
-        return await wallets.exportKey({ publicKey: params.publicKey })
+        try {
+          return await wallets.exportKey({ publicKey: params.publicKey })
+        } catch (ex) {
+          throw new JSONRPCServer.Error(ex.message, 1)
+        }
       },
 
       async 'admin.sign_message' (params) {

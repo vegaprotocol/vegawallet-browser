@@ -551,7 +551,10 @@ describe('admin-ns', () => {
 
     it('should not export key with wrong public key', async () => {
       const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, 'wrong-public-key', passphrase))
-      expect(exportKey.error).toEqual({})
+      expect(exportKey.error).toMatchObject({
+        code: 1,
+        message: expect.stringMatching(/Cannot find key with public key/)
+      })
     })
 
     it('should not export key with wrong passphrase', async () => {

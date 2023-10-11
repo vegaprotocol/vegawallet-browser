@@ -85,9 +85,9 @@ async function compareCoverage(file1, file2, outputLogFile) {
   outputLogStream.end();
 }
 
-const file1 = path.resolve(process.cwd(), process.argv[2]); // Resolve to CWD
-const file2 = path.resolve(process.cwd(), process.argv[3]); // Second CSV file from command line arguments
-const outputLogFile = '../../report.txt'; // Name of the output report file
+const file1 = path.resolve(process.cwd(), process.argv[2]); 
+const file2 = path.resolve(process.cwd(), process.argv[3]); 
+const outputLogFile = '../../report.txt'; 
 
 if (!file1 || !file2) {
   console.error('Usage: node compareCoverage.js <file1.csv> <file2.csv>');

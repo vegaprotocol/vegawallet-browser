@@ -1,3 +1,4 @@
+/* globals expect, it, describe, jest, beforeEach, afterEach */
 import initAdminServer from '../backend/admin-ns.js'
 import { WalletCollection } from '../backend/wallets.js'
 import { NetworkCollection } from '../backend/network.js'
@@ -22,7 +23,7 @@ const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
       publicKeyIndexStore
     }),
     networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
-    onerror(err) {
+    onerror (err) {
       throw err
     }
   })
@@ -451,7 +452,7 @@ describe('admin-ns', () => {
     })
   )
 
-  function setupFaultyFetch(faultyResponse) {
+  function setupFaultyFetch (faultyResponse) {
     return async () => {
       const chainHeight = {
         height: '2',
@@ -486,4 +487,86 @@ describe('admin-ns', () => {
       await Promise.all([server.close()])
     }
   }
+
+  const REQ_GENERATE_RECOVERY_PHRASE = (id) => ({
+    jsonrpc: '2.0',
+    id,
+    method: 'admin.generate_recovery_phrase',
+    params: null
+  })
+
+  const REQ_IMPORT_WALLET = (id, recoveryPhrase, name = 'Wallet 1') => ({
+    jsonrpc: '2.0',
+    id,
+    method: 'admin.import_wallet',
+    params: {
+      name,
+      recoveryPhrase
+    }
+  })
+
+  const REQ_GENERATE_KEY = (id, name = 'Key 1', wallet = 'Wallet 1') => ({
+    jsonrpc: '2.0',
+    id,
+    method: 'admin.generate_key',
+    params: {
+      name,
+      wallet
+    }
+  })
+
+  const REQ_EXPORT_KEY = (id, publicKey, passphrase) => ({
+    jsonrpc: '2.0',
+    id,
+    method: 'admin.export_key',
+    params: {
+      publicKey,
+      passphrase
+    }
+  })
+
+  describe('admin.export_key', () => {
+    const passphrase = 'foo'
+    let admin
+    let key
+    beforeEach(async () => {
+      admin = await createAdmin({ passphrase })
+
+      const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
+      expect(generateRecoveryPhrase.error).toBeUndefined()
+
+      const importWallet = await admin.onrequest(REQ_IMPORT_WALLET(2, generateRecoveryPhrase.result.recoveryPhrase))
+      expect(importWallet.error).toBeUndefined()
+
+      const generateKey = await admin.onrequest(REQ_GENERATE_KEY(3))
+      expect(generateKey.error).toBeUndefined()
+
+      key = generateKey.result
+    })
+
+    afterEach(() => {
+      admin = null
+      key = null
+    })
+
+    it('should not export key with wrong public key', async () => {
+      const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, 'wrong-public-key', passphrase))
+      expect(exportKey.error).toEqual({})
+    })
+
+    it('should not export key with wrong passphrase', async () => {
+      const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, 'wrong-passphrase'))
+      expect(exportKey.error).toEqual({
+        code: 1,
+        message: 'Invalid passphrase'
+      })
+    })
+
+    it('should export key', async () => {
+      const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, passphrase))
+      expect(exportKey.error).toBeUndefined()
+      expect(exportKey.result.publicKey).toBe(key.publicKey)
+      expect(exportKey.result.secretKey).not.toBeNull()
+    })
+  })
 })

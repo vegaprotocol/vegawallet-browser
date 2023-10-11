@@ -12,7 +12,7 @@ describe('ExportPrivateKeyForm', () => {
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockReturnValue({ privateKey: '0x123' })
     })
-    render(<ExportPrivateKeyForm  publicKey='' onSuccess={jest.fn()} onClose={jest.fn()} />)
+    render(<ExportPrivateKeyForm publicKey="" onSuccess={jest.fn()} onClose={jest.fn()} />)
 
     expect(screen.getByTestId('notification')).toHaveTextContent(
       'Warning: Never share this key. Anyone who has access to this key will have access to your assets.'
@@ -26,7 +26,7 @@ describe('ExportPrivateKeyForm', () => {
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockRejectedValue(new Error(REJECTION_ERROR_MESSAGE))
     })
-    render(<ExportPrivateKeyForm  publicKey='' onSuccess={jest.fn()} onClose={jest.fn()} />)
+    render(<ExportPrivateKeyForm publicKey="" onSuccess={jest.fn()} onClose={jest.fn()} />)
     const passwordInput = screen.getByTestId(locators.privateKeyModalPassphrase)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
@@ -40,7 +40,7 @@ describe('ExportPrivateKeyForm', () => {
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockRejectedValue(new Error('Unknown error'))
     })
-    render(<ExportPrivateKeyForm  publicKey='' onSuccess={jest.fn()} onClose={jest.fn()} />)
+    render(<ExportPrivateKeyForm publicKey="" onSuccess={jest.fn()} onClose={jest.fn()} />)
     const passwordInput = screen.getByTestId(locators.privateKeyModalPassphrase)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
@@ -56,7 +56,7 @@ describe('ExportPrivateKeyForm', () => {
     })
     const onSuccess = jest.fn()
     const onClose = jest.fn()
-    render(<ExportPrivateKeyForm  publicKey='' onSuccess={onSuccess} onClose={onClose} />)
+    render(<ExportPrivateKeyForm publicKey="" onSuccess={onSuccess} onClose={onClose} />)
 
     // Simulate user entering a password
     const passwordInput = screen.getByTestId(locators.privateKeyModalPassphrase)
@@ -78,7 +78,7 @@ describe('ExportPrivateKeyForm', () => {
     })
     const onSuccess = jest.fn()
     const onClose = jest.fn()
-    render(<ExportPrivateKeyForm  publicKey='' onSuccess={onSuccess} onClose={onClose} />)
+    render(<ExportPrivateKeyForm publicKey="" onSuccess={onSuccess} onClose={onClose} />)
 
     // Simulate user clicking the close button
     const closeButton = screen.getByTestId(locators.privateKeyModalClose)
@@ -96,7 +96,7 @@ describe('ExportPrivateKeyForm', () => {
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockReturnValue({ secretKey: '0x123' })
     })
-    render(<ExportPrivateKeyForm  publicKey='' onSuccess={jest.fn()} onClose={jest.fn()} />)
+    render(<ExportPrivateKeyForm publicKey="" onSuccess={jest.fn()} onClose={jest.fn()} />)
     const exportButton = screen.getByTestId(locators.privateKeyModalSubmit)
     expect(exportButton).toBeDisabled()
 

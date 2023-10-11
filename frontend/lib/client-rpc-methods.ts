@@ -24,5 +24,5 @@ export const RpcMethods = {
 
   // Misc
   SignMessage: 'admin.sign_message',
-  Fetch: 'admin.fetch',
+  Fetch: 'admin.fetch'
 }

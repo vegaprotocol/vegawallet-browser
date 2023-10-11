@@ -18,24 +18,24 @@ jest.mock('./view-private-key', () => ({
 
 describe('ExportPrivateKeyDialog', () => {
   it('renders export button', () => {
-    render(<ExportPrivateKeysDialog publicKey='' />)
+    render(<ExportPrivateKeysDialog publicKey="" />)
     expect(screen.getByTestId(locators.privateKeyTrigger)).toBeInTheDocument()
     expect(screen.getByTestId(locators.privateKeyTrigger)).toHaveTextContent('Export private key')
   })
   it('open dialog when export button is pressed with title', async () => {
-    render(<ExportPrivateKeysDialog publicKey='' />)
+    render(<ExportPrivateKeysDialog publicKey="" />)
     fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
     await screen.findByTestId(locators.privateKeyTitle)
     expect(screen.getByTestId(locators.privateKeyTitle)).toHaveTextContent('Export Private Key')
   })
   it('renders form when private key has yet to be loaded', async () => {
-    render(<ExportPrivateKeysDialog  publicKey='' />)
+    render(<ExportPrivateKeysDialog publicKey="" />)
     fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
     await screen.findByTestId(locators.privateKeyTitle)
     expect(screen.getByTestId('export-private-key-form')).toBeInTheDocument()
   })
   it('renders private key view when private key is loaded', async () => {
-    render(<ExportPrivateKeysDialog  publicKey='' />)
+    render(<ExportPrivateKeysDialog publicKey="" />)
     fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
     await screen.findByTestId(locators.privateKeyTitle)
     fireEvent.click(screen.getByTestId('set-private-key'))
@@ -43,7 +43,7 @@ describe('ExportPrivateKeyDialog', () => {
     expect(screen.getByTestId('view-private-key')).toBeInTheDocument()
   })
   it('resets asset dialog on close of form', async () => {
-    render(<ExportPrivateKeysDialog  publicKey='' />)
+    render(<ExportPrivateKeysDialog publicKey="" />)
     fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
     await screen.findByTestId(locators.privateKeyTitle)
     fireEvent.click(screen.getByTestId('close'))
@@ -53,7 +53,7 @@ describe('ExportPrivateKeyDialog', () => {
     expect(screen.getByTestId('export-private-key-form')).toBeInTheDocument()
   })
   it('resets asset dialog on close of view', async () => {
-    render(<ExportPrivateKeysDialog  publicKey='' />)
+    render(<ExportPrivateKeysDialog publicKey="" />)
     // Open dialog
     fireEvent.click(screen.getByTestId(locators.privateKeyTrigger))
     await screen.findByTestId(locators.privateKeyTitle)

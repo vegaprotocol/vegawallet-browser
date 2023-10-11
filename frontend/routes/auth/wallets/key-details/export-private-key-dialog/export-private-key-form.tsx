@@ -17,11 +17,12 @@ export const locators = {
 }
 
 export interface ExportPrivateKeyFormProps {
-  onSuccess: (passphrase: string) => void
+  publicKey: string
+  onSuccess: (privateKey: string) => void
   onClose: () => void
 }
 
-export const ExportPrivateKeyForm = ({ onSuccess, onClose }: ExportPrivateKeyFormProps) => {
+export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPrivateKeyFormProps) => {
   const { request } = useJsonRpcClient()
   const [loading, setLoading] = useState(false)
   const {
@@ -36,8 +37,8 @@ export const ExportPrivateKeyForm = ({ onSuccess, onClose }: ExportPrivateKeyFor
   const exportPrivateKey = async ({ passphrase }: { passphrase: string }) => {
     try {
       setLoading(true)
-      const { privateKey } = await request(RpcMethods.ExportPrivateKey, { passphrase }, true)
-      onSuccess(privateKey)
+      const { secretKey } = await request(RpcMethods.ExportKey, { publicKey, passphrase }, true)
+      onSuccess(secretKey)
     } catch (e) {
       if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
         setError('passphrase', { message: 'Incorrect passphrase' })

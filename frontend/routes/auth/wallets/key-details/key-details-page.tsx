@@ -47,7 +47,7 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
     >
       <VegaKey publicKey={key.publicKey} />
       <AssetsList id={id} />
-      <ExportPrivateKeysDialog />
+      <ExportPrivateKeysDialog publicKey={key.publicKey} />
     </AuthPage>
   )
 }

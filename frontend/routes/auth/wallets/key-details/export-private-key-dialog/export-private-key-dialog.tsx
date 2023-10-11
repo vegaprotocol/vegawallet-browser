@@ -15,7 +15,7 @@ export const locators = {
   privateKeyTrigger: 'private-key-trigger'
 }
 
-export const ExportPrivateKeysDialog = () => {
+export const ExportPrivateKeysDialog = ({ publicKey }: { publicKey: string }) => {
   const [open, setOpen] = useState(false)
   const [privateKey, setPrivateKey] = useState<string | null>(null)
 
@@ -45,6 +45,7 @@ export const ExportPrivateKeysDialog = () => {
             <ViewPrivateKey privateKey={privateKey} onClose={resetDialog} />
           ) : (
             <ExportPrivateKeyForm
+              publicKey={publicKey}
               onSuccess={(passphrase: string) => setPrivateKey(passphrase)}
               onClose={() => setOpen(false)}
             />

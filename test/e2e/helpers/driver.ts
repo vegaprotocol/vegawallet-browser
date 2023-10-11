@@ -4,7 +4,8 @@ import * as firefox from 'selenium-webdriver/firefox'
 import * as fs from 'fs-extra'
 import path from 'path'
 import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } from './file-system'
-import { clickElement } from './selenium-util'
+import { clickElement, staticWait, switchWindowHandles } from './selenium-util'
+import { navigateToExtensionLandingPage } from './wallet/wallet-setup'
 
 const extensionPath = './build'
 export const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
@@ -84,6 +85,39 @@ export async function copyProfile(driver: WebDriver) {
   } else {
     console.log('Copying profile is only supported for Firefox. Skipping this step for Chrome.')
   }
+}
+
+export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBackTo: string, maxRetries = 5) {
+  let retries = 0
+  let correctException = false
+  while (retries < maxRetries && !correctException) {
+    try {
+      await navigateToExtensionLandingPage(driver)
+      console.log('navigated successfully. This means the driver instance was not closed.')
+      retries++
+    } catch (error) {
+      if ((error as Error).name.toLowerCase().includes('nosuchwindowerror')) {
+        correctException = true
+      } else if ((error as Error).message.toLowerCase().includes('ECONNREFUSED')) {
+        console.log(
+          'got ECONNREFUSED, driver instance inactive, setting to true and attempting to switch to working driver instance'
+        )
+        correctException = true
+      } else {
+        console.log('An exception that was not expected was thrown. Error:', error)
+        retries++
+        if (retries < maxRetries) {
+          console.log(`Retrying (${retries}/${maxRetries})...`)
+          await staticWait(1000)
+        } else {
+          console.log('Max retry attempts reached.')
+        }
+      }
+    }
+  }
+  // switch back to a valid instance of driver or test will fail for driver related reasons
+  await switchWindowHandles(driver, false, handleToSwitchBackTo)
+  return correctException
 }
 
 export const captureScreenshot = async (driver: WebDriver, testName: string) => {

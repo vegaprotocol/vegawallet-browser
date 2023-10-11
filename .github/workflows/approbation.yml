@@ -28,7 +28,8 @@ jobs:
             --specs="specs/*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/categories.json" \
-            --show-mystery --category-stats --output-jenkins
+            --show-mystery --category-stats --output-jenkins --output-csv
+            mv results/approbation-files.csv > results/old.csv
           results=$(cat results/jenkins.txt)
           echo "file-main=$results" >> "$GITHUB_OUTPUT"
 
@@ -46,9 +47,17 @@ jobs:
             --specs="specs/*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/categories.json" \
-            --show-mystery --category-stats --output-jenkins
+            --show-mystery --category-stats --output-jenkins --output-csv
+            mv results/approbation-files.csv > results/new.csv
           results=$(cat results/jenkins.txt)
           echo "file=$results" >> "$GITHUB_OUTPUT"
+
+      - name: Compare coverage
+        id: compare
+        run: |
+          node ./.github/scripts/compare_approbation.js old.csv new.csv
+          diff=$(cat report.txt)
+          echo "covDiff=$diff" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -72,6 +81,8 @@ jobs:
             ```
             ${{ steps.approbation.outputs.file }}
             ```
+            ----------------------------------- 
+            ${{steps.compare.outputs.covDiff}}
           issue-number: ${{ github.event.pull_request.number }}
 
       - name: Update comment on Pull Request

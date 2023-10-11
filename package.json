@@ -16,6 +16,7 @@
     "@vegaprotocol/utils": "^0.0.10",
     "bignumber.js": "^9.0.2",
     "classnames": "^2.2.0",
+    "csv-parser": "^3.0.0",
     "date-fns": "^2.30.0",
     "immer": "^10.0.2",
     "javascript-time-ago": "^2.5.9",

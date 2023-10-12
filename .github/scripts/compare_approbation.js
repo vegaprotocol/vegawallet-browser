@@ -52,32 +52,37 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
 
   const reportContent = [];
 
+  reportContent.push("### AC Diff Report:")
   if (decreasedCoverage.length > 0) {
-    reportContent.push('Decreased in coverage:');
+    reportContent.push('**Decreased** in coverage:\n```');
     decreasedCoverage.forEach((change) => {
       reportContent.push(`${change.file} by ${change.change.toFixed(2)}%`);
     });
+    reportContent.push("```")
   }
 
   if (increasedCoverage.length > 0) {
-    reportContent.push('\nIncreased in coverage:');
+    reportContent.push('\n**Increased** in coverage:\n```');
     increasedCoverage.forEach((change) => {
       reportContent.push(`${change.file} by ${change.change.toFixed(2)}%`);
     });
+    reportContent.push("```")
   }
 
   if (newSpecs.length > 0) {
-    reportContent.push('\nNew specs and coverage:');
+    reportContent.push('\nNew specs and coverage:\n```');
     newSpecs.forEach((spec) => {
       reportContent.push(`${spec.file} ${spec.coverage}% coverage`);
     });
+    reportContent.push("```")
   }
 
   if (decreasedCoverage.length > 0) {
-    reportContent.push("\n-------------\nWARNING: You have files with decreased AC. This should not be happening. Please investigate the following files:");
+    reportContent.push("\n-------------\n### WARNING: \nYou have files with decreased AC. This should not be happening. Please investigate the following files:\n```");
     decreasedCoverage.forEach((change) => {
       reportContent.push(change.file);
     });
+    reportContent.push("```")
   }
 
   if (decreasedCoverage.length === 0 && increasedCoverage.length === 0) {

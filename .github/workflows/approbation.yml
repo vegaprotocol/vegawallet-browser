@@ -28,7 +28,7 @@ jobs:
             --specs="specs/*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/categories.json" \
-            --show-mystery --show-file-stats --output-jenkins --output-csv
+            --show-mystery --show-file-stats --category-stats --output-jenkins --output-csv
             mv results/approbation-files.csv results/old.csv
           results=$(cat results/jenkins.txt)
           echo "file-main=$results" >> "$GITHUB_OUTPUT"
@@ -47,7 +47,7 @@ jobs:
             --specs="specs/*.md" \
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/categories.json" \
-            --show-mystery --show-file-stats --output-jenkins --output-csv
+            --show-mystery --category-stats --show-file-stats --output-jenkins --output-csv
             mv results/approbation-files.csv results/new.csv
           results=$(cat results/jenkins.txt)
           echo "file=$results" >> "$GITHUB_OUTPUT"

@@ -6,7 +6,7 @@ import { KeyDetails } from './page-objects/key-details'
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { ExportPrivateKey } from './page-objects/export-private-key'
 
-describe('View wallet page', () => {
+describe('Key details', () => {
   let driver: WebDriver
   let viewWallet: ViewWallet
   let apiHelper: APIHelper
@@ -45,12 +45,14 @@ describe('View wallet page', () => {
     await exportKey.exportPrivateKey()
     await exportKey.checkPrivateKeyExportedandHidden()
     const privateKey = await exportKey.revealPrivateKeyAndGetText()
-    expect(privateKey).toBeTruthy() //TODO- is this a consistent value? If it is then can update this assertion. PLZ LETS NOT MERGE WITH THIS COMMENT. This is to address
+    expect(privateKey).toBeTruthy()
   })
 
-  it('cannot export private key when password incorrect', async () => {
+  it('cannot export private key when password incorrect, can be corrected after', async () => {
     await keyDetails.openExportPrivateKeyDialog()
     await exportKey.exportPrivateKey('wrong password')
-    // check for a password related error
+    await exportKey.checkForPasswordError()
+    await exportKey.exportPrivateKey()
+    await exportKey.checkPrivateKeyExportedandHidden()
   })
 })

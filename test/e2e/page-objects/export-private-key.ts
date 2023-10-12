@@ -17,6 +17,7 @@ export class ExportPrivateKey {
   private readonly privateKeyHidden: By = getByDataTestID(locators.mnemonicContainerHidden)
   private readonly privateKeyRevealed: By = getByDataTestID(locators.mnemonicContainerMnemonic)
   private readonly viewPrivateKeyClose: By = getByDataTestID(viewPrivateKeyLocators.viewPrivateKeyClose)
+  private readonly passwordErrorText: By = getByDataTestID(locators.errorMessage)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -35,7 +36,19 @@ export class ExportPrivateKey {
     expect(
       await isElementDisplayed(this.driver, this.viewPrivateKeyClose),
       'expected the close private key button to be displayed but it was not'
-    ).toBe(false)
+    ).toBe(true)
+  }
+
+  async checkForPasswordError() {
+    expect(
+      await isElementDisplayed(this.driver, this.passwordErrorText),
+      'expected password error text to be found, there was no error'
+    ).toBe(true)
+
+    expect(
+      await isElementDisplayed(this.driver, this.exportButton),
+      'expected to still be on the Export Private Key page after an incorrect password but could not locate the export button'
+    )
   }
 
   async revealPrivateKeyAndGetText(closeView = true) {

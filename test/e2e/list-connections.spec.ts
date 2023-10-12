@@ -67,7 +67,7 @@ describe('list connections tests', () => {
   })
 
   it('allows disconnecting of a dapp, check disconnected dapps cannot send a transaction without reconnecting', async () => {
-    // I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
+    // 1109-VCON-006 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
     await firstDapp.connectWallet()
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(1)

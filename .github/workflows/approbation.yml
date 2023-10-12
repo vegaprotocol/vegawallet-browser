@@ -58,6 +58,8 @@ jobs:
       - name: Compare coverage
         id: compare
         run: |
+          pwd
+          ls
           node ./.github/scripts/compare_approbation.js results/old.csv results/new.csv
           diff=$(cat report.txt)
           echo "covDiff=$diff" >> "$GITHUB_OUTPUT"

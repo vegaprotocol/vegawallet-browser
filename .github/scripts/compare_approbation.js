@@ -55,21 +55,21 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
   if (decreasedCoverage.length > 0) {
     reportContent.push('Decreased in coverage (by percent):');
     decreasedCoverage.forEach((change) => {
-      reportContent.push(`${change.file} by ${change.change.toFixed(2)}%`);
+      reportContent.push(`${change.file} by ${change.change.toFixed(2)}`);
     });
   }
 
   if (increasedCoverage.length > 0) {
     reportContent.push('\nIncreased in coverage (by percent):');
     increasedCoverage.forEach((change) => {
-      reportContent.push(`${change.file} by ${change.change.toFixed(2)}%`);
+      reportContent.push(`${change.file} by ${change.change.toFixed(2)}`);
     });
   }
 
   if (newSpecs.length > 0) {
     reportContent.push('\nNew specs and coverage (by percent):');
     newSpecs.forEach((spec) => {
-      reportContent.push(`${spec.file} ${spec.coverage}% coverage`);
+      reportContent.push(`${spec.file} ${spec.coverage}`);
     });
   }
 

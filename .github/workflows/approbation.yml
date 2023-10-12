@@ -109,7 +109,7 @@ jobs:
             -----------------------------------
                
             ```  
-            ${{steps.compare.outputs.covDiff}}
+            $(cat approbation-diff.txt)
             ```
           issue-number: ${{ github.event.pull_request.number }}
           edit-mode: replace

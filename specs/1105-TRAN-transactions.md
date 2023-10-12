@@ -29,3 +29,4 @@ As a user I want to recognise transactions that are not orders or withdraw / tra
   \-- \[ ] When it was received\
   \-- \[ ] Raw JSON details
 - I can copy the raw json to my clipboard (<a name="1105-TRAN-012" href="#1105-TRAN-012">1105-TRAN-012</a>)
+- When the dapp requests a transaction with a key we don't know about, we don't see a request in the wallet but instead send an error back to the dapp(<a name="1105-TRAN-099" href="#1105-TRAN-099">1105-TRAN-099</a>)

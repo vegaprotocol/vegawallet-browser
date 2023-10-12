@@ -41,6 +41,8 @@ describe('Key details', () => {
   })
 
   it('can export private key', async () => {
+    // 1128-EXPT-003 I am required to enter my passphrase to export my private keys
+    // 1128-EXPT-005 If I enter the correct passphrase then I see the [reveal hidden information component](./1129-HDCN-hidden_container.md) and a button to close the modal
     await keyDetails.openExportPrivateKeyDialog()
     await exportKey.exportPrivateKey()
     await exportKey.checkPrivateKeyExportedandHidden()
@@ -49,6 +51,7 @@ describe('Key details', () => {
   })
 
   it('cannot export private key when password incorrect, can be corrected after', async () => {
+    // 1128-EXPT-004 If my passphrase is incorrect I see an error informing me of this
     await keyDetails.openExportPrivateKeyDialog()
     await exportKey.exportPrivateKey('wrong password')
     await exportKey.checkForPasswordError()

@@ -54,7 +54,7 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
 
   reportContent.push("### AC Diff Report:")
   if (decreasedCoverage.length > 0) {
-    reportContent.push('**Decreased** in % coverage:\n```');
+    reportContent.push('Spec files **decreased** in % coverage:\n```');
     decreasedCoverage.forEach((change) => {
       reportContent.push(`${change.file} by ${change.change.toFixed(2)}%`);
     });
@@ -62,7 +62,7 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
   }
 
   if (increasedCoverage.length > 0) {
-    reportContent.push('\n**Increased** in % coverage:\n```');
+    reportContent.push('\nSpec files **Increased** in % coverage:\n```');
     increasedCoverage.forEach((change) => {
       reportContent.push(`${change.file} by ${change.change.toFixed(2)}%`);
     });
@@ -70,7 +70,7 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
   }
 
   if (newSpecs.length > 0) {
-    reportContent.push('\nNew specs and their coverage:\n```');
+    reportContent.push('\nNew spec files and their coverage:\n```');
     newSpecs.forEach((spec) => {
       reportContent.push(`${spec.file} ${spec.coverage}% coverage`);
     });

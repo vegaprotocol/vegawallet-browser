@@ -144,7 +144,6 @@ describe('transactions', () => {
   })
 
   it("1105-TRAN-007 When the dapp requests a transaction with a key we don't know about, we don't see a request in the wallet but instead send an error back to the dapp", async () => {
-    //1105-TRAN-099 when a blah does a blah
     const keyThatDoesNotExistInWallet = await vegaAPI.generateEncodedHexPublicKey()
     await vegaAPI.sendTransaction(keyThatDoesNotExistInWallet, { transfer: dummyTransaction })
     await viewWallet.checkOnViewWalletPage()

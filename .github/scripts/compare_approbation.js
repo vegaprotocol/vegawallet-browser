@@ -80,6 +80,10 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
     });
   }
 
+  if (decreasedCoverage.length === 0 && increasedCoverage.length === 0) {
+    reportContent.push("There are no changes to AC coverage");
+  }
+
   const outputLogStream = createWriteStream(outputLogFile, { flags: 'w' });
   outputLogStream.write(reportContent.join('\n'));
   outputLogStream.end();

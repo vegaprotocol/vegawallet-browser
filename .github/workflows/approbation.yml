@@ -61,12 +61,7 @@ jobs:
           node ./.github/scripts/compare_approbation.js ../../old.csv ../../new.csv
           pwd
           ls
-          diff="$(cat approbation-diff.txt)"
-          echo "covDiff=$diff" >> "$GITHUB_OUTPUT"
-
-
-          diff=$(cat approbation-diff.txt)
-          echo "covDiff=$diff" >> "$GITHUB_OUTPUT"
+          echo "cat approbation-diff.txt" >> "$GITHUB_OUTPUT"
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2

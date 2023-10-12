@@ -91,9 +91,8 @@ jobs:
             ```
             -----------------------------------
                
-            ```  
             ${{steps.compare.outputs.covDiff}}
-            ```
+
           issue-number: ${{ github.event.pull_request.number }}
 
       - name: Update comment on Pull Request

@@ -86,7 +86,7 @@ async function compareCoverage(oldCoverage, newCoverage) {
   }
 
   if (decreasedCoverage.length === 0 && increasedCoverage.length === 0 && newSpecs.length === 0) {
-    reportContent.push("There are no changes to AC coverage %, please note any new coverage is ignored by this report IF it retains a 100% coverage for the given file.");
+    reportContent.push("There are no changes to AC coverage %, please note any new coverage is ignored by this report IF it retains 100% coverage for the given file.");
   }
 
   console.log(reportContent.join('\n'));

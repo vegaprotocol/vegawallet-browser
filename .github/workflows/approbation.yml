@@ -52,6 +52,9 @@ jobs:
           results=$(cat results/jenkins.txt)
           echo "file=$results" >> "$GITHUB_OUTPUT"
 
+      - name: Install dependencies
+        run: yarn install
+
       - name: Compare coverage
         id: compare
         run: |

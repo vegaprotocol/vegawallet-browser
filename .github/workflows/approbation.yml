@@ -58,13 +58,10 @@ jobs:
       - name: Compare coverage
         id: compare
         run: |
-          node ./.github/scripts/compare_approbation.js ../../old.csv ../../new.csv
-          pwd
-          ls
+          output=$(node ./.github/scripts/compare_approbation.js ../../old.csv ../../new.csv)
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "covDiff<<$EOF" >> $GITHUB_OUTPUT
-          diff=$(cat approbation-diff.txt)
-          echo "$diff" >> $GITHUB_OUTPUT
+          echo "$output" >> $GITHUB_OUTPUT
           echo "$EOF" >> $GITHUB_OUTPUT
 
       - name: Find Comment

@@ -20,9 +20,9 @@ function parseCSV(filePath) {
   });
 }
 
-async function compareCoverage(file1, file2, outputLogFile) {
-  const data1 = await parseCSV(file1);
-  const data2 = await parseCSV(file2);
+async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
+  const data1 = await parseCSV(oldCoverage);
+  const data2 = await parseCSV(newCoverage);
 
   const decreasedCoverage = [];
   const increasedCoverage = [];
@@ -85,13 +85,13 @@ async function compareCoverage(file1, file2, outputLogFile) {
   outputLogStream.end();
 }
 
-const file1 = path.resolve(process.cwd(), process.argv[2]); 
-const file2 = path.resolve(process.cwd(), process.argv[3]); 
+const oldCoverage = path.resolve(process.cwd(), process.argv[2]); 
+const newCoverage = path.resolve(process.cwd(), process.argv[3]); 
 const outputLogFile = '../../report.txt'; 
 
-if (!file1 || !file2) {
-  console.error('Usage: node compareCoverage.js <file1.csv> <file2.csv>');
+if (!oldCoverage || !newCoverage) {
+  console.error('Usage: node compareCoverage.js <oldCoverage.csv> <newCoverage.csv>');
 } else {
-  compareCoverage(file1, file2, outputLogFile);
+  compareCoverage(oldCoverage, newCoverage, outputLogFile);
   console.log(`Report saved to ${outputLogFile}`);
 }

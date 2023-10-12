@@ -53,28 +53,28 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
   const reportContent = [];
 
   if (decreasedCoverage.length > 0) {
-    reportContent.push('Decreased in coverage (by percent):');
+    reportContent.push('Decreased in coverage:');
     decreasedCoverage.forEach((change) => {
-      reportContent.push(`${change.file} by ${change.change.toFixed(2)}`);
+      reportContent.push(`${change.file} by ${change.change.toFixed(2)}%`);
     });
   }
 
   if (increasedCoverage.length > 0) {
-    reportContent.push('\nIncreased in coverage (by percent):');
+    reportContent.push('\nIncreased in coverage:');
     increasedCoverage.forEach((change) => {
-      reportContent.push(`${change.file} by ${change.change.toFixed(2)}`);
+      reportContent.push(`${change.file} by ${change.change.toFixed(2)}%`);
     });
   }
 
   if (newSpecs.length > 0) {
-    reportContent.push('\nNew specs and coverage (by percent):');
+    reportContent.push('\nNew specs and coverage:');
     newSpecs.forEach((spec) => {
-      reportContent.push(`${spec.file} ${spec.coverage}`);
+      reportContent.push(`${spec.file} ${spec.coverage}% coverage`);
     });
   }
 
   if (decreasedCoverage.length > 0) {
-    reportContent.push("\n\n-------------\nWARNING: You have files with decreased AC. This should not be happening. Please investigate the following files:");
+    reportContent.push("\n-------------\nWARNING: You have files with decreased AC. This should not be happening. Please investigate the following files:");
     decreasedCoverage.forEach((change) => {
       reportContent.push(change.file);
     });

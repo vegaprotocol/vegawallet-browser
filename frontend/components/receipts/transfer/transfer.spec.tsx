@@ -91,7 +91,6 @@ describe('TransferReceipt', () => {
   })
 
   it('should render nothing if the transfer type is recurring', () => {
-    // 1124-TRAN-001 I can see the receiving key of the transfer
     mockStores(mockAsset, undefined)
     const recurringTransfer = {
       transfer: {

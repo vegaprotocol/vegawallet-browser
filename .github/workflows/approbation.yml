@@ -86,8 +86,11 @@ jobs:
             ```
             ${{ steps.approbation.outputs.file }}
             ```
-            ----------------------------------- 
+            -----------------------------------
+               
+            ```  
             ${{steps.compare.outputs.covDiff}}
+            ```
           issue-number: ${{ github.event.pull_request.number }}
 
       - name: Update comment on Pull Request
@@ -104,6 +107,11 @@ jobs:
             Here is your approbation coverage **AFTER** this PR:
             ```
             ${{ steps.approbation.outputs.file }}
+            ```
+            -----------------------------------
+               
+            ```  
+            ${{steps.compare.outputs.covDiff}}
             ```
           issue-number: ${{ github.event.pull_request.number }}
           edit-mode: replace

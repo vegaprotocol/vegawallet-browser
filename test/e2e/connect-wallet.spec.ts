@@ -37,7 +37,7 @@ describe('Connect wallet', () => {
 
   it('can approve a connection to the wallet and return to previously active view', async () => {
     // 1103-CONN-008 There is a visual way to understand that a connection has been successful
-    //  If the had the browser wallet open when I instigated the connection request, the browser wallet returns your view to where you were before the request came in
+    // 1103-CONN-009 If the had the browser wallet open when I instigated the connection request, the browser wallet returns your view to where you were before the request came in
     await setUpWalletAndKey(driver)
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()

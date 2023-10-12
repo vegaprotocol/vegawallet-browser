@@ -78,7 +78,7 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
   }
 
   if (decreasedCoverage.length > 0) {
-    reportContent.push("\n-------------\n### WARNING: \nYou have files with decreased AC coverage. This should not be happening. Please investigate the following files:\n```");
+    reportContent.push("\n-------------\n### WARNING: \n**You have files with decreased AC coverage. This should not be happening. Please investigate the following files:**\n```");
     decreasedCoverage.forEach((change) => {
       reportContent.push(change.file);
     });

@@ -78,7 +78,7 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
   }
 
   if (decreasedCoverage.length > 0) {
-    reportContent.push("\n-------------\n### WARNING: \nYou have files with decreased AC. This should not be happening. Please investigate the following files:\n```");
+    reportContent.push("\n-------------\n### WARNING: \nYou have files with decreased AC coverage. This should not be happening. Please investigate the following files:\n```");
     decreasedCoverage.forEach((change) => {
       reportContent.push(change.file);
     });
@@ -86,7 +86,7 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
   }
 
   if (decreasedCoverage.length === 0 && increasedCoverage.length === 0) {
-    reportContent.push("There are no changes to AC coverage");
+    reportContent.push("There are no changes to AC coverage %, please note any new coverage is ignored by this report IF it retains a 100% coverage for the given file.");
   }
 
   const outputLogStream = createWriteStream(outputLogFile, { flags: 'w' });

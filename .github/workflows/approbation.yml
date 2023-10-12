@@ -29,7 +29,7 @@ jobs:
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/categories.json" \
             --show-mystery --show-file-stats --category-stats --output-jenkins --output-csv
-            mv results/approbation-files.csv ../new.csv
+            mv results/approbation-files.csv ../../new.csv
           results=$(cat results/jenkins.txt)
           echo "file-main=$results" >> "$GITHUB_OUTPUT"
 
@@ -48,7 +48,7 @@ jobs:
             --tests="{frontend,test,web-extension}/**/*.spec.{ts,js,tsx,jsx}" \
             --categories="specs/categories.json" \
             --show-mystery --category-stats --show-file-stats --output-jenkins --output-csv
-            mv results/approbation-files.csv ../new.csv
+            mv results/approbation-files.csv ../../new.csv
           results=$(cat results/jenkins.txt)
           echo "file=$results" >> "$GITHUB_OUTPUT"
 
@@ -58,7 +58,7 @@ jobs:
       - name: Compare coverage
         id: compare
         run: |
-          node ./.github/scripts/compare_approbation.js ../old.csv ../new.csv
+          node ./.github/scripts/compare_approbation.js ../../old.csv ../../new.csv
           diff=$(cat report.txt)
           echo "covDiff=$diff" >> "$GITHUB_OUTPUT"
 

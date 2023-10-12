@@ -6,6 +6,7 @@
 .pnp.js
 
 # testing
+approbation-diff.txt
 /request-files
 /coverage
 /test/test-reports

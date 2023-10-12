@@ -87,7 +87,7 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
 
 const oldCoverage = path.resolve(process.cwd(), process.argv[2]); 
 const newCoverage = path.resolve(process.cwd(), process.argv[3]); 
-const outputLogFile = '../../test/test-reports/approbation-diff.txt'; 
+const outputLogFile = '../../approbation-diff.txt'; 
 
 if (!oldCoverage || !newCoverage) {
   console.error('Usage: node compareCoverage.js <oldCoverage.csv> <newCoverage.csv>');

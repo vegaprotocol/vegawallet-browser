@@ -1,4 +1,4 @@
-import { createReadStream, createWriteStream } from 'fs';
+import { createReadStream } from 'fs';
 import csv from 'csv-parser';
 import path from 'path';
 
@@ -20,7 +20,7 @@ function parseCSV(filePath) {
   });
 }
 
-async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
+async function compareCoverage(oldCoverage, newCoverage) {
   const data1 = await parseCSV(oldCoverage);
   const data2 = await parseCSV(newCoverage);
 
@@ -89,18 +89,14 @@ async function compareCoverage(oldCoverage, newCoverage, outputLogFile) {
     reportContent.push("There are no changes to AC coverage %, please note any new coverage is ignored by this report IF it retains a 100% coverage for the given file.");
   }
 
-  const outputLogStream = createWriteStream(outputLogFile, { flags: 'w' });
-  outputLogStream.write(reportContent.join('\n'));
-  outputLogStream.end();
+  console.log(reportContent.join('\n'));
 }
 
 const oldCoverage = path.resolve(process.cwd(), process.argv[2]); 
 const newCoverage = path.resolve(process.cwd(), process.argv[3]); 
-const outputLogFile = 'approbation-diff.txt'; 
 
 if (!oldCoverage || !newCoverage) {
   console.error('Usage: node compareCoverage.js <oldCoverage.csv> <newCoverage.csv>');
 } else {
-  compareCoverage(oldCoverage, newCoverage, outputLogFile);
-  console.log(`Report saved to ${outputLogFile}`);
+  compareCoverage(oldCoverage, newCoverage);
 }

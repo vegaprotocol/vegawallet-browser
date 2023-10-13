@@ -171,7 +171,7 @@ export default function init ({ encryptedStore, settings, wallets, networks, con
       async 'admin.export_key' (params) {
         doValidate(adminValidation.exportKey, params)
 
-        if ((await encryptedStore.verifyPassphrase(params.passphrase)) !== true) throw new JSONRPCServer.Error('Invalid passphrase', 1)
+        if ((await encryptedStore.verifyPassphrase(params.passphrase)) !== true) throw new JSONRPCServer.Error('Invalid passphrase or corrupted storage', 1)
 
         try {
           return await wallets.exportKey({ publicKey: params.publicKey })

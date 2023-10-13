@@ -45,7 +45,7 @@ describe('check popout functionality', () => {
       expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
       await navigateToExtensionLandingPage(driver)
       expect((await apiHelper.listConnections()).length).toBe(1)
-    }, 0)
+    })
   })
 
   it('connection request persists when popout dismissed', async () => {
@@ -60,7 +60,7 @@ describe('check popout functionality', () => {
       await switchWindowHandles(driver, false, originalHandle)
       await navigateToExtensionLandingPage(driver)
       await connectWallet.checkOnConnectWallet()
-    }, 0)
+    })
   })
 
   it('connect request opens in popout and can be denied when extension not already open', async () => {
@@ -71,7 +71,7 @@ describe('check popout functionality', () => {
       await connectWallet.checkOnConnectWallet()
       await connectWallet.denyConnection()
       expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    }, 0)
+    })
   })
 
   it('transaction request persists when popout dismissed without response', async () => {
@@ -85,7 +85,7 @@ describe('check popout functionality', () => {
       await switchWindowHandles(driver, false)
       await navigateToExtensionLandingPage(driver)
       await transaction.checkOnTransactionPage()
-    }, 0)
+    })
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
@@ -97,7 +97,7 @@ describe('check popout functionality', () => {
       await transaction.checkOnTransactionPage()
       await transaction.confirmTransaction()
       expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    }, 0)
+    })
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {
@@ -108,7 +108,7 @@ describe('check popout functionality', () => {
       await transaction.checkOnTransactionPage()
       await transaction.rejectTransaction()
       expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    }, 0)
+    })
   })
 
   async function sendTransactionAndGetWindowHandles() {

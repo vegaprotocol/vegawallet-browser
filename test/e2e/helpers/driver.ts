@@ -117,16 +117,17 @@ export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBa
 
 // This is not something we want to do. We should ONLY use this on ECONNREFUSED exceptions in tests that use the popout functionality, not to accommodate for UI flakiness.
 // This is because selenium randomly crashes due to our auto open/close functionality, however we still want to test it.
-export async function runTestRetryIfDriverCrashes(testFunction: () => Promise<void>, retries: number) {
+export async function runTestRetryIfDriverCrashes(testFunction: () => Promise<void>, maxRetries = 3) {
+  let retries = 0
   try {
     await testFunction()
   } catch (error) {
-    if ((error as Error).message.includes('ECONNREFUSED') && retries < 3) {
-      console.warn(`Test failed with ECONNREFUSED. Retrying (${retries + 1} of ${3})...`)
+    if ((error as Error).message.includes('ECONNREFUSED') && retries < maxRetries) {
+      console.warn(`Test failed with ECONNREFUSED. Retrying (${retries + 1} of ${maxRetries})...`)
       await runTestRetryIfDriverCrashes(testFunction, retries + 1)
     } else {
       if (retries == 3) {
-        console.log('driver crashed three times in a row. Failing the test. Investigate your configution')
+        console.log('driver crashed three times in a row. Failing the test. Investigate your configuration')
       }
       throw error
     }

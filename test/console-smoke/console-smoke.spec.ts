@@ -28,6 +28,7 @@ let approveTransaction: boolean
 let market: string
 let config: any
 let acceptRisk: boolean
+const maxRetries = 3
 
 beforeEach(async () => {
   driver = await initDriver()
@@ -96,5 +97,5 @@ it('check console and browser wallet integrate', async () => {
       await transaction.rejectTransaction()
       await switchWindowHandles(driver, false)
     }
-  }, 0)
+  })
 })

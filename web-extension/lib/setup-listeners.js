@@ -20,7 +20,8 @@ export const createOnInstalledListener = (networks, settings) => async (details)
         explorer: config.network.explorer
       }),
       settings.set('selectedNetwork', id),
-      settings.set('autoOpen', true)
+      settings.set('autoOpen', true),
+      settings.set('version', migrations.length)
     ])
 
     if (config.autoOpenOnInstall) {

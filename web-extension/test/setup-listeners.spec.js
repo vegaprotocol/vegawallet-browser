@@ -1,4 +1,5 @@
-import { createConnectionHandler, createOnInstalledListener, setupListeners } from './setup-listeners.js'
+import { createConnectionHandler, createOnInstalledListener, setupListeners, update, install } from '../lib/setup-listeners.js'
+import ConcurrentStorage from '../lib/concurrent-storage.js'
 import config from '!/config'
 
 describe('SetupListeners', () => {
@@ -47,9 +48,10 @@ describe('SetupListeners', () => {
       name: 'Test',
       rest: ['http://localhost:9090']
     })
-    expect(settingsMock.set).toHaveBeenCalledTimes(2)
+    expect(settingsMock.set).toHaveBeenCalledTimes(3)
     expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', 'test')
     expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
+    expect(settingsMock.set).toHaveBeenCalledWith('version', 1)
   })
 
   it('should create a window if autoOpenOnInstall is true', async () => {
@@ -97,5 +99,56 @@ describe('SetupListeners', () => {
 
     expect(runtimeMock.onConnect.addListener).toHaveBeenCalledTimes(1)
     expect(runtimeMock.onConnect.addListener).toHaveBeenCalledWith(expect.any(Function))
+  })
+
+  it('should apply migrations from version null to version 1', async () => {
+    const settings = new ConcurrentStorage(new Map([
+      ['version', null],
+      ['autoOpen', null]
+    ]))
+
+    await update({ settings })
+
+    expect(await settings.get('version')).toBe(1)
+    expect(await settings.get('autoOpen')).toBe(true)
+  })
+
+  it('should apply migrations from version 0 to version 1', async () => {
+    const settings = new ConcurrentStorage(new Map([
+      ['version', 0],
+      ['autoOpen', null]
+    ]))
+
+    await update({ settings })
+
+    expect(await settings.get('version')).toBe(1)
+    expect(await settings.get('autoOpen')).toBe(true)
+  })
+
+  it('should not apply migration 1 if autoOpen is already set', async () => {
+    const settings = new ConcurrentStorage(new Map([
+      ['version', 0],
+      ['autoOpen', false]
+    ]))
+
+    await update({ settings })
+
+    expect(await settings.get('version')).toBe(1)
+    expect(await settings.get('autoOpen')).toBe(false)
+  })
+
+  // latest version
+  it('should not apply migrations from version 1', async () => {
+    const settings = new ConcurrentStorage(new Map())
+    const networks = new ConcurrentStorage(new Map())
+
+    await install({ networks, settings })
+
+    expect(await settings.get('version')).toBe(1)
+    const clone = Array.from(await settings.entries())
+
+    await update({ settings })
+
+    expect(Array.from(await settings.entries())).toEqual(clone)
   })
 })

@@ -12,17 +12,7 @@ export const createConnectionHandler = (clientPorts, popupPorts, interactor) => 
 export const createOnInstalledListener = (networks, settings) => async (details) => {
   const { reason } = details
   if (reason === 'install') {
-    const id = config.network.name.toLowerCase()
-    await Promise.allSettled([
-      networks.set(id, {
-        name: config.network.name,
-        rest: config.network.rest,
-        explorer: config.network.explorer
-      }),
-      settings.set('selectedNetwork', id),
-      settings.set('autoOpen', true),
-      settings.set('version', migrations.length)
-    ])
+    await install({ networks, settings })
 
     if (config.autoOpenOnInstall) {
       createWindow()
@@ -30,12 +20,22 @@ export const createOnInstalledListener = (networks, settings) => async (details)
   }
 
   if (reason === 'update') {
-    const previousVersion = await settings.get('version') ?? 0
-
-    for (let i = previousVersion; i < migrations.length; i++) {
-      await migrations[i](settings)
-    }
+    await update({ settings })
   }
+}
+
+export async function install ({ networks, settings }) {
+  const id = config.network.name.toLowerCase()
+  await Promise.allSettled([
+    networks.set(id, {
+      name: config.network.name,
+      rest: config.network.rest,
+      explorer: config.network.explorer
+    }),
+    settings.set('selectedNetwork', id),
+    settings.set('autoOpen', true),
+    settings.set('version', migrations.length)
+  ])
 }
 
 const migrations = [
@@ -49,6 +49,15 @@ const migrations = [
     })
   }
 ]
+
+// Migration function, add more dependencies as needed for migrations
+export async function update ({ settings }) {
+  const previousVersion = await settings.get('version') ?? 0
+
+  for (let i = previousVersion; i < migrations.length; i++) {
+    await migrations[i](settings)
+  }
+}
 
 export const setupListeners = (runtime, networks, settings, clientPorts, popupPorts, interactor) => {
   const installListener = createOnInstalledListener(networks, settings)

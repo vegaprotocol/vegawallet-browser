@@ -126,7 +126,7 @@ export async function runTestRetryIfDriverCrashes(testFunction: () => Promise<vo
       console.warn(`Test failed with ECONNREFUSED. Retrying (${retries + 1} of ${maxRetries})...`)
       await runTestRetryIfDriverCrashes(testFunction, retries + 1)
     } else {
-      if (retries == 3) {
+      if (retries == maxRetries) {
         console.log('driver crashed three times in a row. Failing the test. Investigate your configuration')
       }
       throw error

@@ -27,7 +27,28 @@ export const createOnInstalledListener = (networks, settings) => async (details)
       createWindow()
     }
   }
+
+  if (reason === 'update') {
+    const previousVersion = await settings.get('version') ?? 0
+
+    for (let i = previousVersion; i < migrations.length; i++) {
+      await migrations[i](settings)
+    }
+  }
 }
+
+const migrations = [
+  // The first migration is due to the introduction of autoOpen in 0.11.0,
+  // however, we failed to test updates in CI.
+  async function v1 (settings) {
+    await settings.transaction(async (store) => {
+      if (await store.get('autoOpen') == null) await store.set('autoOpen', true)
+
+      await store.set('version', 1)
+    })
+  }
+]
+
 export const setupListeners = (runtime, networks, settings, clientPorts, popupPorts, interactor) => {
   const installListener = createOnInstalledListener(networks, settings)
   runtime.onInstalled.addListener(installListener)

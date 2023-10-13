@@ -22,6 +22,21 @@ export async function copyDirectoryToNewLocation(srcDir: string, targetDir: stri
   }
 }
 
+export async function overrideJson(jsonFile: string, propertyName: string, newValue: any) {
+  try {
+    const data: string = fs.readFileSync(jsonFile, 'utf8')
+    const jsonContent: Record<string, any> = JSON.parse(data)
+
+    jsonContent[propertyName] = newValue
+    const updatedJson: string = JSON.stringify(jsonContent, null, 2)
+
+    fs.writeFileSync(jsonFile, updatedJson, 'utf8')
+    console.log('File updated successfully!')
+  } catch (err) {
+    console.error('Error:', err)
+  }
+}
+
 export async function zipDirectory(source: string, out: string): Promise<void> {
   const archive = archiver('zip', { zlib: { level: 9 } })
   const stream = fs.createWriteStream(out)

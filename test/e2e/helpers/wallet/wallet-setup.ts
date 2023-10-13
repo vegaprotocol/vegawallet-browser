@@ -3,8 +3,8 @@ import { APIHelper } from './wallet-api'
 import { initDriver } from '../driver'
 import { getLandingPageURL } from './common-wallet-values'
 
-export async function createWalletAndDriver() {
-  const driver = await initDriver()
+export async function createWalletAndDriver(oldExtension = false) {
+  const driver = await initDriver(oldExtension)
   const apiHelper = new APIHelper(driver)
   await navigateToExtensionLandingPage(driver)
   await apiHelper.setUpWalletAndKey()

@@ -7,15 +7,16 @@ import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } 
 import { clickElement, staticWait, switchWindowHandles } from './selenium-util'
 import { navigateToExtensionLandingPage } from './wallet/wallet-setup'
 
-const extensionPath = './build'
+export const extensionPath = './build'
+export const oldExtensionDirectory = './test/vega-browserwallet-testnet-chrome-v0.10.0'
 export const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
 
-export async function initDriver() {
+export async function initDriver(oldExtension = false) {
   let driver: WebDriver | null = null
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {
     driver = await initFirefoxDriver()
   } else {
-    driver = await initChromeDriver()
+    driver = await initChromeDriver(oldExtension)
   }
 
   if (!driver) {
@@ -25,12 +26,18 @@ export async function initDriver() {
   return driver
 }
 
-async function initChromeDriver() {
+async function initChromeDriver(useOldExtension = false) {
   let chromeOptions = new chrome.Options()
     .addArguments('--no-sandbox')
     .addArguments('--disable-dev-shm-usage')
     .addArguments('--disable-gpu')
-    .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+
+  if (useOldExtension) {
+    chromeOptions.addArguments(`--load-extension=${oldExtensionDirectory}`)
+  } else {
+    chromeOptions.addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+  }
+
   chromeOptions.setUserPreferences({
     'profile.default_content_setting_values': {
       clipboard: 1

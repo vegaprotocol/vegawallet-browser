@@ -49,6 +49,8 @@ export class ExportPrivateKey {
       await isElementDisplayed(this.driver, this.exportButton),
       'expected to still be on the Export Private Key page after an incorrect password but could not locate the export button'
     )
+
+    return await getElementText(this.driver, this.passwordErrorText)
   }
 
   async revealPrivateKeyAndGetText(closeView = true) {

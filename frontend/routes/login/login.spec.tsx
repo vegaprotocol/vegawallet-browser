@@ -92,6 +92,6 @@ describe('Login', () => {
       target: { value: 'incorrect-passphrase' }
     })
     fireEvent.click(screen.getByTestId(locators.loginButton))
-    await screen.findByText('Unknown error occurred Error: Some error')
+    await screen.findByText('Unknown error occurred: Some error')
   })
 })

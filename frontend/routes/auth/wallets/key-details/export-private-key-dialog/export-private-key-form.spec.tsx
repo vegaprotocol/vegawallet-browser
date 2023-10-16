@@ -47,7 +47,7 @@ describe('ExportPrivateKeyForm', () => {
     const exportButton = screen.getByTestId(locators.privateKeyModalSubmit)
     fireEvent.click(exportButton)
     await screen.findByTestId('input-error-text')
-    expect(screen.getByTestId('input-error-text')).toHaveTextContent('Unknown error occurred Error: Unknown error')
+    expect(screen.getByTestId('input-error-text')).toHaveTextContent('Unknown error occurred: Unknown error')
   })
 
   it('calls onSuccess when form is submitted successfully', async () => {

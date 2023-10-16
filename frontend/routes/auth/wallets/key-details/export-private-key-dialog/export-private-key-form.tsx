@@ -43,7 +43,7 @@ export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPr
       if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
         setError('passphrase', { message: 'Incorrect passphrase' })
       } else {
-        setError('passphrase', { message: `Unknown error occurred ${e}` })
+        setError('passphrase', { message: `Unknown error occurred: ${(e as Error).message}` })
         captureException(e)
       }
     } finally {

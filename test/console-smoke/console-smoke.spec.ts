@@ -28,36 +28,13 @@ let approveTransaction: boolean
 let market: string
 let config: any
 let acceptRisk: boolean
-const maxRetries = 3
 
 beforeEach(async () => {
-  driver = await initDriver()
-  driver.manage().window().maximize()
-  connectWallet = new ConnectWallet(driver)
-  apiHelper = new APIHelper(driver)
-  transaction = new Transaction(driver)
-  vegaConsole = new Console(driver)
-  await navigateToExtensionLandingPage(driver)
-  if (process.env.ENV === 'mainnet') {
-    recoveryPhrase = consoleSmokeMainnetRecoveryPhrase
-    approveTransaction = false
-    market = 'USDT'
-    config = smokeConsoleMainnet
-    acceptRisk = true
-  } else {
-    recoveryPhrase = consoleSmokeRecoveryPhrase
-    approveTransaction = true
-    market = 'tBTC'
-    config = smokeConsoleTestnet
-    acceptRisk = false
-  }
-  await apiHelper.setUpWalletAndKey('password', 'wallet', 'Key 1', false, recoveryPhrase)
-  await navigateToExtensionLandingPage(driver)
+  await setUpTests()
 })
 
 afterEach(async () => {
-  await captureScreenshot(driver, expect.getState().currentTestName as string)
-  await driver.quit()
+  await tearDownTests()
 })
 
 it('check console and browser wallet integrate', async () => {
@@ -99,3 +76,33 @@ it('check console and browser wallet integrate', async () => {
     }
   })
 })
+
+async function setUpTests() {
+  driver = await initDriver()
+  driver.manage().window().maximize()
+  connectWallet = new ConnectWallet(driver)
+  apiHelper = new APIHelper(driver)
+  transaction = new Transaction(driver)
+  vegaConsole = new Console(driver)
+  await navigateToExtensionLandingPage(driver)
+  if (process.env.ENV === 'mainnet') {
+    recoveryPhrase = consoleSmokeMainnetRecoveryPhrase
+    approveTransaction = false
+    market = 'USDT'
+    config = smokeConsoleMainnet
+    acceptRisk = true
+  } else {
+    recoveryPhrase = consoleSmokeRecoveryPhrase
+    approveTransaction = true
+    market = 'tBTC'
+    config = smokeConsoleTestnet
+    acceptRisk = false
+  }
+  await apiHelper.setUpWalletAndKey('password', 'wallet', 'Key 1', false, recoveryPhrase)
+  await navigateToExtensionLandingPage(driver)
+}
+
+async function tearDownTests() {
+  await captureScreenshot(driver, expect.getState().currentTestName as string)
+  await driver.quit()
+}

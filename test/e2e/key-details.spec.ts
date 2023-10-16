@@ -54,7 +54,8 @@ describe('Key details', () => {
     // 1128-EXPT-004 If my passphrase is incorrect I see an error informing me of this
     await keyDetails.openExportPrivateKeyDialog()
     await exportKey.exportPrivateKey('wrong password')
-    await exportKey.checkForPasswordError()
+    const error = await exportKey.checkForPasswordError()
+    expect(error).toBe('')
     await exportKey.exportPrivateKey()
     await exportKey.checkPrivateKeyExportedandHidden()
   })

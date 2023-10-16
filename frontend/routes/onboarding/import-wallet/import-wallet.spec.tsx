@@ -28,6 +28,10 @@ const renderComponent = () => {
 describe('ImportWallet', () => {
   beforeEach(() => {
     mockStorage()
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.useRealTimers()
   })
   it('renders back button, description, input and submit button', () => {
     // 1101-ONBD-026 I can see an explanation of what I am being asked to do
@@ -77,6 +81,7 @@ describe('ImportWallet', () => {
       }
     })
     fireEvent.click(screen.getByTestId(locators.importMnemonicSubmit))
+    jest.runAllTimers()
 
     // Needs longer timeout as this shows for 1 full second
     await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.telemetry), { timeout: 1200 })

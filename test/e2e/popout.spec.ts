@@ -16,99 +16,114 @@ describe('check popout functionality', () => {
   let apiHelper: APIHelper
   let transaction: Transaction
   let originalHandle: string
-  const maxRetries = 3
 
   beforeEach(async () => {
-    driver = await initDriver()
-    vegaAPI = new VegaAPI(driver)
-    connectWallet = new ConnectWallet(driver)
-    apiHelper = new APIHelper(driver)
-    transaction = new Transaction(driver)
-    await navigateToExtensionLandingPage(driver)
-    await setUpWalletAndKey(driver)
-    originalHandle = await driver.getWindowHandle()
+    await setupTests()
   })
 
   afterEach(async () => {
-    await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    await tearDownTests()
   })
 
   it('connect request opens in popout and can be approved when extension not already open', async () => {
     // 1113-POPT-001 The browser wallet opens in a pop-up window when there is a connection request
     // 1113-POPT-003 If I approve the connection the pop-up window closes
-    await runTestRetryIfDriverCrashes(async () => {
-      const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
-      await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
-      await connectWallet.checkOnConnectWallet()
-      await connectWallet.approveConnectionAndCheckSuccess()
-      expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-      await navigateToExtensionLandingPage(driver)
-      expect((await apiHelper.listConnections()).length).toBe(1)
-    })
+    await runTestRetryIfDriverCrashes(
+      async () => {
+        const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
+        await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
+        await connectWallet.checkOnConnectWallet()
+        await connectWallet.approveConnectionAndCheckSuccess()
+        expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
+        await navigateToExtensionLandingPage(driver)
+        expect((await apiHelper.listConnections()).length).toBe(1)
+      },
+      setupTests,
+      tearDownTests
+    )
   })
 
   it('connection request persists when popout dismissed', async () => {
     // 1113-POPT-002 If I close the pop-up window the connection persists
-    await runTestRetryIfDriverCrashes(async () => {
-      const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
-      await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
-      await connectWallet.checkOnConnectWallet()
-      await driver.close()
-      expect(await windowHandleHasCount(driver, 2)).toBe(true)
+    await runTestRetryIfDriverCrashes(
+      async () => {
+        const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
+        await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
+        await connectWallet.checkOnConnectWallet()
+        await driver.close()
+        expect(await windowHandleHasCount(driver, 2)).toBe(true)
 
-      await switchWindowHandles(driver, false, originalHandle)
-      await navigateToExtensionLandingPage(driver)
-      await connectWallet.checkOnConnectWallet()
-    })
+        await switchWindowHandles(driver, false, originalHandle)
+        await navigateToExtensionLandingPage(driver)
+        await connectWallet.checkOnConnectWallet()
+      },
+      setupTests,
+      tearDownTests
+    )
   })
 
   it('connect request opens in popout and can be denied when extension not already open', async () => {
     // 1113-POPT-004 If I reject the connection the pop-up window closes
-    await runTestRetryIfDriverCrashes(async () => {
-      const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
-      await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
-      await connectWallet.checkOnConnectWallet()
-      await connectWallet.denyConnection()
-      expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    })
+    await runTestRetryIfDriverCrashes(
+      async () => {
+        const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
+        await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
+        await connectWallet.checkOnConnectWallet()
+        await connectWallet.denyConnection()
+        expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
+      },
+      setupTests,
+      tearDownTests
+    )
   })
 
   it('transaction request persists when popout dismissed without response', async () => {
     // 1113-POPT-006 If I close the pop-up window the transaction persists
-    await runTestRetryIfDriverCrashes(async () => {
-      const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
-      await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
-      await transaction.checkOnTransactionPage()
-      await driver.close()
+    await runTestRetryIfDriverCrashes(
+      async () => {
+        const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
+        await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
+        await transaction.checkOnTransactionPage()
+        await driver.close()
 
-      await switchWindowHandles(driver, false)
-      await navigateToExtensionLandingPage(driver)
-      await transaction.checkOnTransactionPage()
-    })
+        await switchWindowHandles(driver, false)
+        await navigateToExtensionLandingPage(driver)
+        await transaction.checkOnTransactionPage()
+      },
+      setupTests,
+      tearDownTests
+    )
   })
 
   it('transaction request opens in popout and can be confirmed when extension not already open', async () => {
     // 1113-POPT-005 The browser wallet opens in a pop-up window when there is a transaction request
     // 1113-POPT-007 If I approve the transaction the pop-up window closes
-    await runTestRetryIfDriverCrashes(async () => {
-      const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
-      await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
-      await transaction.checkOnTransactionPage()
-      await transaction.confirmTransaction()
-      expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    })
+    await runTestRetryIfDriverCrashes(
+      async () => {
+        const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
+        await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
+        await transaction.checkOnTransactionPage()
+        await transaction.confirmTransaction()
+        expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
+      },
+      setupTests,
+      tearDownTests
+    )
   })
 
   it('transaction request opens in popout and can be rejected when extension not already open', async () => {
-    await runTestRetryIfDriverCrashes(async () => {
-      // 1113-POPT-008 If I reject the transaction the pop-up window closes
-      const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
-      await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
-      await transaction.checkOnTransactionPage()
-      await transaction.rejectTransaction()
-      expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-    })
+    await runTestRetryIfDriverCrashes(
+      async () => {
+        // 1113-POPT-008 If I reject the transaction the pop-up window closes
+        const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
+        await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
+        await transaction.checkOnTransactionPage()
+        await transaction.rejectTransaction()
+        expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
+      },
+      setupTests,
+      tearDownTests
+    )
   })
 
   async function sendTransactionAndGetWindowHandles() {
@@ -146,5 +161,21 @@ describe('check popout functionality', () => {
     dappHandle = await vegaAPI.getVegaDappWindowHandle()
     await switchWindowHandles(driver, false)
     return dappHandle
+  }
+
+  async function setupTests() {
+    driver = await initDriver()
+    vegaAPI = new VegaAPI(driver)
+    connectWallet = new ConnectWallet(driver)
+    apiHelper = new APIHelper(driver)
+    transaction = new Transaction(driver)
+    await navigateToExtensionLandingPage(driver)
+    await setUpWalletAndKey(driver)
+    originalHandle = await driver.getWindowHandle()
+  }
+
+  async function tearDownTests() {
+    await captureScreenshot(driver, expect.getState().currentTestName as string)
+    await driver.quit()
   }
 })

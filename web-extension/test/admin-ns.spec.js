@@ -561,7 +561,7 @@ describe('admin-ns', () => {
       const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, 'wrong-passphrase'))
       expect(exportKey.error).toEqual({
         code: 1,
-        message: 'Invalid passphrase'
+        message: 'Invalid passphrase or corrupted storage'
       })
     })
 

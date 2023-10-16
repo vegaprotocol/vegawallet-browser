@@ -23,7 +23,6 @@ describe('Key details', () => {
     await navigateToExtensionLandingPage(driver)
     await viewWallet.openKeyDetails('Key 1')
     await keyDetails.checkOnExpectedKeyDetails()
-    //
   })
 
   afterEach(async () => {

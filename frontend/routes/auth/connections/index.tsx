@@ -2,11 +2,12 @@ import { Frame } from '../../../components/frame'
 import { ConnectionsList } from './connection-list'
 import { NoAppsConnected } from './no-dapps-connected'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { useConnectionStore } from '../../../stores/connections'
 import { BasePage } from '../../../components/pages/page'
 import config from '!/config'
+import { AsyncRenderer } from '../../../components/async-renderer/async-renderer'
 
 export const locators = {
   connectionInstructions: 'connection-instructions',
@@ -26,18 +27,21 @@ export const Connections = () => {
     loadConnections(request)
   }, [request, loadConnections])
 
-  if (loading) return null
-
   return (
-    <BasePage dataTestId={locators.connectionsHeader} title="Connections">
-      {connections.length === 0 ? (
-        <NoAppsConnected />
-      ) : (
-        <ConnectionsList
-          connections={connections}
-          removeConnection={(connection) => removeConnection(request, connection)}
-        />
-      )}
+    <AuthPage dataTestId={locators.connectionsHeader} title="Connections">
+      <AsyncRenderer
+        loading={loading}
+        error={null}
+        noData={connections.length === 0}
+        renderNoData={() => <NoAppsConnected />}
+        render={() => (
+          <ConnectionsList
+            connections={connections}
+            removeConnection={(connection) => removeConnection(request, connection)}
+          />
+        )}
+      />
+
       <div className="mt-6">
         <Frame>
           <p data-testid={locators.connectionInstructions}>

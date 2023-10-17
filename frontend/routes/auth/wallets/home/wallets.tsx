@@ -2,6 +2,8 @@ import { useWalletStore } from '../../../../stores/wallets'
 import { WalletsPageKeyList } from './wallets-page-key-list'
 import { DepositAssetsCallout } from './deposit-assets-callout'
 import { SignMessageDialog } from '../../../../components/sign-message-dialog'
+import { ReactNode, useState } from 'react'
+import { AsyncRenderer } from '../../../../components/async-renderer/async-renderer'
 import { useState } from 'react'
 import { BasePage } from '../../../../components/pages/page'
 
@@ -19,10 +21,16 @@ export const Wallets = () => {
   const [wallet] = wallets
 
   return (
+    <AsyncRenderer
+      loading={loading}
+      error={null}
+      noData={false}
+      render={() => (
     <BasePage dataTestId={locators.walletsPage} title={wallet.name}>
       <WalletsPageKeyList onSignMessage={setSelectedPubkey} wallet={wallet} />
       <DepositAssetsCallout />
       <SignMessageDialog open={!!selectedPubkey} onClose={() => setSelectedPubkey(null)} publicKey={selectedPubkey} />
     </BasePage>
+    />
   )
 }

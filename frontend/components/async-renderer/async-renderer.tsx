@@ -3,9 +3,9 @@ import { ReactNode } from 'react'
 export interface AsyncRendererProps {
   loading: boolean
   renderLoading?: () => ReactNode
-  error: Error | null
+  error?: Error | null
   errorView?: (error: Error) => ReactNode
-  noData: boolean
+  noData?: boolean
   renderNoData?: () => ReactNode
   render: () => ReactNode
 }

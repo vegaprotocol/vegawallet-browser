@@ -2,7 +2,7 @@ import { Frame } from '../../../components/frame'
 import { ConnectionsList } from './connection-list'
 import { NoAppsConnected } from './no-dapps-connected'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { useConnectionStore } from '../../../stores/connections'
 import { BasePage } from '../../../components/pages/page'
@@ -31,7 +31,6 @@ export const Connections = () => {
     <AuthPage dataTestId={locators.connectionsHeader} title="Connections">
       <AsyncRenderer
         loading={loading}
-        error={null}
         noData={connections.length === 0}
         renderNoData={() => <NoAppsConnected />}
         render={() => (

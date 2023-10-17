@@ -3,22 +3,22 @@ import { generate as generateMnemonic, validate } from '@vegaprotocol/crypto/bip
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 
 export class WalletCollection {
-  constructor({ walletsStore, publicKeyIndexStore }) {
+  constructor ({ walletsStore, publicKeyIndexStore }) {
     this.store = new ConcurrentStorage(walletsStore)
     this.index = new ConcurrentStorage(publicKeyIndexStore)
   }
 
-  async get({ name }) {
+  async get ({ name }) {
     return this.store.get(name)
   }
 
-  async getKeyInfo({ publicKey }) {
+  async getKeyInfo ({ publicKey }) {
     return this.index.get(publicKey)
   }
 
-  async getKeypair({ publicKey }) {
+  async getKeypair ({ publicKey }) {
     return this.store.transaction(async (store) => {
-      const { wallet } = await this.index.get(publicKey)
+      const { wallet } = (await this.index.get(publicKey)) ?? {}
       if (wallet == null) return
 
       const walletConfig = await store.get(wallet)
@@ -38,11 +38,11 @@ export class WalletCollection {
     })
   }
 
-  async list() {
+  async list () {
     return Array.from(await this.store.keys())
   }
 
-  async listKeys({ wallet }) {
+  async listKeys ({ wallet }) {
     const walletConfig = await this.get({ name: wallet })
 
     if (walletConfig == null) {
@@ -52,12 +52,25 @@ export class WalletCollection {
     return walletConfig.keys
   }
 
-  async generateRecoveryPhrase() {
+  async exportKey ({ publicKey }) {
+    const key = await this.getKeypair({ publicKey })
+
+    if (key == null) {
+      throw new Error(`Cannot find key with public key "${publicKey}".`)
+    }
+
+    return {
+      publicKey: key.keyPair.publicKey.toString(),
+      secretKey: key.keyPair.secretKey.toString()
+    }
+  }
+
+  async generateRecoveryPhrase () {
     const bitStrength = 256 // 24 words
     return (await generateMnemonic(bitStrength)).join(' ')
   }
 
-  async import({ name, recoveryPhrase }) {
+  async import ({ name, recoveryPhrase }) {
     try {
       await validate(recoveryPhrase)
 
@@ -82,7 +95,7 @@ export class WalletCollection {
     })
   }
 
-  async _generateKey({ walletInstance, index, name, metadata, options }) {
+  async _generateKey ({ walletInstance, index, name, metadata, options }) {
     const keyPair = await walletInstance.keyPair(index)
     const publicKey = keyPair.publicKey.toString()
 
@@ -91,7 +104,7 @@ export class WalletCollection {
     return { name, publicKey, index: keyPair.index, metadata, options }
   }
 
-  async generateKey({ wallet: walletName, name, metadata, options }) {
+  async generateKey ({ wallet: walletName, name, metadata, options }) {
     return await this.store.transaction(async (store) => {
       const walletConfig = await store.get(walletName)
 

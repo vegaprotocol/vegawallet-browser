@@ -9,13 +9,13 @@ import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { LoadingButton } from '../../components/loading-button'
 import { VegaHeader } from '../../components/vega-header'
 import { useGlobalsStore } from '../../stores/globals'
+import { REJECTION_ERROR_MESSAGE } from '../../lib/utils'
+import { captureException } from '@sentry/browser'
 
 export const locators = {
   loginPassphrase: 'login-passphrase',
   loginButton: 'login-button'
 }
-
-const REJECTION_ERROR_MESSAGE = 'Invalid passphrase or corrupted storage'
 
 interface FormFields {
   passphrase: string
@@ -46,7 +46,8 @@ export const Login = () => {
       if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
         setError('passphrase', { message: 'Incorrect passphrase' })
       } else {
-        setError('passphrase', { message: `Unknown error occurred ${e}` })
+        setError('passphrase', { message: `Unknown error occurred: ${(e as Error).message}` })
+        captureException(e)
       }
     } finally {
       setLoading(false)

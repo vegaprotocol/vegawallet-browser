@@ -7,7 +7,12 @@ const mainnet = {
       'https://vega-data.bharvest.io',
       'https://datanode.vega.pathrocknetwork.org',
       'https://vega.aurora-edge.com',
-      'https://darling.network'
+      'https://darling.network',
+      'https://rest.velvet.tm.p2p.org',
+      'https://vega-rest.mainnet.lovali.xyz',
+      'https://graphqlvega.gpvalidator.com',
+      'https://vega-mainnet.anyvalid.com',
+      'https://vega.mainnet.stakingcabin.com:3008'
     ],
     console: 'https://console.vega.xyz',
     ethereumExplorerLink: 'https://etherscan.io',

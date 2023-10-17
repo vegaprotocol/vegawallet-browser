@@ -36,7 +36,7 @@ describe('PeggedOrderInfo', () => {
         symbol="BTC"
       />
     )
-    expect(screen.getByTestId(amountWithSymbolLocators.price)).toHaveTextContent('0.12')
+    expect(screen.getByTestId(amountWithSymbolLocators.amount)).toHaveTextContent('0.12')
     expect(screen.getByTestId(amountWithSymbolLocators.symbol)).toHaveTextContent('BTC')
   })
 

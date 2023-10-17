@@ -6,7 +6,7 @@ export interface ConnectionMessage {
   receivedAt: string
 }
 
-export type ModalStore = {
+export type InteractionStore = {
   transactionModalOpen: boolean
   handleTransaction: (params: TransactionMessage) => Promise<boolean>
   handleTransactionDecision: (decision: boolean) => void
@@ -20,7 +20,7 @@ export type ModalStore = {
   currentConnectionDetails: ConnectionMessage | null
 }
 
-export const useModalStore = create<ModalStore>()((set, get) => ({
+export const useInteractionStore = create<InteractionStore>()((set, get) => ({
   transactionModalOpen: false,
   currentTransactionDetails: null,
   transactionPromise: null,

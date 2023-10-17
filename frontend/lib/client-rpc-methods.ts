@@ -3,6 +3,7 @@ export const RpcMethods = {
   ListWallets: 'admin.list_wallets',
   ListKeys: 'admin.list_keys',
   GenerateKey: 'admin.generate_key',
+  ExportKey: 'admin.export_key',
 
   // Onboarding
   CreatePassphrase: 'admin.create_passphrase',

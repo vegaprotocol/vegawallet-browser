@@ -1,4 +1,4 @@
-import { RpcMethods } from '../../../../lib/client-rpc-methods'
+import { RpcMethods } from '../../../../../lib/client-rpc-methods'
 import { useAccountsStore } from './accounts-store'
 
 const ACCOUNT_FIXTURE = {

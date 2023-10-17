@@ -67,8 +67,8 @@ describe('EnrichedTransferView', () => {
     render(<EnrichedTransferView transaction={mockTransaction} />)
 
     expect(screen.getByTestId(enrichedLocators.enrichedSection)).toBeInTheDocument()
-    expect(screen.getByTestId(priceWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
-    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent('0.00001')
+    expect(screen.getByTestId(priceWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
+    expect(screen.getByTestId(priceWithSymbolLocators.amount)).toHaveTextContent('0.00001')
     expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('tDAI')
     expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('MyKey (own key)')
   })
@@ -80,8 +80,8 @@ describe('EnrichedTransferView', () => {
     render(<EnrichedTransferView transaction={mockTransaction} />)
 
     expect(screen.getByTestId(enrichedLocators.enrichedSection)).toBeInTheDocument()
-    expect(screen.getByTestId(priceWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
-    expect(screen.getByTestId(priceWithSymbolLocators.price)).toHaveTextContent('0.00001')
+    expect(screen.getByTestId(priceWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
+    expect(screen.getByTestId(priceWithSymbolLocators.amount)).toHaveTextContent('0.00001')
     expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('tDAI')
     expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('External key')
   })

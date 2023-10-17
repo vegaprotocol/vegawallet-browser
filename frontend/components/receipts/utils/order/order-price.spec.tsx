@@ -33,7 +33,7 @@ describe('OrderPriceComponent', () => {
     )
     expect(screen.queryByTestId(orderPriceLocators.orderDetailsMarketPrice)).not.toBeInTheDocument()
     expect(screen.queryByTestId(priceWithTooltipLocators.priceWithTooltip)).not.toBeInTheDocument()
-    expect(screen.queryByTestId(amountWithSymbolLocators.priceWithSymbol)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(amountWithSymbolLocators.amountWithSymbol)).not.toBeInTheDocument()
   })
 
   it('should return basic price tooltip if assets are loading or formattedPrice or symbol is not defined', () => {
@@ -62,6 +62,6 @@ describe('OrderPriceComponent', () => {
         type={undefined}
       />
     )
-    expect(screen.getByTestId(amountWithSymbolLocators.priceWithSymbol)).toBeInTheDocument()
+    expect(screen.getByTestId(amountWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
   })
 })

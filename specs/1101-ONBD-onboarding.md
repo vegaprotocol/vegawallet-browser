@@ -30,10 +30,8 @@ As a browser wallet user I want to decide whether to create a new wallet or impo
 
 As a browser wallet user When I am using the browser wallet for the first time I want to create a new wallet (and key pair) So that I can get started using Console / another Vega dapp to trade / take part in governance
 
-- I am provided with a recovery phrase for my new wallet that is initially hidden from view(<a name="1101-ONBD-016" href="#1101-ONBD-016">1101-ONBD-016</a>)
+- My recovery phrase is rendered in a [hidden container](./1129-HDCN-hidden_container.md) (<a name="1101-ONBD-016" href="#1101-ONBD-016">1101-ONBD-016</a>)
 - I can see an explanation of what the recovery phrase is for and that it cannot be recovered itself (<a name="1101-ONBD-017" href="#1101-ONBD-017">1101-ONBD-017</a>)
-- I can choose when to reveal/show the recovery phrase (<a name="1101-ONBD-018" href="#1101-ONBD-018">1101-ONBD-018</a>)
-- I can copy the recovery phrase into my clipboard (<a name="1101-ONBD-019" href="#1101-ONBD-019">1101-ONBD-019</a>)
 - I can verify that I understand that Vega doesn't store and therefore can't recover this recovery phrase if I lose it (<a name="1101-ONBD-020" href="#1101-ONBD-020">1101-ONBD-020</a>)
 - I am given feedback that my wallet was successfully created (<a name="1101-ONBD-021" href="#1101-ONBD-021">1101-ONBD-021</a>)
 - I can see the button is disabled and a loading state after submitting (<a name="1101-ONBD-022" href="#1101-ONBD-022">1101-ONBD-022</a>)

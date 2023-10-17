@@ -15,8 +15,9 @@ export const Auth = () => {
   const { request } = useJsonRpcClient()
 
   // Wallets store
-  const { loadWallets } = useWalletStore((state) => ({
-    loadWallets: state.loadWallets
+  const { loadWallets, loading } = useWalletStore((state) => ({
+    loadWallets: state.loadWallets,
+    loading: state.loading
   }))
 
   // Assets store
@@ -31,9 +32,17 @@ export const Auth = () => {
 
   useEffect(() => {
     loadWallets(request)
-    loadAssets(request)
-    loadMarkets(request)
-  }, [request, loadWallets, loadAssets, loadMarkets])
+  }, [request, loadWallets])
+
+  // TODO: Remove
+  // HACK: This is work around to ensure that the wallets are loaded before network requests.
+  // Ideally the backend should be capable of doing this in parallel, but increases perceived performance for now.
+  useEffect(() => {
+    if (!loading) {
+      loadAssets(request)
+      loadMarkets(request)
+    }
+  }, [loadAssets, loadMarkets, loading, request])
 
   const isWallets = !!useMatch(FULL_ROUTES.wallets)
 

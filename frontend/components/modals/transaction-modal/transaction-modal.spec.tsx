@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { useModalStore } from '../../../stores/modal-store'
+import { useInteractionStore } from '../../../stores/interaction-store'
 import { TransactionModal } from '.'
 import { locators } from './transaction-modal'
 import genericLocators from '../../locators'
@@ -39,9 +39,7 @@ jest.mock('./transaction-header', () => ({
   TransactionHeader: () => <div data-testid="transaction-header" />
 }))
 
-jest.mock('../../../stores/modal-store', () => ({
-  useModalStore: jest.fn()
-}))
+jest.mock('../../../stores/interaction-store')
 
 jest.mock('../../page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
@@ -60,7 +58,7 @@ describe('TransactionModal', () => {
 
   it('renders nothing when isOpen is false', () => {
     const handleTransactionDecision = jest.fn()
-    mockStore(useModalStore, {
+    mockStore(useInteractionStore, {
       transactionModalOpen: false,
       currentTransactionDetails: null,
       handleTransactionDecision
@@ -78,7 +76,11 @@ describe('TransactionModal', () => {
 */
 
     const handleTransactionDecision = jest.fn()
-    mockStore(useModalStore, { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision })
+    mockStore(useInteractionStore, {
+      transactionModalOpen: true,
+      currentTransactionDetails: data,
+      handleTransactionDecision
+    })
     render(<TransactionModal />)
     expect(screen.getByTestId('enriched-details')).toBeVisible()
     expect(screen.getByTestId('raw-transaction')).toBeVisible()
@@ -92,7 +94,11 @@ describe('TransactionModal', () => {
 
   it('calls handleTransactionDecision with false if denying', async () => {
     const handleTransactionDecision = jest.fn()
-    mockStore(useModalStore, { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision })
+    mockStore(useInteractionStore, {
+      transactionModalOpen: true,
+      currentTransactionDetails: data,
+      handleTransactionDecision
+    })
     render(<TransactionModal />)
     fireEvent.click(screen.getByTestId(locators.transactionModalDenyButton))
     expect(handleTransactionDecision).toHaveBeenCalledWith(false)
@@ -100,7 +106,11 @@ describe('TransactionModal', () => {
 
   it('renders nothing after approving', async () => {
     const handleTransactionDecision = jest.fn()
-    mockStore(useModalStore, { transactionModalOpen: true, currentTransactionDetails: data, handleTransactionDecision })
+    mockStore(useInteractionStore, {
+      transactionModalOpen: true,
+      currentTransactionDetails: data,
+      handleTransactionDecision
+    })
     render(<TransactionModal />)
     fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))
     expect(handleTransactionDecision).toHaveBeenCalledWith(true)

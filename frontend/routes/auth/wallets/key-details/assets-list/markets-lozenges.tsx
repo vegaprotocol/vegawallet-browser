@@ -1,6 +1,7 @@
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
-import { useMarketsStore } from '../../../../stores/markets-store'
+import { useMarketsStore } from '../../../../../stores/markets-store'
 import config from '!/config'
+import get from 'lodash/get'
 
 export const locators = {
   marketsDescription: 'markets-description',
@@ -27,7 +28,7 @@ export const MarketLozenges = ({ assetId }: { assetId: string }) => {
           key={m.id}
           className="text-xs"
         >
-          <Lozenge>{m.tradableInstrument?.instrument?.name}</Lozenge>
+          <Lozenge>{get(m, 'tradableInstrument.instrument.code')}</Lozenge>
         </a>
       ))}
     </div>

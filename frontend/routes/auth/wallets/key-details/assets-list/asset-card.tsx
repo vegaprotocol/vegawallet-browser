@@ -1,10 +1,11 @@
-import { useAssetsStore } from '../../../../stores/assets-store'
+import { useAssetsStore } from '../../../../../stores/assets-store'
 import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/utils'
-import { DataTable } from '../../../../components/data-table/data-table'
+import { DataTable } from '../../../../../components/data-table/data-table'
 import BigNumber from 'bignumber.js'
-import { CollapsibleCard } from '../../../../components/collapsible-card'
+import { CollapsibleCard } from '../../../../../components/collapsible-card'
 import { MarketLozenges } from './markets-lozenges'
 import { vegaAccount, vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
+import get from 'lodash/get'
 
 export const ACCOUNT_TYPE_MAP: Record<vegaAccountType, string> = {
   [vegaAccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
@@ -82,7 +83,10 @@ export const AssetCard = ({ accounts, assetId }: { accounts: vegaAccount[]; asse
     getAssetById: state.getAssetById
   }))
   const asset = getAssetById(assetId)
-  const { details: { decimals, symbol, name } = {} } = asset
+  const symbol = get(asset, 'details.symbol')
+  const name = get(asset, 'details.name')
+  const decimals = get(asset, 'details.decimals')
+
   if (!decimals || !symbol || !name) throw new Error('Asset details not populated')
   const filteredAccounts = accounts
     .filter((a) => !!a.balance && toBigNum(a.balance, +decimals).gt(0))

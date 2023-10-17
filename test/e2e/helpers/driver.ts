@@ -123,11 +123,6 @@ export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBa
     } catch (error) {
       if ((error as Error).name.toLowerCase().includes('nosuchwindowerror')) {
         correctException = true
-      } else if ((error as Error).message.toLowerCase().includes('ECONNREFUSED')) {
-        console.log(
-          'got ECONNREFUSED, driver instance inactive, setting to true and attempting to switch to working driver instance'
-        )
-        correctException = true
       } else {
         console.log('An exception that was not expected was thrown. Error:', error)
         retries++
@@ -143,6 +138,36 @@ export async function isDriverInstanceClosed(driver: WebDriver, handleToSwitchBa
   // switch back to a valid instance of driver or test will fail for driver related reasons
   await switchWindowHandles(driver, false, handleToSwitchBackTo)
   return correctException
+}
+
+// This is not something we want to do. We should ONLY use this on ECONNREFUSED exceptions in tests that use the popout functionality, not to accommodate for UI flakiness.
+// This is because selenium randomly crashes due to our auto open/close functionality, however we still want to test it.
+export async function runTestRetryIfDriverCrashes(
+  testFunction: () => Promise<void>,
+  setupFunction?: () => Promise<void>,
+  teardownFunction?: () => Promise<void>,
+  maxRetries = 3,
+  retryIteration = 0
+) {
+  try {
+    if (setupFunction && retryIteration > 0) {
+      await setupFunction()
+    }
+    await testFunction()
+  } catch (error) {
+    if ((error as Error).message.includes('ECONNREFUSED') && retryIteration < maxRetries) {
+      console.warn(`Test failed with ECONNREFUSED. Retrying (${retryIteration + 1} of ${maxRetries})...`)
+      await runTestRetryIfDriverCrashes(testFunction, setupFunction, teardownFunction, maxRetries, retryIteration + 1)
+    } else {
+      if (retryIteration == maxRetries) {
+        console.log('driver crashed three times in a row. Failing the test. Investigate your configuration')
+      }
+      if (teardownFunction) {
+        await teardownFunction()
+      }
+      throw error
+    }
+  }
 }
 
 export const captureScreenshot = async (driver: WebDriver, testName: string) => {

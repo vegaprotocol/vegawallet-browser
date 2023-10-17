@@ -77,19 +77,19 @@ jest.mock('./order-size', () => {
 
 describe('buildSizeColumn', () => {
   it('returns Size column when size and marketId are defined', () => {
-    const result = buildSizeColumn(false, '100', '1', '100.00', 'USD')
+    const result = buildSizeColumn(false, '100', '1', '100.00')
 
     render(<>{result}</>)
     expect(screen.getByTestId('order-size-component')).toBeInTheDocument()
   })
 
   it('returns null when size is undefined', () => {
-    const result = buildSizeColumn(false, undefined, '1', '100.00', 'USD')
+    const result = buildSizeColumn(false, undefined, '1', '100.00')
     expect(result).toBeNull()
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildSizeColumn(false, '100', undefined, '100.00', 'USD')
+    const result = buildSizeColumn(false, '100', undefined, '100.00')
     expect(result).toBeNull()
   })
 })

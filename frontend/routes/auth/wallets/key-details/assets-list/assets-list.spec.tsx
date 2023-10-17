@@ -41,7 +41,7 @@ describe('AssetsList', () => {
         ]
       }
     })
-    render(<AssetsList id={'123'} />)
+    render(<AssetsList publicKey={'123'} />)
     expect(screen.getByTestId(subHeaderLocators.subHeader)).toHaveTextContent('Balances')
     expect(screen.getByTestId(locators.assetListDescription)).toHaveTextContent(
       'Recent balance changes caused by your open positions may not be reflected below'

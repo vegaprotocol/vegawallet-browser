@@ -48,32 +48,27 @@ const AssetHeader = ({
   symbol,
   name,
   accounts,
-  decimals,
-  assetId
+  decimals
 }: {
   symbol: string
   name: string
   accounts: vegaAccount[]
   decimals: number
-  assetId: string
 }) => {
   const total = accounts.reduce((acc, { balance }) => acc.plus(toBigNum(balance ?? '0', decimals)), new BigNumber(0))
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between w-full">
-        <div className="text-left">
-          <div data-testid={locators.assetHeaderSymbol} className="text-white">
-            {symbol}
-          </div>
-          <div data-testid={locators.assetHeaderName} className="text-sm">
-            {name}
-          </div>
+    <div className="flex items-center justify-between w-full">
+      <div className="text-left">
+        <div data-testid={locators.assetHeaderSymbol} className="text-white">
+          {symbol}
         </div>
-        <div data-testid={locators.assetHeaderTotal} className="text-right text-white">
-          {formatNumber(total, decimals)}
+        <div data-testid={locators.assetHeaderName} className="text-sm">
+          {name}
         </div>
       </div>
-      <MarketLozenges assetId={assetId} />
+      <div data-testid={locators.assetHeaderTotal} className="text-right text-white">
+        {formatNumber(total, decimals)}
+      </div>
     </div>
   )
 }
@@ -97,8 +92,13 @@ export const AssetCard = ({ accounts, assetId }: { accounts: vegaAccount[]; asse
   return (
     <div className="border border-vega-dark-150 mb-4">
       <CollapsibleCard
-        title={<AssetHeader assetId={assetId} symbol={symbol} name={name} decimals={+decimals} accounts={accounts} />}
-        cardContent={<DataTable items={filteredAccounts} />}
+        title={<AssetHeader symbol={symbol} name={name} decimals={+decimals} accounts={accounts} />}
+        cardContent={
+          <div className="overflow-hidden">
+            <DataTable items={filteredAccounts} />
+            <MarketLozenges assetId={assetId} />
+          </div>
+        }
       />
     </div>
   )

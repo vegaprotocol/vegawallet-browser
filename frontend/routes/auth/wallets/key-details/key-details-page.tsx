@@ -39,9 +39,7 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
         </>
       }
     >
-      <div className="mt-6">
-        <VegaKey publicKey={key.publicKey} />
-      </div>
+      <VegaKey publicKey={key.publicKey} />
       <AssetsList id={id} />
       <ExportPrivateKeysDialog publicKey={key.publicKey} />
     </BasePage>

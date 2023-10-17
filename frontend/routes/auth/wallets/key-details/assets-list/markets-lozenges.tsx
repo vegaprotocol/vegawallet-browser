@@ -2,6 +2,7 @@ import { ExternalLink, Lozenge } from '@vegaprotocol/ui-toolkit'
 import { useMarketsStore } from '../../../../../stores/markets-store'
 import config from '!/config'
 import get from 'lodash/get'
+import { isActiveMarket } from '../../../../../lib/markets'
 
 export const locators = {
   marketsDescription: 'markets-description',
@@ -13,8 +14,9 @@ export const MarketLozenges = ({ assetId }: { assetId: string }) => {
     getMarketsByAssetId: state.getMarketsByAssetId
   }))
   const markets = getMarketsByAssetId(assetId)
+  const activeMarkets = markets.filter(isActiveMarket)
 
-  const top5Markets = markets.slice(0, 5)
+  const top5Markets = activeMarkets.slice(0, 5)
   if (top5Markets.length === 0) return null
   return (
     <div className="text-left">

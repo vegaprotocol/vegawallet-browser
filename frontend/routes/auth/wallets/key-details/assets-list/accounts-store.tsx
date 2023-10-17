@@ -23,7 +23,7 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
   accounts: [],
   accountsByAsset: {},
   interval: null,
-  error: new Error('Something went wrong'),
+  error: null,
   loading: true,
   async fetchAccounts(id, request) {
     try {

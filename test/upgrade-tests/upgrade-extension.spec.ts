@@ -35,7 +35,7 @@ describe('Check migration of settings after upgrade', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('can navigate to settings and update telemetry opt in/out preference', async () => {

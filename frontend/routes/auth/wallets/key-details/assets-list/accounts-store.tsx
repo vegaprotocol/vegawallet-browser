@@ -11,6 +11,8 @@ export type AccountsStore = {
   accounts: vegaAccount[]
   accountsByAsset: Record<string, vegaAccount[]>
   interval: NodeJS.Timer | null
+  error: Error | null
+  loading: Boolean
   fetchAccounts: (id: string, request: SendMessage) => Promise<void>
   startPoll: (id: string, request: SendMessage) => void
   stopPoll: () => void
@@ -21,14 +23,25 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
   accounts: [],
   accountsByAsset: {},
   interval: null,
+  error: null,
+  loading: true,
   async fetchAccounts(id, request) {
-    const accountsResponse = await request(RpcMethods.Fetch, { path: `api/v2/accounts?filter.partyIds=${id}` })
-    const accounts = removePaginationWrapper<vegaAccount>(accountsResponse.accounts.edges)
-    const accountsByAsset = groupBy(accounts, 'asset')
-    set({
-      accounts,
-      accountsByAsset
-    })
+    try {
+      set({ loading: true, error: null })
+      const accountsResponse = await request(RpcMethods.Fetch, { path: `api/v2/accounts?filter.partyIds=${id}` }, true)
+      const accounts = removePaginationWrapper<vegaAccount>(accountsResponse.accounts.edges)
+      const accountsByAsset = groupBy(accounts, 'asset')
+      set({
+        accounts,
+        accountsByAsset
+      })
+    } catch (e) {
+      set({
+        error: e as Error
+      })
+    } finally {
+      set({ loading: false })
+    }
   },
   startPoll(id, request) {
     const interval = setInterval(() => {
@@ -49,6 +62,8 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
   },
   reset() {
     set({
+      loading: true,
+      error: null,
       accounts: [],
       accountsByAsset: {}
     })

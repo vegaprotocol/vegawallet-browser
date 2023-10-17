@@ -1,7 +1,13 @@
 const testnet = {
   network: {
     name: 'Fairground',
-    rest: ['https://api.n06.testnet.vega.xyz', 'https://api.n07.testnet.vega.xyz'],
+    rest: [
+      'https://api.n00.testnet.vega.rocks',
+      'https://api.n06.testnet.vega.rocks',
+      'https://api.n07.testnet.vega.rocks',
+      'https://api.n08.testnet.vega.rocks',
+      'https://api.n09.testnet.vega.rocks'
+    ],
     console: 'https://console.fairground.wtf',
     explorer: 'https://explorer.fairground.wtf',
     governance: 'https://governance.fairground.wtf',

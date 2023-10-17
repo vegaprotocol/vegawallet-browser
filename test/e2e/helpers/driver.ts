@@ -132,13 +132,7 @@ export async function runTestRetryIfDriverCrashes(
   } catch (error) {
     if ((error as Error).message.includes('ECONNREFUSED') && retryIteration < maxRetries) {
       console.warn(`Test failed with ECONNREFUSED. Retrying (${retryIteration + 1} of ${maxRetries})...`)
-      await runTestRetryIfDriverCrashes(
-        testFunction,
-        setupFunction,
-        teardownFunction,
-        maxRetries,
-        retryIteration + 1 // Increment retryIteration
-      )
+      await runTestRetryIfDriverCrashes(testFunction, setupFunction, teardownFunction, maxRetries, retryIteration + 1)
     } else {
       if (retryIteration == maxRetries) {
         console.log('driver crashed three times in a row. Failing the test. Investigate your configuration')

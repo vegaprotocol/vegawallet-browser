@@ -48,12 +48,30 @@ describe('AccountsStore', () => {
   it('should fetch accounts and group them by asset', async () => {
     const id = '1'.repeat(64)
     const { fetchAccounts } = useAccountsStore.getState()
+    expect(useAccountsStore.getState().loading).toBeTruthy()
+    expect(useAccountsStore.getState().error).toBe(null)
     await fetchAccounts(id, request)
+    expect(useAccountsStore.getState().loading).toBeFalsy()
+    expect(useAccountsStore.getState().error).toBe(null)
     const { accounts, accountsByAsset } = useAccountsStore.getState()
     expect(accounts).toStrictEqual([ACCOUNT_FIXTURE])
     expect(accountsByAsset).toStrictEqual({
       [ACCOUNT_FIXTURE.asset]: [ACCOUNT_FIXTURE]
     })
+  })
+  it('should set error if it fails to load', async () => {
+    const id = '1'.repeat(64)
+    const { fetchAccounts } = useAccountsStore.getState()
+    expect(useAccountsStore.getState().loading).toBeTruthy()
+    expect(useAccountsStore.getState().error).toBe(null)
+    await fetchAccounts(id, () => {
+      throw new Error('Error')
+    })
+    expect(useAccountsStore.getState().loading).toBeFalsy()
+    expect(useAccountsStore.getState().error).toStrictEqual(new Error('Error'))
+    const { accounts, accountsByAsset } = useAccountsStore.getState()
+    expect(accounts).toStrictEqual([])
+    expect(accountsByAsset).toStrictEqual({})
   })
   it('start poll should fetch accounts every 10 seconds', async () => {
     const id = '1'.repeat(64)
@@ -82,5 +100,7 @@ describe('AccountsStore', () => {
     reset()
     expect(useAccountsStore.getState().accounts).toStrictEqual([])
     expect(useAccountsStore.getState().accountsByAsset).toStrictEqual({})
+    expect(useAccountsStore.getState().error).toStrictEqual(null)
+    expect(useAccountsStore.getState().loading).toStrictEqual(true)
   })
 })

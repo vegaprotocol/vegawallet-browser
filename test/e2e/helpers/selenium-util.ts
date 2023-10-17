@@ -1,19 +1,12 @@
 import { stat } from 'fs'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 import { captureScreenshot } from './driver'
-import { loadavg } from 'os'
 
 const defaultTimeoutMillis = 10000
 
 export async function clickElement(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   const element = await waitForElementToBeReady(driver, locator, timeout)
   await element.click()
-}
-
-export async function getAttribute(driver: WebDriver, locator: By, attribute: string) {
-  const element = waitForElementToBeReady(driver, locator)
-  const attributeValue = (await element).getAttribute(attribute)
-  return attributeValue
 }
 
 export async function getWebElementContainingText(

@@ -44,7 +44,10 @@ export async function getLandingPageURL(driver: WebDriver, extensionID = '') {
       landingPageURL = `moz-extension://${uuid}/index.html`
     }
   } else {
+    console.log('extension id is', extensionID)
     uuid = extensionID ?? e2eExtensionId
+    console.log('e2e extensionId is', e2eExtensionId)
+    console.log('uuid is', uuid)
     landingPageURL = chromeExtensionURL(uuid)
   }
 

@@ -7,6 +7,8 @@ import { ExportPrivateKeysDialog } from './export-private-key-dialog'
 import { AssetsList } from './assets-list'
 import { RenameKeyDialog } from './rename-key-dialog'
 import { BasePage } from '../../../../components/pages/page'
+import { AsyncRenderer } from '../../../../components/async-renderer/async-renderer'
+import { ReactNode } from 'react'
 
 export const locators = {
   keyDetailsPage: 'key-details-page',
@@ -25,10 +27,12 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
   const { loading: walletsLoading } = useWalletStore((state) => ({
     loading: state.loading
   }))
-  if (loading || walletsLoading) return null
   if (!key) throw new Error(`Key with id ${id} not found`)
 
   return (
+    <AsyncRenderer
+      loading={loading || walletsLoading}
+      render={() => (
     <BasePage
       dataTestId={locators.keyDetailsPage}
       backLocation={FULL_ROUTES.wallets}
@@ -43,5 +47,6 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
       <AssetsList publicKey={id} />
       <ExportPrivateKeysDialog publicKey={key.publicKey} />
     </BasePage>
+    />
   )
 }

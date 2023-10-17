@@ -2,7 +2,8 @@ import { WebDriver } from 'selenium-webdriver'
 import * as fs from 'fs'
 
 //URLS
-const chromeExtensionURL: string = 'chrome-extension://jfaancmgehieoohdnmcdfdlkblfcehph/index.html'
+const e2eExtensionId = 'jfaancmgehieoohdnmcdfdlkblfcehp'
+const chromeExtensionURL = (id: string) => `chrome-extension://${id}/index.html`
 export const testDAppUrl = 'https://vegaprotocol.github.io/vegawallet-browser/'
 export const consoleSmokePublicKey = '10743917237e3f76eabcec06acc4e56807c468c6a84f437c4c9ff75dc2822851'
 export const consoleSmokeRecoveryPhrase =
@@ -27,15 +28,28 @@ export const dummyTransaction = {
   }
 }
 
-export async function getLandingPageURL(driver: WebDriver) {
+export async function getLandingPageURL(driver: WebDriver, extensionID = '') {
+  let uuid: string | null
+  let landingPageURL: string = ''
+
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {
     const profilePath = (await (await driver.getCapabilities()).get('moz:profile')) as string
     const userPrefsFileContent = fs.readFileSync(`${profilePath}/prefs.js`, 'utf-8')
-    const uuid = await getExtensionUuid(userPrefsFileContent)
-    return `moz-extension://${uuid}/index.html`
+    if (extensionID) {
+      uuid = extensionID
+    } else {
+      uuid = await getExtensionUuid(userPrefsFileContent)
+    }
+    if (uuid) {
+      landingPageURL = `moz-extension://${uuid}/index.html`
+    }
   } else {
-    return chromeExtensionURL
+    uuid = extensionID ?? e2eExtensionId
+    landingPageURL = chromeExtensionURL(uuid)
   }
+
+  console.log('url is', landingPageURL)
+  return landingPageURL // Ensure that a string is always returned
 }
 
 async function getExtensionUuid(userPrefsFileContent: string): Promise<string | null> {

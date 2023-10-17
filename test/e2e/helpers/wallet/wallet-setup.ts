@@ -12,14 +12,14 @@ export async function createWalletAndDriver(oldExtension = false) {
   return driver
 }
 
-export async function navigateToExtensionLandingPage(driver: WebDriver) {
-  const url = await getLandingPageURL(driver)
+export async function navigateToExtensionLandingPage(driver: WebDriver, extensionID = '') {
+  const url = await getLandingPageURL(driver, extensionID)
   await driver.get(url)
   await driver.wait(until.urlContains(url), 10000)
 }
 
-export async function setUpWalletAndKey(driver: WebDriver) {
+export async function setUpWalletAndKey(driver: WebDriver, extensionID = '') {
   const apiHelper = new APIHelper(driver)
   await apiHelper.setUpWalletAndKey()
-  await navigateToExtensionLandingPage(driver)
+  await navigateToExtensionLandingPage(driver, extensionID)
 }

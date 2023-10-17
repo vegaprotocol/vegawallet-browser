@@ -5,7 +5,8 @@ import * as fs from 'fs-extra'
 import path from 'path'
 import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } from './file-system'
 import { clickElement, staticWait, switchWindowHandles } from './selenium-util'
-import { navigateToExtensionLandingPage } from './wallet/wallet-setup'
+import { navigateToExtensionLandingPage, setUpWalletAndKey } from './wallet/wallet-setup'
+import { GetStarted } from '../page-objects/get-started'
 
 export const extensionPath = './build'
 export const oldExtensionDirectory = './test/vega-browserwallet-testnet-chrome-v0.10.0'
@@ -91,6 +92,23 @@ export async function copyProfile(driver: WebDriver) {
     await copyDirectoryToNewLocation(seleniumInstanceProfile, firefoxTestProfileDirectory)
   } else {
     console.log('Copying profile is only supported for Firefox. Skipping this step for Chrome.')
+  }
+}
+
+export async function getHandleWithExtensionAutoOpened(driver: WebDriver, handles: string[]) {
+  let extensionID = ''
+  for (const handle of handles) {
+    await driver.switchTo().window(handle)
+    const getStarted = new GetStarted(driver)
+
+    if (await getStarted.isOnGetStartedPage()) {
+      extensionID = await driver.executeScript('return chrome.runtime.id')
+      await setUpWalletAndKey(driver, extensionID)
+      return extensionID
+    }
+  }
+  if (extensionID === '') {
+    throw new Error("No 'chrome-extension' URL found.")
   }
 }
 

@@ -1,77 +1,50 @@
-import { By, WebDriver } from 'selenium-webdriver'
-import { captureScreenshot, extensionPath, initDriver, oldExtensionDirectory } from './helpers/driver'
-import { NavPanel } from './page-objects/navpanel'
+import { WebDriver } from 'selenium-webdriver'
 import {
-  clickElement,
-  getAttribute,
-  goToNewWindowHandle,
-  switchWindowHandles,
-  windowHandleHasCount
-} from './helpers/selenium-util'
-import { VegaAPI } from './helpers/wallet/vega-api'
-import { Transaction } from './page-objects/transaction'
-import { ConnectWallet } from './page-objects/connect-wallet'
-import { Settings } from './page-objects/settings'
-import { ExtensionHeader } from './page-objects/extension-header'
-import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
-import { copyDirectoryToNewLocation, overrideJson } from './helpers/file-system'
+  captureScreenshot,
+  extensionPath,
+  getHandleWithExtensionAutoOpened,
+  initDriver,
+  oldExtensionDirectory
+} from './helpers/driver'
+import { NavPanel } from './page-objects/navpanel'
+import { windowHandleHasCount } from './helpers/selenium-util'
+import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
+import { copyDirectoryToNewLocation, updateOrAddJsonProperty } from './helpers/file-system'
 import { chromePublicKey } from '../../rollup/postbuild'
-import { APIHelper } from './helpers/wallet/wallet-api'
+import { GetStarted } from './page-objects/get-started'
+import { Settings } from './page-objects/settings'
 
-describe('Check migration of settings after upgrade', () => {
-  let driver: WebDriver
-  let connectWalletModal: ConnectWallet
-  let navPanel: NavPanel
-  let settingsPage: Settings
-  let transaction: Transaction
-  let header: ExtensionHeader
-  let vegaAPI: VegaAPI
-  let apiHelper: APIHelper
-  const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled but it was not'
-  const expectedAutoOpenEnabledMessage = 'expected auto open to be enabled but it was not'
-  const developerModeToggle: By = By.css('#devMode')
-  const update: By = By.id('updateNow')
+// Check if the UPGRADE environment variable is set to 'true'
+if (process.env.UPGRADE === 'true') {
+  describe('Check migration of settings after upgrade', () => {
+    let driver: WebDriver
+    let navPanel: NavPanel
+    let settingsPage: Settings
+    const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled but it was not'
+    const expectedAutoOpenEnabledMessage = 'expected auto open to be enabled but it was not'
 
-  beforeAll(async () => {
-    let useOldExtension = false
-    console.log('is it upgrade?')
-    console.log('env var is', process.env.UPGRADE)
-    if (process.env.UPGRADE === 'true') {
-      console.log('UPGRADE WOO')
-      useOldExtension = true
-      await overrideJson(oldExtensionDirectory, 'key', chromePublicKey)
-      console.log('overrode that mofo')
-    } else {
-      console.log('nah bruv')
-    }
-    driver = await initDriver(useOldExtension)
-    if (useOldExtension) {
+    beforeAll(async () => {
+      await updateOrAddJsonProperty(oldExtensionDirectory + '/manifest.json', 'key', chromePublicKey)
+      driver = await initDriver(true)
+      await windowHandleHasCount(driver, 2)
+      const handles = await driver.getAllWindowHandles()
+      let extensionID = await getHandleWithExtensionAutoOpened(driver, handles)
+      navPanel = new NavPanel(driver)
+      await navPanel.goToSettings()
       await copyDirectoryToNewLocation(extensionPath + '/chrome', oldExtensionDirectory)
-      await driver.get('chrome://extensions')
-      const devModeEnabled = (await getAttribute(driver, developerModeToggle, 'aria-pressed')) === 'true'
-      if (!devModeEnabled) {
-        await clickElement(driver, developerModeToggle)
-      }
-      await clickElement(driver, update)
-    }
-    apiHelper = new APIHelper(driver)
-    navPanel = new NavPanel(driver)
-    await apiHelper.setUpWalletAndKey()
-    await navigateToExtensionLandingPage(driver)
-    await navPanel.goToSettings()
-  })
+      await navigateToExtensionLandingPage(driver, extensionID)
+      settingsPage = await navPanel.goToSettings()
+    })
 
-  afterEach(async () => {
-    await captureScreenshot(driver, expect.getState().currentTestName as string)
-    //await driver.quit()
-  })
+    afterEach(async () => {
+      await captureScreenshot(driver, expect.getState().currentTestName as string)
+      await driver.quit()
+    })
 
-  it('can navigate to settings and update telemetry opt in/out preference', async () => {
-    // 1111-TELE-008 There is a way to change whether I want to opt in / out of error reporting later (e.g. in settings)
-    const navPanel = new NavPanel(driver)
-    const settingsPage = await navPanel.goToSettings()
-    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
-    expect(await settingsPage.isAutoOpenSelected(), expectedAutoOpenEnabledMessage).toBe(true)
-    await settingsPage.lockWalletAndCheckLoginPageAppears()
+    it('can navigate to settings and update telemetry opt in/out preference', async () => {
+      expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
+      expect(await settingsPage.isAutoOpenSelected(), expectedAutoOpenEnabledMessage).toBe(true)
+      await settingsPage.lockWalletAndCheckLoginPageAppears()
+    })
   })
-})
+}

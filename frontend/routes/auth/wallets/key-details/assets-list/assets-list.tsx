@@ -1,3 +1,4 @@
+import { AsyncRenderer } from '../../../../../components/async-renderer/async-renderer'
 import { SubHeader } from '../../../../../components/sub-header'
 import { VegaSection } from '../../../../../components/vega-section'
 import { useAccountsStore } from './accounts-store'
@@ -13,26 +14,33 @@ export const AssetsList = ({ id }: { id: string }) => {
   const { error } = useAccountsStore((state) => ({
     error: state.error
   }))
-  console.log(error)
+
   const { accountsByAsset } = useAccounts(id)
-  if (error)
-    return (
-      <VegaSection>
-        <Notification
-          intent={Intent.Danger}
-          message={`An error occurred when loading account information: ${error.message}`}
-        />
-      </VegaSection>
-    )
+
   return (
     <VegaSection>
-      <SubHeader content="Balances" />
-      <p data-testid={locators.assetListDescription} className="text-vega-dark-400 my-3">
-        Recent balance changes caused by your open positions may not be reflected below
-      </p>
-      {Object.entries(accountsByAsset).map(([assetId, val]) => (
-        <AssetCard key={assetId} accounts={val} assetId={assetId} />
-      ))}
+      <AsyncRenderer
+        loading={false}
+        error={error}
+        noData={false}
+        errorView={(error) => (
+          <Notification
+            intent={Intent.Danger}
+            message={`An error occurred when loading account information: ${error.message}`}
+          />
+        )}
+        render={() => (
+          <>
+            <SubHeader content="Balances" />
+            <p data-testid={locators.assetListDescription} className="text-vega-dark-400 my-3">
+              Recent balance changes caused by your open positions may not be reflected below
+            </p>
+            {Object.entries(accountsByAsset).map(([assetId, val]) => (
+              <AssetCard key={assetId} accounts={val} assetId={assetId} />
+            ))}
+          </>
+        )}
+      />
     </VegaSection>
   )
 }

@@ -10,19 +10,24 @@ export const locators = {
   assetListDescription: 'asset-list-description'
 }
 
-export const AssetsList = ({ id }: { id: string }) => {
+const AssetListEmptyState = ({ publicKey }: { publicKey: string }) => {
+  return <div>Currently you have no assets.</div>
+}
+
+export const AssetsList = ({ publicKey }: { publicKey: string }) => {
   const { error } = useAccountsStore((state) => ({
     error: state.error
   }))
 
-  const { accountsByAsset } = useAccounts(id)
+  const { accountsByAsset } = useAccounts(publicKey)
 
   return (
     <VegaSection>
       <AsyncRenderer
         loading={false}
         error={error}
-        noData={false}
+        noData={Object.keys(accountsByAsset).length === 0}
+        renderNoData={() => <AssetListEmptyState publicKey={publicKey} />}
         errorView={(error) => (
           <Notification
             intent={Intent.Danger}

@@ -3,7 +3,7 @@ import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { DataTable } from '../../data-table/data-table'
 import { PeggedOrderOptions } from '../../../types/transactions.ts'
-import { useMarketsStore, getSettlementAssetId } from '../../../stores/markets-store'
+import { useMarketsStore } from '../../../stores/markets-store'
 import { useAssetsStore } from '../../../stores/assets-store'
 import {
   buildPriceColumn,
@@ -15,6 +15,7 @@ import {
   buildSizeColumn,
   buildTypeColumn
 } from './order/build-order-columns'
+import { getSettlementAssetId } from '../../../lib/markets.ts'
 
 export const OrderTable = ({
   marketId,

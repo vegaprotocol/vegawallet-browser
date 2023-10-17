@@ -3,17 +3,7 @@ import { RpcMethods } from '../lib/client-rpc-methods.ts'
 import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
 import { removePaginationWrapper } from '../lib/remove-pagination.ts'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
-import get from 'lodash/get'
-
-export const getSettlementAssetId = (market: vegaMarket) => {
-  const assetId =
-    get(market, 'tradableInstrument.instrument.future.settlementAsset') ??
-    get(market, 'tradableInstrument.instrument.perpetual.settlementAsset')
-  if (!assetId) {
-    throw new Error(`Could not find settlement asset from market ${market.id}`)
-  }
-  return assetId
-}
+import { getSettlementAssetId } from '../lib/markets.ts'
 
 export type MarketsStore = {
   markets: vegaMarket[]

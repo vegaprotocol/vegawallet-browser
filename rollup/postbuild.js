@@ -4,7 +4,7 @@ import pkg from '../package.json' assert { type: 'json' }
 import { glob } from 'glob'
 
 const fileName = 'I_SHOULD_NOT_EXIST.js'
-const chromePublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA08UzOSHIQYHM54WUFpkwdli9r64CjLvR0zQywfNvJEW808vRJF86esnXtgFn+XaPc/rKL1SguiGrhi0DJH6uzNEBs37q7kEsEzK+yxWu8OPGp8Bf6p1MnvT5m/44tXqcbdLll3K8rBrNq8PAGIbw7AI/dkLnK1UosVDkkO7CCqLYLDp0ccJTLs1ALS78o6Es9tg91DuTRJyNc1HP8rZn0FL+rjOkqAX+26rhy+UOwWvqe7FZbMU18ZsQ5Z/rFWAYnRG6+lWMMWYBsU2irwRLVPd4RydEr2JKeaNi9V42a7kAtDlYW9607LCOtXfAJTIA3g2zrtxvPBSLMO84abvGzwIDAQAB'
+export const chromePublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA08UzOSHIQYHM54WUFpkwdli9r64CjLvR0zQywfNvJEW808vRJF86esnXtgFn+XaPc/rKL1SguiGrhi0DJH6uzNEBs37q7kEsEzK+yxWu8OPGp8Bf6p1MnvT5m/44tXqcbdLll3K8rBrNq8PAGIbw7AI/dkLnK1UosVDkkO7CCqLYLDp0ccJTLs1ALS78o6Es9tg91DuTRJyNc1HP8rZn0FL+rjOkqAX+26rhy+UOwWvqe7FZbMU18ZsQ5Z/rFWAYnRG6+lWMMWYBsU2irwRLVPd4RydEr2JKeaNi9V42a7kAtDlYW9607LCOtXfAJTIA3g2zrtxvPBSLMO84abvGzwIDAQAB'
 
 /**
  * Copies the common files to the browser-specific build folder

@@ -8,13 +8,11 @@ import {
 } from './helpers/driver'
 import { NavPanel } from './page-objects/navpanel'
 import { windowHandleHasCount } from './helpers/selenium-util'
-import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
+import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 import { copyDirectoryToNewLocation, updateOrAddJsonProperty } from './helpers/file-system'
 import { chromePublicKey } from '../../rollup/postbuild'
-import { GetStarted } from './page-objects/get-started'
 import { Settings } from './page-objects/settings'
 
-// Check if the UPGRADE environment variable is set to 'true'
 if (process.env.UPGRADE === 'true') {
   describe('Check migration of settings after upgrade', () => {
     let driver: WebDriver

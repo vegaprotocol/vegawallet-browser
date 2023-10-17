@@ -1,4 +1,4 @@
-import { Lozenge } from '@vegaprotocol/ui-toolkit'
+import { ExternalLink, Lozenge } from '@vegaprotocol/ui-toolkit'
 import { useMarketsStore } from '../../../../../stores/markets-store'
 import config from '!/config'
 import get from 'lodash/get'
@@ -21,16 +21,18 @@ export const MarketLozenges = ({ assetId }: { assetId: string }) => {
       <p className="mb-1 text-sm" data-testid={locators.marketsDescription}>
         Currently traded in:
       </p>
-      {top5Markets.map((m) => (
-        <a
-          href={`${config.network.console}/#/markets/${m.id}`}
-          data-testid={locators.marketLozenge}
-          key={m.id}
-          className="text-xs"
-        >
-          <Lozenge>{get(m, 'tradableInstrument.instrument.code')}</Lozenge>
-        </a>
-      ))}
+      <div className="flex gap-x-2 gap-y-3 flex-wrap">
+        {top5Markets.map((m) => (
+          <ExternalLink
+            className="text-xs"
+            data-testid={locators.marketLozenge}
+            href={`${config.network.console}/#/markets/${m.id}`}
+            key={m.id}
+          >
+            <Lozenge>{get(m, 'tradableInstrument.instrument.code')}</Lozenge>
+          </ExternalLink>
+        ))}
+      </div>
     </div>
   )
 }

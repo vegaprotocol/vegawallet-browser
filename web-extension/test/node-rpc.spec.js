@@ -1,20 +1,18 @@
 import NodeRPC from '../backend/node-rpc.js'
 import { wait, createJSONHTTPServer } from './helpers.js'
 
-
-async function createServer(height = 100, timeout = 0) {
+async function createServer (height = 100, timeout = 0) {
   return createJSONHTTPServer(async () => {
     await wait(timeout)
     return { body: { height } }
   })
 }
 
-async function createFaultyServer() {
+async function createFaultyServer () {
   return createJSONHTTPServer(async () => {
     return { statusCode: 500 }
   })
 }
-
 
 describe('findHealthyNode', () => {
   test('check one slow and three unhealthy nodes', async () => {
@@ -83,17 +81,17 @@ describe('findHealthyNode', () => {
   test('check a mix of healthy, slow and unhealthy nodes', async () => {
     const [healthy, slow, unhealthy] = await Promise.all([
       await Promise.all([createServer(100),
-      createServer(99),
-      createServer(101)]),
+        createServer(99),
+        createServer(101)]),
 
       await Promise.all([createServer(100, 500),
-      createServer(99, 500),
-      createServer(101, 500)]),
+        createServer(99, 500),
+        createServer(101, 500)]),
 
       await Promise.all([createServer(50),
-      createServer(49),
-      createServer(51),
-      createFaultyServer()])
+        createServer(49),
+        createServer(51),
+        createFaultyServer()])
     ])
 
     const servers = [...healthy, ...slow, ...unhealthy]
@@ -112,5 +110,15 @@ describe('findHealthyNode', () => {
     await expect(NodeRPC.findHealthyNode(servers.map((s) => s.url))).rejects.toThrow('No healthy node found')
 
     await Promise.all(servers.map((s) => s.close()))
+  })
+
+  test('Timeout error on JSON requests', async () => {
+    const server = await createServer(100, 500)
+
+    const rpc = new NodeRPC(server.url, 100)
+
+    await expect(rpc.blockchainHeight()).rejects.toThrow('The operation was aborted due to timeout')
+
+    await server.close()
   })
 })

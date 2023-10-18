@@ -1,13 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import { KeyDetailsPage, locators } from './key-details-page'
+import { KeyDetailsPage } from './key-details-page'
 import { useAssetsStore } from '../../../../stores/assets-store'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { useWalletStore } from '../../../../stores/wallets'
 import { MemoryRouter } from 'react-router-dom'
-import { locators as subHeaderLocators } from '../../../../components/sub-header'
-import { FULL_ROUTES } from '../../../route-names'
 import { mockStore } from '../../../../test-helpers/mock-store'
-import { locators as headerLocators } from '../../../../components/header'
 import { locators as pageLocators } from '../../../../components/pages/page'
 import { FULL_ROUTES } from '../../../route-names'
 
@@ -102,11 +99,7 @@ describe('KeyDetailsPage', () => {
     expect(screen.getByTestId('key-selector')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()
     expect(screen.getByTestId('export-private-key-dialog')).toBeInTheDocument()
-    expect(screen.getByTestId(locators.keyDetailsBack)).toHaveAttribute('href', FULL_ROUTES.wallets)
-  })
-
-  it('clicking back navigates to the previous page', () => {
-    expect(false).toBeTruthy()
+    expect(screen.getByTestId(pageLocators.basePageBack)).toHaveAttribute('href', FULL_ROUTES.wallets)
   })
 
   it('renders asset assets list', () => {

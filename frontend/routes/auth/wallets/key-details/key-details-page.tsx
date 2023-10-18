@@ -5,13 +5,12 @@ import { FULL_ROUTES } from '../../../route-names'
 import { KeySelector } from './key-selector'
 import { ExportPrivateKeysDialog } from './export-private-key-dialog'
 import { AssetsList } from './assets-list'
-import { AuthPage } from '../../../../components/auth-page'
+import { BasePage } from '../../../../components/pages/page'
 
 export const locators = {
   keyDetailsPage: 'key-details-page',
   keyDetailsDescription: 'key-details-description',
-  keyDetailsBack: 'key-details-back',
-  keyDetailsPage: 'key-details-page'
+  keyDetailsBack: 'key-details-back'
 }
 
 export const KeyDetailsPage = ({ id }: { id: string }) => {
@@ -29,24 +28,16 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
   if (!key) throw new Error(`Key with id ${id} not found`)
 
   return (
-    <AuthPage
+    <BasePage
       dataTestId={locators.keyDetailsPage}
-      title={
-        <div className="mb-6 flex items-center text-white">
-          <NavLink
-            data-testid={locators.keyDetailsBack}
-            to={{ pathname: FULL_ROUTES.wallets }}
-            className="mr-4 cursor-pointer"
-          >
-            <ArrowLeft size={20} />
-          </NavLink>
-          <KeySelector currentKey={key} />
-        </div>
-      }
+      backLocation={FULL_ROUTES.wallets}
+      title={<KeySelector currentKey={key} />}
     >
-      <VegaKey publicKey={key.publicKey} />
+      <div className="mt-6">
+        <VegaKey publicKey={key.publicKey} />
+      </div>
       <AssetsList id={id} />
       <ExportPrivateKeysDialog publicKey={key.publicKey} />
-    </AuthPage>
+    </BasePage>
   )
 }

@@ -8,12 +8,13 @@ import {
 } from '../helpers/selenium-util'
 import { defaultPassword } from '../helpers/wallet/common-wallet-values'
 import { locators as createPasswordLocators } from '../../../frontend/routes/onboarding/create-password'
+import { locators as pageLocators } from '../../../frontend/components/pages/page'
 import componentLocators from '../../../frontend/components/locators'
 
 export const passphraseWarningCheckbox = 'acceptedTerms' // by id
 
 export class Password {
-  private readonly createPasswordBackButton: By = getByDataTestID('create-password-back')
+  private readonly createPasswordBackButton: By = getByDataTestID(pageLocators.basePageBack)
   private readonly passwordInput: By = getByDataTestID(createPasswordLocators.passphraseInput)
   private readonly confirmPasswordInput: By = getByDataTestID(createPasswordLocators.confirmPassphraseInput)
   private readonly acknowledgeWarningCheckbox: By = By.id(passphraseWarningCheckbox)

@@ -180,6 +180,16 @@ export default function init ({ encryptedStore, settings, wallets, networks, con
         }
       },
 
+      async 'admin.rename_key' (params) {
+        doValidate(adminValidation.renameKey, params)
+
+        try {
+          return await wallets.renameKey(params)
+        } catch (ex) {
+          throw new JSONRPCServer.Error(ex.message, 1)
+        }
+      },
+
       async 'admin.sign_message' (params) {
         doValidate(adminValidation.signMessage, params)
 

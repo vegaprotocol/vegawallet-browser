@@ -525,6 +525,25 @@ describe('admin-ns', () => {
     }
   })
 
+  const REQ_RENAME_KEY = (id, publicKey, name) => ({
+    jsonrpc: '2.0',
+    id,
+    method: 'admin.rename_key',
+    params: {
+      publicKey,
+      name
+    }
+  })
+
+  const REQ_LIST_KEYS = (id, wallet = 'Wallet 1') => ({
+    jsonrpc: '2.0',
+    id,
+    method: 'admin.list_keys',
+    params: {
+      wallet
+    }
+  })
+
   describe('admin.export_key', () => {
     const passphrase = 'foo'
     let admin
@@ -570,6 +589,77 @@ describe('admin-ns', () => {
       expect(exportKey.error).toBeUndefined()
       expect(exportKey.result.publicKey).toBe(key.publicKey)
       expect(exportKey.result.secretKey).not.toBeNull()
+    })
+  })
+
+  describe('admin.rename_key', () => {
+    const passphrase = 'foo'
+    let admin
+    let key
+    beforeEach(async () => {
+      admin = await createAdmin({ passphrase })
+
+      const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
+      expect(generateRecoveryPhrase.error).toBeUndefined()
+
+      const importWallet = await admin.onrequest(REQ_IMPORT_WALLET(2, generateRecoveryPhrase.result.recoveryPhrase))
+      expect(importWallet.error).toBeUndefined()
+
+      const generateKey = await admin.onrequest(REQ_GENERATE_KEY(3))
+      expect(generateKey.error).toBeUndefined()
+
+      key = generateKey.result
+    })
+
+    afterEach(() => {
+      admin = null
+      key = null
+    })
+
+    it('should not rename key with wrong public key', async () => {
+      const renameKey = await admin.onrequest(REQ_RENAME_KEY(4, 'wrong-public-key', 'New Name'))
+      expect(renameKey.error).toMatchObject({
+        code: 1,
+        message: expect.stringMatching(/Cannot find key with public key/)
+      })
+
+      const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
+      expect(listKeys.error).toBeUndefined()
+      expect(listKeys.result.keys).toEqual([{ ...key, name: 'Key 1' }])
+    })
+
+    it('should rename key', async () => {
+      const renameKey = await admin.onrequest(REQ_RENAME_KEY(4, key.publicKey, 'New Name'))
+      expect(renameKey.error).toBeUndefined()
+
+      const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
+      expect(listKeys.error).toBeUndefined()
+      expect(listKeys.result.keys).toEqual([{ ...key, name: 'New Name' }])
+    })
+
+    it('should allow multiple keys with same name', async () => {
+      const generateKey2 = await admin.onrequest(REQ_GENERATE_KEY(4, 'Key 1'))
+      expect(generateKey2.error).toBeUndefined()
+
+      const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
+      expect(listKeys.error).toBeUndefined()
+      expect(listKeys.result.keys).toEqual([
+        { ...key, name: 'Key 1' },
+        { ...generateKey2.result, name: 'Key 1' }
+      ])
+
+      const renameKey = await admin.onrequest(REQ_RENAME_KEY(6, generateKey2.result.publicKey, 'New Name'))
+      expect(renameKey.error).toBeUndefined()
+
+      const renameKey2 = await admin.onrequest(REQ_RENAME_KEY(7, key.publicKey, 'New Name'))
+      expect(renameKey2.error).toBeUndefined()
+
+      const listKeys2 = await admin.onrequest(REQ_LIST_KEYS(8))
+      expect(listKeys2.error).toBeUndefined()
+      expect(listKeys2.result.keys).toEqual([
+        { ...key, name: 'New Name' },
+        { ...generateKey2.result, name: 'New Name' }
+      ])
     })
   })
 })

@@ -126,4 +126,26 @@ export class WalletCollection {
       return key
     })
   }
+
+  async renameKey ({ publicKey, name }) {
+    return await this.store.transaction(async (store) => {
+      const indexEntry = (await this.index.get(publicKey))
+      const { wallet } = indexEntry ?? {}
+      if (indexEntry == null) throw new Error(`Cannot find key with public key "${publicKey}".`)
+
+      const walletConfig = await store.get(wallet)
+      if (walletConfig == null) throw new Error(`Cannot find wallet with name "${wallet}".`)
+
+      const keyConfig = walletConfig.keys.find((k) => k.publicKey === publicKey)
+      if (keyConfig == null) throw new Error(`Cannot find key with public key "${publicKey}".`)
+
+      keyConfig.name = name
+      indexEntry.name = name
+
+      await store.set(wallet, walletConfig)
+      await this.index.set(publicKey, indexEntry)
+
+      return keyConfig
+    })
+  }
 }

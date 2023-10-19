@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import smokeConsoleTestnet from '../../config/console-smoke-testnet.js';
-import smokeConsoleMainnet from '../../config/console-smoke-mainnet.js';
+import smokeConsoleTestnet from '../../../config/console-smoke-testnet.js';
+import smokeConsoleMainnet from '../../../config/console-smoke-mainnet.js';
 
 const networkArg = process.argv[2];
 

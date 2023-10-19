@@ -34,7 +34,7 @@ export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPr
   } = useForm<FormFields>()
   const passphrase = useWatch({ control, name: 'passphrase' })
 
-  const exportPrivateKey = async ({ passphrase }: { passphrase: string }) => {
+  const exportPrivateKey = async ({ passphrase }: FormFields) => {
     try {
       setLoading(true)
       const { secretKey } = await request(RpcMethods.ExportKey, { publicKey, passphrase }, true)

@@ -27,8 +27,12 @@ export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProps) => {
   }
   return (
     <>
-      <button onClick={() => setOpen(true)} className="flex justify-center" data-testid={locators.renameKeyTrigger}>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button
+        onClick={() => setOpen(true)}
+        className="ml-2 flex justify-center text-vega-dark-400"
+        data-testid={locators.renameKeyTrigger}
+      >
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -38,11 +42,11 @@ export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProps) => {
         </svg>
       </button>
       <Dialog open={open} onInteractOutside={resetDialog} onChange={resetDialog}>
-        <div className="p-2 text-base text-vega-dark-400">
-          <h1 data-testid={locators.renameKeyTitle} className="text-xl  text-center text-white mb-2">
+        <div className="p-2 text-base text-vega-dark-400 overflow-hidden">
+          <h1 data-testid={locators.renameKeyTitle} className="text-xl text-center text-white mb-2">
             Rename key
           </h1>
-          <VegaKey publicKey={vegaKey.publicKey} />
+          <VegaKey name={vegaKey.name} publicKey={vegaKey.publicKey} />
           <RenameKeyForm publicKey={vegaKey.publicKey} keyName={vegaKey.name} />
         </div>
       </Dialog>

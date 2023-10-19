@@ -22,13 +22,14 @@ export const RenameKeyForm = ({ keyName, publicKey }: RenameKeyFormProps) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(renameKey)}>
-      <FormGroup label="keyName" labelFor="passphrase">
+    <form className="mt-4" onSubmit={handleSubmit(renameKey)}>
+      <FormGroup label="Name" labelFor="keyName">
         <Input
           autoFocus
           hasError={!!errors.keyName?.message}
           data-testid={locators.renameKeyInput}
           type="text"
+          placeholder={keyName}
           {...register('keyName', {
             required: Validation.REQUIRED
           })}
@@ -43,7 +44,7 @@ export const RenameKeyForm = ({ keyName, publicKey }: RenameKeyFormProps) => {
         type="submit"
         disabled={!keyName}
       >
-        Submit
+        Rename
       </Button>
     </form>
   )

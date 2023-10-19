@@ -60,8 +60,8 @@
     "test:console": "jest ./test/console-smoke --config=test/jest-config/jest.config-console-smoke.js --maxWorkers=1",
     "test:console:testnet": "ENV=testnet yarn test:console",
     "test:console:mainnet": "ENV=mainnet yarn test:console",
-    "test:console:testnet:ci": "./.github/scripts/deployment/deploy_console.sh testnet && yarn test:console:testnet && ./.github/scripts/destroy_console.sh",
-    "test:console:mainnet:ci": "./.github/scripts/deployment/deploy_console.sh mainnet && yarn test:console:mainnet && ./.github/scripts/destroy_console.sh",
+    "test:console:testnet:ci": "./.github/scripts/deployment/deploy_console.sh testnet && yarn test:console:testnet && ./.github/scripts/deployment/destroy_console.sh",
+    "test:console:mainnet:ci": "./.github/scripts/deployment/deploy_console.sh mainnet && yarn test:console:mainnet && ./.github/scripts/deployment/destroy_console.sh",
     "test:frontend": "jest --config=test/jest-config/jest.config-ui.js",
     "test:frontend:ci": "yarn test:frontend --coverage",
     "watch": "yarn build:dev -w"

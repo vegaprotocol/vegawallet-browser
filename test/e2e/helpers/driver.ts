@@ -5,17 +5,19 @@ import * as fs from 'fs-extra'
 import path from 'path'
 import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } from './file-system'
 import { clickElement, staticWait, switchWindowHandles } from './selenium-util'
-import { navigateToExtensionLandingPage } from './wallet/wallet-setup'
+import { navigateToExtensionLandingPage, setUpWalletAndKey } from './wallet/wallet-setup'
+import { GetStarted } from '../page-objects/get-started'
 
-const extensionPath = './build'
+export const extensionPath = './build'
+export const oldExtensionDirectory = './test/vega-browserwallet-testnet-chrome-v0.10.0'
 export const firefoxTestProfileDirectory = './test/e2e/firefox-profile/myprofile.default'
 
-export async function initDriver() {
+export async function initDriver(oldExtension = false) {
   let driver: WebDriver | null = null
   if (process.env.BROWSER?.toLowerCase() === 'firefox') {
     driver = await initFirefoxDriver()
   } else {
-    driver = await initChromeDriver()
+    driver = await initChromeDriver(oldExtension)
   }
 
   if (!driver) {
@@ -25,12 +27,18 @@ export async function initDriver() {
   return driver
 }
 
-async function initChromeDriver() {
+async function initChromeDriver(useOldExtension = false) {
   let chromeOptions = new chrome.Options()
     .addArguments('--no-sandbox')
     .addArguments('--disable-dev-shm-usage')
     .addArguments('--disable-gpu')
-    .addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+
+  if (useOldExtension) {
+    chromeOptions.addArguments(`--load-extension=${oldExtensionDirectory}`)
+  } else {
+    chromeOptions.addArguments(`--load-extension=${extensionPath + '/chrome'}`)
+  }
+
   chromeOptions.setUserPreferences({
     'profile.default_content_setting_values': {
       clipboard: 1
@@ -84,6 +92,23 @@ export async function copyProfile(driver: WebDriver) {
     await copyDirectoryToNewLocation(seleniumInstanceProfile, firefoxTestProfileDirectory)
   } else {
     console.log('Copying profile is only supported for Firefox. Skipping this step for Chrome.')
+  }
+}
+
+export async function getHandleWithExtensionAutoOpened(driver: WebDriver, handles: string[]) {
+  let extensionID = ''
+  for (const handle of handles) {
+    await driver.switchTo().window(handle)
+    const getStarted = new GetStarted(driver)
+
+    if (await getStarted.isOnGetStartedPage()) {
+      extensionID = await driver.executeScript('return chrome.runtime.id')
+      await setUpWalletAndKey(driver, extensionID)
+      return extensionID
+    }
+  }
+  if (extensionID === '') {
+    throw new Error("No 'chrome-extension' URL found.")
   }
 }
 

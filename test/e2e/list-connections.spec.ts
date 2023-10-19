@@ -5,7 +5,6 @@ import { VegaAPI } from './helpers/wallet/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { ListConnections } from './page-objects/list-connections'
 import { createWalletAndDriver } from './helpers/wallet/wallet-setup'
-import test from '../../config/test'
 
 const transferReq = {
   fromAccountType: 4,

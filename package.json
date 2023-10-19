@@ -57,7 +57,7 @@
     "test:e2e:chrome": "BROWSER=chrome yarn test:e2e",
     "test:e2e:firefox": "BROWSER=firefox yarn test:e2e",
     "test:e2e:chrome-upgrade": "jest ./test/upgrade-tests --config=test/jest-config/jest.config-upgrade.js --maxWorkers=1",
-    "test:e2e:chrome-upgrade:ci": "./.github/scripts/test-setup-and-teardown/download_old_extension.sh && yarn test:e2e:chrome-upgrade && ./.github/scripts/test-setup-and-teardown/remove_old_extension.sh",
+    "test:e2e:chrome-upgrade:ci": "./.github/scripts/upgrade-test-download-management/download_old_extension.sh && yarn test:e2e:chrome-upgrade && ./.github/scripts/upgrade-test-download-management/remove_old_extension.sh",
     "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox",
     "test:console": "jest ./test/console-smoke --config=test/jest-config/jest.config-console-smoke.js --maxWorkers=1",
     "test:console:testnet": "ENV=testnet yarn test:console",

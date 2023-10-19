@@ -3,7 +3,7 @@ import jestConfigE2E from "./jest.config-e2e.js";
 import cloneDeep from 'lodash/cloneDeep.js'
 import merge from 'lodash/merge.js'
 
-const jestConfigConsoleSmoke = cloneDeep(jestConfigE2E)
+const jestUpgradeTests = cloneDeep(jestConfigE2E)
 
 let overrides = {
 roots: ['<rootDir>/test/upgrade-tests'],
@@ -18,4 +18,4 @@ roots: ['<rootDir>/test/upgrade-tests'],
   ]
 }
 
-export default merge(jestConfigConsoleSmoke, overrides)
+export default merge(jestUpgradeTests, overrides)

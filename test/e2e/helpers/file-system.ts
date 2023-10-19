@@ -29,7 +29,6 @@ export async function updateOrAddJsonProperty(jsonFile: string, propertyName: st
 
     jsonContent[propertyName] = newValue
     const updatedJson: string = JSON.stringify(jsonContent, null, 2)
-    console.log('here is the updated json:', updatedJson)
 
     fs.writeFileSync(jsonFile, updatedJson, 'utf8')
     console.log('File updated successfully!')

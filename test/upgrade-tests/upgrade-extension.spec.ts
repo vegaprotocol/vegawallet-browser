@@ -7,7 +7,7 @@ import {
   oldExtensionDirectory
 } from '../e2e/helpers/driver'
 import { NavPanel } from '../e2e/page-objects/navpanel'
-import { staticWait, switchWindowHandles, windowHandleHasCount } from '../e2e/helpers/selenium-util'
+import { switchWindowHandles, windowHandleHasCount } from '../e2e/helpers/selenium-util'
 import { navigateToExtensionLandingPage } from '../e2e/helpers/wallet/wallet-setup'
 import { copyDirectoryToNewLocation, updateOrAddJsonProperty } from '../e2e/helpers/file-system'
 import { chromePublicKey } from '../../rollup/postbuild'
@@ -32,12 +32,10 @@ describe('Check migration of settings after upgrade', () => {
     await copyDirectoryToNewLocation(extensionPath + '/chrome', oldExtensionDirectory)
     await updateOrAddJsonProperty(oldExtensionDirectory + '/manifest.json', 'key', chromePublicKey)
     await driver.executeScript('await chrome.runtime.reload()')
-    await staticWait(2000)
-    const newHandles = await driver.getAllWindowHandles()
-    await switchWindowHandles(driver, false, newHandles[0])
+    expect(await windowHandleHasCount(driver, 1)).toBe(true)
+    await switchWindowHandles(driver, false, (await driver.getAllWindowHandles())[0])
     await navigateToExtensionLandingPage(driver, extensionID)
-    const login = new Login(driver)
-    await login.login()
+    await new Login(driver).login()
     settingsPage = await navPanel.goToSettings()
   })
 
@@ -46,7 +44,7 @@ describe('Check migration of settings after upgrade', () => {
     await driver.quit()
   })
 
-  it('can navigate to settings and update telemetry opt in/out preference', async () => {
+  it('the correct settings defaults are loaded when upgrading', async () => {
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
     expect(await settingsPage.isAutoOpenSelected(), expectedAutoOpenEnabledMessage).toBe(true)
     await settingsPage.lockWalletAndCheckLoginPageAppears()

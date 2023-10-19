@@ -73,7 +73,15 @@ const AssetHeader = ({
   )
 }
 
-export const AssetCard = ({ accounts, assetId }: { accounts: vegaAccount[]; assetId: string }) => {
+export const AssetCard = ({
+  accounts,
+  assetId,
+  allowZeroAccounts = false
+}: {
+  accounts: vegaAccount[]
+  assetId: string
+  allowZeroAccounts?: boolean
+}) => {
   const { getAssetById } = useAssetsStore((state) => ({
     getAssetById: state.getAssetById
   }))
@@ -84,7 +92,7 @@ export const AssetCard = ({ accounts, assetId }: { accounts: vegaAccount[]; asse
 
   if (!decimals || !symbol || !name) throw new Error('Asset details not populated')
   const filteredAccounts = accounts
-    .filter((a) => !!a.balance && toBigNum(a.balance, +decimals).gt(0))
+    .filter((a) => allowZeroAccounts || (!!a.balance && toBigNum(a.balance, +decimals).gt(0)))
     .map((a) => [
       a.type ? ACCOUNT_TYPE_MAP[a.type] : 'Unknown',
       addDecimalsFormatNumber(a.balance ?? 0, +decimals)

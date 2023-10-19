@@ -117,6 +117,21 @@ describe('KeyDetailsPage', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
+  it('renders nothing while wallets are loading', () => {
+    mockStore(useWalletStore, {
+      loading: true,
+      getKeyById: () => undefined
+    })
+    mockStore(useAssetsStore, {
+      loading: false
+    })
+    mockStore(useMarketsStore, {
+      loading: false
+    })
+    const { container } = renderComponent()
+    expect(container).toBeEmptyDOMElement()
+  })
+
   it('renders the back button, key selector, vega key indicator, title, description and export button', () => {
     // 1125-KEYD-002 There is a warning to remember that if I hold an open position the balance / totals may not be accurate as is constantly changing
     // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)

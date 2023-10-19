@@ -14,7 +14,7 @@ export const Withdraw = ({ transaction }: ReceiptComponentProps) => {
   return (
     <AsyncRenderer
       loading={loading}
-      renderNoData={() => (
+      renderLoading={() => (
         <BasicWithdrawal
           receiverAddress={receiverAddress}
           amount={transaction.withdrawSubmission.amount}

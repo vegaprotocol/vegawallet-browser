@@ -42,6 +42,7 @@ describe('Withdrawal', () => {
         }}
       />
     )
+
     expect(screen.getByTestId('basic-withdrawal')).toBeInTheDocument()
   })
   it('renders enriched withdrawal view if loading was successful', () => {

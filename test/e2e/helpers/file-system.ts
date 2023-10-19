@@ -23,18 +23,13 @@ export async function copyDirectoryToNewLocation(srcDir: string, targetDir: stri
 }
 
 export async function updateOrAddJsonProperty(jsonFile: string, propertyName: string, newValue: any) {
-  try {
-    const data: string = fs.readFileSync(jsonFile, 'utf8')
-    const jsonContent: Record<string, any> = JSON.parse(data)
+  const data: string = fs.readFileSync(jsonFile, 'utf8')
+  const jsonContent: Record<string, any> = JSON.parse(data)
 
-    jsonContent[propertyName] = newValue
-    const updatedJson: string = JSON.stringify(jsonContent, null, 2)
+  jsonContent[propertyName] = newValue
+  const updatedJson: string = JSON.stringify(jsonContent, null, 2)
 
-    fs.writeFileSync(jsonFile, updatedJson, 'utf8')
-    console.log('File updated successfully!')
-  } catch (err) {
-    console.error('Error:', err)
-  }
+  fs.writeFileSync(jsonFile, updatedJson, 'utf8')
 }
 
 export async function zipDirectory(source: string, out: string): Promise<void> {

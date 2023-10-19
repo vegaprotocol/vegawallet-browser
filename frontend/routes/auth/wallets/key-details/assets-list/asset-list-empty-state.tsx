@@ -5,6 +5,10 @@ import { useAssetsStore } from '../../../../../stores/assets-store'
 import { useMarketsStore } from '../../../../../stores/markets-store'
 import { AssetCard } from './asset-card'
 
+export const locators = {
+  noAssets: 'no-assets'
+}
+
 export const AssetListEmptyState = ({ publicKey }: { publicKey: string }) => {
   const { assets } = useAssetsStore((state) => ({
     assets: state.assets
@@ -27,7 +31,9 @@ export const AssetListEmptyState = ({ publicKey }: { publicKey: string }) => {
     <div>
       <SubHeader content="Balances" />
 
-      <p className="text-vega-dark-400 my-3">Currently you have no assets.</p>
+      <p data-testid={locators.noAssets} className="text-vega-dark-400 my-3">
+        Currently you have no assets.
+      </p>
       {top2Assets.map(({ asset }) => {
         if (!asset.id) return null
         return (

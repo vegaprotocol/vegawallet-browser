@@ -5,6 +5,7 @@ import { FULL_ROUTES } from '../../../route-names'
 import { KeySelector } from './key-selector'
 import { ExportPrivateKeysDialog } from './export-private-key-dialog'
 import { AssetsList } from './assets-list'
+import { RenameKeyDialog } from './rename-key-dialog'
 import { BasePage } from '../../../../components/pages/page'
 
 export const locators = {
@@ -32,6 +33,7 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
       dataTestId={locators.keyDetailsPage}
       backLocation={FULL_ROUTES.wallets}
       title={<KeySelector currentKey={key} />}
+          <RenameKeyDialog vegaKey={key} />
     >
       <div className="mt-6">
         <VegaKey publicKey={key.publicKey} />

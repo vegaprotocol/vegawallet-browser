@@ -106,7 +106,7 @@ describe('MarketLozenges', () => {
     expect(lozenges[4]).toHaveAttribute('href', `${config.network.console}/#/markets/5`)
   })
   it('renders only markets that are active', () => {
-    // 1125-KEYD-001 The lozenges shown link to that market in Console
+    // 1125-KEYD-009 The market lozenges should only show active markets
     mockStore(useMarketsStore, {
       getMarketsByAssetId: () => [
         {

@@ -69,7 +69,6 @@ export const AssetsList = ({ publicKey }: { publicKey: string }) => {
   return (
     <VegaSection>
       <AsyncRenderer
-        loading={false}
         error={error}
         noData={Object.keys(accountsByAsset).length === 0}
         renderNoData={() => <AssetListEmptyState publicKey={publicKey} />}

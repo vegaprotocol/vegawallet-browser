@@ -38,6 +38,8 @@ As a browser wallet user When I am using the browser wallet for the first time I
 - I am redirected to the next step - opt in to error reporting (<a name="1101-ONBD-023" href="#1101-ONBD-023">1101-ONBD-023</a>)
 - The new Wallet name and key pair are auto generated in the background "Wallet" "Vega Key 1" (<a name="1101-ONBD-024" href="#1101-ONBD-024">1101-ONBD-024</a>)
 - When I have already created a wallet, I am redirected to the landing page where I can view that wallet (rather than the onboarding flow) (<a name="1101-ONBD-025" href="#1101-ONBD-025">1101-ONBD-025</a>)
+- I can go back from secure your wallet to the import/create wallet decision page (<a name="1101-ONBD-037" href="#1101-ONBD-037">1101-ONBD-037</a>)
+- If I click back on the secure your wallet page after revealing a recovery phrase, I see a new recovery phrase if I select 'Create Wallet' again (<a name="1101-ONBD-038" href="#1101-ONBD-038">1101-ONBD-038</a>)
 
 ## Import existing wallet
 

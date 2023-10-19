@@ -37,7 +37,7 @@ describe('Onboarding', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('can create a new wallet and remember that a wallet has been created when I navigate back to the landing page', async () => {
@@ -97,6 +97,23 @@ describe('Onboarding', () => {
     await password.createPassword(defaultPassword, defaultPassword, false)
     await password.goBack()
     await getStarted.checkOnGetStartedPage()
+  })
+
+  it('navigating back after revealing recovery phrase causes new recovery phrase to be created', async () => {
+    // 1101-ONBD-037 I can go back from secure your wallet to the import/create wallet decision page
+    // 1101-ONBD-038 If I click back on the secure your wallet page after revealing a recovery phrase, I see a new recovery phrase if I select 'Create Wallet' again
+    await password.createPassword()
+    await createAWallet.createNewWallet()
+    expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
+    await secureYourWallet.revealRecoveryPhrase()
+    const initialRecoveryPhrase = await secureYourWallet.getRecoveryPhraseText()
+    await secureYourWallet.goBack()
+    await createAWallet.checkOnCreateWalletPage()
+    await createAWallet.createNewWallet()
+    expect(await secureYourWallet.isRecoveryPhraseHidden()).toBe(true)
+    await secureYourWallet.revealRecoveryPhrase()
+    const newRecoveryPhrase = await secureYourWallet.getRecoveryPhraseText()
+    expect(initialRecoveryPhrase).not.toBe(newRecoveryPhrase)
   })
 
   it('shows an error message when passwords differ', async () => {

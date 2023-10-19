@@ -7,6 +7,7 @@ import {
   isElementEnabled
 } from '../helpers/selenium-util'
 import componentLocators from '../../../frontend/components/locators'
+import { locators as baseLocators } from '../../../frontend/components/pages/page'
 import * as walletCreated from '../../../frontend/routes/onboarding/save-mnemonic/wallet-created'
 import { locators as mnemonicForm } from '../../../frontend/routes/onboarding/save-mnemonic/save-mnemonic-form'
 
@@ -23,6 +24,7 @@ export class SecureYourWallet {
   private readonly acknowledgeRecoveryPhraseWarningCheckbox: By = By.id(recoveryPhraseWarningCheckbox)
   private readonly secureWalletContinueButton: By = getByDataTestID(mnemonicForm.saveMnemonicButton)
   private readonly walletCreatedIcon: By = getByDataTestID(walletCreated.locators.walletCreated)
+  private readonly backButton: By = getByDataTestID(baseLocators.basePageBack)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -45,6 +47,10 @@ export class SecureYourWallet {
   async acceptRecoveryPhraseWarning() {
     await clickElement(this.driver, this.acknowledgeRecoveryPhraseWarningCheckbox)
     await clickElement(this.driver, this.secureWalletContinueButton)
+  }
+
+  async goBack() {
+    await clickElement(this.driver, this.backButton)
   }
 
   async hideRecoveryPhrase() {

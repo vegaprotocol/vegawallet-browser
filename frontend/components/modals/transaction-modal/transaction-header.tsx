@@ -1,4 +1,4 @@
-import { TRANSACTION_TITLES, Transaction, TransactionKeys } from '../../../lib/transactions'
+import { Transaction, TRANSACTION_TITLES, TransactionKeys } from '../../../lib/transactions'
 import { VegaSection } from '../../vega-section'
 import { HostImage } from '../../host-image'
 import { Header } from '../../header'
@@ -8,6 +8,22 @@ import { SubHeader } from '../../sub-header'
 export const locators = {
   transactionRequest: 'transaction-request',
   transactionKey: 'transaction-key'
+}
+
+export const getTitle = (transaction: Transaction) => {
+  const type = Object.keys(transaction)[0] as TransactionKeys
+
+  // If we have a mass order cancellation (i.e. no order ID, with or without a market ID)
+  // then we want to display a different title
+  if (
+    type === TransactionKeys.ORDER_CANCELLATION &&
+    transaction.orderCancellation &&
+    !transaction.orderCancellation.orderId
+  ) {
+    return TRANSACTION_TITLES[TransactionKeys.MASS_ORDER_CANCELLATION]
+  }
+
+  return TRANSACTION_TITLES[type]
 }
 
 export const TransactionHeader = ({
@@ -23,7 +39,7 @@ export const TransactionHeader = ({
 }) => {
   return (
     <VegaSection>
-      <Header content={TRANSACTION_TITLES[Object.keys(transaction)[0] as TransactionKeys]} />
+      <Header content={getTitle(transaction)} />
       <div className="mb-4 mt-6">
         <SubHeader content="Request from" />
       </div>

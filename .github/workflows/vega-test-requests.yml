@@ -60,7 +60,7 @@ jobs:
           if [[ "${{ matrix.configFile }}" == "" ]]; then
             echo "VERSION=58508f6e" >> $GITHUB_ENV
           else
-            envVersion=$(node ./.github/scripts/get-version.js ${{ matrix.configFile }})
+            envVersion=$(node ./.github/scripts/get-version.js ${{ matrix.configFile }} get-version)
             echo "VERSION=$envVersion" >> $GITHUB_ENV
           fi
 

@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  chrome-e2e-tests:
+  test-upgrading:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,7 +42,7 @@ jobs:
         if: always()
         with:
           name: JEST Upgrade Chrome Extension
-          path: ./test/test-reports/
+          path: ./test/test-reports/upgrade-test-results.xml
           reporter: jest-junit
           output-to: step-summary
 

@@ -4,6 +4,7 @@ export const RpcMethods = {
   ListKeys: 'admin.list_keys',
   GenerateKey: 'admin.generate_key',
   ExportKey: 'admin.export_key',
+  RenameKey: 'admin.rename_key',
 
   // Onboarding
   CreatePassphrase: 'admin.create_passphrase',

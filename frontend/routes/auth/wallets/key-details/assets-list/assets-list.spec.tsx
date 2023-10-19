@@ -2,11 +2,23 @@ import { render, screen } from '@testing-library/react'
 import { AssetsList, locators } from './assets-list'
 import { locators as subHeaderLocators } from '../../../../../components/sub-header'
 import { useAccounts } from './use-accounts'
+import { mockStore } from '../../../../../test-helpers/mock-store'
+import { useAccountsStore } from './accounts-store'
 
 jest.mock('./use-accounts')
+jest.mock('./accounts-store')
 
 jest.mock('./asset-card', () => ({
   AssetCard: () => <div data-testid="asset-card" />
+}))
+
+jest.mock('./asset-list-empty-state', () => ({
+  AssetListEmptyState: () => <div data-testid="empty" />
+}))
+
+jest.mock('@vegaprotocol/ui-toolkit', () => ({
+  ...jest.requireActual('@vegaprotocol/ui-toolkit'),
+  Notification: () => <div data-testid="error" />
 }))
 
 const ASSET_ID_1 = '1'.repeat(64)
@@ -16,10 +28,6 @@ const ID = '3'.repeat(64)
 describe('AssetsList', () => {
   it('renders title, description and a card for each asset', () => {
     ;(useAccounts as unknown as jest.Mock).mockReturnValue({
-      key: {
-        publicKey: ID,
-        name: 'test'
-      },
       accountsByAsset: {
         [ASSET_ID_1]: [
           {
@@ -41,11 +49,36 @@ describe('AssetsList', () => {
         ]
       }
     })
+    mockStore(useAccountsStore, {
+      error: null
+    })
     render(<AssetsList publicKey={'123'} />)
     expect(screen.getByTestId(subHeaderLocators.subHeader)).toHaveTextContent('Balances')
     expect(screen.getByTestId(locators.assetListDescription)).toHaveTextContent(
       'Recent balance changes caused by your open positions may not be reflected below'
     )
     expect(screen.getAllByTestId('asset-card')).toHaveLength(2)
+  })
+
+  it('renders empty state when there are no assets', () => {
+    mockStore(useAccountsStore, {
+      error: null
+    })
+    ;(useAccounts as unknown as jest.Mock).mockReturnValue({
+      accountsByAsset: {}
+    })
+    render(<AssetsList publicKey={'123'} />)
+    expect(screen.getByTestId('empty')).toBeInTheDocument()
+  })
+
+  it('renders error state', () => {
+    mockStore(useAccountsStore, {
+      error: new Error('Some error')
+    })
+    ;(useAccounts as unknown as jest.Mock).mockReturnValue({
+      accountsByAsset: {}
+    })
+    render(<AssetsList publicKey={'123'} />)
+    expect(screen.getByTestId('error')).toBeInTheDocument()
   })
 })

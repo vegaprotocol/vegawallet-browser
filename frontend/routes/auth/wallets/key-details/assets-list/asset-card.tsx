@@ -39,6 +39,7 @@ export const ACCOUNT_TYPE_MAP: Record<vegaAccountType, string> = {
 }
 
 export const locators = {
+  assetCard: 'asset-card',
   assetHeaderSymbol: 'asset-header-symbol',
   assetHeaderName: 'asset-header-name',
   assetHeaderTotal: 'asset-header-total'
@@ -98,7 +99,7 @@ export const AssetCard = ({
       addDecimalsFormatNumber(a.balance ?? 0, +decimals)
     ]) as [string, string][]
   return (
-    <div className="border border-vega-dark-150 mb-4">
+    <div data-testid={locators.assetCard} className="border border-vega-dark-150 mb-4">
       <CollapsibleCard
         title={<AssetHeader symbol={symbol} name={name} decimals={+decimals} accounts={accounts} />}
         cardContent={

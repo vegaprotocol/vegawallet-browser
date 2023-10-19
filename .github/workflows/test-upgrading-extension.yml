@@ -7,11 +7,7 @@ on:
       - main
 
 jobs:
-<<<<<<< HEAD
   test-upgrading:
-=======
-  chrome-e2e-tests:
->>>>>>> beccbb55 (test: check upgrades successfully)
     runs-on: ubuntu-latest
 
     steps:

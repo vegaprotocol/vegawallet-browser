@@ -3,6 +3,7 @@ import { MarketLozenges, locators } from './markets-lozenges'
 import { useMarketsStore } from '../../../../../stores/markets-store'
 import config from '../../../../../lib/config'
 import { mockStore } from '../../../../../test-helpers/mock-store'
+import { MarketTradingMode, vegaMarketState } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 jest.mock('../../../../../stores/markets-store')
 
@@ -12,6 +13,7 @@ describe('MarketLozenges', () => {
       getMarketsByAssetId: () => [
         {
           id: '1',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
           tradableInstrument: {
             instrument: {
               code: 'BTC/USD'
@@ -20,6 +22,7 @@ describe('MarketLozenges', () => {
         },
         {
           id: '2',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
           tradableInstrument: {
             instrument: {
               code: 'ETH/USD'
@@ -39,6 +42,7 @@ describe('MarketLozenges', () => {
       getMarketsByAssetId: () => [
         {
           id: '1',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
           tradableInstrument: {
             instrument: {
               code: 'BTC/USD'
@@ -47,6 +51,7 @@ describe('MarketLozenges', () => {
         },
         {
           id: '2',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
           tradableInstrument: {
             instrument: {
               code: 'ETH/USD'
@@ -55,6 +60,7 @@ describe('MarketLozenges', () => {
         },
         {
           id: '3',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
           tradableInstrument: {
             instrument: {
               code: 'BTC/ETH'
@@ -63,6 +69,7 @@ describe('MarketLozenges', () => {
         },
         {
           id: '4',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
           tradableInstrument: {
             instrument: {
               code: 'USD/BTC'
@@ -71,6 +78,7 @@ describe('MarketLozenges', () => {
         },
         {
           id: '5',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
           tradableInstrument: {
             instrument: {
               code: 'ETH/BTC'
@@ -79,6 +87,7 @@ describe('MarketLozenges', () => {
         },
         {
           id: '6',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
           tradableInstrument: {
             instrument: {
               code: 'USD/ETH'
@@ -95,6 +104,70 @@ describe('MarketLozenges', () => {
     expect(lozenges[2]).toHaveAttribute('href', `${config.network.console}/#/markets/3`)
     expect(lozenges[3]).toHaveAttribute('href', `${config.network.console}/#/markets/4`)
     expect(lozenges[4]).toHaveAttribute('href', `${config.network.console}/#/markets/5`)
+  })
+  it('renders only markets that are active', () => {
+    // 1125-KEYD-001 The lozenges shown link to that market in Console
+    mockStore(useMarketsStore, {
+      getMarketsByAssetId: () => [
+        {
+          id: '1',
+          tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS,
+          tradableInstrument: {
+            instrument: {
+              code: 'BTC/USD'
+            }
+          }
+        },
+        {
+          id: '2',
+          tradingMode: MarketTradingMode.TRADING_MODE_MONITORING_AUCTION,
+          tradableInstrument: {
+            instrument: {
+              code: 'ETH/USD'
+            }
+          }
+        },
+        {
+          id: '3',
+          tradingMode: MarketTradingMode.TRADING_MODE_NO_TRADING,
+          tradableInstrument: {
+            instrument: {
+              code: 'BTC/ETH'
+            }
+          }
+        },
+        {
+          id: '4',
+          tradingMode: MarketTradingMode.TRADING_MODE_NO_TRADING,
+          tradableInstrument: {
+            instrument: {
+              code: 'USD/BTC'
+            }
+          }
+        },
+        {
+          id: '5',
+          tradingMode: MarketTradingMode.TRADING_MODE_NO_TRADING,
+          tradableInstrument: {
+            instrument: {
+              code: 'ETH/BTC'
+            }
+          }
+        },
+        {
+          id: '6',
+          tradingMode: MarketTradingMode.TRADING_MODE_NO_TRADING,
+          tradableInstrument: {
+            instrument: {
+              code: 'USD/ETH'
+            }
+          }
+        }
+      ]
+    })
+    render(<MarketLozenges assetId="1" />)
+    const lozenges = screen.getAllByTestId(locators.marketLozenge)
+    expect(lozenges).toHaveLength(2)
   })
   it('renders nothing if there are no markets', () => {
     mockStore(useMarketsStore, {

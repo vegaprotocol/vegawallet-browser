@@ -12,16 +12,24 @@ async function getVersion(url) {
   }
 }
 
-async function main(configPath) {
+async function main(configPath, command) {
   try {
     const configModule = await import(configPath);
     const urls = configModule.default.network.rest;
 
     for (const url of urls) {
-      const version = await getVersion(url);
-      if (version !== null) {
-        console.log(version);
-        break;
+      if (command === 'get-healthy-node') {
+        const version = await getVersion(url);
+        if (version !== null) {
+          console.log(url);
+          break;
+        }
+      } else {
+        const version = await getVersion(url);
+        if (version !== null) {
+          console.log(version);
+          break;
+        }
       }
     }
   } catch (error) {
@@ -30,4 +38,5 @@ async function main(configPath) {
 }
 
 const configPath = process.argv[2];
-main(configPath);
+const command = process.argv[3]; // Add the command as the third argument
+main(configPath, command);

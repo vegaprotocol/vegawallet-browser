@@ -7,6 +7,8 @@ import { MemoryRouter } from 'react-router-dom'
 import { mockStore } from '../../../../test-helpers/mock-store'
 import { locators as pageLocators } from '../../../../components/pages/page'
 import { FULL_ROUTES } from '../../../route-names'
+import { mockStore } from '../../../../test-helpers/mock-store'
+import { useMarketsStore } from '../../../../stores/markets-store'
 
 jest.mock('./export-private-key-dialog', () => ({
   ExportPrivateKeysDialog: () => <div data-testid="export-private-key-dialog" />
@@ -30,6 +32,7 @@ jest.mock('./assets-list', () => ({
 
 jest.mock('../../../../stores/assets-store')
 jest.mock('../../../../stores/wallets')
+jest.mock('../../../../stores/markets-store')
 
 const mockRequest = jest.fn().mockResolvedValue(null)
 
@@ -72,6 +75,9 @@ describe('KeyDetailsPage', () => {
     mockStore(useAssetsStore, {
       loading: false
     })
+    mockStore(useMarketsStore, {
+      loading: false
+    })
     expect(() => render(<KeyDetailsPage id={ID} />)).toThrowError(`Key with id ${ID} not found`)
   })
 
@@ -82,6 +88,9 @@ describe('KeyDetailsPage', () => {
         publicKey: ID,
         name: 'test'
       })
+    })
+    mockStore(useMarketsStore, {
+      loading: false
     })
     mockStore(useAssetsStore, {
       loading: true
@@ -98,6 +107,9 @@ describe('KeyDetailsPage', () => {
         name: 'test'
       })
     })
+    mockStore(useMarketsStore, {
+      loading: false
+    })
     mockStore(useAssetsStore, {
       loading: false
     })
@@ -110,8 +122,19 @@ describe('KeyDetailsPage', () => {
     // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)
     // 1125-KEYD-007 In the key details screen I can see my currently selected key and associated info
     // 1125-KEYD-008 There is a way to export a private key
-    // 1125-KEYD-009 I can see a button to rename the key
-    setupPageLoaded()
+    mockStore(useWalletStore, {
+      loading: false,
+      getKeyById: () => ({
+        publicKey: ID,
+        name: 'test'
+      })
+    })
+    mockStore(useMarketsStore, {
+      loading: false
+    })
+    mockStore(useAssetsStore, {
+      loading: false
+    })
     renderComponent()
     expect(screen.getByTestId('key-selector')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()
@@ -121,7 +144,19 @@ describe('KeyDetailsPage', () => {
   })
 
   it('renders asset assets list', () => {
-    setupPageLoaded()
+    mockStore(useWalletStore, {
+      loading: false,
+      getKeyById: () => ({
+        publicKey: ID,
+        name: 'test'
+      })
+    })
+    mockStore(useAssetsStore, {
+      loading: false
+    })
+    mockStore(useMarketsStore, {
+      loading: false
+    })
     renderComponent()
     expect(screen.getByTestId('key-selector')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()

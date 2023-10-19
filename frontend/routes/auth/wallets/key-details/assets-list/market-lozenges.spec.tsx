@@ -3,7 +3,7 @@ import { MarketLozenges, locators } from './markets-lozenges'
 import { useMarketsStore } from '../../../../../stores/markets-store'
 import config from '../../../../../lib/config'
 import { mockStore } from '../../../../../test-helpers/mock-store'
-import { MarketTradingMode, vegaMarketState } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 jest.mock('../../../../../stores/markets-store')
 

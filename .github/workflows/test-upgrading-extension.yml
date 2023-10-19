@@ -1,0 +1,54 @@
+name: Test Upgrading Extension
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  chrome-e2e-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install chrome and chromedriver
+        run: |
+          bash .github/scripts/install_chromedriver.sh
+          bash .github/scripts/install_chrome.sh
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build:testnet
+        env:
+          REACT_APP_TEST: true
+
+      - name: Run Upgrade test using Xvfb
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: yarn test:e2e:chrome-upgrade:ci
+
+      - name: Test Report
+        uses: phoenix-actions/test-reporting@v12
+        if: always()
+        with:
+          name: JEST Upgrade Chrome Extension
+          path: ./test/test-reports/
+          reporter: jest-junit
+          output-to: step-summary
+
+      - name: output test screenshots from the final state of tests
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test screenshots chrome
+          path: ./test/test-screenshots

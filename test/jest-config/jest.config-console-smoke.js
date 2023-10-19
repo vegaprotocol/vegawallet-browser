@@ -6,6 +6,7 @@ import merge from 'lodash/merge.js'
 const jestConfigConsoleSmoke = cloneDeep(jestConfigE2E)
 
 let overrides = {
+  roots: ['<rootDir>/test/console-smoke'],
   moduleNameMapper: {
     '!/config': `<rootDir>/config/console-smoke-${process.env.ENV}.js`
   },

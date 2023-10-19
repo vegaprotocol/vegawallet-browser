@@ -62,6 +62,8 @@
     "test:console:mainnet": "ENV=mainnet yarn test:console",
     "test:console:testnet:ci": "./.github/scripts/deployment/deploy_console.sh testnet && yarn test:console:testnet && ./.github/scripts/deployment/destroy_console.sh",
     "test:console:mainnet:ci": "./.github/scripts/deployment/deploy_console.sh mainnet && yarn test:console:mainnet && ./.github/scripts/deployment/destroy_console.sh",
+    "test:e2e:chrome-upgrade": "jest ./test/upgrade-tests --config=test/jest-config/jest.config-upgrade.js --maxWorkers=1",
+    "test:e2e:chrome-upgrade:ci": "./.github/scripts/upgrade-test-download-management/download_old_extension.sh && yarn test:e2e:chrome-upgrade && ./.github/scripts/upgrade-test-download-management/remove_old_extension.sh",
     "test:frontend": "jest --config=test/jest-config/jest.config-ui.js",
     "test:frontend:ci": "yarn test:frontend --coverage",
     "watch": "yarn build:dev -w"

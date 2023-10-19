@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import {
@@ -115,14 +114,14 @@ describe('buildMarketColumn', () => {
 })
 
 describe('buildOrderColumn', () => {
-  it('returns Order column when orderId is defined', () => {
+  it('returns Order column when orderId is defined and not isCancellation', () => {
     const result = buildOrderColumn('1')
 
     render(<>{result}</>)
     expect(screen.getByText('Order1')).toBeInTheDocument()
   })
 
-  it('returns null when orderId is undefined', () => {
+  it('returns null when orderId is undefined and no other arguments', () => {
     const result = buildOrderColumn()
     expect(result).toBeNull()
   })

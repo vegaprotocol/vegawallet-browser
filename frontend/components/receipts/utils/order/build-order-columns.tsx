@@ -91,7 +91,9 @@ export const buildMarketColumn = (
 }
 
 export const buildOrderColumn = (orderId?: string): [ReactNode, ReactNode] | null => {
-  if (!orderId) return null
+  if (!orderId) {
+    return null
+  }
   return ['Order', truncateMiddle(orderId)]
 }
 

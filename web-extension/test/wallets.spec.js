@@ -58,5 +58,12 @@ describe('wallets', () => {
       { ...k, name: 'Custom name' },
       { ...k2, name: 'Custom name' }
     ])
+
+    // Rename to blank
+    await wallets.renameKey({ publicKey: k2.publicKey, name: '' })
+    expect(await wallets.listKeys({ wallet: 'wallet 1' })).toEqual([
+      { ...k, name: 'Custom name' },
+      { ...k2, name: '' }
+    ])
   })
 })

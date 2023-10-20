@@ -635,6 +635,13 @@ describe('admin-ns', () => {
       const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
       expect(listKeys.error).toBeUndefined()
       expect(listKeys.result.keys).toEqual([{ ...key, name: 'New Name' }])
+
+      const blankRename = await admin.onrequest(REQ_RENAME_KEY(6, key.publicKey, ''))
+      expect(blankRename.error).toBeUndefined()
+
+      const listKeys2 = await admin.onrequest(REQ_LIST_KEYS(7))
+      expect(listKeys2.error).toBeUndefined()
+      expect(listKeys2.result.keys).toEqual([{ ...key, name: '' }])
     })
 
     it('should allow multiple keys with same name', async () => {

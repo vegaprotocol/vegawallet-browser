@@ -13,22 +13,19 @@ export const locators = {
 export interface RenameKeyFormProps {
   keyName: string
   publicKey: string
+  onComplete: () => Promise<void>
 }
 
-export const RenameKeyForm = ({ keyName, publicKey }: RenameKeyFormProps) => {
+export const RenameKeyForm = ({ keyName, publicKey, onComplete }: RenameKeyFormProps) => {
   const { request } = useJsonRpcClient()
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors }
-  } = useForm<FormFields>({
+  const { register, handleSubmit, control } = useForm<FormFields>({
     defaultValues: {
       keyName: ''
     }
   })
-  const renameKey = ({ keyName }: FormFields) => {
-    request(RpcMethods.RenameKey, { publicKey, name: keyName })
+  const renameKey = async ({ keyName }: FormFields) => {
+    await request(RpcMethods.RenameKey, { publicKey, name: keyName })
+    await onComplete()
   }
   const newKeyName = useWatch({ control, name: 'keyName' })
   const keyNameTooLong = newKeyName.length > 30

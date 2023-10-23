@@ -1,9 +1,14 @@
 import { Button, FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { Validation } from '../../../../../lib/form-validation'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { useJsonRpcClient } from '../../../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../../../lib/client-rpc-methods'
-import { FormFields, locators } from './rename-key-dialog'
+import { FormFields } from './rename-key-dialog'
+
+export const locators = {
+  renameKeyInput: 'rename-key-input',
+  renameKeySubmit: 'rename-key-submit'
+}
 
 export interface RenameKeyFormProps {
   keyName: string
@@ -15,18 +20,24 @@ export const RenameKeyForm = ({ keyName, publicKey }: RenameKeyFormProps) => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors }
-  } = useForm<FormFields>()
+  } = useForm<FormFields>({
+    defaultValues: {
+      keyName: ''
+    }
+  })
   const renameKey = ({ keyName }: FormFields) => {
     request(RpcMethods.RenameKey, { publicKey, name: keyName })
   }
-
+  const newKeyName = useWatch({ control, name: 'keyName' })
+  const keyNameTooLong = newKeyName.length > 30
   return (
     <form className="mt-4" onSubmit={handleSubmit(renameKey)}>
       <FormGroup label="Name" labelFor="keyName">
         <Input
           autoFocus
-          hasError={!!errors.keyName?.message}
+          hasError={keyNameTooLong}
           data-testid={locators.renameKeyInput}
           type="text"
           placeholder={keyName}
@@ -34,7 +45,7 @@ export const RenameKeyForm = ({ keyName, publicKey }: RenameKeyFormProps) => {
             required: Validation.REQUIRED
           })}
         />
-        {errors.keyName?.message && <InputError forInput="keyName">{errors.keyName.message}</InputError>}
+        {keyNameTooLong && <InputError forInput="keyName">Key name cannot be more than 30 character long</InputError>}
       </FormGroup>
       <Button
         fill={true}
@@ -42,7 +53,7 @@ export const RenameKeyForm = ({ keyName, publicKey }: RenameKeyFormProps) => {
         className="mt-2"
         variant="primary"
         type="submit"
-        disabled={!keyName}
+        disabled={!newKeyName || keyNameTooLong}
       >
         Rename
       </Button>

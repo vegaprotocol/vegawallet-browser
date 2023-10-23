@@ -22,8 +22,8 @@ export interface Metadata {
 export type WalletsStore = {
   wallets: Wallet[]
   loading: boolean
-  loadWallets: (client: SendMessage) => Promise<void>
-  createKey: (client: SendMessage, walletName: string) => Promise<void>
+  loadWallets: (request: SendMessage) => Promise<void>
+  createKey: (request: SendMessage, walletName: string) => Promise<void>
   getKeyById: (pubKey: string) => Key | undefined
 }
 

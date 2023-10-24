@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { Dialog, Button } from '@vegaprotocol/ui-toolkit'
+import { Dialog, ButtonLink } from '@vegaprotocol/ui-toolkit'
 import { VegaSection } from '../../../../../components/vega-section'
 import { ExportPrivateKeyForm } from './export-private-key-form'
 import { ViewPrivateKey } from './view-private-key'
-import { Withdraw } from '../../../../../components/icons/withdraw'
 
 export interface FormFields {
   passphrase: string
@@ -26,15 +25,9 @@ export const ExportPrivateKeysDialog = ({ publicKey }: { publicKey: string }) =>
   return (
     <>
       <VegaSection>
-        <Button
-          onClick={() => setOpen(true)}
-          fill={true}
-          className="flex justify-center"
-          data-testid={locators.privateKeyTrigger}
-        >
+        <ButtonLink onClick={() => setOpen(true)} data-testid={locators.privateKeyTrigger}>
           Export private key
-          <Withdraw />
-        </Button>
+        </ButtonLink>
       </VegaSection>
       <Dialog open={open} onInteractOutside={resetDialog} onChange={resetDialog}>
         <div className="p-2 text-base text-vega-dark-400">

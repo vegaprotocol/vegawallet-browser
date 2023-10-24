@@ -1,9 +1,10 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@vegaprotocol/ui-toolkit'
-import { IconChevronDown } from '@/components/icons/chevron-down'
-import { Key, useWalletStore } from '@/stores/wallets'
 import { useState } from 'react'
-import { KeyList } from '@/components/key-list'
+
 import { Header } from '@/components/header'
+import { IconChevronDown } from '@/components/icons/chevron-down'
+import { KeyList } from '@/components/key-list'
+import { Key, useWalletStore } from '@/stores/wallets'
 
 export const locators = {
   keySelectedCurrentKey: (keyName: string) => `${keyName}-selected-current-key`,

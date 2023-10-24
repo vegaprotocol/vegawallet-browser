@@ -1,5 +1,6 @@
+import BigNumber from 'bignumber.js'
 import { ReactNode } from 'react'
-import { vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { vegaOrderType, vegaSide, vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { PeggedOrderOptions } from '../../../../types/transactions'
 import { OrderPriceComponent } from './order-price'
@@ -8,6 +9,21 @@ import { OrderMarketComponent } from './order-market'
 import { OrderTypeComponent } from './order-type'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { Direction } from './direction'
+import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
+import { nanoSecondsToMilliseconds } from '../../../../lib/utils.ts'
+import { CopyWithCheckmark } from '../../../copy-with-check'
+
+const orderStatuses = {
+  STATUS_UNSPECIFIED: 'UNSPECIFIED',
+  STATUS_ACTIVE: 'ACTIVE',
+  STATUS_EXPIRED: 'EXPIRED',
+  STATUS_CANCELLED: 'CANCELLED',
+  STATUS_STOPPED: 'STOPPED',
+  STATUS_FILLED: 'FILLED',
+  STATUS_REJECTED: 'REJECTED',
+  STATUS_PARTIALLY_FILLED: 'PARTIALLY FILLED',
+  STATUS_PARKED: 'PARKED'
+}
 
 // Helper functions for building individual columns for the order table
 export const buildPriceColumn = (
@@ -94,7 +110,12 @@ export const buildOrderColumn = (orderId?: string): [ReactNode, ReactNode] | nul
   if (!orderId) {
     return null
   }
-  return ['Order', truncateMiddle(orderId)]
+  return [
+    'Order',
+    <CopyWithCheckmark text={orderId} key="order-value">
+      {truncateMiddle(orderId)}
+    </CopyWithCheckmark>
+  ]
 }
 
 export const buildDirectionColumn = (direction?: vegaSide): [ReactNode, ReactNode] | null => {
@@ -109,5 +130,39 @@ export const buildTypeColumn = (type?: vegaOrderType): [ReactNode, ReactNode] | 
 
 export const buildReferenceColumn = (reference?: string): [ReactNode, ReactNode] | null => {
   if (!reference) return null
-  return ['Reference', reference]
+  return [
+    'Reference',
+    <CopyWithCheckmark text={reference} key="order-reference">
+      {truncateMiddle(reference)}
+    </CopyWithCheckmark>
+  ]
+}
+
+export const buildCreatedAtColumn = (createdAt?: string): [ReactNode, ReactNode] | null => {
+  if (!createdAt) return null
+
+  const formattedDate = formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(createdAt)))
+  return ['Created at', formattedDate]
+}
+
+export const buildUpdatedAtColumn = (updatedAt?: string): [ReactNode, ReactNode] | null => {
+  if (!updatedAt || updatedAt === '0') return null
+
+  const formattedDate = formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(updatedAt)))
+  return ['Updated at', formattedDate]
+}
+
+export const buildRemainingColumn = (remaining?: string): [ReactNode, ReactNode] | null => {
+  if (!remaining) return null
+  return ['Remaining', new BigNumber(remaining).toFixed(2)]
+}
+
+export const buildStatusColumn = (status?: vegaOrderStatus): [ReactNode, ReactNode] | null => {
+  if (!status) return null
+  return ['Status', orderStatuses[status]]
+}
+
+export const buildVersionColumn = (version?: string): [ReactNode, ReactNode] | null => {
+  if (!version) return null
+  return ['Version', version]
 }

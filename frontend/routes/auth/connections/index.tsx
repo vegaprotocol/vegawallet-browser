@@ -34,10 +34,12 @@ export const Connections = () => {
         noData={connections.length === 0}
         renderNoData={() => <NoAppsConnected />}
         render={() => (
-          <ConnectionsList
-            connections={connections}
-            removeConnection={(connection) => removeConnection(request, connection)}
-          />
+          <div className="mt-6">
+            <ConnectionsList
+              connections={connections}
+              removeConnection={(connection) => removeConnection(request, connection)}
+            />
+          </div>
         )}
       />
       <div className="mt-6">

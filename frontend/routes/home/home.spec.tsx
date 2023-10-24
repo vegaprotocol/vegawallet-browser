@@ -7,7 +7,7 @@ jest.mock('../../hooks/redirect-path', () => ({
 }))
 
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
+  ...jest.requireActual('react-router-dom'),
   Navigate: () => <div data-testid="navigate" />
 }))
 

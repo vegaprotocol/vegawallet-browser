@@ -49,6 +49,7 @@ describe('RenameKeyDialog', () => {
     expect(screen.getByTestId('rename-key-form')).toBeInTheDocument()
   })
   it('renders title, vega key and form', () => {
+    // 1125-KEYD-010 - I can see the [vega key and associated info](./1126-VKEY-vega_key.md) of the key I am renaming
     render(
       <RenameKeyDialog
         vegaKey={{

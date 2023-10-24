@@ -29,7 +29,6 @@ describe('HiddenContainer', () => {
     const hiddenInformation = 'test mnemonic'
     renderComponent({
       hiddenInformation,
-      onChange: jest.fn(),
       text: 'Reveal'
     })
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
@@ -44,10 +43,26 @@ describe('HiddenContainer', () => {
     const hiddenInformation = 'test mnemonic'
     renderComponent({
       hiddenInformation,
-      onChange: jest.fn(),
       text: 'Reveal'
     })
     fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
     expect(screen.getByTestId('copy')).toBeInTheDocument()
+  })
+
+  it('calls onChange if present', () => {
+    const onChange = jest.fn()
+    const hiddenInformation = 'test mnemonic'
+    renderComponent({
+      hiddenInformation,
+      onChange,
+      text: 'Reveal'
+    })
+    fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(onChange).toHaveBeenCalledWith(true)
+    const hideButton = screen.getByTestId(locators.hideIcon)
+    fireEvent.click(hideButton)
+    expect(onChange).toHaveBeenCalledTimes(2)
+    expect(onChange).toHaveBeenCalledWith(false)
   })
 })

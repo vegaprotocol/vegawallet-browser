@@ -55,4 +55,9 @@ describe('AsyncRenderer', () => {
     const { container } = render(<AsyncRenderer render={() => <div>Content</div>} error={new Error('123')} />)
     expect(container).toBeEmptyDOMElement()
   })
+
+  it('should render nothing if noData is true but render noData is not defined', () => {
+    const { container } = render(<AsyncRenderer render={() => <div>Content</div>} noData={true} />)
+    expect(container).toBeEmptyDOMElement()
+  })
 })

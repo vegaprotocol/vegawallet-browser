@@ -5,7 +5,7 @@ describe('SignMessage', () => {
   test('renders header, description, and SignMessageForm', () => {
     render(<SignMessage onCancel={jest.fn()} onSign={jest.fn()} disabled={false} />)
 
-    expect(screen.getByTestId(locators.signMessageHeader)).toHaveTextContent('Sign message')
+    expect(screen.getByTestId(locators.signMessageHeader)).toHaveTextContent('Sign Message')
     expect(screen.getByTestId(locators.messageDescription)).toHaveTextContent('Enter the message you want to encrypt.')
     expect(screen.getByTestId(locators.signButton)).toHaveTextContent('Sign')
     expect(screen.getByTestId(locators.cancelButton)).toHaveTextContent('Cancel')

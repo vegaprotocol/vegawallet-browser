@@ -45,4 +45,14 @@ describe('AsyncRenderer', () => {
     render(<AsyncRenderer render={() => <div>Content</div>} renderNoData={() => <div>No data available.</div>} />)
     expect(screen.queryByText('No data available.')).toBeNull()
   })
+
+  it('should render nothing if loading is true but render loading is not defined', () => {
+    const { container } = render(<AsyncRenderer render={() => <div>Content</div>} loading={true} />)
+    expect(container).toBeEmptyDOMElement()
+  })
+
+  it('should render nothing if error is true but render error is not defined', () => {
+    const { container } = render(<AsyncRenderer render={() => <div>Content</div>} error={new Error('123')} />)
+    expect(container).toBeEmptyDOMElement()
+  })
 })

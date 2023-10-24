@@ -3,7 +3,7 @@ import { RpcMethods } from '../lib/client-rpc-methods.ts'
 import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
 import { removePaginationWrapper } from '../lib/remove-pagination.ts'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { getSettlementAssetId } from '../lib/markets.ts'
+import { getSettlementAssetId } from '../lib/markets'
 
 export type MarketsStore = {
   markets: vegaMarket[]

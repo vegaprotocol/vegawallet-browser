@@ -54,10 +54,9 @@ describe('Page', () => {
   })
 
   it('does not require onBack to be provided', async () => {
-    const onBack = jest.fn()
     render(
       <MemoryRouter>
-        <BasePage onBack={onBack} dataTestId="foo" title="Test Page" backLocation="/test">
+        <BasePage dataTestId="foo" title="Test Page" backLocation="/test">
           <div data-testid="test-child" />
         </BasePage>
       </MemoryRouter>

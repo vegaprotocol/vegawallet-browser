@@ -5,7 +5,8 @@ import { useAssetsStore } from '../../../stores/assets-store'
 import { useMarketsStore } from '../../../stores/markets-store'
 
 export const locators = {
-  receiptWrapper: 'receipt-wrapper'
+  receiptWrapper: 'receipt-wrapper',
+  receiptWrapperError: 'receipt-wrapper-error'
 }
 
 // TODO handle data loading here, with render prop and loading/error states
@@ -23,6 +24,7 @@ export const ReceiptWrapper = ({ children, errors = [] }: { children: ReactNode;
       <div className="mt-4">
         <Notification
           intent={Intent.Warning}
+          testId={locators.receiptWrapperError}
           title="Error loading data"
           message="Additional data to display your transaction could not be loaded. The transaction can still be sent, but only transaction data can be shown."
           buttonProps={{

@@ -22,7 +22,9 @@ export interface Metadata {
 export type WalletsStore = {
   wallets: Wallet[]
   loading: boolean
+  _loadWallets: (request: SendMessage) => Promise<void>
   loadWallets: (request: SendMessage) => Promise<void>
+  reloadWallets: (request: SendMessage) => Promise<void>
   createKey: (request: SendMessage, walletName: string) => Promise<void>
   getKeyById: (pubKey: string) => Key | undefined
 }
@@ -51,20 +53,26 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
       wallets: newWallets
     })
   },
+  async _loadWallets(request: SendMessage) {
+    const { wallets } = await request(RpcMethods.ListWallets, null)
+    const res = await Promise.all(
+      wallets.map(async (w: string) => {
+        const keyList = await request(RpcMethods.ListKeys, {
+          wallet: w
+        })
+        const { keys } = keyList
+        return { name: w, keys }
+      })
+    )
+    set({ wallets: res })
+  },
+  async reloadWallets(request: SendMessage) {
+    await get()._loadWallets(request)
+  },
   async loadWallets(request: SendMessage) {
     try {
       set({ loading: true })
-      const { wallets } = await request(RpcMethods.ListWallets, null)
-      const res = await Promise.all(
-        wallets.map(async (w: string) => {
-          const keyList = await request(RpcMethods.ListKeys, {
-            wallet: w
-          })
-          const { keys } = keyList
-          return { name: w, keys }
-        })
-      )
-      set({ wallets: res })
+      await get()._loadWallets(request)
     } finally {
       set({ loading: false })
     }

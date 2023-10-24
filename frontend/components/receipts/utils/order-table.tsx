@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
-import { vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { vegaOrderType, vegaSide, vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { DataTable } from '../../data-table/data-table'
 import { PeggedOrderOptions } from '../../../types/transactions.ts'
 import { useMarketsStore } from '../../../stores/markets-store'
@@ -13,7 +13,12 @@ import {
   buildDirectionColumn,
   buildPeggedOrderColumn,
   buildSizeColumn,
-  buildTypeColumn
+  buildTypeColumn,
+  buildCreatedAtColumn,
+  buildUpdatedAtColumn,
+  buildRemainingColumn,
+  buildStatusColumn,
+  buildVersionColumn
 } from './order/build-order-columns'
 import { getSettlementAssetId } from '../../../lib/markets.ts'
 
@@ -25,7 +30,12 @@ export const OrderTable = ({
   price,
   size,
   type,
-  peggedOrder
+  peggedOrder,
+  createdAt,
+  updatedAt,
+  remaining,
+  status,
+  version
 }: Partial<{
   marketId?: string
   orderId?: string
@@ -35,6 +45,11 @@ export const OrderTable = ({
   reference?: string
   type?: vegaOrderType
   peggedOrder?: PeggedOrderOptions
+  createdAt?: string
+  updatedAt?: string
+  remaining?: string
+  status?: vegaOrderStatus
+  version?: string
 }>) => {
   const { loading: assetsLoading, getAssetById } = useAssetsStore((state) => ({
     loading: state.loading,
@@ -70,7 +85,12 @@ export const OrderTable = ({
     buildOrderColumn(orderId),
     buildDirectionColumn(direction),
     buildTypeColumn(type),
-    buildReferenceColumn(reference)
+    buildReferenceColumn(reference),
+    buildCreatedAtColumn(createdAt),
+    buildUpdatedAtColumn(updatedAt),
+    buildRemainingColumn(remaining),
+    buildStatusColumn(status),
+    buildVersionColumn(version)
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
 

@@ -69,4 +69,12 @@ describe('Orders Store', () => {
       'Order with id some-id not found'
     )
   })
+
+  it('should throw a generic error if an unexpected error occurs', async () => {
+    requestMock.mockRejectedValue('unexpected error')
+
+    await expect(useOrdersStore.getState().getOrderById('some-id', requestMock)).rejects.toThrow(
+      'Failed to fetch order'
+    )
+  })
 })

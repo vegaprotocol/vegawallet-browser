@@ -27,6 +27,14 @@ jest.mock('./assets-list', () => ({
 jest.mock('../../../../stores/assets-store')
 jest.mock('../../../../stores/wallets')
 
+const mockRequest = jest.fn().mockResolvedValue(null)
+
+jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
+  useJsonRpcClient: () => ({
+    request: mockRequest
+  })
+}))
+
 const ID = '1'.repeat(64)
 
 const renderComponent = () => {

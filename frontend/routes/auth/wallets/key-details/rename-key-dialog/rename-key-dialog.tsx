@@ -2,13 +2,12 @@ import { Dialog } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
 import { VegaKey } from '../../../../../components/keys/vega-key'
 import { RenameKeyForm } from './rename-key-form'
-import { Key } from '../../../../../stores/wallets'
+import { Key, useWalletStore } from '../../../../../stores/wallets'
+import { useJsonRpcClient } from '../../../../../contexts/json-rpc/json-rpc-context'
 
 export const locators = {
   renameKeyTrigger: 'rename-key-trigger',
-  renameKeyTitle: 'rename-key-title',
-  renameKeyInput: 'rename-key-input',
-  renameKeySubmit: 'rename-key-submit'
+  renameKeyTitle: 'rename-key-title'
 }
 
 export interface FormFields {
@@ -21,9 +20,16 @@ interface RenameKeyDialogProps {
 
 export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProps) => {
   const [open, setOpen] = useState(false)
-
+  const { reloadWallets } = useWalletStore((state) => ({
+    reloadWallets: state.reloadWallets
+  }))
+  const { request } = useJsonRpcClient()
   const resetDialog = () => {
     setOpen(false)
+  }
+  const onComplete = async () => {
+    await reloadWallets(request)
+    resetDialog()
   }
   return (
     <>
@@ -47,7 +53,7 @@ export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProps) => {
             Rename key
           </h1>
           <VegaKey name={vegaKey.name} publicKey={vegaKey.publicKey} />
-          <RenameKeyForm publicKey={vegaKey.publicKey} keyName={vegaKey.name} />
+          <RenameKeyForm onComplete={onComplete} publicKey={vegaKey.publicKey} keyName={vegaKey.name} />
         </div>
       </Dialog>
     </>

@@ -14,6 +14,7 @@ export const Wallets = () => {
   const { wallets } = useWalletStore((store) => ({
     wallets: store.wallets
   }))
+
   const [selectedPubkey, setSelectedPubkey] = useState<string | null>(null)
   const [wallet] = wallets
 

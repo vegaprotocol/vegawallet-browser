@@ -13,7 +13,7 @@ jest.mock('../../../contexts/json-rpc/json-rpc-context', () => ({
 }))
 
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
+  ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockNavigate
 }))
 

@@ -35,7 +35,7 @@ export const AssetListEmptyState = ({ publicKey }: { publicKey: string }) => {
         Currently you have no assets.
       </p>
       {top2Assets.map(({ asset }) => {
-        if (!asset.id) return null
+        if (!asset?.id) return null
         return (
           <AssetCard
             allowZeroAccounts={true}

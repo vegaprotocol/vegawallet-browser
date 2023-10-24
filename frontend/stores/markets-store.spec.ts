@@ -41,15 +41,18 @@ describe('MarketsStore', () => {
   it('loads markets', async () => {
     expect(useMarketsStore.getState().loading).toBe(true)
     expect(useMarketsStore.getState().markets).toStrictEqual([])
+    expect(useMarketsStore.getState().error).toBeNull()
     await useMarketsStore.getState().fetchMarkets(request as unknown as any)
     expect(useMarketsStore.getState().loading).toBe(false)
     expect(useMarketsStore.getState().markets).toHaveLength(1)
+    expect(useMarketsStore.getState().error).toBeNull()
   })
 
-  it('sets loading state while fetching', async () => {
-    useMarketsStore.setState({ loading: false })
+  it('sets loading and error states while fetching', async () => {
+    useMarketsStore.setState({ loading: false, error: new Error('1') })
     const promise = useMarketsStore.getState().fetchMarkets(request as unknown as any)
     expect(useMarketsStore.getState().loading).toBe(true)
+    expect(useMarketsStore.getState().error).toBe(null)
     await promise
     expect(useMarketsStore.getState().loading).toBe(false)
   })
@@ -105,5 +108,12 @@ describe('MarketsStore', () => {
     expect(() => useMarketsStore.getState().getMarketsByAssetId('foo')).toThrowError(
       'Could not find settlement asset from market 1'
     )
+  })
+  it('sets error if error is thrown in request', async () => {
+    const err = new Error('1')
+    await useMarketsStore.getState().fetchMarkets(() => {
+      throw err
+    })
+    expect(useMarketsStore.getState().error).toBe(err)
   })
 })

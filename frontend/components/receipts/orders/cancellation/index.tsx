@@ -6,11 +6,16 @@ import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
 import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store.ts'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context.ts'
 
+export const locators = {
+  cancellationNotification: 'cancellation-notification',
+  cancellationView: 'cancellation-view'
+}
+
 export const CancellationNotification = ({ orderId, marketId }: { orderId: string; marketId: string }) => {
   if (orderId) return null
 
   return (
-    <div className="mt-2" data-testid="cancellation-notification">
+    <div className="mt-2" data-testid={locators.cancellationNotification}>
       {marketId ? (
         <Notification intent={Intent.Warning} message={'Cancel all open orders in this market'} />
       ) : (
@@ -45,10 +50,10 @@ export const CancellationView = ({ cancellation }: { cancellation: any }) => {
   }, [orderId, getOrderById, request])
 
   return (
-    <div data-testid="cancellation-view">
+    <div data-testid={locators.cancellationView}>
       <OrderTable {...{ ...cancellation, ...orderDetails.order }} />
       {orderDetails.lastUpdated && (
-        <div data-testid="cancellation-last-updated" className="text-sm text-gray-500 mt-2">
+        <div className="text-sm text-gray-500 mt-2">
           Last Updated: {new Date(orderDetails.lastUpdated).toLocaleString()}
         </div>
       )}

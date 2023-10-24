@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { ReceiptWrapper, locators } from './receipt-wrapper'
 import { mockStore } from '../../../test-helpers/mock-store'
 import { useAssetsStore } from '../../../stores/assets-store'
@@ -56,5 +56,25 @@ describe('ReceiptView', () => {
       </ReceiptWrapper>
     )
     expect(screen.getByTestId(locators.receiptWrapperError)).toBeInTheDocument()
+  })
+
+  it('allows you to copy all errors', () => {
+    const writeText = jest.fn()
+    const error1 = new Error('1')
+    const error2 = new Error('2')
+    const error3 = new Error('3')
+    // @ts-ignore
+    global.navigator.clipboard = {
+      writeText
+    }
+    mockStore(useAssetsStore, { error: error1 })
+    mockStore(useMarketsStore, { error: error2 })
+    render(
+      <ReceiptWrapper errors={[error3]}>
+        <div>Child</div>
+      </ReceiptWrapper>
+    )
+    fireEvent.click(screen.getByRole('button'))
+    expect(writeText).toBeCalledWith([error1.stack, error2.stack, error3.stack].join('. \n'))
   })
 })

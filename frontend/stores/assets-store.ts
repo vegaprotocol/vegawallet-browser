@@ -7,6 +7,7 @@ import { vegaAsset } from '@vegaprotocol/rest-clients/dist/trading-data'
 export type AssetsStore = {
   assets: vegaAsset[]
   loading: boolean
+  error: Error | null
   fetchAssets: (request: SendMessage) => Promise<void>
   getAssetById: (id: string) => vegaAsset
 }
@@ -14,12 +15,15 @@ export type AssetsStore = {
 export const useAssetsStore = create<AssetsStore>((set, get) => ({
   assets: [],
   loading: true,
+  error: null,
   async fetchAssets(request) {
     try {
-      set({ loading: true })
-      const response = await request(RpcMethods.Fetch, { path: 'api/v2/assets' })
+      set({ loading: true, error: null })
+      const response = await request(RpcMethods.Fetch, { path: 'api/v2/assets' }, true)
       const assets = removePaginationWrapper<vegaAsset>(response.assets.edges)
       set({ assets })
+    } catch (e) {
+      set({ error: e as Error })
     } finally {
       set({ loading: false })
     }

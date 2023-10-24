@@ -12,6 +12,10 @@ jest.mock('./export-private-key-dialog', () => ({
   ExportPrivateKeysDialog: () => <div data-testid="export-private-key-dialog" />
 }))
 
+jest.mock('./rename-key-dialog', () => ({
+  RenameKeyDialog: () => <div data-testid="rename-key-dialog" />
+}))
+
 jest.mock('./key-selector', () => ({
   KeySelector: () => <div data-testid="key-selector" />
 }))
@@ -93,6 +97,7 @@ describe('KeyDetailsPage', () => {
     // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)
     // 1125-KEYD-007 In the key details screen I can see my currently selected key and associated info
     // 1125-KEYD-008 There is a way to export a private key
+    // 1125-KEYD-009 I can see a button to rename the key
     mockStore(useWalletStore, {
       loading: false,
       getKeyById: () => ({
@@ -107,6 +112,7 @@ describe('KeyDetailsPage', () => {
     expect(screen.getByTestId('key-selector')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()
     expect(screen.getByTestId('export-private-key-dialog')).toBeInTheDocument()
+    expect(screen.getByTestId('rename-key-dialog')).toBeInTheDocument()
     expect(screen.getByTestId(pageLocators.basePageBack)).toHaveAttribute('href', FULL_ROUTES.wallets)
   })
 

@@ -10,7 +10,7 @@ export const SignedMessage = ({ onClick, message }: { onClick: () => void; messa
   return (
     <div className="p-2 text-center">
       <h1 data-testid={locators.signedMessageHeader} className="text-xl text-white mb-2">
-        Your signed message
+        Your Signed Message
       </h1>
       <CodeWindow text={message} content={message} />
       <Button

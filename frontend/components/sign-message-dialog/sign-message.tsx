@@ -49,7 +49,7 @@ export const SignMessage = ({ onCancel, onSign, disabled }: SignMessageProps) =>
   return (
     <div className="p-2 text-center text-base  text-vega-dark-400">
       <h1 data-testid={locators.signMessageHeader} className="text-xl text-white mb-2">
-        Sign message
+        Sign Message
       </h1>
       <p className="mb-3" data-testid={locators.messageDescription}>
         Enter the message you want to encrypt.

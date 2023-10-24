@@ -41,20 +41,18 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
     <AsyncRenderer
       loading={assetsLoading || walletsLoading || marketsLoading}
       render={() => (
-    <BasePage
-      dataTestId={locators.keyDetailsPage}
-      backLocation={FULL_ROUTES.wallets}
-      title={
-        <>
-          <KeySelector currentKey={key} />
-          <RenameKeyDialog vegaKey={key} />
-        </>
-      }
-    >
-      <VegaKey publicKey={key.publicKey} />
-      <AssetsList publicKey={id} />
-      <ExportPrivateKeysDialog publicKey={key.publicKey} />
-    </BasePage>
+        <BasePage
+          dataTestId={locators.keyDetailsPage}
+          backLocation={FULL_ROUTES.wallets}
+          title={<KeySelector currentKey={key} />}
+        >
+          <div className="mt-6">
+            <VegaKey publicKey={key.publicKey} />
+            <AssetsList publicKey={id} />
+            <ExportPrivateKeysDialog publicKey={key.publicKey} />
+          </div>
+        </BasePage>
+      )}
     />
   )
 }

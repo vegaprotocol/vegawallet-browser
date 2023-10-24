@@ -28,7 +28,7 @@ export const Connections = () => {
   }, [request, loadConnections])
 
   return (
-    <AuthPage dataTestId={locators.connectionsHeader} title="Connections">
+    <BasePage dataTestId={locators.connectionsHeader} title="Connections">
       <AsyncRenderer
         loading={loading}
         noData={connections.length === 0}
@@ -40,7 +40,6 @@ export const Connections = () => {
           />
         )}
       />
-
       <div className="mt-6">
         <Frame>
           <p data-testid={locators.connectionInstructions}>

@@ -24,11 +24,16 @@ export const Wallets = () => {
     <AsyncRenderer
       loading={loading}
       render={() => (
-    <BasePage dataTestId={locators.walletsPage} title={wallet.name}>
-      <WalletsPageKeyList onSignMessage={setSelectedPubkey} wallet={wallet} />
-      <DepositAssetsCallout />
-      <SignMessageDialog open={!!selectedPubkey} onClose={() => setSelectedPubkey(null)} publicKey={selectedPubkey} />
-    </BasePage>
+        <BasePage dataTestId={locators.walletsPage} title={wallet.name}>
+          <WalletsPageKeyList onSignMessage={setSelectedPubkey} wallet={wallet} />
+          <DepositAssetsCallout />
+          <SignMessageDialog
+            open={!!selectedPubkey}
+            onClose={() => setSelectedPubkey(null)}
+            publicKey={selectedPubkey}
+          />
+        </BasePage>
+      )}
     />
   )
 }

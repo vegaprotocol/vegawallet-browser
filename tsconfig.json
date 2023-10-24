@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "allowImportingTsExtensions": true,
     "paths": {
-      "!/*": ["./frontend/*"]
+      "@/*": ["./frontend/*"]
     }
   },
   "files": ["node_modules/jest-expect-message/types/index.d.ts", "frontend/index.d.ts", "frontend/lib/config.d.ts"],

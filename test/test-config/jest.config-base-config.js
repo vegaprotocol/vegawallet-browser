@@ -19,7 +19,7 @@ const baseConfig = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '!/config': '<rootDir>/config/test.js',
-    '!/(.*)': '<rootDir>/frontend/$1'
+    '@/(.*)': '<rootDir>/frontend/$1'
   }
 }
 

@@ -4,7 +4,7 @@ import { useInteractionStore } from '../../stores/interaction-store'
 import { createServer } from './hooks/create-server'
 import { useCreateClient } from './hooks/create-client'
 
-export type SendMessage = (method: string, params?: any, propagate?: boolean) => Promise<any>
+export type SendMessage = (method: string, params?: any, propagateErrors?: boolean) => Promise<any>
 
 export interface JsonRpcNotification {
   method: string

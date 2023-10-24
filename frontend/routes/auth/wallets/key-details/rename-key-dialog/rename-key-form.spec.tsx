@@ -15,7 +15,7 @@ describe('RenameKeyForm', () => {
     jest.clearAllMocks()
   })
   it('renders the form with input and submit button', () => {
-    render(<RenameKeyForm keyName={'keyName'} publicKey="publicKey" />)
+    render(<RenameKeyForm onComplete={jest.fn()} keyName={'keyName'} publicKey="publicKey" />)
 
     const inputElement = screen.getByTestId(locators.renameKeyInput)
     const submitButton = screen.getByTestId(locators.renameKeySubmit)
@@ -25,7 +25,7 @@ describe('RenameKeyForm', () => {
   })
 
   it('disables submit button when the form is empty', async () => {
-    render(<RenameKeyForm keyName={'keyName'} publicKey="publicKey" />)
+    render(<RenameKeyForm onComplete={jest.fn()} keyName={'keyName'} publicKey="publicKey" />)
 
     const submitButton = screen.getByTestId(locators.renameKeySubmit)
 
@@ -33,7 +33,7 @@ describe('RenameKeyForm', () => {
   })
 
   it('displays an error message when input is too long', async () => {
-    render(<RenameKeyForm keyName={'keyName'} publicKey="publicKey" />)
+    render(<RenameKeyForm onComplete={jest.fn()} keyName={'keyName'} publicKey="publicKey" />)
 
     const inputElement = screen.getByTestId(locators.renameKeyInput)
     const submitButton = screen.getByTestId(locators.renameKeySubmit)
@@ -49,7 +49,7 @@ describe('RenameKeyForm', () => {
 
   it('calls the renameKey function with the new key name when submitted', async () => {
     const mockNewKeyName = 'NewKeyName'
-    render(<RenameKeyForm keyName={'keyName'} publicKey="publicKey" />)
+    render(<RenameKeyForm onComplete={jest.fn()} keyName={'keyName'} publicKey="publicKey" />)
 
     const inputElement = screen.getByTestId(locators.renameKeyInput)
     const submitButton = screen.getByTestId(locators.renameKeySubmit)
@@ -61,5 +61,17 @@ describe('RenameKeyForm', () => {
       publicKey: 'publicKey',
       name: mockNewKeyName
     })
+  })
+  it('calls onComplete when key is renamed', async () => {
+    const mockNewKeyName = 'NewKeyName'
+    const onComplete = jest.fn()
+    render(<RenameKeyForm onComplete={onComplete} keyName={'keyName'} publicKey="publicKey" />)
+    const inputElement = screen.getByTestId(locators.renameKeyInput)
+    const submitButton = screen.getByTestId(locators.renameKeySubmit)
+
+    fireEvent.change(inputElement, { target: { value: mockNewKeyName } })
+    fireEvent.click(submitButton)
+    await waitFor(() => expect(mockRequest).toHaveBeenCalled())
+    expect(onComplete).toHaveBeenCalled()
   })
 })

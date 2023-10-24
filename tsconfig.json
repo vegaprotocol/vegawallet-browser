@@ -15,7 +15,10 @@
     "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx",
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "!/*": ["./frontend/*"]
+    }
   },
   "files": ["node_modules/jest-expect-message/types/index.d.ts", "frontend/index.d.ts", "frontend/lib/config.d.ts"],
   "include": ["frontend", "test/*", "web-extension/*"]

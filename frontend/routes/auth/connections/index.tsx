@@ -32,7 +32,11 @@ export const Connections = () => {
       <AsyncRenderer
         loading={loading}
         noData={connections.length === 0}
-        renderNoData={() => <NoAppsConnected />}
+        renderNoData={() => (
+          <div className="mt-6">
+            <NoAppsConnected />
+          </div>
+        )}
         render={() => (
           <div className="mt-6">
             <ConnectionsList

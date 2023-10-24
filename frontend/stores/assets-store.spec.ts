@@ -75,7 +75,7 @@ describe('AssetsStore', () => {
     expect(useAssetsStore.getState().error).toBeNull()
   })
 
-  it('sets loading state while fetching', async () => {
+  it('sets loading and error states while fetching', async () => {
     useAssetsStore.setState({ loading: false, error: new Error('1') })
     const promise = useAssetsStore.getState().fetchAssets(request as unknown as any)
     expect(useAssetsStore.getState().loading).toBe(true)

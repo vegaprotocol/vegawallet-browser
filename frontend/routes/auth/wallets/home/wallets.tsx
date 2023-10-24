@@ -11,14 +11,11 @@ export const locators = {
 
 export const Wallets = () => {
   // Wallet loading is handled in auth, when the user is redirected to the auth page
-  const { wallets, loading } = useWalletStore((store) => ({
-    wallets: store.wallets,
-    loading: store.loading
+  const { wallets } = useWalletStore((store) => ({
+    wallets: store.wallets
   }))
   const [selectedPubkey, setSelectedPubkey] = useState<string | null>(null)
   const [wallet] = wallets
-
-  if (loading) return null
 
   return (
     <BasePage dataTestId={locators.walletsPage} title={wallet.name}>

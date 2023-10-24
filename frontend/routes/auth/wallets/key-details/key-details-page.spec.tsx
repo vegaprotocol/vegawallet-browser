@@ -7,7 +7,6 @@ import { MemoryRouter } from 'react-router-dom'
 import { mockStore } from '../../../../test-helpers/mock-store'
 import { locators as pageLocators } from '../../../../components/pages/page'
 import { FULL_ROUTES } from '../../../route-names'
-import { mockStore } from '../../../../test-helpers/mock-store'
 import { useMarketsStore } from '../../../../stores/markets-store'
 
 jest.mock('./export-private-key-dialog', () => ({

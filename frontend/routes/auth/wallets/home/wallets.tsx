@@ -4,7 +4,6 @@ import { DepositAssetsCallout } from './deposit-assets-callout'
 import { SignMessageDialog } from '../../../../components/sign-message-dialog'
 import { useState } from 'react'
 import { AsyncRenderer } from '../../../../components/async-renderer/async-renderer'
-import { useState } from 'react'
 import { BasePage } from '../../../../components/pages/page'
 
 export const locators = {

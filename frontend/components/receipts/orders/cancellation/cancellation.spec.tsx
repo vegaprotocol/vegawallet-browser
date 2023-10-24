@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { CancellationNotification, CancellationView, Cancellation, selectGetOrderById } from '.'
+import { CancellationNotification, CancellationView, Cancellation, selectGetOrderById, locators } from '.'
 import { OrdersStore } from '../../../../stores/orders-store.ts'
 
 jest.mock('../../../../contexts/json-rpc/json-rpc-context.ts', () => ({
@@ -27,15 +27,15 @@ describe('<CancellationView />', () => {
 
   it('renders OrderTable with the order and market ids', async () => {
     render(<CancellationView cancellation={{ orderId: '123', marketId: 'abc' }} />)
-    await waitFor(() => screen.getByText('123'))
-    await waitFor(() => screen.getByText('abc'))
+    await screen.findByText('123')
+    await screen.findByText('abc')
   })
 
   it('renders last updated field with the fetched lastUpdated value', async () => {
     const lastUpdatedTimestamp = Date.now()
     mockGetOrderById.mockResolvedValueOnce({ order: {}, lastUpdated: lastUpdatedTimestamp })
     render(<CancellationView cancellation={{ orderId: '123', marketId: 'abc' }} />)
-    await waitFor(() => screen.getByText(`Last Updated: ${new Date(lastUpdatedTimestamp).toLocaleString()}`))
+    await screen.findByText(`Last Updated: ${new Date(lastUpdatedTimestamp).toLocaleString()}`)
   })
 
   it('logs an error if getOrderById fails', async () => {
@@ -71,13 +71,15 @@ describe('CancellationNotification', () => {
   })
 
   it('should not render any Notification when orderId is provided', () => {
-    const { container } = render(<CancellationNotification orderId="some-order-id" marketId="" />)
-    expect(container.firstChild).toBeNull()
+    render(<CancellationNotification orderId="some-order-id" marketId="" />)
+    const notification = screen.queryByTestId(locators.cancellationNotification)
+    expect(notification).not.toBeInTheDocument()
   })
 
   it('should not render any Notification when both orderId and marketId are provided', () => {
-    const { container } = render(<CancellationNotification orderId="some-order-id" marketId="some-market-id" />)
-    expect(container.firstChild).toBeNull()
+    render(<CancellationNotification orderId="some-order-id" marketId="some-market-id" />)
+    const notification = screen.queryByTestId(locators.cancellationNotification)
+    expect(notification).not.toBeInTheDocument()
   })
 })
 
@@ -89,7 +91,7 @@ describe('<Cancellation />', () => {
 
     render(<Cancellation transaction={mockTransaction} />)
     await waitFor(() => {
-      const cancellationViewElement = screen.getByTestId('cancellation-view')
+      const cancellationViewElement = screen.getByTestId(locators.cancellationView)
       expect(cancellationViewElement).toBeInTheDocument()
     })
   })

@@ -16,7 +16,7 @@ const saveMnemonicDescriptionText =
 const checkboxDescription = 'I understand that if I lose my recovery phrase, I lose access to my wallet and keys.'
 
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
+  ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate
 }))
 

@@ -61,6 +61,7 @@ describe('AssetsList', () => {
   })
 
   it('renders empty state when there are no assets', () => {
+    // 1125-KEYD-012 If I have no assets I am shown 2 assets with tradeable markets on Vega
     mockStore(useAccountsStore, {
       error: null
     })
@@ -72,6 +73,7 @@ describe('AssetsList', () => {
   })
 
   it('renders error state', () => {
+    // 1125-KEYD-011 If the data fails to load I am presented with an error state
     mockStore(useAccountsStore, {
       error: new Error('Some error')
     })

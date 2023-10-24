@@ -9,6 +9,8 @@
 - In the key details screen I can see my currently selected [key and associated info](./1126-VKEY-vega_key.md) (<a name="1125-KEYD-007" href="#1125-KEYD-007">1125-KEYD-007</a>)
 - There is a way to export a private key (<a name="1125-KEYD-008" href="#1125-KEYD-008">1125-KEYD-008</a>)
 - The market lozenges should only show active markets (<a name="1125-KEYD-009" href="#1125-KEYD-009">1125-KEYD-009</a>)
+- If the data fails to load I am presented with an error state (<a name="1125-KEYD-011" href="#1125-KEYD-011">1125-KEYD-011</a>)
+- If I have no assets I am shown 2 assets with tradeable markets on Vega (<a name="1125-KEYD-012" href="#1125-KEYD-012">1125-KEYD-012</a>)
 
 ## Rename key
 

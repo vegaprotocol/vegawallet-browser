@@ -5,7 +5,7 @@ export const WalletsRoot = () => {
   const { loading } = useWalletStore((store) => ({
     loading: store.loading
   }))
-  console.log(loading)
+
   if (loading) return null
   return <Outlet />
 }

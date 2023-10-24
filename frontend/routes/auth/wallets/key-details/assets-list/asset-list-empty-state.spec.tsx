@@ -72,4 +72,26 @@ describe('AssetListEmptyState Component', () => {
     const assetCards = screen.queryAllByTestId(assetCardLocators.assetCard)
     expect(assetCards).toHaveLength(0)
   })
+
+  it('should nothing if asset is null', () => {
+    const assets = [null]
+    mockStore(useAssetsStore, {
+      // TODO figure out why deep partial is not functional for arrays
+      // @ts-ignore
+      assets,
+      getAssetById: () => {
+        throw new Error('Asset not found')
+      }
+    })
+    mockStore(useMarketsStore, {
+      getMarketsByAssetId: () => {
+        return []
+      }
+    })
+    render(<AssetListEmptyState publicKey="testPublicKey" />)
+
+    expect(screen.getByTestId(subheaderLocators.subHeader)).toHaveTextContent('Balances')
+    const assetCards = screen.queryAllByTestId(assetCardLocators.assetCard)
+    expect(assetCards).toHaveLength(0)
+  })
 })

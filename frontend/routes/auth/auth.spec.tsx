@@ -1,20 +1,20 @@
 import { render, screen } from '@testing-library/react'
-import { Auth } from '.'
 import { MemoryRouter } from 'react-router-dom'
-import locators from '../../components/locators'
 
-import { useWalletStore } from '../../stores/wallets'
-import { FULL_ROUTES } from '../route-names'
+import locators from '../../components/locators'
 import { useAssetsStore } from '../../stores/assets-store'
 import { useMarketsStore } from '../../stores/markets-store'
+import { useWalletStore } from '../../stores/wallets'
 import { mockStore } from '../../test-helpers/mock-store'
+import { FULL_ROUTES } from '../route-names'
+import { Auth } from '.'
 
 jest.mock('../../components/page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
 }))
 
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
+  ...jest.requireActual('react-router-dom'),
   Outlet: () => <div data-testid="outlet" />
 }))
 

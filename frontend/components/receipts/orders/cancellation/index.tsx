@@ -3,14 +3,14 @@ import { ReceiptComponentProps } from '../../receipts'
 import { OrderTable } from '../../utils/order-table'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
-import { useOrdersStore } from '../../../../stores/orders-store.ts'
+import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store.ts'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context.ts'
 
 export const CancellationNotification = ({ orderId, marketId }: { orderId: string; marketId: string }) => {
   if (orderId) return null
 
   return (
-    <div className="mt-2">
+    <div className="mt-2" data-testid="cancellation-notification">
       {marketId ? (
         <Notification intent={Intent.Warning} message={'Cancel all open orders in this market'} />
       ) : (
@@ -20,6 +20,8 @@ export const CancellationNotification = ({ orderId, marketId }: { orderId: strin
   )
 }
 
+export const selectGetOrderById = (state: OrdersStore) => ({ getOrderById: state.getOrderById })
+
 export const CancellationView = ({ cancellation }: { cancellation: any }) => {
   const { orderId, marketId } = cancellation
   const [orderDetails, setOrderDetails] = useState<{ order: any; lastUpdated: number | null }>({
@@ -27,7 +29,7 @@ export const CancellationView = ({ cancellation }: { cancellation: any }) => {
     lastUpdated: null
   })
 
-  const getOrderById = useOrdersStore((state) => state.getOrderById)
+  const { getOrderById } = useOrdersStore(selectGetOrderById)
   const { request } = useJsonRpcClient()
 
   useEffect(() => {
@@ -37,21 +39,21 @@ export const CancellationView = ({ cancellation }: { cancellation: any }) => {
           setOrderDetails({ order: result.order, lastUpdated: result.lastUpdated })
         })
         .catch((err) => {
-          console.log('Failed to fetch order details:', err)
+          console.error('Failed to fetch order details:', err)
         })
     }
   }, [orderId, getOrderById, request])
 
   return (
-    <>
+    <div data-testid="cancellation-view">
       <OrderTable {...{ ...cancellation, ...orderDetails.order }} />
       {orderDetails.lastUpdated && (
-        <div className="text-sm text-gray-500 mt-2">
+        <div data-testid="cancellation-last-updated" className="text-sm text-gray-500 mt-2">
           Last Updated: {new Date(orderDetails.lastUpdated).toLocaleString()}
         </div>
       )}
       <CancellationNotification orderId={orderId} marketId={marketId} />
-    </>
+    </div>
   )
 }
 

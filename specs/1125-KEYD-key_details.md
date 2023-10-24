@@ -8,3 +8,14 @@
 - When switching via the dropdown, I can see my [vega keys and associated info](./1126-VKEY-vega_key.md) (<a name="1125-KEYD-006" href="#1125-KEYD-006">1125-KEYD-006</a>)
 - In the key details screen I can see my currently selected [key and associated info](./1126-VKEY-vega_key.md) (<a name="1125-KEYD-007" href="#1125-KEYD-007">1125-KEYD-007</a>)
 - There is a way to export a private key (<a name="1125-KEYD-008" href="#1125-KEYD-008">1125-KEYD-008</a>)
+
+## Rename key
+
+- I can see a button to rename the key (<a name="1125-KEYD-009" href="#1125-KEYD-009">1125-KEYD-009</a>)
+- I can see the [vega key and associated info](./1126-VKEY-vega_key.md) of the key I am renaming (<a name="1125-KEYD-010" href="#1125-KEYD-010">1125-KEYD-010</a>)
+- I can input the new name (<a name="1125-KEYD-011" href="#1125-KEYD-011">1125-KEYD-011</a>)
+- When I press submit the dialog closes (<a name="1125-KEYD-012" href="#1125-KEYD-012">1125-KEYD-012</a>)
+- Submit button is disabled when key name is not entered (<a name="1125-KEYD-013" href="#1125-KEYD-013">1125-KEYD-013</a>)
+- Submit button is disabled when key name is longer than 30 chars (<a name="1125-KEYD-014" href="#1125-KEYD-014">1125-KEYD-014</a>)
+- I see an error message when I enter a key name longer than 30 chars (<a name="1125-KEYD-015" href="#1125-KEYD-015">1125-KEYD-015</a>)
+- When I press submit the page is updated with the new key name (<a name="1125-KEYD-016" href="#1125-KEYD-016">1125-KEYD-016</a>)

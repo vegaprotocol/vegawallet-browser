@@ -1,10 +1,10 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Wallets } from '.'
 import { JsonRPCProvider } from '../../../../contexts/json-rpc/json-rpc-provider'
 import locators from '../../../../components/locators'
 
 import { mockClient } from '../../../../test-helpers/mock-client'
-import { WalletsStore, useWalletStore } from '../../../../stores/wallets'
+import { useWalletStore } from '../../../../stores/wallets'
 import { locators as keyLocators } from '../../../../components/key-list'
 import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
 import { locators as signMessageLocators } from '../../../../components/sign-message-dialog/sign-message'
@@ -13,49 +13,38 @@ import { locators as vegaKeyLocators } from '../../../../components/keys/vega-ke
 import { locators as walletPageKeyListLocators } from './wallets-page-key-list'
 import { locators as headerLocators } from '../../../../components/header'
 import { MemoryRouter } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
+
+// This mimics the loading of and loading state both of which are handled higher up the component tree
+const WrappedComponent = () => {
+  const { loading, loadWallets } = useWalletStore((store) => ({
+    loading: store.loading,
+    loadWallets: store.loadWallets
+  }))
+  const { request } = useJsonRpcClient()
+  useEffect(() => {
+    loadWallets(request)
+  }, [loadWallets, request])
+  if (loading) return null
+  return <Wallets />
+}
 
 const renderComponent = () => {
   mockClient()
-  const state = useWalletStore.getState()
 
-  useWalletStore.setState({
-    ...state,
-    loading: false,
-    wallets: [
-      {
-        name: 'wallet 1',
-        keys: [
-          {
-            publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-            name: 'Key 1',
-            index: 2147483650,
-            metadata: []
-          }
-        ]
-      }
-    ]
-  })
   render(
     <MemoryRouter>
       <JsonRPCProvider>
-        <Wallets />
+        <WrappedComponent />
       </JsonRPCProvider>
     </MemoryRouter>
   )
 }
 
 describe('Wallets', () => {
-  let initialState: WalletsStore | null = null
   const informationText =
     'Choose a market on Vega Console, connect your wallet and follow the prompts to deposit the funds needed to trade'
-  beforeEach(() => {
-    initialState = useWalletStore.getState()
-  })
-  afterEach(() => {
-    // @ts-ignore
-    global.browser = null
-    act(() => useWalletStore.setState(initialState as WalletsStore))
-  })
 
   it('renders the wallet page', async () => {
     // 1106-KEYS-005 There is a link from a key to the Block Explorer filtered transaction view

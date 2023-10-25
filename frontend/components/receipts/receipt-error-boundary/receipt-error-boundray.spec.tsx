@@ -63,7 +63,7 @@ describe('ReceiptViewErrorBoundary', () => {
     )
     // Verify that the error message is displayed
     const errorMessage = screen.getByText(
-      'An unexpected error occurred when rendering transaction receipt view. Please check your transaction has a valid format and data.'
+      "Your transaction receipt can't be shown. View the raw transaction to verify that you want to send this transaction."
     )
     expect(errorMessage).toBeInTheDocument()
 

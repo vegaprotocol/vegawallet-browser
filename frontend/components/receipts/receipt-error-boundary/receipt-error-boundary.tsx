@@ -38,7 +38,7 @@ export class ReceiptViewErrorBoundary extends Component<Props, State> {
           <Notification
             intent={Intent.Danger}
             message={
-              'An unexpected error occurred when rendering transaction receipt view. Please check your transaction has a valid format and data.'
+              "Your transaction receipt can't be shown. View the raw transaction to verify that you want to send this transaction."
             }
           />
           <div className="mt-6">

@@ -5,6 +5,7 @@ import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers
 import { KeyDetails } from './page-objects/key-details'
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { ExportPrivateKey } from './page-objects/export-private-key'
+import { staticWait } from './helpers/selenium-util'
 
 describe('Key details', () => {
   let driver: WebDriver
@@ -38,6 +39,30 @@ describe('Key details', () => {
     await keyDetails.selectKeyFromDropdownAndConfirmNewKeySelected('Key 2')
     const balance = await keyDetails.getAssetBalance()
     expect(balance).toBeTruthy()
+  })
+
+  it('can rename a key, the new key name remains associated with the same public key and can be selected from dropdown', async () => {
+    const firstKey = 'Key 1'
+    const secondKey = 'Key 2'
+    const newKeyName = 'newKey'
+    await keyDetails.selectKeyFromDropdownAndConfirmNewKeySelected(firstKey)
+    let linkBeforeNameChange = await keyDetails.getVegaExplorerLink()
+
+    await keyDetails.renameKey(newKeyName)
+    await keyDetails.checkExpectedKeySelected(newKeyName)
+    await keyDetails.selectKeyFromDropdownAndConfirmNewKeySelected(newKeyName)
+    let linkAfterNameChange = await keyDetails.getVegaExplorerLink()
+    //check the link is still associated with the same public key
+    expect(linkBeforeNameChange).toBe(linkAfterNameChange)
+
+    await keyDetails.selectKeyFromDropdownAndConfirmNewKeySelected(secondKey)
+    linkBeforeNameChange = await keyDetails.getVegaExplorerLink()
+    await keyDetails.renameKey(firstKey)
+    await keyDetails.checkExpectedKeySelected(firstKey)
+    await keyDetails.selectKeyFromDropdownAndConfirmNewKeySelected(firstKey)
+    linkAfterNameChange = await keyDetails.getVegaExplorerLink()
+
+    expect(linkBeforeNameChange).toBe(linkAfterNameChange)
   })
 
   it('can export private key', async () => {

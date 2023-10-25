@@ -1,4 +1,3 @@
-import { act } from '@testing-library/react'
 import { useOrdersStore } from './orders-store'
 
 const mockOrderData = { id: 'some-id', name: 'Test Order' }
@@ -9,7 +8,7 @@ describe('Orders Store', () => {
 
   beforeAll(() => {
     jest.useFakeTimers()
-    Date.now = jest.fn(() => 0)
+    jest.setSystemTime(0)
   })
 
   beforeEach(() => {
@@ -31,13 +30,11 @@ describe('Orders Store', () => {
         })
     )
 
-    await act(async () => {
-      const promise = useOrdersStore.getState().getOrderById('some-id', requestMock)
-      expect(useOrdersStore.getState().loading).toBe(true)
-
-      // Wait for promise to resolve to proceed with other tests
-      await promise
-    })
+    useOrdersStore.setState({ loading: false })
+    const promise = useOrdersStore.getState().getOrderById('some-id', requestMock)
+    expect(useOrdersStore.getState().loading).toBe(true)
+    await promise
+    expect(useOrdersStore.getState().loading).toBe(false)
   })
 
   it('should set loading to false when getOrderById is done', async () => {
@@ -46,35 +43,38 @@ describe('Orders Store', () => {
     expect(useOrdersStore.getState().loading).toBe(false)
   })
 
-  it('should return the correct order and lastUpdated when found', async () => {
-    requestMock.mockResolvedValue({ order: mockOrderData })
-
-    const { order, lastUpdated } = await useOrdersStore.getState().getOrderById('some-id', requestMock)
-
-    expect(order).toEqual(mockOrderData)
-    expect(typeof lastUpdated).toBe('number')
-  })
-
-  it('should return the correct order and lastUpdated value when found', async () => {
+  it('should return the correct order when found', async () => {
     requestMock.mockResolvedValue({ order: mockOrderData })
 
     const retrievedOrder = await useOrdersStore.getState().getOrderById('some-id', requestMock)
-    expect(retrievedOrder).toEqual({ order: mockOrderData, lastUpdated: 0 })
+    expect(retrievedOrder).toEqual(mockOrderData)
   })
 
-  it('should throw an error if order not found', async () => {
+  it('should set lastUpdated after getOrderById is done', async () => {
+    useOrdersStore.setState({ lastUpdated: null })
+    requestMock.mockResolvedValue({ order: mockOrderData })
+    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    expect(useOrdersStore.getState().lastUpdated).toBe(0)
+  })
+
+  it('should set error state if order not found', async () => {
     requestMock.mockResolvedValue({})
 
-    await expect(useOrdersStore.getState().getOrderById('some-id', requestMock)).rejects.toThrow(
-      'Order with id some-id not found'
-    )
+    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    expect(useOrdersStore.getState().error).toBe('Order with id some-id not found')
   })
 
-  it('should throw a generic error if an unexpected error occurs', async () => {
-    requestMock.mockRejectedValue('unexpected error')
+  it('should set error state if an unexpected error occurs', async () => {
+    const errorMessage = 'unexpected error'
+    requestMock.mockRejectedValue(new Error(errorMessage))
 
-    await expect(useOrdersStore.getState().getOrderById('some-id', requestMock)).rejects.toThrow(
-      'Failed to fetch order'
-    )
+    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    expect(useOrdersStore.getState().error).toBe(`Failed to fetch order: ${errorMessage}`)
+  })
+
+  it('should set generic error message if an error occurs that is not an instance of Error', async () => {
+    requestMock.mockRejectedValue('Some rejection reason')
+    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    expect(useOrdersStore.getState().error).toBe('Failed to fetch order')
   })
 })

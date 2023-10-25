@@ -1,5 +1,6 @@
 {
   "name": "__BUILD_NAME__",
+  "description": "Manage your assets and connect to dApps on Vega Protocol, the worlds most advanced DEX.",
   "icons": {
     "16": "__ICON_PREFIX__-16x16.png",
     "32": "__ICON_PREFIX__-32x32.png",
@@ -8,7 +9,6 @@
     "96": "__ICON_PREFIX__-96x96.png",
     "128": "__ICON_PREFIX__-128x128.png"
   },
-  "description": "Vega web wallet",
   "permissions": ["storage"],
   "content_scripts": [
     {

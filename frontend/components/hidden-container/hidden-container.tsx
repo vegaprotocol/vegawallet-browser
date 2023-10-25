@@ -8,13 +8,15 @@ export interface HiddenContainerProps {
   text: ReactNode
   hiddenInformation: string
   onChange?: (show: boolean) => void
+  wrapContent?: boolean
 }
 
-export const HiddenContainer = ({ hiddenInformation, onChange, text }: HiddenContainerProps) => {
+export const HiddenContainer = ({ hiddenInformation, onChange, text, wrapContent = false }: HiddenContainerProps) => {
   const [showInformation, setShowInformation] = useState(false)
   return showInformation ? (
     <div data-testid={locators.mnemonicContainerShown}>
       <code
+        style={wrapContent ? { wordBreak: 'break-all' } : undefined}
         data-testid={locators.mnemonicContainerMnemonic}
         className="flex justify-center items-center w-full border border-vega-dark-200 rounded-md p-6 text-left overflow-y-auto overflow-x-auto w-full scrollbar-hide"
       >

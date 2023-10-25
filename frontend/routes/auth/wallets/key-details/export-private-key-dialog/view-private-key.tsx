@@ -13,7 +13,7 @@ export interface ViewPrivateKeyProps {
 export const ViewPrivateKey = ({ privateKey, onClose }: ViewPrivateKeyProps) => {
   return (
     <>
-      <HiddenContainer text="Reveal private key" hiddenInformation={privateKey} />
+      <HiddenContainer wrapContent={true} text="Reveal private key" hiddenInformation={privateKey} />
       <Button
         data-testid={locators.viewPrivateKeyClose}
         className="mt-4"

@@ -201,6 +201,16 @@ export async function isElementSelected(driver: WebDriver, locator: By, timeout:
   }
 }
 
+export async function getAttributeValue(
+  driver: WebDriver,
+  locator: By,
+  attributeName: string,
+  timeout: number = defaultTimeoutMillis
+) {
+  const element = await waitForElementToBeReady(driver, locator, timeout)
+  return await element.getAttribute(attributeName)
+}
+
 export async function waitForElementToBeSelected(
   driver: WebDriver,
   locator: By,

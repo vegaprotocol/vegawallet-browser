@@ -4,6 +4,7 @@ import { VegaKey } from '../../../../../components/keys/vega-key'
 import { RenameKeyForm } from './rename-key-form'
 import { Key, useWalletStore } from '../../../../../stores/wallets'
 import { useJsonRpcClient } from '../../../../../contexts/json-rpc/json-rpc-context'
+import { CONSTANTS } from '../../../../../../lib/constants'
 
 export const locators = {
   renameKeyTrigger: 'rename-key-trigger',
@@ -35,7 +36,7 @@ export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProps) => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="ml-2 flex justify-center text-vega-dark-400"
+        className="ml-2 flex flex-col justify-center text-vega-dark-400"
         data-testid={locators.renameKeyTrigger}
       >
         <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +49,7 @@ export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProps) => {
         </svg>
       </button>
       <Dialog open={open} onInteractOutside={resetDialog} onChange={resetDialog}>
-        <div className="p-2 text-base text-vega-dark-400 overflow-hidden">
+        <div className="p-2 text-base text-vega-dark-400 overflow-hidden" style={{ maxWidth: CONSTANTS.width - 60 }}>
           <h1 data-testid={locators.renameKeyTitle} className="text-xl text-center text-white mb-2">
             Rename key
           </h1>

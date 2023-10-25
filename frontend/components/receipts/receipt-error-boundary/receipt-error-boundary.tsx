@@ -44,7 +44,7 @@ export class ReceiptViewErrorBoundary extends Component<Props, State> {
           <div className="mt-6">
             <CollapsiblePanel
               title="Error details"
-              panelContent={<CodeWindow content={error.stack} text={error.stack ?? ''} />}
+              panelContent={<CodeWindow content={error.stack ?? error.message} text={error.stack ?? error.message} />}
             />
           </div>
         </VegaSection>

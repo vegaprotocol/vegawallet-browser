@@ -6,7 +6,11 @@ export const locators = {
 
 export const Header = ({ content }: { content: ReactNode }) => {
   return (
-    <h1 data-testid={locators.header} className="flex justify-center flex-col text-2xl text-white">
+    <h1
+      style={{ wordBreak: 'break-word' }}
+      data-testid={locators.header}
+      className="flex justify-center flex-col text-2xl text-white text-left"
+    >
       {content}
     </h1>
   )

@@ -1,13 +1,13 @@
 import { Transaction, TransactionKeys } from '../../lib/transactions'
 import { BatchMarketInstructions } from './batch-market-instructions'
 import { Amendment } from './orders/amend'
-import { Cancellation } from './orders/cancellation'
 import { StopOrderCancellation } from './orders/stop-cancellation'
 import { StopOrderSubmission } from './orders/stop-submission'
 import { Submission } from './orders/submission'
 import { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
 import { Withdraw } from './withdrawal'
+import { Cancellation } from './orders/cancellation/cancellation.tsx'
 
 export const hasReceiptView = (transaction: Transaction) => {
   const type = Object.keys(transaction)[0] as TransactionKeys

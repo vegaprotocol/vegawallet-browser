@@ -2,6 +2,12 @@ import { render, screen } from '@testing-library/react'
 import { TransactionHeader, locators } from './transaction-header'
 import { locators as hostImageLocators } from '../../../components/host-image'
 import { locators as headerLocators } from '../../../components/header'
+import { locators as subheaderLocators } from '../../../components/sub-header'
+
+jest.mock('../../keys/vega-key', () => ({
+  VegaKey: () => <div data-testid="vega-key" />
+}))
+
 const transaction = {
   orderSubmission: {
     marketId: '10c7d40afd910eeac0c2cad186d79cb194090d5d5f13bd31e14c49fd1bded7e2',
@@ -34,9 +40,13 @@ describe('TransactionHeader', () => {
         publicKey="3fd42fd5ceb22d99ac45086f1d82d516118a5cb7ad9a2e096cd78ca2c8960c80"
       />
     )
+    const subheaders = screen.getAllByTestId(subheaderLocators.subHeader)
+    const [requestFromSubheader, signingWithSubheader] = subheaders
+    expect(signingWithSubheader).toHaveTextContent('Signing with')
+    expect(requestFromSubheader).toHaveTextContent('Request from')
     expect(screen.getByTestId(hostImageLocators.hostImage)).toBeVisible()
     expect(screen.getByTestId(headerLocators.header)).toHaveTextContent('Order Submission')
-    expect(screen.getByTestId(locators.transactionRequest)).toHaveTextContent('Request from https://www.google.com')
-    expect(screen.getByTestId(locators.transactionKey)).toHaveTextContent('Signing with')
+    expect(screen.getByTestId(locators.transactionRequest)).toHaveTextContent('https://www.google.com')
+    expect(screen.getByTestId('vega-key')).toBeInTheDocument()
   })
 })

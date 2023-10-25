@@ -20,7 +20,7 @@ export const getTitle = (transaction: Transaction) => {
     transaction.orderCancellation &&
     !transaction.orderCancellation.orderId
   ) {
-    return TRANSACTION_TITLES[TransactionKeys.MASS_ORDER_CANCELLATION]
+    return 'Mass Order Cancellation'
   }
 
   return TRANSACTION_TITLES[type]

@@ -10,10 +10,10 @@ import { OrderTypeComponent } from './order-type'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { Direction } from './direction'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
-import { nanoSecondsToMilliseconds } from '../../../../lib/utils.ts'
+import { nanoSecondsToMilliseconds } from '../../../../lib/utils'
 import { CopyWithCheckmark } from '../../../copy-with-check'
 
-const orderStatuses = {
+const orderStatuses: Record<vegaOrderStatus, string> = {
   STATUS_UNSPECIFIED: 'UNSPECIFIED',
   STATUS_ACTIVE: 'ACTIVE',
   STATUS_EXPIRED: 'EXPIRED',

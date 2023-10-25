@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react'
-import { ReceiptComponentProps } from '../../receipts'
 import { OrderTable } from '../../utils/order-table'
-import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
-import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store.ts'
-import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context.ts'
+import { vegaOrder } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 export const locators = {
   cancellationNotification: 'cancellation-notification',
@@ -25,48 +21,13 @@ export const CancellationNotification = ({ orderId, marketId }: { orderId: strin
   )
 }
 
-export const selectGetOrderById = (state: OrdersStore) => ({ getOrderById: state.getOrderById })
-
-export const CancellationView = ({ cancellation }: { cancellation: any }) => {
+export const CancellationView = ({ cancellation, order }: { cancellation: any; order?: vegaOrder | null }) => {
   const { orderId, marketId } = cancellation
-  const [orderDetails, setOrderDetails] = useState<{ order: any; lastUpdated: number | null }>({
-    order: null,
-    lastUpdated: null
-  })
-
-  const { getOrderById } = useOrdersStore(selectGetOrderById)
-  const { request } = useJsonRpcClient()
-
-  useEffect(() => {
-    if (orderId) {
-      getOrderById(orderId, request)
-        .then((result) => {
-          setOrderDetails({ order: result.order, lastUpdated: result.lastUpdated })
-        })
-        .catch((err) => {
-          console.error('Failed to fetch order details:', err)
-        })
-    }
-  }, [orderId, getOrderById, request])
 
   return (
     <div data-testid={locators.cancellationView}>
-      <OrderTable {...{ ...cancellation, ...orderDetails.order }} />
-      {orderDetails.lastUpdated && (
-        <div className="text-sm text-gray-500 mt-2">
-          Last Updated: {new Date(orderDetails.lastUpdated).toLocaleString()}
-        </div>
-      )}
+      <OrderTable {...{ ...cancellation, ...order }} />
       <CancellationNotification orderId={orderId} marketId={marketId} />
     </div>
-  )
-}
-
-export const Cancellation = ({ transaction }: ReceiptComponentProps) => {
-  const cancellation = transaction.orderCancellation
-  return (
-    <ReceiptWrapper>
-      <CancellationView cancellation={cancellation} />
-    </ReceiptWrapper>
   )
 }

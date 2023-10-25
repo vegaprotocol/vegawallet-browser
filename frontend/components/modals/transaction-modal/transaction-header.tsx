@@ -4,6 +4,8 @@ import { HostImage } from '../../host-image'
 import { KeyIcon } from '../../keys/vega-icon'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { Header } from '../../header'
+import { VegaKey } from '../../keys/vega-key'
+import { SubHeader } from '../../sub-header'
 
 export const locators = {
   transactionRequest: 'transaction-request',
@@ -24,21 +26,19 @@ export const TransactionHeader = ({
   return (
     <VegaSection>
       <Header content={TRANSACTION_TITLES[Object.keys(transaction)[0] as TransactionKeys]} />
-      <div className="flex items-center mt-6 mb-4">
+      <div className="mb-4 mt-6">
+        <SubHeader content="Request from" />
+      </div>
+      <div className="flex items-center mb-4">
         <HostImage size={42} hostname={origin} />
         <div data-testid={locators.transactionRequest} className="ml-4">
-          <span className="text-vega-dark-300">Request from</span> {origin}
+          {origin}
         </div>
       </div>
-      <div className="flex items-center">
-        <KeyIcon publicKey={publicKey} />
-        <div className="ml-4" data-testid={locators.transactionKey}>
-          <div className="text-vega-dark-300">Signing with</div>
-          <p>
-            {name}: <span className="text-vega-dark-300">{truncateMiddle(publicKey)}</span>
-          </p>
-        </div>
+      <div className="mb-4">
+        <SubHeader content="Signing with" />
       </div>
+      <VegaKey name={name} publicKey={publicKey} />
     </VegaSection>
   )
 }

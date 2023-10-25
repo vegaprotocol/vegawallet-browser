@@ -27,7 +27,7 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
   loading: true,
   async fetchAccounts(id, request) {
     try {
-      set({ loading: true })
+      set({ loading: true, error: null })
       const accountsResponse = await request(RpcMethods.Fetch, { path: `api/v2/accounts?filter.partyIds=${id}` }, true)
       const accounts = removePaginationWrapper<vegaAccount>(accountsResponse.accounts.edges)
       const accountsByAsset = groupBy(accounts, 'asset')

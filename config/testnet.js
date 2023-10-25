@@ -1,4 +1,5 @@
 const testnet = {
+  title: 'Vega Wallet - Fairground',
   network: {
     name: 'Fairground',
     rest: [

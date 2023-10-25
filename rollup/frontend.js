@@ -13,10 +13,10 @@ import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import { visualizer } from 'rollup-plugin-visualizer'
 
-const htmlPlugin = (outputPath) => {
+const htmlPlugin = (outputPath, title) => {
   return html({
     outputDir: outputPath,
-    title: 'Vega browser wallet',
+    title,
     template: ({ attributes, files, publicPath, title, meta }) => {
       const scripts = (files.js || [])
         .map(({ fileName }) => {
@@ -64,7 +64,13 @@ const htmlPlugin = (outputPath) => {
  * @param {boolean} isProduction - Whether or not this is a production build
  * @param {string} outputPath - The path to output the build to
  */
-const frontend = (isProduction, outputPath, walletConfig, analyze) => [
+const frontend = ({
+  isProduction,
+  outputPath,
+  walletConfigName,
+  config,
+  analyze
+}) => [
   {
     input: './frontend/index.tsx',
     output: {
@@ -84,11 +90,11 @@ const frontend = (isProduction, outputPath, walletConfig, analyze) => [
       // Process typescript
       typescript(),
       // Generate HTML
-      htmlPlugin(outputPath),
+      htmlPlugin(outputPath, config.title),
       isProduction && terser(),
       // Replace env vars with static values
       alias({
-        entries: [{ find: '!/config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
+        entries: [{ find: '!/config', replacement: path.resolve('.', 'config', `${walletConfigName}.js`) }]
       }),
       replace({
         preventAssignment: true,

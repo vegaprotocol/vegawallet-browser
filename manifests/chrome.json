@@ -10,7 +10,7 @@
       "96": "__ICON_PREFIX__-96x96.png",
       "128": "__ICON_PREFIX__-128x128.png"
     },
-    "default_title": "Vega Browser Wallet",
+    "default_title": "__BUILD_NAME__",
     "default_popup": "index.html"
   },
   "background": {

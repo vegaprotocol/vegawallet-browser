@@ -1,4 +1,5 @@
 const mainnet = {
+  title: 'Vega Wallet - Mainnet',
   network: {
     name: 'Mainnet',
     rest: [

@@ -13,9 +13,7 @@ export const chromePublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA08Uz
  * @param {string} commonFolder - The folder containing the common files
  * @param {string} build - The browser specific build folder
  */
-export default async (browser, commonFolder, build, isTestBuild, walletConfig) => {
-  const { default: config } = await import(`../config/${walletConfig}.js`)
-
+export default async (browser, commonFolder, build, isTestBuild, walletConfig, config) => {
   const testReplacements = isTestBuild && browser === 'chrome'
     ? {
       key: chromePublicKey
@@ -52,7 +50,7 @@ export default async (browser, commonFolder, build, isTestBuild, walletConfig) =
             __ICON_PREFIX__: config.manifestReplacements.iconPrefix,
 
             // Used in the extension name
-            __BUILD_NAME__: config.manifestReplacements.buildName,
+            __BUILD_NAME__: config.title,
 
             __GECKO_ID__: config.manifestReplacements.geckoId,
           },

@@ -7,7 +7,7 @@ import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import copy from 'rollup-plugin-copy'
 
-const backend = (isProduction, outputPath, walletConfig, analyze) => [
+const backend = ({ isProduction, outputPath, walletConfigName, analyze }) => [
   // The files that need to each be built for the backend
   ...['background', 'content-script', 'in-page', 'pow-worker', 'chrome-pow'].map((name) => ({
     input: `web-extension/${name}.js`,
@@ -25,7 +25,7 @@ const backend = (isProduction, outputPath, walletConfig, analyze) => [
         targets: [{ src: 'web-extension/chrome-pow.html', dest: outputPath }]
       }),
       alias({
-        entries: [{ find: '!/config', replacement: path.resolve('.', 'config', `${walletConfig}.js`) }]
+        entries: [{ find: '!/config', replacement: path.resolve('.', 'config', `${walletConfigName}.js`) }]
       }),
       analyze &&
       visualizer({

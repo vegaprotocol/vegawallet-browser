@@ -1,5 +1,5 @@
 {
-  "name": "Vega Wallet - __BUILD_NAME__",
+  "name": "__BUILD_NAME__",
   "icons": {
     "16": "__ICON_PREFIX__-16x16.png",
     "32": "__ICON_PREFIX__-32x32.png",

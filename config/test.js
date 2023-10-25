@@ -1,6 +1,7 @@
 const mockPort = 9090
 
 const test = {
+  title: 'Vega Wallet - Test',
   test: {
     mockPort
   },

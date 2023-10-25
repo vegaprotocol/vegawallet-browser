@@ -42,6 +42,7 @@ describe('Key details', () => {
   })
 
   it('can rename a key, the new key name remains associated with the same public key and can be selected from dropdown', async () => {
+    // 1125-KEYD-016 When I press submit the page is updated with the new key name
     const firstKey = 'Key 1'
     const secondKey = 'Key 2'
     const newKeyName = 'newKey'

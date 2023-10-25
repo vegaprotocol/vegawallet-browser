@@ -1,8 +1,6 @@
 import { TRANSACTION_TITLES, Transaction, TransactionKeys } from '../../../lib/transactions'
 import { VegaSection } from '../../vega-section'
 import { HostImage } from '../../host-image'
-import { KeyIcon } from '../../keys/vega-icon'
-import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { Header } from '../../header'
 import { VegaKey } from '../../keys/vega-key'
 import { SubHeader } from '../../sub-header'

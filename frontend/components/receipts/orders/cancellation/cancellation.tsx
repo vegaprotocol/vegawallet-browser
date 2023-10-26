@@ -4,7 +4,7 @@ import { vegaOrder } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
-import { CancellationView } from './index'
+import { CancellationView } from './cancellation-view'
 
 export const orderSelector = (state: OrdersStore) => ({
   getOrderById: state.getOrderById,

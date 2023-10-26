@@ -65,4 +65,15 @@ describe('HiddenContainer', () => {
     expect(onChange).toHaveBeenCalledTimes(2)
     expect(onChange).toHaveBeenCalledWith(false)
   })
+
+  it('adds style if wrap is set to true', () => {
+    const hiddenInformation = 'test mnemonic'
+    renderComponent({
+      hiddenInformation,
+      text: 'Reveal',
+      wrapContent: true
+    })
+    fireEvent.click(screen.getByTestId(locators.mnemonicContainerHidden))
+    expect(screen.getByTestId(locators.mnemonicContainerMnemonic)).toHaveStyle('word-break: break-all')
+  })
 })

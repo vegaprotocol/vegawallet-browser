@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { CancellationNotification, CancellationView, locators } from '.'
+import { CancellationNotification, CancellationView, locators } from './cancellation-view'
 import { mockStore } from '../../../../test-helpers/mock-store'
 import { useMarketsStore } from '../../../../stores/markets-store'
 

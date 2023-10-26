@@ -53,6 +53,7 @@ export class KeyDetails {
   }
 
   async isNotificationDisplayed(timeout = 5000) {
+    await this.checkOnExpectedKeyDetails()
     return await isElementDisplayed(this.driver, this.notification, timeout)
   }
 

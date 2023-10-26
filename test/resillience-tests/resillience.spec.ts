@@ -2,7 +2,7 @@ import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot } from '../e2e/helpers/driver'
 import { ViewWallet } from '../e2e/page-objects/view-wallet'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from '../e2e/helpers/wallet/wallet-setup'
-import { closeServerAndWait, createServer } from '../e2e/helpers/wallet/http-server'
+import { ServerConfig, closeServerAndWait, createServer } from '../e2e/helpers/wallet/http-server'
 import { KeyDetails } from '../e2e/page-objects/key-details'
 import { Server } from 'http'
 import test from '../../config/test'
@@ -10,8 +10,6 @@ import { VegaAPI } from '../e2e/helpers/wallet/vega-api'
 import { ConnectWallet } from '../e2e/page-objects/connect-wallet'
 import { Transaction } from '../e2e/page-objects/transaction'
 import { dummyTransaction } from '../e2e/helpers/wallet/common-wallet-values'
-import { staticWait } from '../e2e/helpers/selenium-util'
-import { be } from 'date-fns/locale'
 
 describe('Check browser wallet is resillient to node outages', () => {
   let driver: WebDriver
@@ -35,7 +33,6 @@ describe('Check browser wallet is resillient to node outages', () => {
 
   afterEach(async () => {
     if (closeServer) {
-      console.log('killing server')
       await closeServerAndWait(server)
     }
     await captureScreenshot(driver, expect.getState().currentTestName as string)
@@ -69,6 +66,12 @@ describe('Check browser wallet is resillient to node outages', () => {
       server = await startServer({ includeAccounts: false })
       await connectWalletAndSendTransaction()
       expect(await transaction.isErrorLoadingDataDisplayed()).toBe(true)
+    })
+
+    it('shows an error when the blockchain height endpoint is down', async () => {
+      server = await startServer()
+      await connectWalletAndSendTransaction()
+      expect(await transaction.isErrorLoadingDataDisplayed()).toBe(false)
     })
   })
 
@@ -116,7 +119,7 @@ describe('Check browser wallet is resillient to node outages', () => {
     })
   })
 
-  async function startServer(config = {}) {
+  async function startServer(config: ServerConfig = {}) {
     const sv = createServer(config)
     sv.listen(test.test.mockPort)
     return sv

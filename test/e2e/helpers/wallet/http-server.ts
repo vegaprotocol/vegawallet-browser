@@ -124,7 +124,7 @@ const accountsEndpoint = 'api/v2/accounts'
 const marketsEndpoint = '/api/v2/markets'
 const assetsEndpoint = '/api/v2/assets'
 
-type ServerConfig = {
+export type ServerConfig = {
   includeRawTransaction?: boolean
   includeBlockchainHeight?: boolean
   includeAccounts?: boolean

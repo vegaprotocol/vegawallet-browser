@@ -32,7 +32,7 @@ jobs:
         env:
           REACT_APP_TEST: true
 
-      - name: Run Upgrade test using Xvfb
+      - name: Run Resillience tests using Xvfb
         uses: coactions/setup-xvfb@v1
         with:
           run: yarn test:resillience

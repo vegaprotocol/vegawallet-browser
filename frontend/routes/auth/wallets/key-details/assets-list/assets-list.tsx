@@ -6,13 +6,17 @@ import { AssetCard } from './asset-card'
 import { useAccounts } from './use-accounts'
 import { Notification, Intent } from '@vegaprotocol/ui-toolkit'
 import { AssetListEmptyState } from './asset-list-empty-state'
+import { useAssetsStore } from '../../../../../stores/assets-store'
 
 export const locators = {
   assetListDescription: 'asset-list-description'
 }
 
 export const AssetsList = ({ publicKey }: { publicKey: string }) => {
-  const { error } = useAccountsStore((state) => ({
+  const { error: accountsError } = useAccountsStore((state) => ({
+    error: state.error
+  }))
+  const { error: assetsError } = useAssetsStore((state) => ({
     error: state.error
   }))
 
@@ -21,7 +25,7 @@ export const AssetsList = ({ publicKey }: { publicKey: string }) => {
   return (
     <VegaSection>
       <AsyncRenderer
-        error={error}
+        error={accountsError || assetsError}
         noData={Object.keys(accountsByAsset).length === 0}
         renderNoData={() => <AssetListEmptyState publicKey={publicKey} />}
         errorView={(error) => (

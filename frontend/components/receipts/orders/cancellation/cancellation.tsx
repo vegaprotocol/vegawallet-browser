@@ -11,6 +11,7 @@ export const orderSelector = (state: OrdersStore) => ({
   lastUpdated: state.lastUpdated
 })
 
+// TODO pass error to receipt view after error handling PR is merged
 export const Cancellation = ({ transaction }: ReceiptComponentProps) => {
   const [order, setOrder] = useState<vegaOrder | null>(null)
   const { getOrderById, lastUpdated } = useOrdersStore(orderSelector)

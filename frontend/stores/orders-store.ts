@@ -5,7 +5,7 @@ import { RpcMethods } from '../lib/client-rpc-methods.ts'
 
 export type OrdersStore = {
   loading: boolean
-  error: string | null
+  error: Error | null
   lastUpdated: number | null
   getOrderById: (id: string, request: SendMessage) => Promise<vegaOrder | undefined>
 }
@@ -21,17 +21,13 @@ export const useOrdersStore = create<OrdersStore>((set) => ({
       const order = response.order
 
       if (!order) {
-        set({ error: `Order with id ${id} not found`, lastUpdated: null })
+        set({ error: new Error(`Order with id ${id} not found`), lastUpdated: null })
         return
       }
 
       return order
     } catch (error) {
-      if (error instanceof Error) {
-        set({ error: `Failed to fetch order: ${error.message}` })
-      } else {
-        set({ error: 'Failed to fetch order' })
-      }
+      set({ error: error as Error })
     } finally {
       set({ loading: false, lastUpdated: Date.now() })
     }

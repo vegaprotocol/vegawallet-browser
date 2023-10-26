@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { Cancellation, orderSelector } from './cancellation'
-import { locators } from './index'
+import { locators } from './cancellation-view'
 import { OrdersStore } from '../../../../stores/orders-store'
 
 jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({

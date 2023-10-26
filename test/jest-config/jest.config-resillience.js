@@ -6,7 +6,7 @@ const jestUpgradeTests = cloneDeep(jestConfigE2E)
 
 let overrides = {
 roots: ['<rootDir>/test/resillience-tests'],
-setupFilesAfterEnv: [],
+setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts'],
   reporters: [
     'default',
     [
@@ -17,5 +17,4 @@ setupFilesAfterEnv: [],
     ]
   ]
 }
-
 export default merge(jestUpgradeTests, overrides)

@@ -17,6 +17,9 @@ jest.mock('../orders/stop-submission', () => ({
 jest.mock('../orders/stop-cancellation', () => ({
   StopOrderCancellationView: () => <div data-testid="stop-order-cancellation-view" />
 }))
+jest.mock('../orders/cancellation/cancellation-view', () => ({
+  CancellationView: () => <div data-testid="cancellation-view" />
+}))
 
 describe('BatchMarketInstructions component', () => {
   const transaction = {

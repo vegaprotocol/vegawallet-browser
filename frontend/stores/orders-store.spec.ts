@@ -61,7 +61,7 @@ describe('Orders Store', () => {
     requestMock.mockResolvedValue({})
 
     await useOrdersStore.getState().getOrderById('some-id', requestMock)
-    expect(useOrdersStore.getState().error).toBe('Order with id some-id not found')
+    expect(useOrdersStore.getState().error?.message).toBe('Order with id some-id not found')
   })
 
   it('should set error state if an unexpected error occurs', async () => {
@@ -69,12 +69,6 @@ describe('Orders Store', () => {
     requestMock.mockRejectedValue(new Error(errorMessage))
 
     await useOrdersStore.getState().getOrderById('some-id', requestMock)
-    expect(useOrdersStore.getState().error).toBe(`Failed to fetch order: ${errorMessage}`)
-  })
-
-  it('should set generic error message if an error occurs that is not an instance of Error', async () => {
-    requestMock.mockRejectedValue('Some rejection reason')
-    await useOrdersStore.getState().getOrderById('some-id', requestMock)
-    expect(useOrdersStore.getState().error).toBe('Failed to fetch order')
+    expect(useOrdersStore.getState().error?.message).toBe(errorMessage)
   })
 })

@@ -1,5 +1,4 @@
 import { AmendmentView } from '../orders/amend'
-import { CancellationView } from '../orders/cancellation'
 import { SubmissionView } from '../orders/submission'
 import { StopOrdersSubmissionView } from '../orders/stop-submission'
 import { StopOrderCancellationView } from '../orders/stop-cancellation'
@@ -10,6 +9,7 @@ import { CollapsiblePanel } from '../../collapsible-panel'
 import objectHash from 'object-hash'
 import { Fragment } from 'react'
 import { Notification, Intent } from '@vegaprotocol/ui-toolkit'
+import { CancellationView } from '../orders/cancellation/cancellation-view'
 
 export const locators = {
   header: 'header',

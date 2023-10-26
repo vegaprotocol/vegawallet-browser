@@ -117,50 +117,77 @@ const marketsResponse = () => JSON.stringify(marketsResponseObj)
 const accountsResponse = () => JSON.stringify(accountsResponseObj)
 const assetsResponse = () => JSON.stringify(assetsResponseObj)
 
-export const server = http.createServer((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*') /* @dev First, read about security */
-  res.setHeader('Access-Control-Allow-Methods', '*')
-  res.setHeader('Access-Control-Allow-Headers', '*')
-  res.setHeader('Access-Control-Max-Age', 2592000) // 30 days
+//endpoints
+const rawTransactionEndpoint = '/transaction/raw'
+const blockchainHeightEndpoint = '/blockchain/height'
+const accountsEndpoint = 'api/v2/accounts'
+const marketsEndpoint = '/api/v2/markets'
+const assetsEndpoint = '/api/v2/assets'
 
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204)
-    res.end()
-    return
-  }
+type ServerConfig = {
+  includeRawTransaction?: boolean
+  includeBlockchainHeight?: boolean
+  includeAccounts?: boolean
+  includeMarkets?: boolean
+  includeAssets?: boolean
+}
 
-  if (req.url === '/transaction/raw') {
-    res.end(rawTransactionResponse())
-    return
-  }
+export const createServer = (config: ServerConfig = {}) => {
+  const {
+    includeRawTransaction = true,
+    includeBlockchainHeight = true,
+    includeAccounts = true,
+    includeMarkets = true,
+    includeAssets = true
+  } = config
 
-  if (req.url === '/blockchain/height') {
-    res.end(blockHeightResponse())
-    return
-  }
+  return http.createServer((req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*') /* @dev First, read about security */
+    res.setHeader('Access-Control-Allow-Methods', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Max-Age', 2592000) // 30 days
 
-  if (req.url?.includes('api/v2/accounts')) {
-    res.end(accountsResponse())
-    return
-  }
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204)
+      res.end()
+      return
+    }
 
-  if (req.url === '/api/v2/markets') {
-    res.end(marketsResponse())
-    return
-  }
+    if (includeRawTransaction && req.url === rawTransactionEndpoint) {
+      res.end(rawTransactionResponse())
+      return
+    }
 
-  if (req.url === '/api/v2/assets') {
-    res.end(assetsResponse())
-    return
-  }
+    if (includeBlockchainHeight && req.url === blockchainHeightEndpoint) {
+      res.end(blockHeightResponse())
+      return
+    }
 
-  res.writeHead(404)
-  res.end('Not found')
-})
+    if (includeAccounts && req.url?.includes(accountsEndpoint)) {
+      res.end(accountsResponse())
+      return
+    }
 
-const closeServer = () => {
+    if (includeMarkets && req.url === marketsEndpoint) {
+      res.end(marketsResponse())
+      return
+    }
+
+    if (includeAssets && req.url === assetsEndpoint) {
+      res.end(assetsResponse())
+      return
+    }
+
+    res.writeHead(404)
+    res.end('Not found')
+  })
+}
+
+export const server = createServer()
+
+const closeServer = (sv = server) => {
   return new Promise<void>((resolve, reject) => {
-    server.close((err) => {
+    sv.close((err) => {
       if (err) {
         reject(err)
       } else {
@@ -170,9 +197,9 @@ const closeServer = () => {
   })
 }
 
-export async function closeServerAndWait() {
+export async function closeServerAndWait(sv = server) {
   try {
-    await closeServer()
+    await closeServer(sv)
   } catch (error) {
     console.error('Error while closing the server:', error)
   }

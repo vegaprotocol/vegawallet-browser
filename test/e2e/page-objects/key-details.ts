@@ -26,6 +26,7 @@ export class KeyDetails {
   private readonly submitNewKeyNameButton: By = getByDataTestID(renameKeyFormLocators.renameKeySubmit)
   private readonly expandAssetBalanceDetails: By = getByDataTestID(generalLocators.dropdownArrow)
   private readonly explorerLink: By = getByDataTestID(vegaKeyLocators.explorerLink)
+  private readonly notification: By = getByDataTestID('notification')
   private viewDetailsButton(keyName: string): By {
     return getByDataTestID(keyListLocators.viewDetails(keyName))
   }
@@ -49,6 +50,15 @@ export class KeyDetails {
 
   async getVegaExplorerLink() {
     return await getAttributeValue(this.driver, this.explorerLink, 'href')
+  }
+
+  async isNotificationDisplayed(timeout = 5000) {
+    return await isElementDisplayed(this.driver, this.notification, timeout)
+  }
+
+  async getNotificationText() {
+    expect(await this.isNotificationDisplayed(), 'expected notification to be displayed but it was not').toBe(true)
+    return await getElementText(this.driver, this.notification)
   }
 
   async getAssetBalance() {

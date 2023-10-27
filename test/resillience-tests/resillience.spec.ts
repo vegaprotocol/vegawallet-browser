@@ -45,20 +45,33 @@ describe('Check browser wallet is resillient to node outages', () => {
     })
 
     const testCases = [
-      { name: 'no nodes available', options: {} },
-      { name: 'market endpoint is down', options: { includeMarkets: false }, expectError: true },
-      { name: 'assets endpoint is down', options: { includeAssets: false }, expectError: true },
-      { name: 'accounts endpoint is down', options: { includeAccounts: false }, expectError: true },
-      { name: 'blockchain height endpoint is down', options: { includeBlockchainHeight: false }, expectError: true },
-      { name: 'raw transaction endpoint is down', options: { includeRawTransaction: false }, expectError: true },
-      { name: 'all endpoints available', options: {}, expectError: false }
+      { name: 'no nodes available', options: {}, startServer: false, expectError: true },
+      { name: 'market endpoint is down', options: { includeMarkets: false }, startServer: true, expectError: true },
+      { name: 'assets endpoint is down', options: { includeAssets: false }, startServer: true, expectError: true },
+      { name: 'accounts endpoint is down', options: { includeAccounts: false }, startServer: true, expectError: true },
+      {
+        name: 'blockchain height endpoint is down',
+        options: { includeBlockchainHeight: false },
+        startServer: true,
+        expectError: true
+      },
+      {
+        name: 'raw transaction endpoint is down',
+        options: { includeRawTransaction: false },
+        startServer: true,
+        expectError: true
+      },
+      { name: 'all endpoints available', options: {}, startServer: true, expectError: false }
     ]
 
     testCases.forEach((testCase) => {
       it(`shows the appropriate view when ${testCase.name}`, async () => {
-        server = await startServer(testCase.options)
+        if (testCase.startServer) {
+          server = await startServer(testCase.options)
+        }
         await connectWalletAndSendTransaction()
         expect(await transaction.isErrorLoadingDataDisplayed()).toBe(testCase.expectError)
+        closeServer = testCase.startServer
       })
     })
   })

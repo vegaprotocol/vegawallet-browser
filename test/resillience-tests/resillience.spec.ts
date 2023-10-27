@@ -39,39 +39,26 @@ describe('Check browser wallet is resillient to node outages', () => {
     await driver.quit()
   })
 
-  describe('transaction views are resillient to node outages', () => {
+  describe('transaction views are resilient to node outages', () => {
     beforeEach(async () => {
       await navigateToExtensionLandingPage(driver)
     })
 
-    it('shows an error when no nodes are available', async () => {
-      server = await startServer()
-      await connectWalletAndSendTransaction()
-      expect(await transaction.isErrorLoadingDataDisplayed()).toBe(true)
-    })
+    const testCases = [
+      { name: 'no nodes available', options: {} },
+      { name: 'market endpoint is down', options: { includeMarkets: false } },
+      { name: 'assets endpoint is down', options: { includeAssets: false } },
+      { name: 'accounts endpoint is down', options: { includeAccounts: false } },
+      { name: 'blockchain height endpoint is down', options: { includeBlockchainHeight: false } },
+      { name: 'raw transaction endpoint is down', options: { includeRawTransaction: false } }
+    ]
 
-    it('shows an error when the market endpoint is down', async () => {
-      server = await startServer({ includeMarkets: false })
-      await connectWalletAndSendTransaction()
-      expect(await transaction.isErrorLoadingDataDisplayed()).toBe(true)
-    })
-
-    it('shows an error when the assets endpoint is down', async () => {
-      server = await startServer({ includeAssets: false })
-      await connectWalletAndSendTransaction()
-      expect(await transaction.isErrorLoadingDataDisplayed()).toBe(true)
-    })
-
-    it('shows an error when the accounts endpoint is down', async () => {
-      server = await startServer({ includeAccounts: false })
-      await connectWalletAndSendTransaction()
-      expect(await transaction.isErrorLoadingDataDisplayed()).toBe(true)
-    })
-
-    it('shows an error when the blockchain height endpoint is down', async () => {
-      server = await startServer()
-      await connectWalletAndSendTransaction()
-      expect(await transaction.isErrorLoadingDataDisplayed()).toBe(false)
+    testCases.forEach((testCase) => {
+      it(`shows an error when ${testCase.name}`, async () => {
+        server = await startServer(testCase.options)
+        await connectWalletAndSendTransaction()
+        expect(await transaction.isErrorLoadingDataDisplayed()).toBe(true)
+      })
     })
   })
 

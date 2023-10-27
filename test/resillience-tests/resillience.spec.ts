@@ -46,18 +46,19 @@ describe('Check browser wallet is resillient to node outages', () => {
 
     const testCases = [
       { name: 'no nodes available', options: {} },
-      { name: 'market endpoint is down', options: { includeMarkets: false } },
-      { name: 'assets endpoint is down', options: { includeAssets: false } },
-      { name: 'accounts endpoint is down', options: { includeAccounts: false } },
-      { name: 'blockchain height endpoint is down', options: { includeBlockchainHeight: false } },
-      { name: 'raw transaction endpoint is down', options: { includeRawTransaction: false } }
+      { name: 'market endpoint is down', options: { includeMarkets: false }, expectError: true },
+      { name: 'assets endpoint is down', options: { includeAssets: false }, expectError: true },
+      { name: 'accounts endpoint is down', options: { includeAccounts: false }, expectError: true },
+      { name: 'blockchain height endpoint is down', options: { includeBlockchainHeight: false }, expectError: true },
+      { name: 'raw transaction endpoint is down', options: { includeRawTransaction: false }, expectError: true },
+      { name: 'all endpoints available', options: {}, expectError: false }
     ]
 
     testCases.forEach((testCase) => {
-      it(`shows an error when ${testCase.name}`, async () => {
+      it(`shows the appropriate view when ${testCase.name}`, async () => {
         server = await startServer(testCase.options)
         await connectWalletAndSendTransaction()
-        expect(await transaction.isErrorLoadingDataDisplayed()).toBe(true)
+        expect(await transaction.isErrorLoadingDataDisplayed()).toBe(testCase.expectError)
       })
     })
   })

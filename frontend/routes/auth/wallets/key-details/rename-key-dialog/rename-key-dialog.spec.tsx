@@ -64,7 +64,7 @@ describe('RenameKeyDialog', () => {
 
     expect(screen.getByTestId('rename-key-form')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()
-    expect(screen.getByTestId(locators.renameKeyTitle)).toHaveTextContent('Rename key')
+    expect(screen.getByTestId(locators.renameKeyTitle)).toHaveTextContent('Rename Key')
   })
   it('reloads the wallets when wallet name is successfully changed', async () => {
     render(

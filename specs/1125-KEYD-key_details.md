@@ -19,3 +19,4 @@
 - Submit button is disabled when key name is longer than 30 chars (<a name="1125-KEYD-014" href="#1125-KEYD-014">1125-KEYD-014</a>)
 - I see an error message when I enter a key name longer than 30 chars (<a name="1125-KEYD-015" href="#1125-KEYD-015">1125-KEYD-015</a>)
 - When I press submit the page is updated with the new key name (<a name="1125-KEYD-016" href="#1125-KEYD-016">1125-KEYD-016</a>)
+- Submit button is disabled when key name is only whitespace (<a name="1125-KEYD-017" href="#1125-KEYD-017">1125-KEYD-017</a>)

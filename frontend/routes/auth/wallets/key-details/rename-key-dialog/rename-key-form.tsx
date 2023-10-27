@@ -50,7 +50,7 @@ export const RenameKeyForm = ({ keyName, publicKey, onComplete }: RenameKeyFormP
         className="mt-2"
         variant="primary"
         type="submit"
-        disabled={!newKeyName || keyNameTooLong}
+        disabled={!newKeyName || keyNameTooLong || !newKeyName.trim()}
       >
         Rename
       </Button>

@@ -14,6 +14,7 @@ describe('RenameKeyForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   it('renders the form with input and submit button', () => {
     // 1125-KEYD-011 I can input the new name
     render(<RenameKeyForm onComplete={jest.fn()} keyName={'keyName'} publicKey="publicKey" />)
@@ -32,6 +33,22 @@ describe('RenameKeyForm', () => {
     const submitButton = screen.getByTestId(locators.renameKeySubmit)
 
     expect(submitButton).toBeDisabled()
+  })
+
+  it('disables submit keyname is whitespace', async () => {
+    // 1125-KEYD-017 Submit button is disabled when key name is only whitespace
+    render(<RenameKeyForm onComplete={jest.fn()} keyName={'keyName'} publicKey="publicKey" />)
+
+    const submitButton = screen.getByTestId(locators.renameKeySubmit)
+    const inputElement = screen.getByTestId(locators.renameKeyInput)
+    fireEvent.change(inputElement, {
+      target: { value: '\t ' }
+    })
+    expect(submitButton).toBeDisabled()
+    fireEvent.change(inputElement, {
+      target: { value: 'something else' }
+    })
+    expect(submitButton).not.toBeDisabled()
   })
 
   it('displays an error message when input is too long', async () => {
@@ -68,6 +85,7 @@ describe('RenameKeyForm', () => {
       name: mockNewKeyName
     })
   })
+
   it('calls onComplete when key is renamed', async () => {
     // 1125-KEYD-012 When I press submit the dialog closes
     const mockNewKeyName = 'NewKeyName'

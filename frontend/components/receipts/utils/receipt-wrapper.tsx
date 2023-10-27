@@ -18,9 +18,10 @@ export const ReceiptWrapper = ({ children, errors = [] }: { children: ReactNode;
     error: state.error
   }))
   const allErrors = [assetsError, marketsError, ...errors].filter(Boolean) as Error[]
+  const hasError = allErrors.length
   return (
     <VegaSection>
-      <section data-testid={locators.receiptWrapper}>{children}</section>
+      {!hasError && <section data-testid={locators.receiptWrapper}>{children}</section>}
       <div className="mt-4">
         <Notification
           intent={Intent.Warning}

@@ -20,7 +20,7 @@ describe('ReceiptView', () => {
     expect(screen.getByText('Child')).toBeInTheDocument()
   })
 
-  it('should render notification when an error is passed in', () => {
+  it('should render notification when an error is passed in and not render children', () => {
     mockStore(useAssetsStore, {})
     mockStore(useMarketsStore, {})
     render(
@@ -34,6 +34,7 @@ describe('ReceiptView', () => {
       'Additional data to display your transaction could not be loaded. The transaction can still be sent, but only transaction data can be shown.'
     )
     expect(screen.getByTestId(locators.receiptWrapperError)).toHaveTextContent('Copy error message(s)')
+    expect(screen.queryByText('Child')).not.toBeInTheDocument()
   })
 
   it('should render notification if there was a problem loading assets', () => {

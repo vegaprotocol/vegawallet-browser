@@ -51,7 +51,7 @@ export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProps) => {
       <Dialog open={open} onInteractOutside={resetDialog} onChange={resetDialog}>
         <div className="p-2 text-base text-vega-dark-400 overflow-hidden" style={{ maxWidth: CONSTANTS.width - 60 }}>
           <h1 data-testid={locators.renameKeyTitle} className="text-xl text-center text-white mb-2">
-            Rename key
+            Rename Key
           </h1>
           <VegaKey name={vegaKey.name} publicKey={vegaKey.publicKey} />
           <RenameKeyForm onComplete={onComplete} publicKey={vegaKey.publicKey} keyName={vegaKey.name} />

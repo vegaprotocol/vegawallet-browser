@@ -28,7 +28,7 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
             data-testid={locators.keySelectorTrigger}
             className="text-white"
           >
-            <div data-testid={locators.keySelectedCurrentKey(currentKey.name)} className="flex items-center">
+            <div data-testid={locators.keySelectedCurrentKey(currentKey.name)} className="flex items-center text-left">
               <Header content={currentKey.name} />{' '}
               <span className="ml-2">
                 <IconChevronDown size={16} />

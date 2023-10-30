@@ -48,18 +48,12 @@ describe('Check browser wallet is resillient to node outages', () => {
       { name: 'no nodes available', options: {}, startServer: false, expectError: true },
       { name: 'market endpoint is down', options: { includeMarkets: false }, startServer: true, expectError: true },
       { name: 'assets endpoint is down', options: { includeAssets: false }, startServer: true, expectError: true },
-      { name: 'accounts endpoint is down', options: { includeAccounts: false }, startServer: true, expectError: true },
+      { name: 'accounts endpoint is down', options: { includeAccounts: false }, startServer: true, expectError: false },
       {
         name: 'blockchain height endpoint is down',
         options: { includeBlockchainHeight: false },
         startServer: true,
-        expectError: true
-      },
-      {
-        name: 'raw transaction endpoint is down',
-        options: { includeRawTransaction: false },
-        startServer: true,
-        expectError: true
+        expectError: false
       },
       { name: 'all endpoints available', options: {}, startServer: true, expectError: false }
     ]

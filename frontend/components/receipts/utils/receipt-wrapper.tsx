@@ -22,20 +22,22 @@ export const ReceiptWrapper = ({ children, errors = [] }: { children: ReactNode;
   return (
     <VegaSection>
       {!hasError && <section data-testid={locators.receiptWrapper}>{children}</section>}
-      <div className="mt-4">
-        <Notification
-          intent={Intent.Warning}
-          testId={locators.receiptWrapperError}
-          title="Error loading data"
-          message="Additional data to display your transaction could not be loaded. The transaction can still be sent, but only transaction data can be shown."
-          buttonProps={{
-            action: () => {
-              navigator.clipboard.writeText(allErrors.map((e) => e.stack).join('. \n'))
-            },
-            text: 'Copy error message(s)'
-          }}
-        />
-      </div>
+      {hasError ? (
+        <div className="mt-4">
+          <Notification
+            intent={Intent.Warning}
+            testId={locators.receiptWrapperError}
+            title="Error loading data"
+            message="Additional data to display your transaction could not be loaded. The transaction can still be sent, but only transaction data can be shown."
+            buttonProps={{
+              action: () => {
+                navigator.clipboard.writeText(allErrors.map((e) => e.stack).join('. \n'))
+              },
+              text: 'Copy error message(s)'
+            }}
+          />
+        </div>
+      ) : null}
     </VegaSection>
   )
 }

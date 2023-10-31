@@ -23,7 +23,7 @@ const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
       publicKeyIndexStore
     }),
     networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
-    onerror (err) {
+    onerror(err) {
       throw err
     }
   })
@@ -452,7 +452,7 @@ describe('admin-ns', () => {
     })
   )
 
-  function setupFaultyFetch (faultyResponse) {
+  function setupFaultyFetch(faultyResponse) {
     return async () => {
       const chainHeight = {
         height: '2',
@@ -544,23 +544,33 @@ describe('admin-ns', () => {
     }
   })
 
+  const setupWallet = async (passphrase) => {
+    let admin = await createAdmin({ passphrase })
+
+    const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
+    expect(generateRecoveryPhrase.error).toBeUndefined()
+
+    const importWallet = await admin.onrequest(REQ_IMPORT_WALLET(2, generateRecoveryPhrase.result.recoveryPhrase))
+    expect(importWallet.error).toBeUndefined()
+
+    const generateKey = await admin.onrequest(REQ_GENERATE_KEY(3))
+    expect(generateKey.error).toBeUndefined()
+
+    const key = generateKey.result
+    return {
+      key,
+      admin
+    }
+  }
+
   describe('admin.export_key', () => {
     const passphrase = 'foo'
     let admin
     let key
     beforeEach(async () => {
-      admin = await createAdmin({ passphrase })
-
-      const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
-      expect(generateRecoveryPhrase.error).toBeUndefined()
-
-      const importWallet = await admin.onrequest(REQ_IMPORT_WALLET(2, generateRecoveryPhrase.result.recoveryPhrase))
-      expect(importWallet.error).toBeUndefined()
-
-      const generateKey = await admin.onrequest(REQ_GENERATE_KEY(3))
-      expect(generateKey.error).toBeUndefined()
-
-      key = generateKey.result
+      const { admin: setupAdmin, key: setupKey } = setupWallet(passphrase)
+      admin = setupAdmin
+      key = setupKey
     })
 
     afterEach(() => {
@@ -597,18 +607,9 @@ describe('admin-ns', () => {
     let admin
     let key
     beforeEach(async () => {
-      admin = await createAdmin({ passphrase })
-
-      const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
-      expect(generateRecoveryPhrase.error).toBeUndefined()
-
-      const importWallet = await admin.onrequest(REQ_IMPORT_WALLET(2, generateRecoveryPhrase.result.recoveryPhrase))
-      expect(importWallet.error).toBeUndefined()
-
-      const generateKey = await admin.onrequest(REQ_GENERATE_KEY(3))
-      expect(generateKey.error).toBeUndefined()
-
-      key = generateKey.result
+      const { admin: setupAdmin, key: setupKey } = setupWallet(passphrase)
+      admin = setupAdmin
+      key = setupKey
     })
 
     afterEach(() => {

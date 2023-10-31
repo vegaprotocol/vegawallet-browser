@@ -43,7 +43,7 @@ const ID = '1'.repeat(64)
 
 const setupPageLoaded = () => {
   mockStore(useWalletStore, {
-    loading: true,
+    loading: false,
     getKeyById: () => ({
       publicKey: ID,
       name: 'test'
@@ -91,7 +91,16 @@ describe('KeyDetailsPage', () => {
   })
 
   it('renders nothing while loading wallets', () => {
-    setupPageLoaded()
+    mockStore(useWalletStore, {
+      loading: true,
+      getKeyById: () => ({
+        publicKey: ID,
+        name: 'test'
+      })
+    })
+    mockStore(useAssetsStore, {
+      loading: false
+    })
     const { container } = render(<KeyDetailsPage id={ID} />)
     expect(container).toBeEmptyDOMElement()
   })

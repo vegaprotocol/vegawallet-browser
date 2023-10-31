@@ -568,7 +568,7 @@ describe('admin-ns', () => {
     let admin
     let key
     beforeEach(async () => {
-      const { admin: setupAdmin, key: setupKey } = setupWallet(passphrase)
+      const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
       admin = setupAdmin
       key = setupKey
     })
@@ -607,7 +607,7 @@ describe('admin-ns', () => {
     let admin
     let key
     beforeEach(async () => {
-      const { admin: setupAdmin, key: setupKey } = setupWallet(passphrase)
+      const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
       admin = setupAdmin
       key = setupKey
     })

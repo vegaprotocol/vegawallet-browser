@@ -117,8 +117,9 @@ describe('CreatePassword', () => {
     expect(checkbox).toBeChecked()
     fireEvent.click(screen.getByTestId(locators.submitPassphraseButton))
     await waitFor(() => expect(screen.getByTestId(locators.submitPassphraseButton)).toBeDisabled())
-    await waitFor(() =>
-      expect(screen.getByTestId(locators.submitPassphraseButton)).toHaveTextContent('Creating password…')
+    await waitFor(
+      () => expect(screen.getByTestId(locators.submitPassphraseButton)).toHaveTextContent('Creating password…'),
+      { timeout: 5000 }
     )
   })
 

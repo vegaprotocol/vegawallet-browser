@@ -41,6 +41,19 @@ jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
 
 const ID = '1'.repeat(64)
 
+const setupPageLoaded = () => {
+  mockStore(useWalletStore, {
+    loading: true,
+    getKeyById: () => ({
+      publicKey: ID,
+      name: 'test'
+    })
+  })
+  mockStore(useAssetsStore, {
+    loading: false
+  })
+}
+
 const renderComponent = () => {
   return render(
     <MemoryRouter>
@@ -78,16 +91,7 @@ describe('KeyDetailsPage', () => {
   })
 
   it('renders nothing while loading wallets', () => {
-    mockStore(useWalletStore, {
-      loading: true,
-      getKeyById: () => ({
-        publicKey: ID,
-        name: 'test'
-      })
-    })
-    mockStore(useAssetsStore, {
-      loading: false
-    })
+    setupPageLoaded()
     const { container } = render(<KeyDetailsPage id={ID} />)
     expect(container).toBeEmptyDOMElement()
   })
@@ -98,16 +102,7 @@ describe('KeyDetailsPage', () => {
     // 1125-KEYD-007 In the key details screen I can see my currently selected key and associated info
     // 1125-KEYD-008 There is a way to export a private key
     // 1125-KEYD-009 I can see a button to rename the key
-    mockStore(useWalletStore, {
-      loading: false,
-      getKeyById: () => ({
-        publicKey: ID,
-        name: 'test'
-      })
-    })
-    mockStore(useAssetsStore, {
-      loading: false
-    })
+    setupPageLoaded()
     renderComponent()
     expect(screen.getByTestId('key-selector')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()
@@ -117,16 +112,7 @@ describe('KeyDetailsPage', () => {
   })
 
   it('renders asset assets list', () => {
-    mockStore(useWalletStore, {
-      loading: false,
-      getKeyById: () => ({
-        publicKey: ID,
-        name: 'test'
-      })
-    })
-    mockStore(useAssetsStore, {
-      loading: false
-    })
+    setupPageLoaded()
     renderComponent()
     expect(screen.getByTestId('key-selector')).toBeInTheDocument()
     expect(screen.getByTestId('vega-key')).toBeInTheDocument()

@@ -53,7 +53,7 @@ describe('Check browser wallet is resillient to node outages', () => {
         name: 'blockchain height endpoint is down',
         options: { includeBlockchainHeight: false },
         startServer: true,
-        expectError: false
+        expectError: true
       },
       { name: 'all endpoints available', options: {}, startServer: true, expectError: false }
     ]

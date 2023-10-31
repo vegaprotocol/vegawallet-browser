@@ -44,7 +44,12 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
         <BasePage
           dataTestId={locators.keyDetailsPage}
           backLocation={FULL_ROUTES.wallets}
-          title={<KeySelector currentKey={key} />}
+          title={
+            <>
+              <KeySelector currentKey={key} />
+              <RenameKeyDialog vegaKey={key} />
+            </>
+          }
         >
           <div className="mt-6">
             <VegaKey publicKey={key.publicKey} />

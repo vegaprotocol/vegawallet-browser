@@ -43,19 +43,6 @@ jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
 
 const ID = '1'.repeat(64)
 
-const setupPageLoaded = () => {
-  mockStore(useWalletStore, {
-    loading: false,
-    getKeyById: () => ({
-      publicKey: ID,
-      name: 'test'
-    })
-  })
-  mockStore(useAssetsStore, {
-    loading: false
-  })
-}
-
 const renderComponent = () => {
   return render(
     <MemoryRouter>

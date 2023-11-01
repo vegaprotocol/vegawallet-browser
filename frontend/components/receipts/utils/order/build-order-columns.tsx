@@ -11,7 +11,6 @@ import { Direction } from './direction'
 
 // Helper functions for building individual columns for the order table
 export const buildPriceColumn = (
-  shouldDisplayPrice: boolean,
   assetsLoading: boolean,
   price?: string,
   marketId?: string,
@@ -19,7 +18,7 @@ export const buildPriceColumn = (
   symbol?: string,
   type?: vegaOrderType
 ): [ReactNode, ReactNode] | null => {
-  if (!shouldDisplayPrice) return null
+  if (!price) return null
   return [
     'Price',
     <OrderPriceComponent

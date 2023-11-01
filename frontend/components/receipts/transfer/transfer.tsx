@@ -8,6 +8,7 @@ import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { useWalletStore } from '../../../stores/wallets'
 import { formatDate, nanoSecondsToMilliseconds } from '../../../lib/utils'
+import { AsyncRenderer } from '../../async-renderer/async-renderer'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn
@@ -26,37 +27,22 @@ export const locators = {
 }
 
 export const Transfer = ({ transaction }: ReceiptComponentProps) => {
-  const { loading: assetsLoading } = useAssetsStore((state) => ({
-    loading: state.loading
+  const { loading: assetsLoading, error } = useAssetsStore((state) => ({
+    loading: state.loading,
+    error: state.error
   }))
   // We check whether wallets are loading as wallet data is used to enrich the transfer view
   const { loading: walletsLoading } = useWalletStore((state) => ({ loading: state.loading }))
 
   // Not supporting recurring transfers yet
   if (transaction.transfer.recurring) return null
-  const time = getTime(transaction)
   return (
-    <ReceiptWrapper>
-      <h1 className="text-vega-dark-300">Amount</h1>
-
-      {assetsLoading || walletsLoading ? (
-        <BasicTransferView transaction={transaction} />
-      ) : (
-        <EnrichedTransferView transaction={transaction} />
-      )}
-
-      <h1 className="text-vega-dark-300 mt-4" data-testid={locators.whenSection}>
-        When
-      </h1>
-      <p data-testid={locators.whenElement}>
-        {time ? (
-          <>
-            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({formatDate(time)})
-          </>
-        ) : (
-          'Now'
-        )}
-      </p>
-    </ReceiptWrapper>
+    <AsyncRenderer
+      loading={walletsLoading || assetsLoading}
+      error={error}
+      renderLoading={() => <BasicTransferView transaction={transaction} />}
+      errorView={() => <BasicTransferView transaction={transaction} />}
+      render={() => <EnrichedTransferView transaction={transaction} />}
+    />
   )
 }

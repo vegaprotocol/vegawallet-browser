@@ -61,11 +61,9 @@ export const OrderTable = ({
     }
   }
   const symbol = assetInfo?.details?.symbol
-  const shouldDisplayPrice = (price: string | undefined, type: vegaOrderType | undefined) =>
-    type === vegaOrderType.TYPE_MARKET || Boolean(price && price !== '0')
 
   const columns = [
-    buildPriceColumn(shouldDisplayPrice(price, type), assetsLoading, price, marketId, formattedPrice, symbol, type),
+    buildPriceColumn(assetsLoading, price, marketId, formattedPrice, symbol, type),
     buildPeggedOrderColumn(marketsLoading, peggedOrder, marketId, market, symbol),
     buildSizeColumn(marketsLoading, size, marketId, formattedSize),
     buildMarketColumn(marketsLoading, marketId, market),

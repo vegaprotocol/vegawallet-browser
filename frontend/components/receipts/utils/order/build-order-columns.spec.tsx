@@ -20,14 +20,14 @@ jest.mock('./order-price', () => {
 
 describe('buildPriceColumn', () => {
   it('returns Price column when shouldDisplayPrice is true', () => {
-    const result = buildPriceColumn(true, false, '100', '1', '100.00', 'USD', vegaOrderType.TYPE_LIMIT)
+    const result = buildPriceColumn(false, '100', '1', '100.00', 'USD', vegaOrderType.TYPE_LIMIT)
 
     render(<>{result}</>)
     expect(screen.getByTestId('order-price-component')).toBeInTheDocument()
   })
 
-  it('returns null when shouldDisplayPrice is false', () => {
-    const result = buildPriceColumn(false, false, '100', '1', '100.00', 'USD', vegaOrderType.TYPE_LIMIT)
+  it('returns null when price is unset', () => {
+    const result = buildPriceColumn(false, undefined, '1', '100.00', 'USD', vegaOrderType.TYPE_LIMIT)
     expect(result).toBeNull()
   })
 })

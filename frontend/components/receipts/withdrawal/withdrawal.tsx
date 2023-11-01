@@ -5,8 +5,9 @@ import { BasicWithdrawal } from './basic-withdrawal'
 import { EnrichedWithdrawal } from './enriched-withdrawal'
 
 export const Withdraw = ({ transaction }: ReceiptComponentProps) => {
-  const { loading } = useAssetsStore((state) => ({
-    loading: state.loading
+  const { loading, error } = useAssetsStore((state) => ({
+    loading: state.loading,
+    error: state.error
   }))
 
   if (!transaction.withdrawSubmission.ext?.erc20) return null
@@ -14,6 +15,16 @@ export const Withdraw = ({ transaction }: ReceiptComponentProps) => {
   return (
     <AsyncRenderer
       loading={loading}
+      error={error}
+      errorView={() => {
+        return (
+          <BasicWithdrawal
+            receiverAddress={receiverAddress}
+            amount={transaction.withdrawSubmission.amount}
+            asset={transaction.withdrawSubmission.asset}
+          />
+        )
+      }}
       renderLoading={() => (
         <BasicWithdrawal
           receiverAddress={receiverAddress}

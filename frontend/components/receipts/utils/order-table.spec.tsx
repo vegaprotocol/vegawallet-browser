@@ -247,12 +247,6 @@ describe('OrderTable', () => {
     expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toBeInTheDocument()
   })
 
-  it('does not display price for zero prices in non-market orders', () => {
-    render(<OrderTable price="0" type={vegaOrderType.TYPE_LIMIT} marketId="1" />)
-
-    expect(screen.queryByTestId(priceWithTooltipLocators.priceWithTooltip)).not.toBeInTheDocument()
-  })
-
   it('displays enriched size data when markets (and size) are provided', () => {
     const mockSize = '100'
     const mockPositionDecimals = Number(mockMarket.positionDecimalPlaces as string)

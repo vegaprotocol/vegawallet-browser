@@ -23,7 +23,7 @@ export const OrderPriceComponent = ({
 }) => {
   if (type === vegaOrderType.TYPE_MARKET) return <div data-testid="order-details-market-price">Market price</div>
 
-  if (!price || price === '0' || !marketId) return null
+  if (!price || !marketId) return null
 
   if (assetsLoading || !formattedPrice || !symbol) {
     return <PriceWithTooltip key="order-details-price" marketId={marketId} price={price} />

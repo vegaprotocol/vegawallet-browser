@@ -10,7 +10,7 @@ describe('OrderSizeComponent', () => {
   })
 
   it('should return enriched data otherwise', () => {
-    // 1118-ORDS-012 I see the order size in the enriched data view when data has been loaded successfully
+    // 1118-ODTB-012 I see the order size in the enriched data view when data has been loaded successfully
     render(<OrderSizeComponent marketsLoading={false} size="100" marketId="someMarketId" formattedSize="100" />)
     expect(screen.getByTestId(amountWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
   })

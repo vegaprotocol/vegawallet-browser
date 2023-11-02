@@ -1,24 +1,4 @@
 ## Order submission
 
-- I can see the market id of the order I am submitting (<a name="1118-ORDS-001" href="#1118-ORDS-001">1118-ORDS-001</a>)
-- I can see the direction of order I am submitting (<a name="1118-ORDS-002" href="#1118-ORDS-002">1118-ORDS-002</a>)
-- I can see the type of the order I am submitting (<a name="1118-ORDS-003" href="#1118-ORDS-003">1118-ORDS-003</a>)
-- I can see the reference of the order I am submitting (<a name="1118-ORDS-004" href="#1118-ORDS-004">1118-ORDS-004</a>)
+- I can see the [order table](./1130-ODTB-order_table.md) (<a name="1118-ORDS-001" href="#1118-ORDS-001">1118-ORDS-001</a>)
 - I can see any relevant [order badges](./1119-ORBD-order_badges.md) (<a name="1118-ORDS-005" href="#1118-ORDS-005">1118-ORDS-005</a>)
-- I can see the [price of the order with tooltip](./1127-DECM-decimal_numbers.md) (<a name="1118-ORDS-006" href="#1118-ORDS-006">1118-ORDS-006</a>)
-- I can see the [size of the order with tooltip](./1127-DECM-decimal_numbers.md) (<a name="1118-ORDS-007" href="#1118-ORDS-007">1118-ORDS-007</a>)
-
-### Pegged Orders
-
-- I can see the raw offset price of the order (<a name="1118-ORDS-008" href="#1118-ORDS-008">1118-ORDS-008</a>)
-- I can see the reference price of the order (<a name="1118-ORDS-009" href="#1118-ORDS-009">1118-ORDS-009</a>)
-
-### Market Orders
-
-- I can see 'Market price' (<a name="1118-ORDS-013" href="#1118-ORDS-010">1118-ORDS-010</a>)
-
-### Enriched Orders
-
-- I see the market code in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-011" href="#1118-ORDS-011">1118-ORDS-011</a>)
-- I see the order size in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-012" href="#1118-ORDS-012">1118-ORDS-012</a>)
-- I see the order price in the enriched data view when data has been loaded successfully (<a name="1118-ORDS-013" href="#1118-ORDS-013">1118-ORDS-013</a>)

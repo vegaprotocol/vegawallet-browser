@@ -1,3 +1,5 @@
+// This script adds all AC files to the config so they are picked up by approbation
+
 import fs from 'node:fs/promises'
 import path from 'node:path'
 

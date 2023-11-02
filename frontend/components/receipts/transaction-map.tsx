@@ -7,7 +7,7 @@ import { Submission } from './orders/submission'
 import { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
 import { Withdraw } from './withdrawal'
-import { Cancellation } from './orders/cancellation/cancellation.tsx'
+import { Cancellation } from './orders/cancellation'
 
 export const hasReceiptView = (transaction: Transaction) => {
   const type = Object.keys(transaction)[0] as TransactionKeys

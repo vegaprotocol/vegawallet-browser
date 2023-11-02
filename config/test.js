@@ -15,7 +15,8 @@ const test = {
     deposit: 'https://console.fairground.wtf/#/portfolio/assets/deposit',
     transfer: 'https://console.fairground.wtf/#/portfolio/assets/transfer',
     withdraw: 'https://console.fairground.wtf/#/portfolio/assets/withdraw',
-    docs: 'https://docs.vega.xyz/testnet'
+    docs: 'https://docs.vega.xyz/testnet',
+    vegaDapps: 'https://vega.xyz/apps'
   },
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',

@@ -5,6 +5,8 @@ import { NetworkCollection } from '../backend/network.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 import { ConnectionsCollection } from '../backend/connections.js'
+import { FetchCache } from '../backend/fetch-cache.js'
+
 import { createHTTPServer, createJSONHTTPServer } from './helpers.js'
 import { CONSTANTS } from '../../lib/constants.js'
 
@@ -23,7 +25,8 @@ const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
       publicKeyIndexStore
     }),
     networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
-    onerror(err) {
+    fetchCache: new FetchCache(),
+    onerror (err) {
       throw err
     }
   })
@@ -39,6 +42,72 @@ const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
 
   return server
 }
+
+// Request templates to make it easier to read the tests
+const REQ_GENERATE_RECOVERY_PHRASE = (id) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.generate_recovery_phrase',
+  params: null
+})
+
+const REQ_IMPORT_WALLET = (id, recoveryPhrase, name = 'Wallet 1') => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.import_wallet',
+  params: {
+    name,
+    recoveryPhrase
+  }
+})
+
+const REQ_GENERATE_KEY = (id, name = 'Key 1', wallet = 'Wallet 1') => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.generate_key',
+  params: {
+    name,
+    wallet
+  }
+})
+
+const REQ_EXPORT_KEY = (id, publicKey, passphrase) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.export_key',
+  params: {
+    publicKey,
+    passphrase
+  }
+})
+
+const REQ_RENAME_KEY = (id, publicKey, name) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.rename_key',
+  params: {
+    publicKey,
+    name
+  }
+})
+
+const REQ_LIST_KEYS = (id, wallet = 'Wallet 1') => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.list_keys',
+  params: {
+    wallet
+  }
+})
+
+const REQ_FETCH = (id, path) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.fetch',
+  params: {
+    path
+  }
+})
 
 describe('admin-ns', () => {
   beforeEach(() => {
@@ -459,88 +528,71 @@ describe('admin-ns', () => {
         chainId: 'testnet'
       }
 
-      const server = await createHTTPServer((req, res) => {
-        if (req.url === '/blockchain/height') return res.end(JSON.stringify(chainHeight))
+      const expected = {
+        assets: ['asset1', 'asset2']
+      }
 
-        res.writeHead(faultyResponse.statusCode, { 'Content-Type': 'application/json' })
-        res.end(faultyResponse.body)
+      const happyServer = await createJSONHTTPServer((req) => {
+        if (req.url === '/blockchain/height') return { body: chainHeight }
+
+        return { body: expected }
       })
 
-      const admin = await createAdmin({ datanodeUrls: [server.url] })
+      const sadServer = await createJSONHTTPServer(() => ({ statusCode: 500 }))
+      const malformedServer = await createHTTPServer((req, res) => res.end('<Malformed JSON>'))
 
-      const fetch = await admin.onrequest({
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'admin.fetch',
-        params: {
-          path: '/assets'
+      const admin = await createAdmin({ datanodeUrls: [happyServer.url, sadServer.url, malformedServer.url] })
+
+      const fetch = await admin.onrequest(REQ_FETCH(1, '/assets'))
+
+      expect(fetch.result).toEqual(expected)
+
+      await Promise.all([happyServer.close(), sadServer.close(), malformedServer.close()])
+    })
+
+    it(
+      'should return errors from unsuccessful fetch (statusCode)',
+      setupFaultyFetch({
+        statusCode: 400,
+        body: ''
+      })
+    )
+
+    it(
+      'should return errors from unsuccessful fetch (malformed response)',
+      setupFaultyFetch({
+        statusCode: 200,
+        body: '<Malformed JSON>'
+      })
+    )
+
+    function setupFaultyFetch (faultyResponse) {
+      return async () => {
+        const chainHeight = {
+          height: '2',
+          chainId: 'testnet'
         }
-      })
 
-      expect(fetch.result).toBeUndefined()
-      expect(fetch.error).toEqual({
-        code: -1,
-        message: 'Failed to fetch data',
-        data: expect.any(String)
-      })
+        const server = await createHTTPServer((req, res) => {
+          if (req.url === '/blockchain/height') return res.end(JSON.stringify(chainHeight))
 
-      await Promise.all([server.close()])
-    }
-  }
+          res.writeHead(faultyResponse.statusCode, { 'Content-Type': 'application/json' })
+          res.end(faultyResponse.body)
+        })
 
-  const REQ_GENERATE_RECOVERY_PHRASE = (id) => ({
-    jsonrpc: '2.0',
-    id,
-    method: 'admin.generate_recovery_phrase',
-    params: null
-  })
+        const admin = await createAdmin({ datanodeUrls: [server.url] })
 
-  const REQ_IMPORT_WALLET = (id, recoveryPhrase, name = 'Wallet 1') => ({
-    jsonrpc: '2.0',
-    id,
-    method: 'admin.import_wallet',
-    params: {
-      name,
-      recoveryPhrase
-    }
-  })
+        const fetch = await admin.onrequest(REQ_FETCH(1, '/assets'))
 
-  const REQ_GENERATE_KEY = (id, name = 'Key 1', wallet = 'Wallet 1') => ({
-    jsonrpc: '2.0',
-    id,
-    method: 'admin.generate_key',
-    params: {
-      name,
-      wallet
-    }
-  })
+        expect(fetch.result).toBeUndefined()
+        expect(fetch.error).toEqual({
+          code: -1,
+          message: 'Failed to fetch data',
+          data: expect.any(String)
+        })
 
-  const REQ_EXPORT_KEY = (id, publicKey, passphrase) => ({
-    jsonrpc: '2.0',
-    id,
-    method: 'admin.export_key',
-    params: {
-      publicKey,
-      passphrase
-    }
-  })
-
-  const REQ_RENAME_KEY = (id, publicKey, name) => ({
-    jsonrpc: '2.0',
-    id,
-    method: 'admin.rename_key',
-    params: {
-      publicKey,
-      name
-    }
-  })
-
-  const REQ_LIST_KEYS = (id, wallet = 'Wallet 1') => ({
-    jsonrpc: '2.0',
-    id,
-    method: 'admin.list_keys',
-    params: {
-      wallet
+        await Promise.all([server.close()])
+      }
     }
   })
 

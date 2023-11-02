@@ -45,16 +45,19 @@ describe('OrderTable', () => {
   })
 
   it('renders a row for each property', () => {
-    // 1118-ORDS-001 I can see the market id of the order I am submitting
-    // 1118-ORDS-002 I can see the direction of order I am submitting
-    // 1118-ORDS-003 I can see the type of the order I am submitting
-    // 1118-ORDS-004 I can see the reference of the order I am submitting
-    // 1118-ORDS-006 I can see the price of the order
-    // 1118-ORDS-007 I can see the size of the order
-    // 1118-ORDS-008 I can see the raw offset price of the order
-    // 1118-ORDS-009 I can see the reference price of the order
+    // 1118-ODTB-001 I can see the market id of the order I am submitting
+    // 1118-ODTB-002 I can see the direction of order I am submitting
+    // 1118-ODTB-003 I can see the type of the order I am submitting
+    // 1118-ODTB-004 I can see the reference of the order I am submitting
+    // 1118-ODTB-005 I can see any relevant [order badges](./1119-ORBD-order_badges.md)
+    // 1118-ODTB-006 I can see the [price of the order with tooltip](./1127-DECM-decimal_numbers.md)
+    // 1118-ODTB-007 I can see the [size of the order with tooltip](./1127-DECM-decimal_numbers.md)
+    // 1118-ODTB-008 I can see the raw offset price of the order
+    // 1118-ODTB-009 I can see the reference price of the order
+
     // 1117-ORDC-001 If present I can see the market id relating to the order
     // 1117-ORDC-002 If present I can see the order id relating to the order
+
     // 1116-ORDA-001 I can see the order id of the order I am amending
     // 1116-ORDA-002 I can see the market id relating to the order I am amending
 

@@ -6,7 +6,7 @@ import { locators as amountWithSymbolLocators } from '../string-amounts/amount-w
 
 describe('OrderPriceComponent', () => {
   it('should return "Market price" if tx is of market type', () => {
-    // 1118-ORDS-010 I can see 'Market price'
+    // 1118-ODTB-010 I can see 'Market price'
     render(
       <OrderPriceComponent
         assetsLoading={false}
@@ -51,7 +51,7 @@ describe('OrderPriceComponent', () => {
   })
 
   it('should return enriched data otherwise', () => {
-    // 1118-ORDS-013 I see the order price in the enriched data view when data has been loaded successfully
+    // 1118-ODTB-013 I see the order price in the enriched data view when data has been loaded successfully
     render(
       <OrderPriceComponent
         assetsLoading={false}

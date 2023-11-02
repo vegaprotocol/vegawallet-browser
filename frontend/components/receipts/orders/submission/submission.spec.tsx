@@ -16,7 +16,8 @@ describe('SubmissionReceipt', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('renders order table and badges', () => {
-    // 1118-ORDS-005 I can see any relevant order badges
+    // 1118-ORDS-001 I can see the order table
+    // 1118-ORDS-002 I can see any relevant order badges
     render(
       <Submission
         transaction={{

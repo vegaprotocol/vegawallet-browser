@@ -10,13 +10,11 @@ import {
 import { navigateToExtensionLandingPage } from '../e2e/helpers/wallet/wallet-setup'
 import { Transaction } from '../e2e/page-objects/transaction'
 import { goToNewWindowHandle, switchWindowHandles, windowHandleHasCount } from '../e2e/helpers/selenium-util'
-import {
-  consoleSmokeMainnetRecoveryPhrase,
-  consoleSmokeTestnetRecoveryPhrase
-} from '../e2e/helpers/wallet/common-wallet-values'
 import { Console } from './console'
 import smokeConsoleMainnet from '../../config/console-smoke-mainnet'
 import smokeConsoleTestnet from '../../config/console-smoke-testnet'
+import dotenv from 'dotenv'
+import path from 'path'
 
 let driver: WebDriver
 let connectWallet: ConnectWallet
@@ -28,6 +26,25 @@ let approveTransaction: boolean
 let market: string
 let config: any
 let acceptRisk: boolean
+
+const consoleSmokeTestnetRecoveryPhrase = process.env.TESTNET_RECOVERY_PHRASE ?? ''
+const consoleSmokeMainnetRecoveryPhrase = process.env.MAINNET_RECOVERY_PHRASE ?? ''
+
+beforeAll(async () => {
+  const envPath = path.join(__dirname, '../../../', '.env.local')
+  if (process.env.GITHUB_ACTIONS !== 'true') {
+    dotenv.config({ path: envPath })
+  }
+  if (process.env.TESTNET && consoleSmokeTestnetRecoveryPhrase === '') {
+    throw new Error(
+      'Please set TESTNET_RECOVERY_PHRASE .env.local if running locally, otherwise check secrets are configured correctly for CI'
+    )
+  } else if (consoleSmokeMainnetRecoveryPhrase === '') {
+    throw new Error(
+      'Please set MAINNET_RECOVERY_PHRASE .env.local if running locally, otherwise check secrets are configured correctly for CI'
+    )
+  }
+})
 
 beforeEach(async () => {
   await setUpTests()
@@ -98,7 +115,6 @@ async function setUpTests() {
     config = smokeConsoleTestnet
     acceptRisk = false
   }
-  console.log('recovery phrase is: ' + recoveryPhrase)
   await apiHelper.setUpWalletAndKey('password', 'wallet', 'Key 1', false, recoveryPhrase)
   await navigateToExtensionLandingPage(driver)
 }

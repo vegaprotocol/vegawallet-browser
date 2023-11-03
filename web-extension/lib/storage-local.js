@@ -2,36 +2,36 @@ const storage = (globalThis?.browser ?? globalThis?.chrome)?.storage?.local
 
 // Based on https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea
 export default class StorageLocalMap {
-  static isSupported() {
+  static isSupported () {
     return storage != null
   }
 
   // Scary name
-  static async permanentClearAll() {
+  static async permanentClearAll () {
     return storage.clear()
   }
 
-  constructor(prefix) {
+  constructor (prefix) {
     this._prefix = prefix
-    if (!StorageLocalMap.isSupported()) {
+    if (!LocalStorage.isSupported()) {
       throw new Error('Unsupported storage runtime')
     }
   }
 
-  async _load() {
+  async _load () {
     return (await storage.get(this._prefix))?.[this._prefix] ?? {}
   }
 
-  async has(key) {
+  async has (key) {
     return (await this._load())[key] !== undefined
   }
 
-  async get(key) {
+  async get (key) {
     const val = await this._load()
     return val[key]
   }
 
-  async set(key, value) {
+  async set (key, value) {
     const val = await this._load()
     val[key] = value
     await storage.set({
@@ -40,7 +40,7 @@ export default class StorageLocalMap {
     return this
   }
 
-  async delete(key) {
+  async delete (key) {
     const val = await this._load()
     const hadKey = val[key] != null
     if (hadKey) {
@@ -52,19 +52,19 @@ export default class StorageLocalMap {
     return hadKey
   }
 
-  async clear() {
+  async clear () {
     await storage.remove(this._prefix)
   }
 
-  async keys() {
+  async keys () {
     return Object.keys(await this._load())
   }
 
-  async values() {
+  async values () {
     return Object.values(await this._load())
   }
 
-  async entries() {
+  async entries () {
     return Object.entries(await this._load())
   }
 }

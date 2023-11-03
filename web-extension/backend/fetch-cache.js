@@ -9,8 +9,8 @@ export const Days = 24 * Hours
  * Default caching strategy (ie. the concrete implementation for the browser wallet)
  *
  * We cache:
- *  - Markets for 24 hours
- *  - Assets for 24 hours
+ *  - Markets for 30 Minutes
+ *  - Assets for 30 Minutes
  *  - Everything else is not cached
  *
  * New endpoints can be added to the switch statement, while more advanched caching strategies
@@ -24,8 +24,8 @@ export function vegaCachingStrategy (key, value) {
   const url = new URL(key, 'https://localhost') // adding a random domain to make a valid URL
 
   switch (url.pathname) {
-    case '/api/v2/markets': return 24 * Hours
-    case '/api/v2/assets': return 24 * Hours
+    case '/api/v2/markets': return 30 * Minutes
+    case '/api/v2/assets': return 30 * Minutes
     default: return 0
   }
 }

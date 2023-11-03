@@ -1,6 +1,5 @@
 import { ReceiptComponentProps } from '../../receipts'
-import { useEffect, useState } from 'react'
-import { vegaOrder } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { useEffect } from 'react'
 import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
@@ -13,19 +12,18 @@ export const orderSelector = (state: OrdersStore) => ({
 
 // TODO pass error to receipt view after error handling PR is merged
 export const Cancellation = ({ transaction }: ReceiptComponentProps) => {
-  const [order, setOrder] = useState<vegaOrder | null>(null)
-  const { getOrderById, lastUpdated } = useOrdersStore(orderSelector)
+  const { getOrderById, lastUpdated, order } = useOrdersStore((state) => ({
+    getOrderById: state.getOrderById,
+    lastUpdated: state.lastUpdated,
+    order: state.order
+  }))
   const cancellation = transaction.orderCancellation
   const { orderId } = cancellation
   const { request } = useJsonRpcClient()
 
   useEffect(() => {
     if (orderId) {
-      getOrderById(orderId, request).then((result) => {
-        if (result) {
-          setOrder(result)
-        }
-      })
+      getOrderById(orderId, request)
     }
   }, [orderId, getOrderById, request])
 

@@ -12,7 +12,7 @@ import { Transaction } from '../e2e/page-objects/transaction'
 import { goToNewWindowHandle, switchWindowHandles, windowHandleHasCount } from '../e2e/helpers/selenium-util'
 import {
   consoleSmokeMainnetRecoveryPhrase,
-  consoleSmokeRecoveryPhrase
+  consoleSmokeTestnetRecoveryPhrase
 } from '../e2e/helpers/wallet/common-wallet-values'
 import { Console } from './console'
 import smokeConsoleMainnet from '../../config/console-smoke-mainnet'
@@ -92,7 +92,7 @@ async function setUpTests() {
     config = smokeConsoleMainnet
     acceptRisk = true
   } else {
-    recoveryPhrase = consoleSmokeRecoveryPhrase
+    recoveryPhrase = consoleSmokeTestnetRecoveryPhrase
     approveTransaction = true
     market = 'tBTC'
     config = smokeConsoleTestnet

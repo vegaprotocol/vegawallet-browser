@@ -1,18 +1,18 @@
 import { WebDriver } from 'selenium-webdriver'
 import * as fs from 'fs'
-
 //URLS
 const e2eExtensionId = 'jfaancmgehieoohdnmcdfdlkblfcehph'
 const chromeExtensionURL = (id: string) => `chrome-extension://${id}/index.html`
 export const testDAppUrl = 'https://vegaprotocol.github.io/vegawallet-browser/'
 export const consoleSmokePublicKey = '10743917237e3f76eabcec06acc4e56807c468c6a84f437c4c9ff75dc2822851'
-export const consoleSmokeRecoveryPhrase =
-  'deny puzzle bitter bright cost rival foam wall cook urban rotate beach improve problem trumpet happy basket glad total message nuclear indoor media pumpkin'
+export const consoleSmokeTestnetRecoveryPhrase =
+  (process.env.TESTNET_RECOVERY_PHRASE ?? '') || (process.env.LOCAL_TESTNET_RECOVERY_PHRASE ?? '')
 export const consoleSmokeMainnetRecoveryPhrase =
-  'fog tissue potato witness render oven scan diet nut carpet light question intact cook twist index citizen saddle boy snake dust you first chair'
+  (process.env.MAINNET_RECOVERY_PHRASE ?? '') || (process.env.LOCAL_MAINNET_RECOVERY_PHRASE ?? '')
 
 //PASSWORDS
 export const defaultPassword = 'password1'
+// recovery phrase not linked to a key with any assets
 export const validRecoveryPhrase =
   'solid length discover gun swear nose artwork unfair vacuum canvas push hybrid owner wasp arrest mixed oak miss cage scatter tree harsh critic believe'
 

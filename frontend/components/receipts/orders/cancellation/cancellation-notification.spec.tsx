@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { CancellationNotification, locators } from './cancellation-notification'
+import { CancellationNotification } from './cancellation-notification'
 import { mockStore } from '../../../../test-helpers/mock-store'
 import { useMarketsStore } from '../../../../stores/markets-store'
 
@@ -7,6 +7,8 @@ jest.mock('../../../../stores/markets-store')
 
 describe('CancellationNotification', () => {
   it('should display "Cancel all open orders in this market" when marketId is provided and orderId is not', () => {
+    // If I cancel an order without an order id but with a market id I see a warning notifying me I will close all orders for that market (<a name="1117-ORDC-008" href="#1117-ORDC-008">1117-ORDC-008</a>)
+
     mockStore(useMarketsStore, {
       getMarketById: () => ({
         id: '1',
@@ -22,6 +24,7 @@ describe('CancellationNotification', () => {
   })
 
   it('should display "Cancel all open orders in all markets" when neither orderId nor marketId is provided', () => {
+    // If I cancel an order without an order id or market id I see a warning notifying me I will close all orders in all markets (<a name="1117-ORDC-009" href="#1117-ORDC-009">1117-ORDC-009</a>)
     mockStore(useMarketsStore, {
       getMarketById: () => ({
         id: '1',
@@ -36,38 +39,6 @@ describe('CancellationNotification', () => {
     expect(screen.getByText('Cancel ALL orders in ALL markets')).toBeInTheDocument()
   })
 
-  it('should not render any Notification when orderId is provided', () => {
-    mockStore(useMarketsStore, {
-      getMarketById: () => ({
-        id: '1',
-        tradableInstrument: {
-          instrument: {
-            code: 'BTC/USD'
-          }
-        }
-      })
-    })
-    render(<CancellationNotification orderId="some-order-id" marketId="" />)
-    const notification = screen.queryByTestId(locators.cancellationNotification)
-    expect(notification).not.toBeInTheDocument()
-  })
-
-  it('should not render any Notification when both orderId and marketId are provided', () => {
-    mockStore(useMarketsStore, {
-      getMarketById: () => ({
-        id: '1',
-        tradableInstrument: {
-          instrument: {
-            code: 'BTC/USD'
-          }
-        }
-      })
-    })
-    render(<CancellationNotification orderId="some-order-id" marketId="some-market-id" />)
-    const notification = screen.queryByTestId(locators.cancellationNotification)
-    expect(notification).not.toBeInTheDocument()
-  })
-
   it('should render market id if market code cannot be found', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => ({
@@ -77,5 +48,25 @@ describe('CancellationNotification', () => {
     render(<CancellationNotification orderId="" marketId="some-market-id" />)
 
     expect(screen.getByText('Cancel ALL open orders in some-m…t-id')).toBeInTheDocument()
+  })
+
+  it('should render nothing order id is present', () => {
+    // 1117-ORDC-006 If I cancel an order with an order id and no market id I see the [normal cancel order view](#enriched-order)
+    // 1117-ORDC-007 If I cancel an order with an order id and a market id I see the [normal cancel order view](#enriched-order)
+    mockStore(useMarketsStore, {
+      getMarketById: () => ({
+        id: '1'
+      })
+    })
+    {
+      const { container } = render(<CancellationNotification orderId="id" marketId="some-market-id" />)
+
+      expect(container).toBeEmptyDOMElement()
+    }
+    {
+      const { container } = render(<CancellationNotification orderId="id" marketId="" />)
+
+      expect(container).toBeEmptyDOMElement()
+    }
   })
 })

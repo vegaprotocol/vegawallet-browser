@@ -1,14 +1,9 @@
 import { ReceiptComponentProps } from '../../receipts'
 import { useEffect } from 'react'
-import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store'
+import { useOrdersStore } from '../../../../stores/orders-store'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { CancellationView } from './cancellation-view'
-
-export const orderSelector = (state: OrdersStore) => ({
-  getOrderById: state.getOrderById,
-  lastUpdated: state.lastUpdated
-})
 
 // TODO pass error to receipt view after error handling PR is merged
 export const Cancellation = ({ transaction }: ReceiptComponentProps) => {

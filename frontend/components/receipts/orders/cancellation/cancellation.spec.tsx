@@ -1,7 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { Cancellation, orderSelector } from './cancellation'
+import { Cancellation } from './cancellation'
 import { locators } from './cancellation-view'
-import { OrdersStore } from '../../../../stores/orders-store'
+import { useOrdersStore } from '../../../../stores/orders-store'
+import { mockStore } from '../../../../test-helpers/mock-store'
 
 jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
@@ -18,54 +19,39 @@ const mockGetOrderById = jest.fn(() =>
 
 const mockLastUpdatedTimestamp = 100000000
 
-jest.mock('../../../../stores/orders-store', () => ({
-  ...jest.requireActual('../../../../stores/orders-store'),
-  useOrdersStore: jest.fn(() => {
-    return {
-      getOrderById: mockGetOrderById,
-      lastUpdated: mockLastUpdatedTimestamp
-    }
-  })
-}))
+jest.mock('../../../../stores/orders-store')
 
-describe('<Cancellation />', () => {
+const renderComponent = (mockTransaction: { orderCancellation: { orderId: string; marketId: string } }) => {
+  mockStore(useOrdersStore, {
+    getOrderById: mockGetOrderById,
+    lastUpdated: mockLastUpdatedTimestamp
+  })
+  render(<Cancellation transaction={mockTransaction} />)
+}
+
+describe('Cancellation', () => {
   const mockTransaction = {
     orderCancellation: { orderId: '123', marketId: 'abc' }
   }
 
   it('calls getOrderById when orderId is provided', async () => {
-    render(<Cancellation transaction={mockTransaction} />)
+    renderComponent(mockTransaction)
     await waitFor(() => expect(mockGetOrderById).toHaveBeenCalledWith('123', expect.anything()))
   })
 
   it('renders CancellationView with correct props', async () => {
-    render(<Cancellation transaction={mockTransaction} />)
+    renderComponent(mockTransaction)
     await waitFor(() => {
       const cancellationViewElement = screen.getByTestId(locators.cancellationView)
+
       expect(cancellationViewElement).toBeInTheDocument()
     })
   })
 
   it('renders last updated field', async () => {
-    render(<Cancellation transaction={mockTransaction} />)
+    // 1117-ORDC-003 I can see the time of when the order was fetched from the data node
+    renderComponent(mockTransaction)
+
     await screen.findByText(`Last Updated: ${new Date(mockLastUpdatedTimestamp).toLocaleString()}`)
-  })
-})
-
-describe('orderSelector', () => {
-  it('should return getOrderById and lastUpdated from the state', () => {
-    const mockState: OrdersStore = {
-      loading: false,
-      error: null,
-      lastUpdated: 12345,
-      getOrderById: jest.fn()
-    }
-
-    const result = orderSelector(mockState)
-
-    expect(result).toEqual({
-      getOrderById: mockState.getOrderById,
-      lastUpdated: mockState.lastUpdated
-    })
   })
 })

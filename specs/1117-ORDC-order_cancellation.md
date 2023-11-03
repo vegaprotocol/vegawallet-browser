@@ -13,5 +13,5 @@
 
 - If I cancel an order with an order id and no market id I see the [normal cancel order view](#enriched-order) (<a name="1117-ORDC-006" href="#1117-ORDC-006">1117-ORDC-006</a>)
 - If I cancel an order with an order id and a market id I see the [normal cancel order view](#enriched-order) (<a name="1117-ORDC-007" href="#1117-ORDC-007">1117-ORDC-007</a>)
-- If I cancel an order without and order id but with a market id I see a warning notifying me I will close all orders for that market (<a name="1117-ORDC-008" href="#1117-ORDC-008">1117-ORDC-008</a>)
+- If I cancel an order without an order id but with a market id I see a warning notifying me I will close all orders for that market (<a name="1117-ORDC-008" href="#1117-ORDC-008">1117-ORDC-008</a>)
 - If I cancel an order without an order id or market id I see a warning notifying me I will close all orders in all markets (<a name="1117-ORDC-009" href="#1117-ORDC-009">1117-ORDC-009</a>)

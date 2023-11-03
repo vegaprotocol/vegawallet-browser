@@ -14,6 +14,8 @@ jest.mock('../../utils/order/badges', () => ({
 
 describe('CancellationView', () => {
   it('renders OrderTable with the order and market ids', () => {
+    // 1117-ORDC-004 I can see the [order table](./1130-ODTB-order_table.md)
+    // 1117-ORDC-005 I can see the [order badges](./1119-ORBD-order_badges.md)
     mockStore(useMarketsStore, {
       getMarketById: () => ({
         id: '1',

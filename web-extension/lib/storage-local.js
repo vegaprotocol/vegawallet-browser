@@ -13,7 +13,7 @@ export default class StorageLocalMap {
 
   constructor (prefix) {
     this._prefix = prefix
-    if (!LocalStorage.isSupported()) {
+    if (!StorageLocalMap.isSupported()) {
       throw new Error('Unsupported storage runtime')
     }
   }

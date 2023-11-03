@@ -37,14 +37,14 @@ jobs:
 
       - name: Run wallet with console ${{ matrix.environment }} smoke tests using Xvfb
         uses: coactions/setup-xvfb@v1
+        env:
+          MAINNET_RECOVERY_PHRASE: '${{ secrets.MAINNET_RECOVERY_PHRASE }}'
+          TESTNET_RECOVERY_PHRASE: '${{ secrets.TESTNET_RECOVERY_PHRASE }}'
         with:
           run: yarn test:console:${{ matrix.environment }}:ci
 
       - name: Test Report
         uses: phoenix-actions/test-reporting@v12
-        env:
-          MAINNET_RECOVERY_PHRASE: '${{ secrets.MAINNET_RECOVERY_PHRASE }}'
-          TESTNET_RECOVERY_PHRASE: '${{ secrets.TESTNET_RECOVERY_PHRASE }}'
         if: always()
         with:
           name: JEST Wallet With Console Smoke Tests - Chrome

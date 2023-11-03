@@ -5,10 +5,8 @@ const e2eExtensionId = 'jfaancmgehieoohdnmcdfdlkblfcehph'
 const chromeExtensionURL = (id: string) => `chrome-extension://${id}/index.html`
 export const testDAppUrl = 'https://vegaprotocol.github.io/vegawallet-browser/'
 export const consoleSmokePublicKey = '10743917237e3f76eabcec06acc4e56807c468c6a84f437c4c9ff75dc2822851'
-export const consoleSmokeTestnetRecoveryPhrase =
-  (process.env.TESTNET_RECOVERY_PHRASE ?? '') || (process.env.LOCAL_TESTNET_RECOVERY_PHRASE ?? '')
-export const consoleSmokeMainnetRecoveryPhrase =
-  (process.env.MAINNET_RECOVERY_PHRASE ?? '') || (process.env.LOCAL_MAINNET_RECOVERY_PHRASE ?? '')
+export const consoleSmokeTestnetRecoveryPhrase = process.env.TESTNET_RECOVERY_PHRASE
+export const consoleSmokeMainnetRecoveryPhrase = process.env.MAINNET_RECOVERY_PHRASE
 
 //PASSWORDS
 export const defaultPassword = 'password1'

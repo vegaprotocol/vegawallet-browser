@@ -7,13 +7,15 @@ export type OrdersStore = {
   loading: boolean
   error: Error | null
   lastUpdated: number | null
-  getOrderById: (id: string, request: SendMessage) => Promise<vegaOrder | undefined>
+  order: vegaOrder | null
+  getOrderById: (id: string, request: SendMessage) => Promise<void>
 }
 
 export const useOrdersStore = create<OrdersStore>((set) => ({
   loading: false,
   error: null,
   lastUpdated: null,
+  order: null,
   async getOrderById(id: string, request: SendMessage) {
     try {
       set({ loading: true, error: null, lastUpdated: null })
@@ -22,10 +24,9 @@ export const useOrdersStore = create<OrdersStore>((set) => ({
 
       if (!order) {
         set({ error: new Error(`Order with id ${id} not found`), lastUpdated: null })
-        return
+      } else {
+        set({ order })
       }
-
-      return order
     } catch (error) {
       set({ error: error as Error })
     } finally {

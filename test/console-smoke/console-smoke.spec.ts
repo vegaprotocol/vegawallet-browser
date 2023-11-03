@@ -98,6 +98,7 @@ async function setUpTests() {
     config = smokeConsoleTestnet
     acceptRisk = false
   }
+  console.log('recovery phrase is: ' + recoveryPhrase)
   await apiHelper.setUpWalletAndKey('password', 'wallet', 'Key 1', false, recoveryPhrase)
   await navigateToExtensionLandingPage(driver)
 }

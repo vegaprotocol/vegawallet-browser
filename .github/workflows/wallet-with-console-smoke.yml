@@ -43,8 +43,8 @@ jobs:
       - name: Test Report
         uses: phoenix-actions/test-reporting@v12
         env:
-          MAINNET_RECOVERY_PHRASE: ${{ secrets.MAINNET_RECOVERY_PHRASE }}
-          TESTNET_RECOVERY_PHRASE: ${{ secrets.TESTNET_RECOVERY_PHRASE }}
+          MAINNET_RECOVERY_PHRASE: '${{ secrets.MAINNET_RECOVERY_PHRASE }}'
+          TESTNET_RECOVERY_PHRASE: '${{ secrets.TESTNET_RECOVERY_PHRASE }}'
         if: always()
         with:
           name: JEST Wallet With Console Smoke Tests - Chrome

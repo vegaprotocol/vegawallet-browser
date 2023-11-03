@@ -10,7 +10,7 @@ import StorageLocalMap from './lib/storage-local.js'
 import StorageSessionMap from './lib/storage-session.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
 import EncryptedStorage from './lib/encrypted-storage.js'
-import FetchCache from './backend/fetch-cache.js'
+import { FetchCache } from './backend/fetch-cache.js'
 
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'

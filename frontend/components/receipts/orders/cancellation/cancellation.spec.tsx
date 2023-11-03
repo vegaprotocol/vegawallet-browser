@@ -10,37 +10,40 @@ jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
   })
 }))
 
-const mockGetOrderById = jest.fn(() =>
-  Promise.resolve({
-    id: '123',
-    marketId: 'abc'
-  })
-)
+const mockGetOrderById = jest.fn()
 
 const mockLastUpdatedTimestamp = 100000000
 
 jest.mock('../../../../stores/orders-store')
 
-const renderComponent = (mockTransaction: { orderCancellation: { orderId: string; marketId: string } }) => {
+const mockTransaction = {
+  orderCancellation: { orderId: '123', marketId: 'abc' }
+}
+
+const renderComponent = () => {
   mockStore(useOrdersStore, {
     getOrderById: mockGetOrderById,
-    lastUpdated: mockLastUpdatedTimestamp
+    lastUpdated: mockLastUpdatedTimestamp,
+    order: { id: '123', marketId: 'abc' }
   })
   render(<Cancellation transaction={mockTransaction} />)
 }
 
 describe('Cancellation', () => {
-  const mockTransaction = {
-    orderCancellation: { orderId: '123', marketId: 'abc' }
-  }
-
+  beforeEach(() => {
+    jest.useFakeTimers()
+    jest.setSystemTime(100000000)
+  })
+  afterEach(() => {
+    jest.useRealTimers()
+  })
   it('calls getOrderById when orderId is provided', async () => {
-    renderComponent(mockTransaction)
+    renderComponent()
     await waitFor(() => expect(mockGetOrderById).toHaveBeenCalledWith('123', expect.anything()))
   })
 
   it('renders CancellationView with correct props', async () => {
-    renderComponent(mockTransaction)
+    renderComponent()
     await waitFor(() => {
       const cancellationViewElement = screen.getByTestId(locators.cancellationView)
 
@@ -50,7 +53,7 @@ describe('Cancellation', () => {
 
   it('renders last updated field', async () => {
     // 1117-ORDC-003 I can see the time of when the order was fetched from the data node
-    renderComponent(mockTransaction)
+    renderComponent()
 
     await screen.findByText(`Last Updated: ${new Date(mockLastUpdatedTimestamp).toLocaleString()}`)
   })

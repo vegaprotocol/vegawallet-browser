@@ -14,7 +14,7 @@ function abstractStorage (storage) {
 
     constructor (prefix) {
       this._prefix = prefix
-      if (!StorageLocalMap.isSupported()) {
+      if (AbstractStorage.isSupported() !== true) {
         throw new Error('Unsupported storage runtime')
       }
     }

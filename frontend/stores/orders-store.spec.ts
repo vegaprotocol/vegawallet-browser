@@ -43,11 +43,11 @@ describe('Orders Store', () => {
     expect(useOrdersStore.getState().loading).toBe(false)
   })
 
-  it('should return the correct order when found', async () => {
+  it('should set the order when found', async () => {
     requestMock.mockResolvedValue({ order: mockOrderData })
 
-    const retrievedOrder = await useOrdersStore.getState().getOrderById('some-id', requestMock)
-    expect(retrievedOrder).toEqual(mockOrderData)
+    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    expect(useOrdersStore.getState().order).toEqual(mockOrderData)
   })
 
   it('should set lastUpdated after getOrderById is done', async () => {

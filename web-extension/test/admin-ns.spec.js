@@ -25,7 +25,7 @@ const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
       publicKeyIndexStore
     }),
     networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
-    fetchCache: new FetchCache(),
+    fetchCache: new FetchCache(new Map()),
     onerror (err) {
       throw err
     }
@@ -594,6 +594,38 @@ describe('admin-ns', () => {
         await Promise.all([server.close()])
       }
     }
+
+    it('should cache results for select endpoints', async () => {
+      jest.useFakeTimers()
+
+      const chainHeight = {
+        height: '2',
+        chainId: 'testnet'
+      }
+
+      const server = await createJSONHTTPServer((req) => {
+        if (req.url === '/blockchain/height') return { body: chainHeight }
+
+        return { body: Date.now() }
+      })
+
+      const admin = await createAdmin({ datanodeUrls: [server.url] })
+
+      const fetch1 = await admin.onrequest(REQ_FETCH(1, '/api/v2/assets'))
+      jest.advanceTimersByTime(1)
+
+      const fetch2 = await admin.onrequest(REQ_FETCH(2, '/api/v2/assets'))
+      expect(fetch2.result).toEqual(fetch1.result, 'should return cached result')
+
+      jest.advanceTimersByTime(1000 * 60 * 60 * 24 * 7) // 1 week
+
+      const fetch3 = await admin.onrequest(REQ_FETCH(3, '/api/v2/assets'))
+      expect(fetch3.result).not.toEqual(fetch2.result, 'should not return cached result after long delay')
+
+      await Promise.all([server.close()])
+
+      jest.useRealTimers()
+    })
   })
 
   const setupWallet = async (passphrase) => {

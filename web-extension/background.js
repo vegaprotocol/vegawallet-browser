@@ -10,6 +10,8 @@ import StorageLocalMap from './lib/storage-local.js'
 import StorageSessionMap from './lib/storage-session.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
 import EncryptedStorage from './lib/encrypted-storage.js'
+import FetchCache from './backend/fetch-cache.js'
+
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'
 import config from '!/config'
@@ -42,6 +44,8 @@ const connections = new ConnectionsCollection({
   publicKeyIndexStore
 })
 
+const fetchCache = new FetchCache(new StorageSessionMap('fetch-cache'))
+
 setupSentry(settings, wallets)
 
 const onerror = (...args) => {
@@ -69,6 +73,7 @@ const server = initAdmin({
   wallets,
   networks,
   connections,
+  fetchCache,
   onerror
 })
 
@@ -84,7 +89,7 @@ connections.listen((ev, connection) => {
 
 setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor)
 
-async function setPending() {
+async function setPending () {
   const pending = interactor.totalPending()
   try {
     if (pending > 0 && popupPorts.ports.size < 1 && await settings.get('autoOpen')) {

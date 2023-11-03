@@ -24,10 +24,12 @@ function doValidate (validator, params) {
  * @param {Store} settings Map-like implementation to store settings.
  * @param {WalletCollection} wallets
  * @param {NetworkCollection} networks
+ * @param {ConnectionCollection} connections
+ * @param {FetchCache} fetchCache
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default function init ({ encryptedStore, settings, wallets, networks, connections, onerror }) {
+export default function init ({ encryptedStore, settings, wallets, networks, connections, fetchCache, onerror }) {
   connections.listen((ev, connection) => {
     server.notify('admin.connections_change', {
       add: ev === 'set' ? [connection] : [],
@@ -225,7 +227,14 @@ export default function init ({ encryptedStore, settings, wallets, networks, con
           const network = await networks.get(selectedNetwork)
           const rpc = await network.rpc()
 
-          return await rpc.getJSON(params.path)
+          const cached = await fetchCache.get(params.path)
+          if (cached) return cached
+
+          const res = await rpc.getJSON(params.path)
+
+          await fetchCache.set(params.path, res)
+
+          return res
         } catch (ex) {
           throw new JSONRPCServer.Error('Failed to fetch data', -1, ex.message)
         }

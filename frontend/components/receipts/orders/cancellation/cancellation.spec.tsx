@@ -3,6 +3,7 @@ import { Cancellation } from './cancellation'
 import { locators } from './cancellation-view'
 import { useOrdersStore } from '../../../../stores/orders-store'
 import { mockStore } from '../../../../test-helpers/mock-store'
+import { locators as dataTableLocators } from '../../../data-table/data-table'
 
 jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
@@ -24,7 +25,7 @@ const renderComponent = () => {
   mockStore(useOrdersStore, {
     getOrderById: mockGetOrderById,
     lastUpdated: mockLastUpdatedTimestamp,
-    order: { id: '123', marketId: 'abc' }
+    order: { id: '123', marketId: 'abc', createdAt: '1000000000000' }
   })
   render(<Cancellation transaction={mockTransaction} />)
 }
@@ -42,13 +43,10 @@ describe('Cancellation', () => {
     await waitFor(() => expect(mockGetOrderById).toHaveBeenCalledWith('123', expect.anything()))
   })
 
-  it('renders CancellationView with correct props', async () => {
+  it('renders CancellationView', async () => {
     renderComponent()
-    await waitFor(() => {
-      const cancellationViewElement = screen.getByTestId(locators.cancellationView)
-
-      expect(cancellationViewElement).toBeInTheDocument()
-    })
+    const cancellationViewElement = screen.getByTestId(locators.cancellationView)
+    expect(cancellationViewElement).toBeInTheDocument()
   })
 
   it('renders last updated field', async () => {
@@ -56,5 +54,15 @@ describe('Cancellation', () => {
     renderComponent()
 
     await screen.findByText(`Last Updated: ${new Date(mockLastUpdatedTimestamp).toLocaleString()}`)
+  })
+
+  it('renders additional API fields in order table if present', async () => {
+    // 1130-ODTB-019 If order cancellation then the data is enriched with [basic order data](#basic-order-data) from the API
+    renderComponent()
+
+    const [, , createdAt] = screen.getAllByTestId(dataTableLocators.dataRow)
+    // Created at field is only present from API
+    expect(createdAt).toHaveTextContent('Created at')
+    expect(createdAt).toHaveTextContent('01 January 1970 00:16 (UTC)')
   })
 })

@@ -152,9 +152,23 @@ export const buildUpdatedAtColumn = (updatedAt?: string): [ReactNode, ReactNode]
   return ['Updated at', formattedDate]
 }
 
-export const buildRemainingColumn = (remaining?: string): [ReactNode, ReactNode] | null => {
-  if (!remaining) return null
-  return ['Remaining', new BigNumber(remaining).toFixed(2)]
+export const buildRemainingColumn = (
+  marketsLoading: boolean,
+  remaining?: string,
+  marketId?: string,
+  formattedRemaining?: string
+): [ReactNode, ReactNode] | null => {
+  if (!remaining || !marketId) return null
+  return [
+    'Remaining',
+    <OrderSizeComponent
+      key="order-details-remaining"
+      marketsLoading={marketsLoading}
+      size={remaining}
+      marketId={marketId}
+      formattedSize={formattedRemaining}
+    />
+  ]
 }
 
 export const buildStatusColumn = (status?: vegaOrderStatus): [ReactNode, ReactNode] | null => {

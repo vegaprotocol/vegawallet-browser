@@ -104,6 +104,37 @@ describe('OrderTable', () => {
     expect(screen.getAllByTestId(dataTableLocators.dataRow)).toHaveLength(8)
   })
 
+  // TODO add status to ACs
+  it('renders fields that are provided from the API', () => {
+    // 1130-ODTB-014 If applicable I can see the time the order was created at
+    // 1130-ODTB-015 If applicable I can see the time the order was updated at
+    // 1130-ODTB-016 If applicable I can see the size of the order remaining
+    // 1130-ODTB-017 If applicable I can see the version of the order
+    render(
+      <OrderTable
+        marketId="123"
+        createdAt={'1000000000000'}
+        updatedAt={'1000000000000'}
+        remaining={'100'}
+        version={'1'}
+      />
+    )
+    // Skip market row, as asserted above
+    const [, createdAtRow, updatedAtRow, remainingRow, versionRow] = screen.getAllByTestId(dataTableLocators.dataRow)
+
+    expect(createdAtRow).toHaveTextContent('Created at')
+    expect(createdAtRow).toHaveTextContent('01 January 1970 00:16 (UTC)')
+
+    expect(updatedAtRow).toHaveTextContent('Updated at')
+    expect(updatedAtRow).toHaveTextContent('01 January 1970 00:16 (UTC)')
+
+    expect(remainingRow).toHaveTextContent('Remaining')
+    expect(remainingRow).toHaveTextContent('100')
+
+    expect(versionRow).toHaveTextContent('Version')
+    expect(versionRow).toHaveTextContent('1')
+  })
+
   it('does not render row if the property is undefined', () => {
     render(<OrderTable />)
     expect(screen.queryAllByTestId(dataTableLocators.dataRow)).toHaveLength(0)

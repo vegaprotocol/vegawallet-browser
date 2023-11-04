@@ -213,15 +213,20 @@ describe('buildUpdatedAtColumn', () => {
 })
 
 describe('buildRemainingColumn', () => {
-  it('returns Remaining column when remaining is defined', () => {
-    const result = buildRemainingColumn('10.5')
+  it('returns Remaining column when remaining and marketId are defined', () => {
+    const result = buildRemainingColumn(false, '100', '1', '100.00')
 
     render(<>{result}</>)
-    expect(screen.getByText(/^Remaining/)).toBeInTheDocument()
+    expect(screen.getByTestId('order-size-component')).toBeInTheDocument()
   })
 
   it('returns null when remaining is undefined', () => {
-    const result = buildRemainingColumn()
+    const result = buildRemainingColumn(false, undefined, '1', '100.00')
+    expect(result).toBeNull()
+  })
+
+  it('returns null when marketId is undefined', () => {
+    const result = buildRemainingColumn(false, '100', undefined, '100.00')
     expect(result).toBeNull()
   })
 })

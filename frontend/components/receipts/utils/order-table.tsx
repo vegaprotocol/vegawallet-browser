@@ -68,6 +68,8 @@ export const OrderTable = ({
     price && marketDecimals ? formatNumber(toBigNum(price, marketDecimals), marketDecimals) : undefined
   const formattedSize =
     size && positionDecimals ? formatNumber(toBigNum(size, positionDecimals), positionDecimals) : undefined
+  const formattedRemaining =
+    remaining && positionDecimals ? formatNumber(toBigNum(remaining, positionDecimals), positionDecimals) : undefined
   let assetInfo
   if (market && !assetsLoading) {
     const settlementAsset = getSettlementAssetId(market)
@@ -88,7 +90,7 @@ export const OrderTable = ({
     buildReferenceColumn(reference),
     buildCreatedAtColumn(createdAt),
     buildUpdatedAtColumn(updatedAt),
-    buildRemainingColumn(remaining),
+    buildRemainingColumn(marketsLoading, remaining, marketId, formattedRemaining),
     buildStatusColumn(status),
     buildVersionColumn(version)
   ]

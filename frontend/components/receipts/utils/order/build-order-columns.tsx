@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js'
 import { ReactNode } from 'react'
 import { vegaOrderType, vegaSide, vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'

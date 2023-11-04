@@ -54,7 +54,6 @@ describe('ReceiptViewErrorBoundary', () => {
     silenceErrors()
     const error = new Error('Test error message')
     error.stack = undefined
-    console.log(error.message)
 
     render(
       <ReceiptViewErrorBoundary>

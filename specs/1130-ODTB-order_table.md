@@ -28,5 +28,6 @@
 - If applicable I can see the time the order was updated at (<a name="1130-ODTB-015" href="#1130-ODTB-015">1130-ODTB-015</a>)
 - If applicable I can see the size of the order remaining (<a name="1130-ODTB-016" href="#1130-ODTB-016">1130-ODTB-016</a>)
 - If applicable I can see the version of the order (<a name="1130-ODTB-017" href="#1130-ODTB-017">1130-ODTB-017</a>)
-- If order cancellation then the data is enriched with [basic order data](#basic-order-data) from the API (<a name="1130-ODTB-018" href="#1130-ODTB-018">1130-ODTB-018</a>)
+- If applicable I can see the status of the order (<a name="1130-ODTB-018" href="#1130-ODTB-018">1130-ODTB-018</a>)
+- If order cancellation then the data is enriched with [basic order data](#basic-order-data) from the API (<a name="1130-ODTB-019" href="#1130-ODTB-019">1130-ODTB-019</a>)
 <!-- - If order amendment then the data is enriched with [basic order data](#basic-order-data) from the API (<a name="1130-ODTB-018" href="#1130-ODTB-018">1130-ODTB-018</a>) -->

@@ -5,7 +5,7 @@ import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 describe('OrderBadges component', () => {
   test('renders Good til date badge when timeInForce is GTT', () => {
-    // 1119-ORDB-004 If time in force is GTT then I can see the expiry of the order
+    // 1119-ORBD-004 If time in force is GTT then I can see the expiry of the order
     const mockExpiresAt = (1e9).toString()
     render(
       <OrderBadges
@@ -20,7 +20,7 @@ describe('OrderBadges component', () => {
   })
 
   test('renders TIF badge when timeInForce is not GTT', () => {
-    // 1119-ORDB-003 I can see a badge of the order time in force
+    // 1119-ORBD-003 I can see a badge of the order time in force
     render(
       <OrderBadges
         postOnly={false}
@@ -34,7 +34,7 @@ describe('OrderBadges component', () => {
   })
 
   test('renders post only badge when postOnly is true', () => {
-    // 1119-ORDB-001 I can see a badge if the order is post only
+    // 1119-ORBD-001 I can see a badge if the order is post only
     render(
       <OrderBadges
         postOnly={true}
@@ -48,7 +48,7 @@ describe('OrderBadges component', () => {
   })
 
   test('renders reduce only badge when reduceOnly is true', () => {
-    // 1119-ORDB-002 I can see a badge if the order is reduce only
+    // 1119-ORBD-002 I can see a badge if the order is reduce only
     render(
       <OrderBadges
         postOnly={false}

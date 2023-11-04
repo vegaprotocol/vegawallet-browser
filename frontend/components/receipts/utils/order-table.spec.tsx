@@ -13,6 +13,7 @@ import { generateAsset } from '../../../test-helpers/generate-asset'
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { mockStore } from '../../../test-helpers/mock-store'
+import { vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/core'
 
 jest.mock('../../../stores/markets-store', () => ({
   ...jest.requireActual('../../../stores/markets-store'),
@@ -110,6 +111,7 @@ describe('OrderTable', () => {
     // 1130-ODTB-015 If applicable I can see the time the order was updated at
     // 1130-ODTB-016 If applicable I can see the size of the order remaining
     // 1130-ODTB-017 If applicable I can see the version of the order
+    // 1130-ODTB-018 If applicable I can see the status of the order
     render(
       <OrderTable
         marketId="123"
@@ -117,10 +119,13 @@ describe('OrderTable', () => {
         updatedAt={'1000000000000'}
         remaining={'100'}
         version={'1'}
+        status={vegaOrderStatus.STATUS_ACTIVE}
       />
     )
     // Skip market row, as asserted above
-    const [, createdAtRow, updatedAtRow, remainingRow, versionRow] = screen.getAllByTestId(dataTableLocators.dataRow)
+    const [, createdAtRow, updatedAtRow, remainingRow, statusRow, versionRow] = screen.getAllByTestId(
+      dataTableLocators.dataRow
+    )
 
     expect(createdAtRow).toHaveTextContent('Created at')
     expect(createdAtRow).toHaveTextContent('01 January 1970 00:16 (UTC)')
@@ -130,6 +135,9 @@ describe('OrderTable', () => {
 
     expect(remainingRow).toHaveTextContent('Remaining')
     expect(remainingRow).toHaveTextContent('100')
+
+    expect(statusRow).toHaveTextContent('Status')
+    expect(statusRow).toHaveTextContent('Active')
 
     expect(versionRow).toHaveTextContent('Version')
     expect(versionRow).toHaveTextContent('1')

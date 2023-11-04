@@ -14,15 +14,15 @@ import { nanoSecondsToMilliseconds } from '../../../../lib/utils'
 import { CopyWithCheckmark } from '../../../copy-with-check'
 
 const orderStatuses: Record<vegaOrderStatus, string> = {
-  STATUS_UNSPECIFIED: 'UNSPECIFIED',
-  STATUS_ACTIVE: 'ACTIVE',
-  STATUS_EXPIRED: 'EXPIRED',
-  STATUS_CANCELLED: 'CANCELLED',
-  STATUS_STOPPED: 'STOPPED',
-  STATUS_FILLED: 'FILLED',
-  STATUS_REJECTED: 'REJECTED',
-  STATUS_PARTIALLY_FILLED: 'PARTIALLY FILLED',
-  STATUS_PARKED: 'PARKED'
+  STATUS_UNSPECIFIED: 'Unspecified',
+  STATUS_ACTIVE: 'Active',
+  STATUS_EXPIRED: 'Expired',
+  STATUS_CANCELLED: 'Cancelled',
+  STATUS_STOPPED: 'Stopped',
+  STATUS_FILLED: 'Filled',
+  STATUS_REJECTED: 'Rejected',
+  STATUS_PARTIALLY_FILLED: 'Partially FILLED',
+  STATUS_PARKED: 'Parked'
 }
 
 // Helper functions for building individual columns for the order table

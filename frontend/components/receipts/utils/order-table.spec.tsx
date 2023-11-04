@@ -105,7 +105,6 @@ describe('OrderTable', () => {
     expect(screen.getAllByTestId(dataTableLocators.dataRow)).toHaveLength(8)
   })
 
-  // TODO add status to ACs
   it('renders fields that are provided from the API', () => {
     // 1130-ODTB-014 If applicable I can see the time the order was created at
     // 1130-ODTB-015 If applicable I can see the time the order was updated at
@@ -308,6 +307,28 @@ describe('OrderTable', () => {
 
     expect(screen.getByTestId(amountWithSymbolLocators.amount)).toHaveTextContent(
       formatNumber(toBigNum(mockSize, mockPositionDecimals), mockPositionDecimals)
+    )
+  })
+
+  it('displays enriched remaining size data when markets (and remaining) are provided', () => {
+    const mockRemaining = '100'
+    const mockPositionDecimals = Number(mockMarket.positionDecimalPlaces as string)
+
+    mockStore(useMarketsStore, {
+      loading: false,
+      markets: [mockMarket],
+      getMarketById: jest.fn().mockReturnValue(mockMarket)
+    })
+    mockStore(useAssetsStore, {
+      loading: false,
+      assets: [mockAsset],
+      getAssetById: jest.fn().mockReturnValue(mockAsset)
+    })
+
+    render(<OrderTable marketId="1" remaining={mockRemaining} />)
+
+    expect(screen.getByTestId(amountWithSymbolLocators.amount)).toHaveTextContent(
+      formatNumber(toBigNum(mockRemaining, mockPositionDecimals), mockPositionDecimals)
     )
   })
 

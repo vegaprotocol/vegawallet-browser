@@ -9,8 +9,7 @@ export const locators = {
   receiptWrapperError: 'receipt-wrapper-error'
 }
 
-// TODO handle data loading here, with render prop and loading/error states
-export const ReceiptWrapper = ({ children, errors = [] }: { children: ReactNode; errors?: Error[] }) => {
+export const ReceiptWrapper = ({ children, errors = [] }: { children: ReactNode; errors?: (Error | null)[] }) => {
   const { error: assetsError } = useAssetsStore((state) => ({
     error: state.error
   }))

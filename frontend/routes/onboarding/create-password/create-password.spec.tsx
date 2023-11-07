@@ -116,8 +116,10 @@ describe('CreatePassword', () => {
     fireEvent.click(checkbox)
     expect(checkbox).toBeChecked()
     fireEvent.click(screen.getByTestId(locators.submitPassphraseButton))
-    await waitFor(() => expect(screen.getByTestId(locators.submitPassphraseButton)).toBeDisabled())
-    expect(screen.getByTestId(locators.submitPassphraseButton)).toHaveTextContent('Creating password…')
+    await waitFor(() =>
+      expect(screen.getByTestId(locators.submitPassphraseButton)).toHaveTextContent('Creating password…')
+    )
+    expect(screen.getByTestId(locators.submitPassphraseButton)).toBeDisabled()
   })
 
   it('should navigate to create wallet page when form is submitted with valid data', async () => {

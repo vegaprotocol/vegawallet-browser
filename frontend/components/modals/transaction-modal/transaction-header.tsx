@@ -1,37 +1,14 @@
-import { Transaction, TRANSACTION_TITLES, TransactionKeys } from '../../../lib/transactions'
+import { Transaction } from '../../../lib/transactions'
 import { VegaSection } from '../../vega-section'
 import { HostImage } from '../../host-image'
 import { Header } from '../../header'
 import { VegaKey } from '../../keys/vega-key'
 import { SubHeader } from '../../sub-header'
+import { getTitle } from './get-title'
 
 export const locators = {
   transactionRequest: 'transaction-request',
   transactionKey: 'transaction-key'
-}
-
-export const U_INT_64_MAX = '18446744073709551615'
-
-export const getTitle = (transaction: Transaction) => {
-  const type = Object.keys(transaction)[0] as TransactionKeys
-
-  // If we have a mass order cancellation (i.e. no order ID, with or without a market ID)
-  // then we want to display a different title
-  if (
-    type === TransactionKeys.ORDER_CANCELLATION &&
-    transaction.orderCancellation &&
-    !transaction.orderCancellation.orderId
-  ) {
-    return 'Mass Order Cancellation'
-  } else if (
-    type === TransactionKeys.ORDER_SUBMISSION &&
-    transaction.orderSubmission.reduceOnly &&
-    transaction.orderSubmission.size === U_INT_64_MAX
-  ) {
-    return 'Close position'
-  }
-
-  return TRANSACTION_TITLES[type]
 }
 
 export const TransactionHeader = ({

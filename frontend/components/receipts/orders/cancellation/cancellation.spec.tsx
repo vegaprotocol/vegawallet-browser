@@ -1,9 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { Cancellation } from './cancellation'
 import { locators } from './cancellation-view'
-import { useOrdersStore } from '../../../../stores/orders-store'
-import { mockStore } from '../../../../test-helpers/mock-store'
+import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store'
+import { DeepPartial, mockStore } from '../../../../test-helpers/mock-store'
 import { locators as dataTableLocators } from '../../../data-table/data-table'
+import { silenceErrors } from '../../../../test-helpers/silence-errors'
 
 jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
@@ -21,12 +22,14 @@ const mockTransaction = {
   orderCancellation: { orderId: '123', marketId: 'abc' }
 }
 
-const renderComponent = () => {
-  mockStore(useOrdersStore, {
+const renderComponent = (
+  storeData: DeepPartial<OrdersStore> = {
     getOrderById: mockGetOrderById,
     lastUpdated: mockLastUpdatedTimestamp,
     order: { id: '123', marketId: 'abc', createdAt: '1000000000000' }
-  })
+  }
+) => {
+  mockStore(useOrdersStore, storeData)
   render(<Cancellation transaction={mockTransaction} />)
 }
 
@@ -64,5 +67,16 @@ describe('Cancellation', () => {
     // Created at field is only present from API
     expect(createdAt).toHaveTextContent('Created at')
     expect(createdAt).toHaveTextContent('01 January 1970 00:16 (UTC)')
+  })
+
+  it('errors if the order cannot be found', async () => {
+    silenceErrors()
+    expect(() =>
+      renderComponent({
+        getOrderById: mockGetOrderById,
+        lastUpdated: mockLastUpdatedTimestamp,
+        order: null
+      })
+    ).toThrowError('Order not found')
   })
 })

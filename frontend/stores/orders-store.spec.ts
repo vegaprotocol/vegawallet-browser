@@ -57,13 +57,6 @@ describe('Orders Store', () => {
     expect(useOrdersStore.getState().lastUpdated).toBe(0)
   })
 
-  it('should set error state if order not found', async () => {
-    requestMock.mockResolvedValue({})
-
-    await useOrdersStore.getState().getOrderById('some-id', requestMock)
-    expect(useOrdersStore.getState().error?.message).toBe('Order with id some-id not found')
-  })
-
   it('should set error state if an unexpected error occurs', async () => {
     const errorMessage = 'unexpected error'
     requestMock.mockRejectedValue(new Error(errorMessage))

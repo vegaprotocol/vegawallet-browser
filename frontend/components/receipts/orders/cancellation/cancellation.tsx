@@ -6,11 +6,12 @@ import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { CancellationView } from './cancellation-view'
 
 export const Cancellation = ({ transaction }: ReceiptComponentProps) => {
-  const { error, getOrderById, lastUpdated, order } = useOrdersStore((state) => ({
+  const { error, getOrderById, lastUpdated, order, loading } = useOrdersStore((state) => ({
     getOrderById: state.getOrderById,
     lastUpdated: state.lastUpdated,
     order: state.order,
-    error: state.error
+    error: state.error,
+    loading: state.loading
   }))
   const cancellation = transaction.orderCancellation
   const { orderId } = cancellation
@@ -21,7 +22,7 @@ export const Cancellation = ({ transaction }: ReceiptComponentProps) => {
       getOrderById(orderId, request)
     }
   }, [orderId, getOrderById, request])
-
+  if (!order && !loading && lastUpdated) throw new Error('Order not found')
   return (
     <ReceiptWrapper errors={[error]}>
       <CancellationView cancellation={cancellation} order={order} />

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { TransactionHeader, locators, getTitle } from './transaction-header'
+import { TransactionHeader, locators, getTitle, U_INT_64_MAX } from './transaction-header'
 import { TransactionKeys } from '../../../lib/transactions.ts'
 import { locators as hostImageLocators } from '../../../components/host-image'
 import { locators as headerLocators } from '../../../components/header'
@@ -75,6 +75,13 @@ describe('getTitle', () => {
   it('should return "Order Cancellation" when order cancellation has an orderId', () => {
     const transaction = {
       [TransactionKeys.ORDER_CANCELLATION]: { marketId: 'some-market-id', orderId: 'some-order-id' }
+    }
+    expect(getTitle(transaction as any)).toBe('Order Cancellation')
+  })
+
+  it('should return "Close position" when order submission is reduceOnly with max size', () => {
+    const transaction = {
+      [TransactionKeys.ORDER_CANCELLATION]: { reduceOnly: true, size: U_INT_64_MAX }
     }
     expect(getTitle(transaction as any)).toBe('Order Cancellation')
   })

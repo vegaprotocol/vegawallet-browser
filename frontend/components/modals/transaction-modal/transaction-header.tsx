@@ -10,6 +10,8 @@ export const locators = {
   transactionKey: 'transaction-key'
 }
 
+export const U_INT_64_MAX = '18446744073709551615'
+
 export const getTitle = (transaction: Transaction) => {
   const type = Object.keys(transaction)[0] as TransactionKeys
 
@@ -21,6 +23,12 @@ export const getTitle = (transaction: Transaction) => {
     !transaction.orderCancellation.orderId
   ) {
     return 'Mass Order Cancellation'
+  } else if (
+    type === TransactionKeys.ORDER_SUBMISSION &&
+    transaction.orderSubmission.reduceOnly &&
+    transaction.orderSubmission.size === U_INT_64_MAX
+  ) {
+    return 'Close position'
   }
 
   return TRANSACTION_TITLES[type]

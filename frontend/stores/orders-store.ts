@@ -22,11 +22,7 @@ export const useOrdersStore = create<OrdersStore>((set) => ({
       const response = await request(RpcMethods.Fetch, { path: `api/v2/order/${id}` }, true)
       const order = response.order
 
-      if (!order) {
-        set({ error: new Error(`Order with id ${id} not found`), lastUpdated: null })
-      } else {
-        set({ order })
-      }
+      set({ order })
     } catch (error) {
       set({ error: error as Error })
     } finally {

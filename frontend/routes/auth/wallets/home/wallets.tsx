@@ -5,6 +5,7 @@ import { SignMessageDialog } from '../../../../components/sign-message-dialog'
 import { useState } from 'react'
 import { AsyncRenderer } from '../../../../components/async-renderer/async-renderer'
 import { BasePage } from '../../../../components/pages/page'
+import { WalletSelector } from './wallets-dropdown'
 
 export const locators = {
   walletsPage: 'wallets-page'
@@ -22,7 +23,7 @@ export const Wallets = () => {
   return (
     <AsyncRenderer
       render={() => (
-        <BasePage dataTestId={locators.walletsPage} title={wallet.name}>
+        <BasePage dataTestId={locators.walletsPage} title={<WalletSelector currentWallet={wallet} />}>
           <WalletsPageKeyList onSignMessage={setSelectedPubkey} wallet={wallet} />
           <DepositAssetsCallout />
           <SignMessageDialog

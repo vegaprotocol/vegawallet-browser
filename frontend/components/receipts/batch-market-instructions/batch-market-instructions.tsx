@@ -17,8 +17,8 @@ const BATCH_COMMAND_TITLE_MAP: Record<BatchTransactionCommands, string> = {
   [TransactionKeys.ORDER_SUBMISSION]: 'Submissions',
   [TransactionKeys.ORDER_CANCELLATION]: 'Cancellations',
   [TransactionKeys.ORDER_AMENDMENT]: 'Amendments',
-  [TransactionKeys.STOP_ORDERS_SUBMISSION]: 'Stop Order Cancellations',
-  [TransactionKeys.STOP_ORDERS_CANCELLATION]: 'Stop Order Submissions'
+  [TransactionKeys.STOP_ORDERS_SUBMISSION]: 'Stop Order Submissions',
+  [TransactionKeys.STOP_ORDERS_CANCELLATION]: 'Stop Order Cancellations'
 }
 
 export const locators = {

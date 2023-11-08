@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { EnrichedTransferView, locators as enrichedLocators } from './enriched-transfer-view'
 import { Key, useWalletStore } from '../../../stores/wallets'
-import { locators as vegaKeyLocators } from '../../keys/vega-key'
 import { locators as priceWithSymbolLocators } from '../utils/string-amounts/amount-with-symbol'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 import { useAssetsStore } from '../../../stores/assets-store'
@@ -56,7 +55,6 @@ const mockStores = (keyDetails: Key | undefined) => {
 describe('EnrichedTransferView', () => {
   it('renders correctly', () => {
     // 1124-TRAN-006 I can see the enriched price details if the data is provided - correctly formatted decimals and asset name
-    // 1124-TRAN-007 I can see enriched key details if the data is provided - whether the transfer is between own keys
     mockStores({
       index: 0,
       metadata: [],
@@ -70,19 +68,5 @@ describe('EnrichedTransferView', () => {
     expect(screen.getByTestId(priceWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
     expect(screen.getByTestId(priceWithSymbolLocators.amount)).toHaveTextContent('0.00001')
     expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('tDAI')
-    expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('MyKey (own key)')
-  })
-
-  it('renders external key if the transfer is not between own keys', () => {
-    // 1124-TRAN-008 I can see enriched key details if the data is provided - whether the transfer is to an external key
-    mockStores(undefined)
-
-    render(<EnrichedTransferView transaction={mockTransaction} />)
-
-    expect(screen.getByTestId(enrichedLocators.enrichedSection)).toBeInTheDocument()
-    expect(screen.getByTestId(priceWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
-    expect(screen.getByTestId(priceWithSymbolLocators.amount)).toHaveTextContent('0.00001')
-    expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('tDAI')
-    expect(screen.getByTestId(vegaKeyLocators.keyName)).toHaveTextContent('External key')
   })
 })

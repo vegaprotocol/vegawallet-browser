@@ -10,6 +10,16 @@ import objectHash from 'object-hash'
 import { Fragment } from 'react'
 import { Notification, Intent } from '@vegaprotocol/ui-toolkit'
 import { CancellationView } from '../orders/cancellation/cancellation-view'
+import { getBatchTitle } from '../../modals/transaction-modal/get-title'
+import { BatchTransactionCommands, TransactionKeys } from '../../../lib/transactions'
+
+const BATCH_COMMAND_TITLE_MAP: Record<BatchTransactionCommands, string> = {
+  [TransactionKeys.ORDER_SUBMISSION]: 'Submissions',
+  [TransactionKeys.ORDER_CANCELLATION]: 'Cancellations',
+  [TransactionKeys.ORDER_AMENDMENT]: 'Amendments',
+  [TransactionKeys.STOP_ORDERS_SUBMISSION]: 'Stop Order Cancellations',
+  [TransactionKeys.STOP_ORDERS_CANCELLATION]: 'Stop Order Submissions'
+}
 
 export const locators = {
   header: 'header',
@@ -27,23 +37,23 @@ const CommandSection = ({
   renderItem
 }: {
   items: any[]
-  command: string
+  command: BatchTransactionCommands
   renderItem: (item: any, index: number) => JSX.Element
 }) => {
   if (!items.length) return null
   return (
     <div className="last-of-type:mb-0 mb-4">
       <CollapsiblePanel
-        title={command}
+        title={BATCH_COMMAND_TITLE_MAP[command]}
         initiallyOpen={true}
         panelContent={
           <>
-            {items.map((s: any, i: number) => (
-              <Fragment key={objectHash(s)}>
+            {items.map((item: any, i: number) => (
+              <Fragment key={objectHash(item)}>
                 <h2 data-testid={locators.header} className={'text-white mt-4'}>
-                  {i + 1}.
+                  {i + 1}. {getBatchTitle(command, item)}
                 </h2>
-                {renderItem(s, i)}
+                {renderItem(item, i)}
               </Fragment>
             ))}
           </>
@@ -83,23 +93,27 @@ export const BatchMarketInstructions = ({ transaction }: ReceiptComponentProps) 
     <ReceiptWrapper>
       <CommandSection
         items={cancellations}
-        command="Cancellations"
+        command={TransactionKeys.ORDER_CANCELLATION}
         renderItem={(c) => <CancellationView cancellation={c} />}
       />
-      <CommandSection items={amendments} command="Amendments" renderItem={(a) => <AmendmentView amendment={a} />} />
+      <CommandSection
+        items={amendments}
+        command={TransactionKeys.ORDER_AMENDMENT}
+        renderItem={(a) => <AmendmentView amendment={a} />}
+      />
       <CommandSection
         items={submissions}
-        command="Submissions"
+        command={TransactionKeys.ORDER_SUBMISSION}
         renderItem={(s) => <SubmissionView orderSubmission={s} />}
       />
       <CommandSection
         items={stopOrdersCancellations}
-        command="Stop Order Cancellations"
+        command={TransactionKeys.STOP_ORDERS_CANCELLATION}
         renderItem={(c) => <StopOrderCancellationView stopOrdersCancellation={c} />}
       />
       <CommandSection
         items={stopOrdersSubmissions}
-        command="Stop Order Submissions"
+        command={TransactionKeys.STOP_ORDERS_SUBMISSION}
         renderItem={(s) => <StopOrdersSubmissionView stopOrdersSubmission={s} />}
       />
     </ReceiptWrapper>

@@ -77,10 +77,9 @@ describe('CancellationNotification', () => {
       },
       loading: true
     })
-    {
-      const { container } = render(<CancellationNotification orderId="id" marketId="some-market-id" />)
 
-      expect(container).toBeEmptyDOMElement()
-    }
+    const { container } = render(<CancellationNotification orderId="id" marketId="some-market-id" />)
+
+    expect(container).toBeEmptyDOMElement()
   })
 })

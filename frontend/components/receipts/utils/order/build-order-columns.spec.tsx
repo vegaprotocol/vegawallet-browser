@@ -6,7 +6,7 @@ import {
   vegaSide
 } from '@vegaprotocol/rest-clients/dist/trading-data'
 import {
-  buildDirectionColumn,
+  buildSideColumn,
   buildMarketColumn,
   buildOrderColumn,
   buildPeggedOrderColumn,
@@ -138,16 +138,16 @@ describe('buildOrderColumn', () => {
   })
 })
 
-describe('buildDirectionColumn', () => {
+describe('buildSideColumn', () => {
   it('returns Direction column when direction is defined', () => {
-    const result = buildDirectionColumn(vegaSide.SIDE_SELL)
+    const result = buildSideColumn(vegaSide.SIDE_SELL)
 
     render(<>{result}</>)
-    expect(screen.getByText('DirectionShort')).toBeInTheDocument()
+    expect(screen.getByText('SideShort')).toBeInTheDocument()
   })
 
   it('returns null when direction is undefined', () => {
-    const result = buildDirectionColumn()
+    const result = buildSideColumn()
     expect(result).toBeNull()
   })
 })

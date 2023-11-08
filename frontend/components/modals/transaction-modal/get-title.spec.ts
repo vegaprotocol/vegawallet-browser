@@ -30,9 +30,9 @@ describe('getTitle', () => {
 
   it('should return "Close position" when order submission is reduceOnly with max size', () => {
     const transaction = {
-      [TransactionKeys.ORDER_CANCELLATION]: { reduceOnly: true, size: U_INT_64_MAX }
+      [TransactionKeys.ORDER_SUBMISSION]: { reduceOnly: true, size: U_INT_64_MAX }
     }
-    expect(getTitle(transaction as any)).toBe('Order Cancellation')
+    expect(getTitle(transaction as any)).toBe('Close Position')
   })
 
   it('should return "Unknown" for unrecognized TransactionKeys', () => {

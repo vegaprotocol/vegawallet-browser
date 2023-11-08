@@ -1,3 +1,5 @@
+export const MAX_POSITION_SIZE = '9223372036854775807'
+
 export type BatchTransactionCommands =
   | TransactionKeys.ORDER_SUBMISSION
   | TransactionKeys.ORDER_CANCELLATION

@@ -155,6 +155,31 @@ describe('TransferReceipt', () => {
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('4/11/1970, 12:00:00 AM')
   })
 
+  it('should render a warning if the key is not in the wallet', () => {
+    // 1124-TRAN-007 I can see a warning if the key is not present in my wallet
+    mockStores(mockAsset, undefined)
+    mockStore(useWalletStore, {
+      loading: false,
+      wallets: [],
+      getKeyById: jest.fn().mockReturnValue(undefined)
+    })
+    render(
+      <Transfer
+        transaction={{
+          transfer: {
+            ...baseTransfer,
+            to: '2'.repeat(64)
+          }
+        }}
+      />
+    )
+    const notification = screen.getByTestId('notification')
+    expect(notification).toHaveTextContent('External key')
+    expect(notification).toHaveTextContent(
+      'This key is not present within your wallet. Please ensure you have access to this key before sending this transaction.'
+    )
+  })
+
   it('should render BasicTransferView whilst loading', async () => {
     mockStore(useAssetsStore, {
       loading: true,

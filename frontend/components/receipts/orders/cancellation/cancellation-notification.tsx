@@ -7,10 +7,11 @@ export const locators = {
 }
 
 export const CancellationNotification = ({ orderId, marketId }: { orderId: string; marketId: string }) => {
-  const { getMarketById } = useMarketsStore((state) => ({
-    getMarketById: state.getMarketById
+  const { getMarketById, loading } = useMarketsStore((state) => ({
+    getMarketById: state.getMarketById,
+    loading: state.loading
   }))
-  if (orderId) return null
+  if (orderId || loading) return null
   const market = getMarketById(marketId)
 
   return (

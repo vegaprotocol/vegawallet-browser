@@ -69,4 +69,18 @@ describe('CancellationNotification', () => {
       expect(container).toBeEmptyDOMElement()
     }
   })
+
+  it('should render nothing while loading', () => {
+    mockStore(useMarketsStore, {
+      getMarketById: () => {
+        throw new Error()
+      },
+      loading: true
+    })
+    {
+      const { container } = render(<CancellationNotification orderId="id" marketId="some-market-id" />)
+
+      expect(container).toBeEmptyDOMElement()
+    }
+  })
 })

@@ -64,7 +64,7 @@ describe('OrderTable', () => {
 
     render(
       <OrderTable
-        direction={vegaSide.SIDE_BUY}
+        side={vegaSide.SIDE_BUY}
         marketId={'1'.repeat(64)}
         orderId={'2'.repeat(64)}
         size={'12'}
@@ -94,7 +94,7 @@ describe('OrderTable', () => {
     expect(orderRow).toHaveTextContent('Order')
     expect(orderRow).toHaveTextContent(truncateMiddle('2'.repeat(64)))
 
-    expect(directionRow).toHaveTextContent('Direction')
+    expect(directionRow).toHaveTextContent('Side')
     expect(directionRow).toHaveTextContent('Long')
 
     expect(typeRow).toHaveTextContent('Type')
@@ -147,15 +147,15 @@ describe('OrderTable', () => {
     expect(screen.queryAllByTestId(dataTableLocators.dataRow)).toHaveLength(0)
   })
   it('renders short for buy orders', () => {
-    render(<OrderTable direction={vegaSide.SIDE_BUY} />)
+    render(<OrderTable side={vegaSide.SIDE_BUY} />)
     const [directionRow] = screen.getAllByTestId(dataTableLocators.dataRow)
-    expect(directionRow).toHaveTextContent('Direction')
+    expect(directionRow).toHaveTextContent('Side')
     expect(directionRow).toHaveTextContent('Long')
   })
   it('renders long for sell orders', () => {
-    render(<OrderTable direction={vegaSide.SIDE_SELL} />)
+    render(<OrderTable side={vegaSide.SIDE_SELL} />)
     const [directionRow] = screen.getAllByTestId(dataTableLocators.dataRow)
-    expect(directionRow).toHaveTextContent('Direction')
+    expect(directionRow).toHaveTextContent('Side')
     expect(directionRow).toHaveTextContent('Short')
   })
 

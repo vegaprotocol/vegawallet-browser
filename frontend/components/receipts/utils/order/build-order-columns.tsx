@@ -7,7 +7,7 @@ import { OrderSizeComponent } from './order-size'
 import { OrderMarketComponent } from './order-market'
 import { OrderTypeComponent } from './order-type'
 import { PeggedOrderInfo } from './pegged-order-info'
-import { Direction } from './direction'
+import { Side } from './side'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 import { nanoSecondsToMilliseconds } from '../../../../lib/utils'
 import { CopyWithCheckmark } from '../../../copy-with-check'
@@ -117,9 +117,9 @@ export const buildOrderColumn = (orderId?: string): [ReactNode, ReactNode] | nul
   ]
 }
 
-export const buildDirectionColumn = (direction?: vegaSide): [ReactNode, ReactNode] | null => {
-  if (!direction) return null
-  return ['Direction', <Direction key="order-details-direction" direction={direction} />]
+export const buildSideColumn = (side?: vegaSide): [ReactNode, ReactNode] | null => {
+  if (!side) return null
+  return ['Side', <Side key="order-details-direction" side={side} />]
 }
 
 export const buildTypeColumn = (type?: vegaOrderType): [ReactNode, ReactNode] | null => {

@@ -10,7 +10,7 @@ import {
   buildReferenceColumn,
   buildMarketColumn,
   buildOrderColumn,
-  buildDirectionColumn,
+  buildSideColumn,
   buildPeggedOrderColumn,
   buildSizeColumn,
   buildTypeColumn,
@@ -24,7 +24,7 @@ import { getSettlementAssetId } from '../../../lib/markets'
 
 export const OrderTable = ({
   marketId,
-  direction,
+  side,
   orderId,
   reference,
   price,
@@ -39,7 +39,7 @@ export const OrderTable = ({
 }: Partial<{
   marketId?: string
   orderId?: string
-  direction?: vegaSide
+  side?: vegaSide
   size?: string
   price?: string
   reference?: string
@@ -70,6 +70,7 @@ export const OrderTable = ({
     size && positionDecimals ? formatNumber(toBigNum(size, positionDecimals), positionDecimals) : undefined
   const formattedRemaining =
     remaining && positionDecimals ? formatNumber(toBigNum(remaining, positionDecimals), positionDecimals) : undefined
+
   let assetInfo
   if (market && !assetsLoading) {
     const settlementAsset = getSettlementAssetId(market)
@@ -85,7 +86,7 @@ export const OrderTable = ({
     buildSizeColumn(marketsLoading, size, marketId, formattedSize),
     buildMarketColumn(marketsLoading, marketId, market),
     buildOrderColumn(orderId),
-    buildDirectionColumn(direction),
+    buildSideColumn(side),
     buildTypeColumn(type),
     buildReferenceColumn(reference),
     buildCreatedAtColumn(createdAt),

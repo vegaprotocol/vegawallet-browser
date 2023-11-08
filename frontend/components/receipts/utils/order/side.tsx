@@ -6,4 +6,4 @@ export const sideText: Record<vegaSide, string> = {
   SIDE_SELL: 'Short'
 }
 
-export const Direction = ({ direction }: { direction: vegaSide }) => <>{sideText[direction]}</>
+export const Side = ({ side }: { side: vegaSide }) => <>{sideText[side]}</>

@@ -1,13 +1,13 @@
 import { TransactionKeys, TRANSACTION_TITLES, Transaction } from '../../../lib/transactions'
 
-export const U_INT_64_MAX = '18446744073709551615'
+export const MAX_POSITION_SIZE = '9223372036854775807'
 
 const processTitle = (type: TransactionKeys, data: any) => {
   // If we have a mass order cancellation (i.e. no order ID, with or without a market ID)
   // then we want to display a different title
   if (type === TransactionKeys.ORDER_CANCELLATION && data && !data.orderId) {
     return 'Mass Order Cancellation'
-  } else if (type === TransactionKeys.ORDER_SUBMISSION && data && data.reduceOnly && data.size === U_INT_64_MAX) {
+  } else if (type === TransactionKeys.ORDER_SUBMISSION && data && data.reduceOnly && data.size === MAX_POSITION_SIZE) {
     return 'Close Position'
   }
 

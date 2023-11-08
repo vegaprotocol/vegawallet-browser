@@ -1,5 +1,5 @@
 import { TransactionKeys } from '../../../lib/transactions'
-import { getTitle, U_INT_64_MAX } from './get-title'
+import { getTitle, MAX_POSITION_SIZE } from './get-title'
 
 describe('getTitle', () => {
   it('should return the title corresponding to the given TransactionKeys', () => {
@@ -30,7 +30,7 @@ describe('getTitle', () => {
 
   it('should return "Close position" when order submission is reduceOnly with max size', () => {
     const transaction = {
-      [TransactionKeys.ORDER_SUBMISSION]: { reduceOnly: true, size: U_INT_64_MAX }
+      [TransactionKeys.ORDER_SUBMISSION]: { reduceOnly: true, size: MAX_POSITION_SIZE }
     }
     expect(getTitle(transaction as any)).toBe('Close Position')
   })

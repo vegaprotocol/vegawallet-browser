@@ -1,3 +1,10 @@
+export type BatchTransactionCommands =
+  | TransactionKeys.ORDER_SUBMISSION
+  | TransactionKeys.ORDER_CANCELLATION
+  | TransactionKeys.ORDER_AMENDMENT
+  | TransactionKeys.STOP_ORDERS_SUBMISSION
+  | TransactionKeys.STOP_ORDERS_CANCELLATION
+
 export enum TransactionKeys {
   UNKNOWN = 'unknown',
   ORDER_SUBMISSION = 'orderSubmission',

@@ -10,6 +10,6 @@ export const useMarketPrice = (marketId: string, price: string) => {
   if (loading) return null
   const market = getMarketById(marketId)
   const marketDecimal = Number(get(market, 'marketDecimals'))
-  if (!market || !marketDecimal) throw new Error('Could not find market or positionDecimals on')
+  if (!market || !marketDecimal) throw new Error('Could not find market or marketDecimals')
   return formatNumber(toBigNum(price, marketDecimal), marketDecimal)
 }

@@ -4,11 +4,40 @@ import { PeggedOrderInfo } from './pegged-order-info'
 import { generateMarket } from '../../../../test-helpers/generate-market.ts'
 import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
+import { AssetsStore, useAssetsStore } from '../../../../stores/assets-store'
+import { MarketsStore, useMarketsStore } from '../../../../stores/markets-store'
+import { DeepPartial, mockStore } from '../../../../test-helpers/mock-store'
+
+jest.mock('../../../../stores/assets-store')
+jest.mock('../../../../stores/markets-store')
+
+const mockStores = (marketStore: DeepPartial<MarketsStore>, assetStore: DeepPartial<AssetsStore>) => {
+  mockStore(useMarketsStore, marketStore)
+  mockStore(useAssetsStore, assetStore)
+}
+
+const MARKET_MOCK = {
+  tradableInstrument: { instrument: { future: { settlementAsset: 'someAssetId' } } },
+  marketDecimals: 2
+}
+
+const ASSET_MOCK = {
+  symbol: 'SYM'
+}
 
 describe('PeggedOrderInfo', () => {
   const marketId = 'someMarketId'
 
   it('should render basic data when markets are loading or market is undefined', () => {
+    mockStores(
+      {
+        loading: true,
+        getMarketById: () => undefined
+      },
+      {
+        getAssetById: () => ASSET_MOCK
+      }
+    )
     const peggedOrder = {
       offset: '12',
       reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID
@@ -18,6 +47,14 @@ describe('PeggedOrderInfo', () => {
   })
 
   it('should render enriched data when markets are not loading and market is defined', () => {
+    mockStores(
+      {
+        getMarketById: () => MARKET_MOCK
+      },
+      {
+        getAssetById: () => ASSET_MOCK
+      }
+    )
     const peggedOrder = {
       offset: '12',
       reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID
@@ -41,6 +78,14 @@ describe('PeggedOrderInfo', () => {
   })
 
   it('should display PeggedReference values correctly', () => {
+    mockStores(
+      {
+        getMarketById: () => MARKET_MOCK
+      },
+      {
+        getAssetById: () => ASSET_MOCK
+      }
+    )
     const testCases = [
       { reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID, expectedText: 'from best bid' },
       { reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_ASK, expectedText: 'from best ask' },

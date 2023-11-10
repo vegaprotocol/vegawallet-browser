@@ -1,8 +1,8 @@
 import { vegaMarket, vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
 import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
 import { PeggedOrderOptions } from '../../../../types/transactions'
+import { useFormatMarketPrice } from '../../../../hooks/format-market-price'
 
 export const referenceText: Record<vegaPeggedReference, string> = {
   [vegaPeggedReference.PEGGED_REFERENCE_BEST_ASK]: 'best ask',
@@ -21,19 +21,13 @@ interface PeggedOrderInfoProps {
 
 export const PeggedOrderInfo = ({ marketsLoading, peggedOrder, market, marketId, symbol }: PeggedOrderInfoProps) => {
   const { offset, reference } = peggedOrder
-  let formattedOffset: string | number = offset
+  const formattedOffset = useFormatMarketPrice(marketId, offset)
 
-  if (market?.decimalPlaces) {
-    const marketDecimals = Number(market.decimalPlaces)
-    formattedOffset = formatNumber(toBigNum(offset, marketDecimals), marketDecimals)
-  }
-
-  const priceToDisplay =
-    marketsLoading || !market ? (
-      <PriceWithTooltip price={offset} marketId={marketId} />
-    ) : (
-      <AmountWithSymbol amount={formattedOffset} symbol={symbol} />
-    )
+  const priceToDisplay = formattedOffset ? (
+    <AmountWithSymbol amount={formattedOffset} symbol={symbol} />
+  ) : (
+    <PriceWithTooltip price={offset} marketId={marketId} />
+  )
 
   return (
     <span className="flex items-center">

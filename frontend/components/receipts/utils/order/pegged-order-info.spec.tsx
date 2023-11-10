@@ -17,7 +17,7 @@ const mockStores = (marketStore: DeepPartial<MarketsStore>, assetStore: DeepPart
 
 const MARKET_MOCK = {
   tradableInstrument: { instrument: { future: { settlementAsset: 'someAssetId' } } },
-  marketDecimals: 2
+  decimalPlaces: 2
 }
 
 const ASSET_MOCK = {

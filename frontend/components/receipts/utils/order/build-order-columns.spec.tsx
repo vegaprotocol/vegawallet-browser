@@ -30,7 +30,6 @@ jest.mock('./order-price', () => {
 describe('buildPriceColumn', () => {
   it('returns Price column', () => {
     const result = buildPriceColumn('100', '1', vegaOrderType.TYPE_LIMIT)
-    console.log(result)
     render(<>{result}</>)
     expect(screen.getByTestId('order-price-component')).toBeInTheDocument()
   })

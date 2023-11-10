@@ -12,7 +12,7 @@ describe('useFormatSizeAmount', () => {
     silenceErrors()
     mockStore(useMarketsStore, {
       getMarketById: () => ({
-        marketDecimals: undefined
+        decimalPlaces: undefined
       })
     })
     expect(() => renderHook(() => useFormatSizeAmount('foo', '123'))).toThrowError(
@@ -64,7 +64,7 @@ describe('useFormatSizeAmount', () => {
   it('returns undefined if no market is provided', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => ({
-        marketDecimals: 12
+        decimalPlaces: 12
       })
     })
     const { result } = renderHook(() => useFormatSizeAmount(undefined, '123'))
@@ -74,7 +74,7 @@ describe('useFormatSizeAmount', () => {
   it('returns undefined if no price is provided', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => ({
-        marketDecimals: 12
+        decimalPlaces: 12
       })
     })
     const { result } = renderHook(() => useFormatSizeAmount('foo', undefined))

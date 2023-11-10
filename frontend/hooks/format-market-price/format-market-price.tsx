@@ -2,7 +2,6 @@ import get from 'lodash/get'
 import { useMarketsStore } from '../../stores/markets-store'
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 
-// TODO make marketid and price non-optional
 export const useFormatMarketPrice = (marketId?: string, price?: string) => {
   const { loading, getMarketById } = useMarketsStore((state) => ({
     loading: state.loading,

@@ -1,22 +1,18 @@
-import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { MarketLink } from './market-link'
 import get from 'lodash/get'
+import { useMarketsStore } from '../../../../stores/markets-store'
 
 export const locators = {
   orderDetailsMarketCode: 'order-details-market-code'
 }
 
-export const OrderMarketComponent = ({
-  marketsLoading,
-  marketId,
-  market
-}: {
-  marketsLoading: boolean
-  marketId: string
-  market: vegaMarket | undefined
-}) => {
+export const OrderMarketComponent = ({ marketId }: { marketId: string }) => {
+  const { getMarketById } = useMarketsStore((state) => ({
+    getMarketById: state.getMarketById
+  }))
+  const market = getMarketById(marketId)
   const code = get(market, 'tradableInstrument.instrument.code')
-  if (marketsLoading || !code) {
+  if (!code) {
     return <MarketLink key="order-details-market" marketId={marketId} />
   }
 

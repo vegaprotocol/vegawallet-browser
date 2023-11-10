@@ -7,7 +7,7 @@ import { MAX_POSITION_SIZE } from '../../lib/transactions'
 
 jest.mock('../../stores/markets-store')
 
-describe('formatSizeAmount', () => {
+describe('useFormatSizeAmount', () => {
   it('throw error if market decimals are not defined', () => {
     silenceErrors()
     mockStore(useMarketsStore, {
@@ -48,5 +48,36 @@ describe('formatSizeAmount', () => {
     })
     const { result } = renderHook(() => useFormatSizeAmount('foo', MAX_POSITION_SIZE))
     expect(result.current).toBe('Max')
+  })
+
+  it('returns undefined if loading', () => {
+    mockStore(useMarketsStore, {
+      loading: true,
+      getMarketById: () => ({
+        positionDecimalPlaces: 12
+      })
+    })
+    const { result } = renderHook(() => useFormatSizeAmount('foo', MAX_POSITION_SIZE))
+    expect(result.current).toBeUndefined()
+  })
+
+  it('returns undefined if no market is provided', () => {
+    mockStore(useMarketsStore, {
+      getMarketById: () => ({
+        marketDecimals: 12
+      })
+    })
+    const { result } = renderHook(() => useFormatSizeAmount(undefined, '123'))
+    expect(result.current).toBeUndefined()
+  })
+
+  it('returns undefined if no price is provided', () => {
+    mockStore(useMarketsStore, {
+      getMarketById: () => ({
+        marketDecimals: 12
+      })
+    })
+    const { result } = renderHook(() => useFormatSizeAmount('foo', undefined))
+    expect(result.current).toBeUndefined()
   })
 })

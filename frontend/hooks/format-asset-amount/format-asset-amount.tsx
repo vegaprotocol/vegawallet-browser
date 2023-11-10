@@ -2,12 +2,13 @@ import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { useAssetsStore } from '../../stores/assets-store'
 import get from 'lodash/get'
 
-export const useFormatAssetAmount = (assetId: string, amount: string) => {
+// TODO make params price non-optional
+export const useFormatAssetAmount = (assetId?: string, amount?: string) => {
   const { getAssetById, loading } = useAssetsStore((state) => ({
     getAssetById: state.getAssetById,
     loading: state.loading
   }))
-  if (loading) return null
+  if (loading || !assetId || !amount) return { formattedAmount: undefined, symbol: undefined }
   const assetInfo = getAssetById(assetId)
   const decimals = Number(get(assetInfo, 'details.decimals'))
   const symbol = get(assetInfo, 'details.symbol')

@@ -2,11 +2,11 @@ import { renderHook } from '@testing-library/react'
 import { silenceErrors } from '../../test-helpers/silence-errors'
 import { mockStore } from '../../test-helpers/mock-store'
 import { useMarketsStore } from '../../stores/markets-store'
-import { useMarketPrice } from './format-market-price'
+import { useFormatMarketPrice } from './format-market-price'
 
 jest.mock('../../stores/markets-store')
 
-describe('formatMarketPrice', () => {
+describe('useFormatMarketPrice', () => {
   it('throw error if market decimals are not defined', () => {
     silenceErrors()
     mockStore(useMarketsStore, {
@@ -14,7 +14,9 @@ describe('formatMarketPrice', () => {
         marketDecimals: undefined
       })
     })
-    expect(() => renderHook(() => useMarketPrice('foo', '123'))).toThrowError('Could not find market or marketDecimals')
+    expect(() => renderHook(() => useFormatMarketPrice('foo', '123'))).toThrowError(
+      'Could not find market or marketDecimals'
+    )
   })
 
   it('throw error if market is not defined', () => {
@@ -22,7 +24,9 @@ describe('formatMarketPrice', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => undefined
     })
-    expect(() => renderHook(() => useMarketPrice('foo', '123'))).toThrowError('Could not find market or marketDecimals')
+    expect(() => renderHook(() => useFormatMarketPrice('foo', '123'))).toThrowError(
+      'Could not find market or marketDecimals'
+    )
   })
 
   it('returns formatted amount', () => {
@@ -31,7 +35,38 @@ describe('formatMarketPrice', () => {
         marketDecimals: 12
       })
     })
-    const { result } = renderHook(() => useMarketPrice('foo', '123'))
+    const { result } = renderHook(() => useFormatMarketPrice('foo', '123'))
     expect(result.current).toBe('0.000000000123')
+  })
+
+  it('returns undefined if loading', () => {
+    mockStore(useMarketsStore, {
+      loading: true,
+      getMarketById: () => ({
+        marketDecimals: 12
+      })
+    })
+    const { result } = renderHook(() => useFormatMarketPrice('foo', '123'))
+    expect(result.current).toBeUndefined()
+  })
+
+  it('returns undefined if no market is provided', () => {
+    mockStore(useMarketsStore, {
+      getMarketById: () => ({
+        marketDecimals: 12
+      })
+    })
+    const { result } = renderHook(() => useFormatMarketPrice(undefined, '123'))
+    expect(result.current).toBeUndefined()
+  })
+
+  it('returns undefined if no price is provided', () => {
+    mockStore(useMarketsStore, {
+      getMarketById: () => ({
+        marketDecimals: 12
+      })
+    })
+    const { result } = renderHook(() => useFormatMarketPrice('foo', undefined))
+    expect(result.current).toBeUndefined()
   })
 })

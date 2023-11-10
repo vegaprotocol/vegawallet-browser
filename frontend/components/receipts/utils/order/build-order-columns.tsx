@@ -26,83 +26,30 @@ const orderStatuses: Record<vegaOrderStatus, string> = {
 
 // Helper functions for building individual columns for the order table
 export const buildPriceColumn = (
-  assetsLoading: boolean,
   price?: string,
   marketId?: string,
-  formattedPrice?: string,
-  symbol?: string,
   type?: vegaOrderType
 ): [ReactNode, ReactNode] | null => {
-  if (!price) return null
-  return [
-    'Price',
-    <OrderPriceComponent
-      key="order-details-price"
-      assetsLoading={assetsLoading}
-      price={price}
-      marketId={marketId}
-      formattedPrice={formattedPrice}
-      symbol={symbol}
-      type={type}
-    />
-  ]
+  if (!price || !marketId) return null
+  return ['Price', <OrderPriceComponent key="order-details-price" price={price} marketId={marketId} type={type} />]
 }
 
 export const buildPeggedOrderColumn = (
-  marketsLoading: boolean,
   peggedOrder?: PeggedOrderOptions,
-  marketId?: string,
-  market?: any,
-  symbol?: string
+  marketId?: string
 ): [ReactNode, ReactNode] | null => {
   if (!peggedOrder || !marketId) return null
-  return [
-    'Pegged price',
-    <PeggedOrderInfo
-      key="order-details-pegged"
-      marketsLoading={marketsLoading}
-      market={market}
-      peggedOrder={peggedOrder}
-      marketId={marketId}
-      symbol={symbol}
-    />
-  ]
+  return ['Pegged price', <PeggedOrderInfo key="order-details-pegged" peggedOrder={peggedOrder} marketId={marketId} />]
 }
 
-export const buildSizeColumn = (
-  marketsLoading: boolean,
-  size?: string,
-  marketId?: string,
-  formattedSize?: string
-): [ReactNode, ReactNode] | null => {
+export const buildSizeColumn = (size?: string, marketId?: string): [ReactNode, ReactNode] | null => {
   if (!size || !marketId) return null
-  return [
-    'Size',
-    <OrderSizeComponent
-      key="order-details-size"
-      marketsLoading={marketsLoading}
-      size={size}
-      marketId={marketId}
-      formattedSize={formattedSize}
-    />
-  ]
+  return ['Size', <OrderSizeComponent key="order-details-size" size={size} marketId={marketId} />]
 }
 
-export const buildMarketColumn = (
-  marketsLoading: boolean,
-  marketId?: string,
-  market?: any
-): [ReactNode, ReactNode] | null => {
+export const buildMarketColumn = (marketId?: string): [ReactNode, ReactNode] | null => {
   if (!marketId) return null
-  return [
-    'Market',
-    <OrderMarketComponent
-      key="order-details-market"
-      marketsLoading={marketsLoading}
-      marketId={marketId}
-      market={market}
-    />
-  ]
+  return ['Market', <OrderMarketComponent key="order-details-market" marketId={marketId} />]
 }
 
 export const buildOrderColumn = (orderId?: string): [ReactNode, ReactNode] | null => {
@@ -151,23 +98,9 @@ export const buildUpdatedAtColumn = (updatedAt?: string): [ReactNode, ReactNode]
   return ['Updated at', formattedDate]
 }
 
-export const buildRemainingColumn = (
-  marketsLoading: boolean,
-  remaining?: string,
-  marketId?: string,
-  formattedRemaining?: string
-): [ReactNode, ReactNode] | null => {
+export const buildRemainingColumn = (remaining?: string, marketId?: string): [ReactNode, ReactNode] | null => {
   if (!remaining || !marketId) return null
-  return [
-    'Remaining',
-    <OrderSizeComponent
-      key="order-details-remaining"
-      marketsLoading={marketsLoading}
-      size={remaining}
-      marketId={marketId}
-      formattedSize={formattedRemaining}
-    />
-  ]
+  return ['Remaining', <OrderSizeComponent key="order-details-remaining" size={remaining} marketId={marketId} />]
 }
 
 export const buildStatusColumn = (status?: vegaOrderStatus): [ReactNode, ReactNode] | null => {

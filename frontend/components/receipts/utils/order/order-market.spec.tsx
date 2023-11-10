@@ -22,7 +22,7 @@ describe('OrderMarketComponent', () => {
     // 1130-ODTB-011 I see the market code in the enriched data view when data has been loaded successfully
     const mockMarket: vegaMarket = generateMarket()
     mockStore(useMarketsStore, {
-      loading: true,
+      loading: false,
       getMarketById: () => mockMarket
     })
 

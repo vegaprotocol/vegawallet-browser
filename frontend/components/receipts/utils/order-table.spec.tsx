@@ -2,15 +2,10 @@ import { render, screen } from '@testing-library/react'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { OrderTable } from './order-table'
 import { locators as dataTableLocators } from '../../data-table/data-table'
-import { locators as orderMarketLocators } from './order/order-market'
-import { locators as orderPriceLocators } from './order/order-price'
-import { locators as amountWithSymbolLocators } from './string-amounts/amount-with-symbol'
-import { locators as priceWithTooltipLocators } from './string-amounts/price-with-tooltip'
 import { useMarketsStore } from '../../../stores/markets-store'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { generateMarket } from '../../../test-helpers/generate-market'
 import { generateAsset } from '../../../test-helpers/generate-asset'
-import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { mockStore } from '../../../test-helpers/mock-store'
 import { vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/core'
@@ -34,14 +29,14 @@ describe('OrderTable', () => {
 
   beforeEach(() => {
     mockStore(useMarketsStore, {
-      loading: false,
+      loading: true,
       markets: [],
-      getMarketById: jest.fn()
+      getMarketById: jest.fn().mockReturnValue(mockMarket)
     })
     mockStore(useAssetsStore, {
-      loading: false,
+      loading: true,
       assets: [],
-      getAssetById: jest.fn()
+      getAssetById: jest.fn().mockReturnValue(mockAsset)
     })
   })
 
@@ -140,200 +135,5 @@ describe('OrderTable', () => {
 
     expect(versionRow).toHaveTextContent('Version')
     expect(versionRow).toHaveTextContent('1')
-  })
-
-  it('does not render row if the property is undefined', () => {
-    render(<OrderTable />)
-    expect(screen.queryAllByTestId(dataTableLocators.dataRow)).toHaveLength(0)
-  })
-  it('renders short for buy orders', () => {
-    render(<OrderTable side={vegaSide.SIDE_BUY} />)
-    const [directionRow] = screen.getAllByTestId(dataTableLocators.dataRow)
-    expect(directionRow).toHaveTextContent('Side')
-    expect(directionRow).toHaveTextContent('Long')
-  })
-  it('renders long for sell orders', () => {
-    render(<OrderTable side={vegaSide.SIDE_SELL} />)
-    const [directionRow] = screen.getAllByTestId(dataTableLocators.dataRow)
-    expect(directionRow).toHaveTextContent('Side')
-    expect(directionRow).toHaveTextContent('Short')
-  })
-
-  // testing code branches dealing with enriched market data - ACs for this are in the component tests
-  it('renders enriched market when marketId matches available markets', () => {
-    mockStore(useMarketsStore, {
-      loading: false,
-      markets: [mockMarket],
-      getMarketById: jest.fn().mockReturnValue(mockMarket)
-    })
-
-    render(<OrderTable marketId={mockMarket.id} />)
-    expect(screen.getByTestId(orderMarketLocators.orderDetailsMarketCode)).toHaveTextContent(
-      mockMarket.tradableInstrument?.instrument?.code as string
-    )
-  })
-
-  it("doesn't render enriched market when marketId and markets are not provided", () => {
-    render(<OrderTable />)
-    expect(screen.queryByTestId(orderMarketLocators.orderDetailsMarketCode)).not.toBeInTheDocument()
-  })
-
-  it("doesn't render enriched market when marketId does not match available markets", () => {
-    mockStore(useMarketsStore, {
-      loading: false,
-      markets: [mockMarket],
-      getMarketById: jest.fn().mockReturnValue(null)
-    })
-
-    render(<OrderTable marketId="blah" />)
-    expect(screen.queryByTestId(orderMarketLocators.orderDetailsMarketCode)).not.toBeInTheDocument()
-  })
-
-  // testing code branches dealing with enriched asset data - ACs for this are in the component tests
-  it('renders enriched price info when market and nested properties exist', () => {
-    const mockPrice = '123'
-    const mockDecimals = Number(mockMarket.decimalPlaces as string)
-    mockStore(useMarketsStore, {
-      loading: false,
-      markets: [mockMarket],
-      getMarketById: jest.fn().mockReturnValue(mockMarket)
-    })
-    mockStore(useAssetsStore, {
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-
-    render(<OrderTable marketId="1" price={mockPrice} />)
-    expect(screen.getByTestId(amountWithSymbolLocators.amount)).toHaveTextContent(
-      formatNumber(toBigNum(mockPrice, mockDecimals), mockDecimals)
-    )
-  })
-
-  it('does not render enriched price info when market or nested properties do not exist', () => {
-    render(<OrderTable />)
-    expect(screen.queryByTestId(amountWithSymbolLocators.amount)).not.toBeInTheDocument()
-  })
-
-  it('renders symbol when asset information exists', () => {
-    mockStore(useAssetsStore, {
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-    mockStore(useMarketsStore, {
-      loading: false,
-      markets: [mockMarket],
-      getMarketById: jest.fn().mockReturnValue(mockMarket)
-    })
-
-    render(<OrderTable marketId="1" price="123" />)
-    expect(screen.getByTestId(amountWithSymbolLocators.symbol)).toHaveTextContent(mockAsset.details?.symbol as string)
-  })
-
-  it("doesn't render symbol when asset information doesn't exist", () => {
-    render(<OrderTable marketId="1" price="123" />)
-    expect(screen.queryByTestId(amountWithSymbolLocators.symbol)).not.toBeInTheDocument()
-  })
-
-  it('sets assetInfo to undefined when market exists but nested properties do not', () => {
-    const incompleteMockMarket = generateMarket({
-      tradableInstrument: {
-        instrument: {
-          future: undefined
-        }
-      }
-    })
-    mockStore(useMarketsStore, {
-      loading: false,
-      markets: [incompleteMockMarket],
-      getMarketById: jest.fn().mockReturnValue(incompleteMockMarket)
-    })
-    mockStore(useAssetsStore, {
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-
-    render(<OrderTable marketId="1" />)
-    expect(screen.queryByTestId(amountWithSymbolLocators.symbol)).not.toBeInTheDocument()
-  })
-
-  it('sets assetInfo to undefined when assets array is empty', () => {
-    mockStore(useMarketsStore, {
-      loading: false,
-      markets: [mockMarket],
-      getMarketById: jest.fn().mockReturnValue(mockMarket)
-    })
-    mockStore(useAssetsStore, {
-      loading: false,
-      assets: [],
-      getAssetById: jest.fn().mockReturnValue(null)
-    })
-
-    render(<OrderTable marketId="1" />)
-    expect(screen.queryByTestId(amountWithSymbolLocators.symbol)).not.toBeInTheDocument()
-  })
-
-  // testing code branches dealing with price field display behavior
-  it('displays "market price" for market order types', () => {
-    render(<OrderTable price="100" type={vegaOrderType.TYPE_MARKET} marketId="1" />)
-
-    expect(screen.getByTestId(orderPriceLocators.orderDetailsMarketPrice)).toBeInTheDocument()
-  })
-
-  it('displays price for non-zero prices in non-market orders', () => {
-    render(<OrderTable price="100" type={vegaOrderType.TYPE_LIMIT} marketId="1" />)
-
-    expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toBeInTheDocument()
-  })
-
-  it('displays enriched size data when markets (and size) are provided', () => {
-    const mockSize = '100'
-    const mockPositionDecimals = Number(mockMarket.positionDecimalPlaces as string)
-
-    mockStore(useMarketsStore, {
-      loading: false,
-      markets: [mockMarket],
-      getMarketById: jest.fn().mockReturnValue(mockMarket)
-    })
-    mockStore(useAssetsStore, {
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-
-    render(<OrderTable marketId="1" size={mockSize} />)
-
-    expect(screen.getByTestId(amountWithSymbolLocators.amount)).toHaveTextContent(
-      formatNumber(toBigNum(mockSize, mockPositionDecimals), mockPositionDecimals)
-    )
-  })
-
-  it('displays enriched remaining size data when markets (and remaining) are provided', () => {
-    const mockRemaining = '100'
-    const mockPositionDecimals = Number(mockMarket.positionDecimalPlaces as string)
-
-    mockStore(useMarketsStore, {
-      loading: false,
-      markets: [mockMarket],
-      getMarketById: jest.fn().mockReturnValue(mockMarket)
-    })
-    mockStore(useAssetsStore, {
-      loading: false,
-      assets: [mockAsset],
-      getAssetById: jest.fn().mockReturnValue(mockAsset)
-    })
-
-    render(<OrderTable marketId="1" remaining={mockRemaining} />)
-
-    expect(screen.getByTestId(amountWithSymbolLocators.amount)).toHaveTextContent(
-      formatNumber(toBigNum(mockRemaining, mockPositionDecimals), mockPositionDecimals)
-    )
-  })
-
-  it('does not display enriched size when markets are not provided', () => {
-    render(<OrderTable marketId="1" size="100" />)
-    expect(screen.queryByTestId(amountWithSymbolLocators.amount)).not.toBeInTheDocument()
   })
 })

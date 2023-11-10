@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { vegaMarket, vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { PeggedOrderInfo } from './pegged-order-info'
-import { generateMarket } from '../../../../test-helpers/generate-market.ts'
 import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
 import { AssetsStore, useAssetsStore } from '../../../../stores/assets-store'
@@ -22,7 +21,9 @@ const MARKET_MOCK = {
 }
 
 const ASSET_MOCK = {
-  symbol: 'SYM'
+  details: {
+    symbol: 'BTC'
+  }
 }
 
 describe('PeggedOrderInfo', () => {
@@ -42,7 +43,7 @@ describe('PeggedOrderInfo', () => {
       offset: '12',
       reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID
     }
-    render(<PeggedOrderInfo marketsLoading={true} peggedOrder={peggedOrder} marketId={marketId} />)
+    render(<PeggedOrderInfo peggedOrder={peggedOrder} marketId={marketId} />)
     expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toHaveTextContent('12')
   })
 
@@ -60,19 +61,7 @@ describe('PeggedOrderInfo', () => {
       reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID
     }
 
-    const mockMarket: vegaMarket = generateMarket({
-      decimalPlaces: '2'
-    })
-
-    render(
-      <PeggedOrderInfo
-        marketsLoading={false}
-        peggedOrder={peggedOrder}
-        market={mockMarket}
-        marketId={marketId}
-        symbol="BTC"
-      />
-    )
+    render(<PeggedOrderInfo peggedOrder={peggedOrder} marketId={marketId} />)
     expect(screen.getByTestId(amountWithSymbolLocators.amount)).toHaveTextContent('0.12')
     expect(screen.getByTestId(amountWithSymbolLocators.symbol)).toHaveTextContent('BTC')
   })
@@ -97,7 +86,7 @@ describe('PeggedOrderInfo', () => {
         offset: '12',
         reference
       }
-      render(<PeggedOrderInfo marketsLoading={true} peggedOrder={peggedOrder} marketId={marketId} />)
+      render(<PeggedOrderInfo peggedOrder={peggedOrder} marketId={marketId} />)
       expect(screen.getByText(expectedText)).toBeInTheDocument()
     }
   })

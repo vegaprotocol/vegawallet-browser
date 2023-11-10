@@ -6,7 +6,7 @@ export const locators = {
   orderDetailsMarketCode: 'order-details-market-code'
 }
 
-export const OrderMarketComponent = ({ marketId }: { marketId: string }) => {
+export const OrderMarket = ({ marketId }: { marketId: string }) => {
   const { getMarketById } = useMarketsStore((state) => ({
     getMarketById: state.getMarketById
   }))

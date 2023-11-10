@@ -1,6 +1,6 @@
 import { screen, render } from '@testing-library/react'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { OrderMarketComponent, locators as orderMarketComponentLocators } from './order-market'
+import { OrderMarket, locators as orderMarketComponentLocators } from './order-market'
 import { locators as marketLinkLocators } from './market-link'
 import { generateMarket } from '../../../../test-helpers/generate-market.ts'
 import { mockStore } from '../../../../test-helpers/mock-store.ts'
@@ -14,7 +14,7 @@ describe('OrderMarketComponent', () => {
       loading: true,
       getMarketById: () => undefined
     })
-    render(<OrderMarketComponent marketId="someMarketId" />)
+    render(<OrderMarket marketId="someMarketId" />)
     expect(screen.getByTestId(marketLinkLocators.marketLink)).toBeInTheDocument()
   })
 
@@ -26,7 +26,7 @@ describe('OrderMarketComponent', () => {
       getMarketById: () => mockMarket
     })
 
-    render(<OrderMarketComponent marketId={mockMarket.id as string} />)
+    render(<OrderMarket marketId={mockMarket.id as string} />)
     expect(screen.getByTestId(orderMarketComponentLocators.orderDetailsMarketCode).textContent).toBe(
       mockMarket.tradableInstrument?.instrument?.code as string
     )

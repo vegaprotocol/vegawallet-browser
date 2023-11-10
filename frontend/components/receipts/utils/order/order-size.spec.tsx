@@ -1,5 +1,5 @@
 import { screen, render } from '@testing-library/react'
-import { OrderSizeComponent } from './order-size'
+import { OrderSize } from './order-size'
 import { locators as sizeWithTooltipLocators } from '../string-amounts/size-with-tooltip'
 import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 import { mockStore } from '../../../../test-helpers/mock-store'
@@ -10,7 +10,7 @@ jest.mock('../../../../stores/markets-store')
 describe('OrderSizeComponent', () => {
   it('should return basic data if markets are loading or formattedSize or symbol is not defined', () => {
     mockStore(useMarketsStore, { loading: true })
-    render(<OrderSizeComponent size="100" marketId="someMarketId" />)
+    render(<OrderSize size="100" marketId="someMarketId" />)
     expect(screen.getByTestId(sizeWithTooltipLocators.sizeWithTooltip)).toBeInTheDocument()
   })
 
@@ -21,7 +21,7 @@ describe('OrderSizeComponent', () => {
         positionDecimalPlaces: 2
       })
     })
-    render(<OrderSizeComponent size="100" marketId="someMarketId" />)
+    render(<OrderSize size="100" marketId="someMarketId" />)
     expect(screen.getByTestId(amountWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
   })
 })

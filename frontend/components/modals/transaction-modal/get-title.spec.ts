@@ -1,5 +1,5 @@
-import { TransactionKeys } from '../../../lib/transactions'
-import { getTitle, MAX_POSITION_SIZE } from './get-title'
+import { MAX_POSITION_SIZE, TransactionKeys } from '../../../lib/transactions'
+import { getTitle } from './get-title'
 
 describe('getTitle', () => {
   it('should return the title corresponding to the given TransactionKeys', () => {

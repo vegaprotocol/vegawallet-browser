@@ -5,6 +5,7 @@ import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store'
 import { DeepPartial, mockStore } from '../../../../test-helpers/mock-store'
 import { locators as dataTableLocators } from '../../../data-table/data-table'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
+import { useMarketsStore } from '../../../../stores/markets-store'
 
 jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
@@ -17,6 +18,7 @@ const mockGetOrderById = jest.fn()
 const mockLastUpdatedTimestamp = 100000000
 
 jest.mock('../../../../stores/orders-store')
+jest.mock('../../../../stores/markets-store')
 
 const mockTransaction = {
   orderCancellation: { orderId: '123', marketId: 'abc' }
@@ -30,6 +32,9 @@ const renderComponent = (
   }
 ) => {
   mockStore(useOrdersStore, storeData)
+  mockStore(useMarketsStore, {
+    getMarketById: () => ({})
+  })
   render(<Cancellation transaction={mockTransaction} />)
 }
 

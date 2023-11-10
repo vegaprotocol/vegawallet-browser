@@ -2,7 +2,6 @@ import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { useAssetsStore } from '../../stores/assets-store'
 import get from 'lodash/get'
 
-// TODO make params price non-optional
 export const useFormatAssetAmount = (assetId?: string, amount?: string) => {
   const { getAssetById, loading } = useAssetsStore((state) => ({
     getAssetById: state.getAssetById,

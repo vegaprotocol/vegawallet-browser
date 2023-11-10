@@ -1,10 +1,7 @@
 import { ReactNode } from 'react'
-import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { vegaOrderType, vegaSide, vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { DataTable } from '../../data-table/data-table'
 import { PeggedOrderOptions } from '../../../types/transactions'
-import { useMarketsStore } from '../../../stores/markets-store'
-import { useAssetsStore } from '../../../stores/assets-store'
 import {
   buildPriceColumn,
   buildReferenceColumn,
@@ -20,7 +17,6 @@ import {
   buildStatusColumn,
   buildVersionColumn
 } from './order/build-order-columns'
-import { getSettlementAssetId } from '../../../lib/markets'
 
 export const OrderTable = ({
   marketId,
@@ -51,47 +47,18 @@ export const OrderTable = ({
   status?: vegaOrderStatus
   version?: string
 }>) => {
-  const { loading: assetsLoading, getAssetById } = useAssetsStore((state) => ({
-    loading: state.loading,
-    assets: state.assets,
-    getAssetById: state.getAssetById
-  }))
-  const { loading: marketsLoading, getMarketById } = useMarketsStore((state) => ({
-    loading: state.loading,
-    getMarketById: state.getMarketById
-  }))
-
-  const market = marketId && !marketsLoading ? getMarketById(marketId) : undefined
-  const marketDecimals = Number(market?.decimalPlaces)
-  const positionDecimals = Number(market?.positionDecimalPlaces)
-  const formattedPrice =
-    price && marketDecimals ? formatNumber(toBigNum(price, marketDecimals), marketDecimals) : undefined
-  const formattedSize =
-    size && positionDecimals ? formatNumber(toBigNum(size, positionDecimals), positionDecimals) : undefined
-  const formattedRemaining =
-    remaining && positionDecimals ? formatNumber(toBigNum(remaining, positionDecimals), positionDecimals) : undefined
-
-  let assetInfo
-  if (market && !assetsLoading) {
-    const settlementAsset = getSettlementAssetId(market)
-    if (settlementAsset) {
-      assetInfo = getAssetById(settlementAsset)
-    }
-  }
-  const symbol = assetInfo?.details?.symbol
-
   const columns = [
-    buildPriceColumn(assetsLoading, price, marketId, formattedPrice, symbol, type),
-    buildPeggedOrderColumn(marketsLoading, peggedOrder, marketId, market, symbol),
-    buildSizeColumn(marketsLoading, size, marketId, formattedSize),
-    buildMarketColumn(marketsLoading, marketId, market),
+    buildPriceColumn(price, marketId, type),
+    buildPeggedOrderColumn(peggedOrder, marketId),
+    buildSizeColumn(size, marketId),
+    buildMarketColumn(marketId),
     buildOrderColumn(orderId),
     buildSideColumn(side),
     buildTypeColumn(type),
     buildReferenceColumn(reference),
     buildCreatedAtColumn(createdAt),
     buildUpdatedAtColumn(updatedAt),
-    buildRemainingColumn(marketsLoading, remaining, marketId, formattedRemaining),
+    buildRemainingColumn(remaining, marketId),
     buildStatusColumn(status),
     buildVersionColumn(version)
   ]

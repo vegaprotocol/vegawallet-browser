@@ -9,7 +9,7 @@ export const useFormatMarketPrice = (marketId?: string, price?: string) => {
   }))
   if (loading || !marketId || !price) return undefined
   const market = getMarketById(marketId)
-  const marketDecimal = Number(get(market, 'marketDecimals'))
-  if (!market || !marketDecimal) throw new Error('Could not find market or marketDecimals')
+  const marketDecimal = Number(get(market, 'decimalPlaces'))
+  if (!market || !marketDecimal) throw new Error('Could not find market or decimalPlaces')
   return formatNumber(toBigNum(price, marketDecimal), marketDecimal)
 }

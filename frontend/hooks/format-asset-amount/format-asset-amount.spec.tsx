@@ -48,7 +48,6 @@ describe('useFormatAssetAmount', () => {
       })
     })
     const { result } = renderHook(() => useFormatAssetAmount('foo', '123'))
-    console.log(result.current)
     expect(result.current).toStrictEqual({ formattedAmount: undefined, symbol: undefined })
   })
 

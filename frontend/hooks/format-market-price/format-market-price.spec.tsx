@@ -11,11 +11,11 @@ describe('useFormatMarketPrice', () => {
     silenceErrors()
     mockStore(useMarketsStore, {
       getMarketById: () => ({
-        marketDecimals: undefined
+        decimalPlaces: undefined
       })
     })
     expect(() => renderHook(() => useFormatMarketPrice('foo', '123'))).toThrowError(
-      'Could not find market or marketDecimals'
+      'Could not find market or decimalPlaces'
     )
   })
 
@@ -25,14 +25,14 @@ describe('useFormatMarketPrice', () => {
       getMarketById: () => undefined
     })
     expect(() => renderHook(() => useFormatMarketPrice('foo', '123'))).toThrowError(
-      'Could not find market or marketDecimals'
+      'Could not find market or decimalPlaces'
     )
   })
 
   it('returns formatted amount', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => ({
-        marketDecimals: 12
+        decimalPlaces: 12
       })
     })
     const { result } = renderHook(() => useFormatMarketPrice('foo', '123'))
@@ -43,7 +43,7 @@ describe('useFormatMarketPrice', () => {
     mockStore(useMarketsStore, {
       loading: true,
       getMarketById: () => ({
-        marketDecimals: 12
+        decimalPlaces: 12
       })
     })
     const { result } = renderHook(() => useFormatMarketPrice('foo', '123'))
@@ -53,7 +53,7 @@ describe('useFormatMarketPrice', () => {
   it('returns undefined if no market is provided', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => ({
-        marketDecimals: 12
+        decimalPlaces: 12
       })
     })
     const { result } = renderHook(() => useFormatMarketPrice(undefined, '123'))
@@ -63,7 +63,7 @@ describe('useFormatMarketPrice', () => {
   it('returns undefined if no price is provided', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => ({
-        marketDecimals: 12
+        decimalPlaces: 12
       })
     })
     const { result } = renderHook(() => useFormatMarketPrice('foo', undefined))

@@ -23,14 +23,14 @@ import {
 
 jest.mock('./order-price', () => {
   return {
-    OrderPriceComponent: () => <div data-testid="order-price-component" />
+    OrderPrice: () => <div data-testid="order-price-component" />
   }
 })
 
 describe('buildPriceColumn', () => {
-  it('returns Price column when shouldDisplayPrice is true', () => {
+  it('returns Price column', () => {
     const result = buildPriceColumn('100', '1', vegaOrderType.TYPE_LIMIT)
-
+    console.log(result)
     render(<>{result}</>)
     expect(screen.getByTestId('order-price-component')).toBeInTheDocument()
   })
@@ -74,7 +74,7 @@ describe('buildPeggedOrderColumn', () => {
 
 jest.mock('./order-size', () => {
   return {
-    OrderSizeComponent: () => <div data-testid="order-size-component" />
+    OrderSize: () => <div data-testid="order-size-component" />
   }
 })
 
@@ -99,7 +99,7 @@ describe('buildSizeColumn', () => {
 
 jest.mock('./order-market', () => {
   return {
-    OrderMarketComponent: () => <div data-testid="order-market-component" />
+    OrderMarket: () => <div data-testid="order-market-component" />
   }
 })
 

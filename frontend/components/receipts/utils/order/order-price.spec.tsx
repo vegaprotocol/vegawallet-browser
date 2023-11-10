@@ -1,6 +1,6 @@
 import { screen, render } from '@testing-library/react'
 import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { OrderPriceComponent, locators as orderPriceLocators } from './order-price'
+import { OrderPrice, locators as orderPriceLocators } from './order-price'
 import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
 import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 import { DeepPartial, mockStore } from '../../../../test-helpers/mock-store'
@@ -35,7 +35,7 @@ describe('OrderPriceComponent', () => {
       }
     )
     // 1130-ODTB-010 I can see 'Market price'
-    render(<OrderPriceComponent price="0" marketId="someMarketId" type={vegaOrderType.TYPE_MARKET} />)
+    render(<OrderPrice price="0" marketId="someMarketId" type={vegaOrderType.TYPE_MARKET} />)
     expect(screen.getByTestId(orderPriceLocators.orderDetailsMarketPrice).textContent).toBe('Market price')
   })
 
@@ -44,27 +44,27 @@ describe('OrderPriceComponent', () => {
     mockStores(
       {
         loading: true,
-        getMarketById: () =>  MARKET_MOCK
+        getMarketById: () => MARKET_MOCK
       },
       {
         getAssetById: () => ASSET_MOCK
       }
     )
-    render(<OrderPriceComponent price="10" marketId="someMarketId" type={undefined} />)
+    render(<OrderPrice price="10" marketId="someMarketId" type={undefined} />)
     expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toBeInTheDocument()
   })
 
   it('should return enriched data otherwise', () => {
     mockStores(
       {
-        getMarketById: () =>  MARKET_MOCK
+        getMarketById: () => MARKET_MOCK
       },
       {
         getAssetById: () => ASSET_MOCK
       }
     )
     // 1130-ODTB-013 I see the order price in the enriched data view when data has been loaded successfully
-    render(<OrderPriceComponent price="10" marketId="someMarketId" type={undefined} />)
+    render(<OrderPrice price="10" marketId="someMarketId" type={undefined} />)
     expect(screen.getByTestId(amountWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
   })
 })

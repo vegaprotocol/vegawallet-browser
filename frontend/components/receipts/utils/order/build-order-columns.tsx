@@ -2,10 +2,10 @@ import { ReactNode } from 'react'
 import { vegaOrderType, vegaSide, vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { PeggedOrderOptions } from '../../../../types/transactions'
-import { OrderPriceComponent } from './order-price'
-import { OrderSizeComponent } from './order-size'
-import { OrderMarketComponent } from './order-market'
-import { OrderTypeComponent } from './order-type'
+import { OrderPrice } from './order-price'
+import { OrderSize } from './order-size'
+import { OrderMarket } from './order-market'
+import { OrderType } from './order-type'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { Side } from './side'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
@@ -31,7 +31,7 @@ export const buildPriceColumn = (
   type?: vegaOrderType
 ): [ReactNode, ReactNode] | null => {
   if (!price || !marketId) return null
-  return ['Price', <OrderPriceComponent key="order-details-price" price={price} marketId={marketId} type={type} />]
+  return ['Price', <OrderPrice key="order-details-price" price={price} marketId={marketId} type={type} />]
 }
 
 export const buildPeggedOrderColumn = (
@@ -44,12 +44,12 @@ export const buildPeggedOrderColumn = (
 
 export const buildSizeColumn = (size?: string, marketId?: string): [ReactNode, ReactNode] | null => {
   if (!size || !marketId) return null
-  return ['Size', <OrderSizeComponent key="order-details-size" size={size} marketId={marketId} />]
+  return ['Size', <OrderSize key="order-details-size" size={size} marketId={marketId} />]
 }
 
 export const buildMarketColumn = (marketId?: string): [ReactNode, ReactNode] | null => {
   if (!marketId) return null
-  return ['Market', <OrderMarketComponent key="order-details-market" marketId={marketId} />]
+  return ['Market', <OrderMarket key="order-details-market" marketId={marketId} />]
 }
 
 export const buildOrderColumn = (orderId?: string): [ReactNode, ReactNode] | null => {
@@ -71,7 +71,7 @@ export const buildSideColumn = (side?: vegaSide): [ReactNode, ReactNode] | null 
 
 export const buildTypeColumn = (type?: vegaOrderType): [ReactNode, ReactNode] | null => {
   if (!type) return null
-  return ['Type', <OrderTypeComponent key="order-details-type" type={type} />]
+  return ['Type', <OrderType key="order-details-type" type={type} />]
 }
 
 export const buildReferenceColumn = (reference?: string): [ReactNode, ReactNode] | null => {
@@ -100,7 +100,7 @@ export const buildUpdatedAtColumn = (updatedAt?: string): [ReactNode, ReactNode]
 
 export const buildRemainingColumn = (remaining?: string, marketId?: string): [ReactNode, ReactNode] | null => {
   if (!remaining || !marketId) return null
-  return ['Remaining', <OrderSizeComponent key="order-details-remaining" size={remaining} marketId={marketId} />]
+  return ['Remaining', <OrderSize key="order-details-remaining" size={remaining} marketId={marketId} />]
 }
 
 export const buildStatusColumn = (status?: vegaOrderStatus): [ReactNode, ReactNode] | null => {

@@ -10,6 +10,7 @@ export const locators = {
 export const EnrichedTransferView = ({ transaction }: ReceiptComponentProps) => {
   const { amount } = transaction.transfer
   const { formattedAmount, symbol } = useFormatAssetAmount(transaction.transfer.asset, amount)
+  if (!formattedAmount || !symbol) return null
 
   return (
     <div data-testid={locators.enrichedSection}>

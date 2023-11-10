@@ -13,6 +13,7 @@ export const EnrichedWithdrawal = ({
   asset: string
 }) => {
   const { formattedAmount, symbol } = useFormatAssetAmount(asset, amount)
+  if (!formattedAmount || !symbol) return null
   return (
     <BaseWithdrawal receiverAddress={receiverAddress}>
       <Header content={<AmountWithSymbol amount={formattedAmount} symbol={symbol} />} />

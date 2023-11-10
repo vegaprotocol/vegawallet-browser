@@ -9,7 +9,7 @@ export const locators = {
   orderDetailsMarketPrice: 'order-details-market-price'
 }
 
-export const OrderPriceComponent = ({
+export const OrderPrice = ({
   price,
   marketId,
   type
@@ -21,8 +21,7 @@ export const OrderPriceComponent = ({
   const asset = useMarketSettlementAsset(marketId)
   const symbol = get(asset, 'symbol')
   const formattedPrice = useFormatMarketPrice(marketId, price)
-  if (type === vegaOrderType.TYPE_MARKET)
-    return <div data-testid="order-details-market-price">Market price</div>
+  if (type === vegaOrderType.TYPE_MARKET) return <div data-testid="order-details-market-price">Market price</div>
 
   if (!price || !marketId) return null
 

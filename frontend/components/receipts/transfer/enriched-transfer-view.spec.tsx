@@ -69,4 +69,24 @@ describe('EnrichedTransferView', () => {
     expect(screen.getByTestId(priceWithSymbolLocators.amount)).toHaveTextContent('0.00001')
     expect(screen.getByTestId(priceWithSymbolLocators.symbol)).toHaveTextContent('tDAI')
   })
+
+  it('renders nothing if the amount could not be formatted', () => {
+    mockStore(useAssetsStore, {
+      loading: true,
+      assets: [],
+      getAssetById: jest.fn().mockReturnValue(mockAsset)
+    })
+    mockStore(useWalletStore, {
+      getKeyById: () => ({
+        index: 0,
+        metadata: [],
+        name: 'MyKey',
+        publicKey: '1'.repeat(64)
+      })
+    })
+
+    const { container } = render(<EnrichedTransferView transaction={mockTransaction} />)
+
+    expect(container).toBeEmptyDOMElement()
+  })
 })

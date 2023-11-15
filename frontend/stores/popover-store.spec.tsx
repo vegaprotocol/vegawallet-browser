@@ -1,4 +1,4 @@
-import { silenceErrors } from '../test-helpers/silence-errors'
+import { silenceErrors, silenceLogs } from '../test-helpers/silence-errors'
 import { createStore } from './popover-store'
 
 const mockBrowser = () => {
@@ -88,6 +88,18 @@ describe('useWindowStore', () => {
     expect(windows.onCreated.addListener).toBeCalledTimes(1)
   })
 
+  it('does not setup sets up listeners if windows is undefined', async () => {
+    silenceLogs()
+    // @ts-ignore
+    globalThis.chrome = {}
+    const windowStore = createStore()
+    await windowStore.getState().setup()
+    expect(windowStore.getState().popoverOpen).toBe(false)
+    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().isPopoverInstance).toBe(false)
+    expect(console.log).toBeCalledWith('Setup nothing for popover store as windows could not be found')
+  })
+
   it('setup throws error if there a multiple popups', async () => {
     silenceErrors()
     mockChrome()
@@ -135,6 +147,15 @@ describe('useWindowStore', () => {
     expect(windows.onCreated.removeListener).toBeCalledTimes(1)
     expect(windowStore.getState().popoverOpen).toBe(false)
     expect(windowStore.getState().popoverId).toBe(null)
+  })
+
+  it('teardown logs message if windows is not defined', () => {
+    silenceLogs()
+    // @ts-ignore
+    globalThis.chrome = {}
+    const windowStore = createStore()
+    windowStore.getState().teardown()
+    expect(console.log).toBeCalledWith('Tore down nothing from popover store as windows could not be found')
   })
 
   it('onCreate sets popupOpen to true and popupId to windowId', () => {

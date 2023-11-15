@@ -1,3 +1,7 @@
 export const silenceErrors = () => {
-  jest.spyOn(console, 'error').mockImplementation(() => {})
+  return jest.spyOn(console, 'error').mockImplementation(() => {})
+}
+
+export const silenceLogs = () => {
+  return jest.spyOn(console, 'log').mockImplementation(() => {})
 }

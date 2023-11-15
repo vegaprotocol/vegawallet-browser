@@ -60,6 +60,8 @@ export const createStore = () =>
           } else if (wins.length > 1) {
             throw new Error('Multiple popups open, this should not happen')
           }
+        } else {
+          console.log('Setup nothing for popover store as windows could not be found')
         }
       },
       teardown: () => {
@@ -70,6 +72,8 @@ export const createStore = () =>
             popoverOpen: false,
             popoverId: null
           })
+        } else {
+          console.log('Tore down nothing from popover store as windows could not be found')
         }
       }
     }

@@ -4,6 +4,7 @@ import { SettingsRadio } from './settings-form-elements/radio'
 import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import config from '!/config'
 import { BasePage } from '../../../components/pages/page'
+import { useGlobalsStore } from '../../../stores/globals'
 
 export const locators = {
   settingsPage: 'settings-page',
@@ -11,6 +12,8 @@ export const locators = {
 }
 
 export const Settings = () => {
+  const isDesktop = useGlobalsStore((state) => !state.isMobile)
+
   return (
     <BasePage dataTestId={locators.settingsPage} title="Settings">
       <VersionSection />
@@ -29,11 +32,13 @@ export const Settings = () => {
         </ExternalLink>
       </SettingsRadio>
 
-      <SettingsRadio
-        description="Automatically open the wallet when a dApp requests to connect or sends a transaction."
-        sectionHeader="Auto Open"
-        setting="autoOpen"
-      />
+      {isDesktop && (
+        <SettingsRadio
+          description="Automatically open the wallet when a dApp requests to connect or sends a transaction."
+          sectionHeader="Auto Open"
+          setting="autoOpen"
+        />
+      )}
 
       <LockSection />
     </BasePage>

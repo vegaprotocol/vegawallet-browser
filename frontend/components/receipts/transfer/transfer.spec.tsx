@@ -176,7 +176,7 @@ describe('TransferReceipt', () => {
     const notification = screen.getByTestId('notification')
     expect(notification).toHaveTextContent('External key')
     expect(notification).toHaveTextContent(
-      'This key is not present within your wallet. Please ensure you have access to this key before sending this transaction.'
+      'This key is not imported into your app. Please ensure this is the key you want to transfer to before confirming.'
     )
   })
 

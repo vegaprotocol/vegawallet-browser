@@ -7,6 +7,10 @@ import { usePing } from './hooks/ping'
 import { useListenForPopups } from './hooks/listen-for-popups'
 import { useGlobalsStore } from './stores/globals'
 
+export const locators = {
+  appWrapper: 'app-wrapper'
+}
+
 function App() {
   useListenForPopups()
   usePreventWindowResize()
@@ -17,6 +21,7 @@ function App() {
       <GlobalErrorBoundary>
         <JsonRPCProvider>
           <main
+            data-testid={locators.appWrapper}
             style={{
               minHeight: isDesktop ? 600 : undefined
             }}

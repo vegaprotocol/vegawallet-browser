@@ -15,6 +15,7 @@ describe('ApplyReferralCode', () => {
   })
 
   it('renders referral code correctly', () => {
+    // 1131-ARFR-001 I can see the referral code I am applying
     render(<ApplyReferralCode transaction={mockTransaction} />)
     const referralCode = screen.getByTestId(locators.referralCode)
     expect(referralCode).toHaveTextContent(mockTransaction.applyReferralCode.id)

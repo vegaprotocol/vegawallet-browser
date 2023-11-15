@@ -56,9 +56,9 @@ export const Transfer = ({ transaction }: ReceiptComponentProps) => {
       {!isOwnKey && (
         <div className="mt-4">
           <Notification
-            intent={Intent.Warning}
+            intent={Intent.None}
             title="External key"
-            message="This key is not present within your wallet. Please ensure you have access to this key before sending this transaction."
+            message="This key is not imported into your app. Please ensure this is the key you want to transfer to before confirming."
           />
         </div>
       )}

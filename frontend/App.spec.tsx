@@ -1,9 +1,12 @@
 import { render, screen } from '@testing-library/react'
-import App from './App'
+import App, { locators } from './App'
 import { ReactNode } from 'react'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'
+import { useGlobalsStore } from './stores/globals'
+import { mockStore } from './test-helpers/mock-store'
 
+jest.mock('./stores/globals')
 jest.mock('./hooks/prevent-window-resize')
 jest.mock('./hooks/ping')
 
@@ -33,17 +36,32 @@ jest.mock('./routes', () => ({
 
 describe('App', () => {
   it('renders routing, error boundary and jsonrpcprovider', () => {
+    mockStore(useGlobalsStore, {
+      isMobile: false
+    })
     Object.defineProperty(window, 'resizeTo', { value: jest.fn() })
 
     render(<App />)
     expect(screen.getByTestId('global-error-boundary')).toBeInTheDocument()
     expect(screen.getByTestId('routing')).toBeInTheDocument()
     expect(screen.getByTestId('json-rpc-provider')).toBeInTheDocument()
+    expect(screen.getByTestId(locators.appWrapper)).toHaveStyle('min-height: 600px')
   })
 
   it('calls global level hooks', () => {
+    mockStore(useGlobalsStore, {
+      isMobile: false
+    })
     render(<App />)
     expect(usePreventWindowResize).toHaveBeenCalled()
     expect(usePing).toHaveBeenCalled()
+  })
+
+  it('does not add min width if the device is mobile', () => {
+    mockStore(useGlobalsStore, {
+      isMobile: true
+    })
+    render(<App />)
+    expect(screen.getByTestId(locators.appWrapper)).not.toHaveStyle('min-height: 600px')
   })
 })

@@ -8,6 +8,7 @@ import { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
 import { Withdraw } from './withdrawal'
 import { Cancellation } from './orders/cancellation'
+import { ApplyReferralCode } from './apply-referral-code'
 
 export const hasReceiptView = (transaction: Transaction) => {
   const type = Object.keys(transaction)[0] as TransactionKeys
@@ -23,5 +24,6 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.ORDER_SUBMISSION]: Submission,
   [TransactionKeys.STOP_ORDERS_SUBMISSION]: StopOrderSubmission,
   [TransactionKeys.STOP_ORDERS_CANCELLATION]: StopOrderCancellation,
-  [TransactionKeys.BATCH_MARKET_INSTRUCTIONS]: BatchMarketInstructions
+  [TransactionKeys.BATCH_MARKET_INSTRUCTIONS]: BatchMarketInstructions,
+  [TransactionKeys.APPLY_REFERRAL_CODE]: ApplyReferralCode
 }

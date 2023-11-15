@@ -33,7 +33,7 @@ export enum TransactionKeys {
 }
 
 export const TRANSACTION_TITLES: Record<TransactionKeys, string> = {
-  [TransactionKeys.UNKNOWN]: 'unknown',
+  [TransactionKeys.UNKNOWN]: 'Unknown',
   [TransactionKeys.ORDER_SUBMISSION]: 'Order Submission',
   [TransactionKeys.ORDER_CANCELLATION]: 'Order Cancellation',
   [TransactionKeys.ORDER_AMENDMENT]: 'Order Amendment',

@@ -25,7 +25,7 @@ ${keys.map((k) => `  ${camelToSnakeCase(k).toUpperCase()} = '${k}',\n`).join('')
 
 const titleMap = `
 export const TRANSACTION_TITLES: Record<TransactionKeys, string> = {
-    [TransactionKeys.UNKNOWN]: 'unknown',
+    [TransactionKeys.UNKNOWN]: 'Unknown',
     ${keys.map((k) => `  [TransactionKeys.${camelToSnakeCase(k).toUpperCase()}]: '${camelCaseToWords(k)}',\n`).join('')}
 }
 `

@@ -19,6 +19,7 @@
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "immer": "^10.0.2",
+    "is-mobile": "^4.0.0",
     "javascript-time-ago": "^2.5.9",
     "lodash": "^4.17.21",
     "mutexify": "^1.4.0",

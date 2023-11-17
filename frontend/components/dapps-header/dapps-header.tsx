@@ -6,6 +6,7 @@ import { Deposit } from '../icons/deposit'
 import { Withdraw } from '../icons/withdraw'
 import { OpenExternal } from '../icons/open-external'
 import { Tick } from '../icons/tick'
+import { ExternalLink } from '../external-link'
 
 export const locators = {
   walletsHeaderItem: 'wallets-header-item',
@@ -27,18 +28,12 @@ const DappsHeaderButton = ({
   return (
     <Tooltip description={tooltipContent}>
       <div data-testid={locators.walletsHeaderItem} className="text-center hover:text-white no-underline">
-        <a
-          className="flex flex-col items-center"
-          data-testid={locators.walletsHeaderLink}
-          target="_blank"
-          href={href}
-          rel="noreferrer nofollow noopener"
-        >
+        <ExternalLink className="flex flex-col items-center" data-testid={locators.walletsHeaderLink} href={href}>
           <div className="rounded-full p-2 bg-vega-yellow text-black" style={{ maxWidth: '2.5rem' }}>
             {icon}
           </div>
           <div className="text-xs mt-1">{text}</div>
-        </a>
+        </ExternalLink>
       </div>
     </Tooltip>
   )

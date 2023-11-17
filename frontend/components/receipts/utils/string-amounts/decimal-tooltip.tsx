@@ -1,6 +1,6 @@
 import config from '!/config'
-import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { CONSTANTS } from '../../../../../lib/constants'
+import { ExternalLink } from '../../../external-link'
 
 export const locators = {
   description1: 'description1',

@@ -1,6 +1,6 @@
-import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { Frame } from '../../../../components/frame'
 import config from '!/config'
+import { ExternalLink } from '../../../../components/external-link'
 
 export const locators = {
   walletsAssetHeader: 'wallets-asset-header',

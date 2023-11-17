@@ -1,7 +1,8 @@
-import { ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { EthereumIcon } from '../ethereum-icon'
 import { CopyWithCheckmark } from '../../copy-with-check'
 import config from '!/config'
+import { ExternalLink } from '../../external-link'
 
 export const locators = {
   title: 'ethereum-key-title',

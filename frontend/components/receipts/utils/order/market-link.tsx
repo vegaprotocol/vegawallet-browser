@@ -1,5 +1,6 @@
-import { ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import config from '!/config'
+import { ExternalLink } from '../../../external-link'
 
 export const locators = {
   marketLink: 'market-link'

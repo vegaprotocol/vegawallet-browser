@@ -1,8 +1,9 @@
-import { ExternalLink, truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { KeyIcon } from '../vega-icon'
 import { CopyWithCheckmark } from '../../copy-with-check'
 import config from '!/config'
 import { ReactNode } from 'react'
+import { ExternalLink } from '../../external-link'
 
 export const locators = {
   keyName: 'vega-key-name',

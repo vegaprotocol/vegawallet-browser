@@ -1,4 +1,4 @@
-import { Button, ExternalLink } from '@vegaprotocol/ui-toolkit'
+import { Button } from '@vegaprotocol/ui-toolkit'
 import { useForm } from 'react-hook-form'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { FULL_ROUTES } from '../../../routes/route-names'
 import config from '../../../lib/config'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
 import { VegaSection } from '../../../components/vega-section'
+import { ExternalLink } from '../../../components/external-link'
 
 export const locators = {
   settingsLockButton: 'settings-lock-button',

@@ -1,10 +1,10 @@
 import { VersionSection } from './version-section'
 import { LockSection } from './lock-section'
 import { SettingsRadio } from './settings-form-elements/radio'
-import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import config from '!/config'
 import { BasePage } from '../../../components/pages/page'
 import { useGlobalsStore } from '../../../stores/globals'
+import { ExternalLink } from '../../../components/external-link'
 
 export const locators = {
   settingsPage: 'settings-page',

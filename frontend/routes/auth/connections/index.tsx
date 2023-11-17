@@ -3,11 +3,11 @@ import { ConnectionsList } from './connection-list'
 import { NoAppsConnected } from './no-dapps-connected'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { useEffect } from 'react'
-import { ExternalLink } from '@vegaprotocol/ui-toolkit'
 import { useConnectionStore } from '../../../stores/connections'
 import { BasePage } from '../../../components/pages/page'
 import config from '!/config'
 import { AsyncRenderer } from '../../../components/async-renderer/async-renderer'
+import { ExternalLink } from '../../../components/external-link'
 
 export const locators = {
   connectionInstructions: 'connection-instructions',

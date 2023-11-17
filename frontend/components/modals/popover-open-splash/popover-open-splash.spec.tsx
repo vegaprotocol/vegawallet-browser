@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { PopoverOpenModal, locators } from '.'
+import { PopoverOpenSplash, locators } from '.'
 import { usePopoverStore } from '../../../stores/popover-store'
 import { mockStore } from '../../../test-helpers/mock-store'
 
 jest.mock('../../../stores/popover-store')
 
-describe('PopoverOpenModal', () => {
+describe('PopoverOpenSplash', () => {
   beforeEach(() => {
     jest.resetModules()
   })
@@ -17,7 +17,7 @@ describe('PopoverOpenModal', () => {
       isPopoverInstance: false
     })
 
-    const { container } = render(<PopoverOpenModal />)
+    const { container } = render(<PopoverOpenSplash />)
 
     expect(container).toBeEmptyDOMElement()
   })
@@ -29,7 +29,7 @@ describe('PopoverOpenModal', () => {
       isPopoverInstance: true
     })
 
-    const { container } = render(<PopoverOpenModal />)
+    const { container } = render(<PopoverOpenSplash />)
 
     expect(container).toBeEmptyDOMElement()
   })
@@ -42,9 +42,9 @@ describe('PopoverOpenModal', () => {
       isPopoverInstance: false
     })
 
-    render(<PopoverOpenModal />)
+    render(<PopoverOpenSplash />)
 
-    expect(screen.getByTestId(locators.popoverModal)).toBeInTheDocument()
+    expect(screen.getByTestId(locators.popoverSplash)).toBeInTheDocument()
     expect(screen.getByText("You're viewing your wallet in another window")).toBeInTheDocument()
 
     const continueButton = screen.getByRole('button', { name: /Continue here/i })

@@ -10,13 +10,11 @@ import {
 import { navigateToExtensionLandingPage } from '../e2e/helpers/wallet/wallet-setup'
 import { Transaction } from '../e2e/page-objects/transaction'
 import { goToNewWindowHandle, switchWindowHandles, windowHandleHasCount } from '../e2e/helpers/selenium-util'
-import {
-  consoleSmokeMainnetRecoveryPhrase,
-  consoleSmokeRecoveryPhrase
-} from '../e2e/helpers/wallet/common-wallet-values'
 import { Console } from './console'
 import smokeConsoleMainnet from '../../config/console-smoke-mainnet'
 import smokeConsoleTestnet from '../../config/console-smoke-testnet'
+import dotenv from 'dotenv'
+import path from 'path'
 
 let driver: WebDriver
 let connectWallet: ConnectWallet
@@ -28,6 +26,23 @@ let approveTransaction: boolean
 let market: string
 let config: any
 let acceptRisk: boolean
+
+beforeAll(async () => {
+  const envPath = path.join(__dirname, '../../', '.env.local')
+  if (process.env.GITHUB_ACTIONS !== 'true') {
+    dotenv.config({ path: envPath })
+  }
+  console.log('emv: ', process.env.ENV)
+  if (process.env.ENV === 'testnet' && process.env.TESTNET_RECOVERY_PHRASE === undefined) {
+    throw new Error(
+      'Please set TESTNET_RECOVERY_PHRASE .env.local if running locally, otherwise check secrets are configured correctly for CI'
+    )
+  } else if (process.env.ENV === 'mainnet' && process.env.MAINNET_RECOVERY_PHRASE === undefined) {
+    throw new Error(
+      'Please set MAINNET_RECOVERY_PHRASE .env.local if running locally, otherwise check secrets are configured correctly for CI'
+    )
+  }
+})
 
 beforeEach(async () => {
   await setUpTests()
@@ -62,7 +77,7 @@ it('check console and browser wallet integrate', async () => {
     await vegaConsole.waitForConnectDialogToDissapear()
     const handlesBeforeOrder = await driver.getAllWindowHandles()
     await vegaConsole.goToOrderTab()
-    await vegaConsole.submitOrder('0.001', '0.01')
+    await vegaConsole.submitOrder('0.001', '0.1')
     expect(await windowHandleHasCount(driver, handlesBeforeConnect.length + 1)).toBe(true)
     const handlesAfterOrder = await driver.getAllWindowHandles()
     await goToNewWindowHandle(driver, handlesBeforeOrder, handlesAfterOrder)
@@ -86,15 +101,15 @@ async function setUpTests() {
   vegaConsole = new Console(driver)
   await navigateToExtensionLandingPage(driver)
   if (process.env.ENV === 'mainnet') {
-    recoveryPhrase = consoleSmokeMainnetRecoveryPhrase
+    recoveryPhrase = process.env.MAINNET_RECOVERY_PHRASE ?? ''
     approveTransaction = false
     market = 'USDT'
     config = smokeConsoleMainnet
     acceptRisk = true
   } else {
-    recoveryPhrase = consoleSmokeRecoveryPhrase
+    recoveryPhrase = process.env.TESTNET_RECOVERY_PHRASE ?? ''
     approveTransaction = true
-    market = 'tBTC'
+    market = 'USDT'
     config = smokeConsoleTestnet
     acceptRisk = false
   }

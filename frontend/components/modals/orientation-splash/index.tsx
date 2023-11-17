@@ -23,7 +23,9 @@ const useOrientation = () => {
   }
   useEffect(() => {
     window.matchMedia('(orientation: portrait)').addEventListener('change', updateOrientation)
-    return () => window.matchMedia('(orientation: portrait)').removeEventListener('change', updateOrientation)
+    return () => {
+      window.matchMedia('(orientation: portrait)').removeEventListener('change', updateOrientation)
+    }
   }, [])
 
   return orientation

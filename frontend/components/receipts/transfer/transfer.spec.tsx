@@ -239,4 +239,29 @@ describe('TransferReceipt', () => {
     render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId('enriched-transfer-view')).toBeVisible()
   })
+
+  it('should render nothing while wallets are loading', () => {
+    mockStore(useAssetsStore, {
+      loading: false,
+      assets: [],
+      getAssetById: jest.fn().mockReturnValue(mockAsset)
+    })
+    mockStore(useWalletStore, {
+      loading: true,
+      wallets: [],
+      getKeyById: jest.fn()
+    })
+
+    const oneOffTransfer = {
+      transfer: {
+        ...baseTransfer,
+        oneOff: {
+          deliverOn: '0'
+        }
+      }
+    }
+
+    const { container } = render(<Transfer transaction={oneOffTransfer} />)
+    expect(container).toBeEmptyDOMElement()
+  })
 })

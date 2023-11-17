@@ -12,7 +12,6 @@ const MobileLink = ({ children, className, href, ...props }: LinkProps) => {
   const openInNewTab = () => {
     const api = getExtensionApi()
     api.tabs.create({ url: href })
-    window.history.back()
   }
   return (
     <Link

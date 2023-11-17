@@ -6,7 +6,7 @@ import { mockStore } from '../../test-helpers/mock-store'
 
 jest.mock('../../stores/assets-store')
 
-describe('formatAssetAmount', () => {
+describe('useFormatAssetAmount', () => {
   it('throw error if asset symbol is not defined', () => {
     silenceErrors()
     mockStore(useAssetsStore, {
@@ -36,6 +36,21 @@ describe('formatAssetAmount', () => {
       'Could not find amount, decimals or symbol when trying to render transaction for asset foo'
     )
   })
+
+  it('returns undefined while loading', () => {
+    mockStore(useAssetsStore, {
+      loading: true,
+      getAssetById: () => ({
+        details: {
+          symbol: 'SYMBOL',
+          decimals: undefined
+        }
+      })
+    })
+    const { result } = renderHook(() => useFormatAssetAmount('foo', '123'))
+    expect(result.current).toStrictEqual({ formattedAmount: undefined, symbol: undefined })
+  })
+
   it('returns formatted amount and symbol', () => {
     mockStore(useAssetsStore, {
       getAssetById: () => ({
@@ -46,7 +61,7 @@ describe('formatAssetAmount', () => {
       })
     })
     const { result } = renderHook(() => useFormatAssetAmount('foo', '123'))
-    expect(result.current.formattedAmount).toBe('0.000000000123')
-    expect(result.current.symbol).toBe('SYMBOL')
+    expect(result.current?.formattedAmount).toBe('0.000000000123')
+    expect(result.current?.symbol).toBe('SYMBOL')
   })
 })

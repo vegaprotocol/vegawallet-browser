@@ -42,17 +42,43 @@ describe('BatchMarketInstructions component', () => {
     const [cancellation, amendment, submission, stopOrderCancellation, stopOrderSubmission] = screen.getAllByTestId(
       componentLocators.collapsiblePanelTitle
     )
+
     expect(submission).toHaveTextContent('Submission')
     expect(cancellation).toHaveTextContent('Cancellation')
     expect(amendment).toHaveTextContent('Amendment')
-    expect(stopOrderSubmission).toHaveTextContent('Stop Order Submission')
     expect(stopOrderCancellation).toHaveTextContent('Stop Order Cancellation')
+    expect(stopOrderSubmission).toHaveTextContent('Stop Order Submission')
 
     expect(screen.getByTestId('submission-view')).toBeInTheDocument()
     expect(screen.getByTestId('cancellation-view')).toBeInTheDocument()
     expect(screen.getByTestId('amendment-view')).toBeInTheDocument()
     expect(screen.getByTestId('stop-orders-submission-view')).toBeInTheDocument()
     expect(screen.getByTestId('stop-order-cancellation-view')).toBeInTheDocument()
+  })
+
+  test('renders titles for each transaction', () => {
+    // 1114-BMKI-007 Renders a transaction title for each transaction type
+
+    render(
+      <BatchMarketInstructions
+        transaction={{
+          batchMarketInstructions: {
+            cancellations: [
+              {
+                marketId: 'foo'
+              },
+              {
+                orderId: 'bar'
+              }
+            ]
+          }
+        }}
+      />
+    )
+    const [massOrderCancellation, orderCancellation] = screen.getAllByTestId(locators.header)
+
+    expect(massOrderCancellation).toHaveTextContent('1. Mass Order Cancellation')
+    expect(orderCancellation).toHaveTextContent('2. Order Cancellation')
   })
 
   test('renders sections with populated transactions', () => {

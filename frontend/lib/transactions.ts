@@ -1,3 +1,12 @@
+export const MAX_POSITION_SIZE = '9223372036854775807'
+
+export type BatchTransactionCommands =
+  | TransactionKeys.ORDER_SUBMISSION
+  | TransactionKeys.ORDER_CANCELLATION
+  | TransactionKeys.ORDER_AMENDMENT
+  | TransactionKeys.STOP_ORDERS_SUBMISSION
+  | TransactionKeys.STOP_ORDERS_CANCELLATION
+
 export enum TransactionKeys {
   UNKNOWN = 'unknown',
   ORDER_SUBMISSION = 'orderSubmission',
@@ -17,6 +26,9 @@ export enum TransactionKeys {
   BATCH_MARKET_INSTRUCTIONS = 'batchMarketInstructions',
   STOP_ORDERS_SUBMISSION = 'stopOrdersSubmission',
   STOP_ORDERS_CANCELLATION = 'stopOrdersCancellation',
+  CREATE_REFERRAL_SET = 'createReferralSet',
+  UPDATE_REFERRAL_SET = 'updateReferralSet',
+  APPLY_REFERRAL_CODE = 'applyReferralCode',
   NODE_VOTE = 'nodeVote',
   NODE_SIGNATURE = 'nodeSignature',
   CHAIN_EVENT = 'chainEvent',
@@ -48,6 +60,9 @@ export const TRANSACTION_TITLES: Record<TransactionKeys, string> = {
   [TransactionKeys.BATCH_MARKET_INSTRUCTIONS]: 'Batch Market Instructions',
   [TransactionKeys.STOP_ORDERS_SUBMISSION]: 'Stop Orders Submission',
   [TransactionKeys.STOP_ORDERS_CANCELLATION]: 'Stop Orders Cancellation',
+  [TransactionKeys.CREATE_REFERRAL_SET]: 'Create Referral Set',
+  [TransactionKeys.UPDATE_REFERRAL_SET]: 'Update Referral Set',
+  [TransactionKeys.APPLY_REFERRAL_CODE]: 'Apply Referral Code',
   [TransactionKeys.NODE_VOTE]: 'Node Vote',
   [TransactionKeys.NODE_SIGNATURE]: 'Node Signature',
   [TransactionKeys.CHAIN_EVENT]: 'Chain Event',

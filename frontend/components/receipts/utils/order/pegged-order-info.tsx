@@ -1,8 +1,10 @@
-import { vegaMarket, vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { formatNumber, toBigNum } from '@vegaprotocol/utils'
+import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
 import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
 import { PeggedOrderOptions } from '../../../../types/transactions'
+import { useFormatMarketPrice } from '../../../../hooks/format-market-price'
+import { useMarketSettlementAsset } from '../../../../hooks/market-settlement-asset'
+import get from 'lodash/get'
 
 export const referenceText: Record<vegaPeggedReference, string> = {
   [vegaPeggedReference.PEGGED_REFERENCE_BEST_ASK]: 'best ask',
@@ -12,28 +14,21 @@ export const referenceText: Record<vegaPeggedReference, string> = {
 }
 
 interface PeggedOrderInfoProps {
-  marketsLoading: boolean
   peggedOrder: PeggedOrderOptions
-  market?: vegaMarket
   marketId: string
-  symbol?: string
 }
 
-export const PeggedOrderInfo = ({ marketsLoading, peggedOrder, market, marketId, symbol }: PeggedOrderInfoProps) => {
+export const PeggedOrderInfo = ({ peggedOrder, marketId }: PeggedOrderInfoProps) => {
   const { offset, reference } = peggedOrder
-  let formattedOffset: string | number = offset
+  const formattedOffset = useFormatMarketPrice(marketId, offset)
+  const settlementAsset = useMarketSettlementAsset(marketId)
+  const symbol = get(settlementAsset, 'details.symbol')
 
-  if (market?.decimalPlaces) {
-    const marketDecimals = Number(market.decimalPlaces)
-    formattedOffset = formatNumber(toBigNum(offset, marketDecimals), marketDecimals)
-  }
-
-  const priceToDisplay =
-    marketsLoading || !market ? (
-      <PriceWithTooltip price={offset} marketId={marketId} />
-    ) : (
-      <AmountWithSymbol amount={formattedOffset} symbol={symbol} />
-    )
+  const priceToDisplay = formattedOffset ? (
+    <AmountWithSymbol amount={formattedOffset} symbol={symbol} />
+  ) : (
+    <PriceWithTooltip price={offset} marketId={marketId} />
+  )
 
   return (
     <span className="flex items-center">

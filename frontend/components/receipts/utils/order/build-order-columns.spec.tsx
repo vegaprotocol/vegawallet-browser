@@ -23,20 +23,19 @@ import {
 
 jest.mock('./order-price', () => {
   return {
-    OrderPriceComponent: () => <div data-testid="order-price-component" />
+    OrderPrice: () => <div data-testid="order-price-component" />
   }
 })
 
 describe('buildPriceColumn', () => {
-  it('returns Price column when shouldDisplayPrice is true', () => {
-    const result = buildPriceColumn(false, '100', '1', '100.00', 'USD', vegaOrderType.TYPE_LIMIT)
-
+  it('returns Price column', () => {
+    const result = buildPriceColumn('100', '1', vegaOrderType.TYPE_LIMIT)
     render(<>{result}</>)
     expect(screen.getByTestId('order-price-component')).toBeInTheDocument()
   })
 
   it('returns null when price is unset', () => {
-    const result = buildPriceColumn(false, undefined, '1', '100.00', 'USD', vegaOrderType.TYPE_LIMIT)
+    const result = buildPriceColumn('100', undefined, vegaOrderType.TYPE_LIMIT)
     expect(result).toBeNull()
   })
 })
@@ -50,11 +49,8 @@ jest.mock('./pegged-order-info', () => {
 describe('buildPeggedOrderColumn', () => {
   it('returns Pegged price column when peggedOrder and marketId are defined', () => {
     const result = buildPeggedOrderColumn(
-      false,
       { offset: '12', reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID },
-      '1',
-      {},
-      'BTC'
+      '1'
     )
 
     render(<>{result}</>)
@@ -62,17 +58,14 @@ describe('buildPeggedOrderColumn', () => {
   })
 
   it('returns null when peggedOrder is undefined', () => {
-    const result = buildPeggedOrderColumn(false, undefined, '1', {}, 'BTC')
+    const result = buildPeggedOrderColumn(undefined, '1')
     expect(result).toBeNull()
   })
 
   it('returns null when marketId is undefined', () => {
     const result = buildPeggedOrderColumn(
-      false,
       { offset: '12', reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID },
-      undefined,
-      {},
-      'BTC'
+      undefined
     )
     expect(result).toBeNull()
   })
@@ -80,45 +73,45 @@ describe('buildPeggedOrderColumn', () => {
 
 jest.mock('./order-size', () => {
   return {
-    OrderSizeComponent: () => <div data-testid="order-size-component" />
+    OrderSize: () => <div data-testid="order-size-component" />
   }
 })
 
 describe('buildSizeColumn', () => {
   it('returns Size column when size and marketId are defined', () => {
-    const result = buildSizeColumn(false, '100', '1', '100.00')
+    const result = buildSizeColumn('100', '1')
 
     render(<>{result}</>)
     expect(screen.getByTestId('order-size-component')).toBeInTheDocument()
   })
 
   it('returns null when size is undefined', () => {
-    const result = buildSizeColumn(false, undefined, '1', '100.00')
+    const result = buildSizeColumn(undefined, '1')
     expect(result).toBeNull()
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildSizeColumn(false, '100', undefined, '100.00')
+    const result = buildSizeColumn('100', undefined)
     expect(result).toBeNull()
   })
 })
 
 jest.mock('./order-market', () => {
   return {
-    OrderMarketComponent: () => <div data-testid="order-market-component" />
+    OrderMarket: () => <div data-testid="order-market-component" />
   }
 })
 
 describe('buildMarketColumn', () => {
   it('returns Market column when marketId is defined', () => {
-    const result = buildMarketColumn(false, '1', {})
+    const result = buildMarketColumn('1')
 
     render(<>{result}</>)
     expect(screen.getByTestId('order-market-component')).toBeInTheDocument()
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildMarketColumn(false, undefined, {})
+    const result = buildMarketColumn(undefined)
     expect(result).toBeNull()
   })
 })
@@ -214,19 +207,19 @@ describe('buildUpdatedAtColumn', () => {
 
 describe('buildRemainingColumn', () => {
   it('returns Remaining column when remaining and marketId are defined', () => {
-    const result = buildRemainingColumn(false, '100', '1', '100.00')
+    const result = buildRemainingColumn('100', '1')
 
     render(<>{result}</>)
     expect(screen.getByTestId('order-size-component')).toBeInTheDocument()
   })
 
   it('returns null when remaining is undefined', () => {
-    const result = buildRemainingColumn(false, undefined, '1', '100.00')
+    const result = buildRemainingColumn(undefined, '1')
     expect(result).toBeNull()
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildRemainingColumn(false, '100', undefined, '100.00')
+    const result = buildRemainingColumn('100', undefined)
     expect(result).toBeNull()
   })
 })

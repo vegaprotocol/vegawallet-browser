@@ -10,9 +10,8 @@
 - I can see the [amount being transferred with tooltip](./1127-DECM-decimal_numbers.md) (<a name="1124-TRAN-004" href="#1124-TRAN-004">1124-TRAN-004</a>)
 - I can see a link to the block explorer for that asset (<a name="1124-TRAN-005" href="#1124-TRAN-005">
   1124-TRAN-005</a>)
+- I can see a warning if the key is not present in my wallet (<a name="1124-TRAN-007" href="#1124-TRAN-007">1124-TRAN-007</a>)
 
 #### Enriched
 
 - I can see the enriched price details if the data is provided - correctly formatted decimals and asset name (<a name="1124-TRAN-006" href="#1124-TRAN-006">1124-TRAN-006</a>)
-- I can see enriched key details if the data is provided - whether the transfer is between own keys (<a name="1124-TRAN-007" href="#1124-TRAN-007">1124-TRAN-007</a>)
-- I can see enriched key details if the data is provided - whether the transfer is to an external key (<a name="1124-TRAN-008" href="#1124-TRAN-008">1124-TRAN-008</a>)

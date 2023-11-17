@@ -1,6 +1,7 @@
 import { ConnectionModal } from '../connection-modal'
-import { PopoverOpenModal } from '../popover-open-modal'
+import { PopoverOpenSplash } from '../popover-open-splash'
 import { TransactionModal } from '../transaction-modal'
+import { OrientationSplash } from '../orientation-splash'
 
 export const ModalWrapper = () => {
   return (
@@ -8,7 +9,8 @@ export const ModalWrapper = () => {
       <ConnectionModal />
       <TransactionModal />
       {/* Must be at the bottom to ensure that if we have a connection or transaction pending the popover modal is always shown */}
-      <PopoverOpenModal />
+      <PopoverOpenSplash />
+      <OrientationSplash />
     </>
   )
 }

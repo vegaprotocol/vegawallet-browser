@@ -5,11 +5,11 @@ import { ExpandIcon } from '../../icons/expand'
 import { Splash } from '../../splash'
 
 export const locators = {
-  popoverModal: 'popover-modal',
+  popoverSplash: 'popover-modal',
   continueHere: 'continue-here'
 }
 
-export const PopoverOpenModal = () => {
+export const PopoverOpenSplash = () => {
   const { focusPopover, popoverOpen, isPopoverInstance } = usePopoverStore((state) => ({
     popoverOpen: state.popoverOpen,
     focusPopover: state.focusPopover,
@@ -18,7 +18,7 @@ export const PopoverOpenModal = () => {
 
   if (!popoverOpen || isPopoverInstance) return null
   return (
-    <Splash data-testid={locators.popoverModal} centered={true}>
+    <Splash data-testid={locators.popoverSplash} centered={true}>
       <div className="px-5">
         <Frame>
           <div className="text-center">

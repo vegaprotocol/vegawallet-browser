@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { ExternalLink } from './external-link'
 import { mockStore } from '../../test-helpers/mock-store'
 import { useGlobalsStore } from '../../stores/globals'

@@ -25,11 +25,16 @@ export const useGetRedirectPath = () => {
   }, [request, loadGlobals])
 
   const getRedirectPath = useCallback(async () => {
-    const {
-      storage: { session }
-    } = getExtensionApi()
-    const savedMnemonic = await session.get(SUGGESTED_MNEMONIC_KEY)
-    const hasSavedMnemonic = savedMnemonic[SUGGESTED_MNEMONIC_KEY]
+    // const {
+    //   storage: { session }
+    // } = getExtensionApi()
+    // let hasSavedMnemonic = false
+
+    // if (session) {
+    //   const savedMnemonic = await session.get(SUGGESTED_MNEMONIC_KEY)
+    //   hasSavedMnemonic = savedMnemonic[SUGGESTED_MNEMONIC_KEY]
+    // }
+
     // If loading then we do not know where to redirect to yet
     if (loading || !globals) {
       setResult({
@@ -49,11 +54,11 @@ export const useGetRedirectPath = () => {
         path: FULL_ROUTES.login
       })
       // If the user has a passphrase and the app is unlocked but and has no wallets created but does have a saved mnemonic redirect to the save mnemonic page
-    } else if (!globals.wallet && hasSavedMnemonic) {
-      setResult({
-        loading: false,
-        path: FULL_ROUTES.saveMnemonic
-      })
+      // } else if (!globals.wallet && hasSavedMnemonic) {
+      //   setResult({
+      //     loading: false,
+      //     path: FULL_ROUTES.saveMnemonic
+      //   })
       // If the user has a passphrase and the app is unlocked but has no wallets redirect to the create wallets page
     } else if (!globals.wallet) {
       setResult({

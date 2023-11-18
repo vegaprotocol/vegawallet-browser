@@ -14,5 +14,5 @@ export const createWallet = async (mnemonic: string, request: SendMessage, propa
     propagateError
   )
   // Ensure that the mnemonic has been cleared from memory if the wallet was created successfully
-  await clearMnemonic()
+  // await clearMnemonic()
 }

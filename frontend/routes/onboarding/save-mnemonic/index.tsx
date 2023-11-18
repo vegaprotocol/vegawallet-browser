@@ -42,7 +42,11 @@ export const SaveMnemonic = () => {
       />
     )
   return (
-    <OnboardingPage name="Secure your wallet" backLocation={FULL_ROUTES.createWallet} onBack={clearMnemonic}>
+    <OnboardingPage
+      name="Secure your wallet"
+      backLocation={FULL_ROUTES.createWallet}
+      // onBack={clearMnemonic}
+    >
       <>
         <p data-testid={locators.saveMnemonicDescription} className="pb-6">
           Write down or save this recovery phrase to a safe place. You'll need it to recover your wallet. Never share

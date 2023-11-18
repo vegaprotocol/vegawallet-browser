@@ -29,9 +29,9 @@ export const useSuggestMnemonic = () => {
   const suggestMnemonic = useCallback(async () => {
     const res = await request(RpcMethods.GenerateRecoveryPhrase, null)
     const { recoveryPhrase } = res
-    await session.set({
-      [SUGGESTED_MNEMONIC_KEY]: recoveryPhrase
-    })
+    // await session.set({
+    //   [SUGGESTED_MNEMONIC_KEY]: recoveryPhrase
+    // })
     setMnemonic(recoveryPhrase)
   }, [request, session])
 

@@ -5,7 +5,7 @@ export const usePreventWindowResize = () => {
   const frameHeight = useMemo(() => window.outerHeight - window.innerHeight, [])
   useLayoutEffect(() => {
     function resetSize() {
-      window.resizeTo(CONSTANTS.width, Math.max(window.outerHeight, 600 + frameHeight))
+      window.resizeTo(CONSTANTS.width, Math.max(window.outerHeight, CONSTANTS.defaultHeight + frameHeight))
     }
     window.addEventListener('resize', resetSize)
     resetSize()

@@ -6,6 +6,7 @@ import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'
 import { useListenForPopups } from './hooks/listen-for-popups'
 import { useGlobalsStore } from './stores/globals'
+import { CONSTANTS } from '../lib/constants'
 
 export const locators = {
   appWrapper: 'app-wrapper'
@@ -23,7 +24,7 @@ function App() {
           <main
             data-testid={locators.appWrapper}
             style={{
-              minHeight: isDesktop ? 600 : undefined
+              minHeight: isDesktop ? CONSTANTS.defaultHeight : undefined
             }}
             className="w-full h-full bg-black font-alpha text-vega-dark-400"
           >

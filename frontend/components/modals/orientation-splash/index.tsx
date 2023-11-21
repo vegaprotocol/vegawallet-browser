@@ -33,6 +33,7 @@ const useOrientation = () => {
 
 export const OrientationSplash = () => {
   const orientation = useOrientation()
+  console.log(orientation)
   const isLandscape = orientation.includes('landscape')
   if (isLandscape) {
     return (

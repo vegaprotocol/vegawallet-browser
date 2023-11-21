@@ -36,7 +36,7 @@ jobs:
         uses: coactions/setup-xvfb@v1
         with:
           run: yarn test:e2e:chrome
-          options: screen 0 600x360x8
+          options: -screen 0 600x360x8
       - name: Test Report
         uses: phoenix-actions/test-reporting@v12
         if: always()

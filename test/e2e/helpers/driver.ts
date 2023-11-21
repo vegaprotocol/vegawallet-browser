@@ -7,6 +7,7 @@ import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } 
 import { clickElement, staticWait, switchWindowHandles } from './selenium-util'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './wallet/wallet-setup'
 import { GetStarted } from '../page-objects/get-started'
+import { CONSTANTS } from '../../../lib/constants'
 
 export const extensionPath = './build'
 export const oldExtensionDirectory = './test/vega-browserwallet-testnet-chrome-v0.10.0'

@@ -36,6 +36,17 @@ describe('ExternalLink component', () => {
     expect(screen.getByTestId('link')).toBeInTheDocument()
   })
 
+  test('renders MobileLink component with sub components isMobile is true', () => {
+    mockStore(useGlobalsStore, { isMobile: true })
+
+    render(
+      <ExternalLink href="https://example.com">
+        <div data-testid="child" />
+      </ExternalLink>
+    )
+    expect(screen.getByTestId('child')).toBeInTheDocument()
+  })
+
   test('renders ExLink component when isMobile is false', () => {
     mockStore(useGlobalsStore, { isMobile: false })
 

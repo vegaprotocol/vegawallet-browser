@@ -12,7 +12,7 @@ export const createWindow = (top = undefined, left = undefined, once = false) =>
     // Approximate dimension. The client figures out exactly how big it should be as this height/width
     // includes the frame and different OSes have different sizes
     width: CONSTANTS.width,
-    height: 600,
+    height: CONSTANTS.defaultHeight,
     top,
     left
   })

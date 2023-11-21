@@ -7,7 +7,6 @@ import { copyDirectoryToNewLocation, createDirectoryIfNotExists, zipDirectory } 
 import { clickElement, staticWait, switchWindowHandles } from './selenium-util'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './wallet/wallet-setup'
 import { GetStarted } from '../page-objects/get-started'
-import { CONSTANTS } from '../../../lib/constants'
 
 export const extensionPath = './build'
 export const oldExtensionDirectory = './test/vega-browserwallet-testnet-chrome-v0.10.0'
@@ -20,7 +19,6 @@ export async function initDriver(oldExtension = false) {
   } else {
     driver = await initChromeDriver(oldExtension)
   }
-  driver.manage().window().setSize(CONSTANTS.width, CONSTANTS.defaultHeight)
 
   if (!driver) {
     throw new Error('Failed to create WebDriver instance')

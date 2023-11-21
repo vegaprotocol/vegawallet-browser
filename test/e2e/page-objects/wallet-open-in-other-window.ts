@@ -1,5 +1,5 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { locators as popoverLocators } from '../../../frontend/components/modals/popover-open-modal'
+import { locators as popoverLocators } from '../../../frontend/components/modals/popover-open-splash'
 import { clickElement, getByDataTestID, isElementDisplayed } from '../helpers/selenium-util'
 
 export class WalletOpenInOtherWindow {

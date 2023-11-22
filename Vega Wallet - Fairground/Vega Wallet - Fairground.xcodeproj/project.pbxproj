@@ -7,114 +7,114 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DF5A59F22B0E506400BB503D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59F12B0E506400BB503D /* AppDelegate.swift */; };
-		DF5A59F42B0E506400BB503D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59F32B0E506400BB503D /* SceneDelegate.swift */; };
-		DF5A59F72B0E506400BB503D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59F52B0E506400BB503D /* LaunchScreen.storyboard */; };
-		DF5A59FA2B0E506400BB503D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59F82B0E506400BB503D /* Main.storyboard */; };
-		DF5A5A032B0E506400BB503D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A5A022B0E506400BB503D /* AppDelegate.swift */; };
-		DF5A5A062B0E506400BB503D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A042B0E506400BB503D /* Main.storyboard */; };
-		DF5A5A0E2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF5A5A0D2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF5A5A182B0E506400BB503D /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF5A5A172B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF5A5A1E2B0E506400BB503D /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E12B0E506300BB503D /* Main.html */; };
-		DF5A5A1F2B0E506400BB503D /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E12B0E506300BB503D /* Main.html */; };
-		DF5A5A202B0E506400BB503D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E32B0E506300BB503D /* Icon.png */; };
-		DF5A5A212B0E506400BB503D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E32B0E506300BB503D /* Icon.png */; };
-		DF5A5A222B0E506400BB503D /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E42B0E506300BB503D /* Style.css */; };
-		DF5A5A232B0E506400BB503D /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E42B0E506300BB503D /* Style.css */; };
-		DF5A5A242B0E506400BB503D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E52B0E506300BB503D /* Script.js */; };
-		DF5A5A252B0E506400BB503D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E52B0E506300BB503D /* Script.js */; };
-		DF5A5A262B0E506400BB503D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59E62B0E506300BB503D /* ViewController.swift */; };
-		DF5A5A272B0E506400BB503D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59E62B0E506300BB503D /* ViewController.swift */; };
-		DF5A5A282B0E506400BB503D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E72B0E506400BB503D /* Assets.xcassets */; };
-		DF5A5A292B0E506400BB503D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E72B0E506400BB503D /* Assets.xcassets */; };
-		DF5A5A2A2B0E506400BB503D /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59E92B0E506400BB503D /* SafariWebExtensionHandler.swift */; };
-		DF5A5A2B2B0E506400BB503D /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59E92B0E506400BB503D /* SafariWebExtensionHandler.swift */; };
-		DF5A5A552B0E506400BB503D /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3D2B0E506400BB503D /* Fairground-64x64.png */; };
-		DF5A5A562B0E506400BB503D /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3E2B0E506400BB503D /* Mainnet-48x48.png */; };
-		DF5A5A572B0E506400BB503D /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3F2B0E506400BB503D /* Fairground-32x32.png */; };
-		DF5A5A582B0E506400BB503D /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A402B0E506400BB503D /* popup.js */; };
-		DF5A5A592B0E506400BB503D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A412B0E506400BB503D /* index.html */; };
-		DF5A5A5A2B0E506400BB503D /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A422B0E506400BB503D /* Mainnet-96x96.png */; };
-		DF5A5A5B2B0E506400BB503D /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A432B0E506400BB503D /* background.js */; };
-		DF5A5A5C2B0E506400BB503D /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A442B0E506400BB503D /* Mainnet-64x64.png */; };
-		DF5A5A5D2B0E506400BB503D /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A452B0E506400BB503D /* Fairground-48x48.png */; };
-		DF5A5A5E2B0E506400BB503D /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A462B0E506400BB503D /* Mainnet-128x128.png */; };
-		DF5A5A5F2B0E506400BB503D /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A472B0E506400BB503D /* chrome-pow.html */; };
-		DF5A5A602B0E506400BB503D /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A482B0E506400BB503D /* chrome-pow.js */; };
-		DF5A5A612B0E506400BB503D /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A492B0E506400BB503D /* Fairground-96x96.png */; };
-		DF5A5A622B0E506400BB503D /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4A2B0E506400BB503D /* Mainnet-32x32.png */; };
-		DF5A5A632B0E506400BB503D /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 */; };
-		DF5A5A642B0E506400BB503D /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4C2B0E506400BB503D /* Fairground-128x128.png */; };
-		DF5A5A652B0E506400BB503D /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4D2B0E506400BB503D /* pow-worker.js */; };
-		DF5A5A662B0E506400BB503D /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4E2B0E506400BB503D /* Mainnet-16x16.png */; };
-		DF5A5A672B0E506400BB503D /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4F2B0E506400BB503D /* manifest.json */; };
-		DF5A5A682B0E506400BB503D /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A502B0E506400BB503D /* question-mark.png */; };
-		DF5A5A692B0E506400BB503D /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A512B0E506400BB503D /* content-script.js */; };
-		DF5A5A6A2B0E506400BB503D /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A522B0E506400BB503D /* in-page.js */; };
-		DF5A5A6B2B0E506400BB503D /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A532B0E506400BB503D /* Fairground-16x16.png */; };
-		DF5A5A6C2B0E506400BB503D /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A542B0E506400BB503D /* stars.png */; };
-		DF5A5A6D2B0E506400BB503D /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3D2B0E506400BB503D /* Fairground-64x64.png */; };
-		DF5A5A6E2B0E506400BB503D /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3E2B0E506400BB503D /* Mainnet-48x48.png */; };
-		DF5A5A6F2B0E506400BB503D /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3F2B0E506400BB503D /* Fairground-32x32.png */; };
-		DF5A5A702B0E506400BB503D /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A402B0E506400BB503D /* popup.js */; };
-		DF5A5A712B0E506400BB503D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A412B0E506400BB503D /* index.html */; };
-		DF5A5A722B0E506400BB503D /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A422B0E506400BB503D /* Mainnet-96x96.png */; };
-		DF5A5A732B0E506400BB503D /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A432B0E506400BB503D /* background.js */; };
-		DF5A5A742B0E506400BB503D /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A442B0E506400BB503D /* Mainnet-64x64.png */; };
-		DF5A5A752B0E506400BB503D /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A452B0E506400BB503D /* Fairground-48x48.png */; };
-		DF5A5A762B0E506400BB503D /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A462B0E506400BB503D /* Mainnet-128x128.png */; };
-		DF5A5A772B0E506400BB503D /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A472B0E506400BB503D /* chrome-pow.html */; };
-		DF5A5A782B0E506400BB503D /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A482B0E506400BB503D /* chrome-pow.js */; };
-		DF5A5A792B0E506400BB503D /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A492B0E506400BB503D /* Fairground-96x96.png */; };
-		DF5A5A7A2B0E506400BB503D /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4A2B0E506400BB503D /* Mainnet-32x32.png */; };
-		DF5A5A7B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 */; };
-		DF5A5A7C2B0E506400BB503D /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4C2B0E506400BB503D /* Fairground-128x128.png */; };
-		DF5A5A7D2B0E506400BB503D /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4D2B0E506400BB503D /* pow-worker.js */; };
-		DF5A5A7E2B0E506400BB503D /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4E2B0E506400BB503D /* Mainnet-16x16.png */; };
-		DF5A5A7F2B0E506400BB503D /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4F2B0E506400BB503D /* manifest.json */; };
-		DF5A5A802B0E506400BB503D /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A502B0E506400BB503D /* question-mark.png */; };
-		DF5A5A812B0E506400BB503D /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A512B0E506400BB503D /* content-script.js */; };
-		DF5A5A822B0E506400BB503D /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A522B0E506400BB503D /* in-page.js */; };
-		DF5A5A832B0E506400BB503D /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A532B0E506400BB503D /* Fairground-16x16.png */; };
-		DF5A5A842B0E506400BB503D /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A542B0E506400BB503D /* stars.png */; };
+		DF7C25D42B0E69EB006EB9BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7C25D32B0E69EB006EB9BC /* AppDelegate.swift */; };
+		DF7C25D62B0E69EB006EB9BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7C25D52B0E69EB006EB9BC /* SceneDelegate.swift */; };
+		DF7C25D92B0E69EB006EB9BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25D72B0E69EB006EB9BC /* LaunchScreen.storyboard */; };
+		DF7C25DC2B0E69EB006EB9BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25DA2B0E69EB006EB9BC /* Main.storyboard */; };
+		DF7C25E52B0E69EB006EB9BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7C25E42B0E69EB006EB9BC /* AppDelegate.swift */; };
+		DF7C25E82B0E69EB006EB9BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25E62B0E69EB006EB9BC /* Main.storyboard */; };
+		DF7C25F02B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF7C25EF2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF7C25FA2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF7C25F92B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF7C26002B0E69EB006EB9BC /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C32B0E69E9006EB9BC /* Main.html */; };
+		DF7C26012B0E69EB006EB9BC /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C32B0E69E9006EB9BC /* Main.html */; };
+		DF7C26022B0E69EB006EB9BC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C52B0E69E9006EB9BC /* Icon.png */; };
+		DF7C26032B0E69EB006EB9BC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C52B0E69E9006EB9BC /* Icon.png */; };
+		DF7C26042B0E69EB006EB9BC /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C62B0E69E9006EB9BC /* Style.css */; };
+		DF7C26052B0E69EB006EB9BC /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C62B0E69E9006EB9BC /* Style.css */; };
+		DF7C26062B0E69EB006EB9BC /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C72B0E69E9006EB9BC /* Script.js */; };
+		DF7C26072B0E69EB006EB9BC /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C72B0E69E9006EB9BC /* Script.js */; };
+		DF7C26082B0E69EB006EB9BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7C25C82B0E69E9006EB9BC /* ViewController.swift */; };
+		DF7C26092B0E69EB006EB9BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7C25C82B0E69E9006EB9BC /* ViewController.swift */; };
+		DF7C260A2B0E69EB006EB9BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C92B0E69EA006EB9BC /* Assets.xcassets */; };
+		DF7C260B2B0E69EB006EB9BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF7C25C92B0E69EA006EB9BC /* Assets.xcassets */; };
+		DF7C260C2B0E69EB006EB9BC /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7C25CB2B0E69EA006EB9BC /* SafariWebExtensionHandler.swift */; };
+		DF7C260D2B0E69EB006EB9BC /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7C25CB2B0E69EA006EB9BC /* SafariWebExtensionHandler.swift */; };
+		DF7C26372B0E69EB006EB9BC /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C261F2B0E69EB006EB9BC /* Fairground-64x64.png */; };
+		DF7C26382B0E69EB006EB9BC /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26202B0E69EB006EB9BC /* Mainnet-48x48.png */; };
+		DF7C26392B0E69EB006EB9BC /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26212B0E69EB006EB9BC /* Fairground-32x32.png */; };
+		DF7C263A2B0E69EB006EB9BC /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26222B0E69EB006EB9BC /* popup.js */; };
+		DF7C263B2B0E69EB006EB9BC /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26232B0E69EB006EB9BC /* index.html */; };
+		DF7C263C2B0E69EB006EB9BC /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26242B0E69EB006EB9BC /* Mainnet-96x96.png */; };
+		DF7C263D2B0E69EB006EB9BC /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26252B0E69EB006EB9BC /* background.js */; };
+		DF7C263E2B0E69EB006EB9BC /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26262B0E69EB006EB9BC /* Mainnet-64x64.png */; };
+		DF7C263F2B0E69EB006EB9BC /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26272B0E69EB006EB9BC /* Fairground-48x48.png */; };
+		DF7C26402B0E69EB006EB9BC /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26282B0E69EB006EB9BC /* Mainnet-128x128.png */; };
+		DF7C26412B0E69EB006EB9BC /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26292B0E69EB006EB9BC /* chrome-pow.html */; };
+		DF7C26422B0E69EB006EB9BC /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262A2B0E69EB006EB9BC /* chrome-pow.js */; };
+		DF7C26432B0E69EB006EB9BC /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262B2B0E69EB006EB9BC /* Fairground-96x96.png */; };
+		DF7C26442B0E69EB006EB9BC /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262C2B0E69EB006EB9BC /* Mainnet-32x32.png */; };
+		DF7C26452B0E69EB006EB9BC /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262D2B0E69EB006EB9BC /* AlphaLyrae-Medium.woff2 */; };
+		DF7C26462B0E69EB006EB9BC /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262E2B0E69EB006EB9BC /* Fairground-128x128.png */; };
+		DF7C26472B0E69EB006EB9BC /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262F2B0E69EB006EB9BC /* pow-worker.js */; };
+		DF7C26482B0E69EB006EB9BC /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26302B0E69EB006EB9BC /* Mainnet-16x16.png */; };
+		DF7C26492B0E69EB006EB9BC /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26312B0E69EB006EB9BC /* manifest.json */; };
+		DF7C264A2B0E69EB006EB9BC /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26322B0E69EB006EB9BC /* question-mark.png */; };
+		DF7C264B2B0E69EB006EB9BC /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26332B0E69EB006EB9BC /* content-script.js */; };
+		DF7C264C2B0E69EB006EB9BC /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26342B0E69EB006EB9BC /* in-page.js */; };
+		DF7C264D2B0E69EB006EB9BC /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26352B0E69EB006EB9BC /* Fairground-16x16.png */; };
+		DF7C264E2B0E69EB006EB9BC /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26362B0E69EB006EB9BC /* stars.png */; };
+		DF7C264F2B0E69EB006EB9BC /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C261F2B0E69EB006EB9BC /* Fairground-64x64.png */; };
+		DF7C26502B0E69EB006EB9BC /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26202B0E69EB006EB9BC /* Mainnet-48x48.png */; };
+		DF7C26512B0E69EB006EB9BC /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26212B0E69EB006EB9BC /* Fairground-32x32.png */; };
+		DF7C26522B0E69EB006EB9BC /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26222B0E69EB006EB9BC /* popup.js */; };
+		DF7C26532B0E69EB006EB9BC /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26232B0E69EB006EB9BC /* index.html */; };
+		DF7C26542B0E69EB006EB9BC /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26242B0E69EB006EB9BC /* Mainnet-96x96.png */; };
+		DF7C26552B0E69EB006EB9BC /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26252B0E69EB006EB9BC /* background.js */; };
+		DF7C26562B0E69EB006EB9BC /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26262B0E69EB006EB9BC /* Mainnet-64x64.png */; };
+		DF7C26572B0E69EB006EB9BC /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26272B0E69EB006EB9BC /* Fairground-48x48.png */; };
+		DF7C26582B0E69EB006EB9BC /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26282B0E69EB006EB9BC /* Mainnet-128x128.png */; };
+		DF7C26592B0E69EB006EB9BC /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26292B0E69EB006EB9BC /* chrome-pow.html */; };
+		DF7C265A2B0E69EB006EB9BC /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262A2B0E69EB006EB9BC /* chrome-pow.js */; };
+		DF7C265B2B0E69EB006EB9BC /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262B2B0E69EB006EB9BC /* Fairground-96x96.png */; };
+		DF7C265C2B0E69EB006EB9BC /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262C2B0E69EB006EB9BC /* Mainnet-32x32.png */; };
+		DF7C265D2B0E69EB006EB9BC /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262D2B0E69EB006EB9BC /* AlphaLyrae-Medium.woff2 */; };
+		DF7C265E2B0E69EB006EB9BC /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262E2B0E69EB006EB9BC /* Fairground-128x128.png */; };
+		DF7C265F2B0E69EB006EB9BC /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C262F2B0E69EB006EB9BC /* pow-worker.js */; };
+		DF7C26602B0E69EB006EB9BC /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26302B0E69EB006EB9BC /* Mainnet-16x16.png */; };
+		DF7C26612B0E69EB006EB9BC /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26312B0E69EB006EB9BC /* manifest.json */; };
+		DF7C26622B0E69EB006EB9BC /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26322B0E69EB006EB9BC /* question-mark.png */; };
+		DF7C26632B0E69EB006EB9BC /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26332B0E69EB006EB9BC /* content-script.js */; };
+		DF7C26642B0E69EB006EB9BC /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26342B0E69EB006EB9BC /* in-page.js */; };
+		DF7C26652B0E69EB006EB9BC /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26352B0E69EB006EB9BC /* Fairground-16x16.png */; };
+		DF7C26662B0E69EB006EB9BC /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7C26362B0E69EB006EB9BC /* stars.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DF5A5A0F2B0E506400BB503D /* PBXContainerItemProxy */ = {
+		DF7C25F12B0E69EB006EB9BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = DF5A59DB2B0E506300BB503D /* Project object */;
+			containerPortal = DF7C25BD2B0E69E9006EB9BC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF5A5A0C2B0E506400BB503D;
+			remoteGlobalIDString = DF7C25EE2B0E69EB006EB9BC;
 			remoteInfo = "Vega Wallet - Fairground Extension (iOS)";
 		};
-		DF5A5A192B0E506400BB503D /* PBXContainerItemProxy */ = {
+		DF7C25FB2B0E69EB006EB9BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = DF5A59DB2B0E506300BB503D /* Project object */;
+			containerPortal = DF7C25BD2B0E69E9006EB9BC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF5A5A162B0E506400BB503D;
+			remoteGlobalIDString = DF7C25F82B0E69EB006EB9BC;
 			remoteInfo = "Vega Wallet - Fairground Extension (macOS)";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		DF5A5A312B0E506400BB503D /* Embed Foundation Extensions */ = {
+		DF7C26132B0E69EB006EB9BC /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				DF5A5A0E2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */,
+				DF7C25F02B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A5A382B0E506400BB503D /* Embed Foundation Extensions */ = {
+		DF7C261A2B0E69EB006EB9BC /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				DF5A5A182B0E506400BB503D /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */,
+				DF7C25FA2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,78 +122,78 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DF5A59E22B0E506300BB503D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
-		DF5A59E32B0E506300BB503D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		DF5A59E42B0E506300BB503D /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		DF5A59E52B0E506300BB503D /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
-		DF5A59E62B0E506300BB503D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DF5A59E72B0E506400BB503D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DF5A59E92B0E506400BB503D /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		DF5A59EE2B0E506400BB503D /* Vega Wallet - Fairground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet - Fairground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF5A59F12B0E506400BB503D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DF5A59F32B0E506400BB503D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DF5A59F62B0E506400BB503D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DF5A59F92B0E506400BB503D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DF5A59FB2B0E506400BB503D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF5A5A002B0E506400BB503D /* Vega Wallet - Fairground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet - Fairground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF5A5A022B0E506400BB503D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DF5A5A052B0E506400BB503D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DF5A5A072B0E506400BB503D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF5A5A082B0E506400BB503D /* Vega Wallet - Fairground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Vega Wallet - Fairground.entitlements"; sourceTree = "<group>"; };
-		DF5A5A0D2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet - Fairground Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF5A5A122B0E506400BB503D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF5A5A172B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet - Fairground Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF5A5A1C2B0E506400BB503D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF5A5A1D2B0E506400BB503D /* Vega Wallet - Fairground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Vega Wallet - Fairground.entitlements"; sourceTree = "<group>"; };
-		DF5A5A3D2B0E506400BB503D /* Fairground-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-64x64.png"; path = "../../build/firefox/Fairground-64x64.png"; sourceTree = "<group>"; };
-		DF5A5A3E2B0E506400BB503D /* Mainnet-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-48x48.png"; path = "../../build/firefox/Mainnet-48x48.png"; sourceTree = "<group>"; };
-		DF5A5A3F2B0E506400BB503D /* Fairground-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-32x32.png"; path = "../../build/firefox/Fairground-32x32.png"; sourceTree = "<group>"; };
-		DF5A5A402B0E506400BB503D /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.js; path = ../../build/firefox/popup.js; sourceTree = "<group>"; };
-		DF5A5A412B0E506400BB503D /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../../build/firefox/index.html; sourceTree = "<group>"; };
-		DF5A5A422B0E506400BB503D /* Mainnet-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-96x96.png"; path = "../../build/firefox/Mainnet-96x96.png"; sourceTree = "<group>"; };
-		DF5A5A432B0E506400BB503D /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../build/firefox/background.js; sourceTree = "<group>"; };
-		DF5A5A442B0E506400BB503D /* Mainnet-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-64x64.png"; path = "../../build/firefox/Mainnet-64x64.png"; sourceTree = "<group>"; };
-		DF5A5A452B0E506400BB503D /* Fairground-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-48x48.png"; path = "../../build/firefox/Fairground-48x48.png"; sourceTree = "<group>"; };
-		DF5A5A462B0E506400BB503D /* Mainnet-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-128x128.png"; path = "../../build/firefox/Mainnet-128x128.png"; sourceTree = "<group>"; };
-		DF5A5A472B0E506400BB503D /* chrome-pow.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "chrome-pow.html"; path = "../../build/firefox/chrome-pow.html"; sourceTree = "<group>"; };
-		DF5A5A482B0E506400BB503D /* chrome-pow.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "chrome-pow.js"; path = "../../build/firefox/chrome-pow.js"; sourceTree = "<group>"; };
-		DF5A5A492B0E506400BB503D /* Fairground-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-96x96.png"; path = "../../build/firefox/Fairground-96x96.png"; sourceTree = "<group>"; };
-		DF5A5A4A2B0E506400BB503D /* Mainnet-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-32x32.png"; path = "../../build/firefox/Mainnet-32x32.png"; sourceTree = "<group>"; };
-		DF5A5A4B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AlphaLyrae-Medium.woff2"; path = "../../build/firefox/AlphaLyrae-Medium.woff2"; sourceTree = "<group>"; };
-		DF5A5A4C2B0E506400BB503D /* Fairground-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-128x128.png"; path = "../../build/firefox/Fairground-128x128.png"; sourceTree = "<group>"; };
-		DF5A5A4D2B0E506400BB503D /* pow-worker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "pow-worker.js"; path = "../../build/firefox/pow-worker.js"; sourceTree = "<group>"; };
-		DF5A5A4E2B0E506400BB503D /* Mainnet-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-16x16.png"; path = "../../build/firefox/Mainnet-16x16.png"; sourceTree = "<group>"; };
-		DF5A5A4F2B0E506400BB503D /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../build/firefox/manifest.json; sourceTree = "<group>"; };
-		DF5A5A502B0E506400BB503D /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "question-mark.png"; path = "../../build/firefox/question-mark.png"; sourceTree = "<group>"; };
-		DF5A5A512B0E506400BB503D /* content-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-script.js"; path = "../../build/firefox/content-script.js"; sourceTree = "<group>"; };
-		DF5A5A522B0E506400BB503D /* in-page.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "in-page.js"; path = "../../build/firefox/in-page.js"; sourceTree = "<group>"; };
-		DF5A5A532B0E506400BB503D /* Fairground-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-16x16.png"; path = "../../build/firefox/Fairground-16x16.png"; sourceTree = "<group>"; };
-		DF5A5A542B0E506400BB503D /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars.png; path = ../../build/firefox/stars.png; sourceTree = "<group>"; };
+		DF7C25C42B0E69E9006EB9BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		DF7C25C52B0E69E9006EB9BC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		DF7C25C62B0E69E9006EB9BC /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		DF7C25C72B0E69E9006EB9BC /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		DF7C25C82B0E69E9006EB9BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DF7C25C92B0E69EA006EB9BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF7C25CB2B0E69EA006EB9BC /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		DF7C25D02B0E69EB006EB9BC /* Vega Wallet - Fairground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet - Fairground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7C25D32B0E69EB006EB9BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DF7C25D52B0E69EB006EB9BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DF7C25D82B0E69EB006EB9BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DF7C25DB2B0E69EB006EB9BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DF7C25DD2B0E69EB006EB9BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF7C25E22B0E69EB006EB9BC /* Vega Wallet - Fairground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet - Fairground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7C25E42B0E69EB006EB9BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DF7C25E72B0E69EB006EB9BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DF7C25E92B0E69EB006EB9BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF7C25EA2B0E69EB006EB9BC /* Vega Wallet - Fairground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Vega Wallet - Fairground.entitlements"; sourceTree = "<group>"; };
+		DF7C25EF2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet - Fairground Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7C25F42B0E69EB006EB9BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF7C25F92B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet - Fairground Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7C25FE2B0E69EB006EB9BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF7C25FF2B0E69EB006EB9BC /* Vega Wallet - Fairground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Vega Wallet - Fairground.entitlements"; sourceTree = "<group>"; };
+		DF7C261F2B0E69EB006EB9BC /* Fairground-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-64x64.png"; path = "../../build/safari/Fairground-64x64.png"; sourceTree = "<group>"; };
+		DF7C26202B0E69EB006EB9BC /* Mainnet-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-48x48.png"; path = "../../build/safari/Mainnet-48x48.png"; sourceTree = "<group>"; };
+		DF7C26212B0E69EB006EB9BC /* Fairground-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-32x32.png"; path = "../../build/safari/Fairground-32x32.png"; sourceTree = "<group>"; };
+		DF7C26222B0E69EB006EB9BC /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.js; path = ../../build/safari/popup.js; sourceTree = "<group>"; };
+		DF7C26232B0E69EB006EB9BC /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../../build/safari/index.html; sourceTree = "<group>"; };
+		DF7C26242B0E69EB006EB9BC /* Mainnet-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-96x96.png"; path = "../../build/safari/Mainnet-96x96.png"; sourceTree = "<group>"; };
+		DF7C26252B0E69EB006EB9BC /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../build/safari/background.js; sourceTree = "<group>"; };
+		DF7C26262B0E69EB006EB9BC /* Mainnet-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-64x64.png"; path = "../../build/safari/Mainnet-64x64.png"; sourceTree = "<group>"; };
+		DF7C26272B0E69EB006EB9BC /* Fairground-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-48x48.png"; path = "../../build/safari/Fairground-48x48.png"; sourceTree = "<group>"; };
+		DF7C26282B0E69EB006EB9BC /* Mainnet-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-128x128.png"; path = "../../build/safari/Mainnet-128x128.png"; sourceTree = "<group>"; };
+		DF7C26292B0E69EB006EB9BC /* chrome-pow.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "chrome-pow.html"; path = "../../build/safari/chrome-pow.html"; sourceTree = "<group>"; };
+		DF7C262A2B0E69EB006EB9BC /* chrome-pow.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "chrome-pow.js"; path = "../../build/safari/chrome-pow.js"; sourceTree = "<group>"; };
+		DF7C262B2B0E69EB006EB9BC /* Fairground-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-96x96.png"; path = "../../build/safari/Fairground-96x96.png"; sourceTree = "<group>"; };
+		DF7C262C2B0E69EB006EB9BC /* Mainnet-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-32x32.png"; path = "../../build/safari/Mainnet-32x32.png"; sourceTree = "<group>"; };
+		DF7C262D2B0E69EB006EB9BC /* AlphaLyrae-Medium.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AlphaLyrae-Medium.woff2"; path = "../../build/safari/AlphaLyrae-Medium.woff2"; sourceTree = "<group>"; };
+		DF7C262E2B0E69EB006EB9BC /* Fairground-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-128x128.png"; path = "../../build/safari/Fairground-128x128.png"; sourceTree = "<group>"; };
+		DF7C262F2B0E69EB006EB9BC /* pow-worker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "pow-worker.js"; path = "../../build/safari/pow-worker.js"; sourceTree = "<group>"; };
+		DF7C26302B0E69EB006EB9BC /* Mainnet-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-16x16.png"; path = "../../build/safari/Mainnet-16x16.png"; sourceTree = "<group>"; };
+		DF7C26312B0E69EB006EB9BC /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../build/safari/manifest.json; sourceTree = "<group>"; };
+		DF7C26322B0E69EB006EB9BC /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "question-mark.png"; path = "../../build/safari/question-mark.png"; sourceTree = "<group>"; };
+		DF7C26332B0E69EB006EB9BC /* content-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-script.js"; path = "../../build/safari/content-script.js"; sourceTree = "<group>"; };
+		DF7C26342B0E69EB006EB9BC /* in-page.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "in-page.js"; path = "../../build/safari/in-page.js"; sourceTree = "<group>"; };
+		DF7C26352B0E69EB006EB9BC /* Fairground-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-16x16.png"; path = "../../build/safari/Fairground-16x16.png"; sourceTree = "<group>"; };
+		DF7C26362B0E69EB006EB9BC /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars.png; path = ../../build/safari/stars.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DF5A59EB2B0E506400BB503D /* Frameworks */ = {
+		DF7C25CD2B0E69EB006EB9BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A59FD2B0E506400BB503D /* Frameworks */ = {
+		DF7C25DF2B0E69EB006EB9BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A5A0A2B0E506400BB503D /* Frameworks */ = {
+		DF7C25EC2B0E69EB006EB9BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A5A142B0E506400BB503D /* Frameworks */ = {
+		DF7C25F62B0E69EB006EB9BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -203,127 +203,127 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DF5A59DA2B0E506300BB503D = {
+		DF7C25BC2B0E69E9006EB9BC = {
 			isa = PBXGroup;
 			children = (
-				DF5A59DF2B0E506300BB503D /* Shared (App) */,
-				DF5A59E82B0E506400BB503D /* Shared (Extension) */,
-				DF5A59F02B0E506400BB503D /* iOS (App) */,
-				DF5A5A012B0E506400BB503D /* macOS (App) */,
-				DF5A5A112B0E506400BB503D /* iOS (Extension) */,
-				DF5A5A1B2B0E506400BB503D /* macOS (Extension) */,
-				DF5A59EF2B0E506400BB503D /* Products */,
+				DF7C25C12B0E69E9006EB9BC /* Shared (App) */,
+				DF7C25CA2B0E69EA006EB9BC /* Shared (Extension) */,
+				DF7C25D22B0E69EB006EB9BC /* iOS (App) */,
+				DF7C25E32B0E69EB006EB9BC /* macOS (App) */,
+				DF7C25F32B0E69EB006EB9BC /* iOS (Extension) */,
+				DF7C25FD2B0E69EB006EB9BC /* macOS (Extension) */,
+				DF7C25D12B0E69EB006EB9BC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		DF5A59DF2B0E506300BB503D /* Shared (App) */ = {
+		DF7C25C12B0E69E9006EB9BC /* Shared (App) */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A59E62B0E506300BB503D /* ViewController.swift */,
-				DF5A59E72B0E506400BB503D /* Assets.xcassets */,
-				DF5A59E02B0E506300BB503D /* Resources */,
+				DF7C25C82B0E69E9006EB9BC /* ViewController.swift */,
+				DF7C25C92B0E69EA006EB9BC /* Assets.xcassets */,
+				DF7C25C22B0E69E9006EB9BC /* Resources */,
 			);
 			path = "Shared (App)";
 			sourceTree = "<group>";
 		};
-		DF5A59E02B0E506300BB503D /* Resources */ = {
+		DF7C25C22B0E69E9006EB9BC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A59E12B0E506300BB503D /* Main.html */,
-				DF5A59E32B0E506300BB503D /* Icon.png */,
-				DF5A59E42B0E506300BB503D /* Style.css */,
-				DF5A59E52B0E506300BB503D /* Script.js */,
+				DF7C25C32B0E69E9006EB9BC /* Main.html */,
+				DF7C25C52B0E69E9006EB9BC /* Icon.png */,
+				DF7C25C62B0E69E9006EB9BC /* Style.css */,
+				DF7C25C72B0E69E9006EB9BC /* Script.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		DF5A59E82B0E506400BB503D /* Shared (Extension) */ = {
+		DF7C25CA2B0E69EA006EB9BC /* Shared (Extension) */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A5A3C2B0E506400BB503D /* Resources */,
-				DF5A59E92B0E506400BB503D /* SafariWebExtensionHandler.swift */,
+				DF7C261E2B0E69EB006EB9BC /* Resources */,
+				DF7C25CB2B0E69EA006EB9BC /* SafariWebExtensionHandler.swift */,
 			);
 			path = "Shared (Extension)";
 			sourceTree = "<group>";
 		};
-		DF5A59EF2B0E506400BB503D /* Products */ = {
+		DF7C25D12B0E69EB006EB9BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A59EE2B0E506400BB503D /* Vega Wallet - Fairground.app */,
-				DF5A5A002B0E506400BB503D /* Vega Wallet - Fairground.app */,
-				DF5A5A0D2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */,
-				DF5A5A172B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */,
+				DF7C25D02B0E69EB006EB9BC /* Vega Wallet - Fairground.app */,
+				DF7C25E22B0E69EB006EB9BC /* Vega Wallet - Fairground.app */,
+				DF7C25EF2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex */,
+				DF7C25F92B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DF5A59F02B0E506400BB503D /* iOS (App) */ = {
+		DF7C25D22B0E69EB006EB9BC /* iOS (App) */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A59F12B0E506400BB503D /* AppDelegate.swift */,
-				DF5A59F32B0E506400BB503D /* SceneDelegate.swift */,
-				DF5A59F52B0E506400BB503D /* LaunchScreen.storyboard */,
-				DF5A59F82B0E506400BB503D /* Main.storyboard */,
-				DF5A59FB2B0E506400BB503D /* Info.plist */,
+				DF7C25D32B0E69EB006EB9BC /* AppDelegate.swift */,
+				DF7C25D52B0E69EB006EB9BC /* SceneDelegate.swift */,
+				DF7C25D72B0E69EB006EB9BC /* LaunchScreen.storyboard */,
+				DF7C25DA2B0E69EB006EB9BC /* Main.storyboard */,
+				DF7C25DD2B0E69EB006EB9BC /* Info.plist */,
 			);
 			path = "iOS (App)";
 			sourceTree = "<group>";
 		};
-		DF5A5A012B0E506400BB503D /* macOS (App) */ = {
+		DF7C25E32B0E69EB006EB9BC /* macOS (App) */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A5A022B0E506400BB503D /* AppDelegate.swift */,
-				DF5A5A042B0E506400BB503D /* Main.storyboard */,
-				DF5A5A072B0E506400BB503D /* Info.plist */,
-				DF5A5A082B0E506400BB503D /* Vega Wallet - Fairground.entitlements */,
+				DF7C25E42B0E69EB006EB9BC /* AppDelegate.swift */,
+				DF7C25E62B0E69EB006EB9BC /* Main.storyboard */,
+				DF7C25E92B0E69EB006EB9BC /* Info.plist */,
+				DF7C25EA2B0E69EB006EB9BC /* Vega Wallet - Fairground.entitlements */,
 			);
 			path = "macOS (App)";
 			sourceTree = "<group>";
 		};
-		DF5A5A112B0E506400BB503D /* iOS (Extension) */ = {
+		DF7C25F32B0E69EB006EB9BC /* iOS (Extension) */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A5A122B0E506400BB503D /* Info.plist */,
+				DF7C25F42B0E69EB006EB9BC /* Info.plist */,
 			);
 			path = "iOS (Extension)";
 			sourceTree = "<group>";
 		};
-		DF5A5A1B2B0E506400BB503D /* macOS (Extension) */ = {
+		DF7C25FD2B0E69EB006EB9BC /* macOS (Extension) */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A5A1C2B0E506400BB503D /* Info.plist */,
-				DF5A5A1D2B0E506400BB503D /* Vega Wallet - Fairground.entitlements */,
+				DF7C25FE2B0E69EB006EB9BC /* Info.plist */,
+				DF7C25FF2B0E69EB006EB9BC /* Vega Wallet - Fairground.entitlements */,
 			);
 			path = "macOS (Extension)";
 			sourceTree = "<group>";
 		};
-		DF5A5A3C2B0E506400BB503D /* Resources */ = {
+		DF7C261E2B0E69EB006EB9BC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DF5A5A3D2B0E506400BB503D /* Fairground-64x64.png */,
-				DF5A5A3E2B0E506400BB503D /* Mainnet-48x48.png */,
-				DF5A5A3F2B0E506400BB503D /* Fairground-32x32.png */,
-				DF5A5A402B0E506400BB503D /* popup.js */,
-				DF5A5A412B0E506400BB503D /* index.html */,
-				DF5A5A422B0E506400BB503D /* Mainnet-96x96.png */,
-				DF5A5A432B0E506400BB503D /* background.js */,
-				DF5A5A442B0E506400BB503D /* Mainnet-64x64.png */,
-				DF5A5A452B0E506400BB503D /* Fairground-48x48.png */,
-				DF5A5A462B0E506400BB503D /* Mainnet-128x128.png */,
-				DF5A5A472B0E506400BB503D /* chrome-pow.html */,
-				DF5A5A482B0E506400BB503D /* chrome-pow.js */,
-				DF5A5A492B0E506400BB503D /* Fairground-96x96.png */,
-				DF5A5A4A2B0E506400BB503D /* Mainnet-32x32.png */,
-				DF5A5A4B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 */,
-				DF5A5A4C2B0E506400BB503D /* Fairground-128x128.png */,
-				DF5A5A4D2B0E506400BB503D /* pow-worker.js */,
-				DF5A5A4E2B0E506400BB503D /* Mainnet-16x16.png */,
-				DF5A5A4F2B0E506400BB503D /* manifest.json */,
-				DF5A5A502B0E506400BB503D /* question-mark.png */,
-				DF5A5A512B0E506400BB503D /* content-script.js */,
-				DF5A5A522B0E506400BB503D /* in-page.js */,
-				DF5A5A532B0E506400BB503D /* Fairground-16x16.png */,
-				DF5A5A542B0E506400BB503D /* stars.png */,
+				DF7C261F2B0E69EB006EB9BC /* Fairground-64x64.png */,
+				DF7C26202B0E69EB006EB9BC /* Mainnet-48x48.png */,
+				DF7C26212B0E69EB006EB9BC /* Fairground-32x32.png */,
+				DF7C26222B0E69EB006EB9BC /* popup.js */,
+				DF7C26232B0E69EB006EB9BC /* index.html */,
+				DF7C26242B0E69EB006EB9BC /* Mainnet-96x96.png */,
+				DF7C26252B0E69EB006EB9BC /* background.js */,
+				DF7C26262B0E69EB006EB9BC /* Mainnet-64x64.png */,
+				DF7C26272B0E69EB006EB9BC /* Fairground-48x48.png */,
+				DF7C26282B0E69EB006EB9BC /* Mainnet-128x128.png */,
+				DF7C26292B0E69EB006EB9BC /* chrome-pow.html */,
+				DF7C262A2B0E69EB006EB9BC /* chrome-pow.js */,
+				DF7C262B2B0E69EB006EB9BC /* Fairground-96x96.png */,
+				DF7C262C2B0E69EB006EB9BC /* Mainnet-32x32.png */,
+				DF7C262D2B0E69EB006EB9BC /* AlphaLyrae-Medium.woff2 */,
+				DF7C262E2B0E69EB006EB9BC /* Fairground-128x128.png */,
+				DF7C262F2B0E69EB006EB9BC /* pow-worker.js */,
+				DF7C26302B0E69EB006EB9BC /* Mainnet-16x16.png */,
+				DF7C26312B0E69EB006EB9BC /* manifest.json */,
+				DF7C26322B0E69EB006EB9BC /* question-mark.png */,
+				DF7C26332B0E69EB006EB9BC /* content-script.js */,
+				DF7C26342B0E69EB006EB9BC /* in-page.js */,
+				DF7C26352B0E69EB006EB9BC /* Fairground-16x16.png */,
+				DF7C26362B0E69EB006EB9BC /* stars.png */,
 			);
 			name = Resources;
 			path = "Shared (Extension)";
@@ -332,51 +332,51 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DF5A59ED2B0E506400BB503D /* Vega Wallet - Fairground (iOS) */ = {
+		DF7C25CF2B0E69EB006EB9BC /* Vega Wallet - Fairground (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF5A5A322B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (iOS)" */;
+			buildConfigurationList = DF7C26142B0E69EB006EB9BC /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (iOS)" */;
 			buildPhases = (
-				DF5A59EA2B0E506400BB503D /* Sources */,
-				DF5A59EB2B0E506400BB503D /* Frameworks */,
-				DF5A59EC2B0E506400BB503D /* Resources */,
-				DF5A5A312B0E506400BB503D /* Embed Foundation Extensions */,
+				DF7C25CC2B0E69EB006EB9BC /* Sources */,
+				DF7C25CD2B0E69EB006EB9BC /* Frameworks */,
+				DF7C25CE2B0E69EB006EB9BC /* Resources */,
+				DF7C26132B0E69EB006EB9BC /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DF5A5A102B0E506400BB503D /* PBXTargetDependency */,
+				DF7C25F22B0E69EB006EB9BC /* PBXTargetDependency */,
 			);
 			name = "Vega Wallet - Fairground (iOS)";
 			productName = "Vega Wallet - Fairground (iOS)";
-			productReference = DF5A59EE2B0E506400BB503D /* Vega Wallet - Fairground.app */;
+			productReference = DF7C25D02B0E69EB006EB9BC /* Vega Wallet - Fairground.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DF5A59FF2B0E506400BB503D /* Vega Wallet - Fairground (macOS) */ = {
+		DF7C25E12B0E69EB006EB9BC /* Vega Wallet - Fairground (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF5A5A392B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (macOS)" */;
+			buildConfigurationList = DF7C261B2B0E69EB006EB9BC /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (macOS)" */;
 			buildPhases = (
-				DF5A59FC2B0E506400BB503D /* Sources */,
-				DF5A59FD2B0E506400BB503D /* Frameworks */,
-				DF5A59FE2B0E506400BB503D /* Resources */,
-				DF5A5A382B0E506400BB503D /* Embed Foundation Extensions */,
+				DF7C25DE2B0E69EB006EB9BC /* Sources */,
+				DF7C25DF2B0E69EB006EB9BC /* Frameworks */,
+				DF7C25E02B0E69EB006EB9BC /* Resources */,
+				DF7C261A2B0E69EB006EB9BC /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DF5A5A1A2B0E506400BB503D /* PBXTargetDependency */,
+				DF7C25FC2B0E69EB006EB9BC /* PBXTargetDependency */,
 			);
 			name = "Vega Wallet - Fairground (macOS)";
 			productName = "Vega Wallet - Fairground (macOS)";
-			productReference = DF5A5A002B0E506400BB503D /* Vega Wallet - Fairground.app */;
+			productReference = DF7C25E22B0E69EB006EB9BC /* Vega Wallet - Fairground.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DF5A5A0C2B0E506400BB503D /* Vega Wallet - Fairground Extension (iOS) */ = {
+		DF7C25EE2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF5A5A2E2B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (iOS)" */;
+			buildConfigurationList = DF7C26102B0E69EB006EB9BC /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (iOS)" */;
 			buildPhases = (
-				DF5A5A092B0E506400BB503D /* Sources */,
-				DF5A5A0A2B0E506400BB503D /* Frameworks */,
-				DF5A5A0B2B0E506400BB503D /* Resources */,
+				DF7C25EB2B0E69EB006EB9BC /* Sources */,
+				DF7C25EC2B0E69EB006EB9BC /* Frameworks */,
+				DF7C25ED2B0E69EB006EB9BC /* Resources */,
 			);
 			buildRules = (
 			);
@@ -384,16 +384,16 @@
 			);
 			name = "Vega Wallet - Fairground Extension (iOS)";
 			productName = "Vega Wallet - Fairground Extension (iOS)";
-			productReference = DF5A5A0D2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */;
+			productReference = DF7C25EF2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		DF5A5A162B0E506400BB503D /* Vega Wallet - Fairground Extension (macOS) */ = {
+		DF7C25F82B0E69EB006EB9BC /* Vega Wallet - Fairground Extension (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF5A5A352B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (macOS)" */;
+			buildConfigurationList = DF7C26172B0E69EB006EB9BC /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (macOS)" */;
 			buildPhases = (
-				DF5A5A132B0E506400BB503D /* Sources */,
-				DF5A5A142B0E506400BB503D /* Frameworks */,
-				DF5A5A152B0E506400BB503D /* Resources */,
+				DF7C25F52B0E69EB006EB9BC /* Sources */,
+				DF7C25F62B0E69EB006EB9BC /* Frameworks */,
+				DF7C25F72B0E69EB006EB9BC /* Resources */,
 			);
 			buildRules = (
 			);
@@ -401,34 +401,34 @@
 			);
 			name = "Vega Wallet - Fairground Extension (macOS)";
 			productName = "Vega Wallet - Fairground Extension (macOS)";
-			productReference = DF5A5A172B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */;
+			productReference = DF7C25F92B0E69EB006EB9BC /* Vega Wallet - Fairground Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		DF5A59DB2B0E506300BB503D /* Project object */ = {
+		DF7C25BD2B0E69E9006EB9BC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					DF5A59ED2B0E506400BB503D = {
+					DF7C25CF2B0E69EB006EB9BC = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
-					DF5A59FF2B0E506400BB503D = {
+					DF7C25E12B0E69EB006EB9BC = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
-					DF5A5A0C2B0E506400BB503D = {
+					DF7C25EE2B0E69EB006EB9BC = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
-					DF5A5A162B0E506400BB503D = {
+					DF7C25F82B0E69EB006EB9BC = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
 				};
 			};
-			buildConfigurationList = DF5A59DE2B0E506300BB503D /* Build configuration list for PBXProject "Vega Wallet - Fairground" */;
+			buildConfigurationList = DF7C25C02B0E69E9006EB9BC /* Build configuration list for PBXProject "Vega Wallet - Fairground" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -436,191 +436,191 @@
 				en,
 				Base,
 			);
-			mainGroup = DF5A59DA2B0E506300BB503D;
-			productRefGroup = DF5A59EF2B0E506400BB503D /* Products */;
+			mainGroup = DF7C25BC2B0E69E9006EB9BC;
+			productRefGroup = DF7C25D12B0E69EB006EB9BC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DF5A59ED2B0E506400BB503D /* Vega Wallet - Fairground (iOS) */,
-				DF5A59FF2B0E506400BB503D /* Vega Wallet - Fairground (macOS) */,
-				DF5A5A0C2B0E506400BB503D /* Vega Wallet - Fairground Extension (iOS) */,
-				DF5A5A162B0E506400BB503D /* Vega Wallet - Fairground Extension (macOS) */,
+				DF7C25CF2B0E69EB006EB9BC /* Vega Wallet - Fairground (iOS) */,
+				DF7C25E12B0E69EB006EB9BC /* Vega Wallet - Fairground (macOS) */,
+				DF7C25EE2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension (iOS) */,
+				DF7C25F82B0E69EB006EB9BC /* Vega Wallet - Fairground Extension (macOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		DF5A59EC2B0E506400BB503D /* Resources */ = {
+		DF7C25CE2B0E69EB006EB9BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5A5A202B0E506400BB503D /* Icon.png in Resources */,
-				DF5A59F72B0E506400BB503D /* LaunchScreen.storyboard in Resources */,
-				DF5A5A1E2B0E506400BB503D /* Main.html in Resources */,
-				DF5A5A242B0E506400BB503D /* Script.js in Resources */,
-				DF5A5A282B0E506400BB503D /* Assets.xcassets in Resources */,
-				DF5A59FA2B0E506400BB503D /* Main.storyboard in Resources */,
-				DF5A5A222B0E506400BB503D /* Style.css in Resources */,
+				DF7C26022B0E69EB006EB9BC /* Icon.png in Resources */,
+				DF7C25D92B0E69EB006EB9BC /* LaunchScreen.storyboard in Resources */,
+				DF7C26002B0E69EB006EB9BC /* Main.html in Resources */,
+				DF7C26062B0E69EB006EB9BC /* Script.js in Resources */,
+				DF7C260A2B0E69EB006EB9BC /* Assets.xcassets in Resources */,
+				DF7C25DC2B0E69EB006EB9BC /* Main.storyboard in Resources */,
+				DF7C26042B0E69EB006EB9BC /* Style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A59FE2B0E506400BB503D /* Resources */ = {
+		DF7C25E02B0E69EB006EB9BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5A5A212B0E506400BB503D /* Icon.png in Resources */,
-				DF5A5A232B0E506400BB503D /* Style.css in Resources */,
-				DF5A5A062B0E506400BB503D /* Main.storyboard in Resources */,
-				DF5A5A252B0E506400BB503D /* Script.js in Resources */,
-				DF5A5A292B0E506400BB503D /* Assets.xcassets in Resources */,
-				DF5A5A1F2B0E506400BB503D /* Main.html in Resources */,
+				DF7C26032B0E69EB006EB9BC /* Icon.png in Resources */,
+				DF7C26052B0E69EB006EB9BC /* Style.css in Resources */,
+				DF7C25E82B0E69EB006EB9BC /* Main.storyboard in Resources */,
+				DF7C26072B0E69EB006EB9BC /* Script.js in Resources */,
+				DF7C260B2B0E69EB006EB9BC /* Assets.xcassets in Resources */,
+				DF7C26012B0E69EB006EB9BC /* Main.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A5A0B2B0E506400BB503D /* Resources */ = {
+		DF7C25ED2B0E69EB006EB9BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5A5A802B0E506400BB503D /* question-mark.png in Resources */,
-				DF5A5A842B0E506400BB503D /* stars.png in Resources */,
-				DF5A5A712B0E506400BB503D /* index.html in Resources */,
-				DF5A5A7B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 in Resources */,
-				DF5A5A762B0E506400BB503D /* Mainnet-128x128.png in Resources */,
-				DF5A5A742B0E506400BB503D /* Mainnet-64x64.png in Resources */,
-				DF5A5A772B0E506400BB503D /* chrome-pow.html in Resources */,
-				DF5A5A7C2B0E506400BB503D /* Fairground-128x128.png in Resources */,
-				DF5A5A7F2B0E506400BB503D /* manifest.json in Resources */,
-				DF5A5A7D2B0E506400BB503D /* pow-worker.js in Resources */,
-				DF5A5A7E2B0E506400BB503D /* Mainnet-16x16.png in Resources */,
-				DF5A5A822B0E506400BB503D /* in-page.js in Resources */,
-				DF5A5A6D2B0E506400BB503D /* Fairground-64x64.png in Resources */,
-				DF5A5A782B0E506400BB503D /* chrome-pow.js in Resources */,
-				DF5A5A732B0E506400BB503D /* background.js in Resources */,
-				DF5A5A6F2B0E506400BB503D /* Fairground-32x32.png in Resources */,
-				DF5A5A812B0E506400BB503D /* content-script.js in Resources */,
-				DF5A5A6E2B0E506400BB503D /* Mainnet-48x48.png in Resources */,
-				DF5A5A7A2B0E506400BB503D /* Mainnet-32x32.png in Resources */,
-				DF5A5A702B0E506400BB503D /* popup.js in Resources */,
-				DF5A5A792B0E506400BB503D /* Fairground-96x96.png in Resources */,
-				DF5A5A832B0E506400BB503D /* Fairground-16x16.png in Resources */,
-				DF5A5A722B0E506400BB503D /* Mainnet-96x96.png in Resources */,
-				DF5A5A752B0E506400BB503D /* Fairground-48x48.png in Resources */,
+				DF7C26622B0E69EB006EB9BC /* question-mark.png in Resources */,
+				DF7C26662B0E69EB006EB9BC /* stars.png in Resources */,
+				DF7C26532B0E69EB006EB9BC /* index.html in Resources */,
+				DF7C265D2B0E69EB006EB9BC /* AlphaLyrae-Medium.woff2 in Resources */,
+				DF7C26582B0E69EB006EB9BC /* Mainnet-128x128.png in Resources */,
+				DF7C26562B0E69EB006EB9BC /* Mainnet-64x64.png in Resources */,
+				DF7C26592B0E69EB006EB9BC /* chrome-pow.html in Resources */,
+				DF7C265E2B0E69EB006EB9BC /* Fairground-128x128.png in Resources */,
+				DF7C26612B0E69EB006EB9BC /* manifest.json in Resources */,
+				DF7C265F2B0E69EB006EB9BC /* pow-worker.js in Resources */,
+				DF7C26602B0E69EB006EB9BC /* Mainnet-16x16.png in Resources */,
+				DF7C26642B0E69EB006EB9BC /* in-page.js in Resources */,
+				DF7C264F2B0E69EB006EB9BC /* Fairground-64x64.png in Resources */,
+				DF7C265A2B0E69EB006EB9BC /* chrome-pow.js in Resources */,
+				DF7C26552B0E69EB006EB9BC /* background.js in Resources */,
+				DF7C26512B0E69EB006EB9BC /* Fairground-32x32.png in Resources */,
+				DF7C26632B0E69EB006EB9BC /* content-script.js in Resources */,
+				DF7C26502B0E69EB006EB9BC /* Mainnet-48x48.png in Resources */,
+				DF7C265C2B0E69EB006EB9BC /* Mainnet-32x32.png in Resources */,
+				DF7C26522B0E69EB006EB9BC /* popup.js in Resources */,
+				DF7C265B2B0E69EB006EB9BC /* Fairground-96x96.png in Resources */,
+				DF7C26652B0E69EB006EB9BC /* Fairground-16x16.png in Resources */,
+				DF7C26542B0E69EB006EB9BC /* Mainnet-96x96.png in Resources */,
+				DF7C26572B0E69EB006EB9BC /* Fairground-48x48.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A5A152B0E506400BB503D /* Resources */ = {
+		DF7C25F72B0E69EB006EB9BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5A5A682B0E506400BB503D /* question-mark.png in Resources */,
-				DF5A5A6C2B0E506400BB503D /* stars.png in Resources */,
-				DF5A5A592B0E506400BB503D /* index.html in Resources */,
-				DF5A5A632B0E506400BB503D /* AlphaLyrae-Medium.woff2 in Resources */,
-				DF5A5A5E2B0E506400BB503D /* Mainnet-128x128.png in Resources */,
-				DF5A5A5C2B0E506400BB503D /* Mainnet-64x64.png in Resources */,
-				DF5A5A5F2B0E506400BB503D /* chrome-pow.html in Resources */,
-				DF5A5A642B0E506400BB503D /* Fairground-128x128.png in Resources */,
-				DF5A5A672B0E506400BB503D /* manifest.json in Resources */,
-				DF5A5A652B0E506400BB503D /* pow-worker.js in Resources */,
-				DF5A5A662B0E506400BB503D /* Mainnet-16x16.png in Resources */,
-				DF5A5A6A2B0E506400BB503D /* in-page.js in Resources */,
-				DF5A5A552B0E506400BB503D /* Fairground-64x64.png in Resources */,
-				DF5A5A602B0E506400BB503D /* chrome-pow.js in Resources */,
-				DF5A5A5B2B0E506400BB503D /* background.js in Resources */,
-				DF5A5A572B0E506400BB503D /* Fairground-32x32.png in Resources */,
-				DF5A5A692B0E506400BB503D /* content-script.js in Resources */,
-				DF5A5A562B0E506400BB503D /* Mainnet-48x48.png in Resources */,
-				DF5A5A622B0E506400BB503D /* Mainnet-32x32.png in Resources */,
-				DF5A5A582B0E506400BB503D /* popup.js in Resources */,
-				DF5A5A612B0E506400BB503D /* Fairground-96x96.png in Resources */,
-				DF5A5A6B2B0E506400BB503D /* Fairground-16x16.png in Resources */,
-				DF5A5A5A2B0E506400BB503D /* Mainnet-96x96.png in Resources */,
-				DF5A5A5D2B0E506400BB503D /* Fairground-48x48.png in Resources */,
+				DF7C264A2B0E69EB006EB9BC /* question-mark.png in Resources */,
+				DF7C264E2B0E69EB006EB9BC /* stars.png in Resources */,
+				DF7C263B2B0E69EB006EB9BC /* index.html in Resources */,
+				DF7C26452B0E69EB006EB9BC /* AlphaLyrae-Medium.woff2 in Resources */,
+				DF7C26402B0E69EB006EB9BC /* Mainnet-128x128.png in Resources */,
+				DF7C263E2B0E69EB006EB9BC /* Mainnet-64x64.png in Resources */,
+				DF7C26412B0E69EB006EB9BC /* chrome-pow.html in Resources */,
+				DF7C26462B0E69EB006EB9BC /* Fairground-128x128.png in Resources */,
+				DF7C26492B0E69EB006EB9BC /* manifest.json in Resources */,
+				DF7C26472B0E69EB006EB9BC /* pow-worker.js in Resources */,
+				DF7C26482B0E69EB006EB9BC /* Mainnet-16x16.png in Resources */,
+				DF7C264C2B0E69EB006EB9BC /* in-page.js in Resources */,
+				DF7C26372B0E69EB006EB9BC /* Fairground-64x64.png in Resources */,
+				DF7C26422B0E69EB006EB9BC /* chrome-pow.js in Resources */,
+				DF7C263D2B0E69EB006EB9BC /* background.js in Resources */,
+				DF7C26392B0E69EB006EB9BC /* Fairground-32x32.png in Resources */,
+				DF7C264B2B0E69EB006EB9BC /* content-script.js in Resources */,
+				DF7C26382B0E69EB006EB9BC /* Mainnet-48x48.png in Resources */,
+				DF7C26442B0E69EB006EB9BC /* Mainnet-32x32.png in Resources */,
+				DF7C263A2B0E69EB006EB9BC /* popup.js in Resources */,
+				DF7C26432B0E69EB006EB9BC /* Fairground-96x96.png in Resources */,
+				DF7C264D2B0E69EB006EB9BC /* Fairground-16x16.png in Resources */,
+				DF7C263C2B0E69EB006EB9BC /* Mainnet-96x96.png in Resources */,
+				DF7C263F2B0E69EB006EB9BC /* Fairground-48x48.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		DF5A59EA2B0E506400BB503D /* Sources */ = {
+		DF7C25CC2B0E69EB006EB9BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5A5A262B0E506400BB503D /* ViewController.swift in Sources */,
-				DF5A59F22B0E506400BB503D /* AppDelegate.swift in Sources */,
-				DF5A59F42B0E506400BB503D /* SceneDelegate.swift in Sources */,
+				DF7C26082B0E69EB006EB9BC /* ViewController.swift in Sources */,
+				DF7C25D42B0E69EB006EB9BC /* AppDelegate.swift in Sources */,
+				DF7C25D62B0E69EB006EB9BC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A59FC2B0E506400BB503D /* Sources */ = {
+		DF7C25DE2B0E69EB006EB9BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5A5A272B0E506400BB503D /* ViewController.swift in Sources */,
-				DF5A5A032B0E506400BB503D /* AppDelegate.swift in Sources */,
+				DF7C26092B0E69EB006EB9BC /* ViewController.swift in Sources */,
+				DF7C25E52B0E69EB006EB9BC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A5A092B0E506400BB503D /* Sources */ = {
+		DF7C25EB2B0E69EB006EB9BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5A5A2A2B0E506400BB503D /* SafariWebExtensionHandler.swift in Sources */,
+				DF7C260C2B0E69EB006EB9BC /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF5A5A132B0E506400BB503D /* Sources */ = {
+		DF7C25F52B0E69EB006EB9BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5A5A2B2B0E506400BB503D /* SafariWebExtensionHandler.swift in Sources */,
+				DF7C260D2B0E69EB006EB9BC /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DF5A5A102B0E506400BB503D /* PBXTargetDependency */ = {
+		DF7C25F22B0E69EB006EB9BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF5A5A0C2B0E506400BB503D /* Vega Wallet - Fairground Extension (iOS) */;
-			targetProxy = DF5A5A0F2B0E506400BB503D /* PBXContainerItemProxy */;
+			target = DF7C25EE2B0E69EB006EB9BC /* Vega Wallet - Fairground Extension (iOS) */;
+			targetProxy = DF7C25F12B0E69EB006EB9BC /* PBXContainerItemProxy */;
 		};
-		DF5A5A1A2B0E506400BB503D /* PBXTargetDependency */ = {
+		DF7C25FC2B0E69EB006EB9BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DF5A5A162B0E506400BB503D /* Vega Wallet - Fairground Extension (macOS) */;
-			targetProxy = DF5A5A192B0E506400BB503D /* PBXContainerItemProxy */;
+			target = DF7C25F82B0E69EB006EB9BC /* Vega Wallet - Fairground Extension (macOS) */;
+			targetProxy = DF7C25FB2B0E69EB006EB9BC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DF5A59E12B0E506300BB503D /* Main.html */ = {
+		DF7C25C32B0E69E9006EB9BC /* Main.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DF5A59E22B0E506300BB503D /* Base */,
+				DF7C25C42B0E69E9006EB9BC /* Base */,
 			);
 			name = Main.html;
 			sourceTree = "<group>";
 		};
-		DF5A59F52B0E506400BB503D /* LaunchScreen.storyboard */ = {
+		DF7C25D72B0E69EB006EB9BC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DF5A59F62B0E506400BB503D /* Base */,
+				DF7C25D82B0E69EB006EB9BC /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		DF5A59F82B0E506400BB503D /* Main.storyboard */ = {
+		DF7C25DA2B0E69EB006EB9BC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DF5A59F92B0E506400BB503D /* Base */,
+				DF7C25DB2B0E69EB006EB9BC /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		DF5A5A042B0E506400BB503D /* Main.storyboard */ = {
+		DF7C25E62B0E69EB006EB9BC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DF5A5A052B0E506400BB503D /* Base */,
+				DF7C25E72B0E69EB006EB9BC /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -628,7 +628,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		DF5A5A2C2B0E506400BB503D /* Debug */ = {
+		DF7C260E2B0E69EB006EB9BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -689,7 +689,7 @@
 			};
 			name = Debug;
 		};
-		DF5A5A2D2B0E506400BB503D /* Release */ = {
+		DF7C260F2B0E69EB006EB9BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -742,7 +742,7 @@
 			};
 			name = Release;
 		};
-		DF5A5A2F2B0E506400BB503D /* Debug */ = {
+		DF7C26112B0E69EB006EB9BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -773,7 +773,7 @@
 			};
 			name = Debug;
 		};
-		DF5A5A302B0E506400BB503D /* Release */ = {
+		DF7C26122B0E69EB006EB9BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -805,7 +805,7 @@
 			};
 			name = Release;
 		};
-		DF5A5A332B0E506400BB503D /* Debug */ = {
+		DF7C26152B0E69EB006EB9BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -843,7 +843,7 @@
 			};
 			name = Debug;
 		};
-		DF5A5A342B0E506400BB503D /* Release */ = {
+		DF7C26162B0E69EB006EB9BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -882,7 +882,7 @@
 			};
 			name = Release;
 		};
-		DF5A5A362B0E506400BB503D /* Debug */ = {
+		DF7C26182B0E69EB006EB9BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Vega Wallet - Fairground.entitlements";
@@ -913,7 +913,7 @@
 			};
 			name = Debug;
 		};
-		DF5A5A372B0E506400BB503D /* Release */ = {
+		DF7C26192B0E69EB006EB9BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Vega Wallet - Fairground.entitlements";
@@ -944,7 +944,7 @@
 			};
 			name = Release;
 		};
-		DF5A5A3A2B0E506400BB503D /* Debug */ = {
+		DF7C261C2B0E69EB006EB9BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -979,7 +979,7 @@
 			};
 			name = Debug;
 		};
-		DF5A5A3B2B0E506400BB503D /* Release */ = {
+		DF7C261D2B0E69EB006EB9BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -1017,52 +1017,52 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DF5A59DE2B0E506300BB503D /* Build configuration list for PBXProject "Vega Wallet - Fairground" */ = {
+		DF7C25C02B0E69E9006EB9BC /* Build configuration list for PBXProject "Vega Wallet - Fairground" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF5A5A2C2B0E506400BB503D /* Debug */,
-				DF5A5A2D2B0E506400BB503D /* Release */,
+				DF7C260E2B0E69EB006EB9BC /* Debug */,
+				DF7C260F2B0E69EB006EB9BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF5A5A2E2B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (iOS)" */ = {
+		DF7C26102B0E69EB006EB9BC /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF5A5A2F2B0E506400BB503D /* Debug */,
-				DF5A5A302B0E506400BB503D /* Release */,
+				DF7C26112B0E69EB006EB9BC /* Debug */,
+				DF7C26122B0E69EB006EB9BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF5A5A322B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (iOS)" */ = {
+		DF7C26142B0E69EB006EB9BC /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF5A5A332B0E506400BB503D /* Debug */,
-				DF5A5A342B0E506400BB503D /* Release */,
+				DF7C26152B0E69EB006EB9BC /* Debug */,
+				DF7C26162B0E69EB006EB9BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF5A5A352B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (macOS)" */ = {
+		DF7C26172B0E69EB006EB9BC /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF5A5A362B0E506400BB503D /* Debug */,
-				DF5A5A372B0E506400BB503D /* Release */,
+				DF7C26182B0E69EB006EB9BC /* Debug */,
+				DF7C26192B0E69EB006EB9BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF5A5A392B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (macOS)" */ = {
+		DF7C261B2B0E69EB006EB9BC /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF5A5A3A2B0E506400BB503D /* Debug */,
-				DF5A5A3B2B0E506400BB503D /* Release */,
+				DF7C261C2B0E69EB006EB9BC /* Debug */,
+				DF7C261D2B0E69EB006EB9BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = DF5A59DB2B0E506300BB503D /* Project object */;
+	rootObject = DF7C25BD2B0E69E9006EB9BC /* Project object */;
 }

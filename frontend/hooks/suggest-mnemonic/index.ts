@@ -36,14 +36,14 @@ export const useSuggestMnemonic = () => {
   }, [request, session])
 
   const getMnemonic = useCallback(async () => {
-    const res = await session.get(SUGGESTED_MNEMONIC_KEY)
-    const recoveryPhrase = res[SUGGESTED_MNEMONIC_KEY]
+    // const res = await session.get(SUGGESTED_MNEMONIC_KEY)
+    // const recoveryPhrase = res[SUGGESTED_MNEMONIC_KEY]
     // If one exists in memory then use it, otherwise generate a new one
-    if (recoveryPhrase) {
-      setMnemonic(recoveryPhrase)
-    } else {
-      suggestMnemonic()
-    }
+    // if (recoveryPhrase) {
+    //   setMnemonic(recoveryPhrase)
+    // } else {
+    suggestMnemonic()
+    // }
   }, [session, suggestMnemonic])
 
   useEffect(() => {

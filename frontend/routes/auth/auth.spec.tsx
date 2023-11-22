@@ -77,9 +77,9 @@ describe('Auth', () => {
     const { loadWallets, fetchAssets, fetchMarkets } = mockStores()
     renderComponent()
 
-    expect(loadWallets).toBeCalledTimes(1)
-    expect(fetchAssets).toBeCalledTimes(1)
-    expect(fetchMarkets).toBeCalledTimes(1)
+    expect(loadWallets).toHaveBeenCalledTimes(1)
+    expect(fetchAssets).toHaveBeenCalledTimes(1)
+    expect(fetchMarkets).toHaveBeenCalledTimes(1)
   })
   it('renders wallets header on wallets page', () => {
     mockStores()

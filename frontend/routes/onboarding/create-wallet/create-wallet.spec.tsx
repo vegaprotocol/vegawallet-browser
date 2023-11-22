@@ -30,12 +30,12 @@ describe('Create wallet', () => {
   it('navigates to import wallet page when import button is pressed', () => {
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.importWalletButton))
-    expect(mockNavigate).toBeCalledWith(FULL_ROUTES.importWallet)
+    expect(mockNavigate).toHaveBeenCalledWith(FULL_ROUTES.importWallet)
   })
 
   it('navigates to save mnemonic route when create wallet button is pressed', async () => {
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.createNewWalletButton))
-    expect(mockNavigate).toBeCalledWith(FULL_ROUTES.saveMnemonic)
+    expect(mockNavigate).toHaveBeenCalledWith(FULL_ROUTES.saveMnemonic)
   })
 })

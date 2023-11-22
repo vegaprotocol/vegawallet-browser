@@ -17,7 +17,7 @@ describe('useFormatAssetAmount', () => {
         }
       })
     })
-    expect(() => renderHook(() => useFormatAssetAmount('foo', '123'))).toThrowError(
+    expect(() => renderHook(() => useFormatAssetAmount('foo', '123'))).toThrow(
       'Could not find amount, decimals or symbol when trying to render transaction for asset foo'
     )
   })
@@ -32,7 +32,7 @@ describe('useFormatAssetAmount', () => {
         }
       })
     })
-    expect(() => renderHook(() => useFormatAssetAmount('foo', '123'))).toThrowError(
+    expect(() => renderHook(() => useFormatAssetAmount('foo', '123'))).toThrow(
       'Could not find amount, decimals or symbol when trying to render transaction for asset foo'
     )
   })

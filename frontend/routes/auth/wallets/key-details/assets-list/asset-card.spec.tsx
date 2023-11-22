@@ -42,7 +42,7 @@ describe('AssetCard', () => {
         },
         [account]
       )
-    ).toThrowError('Asset details not populated')
+    ).toThrow('Asset details not populated')
 
     expect(() =>
       renderComponent(
@@ -55,7 +55,7 @@ describe('AssetCard', () => {
         },
         [account]
       )
-    ).toThrowError('Asset details not populated')
+    ).toThrow('Asset details not populated')
 
     expect(() =>
       renderComponent(
@@ -68,7 +68,7 @@ describe('AssetCard', () => {
         },
         [account]
       )
-    ).toThrowError('Asset details not populated')
+    ).toThrow('Asset details not populated')
   })
   it('renders header with total, symbol, name, market lozenges and row for each account', () => {
     // 1125-KEYD-003 I can see the balance of each (the sum across ALL account types)

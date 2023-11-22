@@ -38,7 +38,7 @@ describe('Store', () => {
     expect(useGlobalsStore.getState().settingsLoading).toBe(true)
     await promise
     expect(useGlobalsStore.getState().settingsLoading).toBe(false)
-    expect(requestMock).toBeCalledWith(RpcMethods.UpdateSettings, {
+    expect(requestMock).toHaveBeenCalledWith(RpcMethods.UpdateSettings, {
       setting: 'value'
     })
   })

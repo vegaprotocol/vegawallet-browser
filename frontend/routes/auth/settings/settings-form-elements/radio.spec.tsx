@@ -42,7 +42,7 @@ describe('SettingsRadio', () => {
       globals: null,
       saveSettings
     })
-    expect(() => renderComponent()).toThrowError('Tried to render settings page without globals defined')
+    expect(() => renderComponent()).toThrow('Tried to render settings page without globals defined')
   })
 
   it('renders the description text correctly', () => {

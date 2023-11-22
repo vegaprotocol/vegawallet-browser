@@ -16,6 +16,6 @@ describe('ConnectionSuccess', () => {
     const onClose = jest.fn()
     render(<ConnectionSuccess onClose={onClose} hostname="test" />)
     jest.runAllTimers()
-    expect(onClose).toBeCalled()
+    expect(onClose).toHaveBeenCalled()
   })
 })

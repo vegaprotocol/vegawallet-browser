@@ -50,7 +50,7 @@ describe('Page', () => {
       </MemoryRouter>
     )
     fireEvent.click(screen.getByTestId(locators.basePageBack))
-    await waitFor(() => expect(onBack).toBeCalled())
+    await waitFor(() => expect(onBack).toHaveBeenCalled())
   })
 
   it('does not require onBack to be provided', async () => {

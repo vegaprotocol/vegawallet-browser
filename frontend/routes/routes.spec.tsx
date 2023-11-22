@@ -28,6 +28,6 @@ describe('Routes', () => {
         <Routing />
       </MemoryRouter>
     )
-    expect(usePersistLocation).toBeCalled()
+    expect(usePersistLocation).toHaveBeenCalled()
   })
 })

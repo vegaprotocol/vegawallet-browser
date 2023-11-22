@@ -52,7 +52,7 @@ describe('MarketsStore', () => {
     useMarketsStore.setState({ loading: false, error: new Error('1') })
     const promise = useMarketsStore.getState().fetchMarkets(request as unknown as any)
     expect(useMarketsStore.getState().loading).toBe(true)
-    expect(useMarketsStore.getState().error).toBe(null)
+    expect(useMarketsStore.getState().error).toBeNull()
     await promise
     expect(useMarketsStore.getState().loading).toBe(false)
   })
@@ -66,7 +66,7 @@ describe('MarketsStore', () => {
 
   it('throws error if the market is not found', async () => {
     useMarketsStore.setState({ markets: [] })
-    expect(() => useMarketsStore.getState().getMarketById('nope')).toThrowError('Market with id nope not found')
+    expect(() => useMarketsStore.getState().getMarketById('nope')).toThrow('Market with id nope not found')
   })
 
   it('allows you to get markets by asset id', async () => {
@@ -105,7 +105,7 @@ describe('MarketsStore', () => {
         }
       ]
     })
-    expect(() => useMarketsStore.getState().getMarketsByAssetId('foo')).toThrowError(
+    expect(() => useMarketsStore.getState().getMarketsByAssetId('foo')).toThrow(
       'Could not find settlement asset from market 1'
     )
   })

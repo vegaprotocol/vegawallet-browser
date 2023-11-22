@@ -45,6 +45,6 @@ describe('PersistLocation', () => {
       },
       { wrapper }
     )
-    expect(initialRoute).toBe(null)
+    expect(initialRoute).toBeNull()
   })
 })

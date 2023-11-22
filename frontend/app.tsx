@@ -31,7 +31,6 @@ function App() {
             className="w-full h-full bg-black font-alpha text-vega-dark-400"
           >
             <Routing />
-            Test
           </main>
         </JsonRPCProvider>
       </GlobalErrorBoundary>

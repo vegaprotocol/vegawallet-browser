@@ -19,7 +19,7 @@ import { Telemetry } from './onboarding/telemetry'
 import { FULL_ROUTES, ROUTES } from './route-names'
 
 export const Routing = () => {
-  // usePersistLocation()
+  usePersistLocation()
   return (
     <Routes>
       <Route element={<Outlet />}>

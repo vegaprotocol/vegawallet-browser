@@ -5,8 +5,8 @@ const setup = jest.fn()
 const teardown = jest.fn()
 
 jest.mock('../../stores/popover-store', () => ({
-  usePopoverStore: jest.fn().mockImplementation((fn) =>
-    fn({
+  usePopoverStore: jest.fn().mockImplementation((function_) =>
+    function_({
       setup,
       teardown
     })

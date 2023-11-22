@@ -1,11 +1,11 @@
-import { ReceiptComponentProps } from '../../receipts'
+import { ReceiptComponentProperties } from '../../receipts'
 import { useEffect } from 'react'
 import { useOrdersStore } from '../../../../stores/orders-store'
 import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { CancellationView } from './cancellation-view'
 
-export const Cancellation = ({ transaction }: ReceiptComponentProps) => {
+export const Cancellation = ({ transaction }: ReceiptComponentProperties) => {
   const { error, getOrderById, lastUpdated, order, loading } = useOrdersStore((state) => ({
     getOrderById: state.getOrderById,
     lastUpdated: state.lastUpdated,

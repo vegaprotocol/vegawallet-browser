@@ -7,13 +7,13 @@ import { Copy } from '../icons/copy'
 import { Tick } from '../icons/tick'
 import locators from '../locators'
 
-interface CopyWithCheckmarkProps {
+interface CopyWithCheckmarkProperties {
   children?: ReactNode
   text: string
   iconSide?: 'left' | 'right'
 }
 
-export function CopyWithCheckmark({ text, children, iconSide = 'right' }: CopyWithCheckmarkProps) {
+export function CopyWithCheckmark({ text, children, iconSide = 'right' }: CopyWithCheckmarkProperties) {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {

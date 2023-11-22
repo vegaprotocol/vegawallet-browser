@@ -111,7 +111,7 @@ export function generateMarket(override?: PartialDeep<vegaMarket>): vegaMarket {
       },
       logNormalRiskModel: {
         riskAversionParameter: 0.001,
-        tau: 0.000001901285269,
+        tau: 0.000_001_901_285_269,
         params: {
           mu: 0,
           r: 0,

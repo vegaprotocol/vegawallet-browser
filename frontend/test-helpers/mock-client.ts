@@ -52,13 +52,17 @@ export const mockClient = (
     runtime: {
       connect: () => ({
         postMessage: (message: any) => {
-          if (message.method === RpcMethods.ListWallets) {
+          switch (message.method) {
+          case RpcMethods.ListWallets: {
             pushMessage({
               jsonrpc: '2.0',
               result: { wallets },
               id: message.id
             })
-          } else if (message.method === RpcMethods.ListKeys) {
+          
+          break;
+          }
+          case RpcMethods.ListKeys: {
             pushMessage({
               jsonrpc: '2.0',
               result: {
@@ -71,13 +75,19 @@ export const mockClient = (
               },
               id: message.id
             })
-          } else if (message.method === RpcMethods.GenerateRecoveryPhrase) {
+          
+          break;
+          }
+          case RpcMethods.GenerateRecoveryPhrase: {
             pushMessage({
               jsonrpc: '2.0',
               result: { recoveryPhrase: 'Word '.repeat(24) },
               id: message.id
             })
-          } else if (message.method === RpcMethods.GenerateKey) {
+          
+          break;
+          }
+          case RpcMethods.GenerateKey: {
             pushMessage({
               jsonrpc: '2.0',
               result: {
@@ -93,7 +103,10 @@ export const mockClient = (
               },
               id: message.id
             })
-          } else if (message.method === RpcMethods.AppGlobals) {
+          
+          break;
+          }
+          case RpcMethods.AppGlobals: {
             pushMessage({
               jsonrpc: '2.0',
               result: {
@@ -102,7 +115,10 @@ export const mockClient = (
               },
               id: message.id
             })
-          } else if (message.method === RpcMethods.Unlock) {
+          
+          break;
+          }
+          case RpcMethods.Unlock: {
             if (message.params.passphrase === 'passphrase') {
               pushMessage({
                 jsonrpc: '2.0',
@@ -116,7 +132,10 @@ export const mockClient = (
                 id: message.id
               })
             }
-          } else if (message.method === RpcMethods.ListConnections) {
+          
+          break;
+          }
+          case RpcMethods.ListConnections: {
             pushMessage({
               jsonrpc: '2.0',
               id: message.id,
@@ -141,7 +160,10 @@ export const mockClient = (
                 ]
               }
             })
-          } else if (message.method === RpcMethods.UpdateSettings) {
+          
+          break;
+          }
+          case RpcMethods.UpdateSettings: {
             // TODO this is a hack. We are getting to the point where a dumb mock client is not good enough
             // need to investigate a better mocking solution]
             globals = {
@@ -154,13 +176,19 @@ export const mockClient = (
               result: null,
               id: message.id
             })
-          } else if (message.method === RpcMethods.SignMessage) {
+          
+          break;
+          }
+          case RpcMethods.SignMessage: {
             pushMessage({
               jsonrpc: '2.0',
               result: { signature: 'signature' },
               id: message.id
             })
-          } else if (
+          
+          break;
+          }
+          default: { if (
             [
               RpcMethods.ImportWallet,
               RpcMethods.Lock,
@@ -177,21 +205,23 @@ export const mockClient = (
           } else {
             pushMessage({
               jsonrpc: '2.0',
-              error: { code: -32601, message: 'Method not found' },
+              error: { code: -32_601, message: 'Method not found' },
               id: message.id
             })
           }
+          }
+          }
         },
-        onmessage: (...args: any[]) => {
-          console.log('om', args)
+        onmessage: (...arguments_: any[]) => {
+          console.log('om', arguments_)
         },
         onMessage: {
-          addListener: (fn: any) => {
-            listeners.push(fn)
+          addListener: (function_: any) => {
+            listeners.push(function_)
           }
         },
         onDisconnect: {
-          addListener: (fn: any) => {}
+          addListener: (function_: any) => {}
         }
       })
     }

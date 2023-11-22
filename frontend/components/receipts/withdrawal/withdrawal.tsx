@@ -1,10 +1,10 @@
 import { useAssetsStore } from '../../../stores/assets-store'
-import { AsyncRenderer } from '../../async-renderer/async-renderer'
-import { ReceiptComponentProps } from '../receipts'
+import { AsyncRenderer } from '../../async-renderer'
+import { ReceiptComponentProperties } from '../receipts'
 import { BasicWithdrawal } from './basic-withdrawal'
 import { EnrichedWithdrawal } from './enriched-withdrawal'
 
-export const Withdraw = ({ transaction }: ReceiptComponentProps) => {
+export const Withdraw = ({ transaction }: ReceiptComponentProperties) => {
   const { loading } = useAssetsStore((state) => ({
     loading: state.loading
   }))

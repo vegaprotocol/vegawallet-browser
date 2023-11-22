@@ -47,7 +47,7 @@ describe('PopoverOpenSplash', () => {
     expect(screen.getByTestId(locators.popoverSplash)).toBeInTheDocument()
     expect(screen.getByText("You're viewing your wallet in another window")).toBeInTheDocument()
 
-    const continueButton = screen.getByRole('button', { name: /Continue here/i })
+    const continueButton = screen.getByRole('button', { name: /continue here/i })
     fireEvent.click(continueButton)
 
     expect(mockFocusPopover).toHaveBeenCalledTimes(1)

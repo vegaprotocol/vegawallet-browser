@@ -22,12 +22,12 @@ describe('DataTable', () => {
     ]
     render(<DataTable items={items} />)
 
-    items.forEach(([key, value], i) => {
-      const keyElement = screen.getAllByTestId(locators.dataKey)[i]
-      const valueElement = screen.getAllByTestId(locators.dataValue)[i]
+    for (const [index, [key, value]] of items.entries()) {
+      const keyElement = screen.getAllByTestId(locators.dataKey)[index]
+      const valueElement = screen.getAllByTestId(locators.dataValue)[index]
 
       expect(keyElement.textContent).toBe(key)
       expect(valueElement.textContent).toBe(value)
-    })
+    }
   })
 })

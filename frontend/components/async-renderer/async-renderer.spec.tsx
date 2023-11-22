@@ -13,7 +13,7 @@ describe('AsyncRenderer', () => {
       <AsyncRenderer
         render={() => <div>Content</div>}
         error={error}
-        errorView={(err) => <div>Error: {err.message}</div>}
+        errorView={(error_) => <div>Error: {error_.message}</div>}
       />
     )
     expect(screen.getByText('Error: Test error')).toBeInTheDocument()
@@ -37,7 +37,7 @@ describe('AsyncRenderer', () => {
   })
 
   it('should not render error view when error is not provided', () => {
-    render(<AsyncRenderer render={() => <div>Content</div>} errorView={(err) => <div>Error: {err.message}</div>} />)
+    render(<AsyncRenderer render={() => <div>Content</div>} errorView={(error) => <div>Error: {error.message}</div>} />)
     expect(screen.queryByText('Error:')).toBeNull()
   })
 

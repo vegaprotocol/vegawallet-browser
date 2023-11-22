@@ -73,7 +73,7 @@ describe('CancellationNotification', () => {
   it('should render nothing while loading', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => {
-        throw new Error()
+        throw new Error('Error')
       },
       loading: true
     })

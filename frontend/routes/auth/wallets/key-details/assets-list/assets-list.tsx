@@ -1,4 +1,4 @@
-import { AsyncRenderer } from '../../../../../components/async-renderer/async-renderer'
+import { AsyncRenderer } from '../../../../../components/async-renderer'
 import { SubHeader } from '../../../../../components/sub-header'
 import { VegaSection } from '../../../../../components/vega-section'
 import { useAccountsStore } from './accounts-store'
@@ -40,8 +40,8 @@ export const AssetsList = ({ publicKey }: { publicKey: string }) => {
             <p data-testid={locators.assetListDescription} className="text-vega-dark-400 my-3">
               Recent balance changes caused by your open positions may not be reflected below
             </p>
-            {Object.entries(accountsByAsset).map(([assetId, val]) => (
-              <AssetCard key={assetId} accounts={val} assetId={assetId} />
+            {Object.entries(accountsByAsset).map(([assetId, value]) => (
+              <AssetCard key={assetId} accounts={value} assetId={assetId} />
             ))}
           </>
         )}

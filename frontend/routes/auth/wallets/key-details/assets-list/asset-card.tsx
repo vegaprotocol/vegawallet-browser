@@ -56,7 +56,10 @@ const AssetHeader = ({
   accounts: vegaAccount[]
   decimals: number
 }) => {
-  const total = accounts.reduce((acc, { balance }) => acc.plus(toBigNum(balance ?? '0', decimals)), new BigNumber(0))
+  const total = accounts.reduce(
+    (accumulator, { balance }) => accumulator.plus(toBigNum(balance ?? '0', decimals)),
+    new BigNumber(0)
+  )
   return (
     <div className="flex items-center justify-between w-full">
       <div className="text-left">

@@ -33,7 +33,7 @@ describe('PeggedOrderInfo', () => {
     mockStores(
       {
         loading: true,
-        getMarketById: () => undefined
+        getMarketById: () => {}
       },
       {
         getAssetById: () => ASSET_MOCK

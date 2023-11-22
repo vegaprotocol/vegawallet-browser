@@ -27,8 +27,8 @@ export const useSuggestMnemonic = () => {
   const { request } = useJsonRpcClient()
   const [mnemonic, setMnemonic] = useState<string | null>(null)
   const suggestMnemonic = useCallback(async () => {
-    const res = await request(RpcMethods.GenerateRecoveryPhrase, null)
-    const { recoveryPhrase } = res
+    const response = await request(RpcMethods.GenerateRecoveryPhrase, null)
+    const { recoveryPhrase } = response
     await session.set({
       [SUGGESTED_MNEMONIC_KEY]: recoveryPhrase
     })
@@ -36,8 +36,8 @@ export const useSuggestMnemonic = () => {
   }, [request, session])
 
   const getMnemonic = useCallback(async () => {
-    const res = await session.get(SUGGESTED_MNEMONIC_KEY)
-    const recoveryPhrase = res[SUGGESTED_MNEMONIC_KEY]
+    const response = await session.get(SUGGESTED_MNEMONIC_KEY)
+    const recoveryPhrase = response[SUGGESTED_MNEMONIC_KEY]
     // If one exists in memory then use it, otherwise generate a new one
     if (recoveryPhrase) {
       setMnemonic(recoveryPhrase)

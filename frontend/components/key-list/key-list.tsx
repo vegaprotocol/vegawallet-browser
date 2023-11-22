@@ -11,13 +11,13 @@ export const locators = {
   viewDetails: (keyName: string) => `${keyName}-view-details`
 }
 
-export interface KeyListProps {
+export interface KeyListProperties {
   keys: Key[]
   renderActions?: (key: Key) => ReactNode
   onClick?: () => void
 }
 
-export const KeyList = ({ keys, renderActions, onClick }: KeyListProps) => {
+export const KeyList = ({ keys, renderActions, onClick }: KeyListProperties) => {
   return (
     <section className="text-base mt-6">
       <SubHeader content="Keys" />

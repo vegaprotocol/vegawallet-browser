@@ -6,14 +6,14 @@ export const locators = {
   dataValue: 'data-value'
 }
 
-interface DataTableProps {
+interface DataTableProperties {
   items: [ReactNode, ReactNode][]
 }
 
-export const DataTable = ({ items }: DataTableProps) => {
+export const DataTable = ({ items }: DataTableProperties) => {
   return (
     <>
-      {items.map(([key, value], i) => (
+      {items.map(([key, value], index) => (
         <dl
           data-testid={locators.dataRow}
           key={`data-row-${key}`}

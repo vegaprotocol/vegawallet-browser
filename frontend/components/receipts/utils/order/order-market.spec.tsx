@@ -12,7 +12,7 @@ describe('OrderMarketComponent', () => {
   it('should return basic market link if markets are loading or market is not defined', () => {
     mockStore(useMarketsStore, {
       loading: true,
-      getMarketById: () => undefined
+      getMarketById: () => {}
     })
     render(<OrderMarket marketId="someMarketId" />)
     expect(screen.getByTestId(marketLinkLocators.marketLink)).toBeInTheDocument()

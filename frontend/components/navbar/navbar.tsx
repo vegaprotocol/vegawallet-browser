@@ -8,7 +8,7 @@ import { FULL_ROUTES } from '../../routes/route-names'
 import locators from '../locators'
 import { UpDownArrows } from '../icons/up-down-arrows'
 
-export interface NavButtonProps {
+export interface NavButtonProperties {
   end?: boolean
   icon: ReactNode
   text: string
@@ -27,7 +27,7 @@ const TEXT_COLOR = {
   }
 }
 
-export const NavButton = ({ icon, text, to, isFairground }: NavButtonProps) => {
+export const NavButton = ({ icon, text, to, isFairground }: NavButtonProperties) => {
   const textColors = isFairground ? TEXT_COLOR.fairground : TEXT_COLOR.default
   return (
     <NavLink data-testid={locators.navButton} to={to} className="text-center">

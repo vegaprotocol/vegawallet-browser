@@ -3,7 +3,7 @@ import { SubmissionView } from '../orders/submission'
 import { StopOrdersSubmissionView } from '../orders/stop-submission'
 import { StopOrderCancellationView } from '../orders/stop-cancellation'
 
-import { ReceiptComponentProps } from '../receipts'
+import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { CollapsiblePanel } from '../../collapsible-panel'
 import objectHash from 'object-hash'
@@ -40,7 +40,7 @@ const CommandSection = ({
   command: BatchTransactionCommands
   renderItem: (item: any, index: number) => JSX.Element
 }) => {
-  if (!items.length) return null
+  if (items.length === 0) return null
   return (
     <div className="last-of-type:mb-0 mb-4">
       <CollapsiblePanel
@@ -48,12 +48,12 @@ const CommandSection = ({
         initiallyOpen={true}
         panelContent={
           <>
-            {items.map((item: any, i: number) => (
+            {items.map((item: any, index: number) => (
               <Fragment key={objectHash(item)}>
                 <h2 data-testid={locators.header} className={'text-white mt-4'}>
-                  {i + 1}. {getBatchTitle(command, item)}
+                  {index + 1}. {getBatchTitle(command, item)}
                 </h2>
-                {renderItem(item, i)}
+                {renderItem(item, index)}
               </Fragment>
             ))}
           </>
@@ -63,7 +63,7 @@ const CommandSection = ({
   )
 }
 
-export const BatchMarketInstructions = ({ transaction }: ReceiptComponentProps) => {
+export const BatchMarketInstructions = ({ transaction }: ReceiptComponentProperties) => {
   const { batchMarketInstructions } = transaction
   const {
     cancellations = [],

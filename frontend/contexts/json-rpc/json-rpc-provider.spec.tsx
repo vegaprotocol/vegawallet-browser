@@ -81,7 +81,7 @@ describe('JsonRpcProvider', () => {
             addListener: () => {}
           },
           onDisconnect: {
-            addListener: (fn: any) => {}
+            addListener: (function_: any) => {}
           }
         })
       }
@@ -260,11 +260,11 @@ describe('JsonRpcProvider', () => {
       useEffect(() => {
         // TODO there must be a better way to test this
         const run = async () => {
-          const req = request('a.method.that.does.not.exist', null, true)
-          await expect(req).rejects.toThrow('Method not found')
+          const request_ = request('a.method.that.does.not.exist', null, true)
+          await expect(request_).rejects.toThrow('Method not found')
           try {
-            await req
-          } catch (e) {
+            await request_
+          } catch {
             errorCaught = true
           }
         }

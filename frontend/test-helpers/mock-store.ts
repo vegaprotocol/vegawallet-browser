@@ -7,5 +7,5 @@ export type DeepPartial<T> = T extends object
   : T
 
 export function mockStore<T>(store: UseBoundStore<StoreApi<T>>, value: DeepPartial<T>) {
-  ;(store as unknown as jest.Mock).mockImplementation((fn) => fn(value))
+  ;(store as unknown as jest.Mock).mockImplementation((function_) => function_(value))
 }

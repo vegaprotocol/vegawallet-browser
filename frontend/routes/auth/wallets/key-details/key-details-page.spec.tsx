@@ -56,7 +56,7 @@ describe('KeyDetailsPage', () => {
     silenceErrors()
     mockStore(useWalletStore, {
       loading: false,
-      getKeyById: () => undefined
+      getKeyById: () => {}
     })
     mockStore(useAssetsStore, {
       loading: false
@@ -106,7 +106,7 @@ describe('KeyDetailsPage', () => {
   it('renders nothing while wallets are loading', () => {
     mockStore(useWalletStore, {
       loading: true,
-      getKeyById: () => undefined
+      getKeyById: () => {}
     })
     mockStore(useAssetsStore, {
       loading: false

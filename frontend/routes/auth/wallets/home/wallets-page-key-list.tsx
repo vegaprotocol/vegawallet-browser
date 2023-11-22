@@ -10,12 +10,12 @@ export const locators = {
   walletsSignMessageButton: 'sign-message-button'
 }
 
-export interface WalletPageKeyListProps {
+export interface WalletPageKeyListProperties {
   wallet: Wallet
   onSignMessage: (key: string) => void
 }
 
-export const WalletsPageKeyList = ({ wallet, onSignMessage }: WalletPageKeyListProps) => {
+export const WalletsPageKeyList = ({ wallet, onSignMessage }: WalletPageKeyListProperties) => {
   const { request } = useJsonRpcClient()
   // Wallet loading is handled in auth, when the user is redirected to the auth page
   const { createNewKey } = useWalletStore((store) => ({

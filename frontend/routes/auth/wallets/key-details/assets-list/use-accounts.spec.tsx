@@ -14,8 +14,8 @@ jest.mock('../../../../../contexts/json-rpc/json-rpc-context', () => ({
 }))
 
 jest.mock('../../../../../stores/wallets', () => ({
-  useWalletStore: jest.fn().mockImplementation((fn) =>
-    fn({
+  useWalletStore: jest.fn().mockImplementation((function_) =>
+    function_({
       getKeyById: jest.fn().mockReturnValue({
         publicKey: MOCK_KEY,
         name: 'test',

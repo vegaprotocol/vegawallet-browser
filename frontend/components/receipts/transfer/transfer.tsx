@@ -1,6 +1,6 @@
 import ReactTimeAgo from 'react-time-ago'
 import { isBefore } from 'date-fns'
-import { ReceiptComponentProps } from '../receipts'
+import { ReceiptComponentProperties } from '../receipts'
 import { Transaction } from '../../../lib/transactions'
 import { BasicTransferView } from './basic-transfer-view'
 import { EnrichedTransferView } from './enriched-transfer-view'
@@ -27,7 +27,7 @@ export const locators = {
   loading: 'loading'
 }
 
-export const Transfer = ({ transaction }: ReceiptComponentProps) => {
+export const Transfer = ({ transaction }: ReceiptComponentProperties) => {
   const { loading: assetsLoading } = useAssetsStore((state) => ({
     loading: state.loading
   }))

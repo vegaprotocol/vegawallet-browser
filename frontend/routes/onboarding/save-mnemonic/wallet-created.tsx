@@ -7,11 +7,11 @@ export const locators = {
   walletCreated: 'wallet-created'
 }
 
-export interface WalletCreatedProps {
+export interface WalletCreatedProperties {
   onClose: () => void
 }
 
-export const WalletCreated = ({ onClose }: WalletCreatedProps) => {
+export const WalletCreated = ({ onClose }: WalletCreatedProperties) => {
   useEffect(() => {
     const stamp = setTimeout(() => {
       onClose()

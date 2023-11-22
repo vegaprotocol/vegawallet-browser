@@ -16,21 +16,31 @@ const keys = [
 ]
 
 const request = (method: string) => {
-  if (method === RpcMethods.ListWallets) {
-    return { wallets: ['Wallet 1'] }
-  } else if (method === RpcMethods.ListKeys) {
-    return {
-      keys
+  switch (method) {
+    case RpcMethods.ListWallets: {
+      return { wallets: ['Wallet 1'] }
     }
-  } else if (method === RpcMethods.GenerateKey) {
-    return {
-      publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-      name: 'Key 2'
+    case RpcMethods.ListKeys: {
+      return {
+        keys
+      }
     }
+    case RpcMethods.GenerateKey: {
+      return {
+        publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+        name: 'Key 2'
+      }
+    }
+    // No default
   }
 }
 
 const initialState = useWalletStore.getState()
+
+const fakeRequest = () => {
+  // eslint-disable-next-line no-throw-literal
+  throw null
+}
 
 describe('Store', () => {
   beforeEach(() => {
@@ -48,12 +58,9 @@ describe('Store', () => {
       }
     ])
   })
+
   it('throws error if the wallet we are trying to create a key for could not be found', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {})
-    const fakeRequest = () => {
-      // eslint-disable-next-line no-throw-literal
-      throw null
-    }
     await expect(
       async () =>
         await useWalletStore.getState().createKey(fakeRequest as unknown as any, 'this wallet name does not exist')

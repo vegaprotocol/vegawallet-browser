@@ -5,7 +5,7 @@ import groupBy from 'lodash/groupBy'
 import { removePaginationWrapper } from '../../../../../lib/remove-pagination'
 import { vegaAccount } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-const POLL_INTERVAL = 10000
+const POLL_INTERVAL = 10_000
 
 export type AccountsStore = {
   accounts: vegaAccount[]
@@ -35,9 +35,9 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
         accounts,
         accountsByAsset
       })
-    } catch (e) {
+    } catch (error) {
       set({
-        error: e as Error
+        error: error as Error
       })
     } finally {
       set({ loading: false })

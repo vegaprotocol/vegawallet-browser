@@ -12,19 +12,19 @@ const createClient = (notificationHandler: Function) => {
   const backgroundPort = runtime.connect({ name: 'popup' })
 
   const client = new JSONRPCClient({
-    onnotification: (...args) => {
-      notificationHandler(...args)
+    onnotification: (...arguments_) => {
+      notificationHandler(...arguments_)
     },
     idPrefix: 'vega-popup-',
-    send(msg: any) {
-      log('info', 'Sending message to background', msg)
-      backgroundPort.postMessage(msg)
+    send(message: any) {
+      log('info', 'Sending message to background', message)
+      backgroundPort.postMessage(message)
     }
   })
   window.client = client
-  backgroundPort.onMessage.addListener((res: any) => {
-    log('info', 'Received message from background', res)
-    client.onmessage(res)
+  backgroundPort.onMessage.addListener((message: any) => {
+    log('info', 'Received message from background', message)
+    client.onmessage(message)
   })
   return client
 }
@@ -42,22 +42,24 @@ export const useCreateClient = () => {
   const notificationHandler = useCallback(
     (message: JsonRpcNotification) => {
       if (message.method === RpcMethods.ConnectionsChange) {
-        message.params.add.forEach((m: Connection) => addConnection(m))
+        for (const connections of message.params.add as Array<Connection>) {
+          addConnection(connections)
+        }
       }
     },
     [addConnection]
   )
   const client = useMemo(() => createClient(notificationHandler), [notificationHandler])
   const request = useCallback(
-    async (method: string, params: any = null, propagate: boolean = false) => {
+    async (method: string, parameters: any = null, propagate: boolean = false) => {
       try {
-        const result = await client.request(method, params)
+        const result = await client.request(method, parameters)
         return result
-      } catch (e) {
-        if (!propagate) {
-          setError(e as Error)
+      } catch (error) {
+        if (propagate) {
+          throw error
         } else {
-          throw e
+          setError(error as Error)
         }
       }
     },

@@ -36,7 +36,7 @@ describe('StopOrderSubmission', () => {
         risesAbove: {
           expiryStrategy: 'EXPIRY_STRATEGY_SUBMIT',
           price: 100,
-          expiresAt: 1638534000000,
+          expiresAt: 1_638_534_000_000,
           trailingPercentOffset: 5,
           orderSubmission: {
             marketId: 'market1'
@@ -60,7 +60,7 @@ describe('StopOrderSubmission', () => {
         fallsBelow: {
           expiryStrategy: 'EXPIRY_STRATEGY_SUBMIT',
           price: 100,
-          expiresAt: 1638534000000,
+          expiresAt: 1_638_534_000_000,
           trailingPercentOffset: 5,
           orderSubmission: {
             marketId: 'market2'

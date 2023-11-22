@@ -1,17 +1,17 @@
 import { render, screen } from '@testing-library/react'
-import type { NavButtonProps } from '.'
+import type { NavButtonProperties } from '.'
 import { NavButton, NavBar } from '.'
 import { MemoryRouter } from 'react-router-dom'
 import type { HTMLAttributes } from 'react'
 
 jest.mock('@vegaprotocol/ui-toolkit', () => ({
-  Button: (props: HTMLAttributes<HTMLButtonElement>) => <button {...props} />
+  Button: (properties: HTMLAttributes<HTMLButtonElement>) => <button {...properties} />
 }))
 
-const renderNavButton = (props: NavButtonProps, initialEntries: string[] = []) =>
+const renderNavButton = (properties: NavButtonProperties, initialEntries: string[] = []) =>
   render(
     <MemoryRouter initialEntries={initialEntries}>
-      <NavButton {...props} />
+      <NavButton {...properties} />
     </MemoryRouter>
   )
 

@@ -1,10 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { RenameKeyDialog, locators } from './rename-key-dialog'
-import { RenameKeyFormProps } from './rename-key-form'
+import { RenameKeyFormProperties } from './rename-key-form'
 import { RpcMethods } from '../../../../../lib/client-rpc-methods'
 
 jest.mock('./rename-key-form', () => ({
-  RenameKeyForm: ({ onComplete }: RenameKeyFormProps) => <button onClick={onComplete} data-testid="rename-key-form" />
+  RenameKeyForm: ({ onComplete }: RenameKeyFormProperties) => (
+    <button onClick={onComplete} data-testid="rename-key-form" />
+  )
 }))
 
 jest.mock('../../../../../components/keys/vega-key', () => ({

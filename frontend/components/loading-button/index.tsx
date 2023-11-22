@@ -1,12 +1,12 @@
 import { Button, ButtonProps, Loader } from '@vegaprotocol/ui-toolkit'
 
-export interface LoadingButtonProps extends ButtonProps {
+export interface LoadingButtonProperties extends ButtonProps {
   text: string
   loadingText: string
   loading: boolean
 }
 
-export const LoadingButton = ({ text, loading, loadingText, disabled, ...rest }: LoadingButtonProps) => {
+export const LoadingButton = ({ text, loading, loadingText, disabled, ...rest }: LoadingButtonProperties) => {
   return (
     <Button {...rest} disabled={disabled || loading}>
       <div className="flex items-center justify-center">

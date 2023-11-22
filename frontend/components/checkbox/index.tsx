@@ -5,7 +5,7 @@ import { Checkbox as UICheckbox } from '@vegaprotocol/ui-toolkit'
 import locators from '../locators'
 import classnames from 'classnames'
 
-export type CheckboxProps<T extends FieldValues> = {
+export type CheckboxProperties<T extends FieldValues> = {
   name: Path<T>
   control: Control<T>
   label: ReactNode
@@ -13,7 +13,7 @@ export type CheckboxProps<T extends FieldValues> = {
   className?: string
 }
 
-export function Checkbox<T extends FieldValues>({ name, control, label, disabled, className }: CheckboxProps<T>) {
+export function Checkbox<T extends FieldValues>({ name, control, label, disabled, className }: CheckboxProperties<T>) {
   return (
     <Controller
       name={name}

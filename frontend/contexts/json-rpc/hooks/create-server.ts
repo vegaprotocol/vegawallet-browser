@@ -16,24 +16,24 @@ const maybeCloseWindow = () => {
 
 // TODO add own tests
 export const createServer = (
-  handleConnection: (params: ConnectionMessage) => Promise<boolean>,
-  handleTransaction: (params: TransactionMessage) => Promise<boolean>
+  handleConnection: (parameters: ConnectionMessage) => Promise<boolean>,
+  handleTransaction: (parameters: TransactionMessage) => Promise<boolean>
 ) => {
   const { runtime } = getExtensionApi()
   const backgroundPort = runtime.connect({ name: 'popup' })
   const server = new JSONRPCServer({
     methods: {
-      async [ServerRpcMethods.Connection](params: any, context: any) {
-        log('info', 'Message pushed from background', params, context)
-        const res = await handleConnection(params)
+      async [ServerRpcMethods.Connection](parameters: any, context: any) {
+        log('info', 'Message pushed from background', parameters, context)
+        const response = await handleConnection(parameters)
         maybeCloseWindow()
-        return res
+        return response
       },
-      async [ServerRpcMethods.Transaction](params: any, context: any) {
-        log('info', 'Message pushed from background', params, context)
-        const res = await handleTransaction(params)
+      async [ServerRpcMethods.Transaction](parameters: any, context: any) {
+        log('info', 'Message pushed from background', parameters, context)
+        const response = await handleTransaction(parameters)
         maybeCloseWindow()
-        return res
+        return response
       }
     }
   })

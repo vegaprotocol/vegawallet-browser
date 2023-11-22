@@ -15,11 +15,11 @@ export interface FormFields {
   keyName: string
 }
 
-interface RenameKeyDialogProps {
+interface RenameKeyDialogProperties {
   vegaKey: Key
 }
 
-export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProps) => {
+export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProperties) => {
   const [open, setOpen] = useState(false)
   const { reloadWallets } = useWalletStore((state) => ({
     reloadWallets: state.reloadWallets

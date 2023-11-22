@@ -3,8 +3,8 @@ import { useEffect, useMemo, useState } from 'react'
 const pseudoRandom = (seed: number) => {
   let value = seed
   return () => {
-    value = (value * 16807) % 2147483647
-    return value / 1000000000
+    value = (value * 16_807) % 2_147_483_647
+    return value / 1_000_000_000
   }
 }
 
@@ -29,18 +29,22 @@ export const LoaderBone = ({ width, height, baseSize = 1 }: { width: number; hei
   return (
     <div data-testid={locators.bone}>
       <div className="flex flex-wrap">
-        {new Array(width).fill(null).map((_, i) => (
-          <div key={`bone-col-${i}`} data-testid={locators.boneCol}>
-            {new Array(height).fill(null).map((_, j) => (
-              <div
-                key={`bone-sqaure-${j}`}
-                data-testid={locators.boneSquare}
-                style={{ height: baseSize, width: baseSize, opacity: generate() > 1.5 ? 1 : 0 }}
-                className="bg-white"
-              />
-            ))}
-          </div>
-        ))}
+        {Array.from({ length: width })
+          .fill(null)
+          .map((_, index) => (
+            <div key={`bone-col-${index}`} data-testid={locators.boneCol}>
+              {Array.from({ length: height })
+                .fill(null)
+                .map((_, index) => (
+                  <div
+                    key={`bone-sqaure-${index}`}
+                    data-testid={locators.boneSquare}
+                    style={{ height: baseSize, width: baseSize, opacity: generate() > 1.5 ? 1 : 0 }}
+                    className="bg-white"
+                  />
+                ))}
+            </div>
+          ))}
       </div>
     </div>
   )

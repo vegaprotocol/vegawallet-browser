@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import type { HTMLAttributes, ReactNode } from 'react'
 
-interface SplashProps extends HTMLAttributes<HTMLDivElement> {
+interface SplashProperties extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
   centered?: boolean
 }
@@ -9,10 +9,10 @@ interface SplashProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * Component to display content centered in the middle of the screen
  */
-export function Splash({ children, centered = false, className, ...props }: SplashProps) {
+export function Splash({ children, centered = false, className, ...properties }: SplashProperties) {
   return (
     <div
-      {...props}
+      {...properties}
       className={classnames(
         'bg-black z-[15] fixed flex flex-col items-center justify-start',
         'w-full h-full top-0 left-0 right-0 overflow-y-auto text-white',

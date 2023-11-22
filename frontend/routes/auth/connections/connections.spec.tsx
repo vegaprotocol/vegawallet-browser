@@ -65,12 +65,12 @@ describe('Connections', () => {
           },
           onmessage: () => {},
           onMessage: {
-            addListener: (fn: any) => {
-              listeners.push(fn)
+            addListener: (function_: any) => {
+              listeners.push(function_)
             }
           },
           onDisconnect: {
-            addListener: (fn: any) => {}
+            addListener: (function_: any) => {}
           }
         })
       }

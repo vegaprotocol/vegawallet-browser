@@ -22,8 +22,8 @@ export const useAssetsStore = create<AssetsStore>((set, get) => ({
       const response = await request(RpcMethods.Fetch, { path: 'api/v2/assets' }, true)
       const assets = removePaginationWrapper<vegaAsset>(response.assets.edges)
       set({ assets })
-    } catch (e) {
-      set({ error: e as Error })
+    } catch (error) {
+      set({ error: error as Error })
     } finally {
       set({ loading: false })
     }

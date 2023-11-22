@@ -15,7 +15,7 @@ jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
 
 const mockGetOrderById = jest.fn()
 
-const mockLastUpdatedTimestamp = 100000000
+const mockLastUpdatedTimestamp = 100_000_000
 
 jest.mock('../../../../stores/orders-store')
 jest.mock('../../../../stores/markets-store')
@@ -24,13 +24,13 @@ const mockTransaction = {
   orderCancellation: { orderId: '123', marketId: 'abc' }
 }
 
-const renderComponent = (
-  storeData: DeepPartial<OrdersStore> = {
-    getOrderById: mockGetOrderById,
-    lastUpdated: mockLastUpdatedTimestamp,
-    order: { id: '123', marketId: 'abc', createdAt: '1000000000000' }
-  }
-) => {
+const defaultStoreData = {
+  getOrderById: mockGetOrderById,
+  lastUpdated: mockLastUpdatedTimestamp,
+  order: { id: '123', marketId: 'abc', createdAt: '1000000000000' }
+}
+
+const renderComponent = (storeData: DeepPartial<OrdersStore> = defaultStoreData) => {
   mockStore(useOrdersStore, storeData)
   mockStore(useMarketsStore, {
     getMarketById: () => ({})
@@ -41,7 +41,7 @@ const renderComponent = (
 describe('Cancellation', () => {
   beforeEach(() => {
     jest.useFakeTimers()
-    jest.setSystemTime(100000000)
+    jest.setSystemTime(100_000_000)
   })
   afterEach(() => {
     jest.useRealTimers()
@@ -68,7 +68,7 @@ describe('Cancellation', () => {
     // 1130-ODTB-019 If order cancellation then the data is enriched with [basic order data](#basic-order-data) from the API
     renderComponent()
 
-    const [, , createdAt] = screen.getAllByTestId(dataTableLocators.dataRow)
+    const createdAt = screen.getAllByTestId(dataTableLocators.dataRow)[2]
     // Created at field is only present from API
     expect(createdAt).toHaveTextContent('Created at')
     expect(createdAt).toHaveTextContent('01 January 1970 00:16 (UTC)')

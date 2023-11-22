@@ -7,7 +7,7 @@ interface Item {
 }
 
 const renderComponent = ({ items }: { items: Item[] }) =>
-  render(<List<Item> items={items} idProp="id" empty={<p>Empty</p>} renderItem={(i) => <div>{i.name}</div>} />)
+  render(<List<Item> items={items} idProp="id" empty={<p>Empty</p>} renderItem={(index) => <div>{index.name}</div>} />)
 
 describe('List', () => {
   it('renders an empty state if there are no items', () => {

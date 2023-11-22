@@ -26,24 +26,24 @@ export const ConnectionsList = ({
       <List<Connection>
         idProp="origin"
         items={connections}
-        renderItem={(i) => (
+        renderItem={(index) => (
           <div>
             <div className="flex justify-between">
               <div className="flex flex-col justify-center">
-                <HostImage size={42} hostname={i.origin} />
+                <HostImage size={42} hostname={index.origin} />
               </div>
               <div
                 data-testid={locators.connectionOrigin}
                 className="ml-4 flex-1 flex flex-col justify-center overflow-hidden break-all"
               >
-                {i.origin}
+                {index.origin}
               </div>
-              <button data-testid={locators.connectionRemoveConnection} onClick={() => removeConnection(i)}>
+              <button data-testid={locators.connectionRemoveConnection} onClick={() => removeConnection(index)}>
                 <Cross className="w-4 h-4" />
               </button>
             </div>
             <div data-testid={locators.connectionLastConnected} className="text-vega-dark-400">
-              Last connected: {getDateFormat().format(i.accessedAt)} · {getTimeFormat().format(i.accessedAt)}
+              Last connected: {getDateFormat().format(index.accessedAt)} · {getTimeFormat().format(index.accessedAt)}
             </div>
           </div>
         )}

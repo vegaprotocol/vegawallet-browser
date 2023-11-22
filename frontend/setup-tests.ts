@@ -35,12 +35,12 @@ class PointerEvent extends Event {
   button: number
   ctrlKey: boolean
 
-  constructor(type: string, props: EventInit | undefined) {
-    super(type, props)
+  constructor(type: string, properties: EventInit | undefined) {
+    super(type, properties)
     // @ts-ignore
-    this.button = props?.button
+    this.button = properties?.button
     // @ts-ignore
-    this.ctrlKey = props?.ctrlKey
+    this.ctrlKey = properties?.ctrlKey
   }
 }
 

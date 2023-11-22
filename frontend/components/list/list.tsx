@@ -15,7 +15,7 @@ export function List<T>({
   renderItem: (item: T) => ReactNode
   className?: string
 }) {
-  if (!items.length) {
+  if (items.length === 0) {
     return <>{empty}</>
   }
   return (

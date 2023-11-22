@@ -2,10 +2,10 @@ import { Component, ErrorInfo, ReactNode } from 'react'
 import { ErrorModal } from '../modals/error-modal'
 import { FULL_ROUTES } from '../../routes/route-names'
 import { captureException } from '@sentry/react'
-import { RouterProps, withRouter } from './with-router'
-import { ErrorProps, withErrorStore } from './with-error-store'
+import { RouterProperties, withRouter } from './with-router'
+import { ErrorProperties, withErrorStore } from './with-error-store'
 
-interface Props extends RouterProps, ErrorProps {
+interface Properties extends RouterProperties, ErrorProperties {
   children?: ReactNode
 }
 
@@ -13,9 +13,9 @@ interface State {
   error: Error | null
 }
 
-class GlobalErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
+class GlobalErrorBoundary extends Component<Properties, State> {
+  constructor(properties: Properties) {
+    super(properties)
     this.state = { error: null }
   }
 
@@ -33,16 +33,16 @@ class GlobalErrorBoundary extends Component<Props, State> {
     const { error } = this.state
     // This error is reported from backend interactions, which are async
     // and as such not caught by the global error boundary
-    const { error: storeError } = this.props
-    const err = error || storeError
+    const { error: storeError, children } = this.props
+    const error_ = error || storeError
 
-    if (err) {
+    if (error_) {
       // If this is a reported error then ensure this component is also aware of it
-      if (!error) this.setState({ error: err })
-      if (!storeError) this.props.setError(err)
+      if (!error) this.setState({ error: error_ })
+      if (!storeError) this.props.setError(error_)
       return (
         <ErrorModal
-          error={err}
+          error={error_}
           onClose={() => {
             this.setState({ error: null })
             this.props.setError(null)
@@ -52,7 +52,7 @@ class GlobalErrorBoundary extends Component<Props, State> {
       )
     }
 
-    return this.props.children
+    return children
   }
 }
 

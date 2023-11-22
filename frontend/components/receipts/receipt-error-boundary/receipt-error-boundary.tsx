@@ -9,13 +9,13 @@ interface State {
   error: Error | null
 }
 
-interface Props {
+interface Properties {
   children?: ReactNode
 }
 
-export class ReceiptViewErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
+export class ReceiptViewErrorBoundary extends Component<Properties, State> {
+  constructor(properties: Properties) {
+    super(properties)
     this.state = { error: null }
   }
 

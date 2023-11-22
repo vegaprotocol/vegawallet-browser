@@ -1,4 +1,4 @@
-import { ReceiptComponentProps } from '../../receipts'
+import { ReceiptComponentProperties } from '../../receipts'
 import { OrderBadges } from '../../utils/order/badges'
 import { OrderTable } from '../../utils/order-table'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
@@ -18,7 +18,7 @@ export const SubmissionView = ({ orderSubmission }: { orderSubmission: any }) =>
   )
 }
 
-export const Submission = ({ transaction }: ReceiptComponentProps) => {
+export const Submission = ({ transaction }: ReceiptComponentProperties) => {
   const orderSubmission = transaction.orderSubmission
 
   if (orderSubmission.icebergOpts) return null

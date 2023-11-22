@@ -19,7 +19,7 @@ export const AssetListEmptyState = ({ publicKey }: { publicKey: string }) => {
   const sortedAssets = assets
     .map((asset) => ({
       asset,
-      markets: asset?.id ? getMarketsByAssetId(asset.id).filter(isActiveMarket) : []
+      markets: asset?.id ? getMarketsByAssetId(asset.id).filter((m) => isActiveMarket(m)) : []
     }))
     .sort((a, b) => {
       return a.markets.length - b.markets.length

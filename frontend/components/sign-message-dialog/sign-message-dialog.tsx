@@ -5,13 +5,13 @@ import { RpcMethods } from '../../lib/client-rpc-methods'
 import { SignedMessage } from './signed-message'
 import { SignMessage } from './sign-message'
 
-export interface SignMessageDialogProps {
+export interface SignMessageDialogProperties {
   publicKey: string | null
   onClose: () => void
   open: boolean
 }
 
-export const SignMessageDialog = ({ publicKey, onClose, open }: SignMessageDialogProps) => {
+export const SignMessageDialog = ({ publicKey, onClose, open }: SignMessageDialogProperties) => {
   const { request } = useJsonRpcClient()
   const [signedMessage, setSignedMessage] = useState(null)
   const [loading, setLoading] = useState(false)

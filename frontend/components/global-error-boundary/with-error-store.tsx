@@ -1,19 +1,19 @@
 import { ComponentType } from 'react'
 import { useErrorStore } from '../../stores/error'
 
-export interface ErrorProps {
+export interface ErrorProperties {
   error: Error | null
   setError: (error: Error | null) => void
 }
 
-export function withErrorStore<P extends ErrorProps>(Component: ComponentType<P>) {
-  const Wrapper = (props: Omit<P, keyof ErrorProps>) => {
-    const errorProps = useErrorStore((state) => ({
+export function withErrorStore<P extends ErrorProperties>(Component: ComponentType<P>) {
+  const Wrapper = (properties: Omit<P, keyof ErrorProperties>) => {
+    const errorProperties = useErrorStore((state) => ({
       setError: state.setError,
       error: state.error
     }))
 
-    return <Component {...errorProps} {...(props as P)} />
+    return <Component {...errorProperties} {...(properties as P)} />
   }
 
   return Wrapper

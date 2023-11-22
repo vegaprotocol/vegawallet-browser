@@ -110,10 +110,10 @@ describe('MarketsStore', () => {
     )
   })
   it('sets error if error is thrown in request', async () => {
-    const err = new Error('1')
+    const error = new Error('1')
     await useMarketsStore.getState().fetchMarkets(() => {
-      throw err
+      throw error
     })
-    expect(useMarketsStore.getState().error).toBe(err)
+    expect(useMarketsStore.getState().error).toBe(error)
   })
 })

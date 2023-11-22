@@ -5,12 +5,16 @@
     "jest/prefer-to-be": "error",
     "import/no-webpack-loader-syntax": "off",
     "no-restricted-imports": [
-      "error",
+      "warn",
       {
         "paths": [
           {
             "name": "@vegaprotocol/types",
             "message": "Please use @vegaprotocol/rest-clients instead"
+          },
+          {
+            "name": "lodash",
+            "message": "Import the specific methods you need from lodash e.g. `import get from 'lodash/get'`. This helps with bundle sizing."
           }
         ]
       }

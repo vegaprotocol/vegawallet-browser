@@ -47,18 +47,22 @@ async function initChromeDriver(useOldExtension = false) {
     'extensions.ui.developer_mode': true
   })
 
-  return new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
+  const driver = new Builder().withCapabilities(Capabilities.chrome()).setChromeOptions(chromeOptions).build()
+  await driver.manage().window().setRect({ width: 500, height: 850 })
+
+  return driver
 }
 
 export async function initFirefoxDriver(useProfile = false, installExtension = true) {
   const firefoxExtensionPath = `${extensionPath}/firefox.zip`
   await zipDirectory(`${extensionPath}/firefox`, `${firefoxExtensionPath}`)
-
   let firefoxOptions = new firefox.Options()
 
   if (process.env.HEADLESS) {
     firefoxOptions = firefoxOptions.headless()
   }
+
+  firefoxOptions.addArguments('--width=360', '--height=600')
 
   if (useProfile) {
     createDirectoryIfNotExists(firefoxTestProfileDirectory)
@@ -72,6 +76,7 @@ export async function initFirefoxDriver(useProfile = false, installExtension = t
   }
 
   const driver = await new Builder().withCapabilities(Capabilities.firefox()).setFirefoxOptions(firefoxOptions).build()
+  await driver.manage().window().setRect({ width: 500, height: 850 })
 
   if (installExtension) {
     await new firefox.Driver(driver.getSession(), driver.getExecutor()).installAddon(firefoxExtensionPath, true)

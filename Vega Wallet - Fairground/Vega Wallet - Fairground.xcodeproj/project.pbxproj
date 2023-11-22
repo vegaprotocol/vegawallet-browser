@@ -1,0 +1,1068 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DF5A59F22B0E506400BB503D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59F12B0E506400BB503D /* AppDelegate.swift */; };
+		DF5A59F42B0E506400BB503D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59F32B0E506400BB503D /* SceneDelegate.swift */; };
+		DF5A59F72B0E506400BB503D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59F52B0E506400BB503D /* LaunchScreen.storyboard */; };
+		DF5A59FA2B0E506400BB503D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59F82B0E506400BB503D /* Main.storyboard */; };
+		DF5A5A032B0E506400BB503D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A5A022B0E506400BB503D /* AppDelegate.swift */; };
+		DF5A5A062B0E506400BB503D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A042B0E506400BB503D /* Main.storyboard */; };
+		DF5A5A0E2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF5A5A0D2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF5A5A182B0E506400BB503D /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF5A5A172B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF5A5A1E2B0E506400BB503D /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E12B0E506300BB503D /* Main.html */; };
+		DF5A5A1F2B0E506400BB503D /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E12B0E506300BB503D /* Main.html */; };
+		DF5A5A202B0E506400BB503D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E32B0E506300BB503D /* Icon.png */; };
+		DF5A5A212B0E506400BB503D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E32B0E506300BB503D /* Icon.png */; };
+		DF5A5A222B0E506400BB503D /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E42B0E506300BB503D /* Style.css */; };
+		DF5A5A232B0E506400BB503D /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E42B0E506300BB503D /* Style.css */; };
+		DF5A5A242B0E506400BB503D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E52B0E506300BB503D /* Script.js */; };
+		DF5A5A252B0E506400BB503D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E52B0E506300BB503D /* Script.js */; };
+		DF5A5A262B0E506400BB503D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59E62B0E506300BB503D /* ViewController.swift */; };
+		DF5A5A272B0E506400BB503D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59E62B0E506300BB503D /* ViewController.swift */; };
+		DF5A5A282B0E506400BB503D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E72B0E506400BB503D /* Assets.xcassets */; };
+		DF5A5A292B0E506400BB503D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF5A59E72B0E506400BB503D /* Assets.xcassets */; };
+		DF5A5A2A2B0E506400BB503D /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59E92B0E506400BB503D /* SafariWebExtensionHandler.swift */; };
+		DF5A5A2B2B0E506400BB503D /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A59E92B0E506400BB503D /* SafariWebExtensionHandler.swift */; };
+		DF5A5A552B0E506400BB503D /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3D2B0E506400BB503D /* Fairground-64x64.png */; };
+		DF5A5A562B0E506400BB503D /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3E2B0E506400BB503D /* Mainnet-48x48.png */; };
+		DF5A5A572B0E506400BB503D /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3F2B0E506400BB503D /* Fairground-32x32.png */; };
+		DF5A5A582B0E506400BB503D /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A402B0E506400BB503D /* popup.js */; };
+		DF5A5A592B0E506400BB503D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A412B0E506400BB503D /* index.html */; };
+		DF5A5A5A2B0E506400BB503D /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A422B0E506400BB503D /* Mainnet-96x96.png */; };
+		DF5A5A5B2B0E506400BB503D /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A432B0E506400BB503D /* background.js */; };
+		DF5A5A5C2B0E506400BB503D /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A442B0E506400BB503D /* Mainnet-64x64.png */; };
+		DF5A5A5D2B0E506400BB503D /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A452B0E506400BB503D /* Fairground-48x48.png */; };
+		DF5A5A5E2B0E506400BB503D /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A462B0E506400BB503D /* Mainnet-128x128.png */; };
+		DF5A5A5F2B0E506400BB503D /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A472B0E506400BB503D /* chrome-pow.html */; };
+		DF5A5A602B0E506400BB503D /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A482B0E506400BB503D /* chrome-pow.js */; };
+		DF5A5A612B0E506400BB503D /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A492B0E506400BB503D /* Fairground-96x96.png */; };
+		DF5A5A622B0E506400BB503D /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4A2B0E506400BB503D /* Mainnet-32x32.png */; };
+		DF5A5A632B0E506400BB503D /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 */; };
+		DF5A5A642B0E506400BB503D /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4C2B0E506400BB503D /* Fairground-128x128.png */; };
+		DF5A5A652B0E506400BB503D /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4D2B0E506400BB503D /* pow-worker.js */; };
+		DF5A5A662B0E506400BB503D /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4E2B0E506400BB503D /* Mainnet-16x16.png */; };
+		DF5A5A672B0E506400BB503D /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4F2B0E506400BB503D /* manifest.json */; };
+		DF5A5A682B0E506400BB503D /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A502B0E506400BB503D /* question-mark.png */; };
+		DF5A5A692B0E506400BB503D /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A512B0E506400BB503D /* content-script.js */; };
+		DF5A5A6A2B0E506400BB503D /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A522B0E506400BB503D /* in-page.js */; };
+		DF5A5A6B2B0E506400BB503D /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A532B0E506400BB503D /* Fairground-16x16.png */; };
+		DF5A5A6C2B0E506400BB503D /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A542B0E506400BB503D /* stars.png */; };
+		DF5A5A6D2B0E506400BB503D /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3D2B0E506400BB503D /* Fairground-64x64.png */; };
+		DF5A5A6E2B0E506400BB503D /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3E2B0E506400BB503D /* Mainnet-48x48.png */; };
+		DF5A5A6F2B0E506400BB503D /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A3F2B0E506400BB503D /* Fairground-32x32.png */; };
+		DF5A5A702B0E506400BB503D /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A402B0E506400BB503D /* popup.js */; };
+		DF5A5A712B0E506400BB503D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A412B0E506400BB503D /* index.html */; };
+		DF5A5A722B0E506400BB503D /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A422B0E506400BB503D /* Mainnet-96x96.png */; };
+		DF5A5A732B0E506400BB503D /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A432B0E506400BB503D /* background.js */; };
+		DF5A5A742B0E506400BB503D /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A442B0E506400BB503D /* Mainnet-64x64.png */; };
+		DF5A5A752B0E506400BB503D /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A452B0E506400BB503D /* Fairground-48x48.png */; };
+		DF5A5A762B0E506400BB503D /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A462B0E506400BB503D /* Mainnet-128x128.png */; };
+		DF5A5A772B0E506400BB503D /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A472B0E506400BB503D /* chrome-pow.html */; };
+		DF5A5A782B0E506400BB503D /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A482B0E506400BB503D /* chrome-pow.js */; };
+		DF5A5A792B0E506400BB503D /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A492B0E506400BB503D /* Fairground-96x96.png */; };
+		DF5A5A7A2B0E506400BB503D /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4A2B0E506400BB503D /* Mainnet-32x32.png */; };
+		DF5A5A7B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 */; };
+		DF5A5A7C2B0E506400BB503D /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4C2B0E506400BB503D /* Fairground-128x128.png */; };
+		DF5A5A7D2B0E506400BB503D /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4D2B0E506400BB503D /* pow-worker.js */; };
+		DF5A5A7E2B0E506400BB503D /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4E2B0E506400BB503D /* Mainnet-16x16.png */; };
+		DF5A5A7F2B0E506400BB503D /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A4F2B0E506400BB503D /* manifest.json */; };
+		DF5A5A802B0E506400BB503D /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A502B0E506400BB503D /* question-mark.png */; };
+		DF5A5A812B0E506400BB503D /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A512B0E506400BB503D /* content-script.js */; };
+		DF5A5A822B0E506400BB503D /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A522B0E506400BB503D /* in-page.js */; };
+		DF5A5A832B0E506400BB503D /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A532B0E506400BB503D /* Fairground-16x16.png */; };
+		DF5A5A842B0E506400BB503D /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF5A5A542B0E506400BB503D /* stars.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DF5A5A0F2B0E506400BB503D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF5A59DB2B0E506300BB503D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF5A5A0C2B0E506400BB503D;
+			remoteInfo = "Vega Wallet - Fairground Extension (iOS)";
+		};
+		DF5A5A192B0E506400BB503D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF5A59DB2B0E506300BB503D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF5A5A162B0E506400BB503D;
+			remoteInfo = "Vega Wallet - Fairground Extension (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DF5A5A312B0E506400BB503D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF5A5A0E2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A5A382B0E506400BB503D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF5A5A182B0E506400BB503D /* Vega Wallet - Fairground Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DF5A59E22B0E506300BB503D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		DF5A59E32B0E506300BB503D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		DF5A59E42B0E506300BB503D /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		DF5A59E52B0E506300BB503D /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		DF5A59E62B0E506300BB503D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DF5A59E72B0E506400BB503D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF5A59E92B0E506400BB503D /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		DF5A59EE2B0E506400BB503D /* Vega Wallet - Fairground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet - Fairground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF5A59F12B0E506400BB503D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DF5A59F32B0E506400BB503D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DF5A59F62B0E506400BB503D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DF5A59F92B0E506400BB503D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DF5A59FB2B0E506400BB503D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF5A5A002B0E506400BB503D /* Vega Wallet - Fairground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet - Fairground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF5A5A022B0E506400BB503D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DF5A5A052B0E506400BB503D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DF5A5A072B0E506400BB503D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF5A5A082B0E506400BB503D /* Vega Wallet - Fairground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Vega Wallet - Fairground.entitlements"; sourceTree = "<group>"; };
+		DF5A5A0D2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet - Fairground Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF5A5A122B0E506400BB503D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF5A5A172B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet - Fairground Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF5A5A1C2B0E506400BB503D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF5A5A1D2B0E506400BB503D /* Vega Wallet - Fairground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Vega Wallet - Fairground.entitlements"; sourceTree = "<group>"; };
+		DF5A5A3D2B0E506400BB503D /* Fairground-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-64x64.png"; path = "../../build/firefox/Fairground-64x64.png"; sourceTree = "<group>"; };
+		DF5A5A3E2B0E506400BB503D /* Mainnet-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-48x48.png"; path = "../../build/firefox/Mainnet-48x48.png"; sourceTree = "<group>"; };
+		DF5A5A3F2B0E506400BB503D /* Fairground-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-32x32.png"; path = "../../build/firefox/Fairground-32x32.png"; sourceTree = "<group>"; };
+		DF5A5A402B0E506400BB503D /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.js; path = ../../build/firefox/popup.js; sourceTree = "<group>"; };
+		DF5A5A412B0E506400BB503D /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../../build/firefox/index.html; sourceTree = "<group>"; };
+		DF5A5A422B0E506400BB503D /* Mainnet-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-96x96.png"; path = "../../build/firefox/Mainnet-96x96.png"; sourceTree = "<group>"; };
+		DF5A5A432B0E506400BB503D /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../build/firefox/background.js; sourceTree = "<group>"; };
+		DF5A5A442B0E506400BB503D /* Mainnet-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-64x64.png"; path = "../../build/firefox/Mainnet-64x64.png"; sourceTree = "<group>"; };
+		DF5A5A452B0E506400BB503D /* Fairground-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-48x48.png"; path = "../../build/firefox/Fairground-48x48.png"; sourceTree = "<group>"; };
+		DF5A5A462B0E506400BB503D /* Mainnet-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-128x128.png"; path = "../../build/firefox/Mainnet-128x128.png"; sourceTree = "<group>"; };
+		DF5A5A472B0E506400BB503D /* chrome-pow.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "chrome-pow.html"; path = "../../build/firefox/chrome-pow.html"; sourceTree = "<group>"; };
+		DF5A5A482B0E506400BB503D /* chrome-pow.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "chrome-pow.js"; path = "../../build/firefox/chrome-pow.js"; sourceTree = "<group>"; };
+		DF5A5A492B0E506400BB503D /* Fairground-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-96x96.png"; path = "../../build/firefox/Fairground-96x96.png"; sourceTree = "<group>"; };
+		DF5A5A4A2B0E506400BB503D /* Mainnet-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-32x32.png"; path = "../../build/firefox/Mainnet-32x32.png"; sourceTree = "<group>"; };
+		DF5A5A4B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AlphaLyrae-Medium.woff2"; path = "../../build/firefox/AlphaLyrae-Medium.woff2"; sourceTree = "<group>"; };
+		DF5A5A4C2B0E506400BB503D /* Fairground-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-128x128.png"; path = "../../build/firefox/Fairground-128x128.png"; sourceTree = "<group>"; };
+		DF5A5A4D2B0E506400BB503D /* pow-worker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "pow-worker.js"; path = "../../build/firefox/pow-worker.js"; sourceTree = "<group>"; };
+		DF5A5A4E2B0E506400BB503D /* Mainnet-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-16x16.png"; path = "../../build/firefox/Mainnet-16x16.png"; sourceTree = "<group>"; };
+		DF5A5A4F2B0E506400BB503D /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../build/firefox/manifest.json; sourceTree = "<group>"; };
+		DF5A5A502B0E506400BB503D /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "question-mark.png"; path = "../../build/firefox/question-mark.png"; sourceTree = "<group>"; };
+		DF5A5A512B0E506400BB503D /* content-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-script.js"; path = "../../build/firefox/content-script.js"; sourceTree = "<group>"; };
+		DF5A5A522B0E506400BB503D /* in-page.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "in-page.js"; path = "../../build/firefox/in-page.js"; sourceTree = "<group>"; };
+		DF5A5A532B0E506400BB503D /* Fairground-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-16x16.png"; path = "../../build/firefox/Fairground-16x16.png"; sourceTree = "<group>"; };
+		DF5A5A542B0E506400BB503D /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars.png; path = ../../build/firefox/stars.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DF5A59EB2B0E506400BB503D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A59FD2B0E506400BB503D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A5A0A2B0E506400BB503D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A5A142B0E506400BB503D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DF5A59DA2B0E506300BB503D = {
+			isa = PBXGroup;
+			children = (
+				DF5A59DF2B0E506300BB503D /* Shared (App) */,
+				DF5A59E82B0E506400BB503D /* Shared (Extension) */,
+				DF5A59F02B0E506400BB503D /* iOS (App) */,
+				DF5A5A012B0E506400BB503D /* macOS (App) */,
+				DF5A5A112B0E506400BB503D /* iOS (Extension) */,
+				DF5A5A1B2B0E506400BB503D /* macOS (Extension) */,
+				DF5A59EF2B0E506400BB503D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DF5A59DF2B0E506300BB503D /* Shared (App) */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A59E62B0E506300BB503D /* ViewController.swift */,
+				DF5A59E72B0E506400BB503D /* Assets.xcassets */,
+				DF5A59E02B0E506300BB503D /* Resources */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		DF5A59E02B0E506300BB503D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A59E12B0E506300BB503D /* Main.html */,
+				DF5A59E32B0E506300BB503D /* Icon.png */,
+				DF5A59E42B0E506300BB503D /* Style.css */,
+				DF5A59E52B0E506300BB503D /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DF5A59E82B0E506400BB503D /* Shared (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A5A3C2B0E506400BB503D /* Resources */,
+				DF5A59E92B0E506400BB503D /* SafariWebExtensionHandler.swift */,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		DF5A59EF2B0E506400BB503D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A59EE2B0E506400BB503D /* Vega Wallet - Fairground.app */,
+				DF5A5A002B0E506400BB503D /* Vega Wallet - Fairground.app */,
+				DF5A5A0D2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */,
+				DF5A5A172B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DF5A59F02B0E506400BB503D /* iOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A59F12B0E506400BB503D /* AppDelegate.swift */,
+				DF5A59F32B0E506400BB503D /* SceneDelegate.swift */,
+				DF5A59F52B0E506400BB503D /* LaunchScreen.storyboard */,
+				DF5A59F82B0E506400BB503D /* Main.storyboard */,
+				DF5A59FB2B0E506400BB503D /* Info.plist */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		DF5A5A012B0E506400BB503D /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A5A022B0E506400BB503D /* AppDelegate.swift */,
+				DF5A5A042B0E506400BB503D /* Main.storyboard */,
+				DF5A5A072B0E506400BB503D /* Info.plist */,
+				DF5A5A082B0E506400BB503D /* Vega Wallet - Fairground.entitlements */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		DF5A5A112B0E506400BB503D /* iOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A5A122B0E506400BB503D /* Info.plist */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		DF5A5A1B2B0E506400BB503D /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A5A1C2B0E506400BB503D /* Info.plist */,
+				DF5A5A1D2B0E506400BB503D /* Vega Wallet - Fairground.entitlements */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+		DF5A5A3C2B0E506400BB503D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A5A3D2B0E506400BB503D /* Fairground-64x64.png */,
+				DF5A5A3E2B0E506400BB503D /* Mainnet-48x48.png */,
+				DF5A5A3F2B0E506400BB503D /* Fairground-32x32.png */,
+				DF5A5A402B0E506400BB503D /* popup.js */,
+				DF5A5A412B0E506400BB503D /* index.html */,
+				DF5A5A422B0E506400BB503D /* Mainnet-96x96.png */,
+				DF5A5A432B0E506400BB503D /* background.js */,
+				DF5A5A442B0E506400BB503D /* Mainnet-64x64.png */,
+				DF5A5A452B0E506400BB503D /* Fairground-48x48.png */,
+				DF5A5A462B0E506400BB503D /* Mainnet-128x128.png */,
+				DF5A5A472B0E506400BB503D /* chrome-pow.html */,
+				DF5A5A482B0E506400BB503D /* chrome-pow.js */,
+				DF5A5A492B0E506400BB503D /* Fairground-96x96.png */,
+				DF5A5A4A2B0E506400BB503D /* Mainnet-32x32.png */,
+				DF5A5A4B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 */,
+				DF5A5A4C2B0E506400BB503D /* Fairground-128x128.png */,
+				DF5A5A4D2B0E506400BB503D /* pow-worker.js */,
+				DF5A5A4E2B0E506400BB503D /* Mainnet-16x16.png */,
+				DF5A5A4F2B0E506400BB503D /* manifest.json */,
+				DF5A5A502B0E506400BB503D /* question-mark.png */,
+				DF5A5A512B0E506400BB503D /* content-script.js */,
+				DF5A5A522B0E506400BB503D /* in-page.js */,
+				DF5A5A532B0E506400BB503D /* Fairground-16x16.png */,
+				DF5A5A542B0E506400BB503D /* stars.png */,
+			);
+			name = Resources;
+			path = "Shared (Extension)";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DF5A59ED2B0E506400BB503D /* Vega Wallet - Fairground (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF5A5A322B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (iOS)" */;
+			buildPhases = (
+				DF5A59EA2B0E506400BB503D /* Sources */,
+				DF5A59EB2B0E506400BB503D /* Frameworks */,
+				DF5A59EC2B0E506400BB503D /* Resources */,
+				DF5A5A312B0E506400BB503D /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF5A5A102B0E506400BB503D /* PBXTargetDependency */,
+			);
+			name = "Vega Wallet - Fairground (iOS)";
+			productName = "Vega Wallet - Fairground (iOS)";
+			productReference = DF5A59EE2B0E506400BB503D /* Vega Wallet - Fairground.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF5A59FF2B0E506400BB503D /* Vega Wallet - Fairground (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF5A5A392B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (macOS)" */;
+			buildPhases = (
+				DF5A59FC2B0E506400BB503D /* Sources */,
+				DF5A59FD2B0E506400BB503D /* Frameworks */,
+				DF5A59FE2B0E506400BB503D /* Resources */,
+				DF5A5A382B0E506400BB503D /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF5A5A1A2B0E506400BB503D /* PBXTargetDependency */,
+			);
+			name = "Vega Wallet - Fairground (macOS)";
+			productName = "Vega Wallet - Fairground (macOS)";
+			productReference = DF5A5A002B0E506400BB503D /* Vega Wallet - Fairground.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF5A5A0C2B0E506400BB503D /* Vega Wallet - Fairground Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF5A5A2E2B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (iOS)" */;
+			buildPhases = (
+				DF5A5A092B0E506400BB503D /* Sources */,
+				DF5A5A0A2B0E506400BB503D /* Frameworks */,
+				DF5A5A0B2B0E506400BB503D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Vega Wallet - Fairground Extension (iOS)";
+			productName = "Vega Wallet - Fairground Extension (iOS)";
+			productReference = DF5A5A0D2B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF5A5A162B0E506400BB503D /* Vega Wallet - Fairground Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF5A5A352B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (macOS)" */;
+			buildPhases = (
+				DF5A5A132B0E506400BB503D /* Sources */,
+				DF5A5A142B0E506400BB503D /* Frameworks */,
+				DF5A5A152B0E506400BB503D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Vega Wallet - Fairground Extension (macOS)";
+			productName = "Vega Wallet - Fairground Extension (macOS)";
+			productReference = DF5A5A172B0E506400BB503D /* Vega Wallet - Fairground Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DF5A59DB2B0E506300BB503D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					DF5A59ED2B0E506400BB503D = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					DF5A59FF2B0E506400BB503D = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					DF5A5A0C2B0E506400BB503D = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					DF5A5A162B0E506400BB503D = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = DF5A59DE2B0E506300BB503D /* Build configuration list for PBXProject "Vega Wallet - Fairground" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DF5A59DA2B0E506300BB503D;
+			productRefGroup = DF5A59EF2B0E506400BB503D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DF5A59ED2B0E506400BB503D /* Vega Wallet - Fairground (iOS) */,
+				DF5A59FF2B0E506400BB503D /* Vega Wallet - Fairground (macOS) */,
+				DF5A5A0C2B0E506400BB503D /* Vega Wallet - Fairground Extension (iOS) */,
+				DF5A5A162B0E506400BB503D /* Vega Wallet - Fairground Extension (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DF5A59EC2B0E506400BB503D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5A5A202B0E506400BB503D /* Icon.png in Resources */,
+				DF5A59F72B0E506400BB503D /* LaunchScreen.storyboard in Resources */,
+				DF5A5A1E2B0E506400BB503D /* Main.html in Resources */,
+				DF5A5A242B0E506400BB503D /* Script.js in Resources */,
+				DF5A5A282B0E506400BB503D /* Assets.xcassets in Resources */,
+				DF5A59FA2B0E506400BB503D /* Main.storyboard in Resources */,
+				DF5A5A222B0E506400BB503D /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A59FE2B0E506400BB503D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5A5A212B0E506400BB503D /* Icon.png in Resources */,
+				DF5A5A232B0E506400BB503D /* Style.css in Resources */,
+				DF5A5A062B0E506400BB503D /* Main.storyboard in Resources */,
+				DF5A5A252B0E506400BB503D /* Script.js in Resources */,
+				DF5A5A292B0E506400BB503D /* Assets.xcassets in Resources */,
+				DF5A5A1F2B0E506400BB503D /* Main.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A5A0B2B0E506400BB503D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5A5A802B0E506400BB503D /* question-mark.png in Resources */,
+				DF5A5A842B0E506400BB503D /* stars.png in Resources */,
+				DF5A5A712B0E506400BB503D /* index.html in Resources */,
+				DF5A5A7B2B0E506400BB503D /* AlphaLyrae-Medium.woff2 in Resources */,
+				DF5A5A762B0E506400BB503D /* Mainnet-128x128.png in Resources */,
+				DF5A5A742B0E506400BB503D /* Mainnet-64x64.png in Resources */,
+				DF5A5A772B0E506400BB503D /* chrome-pow.html in Resources */,
+				DF5A5A7C2B0E506400BB503D /* Fairground-128x128.png in Resources */,
+				DF5A5A7F2B0E506400BB503D /* manifest.json in Resources */,
+				DF5A5A7D2B0E506400BB503D /* pow-worker.js in Resources */,
+				DF5A5A7E2B0E506400BB503D /* Mainnet-16x16.png in Resources */,
+				DF5A5A822B0E506400BB503D /* in-page.js in Resources */,
+				DF5A5A6D2B0E506400BB503D /* Fairground-64x64.png in Resources */,
+				DF5A5A782B0E506400BB503D /* chrome-pow.js in Resources */,
+				DF5A5A732B0E506400BB503D /* background.js in Resources */,
+				DF5A5A6F2B0E506400BB503D /* Fairground-32x32.png in Resources */,
+				DF5A5A812B0E506400BB503D /* content-script.js in Resources */,
+				DF5A5A6E2B0E506400BB503D /* Mainnet-48x48.png in Resources */,
+				DF5A5A7A2B0E506400BB503D /* Mainnet-32x32.png in Resources */,
+				DF5A5A702B0E506400BB503D /* popup.js in Resources */,
+				DF5A5A792B0E506400BB503D /* Fairground-96x96.png in Resources */,
+				DF5A5A832B0E506400BB503D /* Fairground-16x16.png in Resources */,
+				DF5A5A722B0E506400BB503D /* Mainnet-96x96.png in Resources */,
+				DF5A5A752B0E506400BB503D /* Fairground-48x48.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A5A152B0E506400BB503D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5A5A682B0E506400BB503D /* question-mark.png in Resources */,
+				DF5A5A6C2B0E506400BB503D /* stars.png in Resources */,
+				DF5A5A592B0E506400BB503D /* index.html in Resources */,
+				DF5A5A632B0E506400BB503D /* AlphaLyrae-Medium.woff2 in Resources */,
+				DF5A5A5E2B0E506400BB503D /* Mainnet-128x128.png in Resources */,
+				DF5A5A5C2B0E506400BB503D /* Mainnet-64x64.png in Resources */,
+				DF5A5A5F2B0E506400BB503D /* chrome-pow.html in Resources */,
+				DF5A5A642B0E506400BB503D /* Fairground-128x128.png in Resources */,
+				DF5A5A672B0E506400BB503D /* manifest.json in Resources */,
+				DF5A5A652B0E506400BB503D /* pow-worker.js in Resources */,
+				DF5A5A662B0E506400BB503D /* Mainnet-16x16.png in Resources */,
+				DF5A5A6A2B0E506400BB503D /* in-page.js in Resources */,
+				DF5A5A552B0E506400BB503D /* Fairground-64x64.png in Resources */,
+				DF5A5A602B0E506400BB503D /* chrome-pow.js in Resources */,
+				DF5A5A5B2B0E506400BB503D /* background.js in Resources */,
+				DF5A5A572B0E506400BB503D /* Fairground-32x32.png in Resources */,
+				DF5A5A692B0E506400BB503D /* content-script.js in Resources */,
+				DF5A5A562B0E506400BB503D /* Mainnet-48x48.png in Resources */,
+				DF5A5A622B0E506400BB503D /* Mainnet-32x32.png in Resources */,
+				DF5A5A582B0E506400BB503D /* popup.js in Resources */,
+				DF5A5A612B0E506400BB503D /* Fairground-96x96.png in Resources */,
+				DF5A5A6B2B0E506400BB503D /* Fairground-16x16.png in Resources */,
+				DF5A5A5A2B0E506400BB503D /* Mainnet-96x96.png in Resources */,
+				DF5A5A5D2B0E506400BB503D /* Fairground-48x48.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DF5A59EA2B0E506400BB503D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5A5A262B0E506400BB503D /* ViewController.swift in Sources */,
+				DF5A59F22B0E506400BB503D /* AppDelegate.swift in Sources */,
+				DF5A59F42B0E506400BB503D /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A59FC2B0E506400BB503D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5A5A272B0E506400BB503D /* ViewController.swift in Sources */,
+				DF5A5A032B0E506400BB503D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A5A092B0E506400BB503D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5A5A2A2B0E506400BB503D /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF5A5A132B0E506400BB503D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF5A5A2B2B0E506400BB503D /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DF5A5A102B0E506400BB503D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF5A5A0C2B0E506400BB503D /* Vega Wallet - Fairground Extension (iOS) */;
+			targetProxy = DF5A5A0F2B0E506400BB503D /* PBXContainerItemProxy */;
+		};
+		DF5A5A1A2B0E506400BB503D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF5A5A162B0E506400BB503D /* Vega Wallet - Fairground Extension (macOS) */;
+			targetProxy = DF5A5A192B0E506400BB503D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DF5A59E12B0E506300BB503D /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF5A59E22B0E506300BB503D /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		DF5A59F52B0E506400BB503D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF5A59F62B0E506400BB503D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DF5A59F82B0E506400BB503D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF5A59F92B0E506400BB503D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DF5A5A042B0E506400BB503D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF5A5A052B0E506400BB503D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DF5A5A2C2B0E506400BB503D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DF5A5A2D2B0E506400BB503D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		DF5A5A2F2B0E506400BB503D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground.Extension";
+				PRODUCT_NAME = "Vega Wallet - Fairground Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF5A5A302B0E506400BB503D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground.Extension";
+				PRODUCT_NAME = "Vega Wallet - Fairground Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DF5A5A332B0E506400BB503D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground";
+				PRODUCT_NAME = "Vega Wallet - Fairground";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF5A5A342B0E506400BB503D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground";
+				PRODUCT_NAME = "Vega Wallet - Fairground";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DF5A5A362B0E506400BB503D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Vega Wallet - Fairground.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground.Extension";
+				PRODUCT_NAME = "Vega Wallet - Fairground Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF5A5A372B0E506400BB503D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Vega Wallet - Fairground.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground.Extension";
+				PRODUCT_NAME = "Vega Wallet - Fairground Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF5A5A3A2B0E506400BB503D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Vega Wallet - Fairground.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground";
+				PRODUCT_NAME = "Vega Wallet - Fairground";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF5A5A3B2B0E506400BB503D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Vega Wallet - Fairground.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground";
+				PRODUCT_NAME = "Vega Wallet - Fairground";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DF5A59DE2B0E506300BB503D /* Build configuration list for PBXProject "Vega Wallet - Fairground" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF5A5A2C2B0E506400BB503D /* Debug */,
+				DF5A5A2D2B0E506400BB503D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF5A5A2E2B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF5A5A2F2B0E506400BB503D /* Debug */,
+				DF5A5A302B0E506400BB503D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF5A5A322B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF5A5A332B0E506400BB503D /* Debug */,
+				DF5A5A342B0E506400BB503D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF5A5A352B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF5A5A362B0E506400BB503D /* Debug */,
+				DF5A5A372B0E506400BB503D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF5A5A392B0E506400BB503D /* Build configuration list for PBXNativeTarget "Vega Wallet - Fairground (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF5A5A3A2B0E506400BB503D /* Debug */,
+				DF5A5A3B2B0E506400BB503D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DF5A59DB2B0E506300BB503D /* Project object */;
+}

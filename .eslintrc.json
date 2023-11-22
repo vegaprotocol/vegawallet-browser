@@ -1,20 +1,5 @@
 {
-  "extends": ["react-app", "react-app/jest"],
   "env": {
     "es2020": true
-  },
-  "rules": {
-    "import/no-webpack-loader-syntax": "off",
-    "no-restricted-imports": [
-      "error",
-      {
-        "paths": [
-          {
-            "name": "@vegaprotocol/types",
-            "message": "Please use @vegaprotocol/rest-clients instead"
-          }
-        ]
-      }
-    ]
   }
 }

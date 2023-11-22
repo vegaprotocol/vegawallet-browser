@@ -111,7 +111,7 @@ describe('TransferReceipt', () => {
     mockStore(useWalletStore, {
       loading: false,
       wallets: mockWallets,
-      getKeyById: jest.fn().mockReturnValue({})
+      getKeyById: jest.fn().mockReturnValue(undefined)
     })
 
     const oneOffTransfer = {
@@ -161,7 +161,7 @@ describe('TransferReceipt', () => {
     mockStore(useWalletStore, {
       loading: false,
       wallets: [],
-      getKeyById: jest.fn().mockReturnValue({})
+      getKeyById: jest.fn().mockReturnValue(undefined)
     })
     render(
       <Transfer
@@ -188,7 +188,7 @@ describe('TransferReceipt', () => {
     mockStore(useWalletStore, {
       loading: false,
       wallets: [],
-      getKeyById: jest.fn().mockReturnValue({})
+      getKeyById: jest.fn().mockReturnValue(undefined)
     })
     const oneOffTransfer = {
       transfer: {

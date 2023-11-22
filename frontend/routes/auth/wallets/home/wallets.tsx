@@ -3,7 +3,7 @@ import { WalletsPageKeyList } from './wallets-page-key-list'
 import { DepositAssetsCallout } from './deposit-assets-callout'
 import { SignMessageDialog } from '../../../../components/sign-message-dialog'
 import { useState } from 'react'
-import { AsyncRenderer } from '../../../../components/async-renderer/async-renderer'
+import { AsyncRenderer } from '../../../../components/async-renderer'
 import { BasePage } from '../../../../components/pages/page'
 
 export const locators = {

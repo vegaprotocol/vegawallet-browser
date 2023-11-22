@@ -73,16 +73,16 @@ describe('Login', () => {
               id: message.id
             })
           },
-          onmessage: (...args: any[]) => {
-            console.log('om', args)
+          onmessage: (...arguments_: any[]) => {
+            console.log('om', arguments_)
           },
           onMessage: {
-            addListener: (fn: any) => {
-              listeners.push(fn)
+            addListener: (function_: any) => {
+              listeners.push(function_)
             }
           },
           onDisconnect: {
-            addListener: (fn: any) => {}
+            addListener: (function_: any) => {}
           }
         })
       }

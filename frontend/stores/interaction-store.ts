@@ -8,13 +8,13 @@ export interface ConnectionMessage {
 
 export type InteractionStore = {
   transactionModalOpen: boolean
-  handleTransaction: (params: TransactionMessage) => Promise<boolean>
+  handleTransaction: (parameters: TransactionMessage) => Promise<boolean>
   handleTransactionDecision: (decision: boolean) => void
   transactionPromise: [Function, Function] | null
   currentTransactionDetails: TransactionMessage | null
 
   connectionModalOpen: boolean
-  handleConnection: (params: ConnectionMessage) => Promise<boolean>
+  handleConnection: (parameters: ConnectionMessage) => Promise<boolean>
   handleConnectionDecision: (decision: boolean) => void
   connectionPromise: [Function, Function] | null
   currentConnectionDetails: ConnectionMessage | null
@@ -35,13 +35,13 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
       transactionModalOpen: false
     })
   },
-  handleTransaction: async (params: any) => {
+  handleTransaction: async (parameters: any) => {
     set({
       transactionModalOpen: true
     })
     const transactionPromise = new Promise<boolean>((resolve, reject) => {
       set({
-        currentTransactionDetails: params,
+        currentTransactionDetails: parameters,
         transactionPromise: [resolve, reject]
       })
     })
@@ -63,13 +63,13 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
       connectionModalOpen: false
     })
   },
-  handleConnection: async (params: ConnectionMessage) => {
+  handleConnection: async (parameters: ConnectionMessage) => {
     set({
       connectionModalOpen: true
     })
     const connectionPromise = new Promise<boolean>((resolve, reject) => {
       set({
-        currentConnectionDetails: params,
+        currentConnectionDetails: parameters,
         connectionPromise: [resolve, reject]
       })
     })

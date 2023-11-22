@@ -36,8 +36,8 @@ export const useGlobalsStore = create<GlobalsStore>()((set, get) => ({
   loadGlobals: async (request: SendMessage) => {
     try {
       set({ loading: true })
-      const res = await request(RpcMethods.AppGlobals, null)
-      set({ globals: res })
+      const response = await request(RpcMethods.AppGlobals, null)
+      set({ globals: response })
     } finally {
       set({ loading: false })
     }

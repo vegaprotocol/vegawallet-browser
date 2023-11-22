@@ -8,8 +8,8 @@ import config from '!/config'
 const saveSettings = jest.fn()
 
 jest.mock('../../../stores/globals', () => ({
-  useGlobalsStore: jest.fn((fn) => {
-    return fn({
+  useGlobalsStore: jest.fn((function_) => {
+    return function_({
       saveSettings
     })
   })

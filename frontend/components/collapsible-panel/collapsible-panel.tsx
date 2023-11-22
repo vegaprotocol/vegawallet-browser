@@ -30,7 +30,7 @@ export const CollapsiblePanel = ({
           })}
         />
       </button>
-      <div data-testid={locators.collapsiblePanelContent} className={!isOpen ? 'hidden' : ''}>
+      <div data-testid={locators.collapsiblePanelContent} className={isOpen ? '' : 'hidden'}>
         {panelContent}
       </div>
     </div>

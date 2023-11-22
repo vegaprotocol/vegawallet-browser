@@ -10,13 +10,13 @@ export const locators = {
   renameKeySubmit: 'rename-key-submit'
 }
 
-export interface RenameKeyFormProps {
+export interface RenameKeyFormProperties {
   keyName: string
   publicKey: string
   onComplete: () => Promise<void>
 }
 
-export const RenameKeyForm = ({ keyName, publicKey, onComplete }: RenameKeyFormProps) => {
+export const RenameKeyForm = ({ keyName, publicKey, onComplete }: RenameKeyFormProperties) => {
   const { request } = useJsonRpcClient()
   const { register, handleSubmit, control } = useForm<FormFields>({
     defaultValues: {

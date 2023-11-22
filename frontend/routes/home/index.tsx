@@ -6,9 +6,5 @@ export const Home = () => {
   const { loading, path } = useGetRedirectPath()
   useSentry()
   // If loading then we do not know where to redirect to yet
-  if (loading || !path) {
-    return null
-  } else {
-    return <Navigate to={path} />
-  }
+  return loading || !path ? null : <Navigate to={path} />;
 }

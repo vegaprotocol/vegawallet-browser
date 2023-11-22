@@ -68,7 +68,7 @@ const mockWallets = [
   }
 ]
 
-const mockStores = (asset: vegaAsset | undefined, key: Key | undefined) => {
+const mockStores = (asset: vegaAsset | undefined, key?: Key) => {
   mockStore(useAssetsStore, {
     loading: false,
     assets: [],
@@ -91,7 +91,7 @@ describe('TransferReceipt', () => {
   })
 
   it('should render nothing if the transfer type is recurring', () => {
-    mockStores(mockAsset, undefined)
+    mockStores(mockAsset)
     const recurringTransfer = {
       transfer: {
         ...baseTransfer,
@@ -111,7 +111,7 @@ describe('TransferReceipt', () => {
     mockStore(useWalletStore, {
       loading: false,
       wallets: mockWallets,
-      getKeyById: jest.fn().mockReturnValue(undefined)
+      getKeyById: jest.fn().mockReturnValue({})
     })
 
     const oneOffTransfer = {
@@ -127,7 +127,7 @@ describe('TransferReceipt', () => {
   })
 
   it('if deliverOn is not provided renders now', () => {
-    mockStores(mockAsset, undefined)
+    mockStores(mockAsset)
 
     const oneOffTransfer = {
       transfer: {
@@ -140,7 +140,7 @@ describe('TransferReceipt', () => {
 
   it('if transfer is in future then it renders relative & absolute time', () => {
     // 1124-TRAN-003 For a oneOff transfer which is has a delivery date in the future there is a way to see when the transfer will be delivered
-    mockStores(mockAsset, undefined)
+    mockStores(mockAsset)
 
     const oneOffTransfer = {
       transfer: {
@@ -157,11 +157,11 @@ describe('TransferReceipt', () => {
 
   it('should render a warning if the key is not in the wallet', () => {
     // 1124-TRAN-007 I can see a warning if the key is not present in my wallet
-    mockStores(mockAsset, undefined)
+    mockStores(mockAsset)
     mockStore(useWalletStore, {
       loading: false,
       wallets: [],
-      getKeyById: jest.fn().mockReturnValue(undefined)
+      getKeyById: jest.fn().mockReturnValue({})
     })
     render(
       <Transfer
@@ -188,7 +188,7 @@ describe('TransferReceipt', () => {
     mockStore(useWalletStore, {
       loading: false,
       wallets: [],
-      getKeyById: jest.fn().mockReturnValue(undefined)
+      getKeyById: jest.fn().mockReturnValue({})
     })
     const oneOffTransfer = {
       transfer: {
@@ -204,7 +204,7 @@ describe('TransferReceipt', () => {
   })
 
   it('should render EnrichedTransferView when loading is false', () => {
-    mockStores(mockAsset, undefined)
+    mockStores(mockAsset)
 
     const oneOffTransfer = {
       transfer: {

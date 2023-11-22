@@ -8,7 +8,7 @@ export const useFormatSizeAmount = (marketId?: string, size?: string) => {
     loading: state.loading,
     getMarketById: state.getMarketById
   }))
-  if (loading || !marketId || !size) return undefined
+  if (loading || !marketId || !size) return
   if (size === MAX_POSITION_SIZE) return 'Max'
   const market = getMarketById(marketId)
   const positionDecimals = Number(get(market, 'positionDecimalPlaces'))

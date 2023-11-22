@@ -11,7 +11,7 @@ export const useMarketSettlementAsset = (marketId?: string) => {
     loading: state.loading,
     getAssetById: state.getAssetById
   }))
-  if (assetsLoading || marketsLoading || !marketId) return undefined
+  if (assetsLoading || marketsLoading || !marketId) return
   const market = getMarketById(marketId)
   const settlementAssetId = getSettlementAssetId(market)
   return getAssetById(settlementAssetId)

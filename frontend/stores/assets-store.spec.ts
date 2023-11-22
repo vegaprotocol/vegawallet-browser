@@ -98,10 +98,10 @@ describe('AssetsStore', () => {
   })
 
   it('sets error if error is thrown in request', async () => {
-    const err = new Error('1')
+    const error = new Error('1')
     await useAssetsStore.getState().fetchAssets(() => {
-      throw err
+      throw error
     })
-    expect(useAssetsStore.getState().error).toBe(err)
+    expect(useAssetsStore.getState().error).toBe(error)
   })
 })

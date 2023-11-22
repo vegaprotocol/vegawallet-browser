@@ -29,9 +29,9 @@ export const SettingsRadio = ({
   }))
   const { request } = useJsonRpcClient()
   const handleChange = async (value: string) => {
-    const newVal = value === 'true'
+    const newValue = value === 'true'
     await saveSettings(request, {
-      [setting]: newVal
+      [setting]: newValue
     })
   }
 

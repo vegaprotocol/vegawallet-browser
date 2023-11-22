@@ -10,13 +10,13 @@ export const locators = {
   signMessageHeader: 'sign-message-header'
 }
 
-interface SignMessageProps {
+interface SignMessageProperties {
   onCancel: () => void
   onSign: ({ message }: { message: string }) => void
   disabled: boolean
 }
 
-const SignMessageForm = ({ onCancel, onSign, disabled }: SignMessageProps) => {
+const SignMessageForm = ({ onCancel, onSign, disabled }: SignMessageProperties) => {
   const {
     register,
     handleSubmit,
@@ -45,7 +45,7 @@ const SignMessageForm = ({ onCancel, onSign, disabled }: SignMessageProps) => {
   )
 }
 
-export const SignMessage = ({ onCancel, onSign, disabled }: SignMessageProps) => {
+export const SignMessage = ({ onCancel, onSign, disabled }: SignMessageProperties) => {
   return (
     <div className="p-2 text-center text-base  text-vega-dark-400">
       <h1 data-testid={locators.signMessageHeader} className="text-xl text-white mb-2">

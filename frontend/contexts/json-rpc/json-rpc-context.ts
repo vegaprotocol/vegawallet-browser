@@ -5,7 +5,7 @@ import JSONRPCServer from '../../../lib/json-rpc-server'
 export interface JsonRpcContextShape {
   client: JSONRPCClient
   server: JSONRPCServer
-  request: (method: string, params?: any, propagateError?: boolean) => Promise<any>
+  request: (method: string, parameters?: any, propagateError?: boolean) => Promise<any>
 }
 
 export const JsonRpcContext = createContext<JsonRpcContextShape | undefined>(undefined)

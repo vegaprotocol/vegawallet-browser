@@ -39,8 +39,8 @@ export const ImportWallet = () => {
       setLoading(true)
       await createWallet(fields.mnemonic, request, true)
       setShowSuccess(true)
-    } catch (e) {
-      setError('mnemonic', { message: e?.toString() })
+    } catch (error) {
+      setError('mnemonic', { message: error?.toString() })
     } finally {
       setLoading(false)
     }

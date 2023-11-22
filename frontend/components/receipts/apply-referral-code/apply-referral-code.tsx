@@ -1,4 +1,4 @@
-import { ReceiptComponentProps } from '../receipts'
+import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const locators = {
@@ -6,7 +6,7 @@ export const locators = {
   referralCode: 'referral-code'
 }
 
-export const ApplyReferralCode = ({ transaction }: ReceiptComponentProps) => {
+export const ApplyReferralCode = ({ transaction }: ReceiptComponentProperties) => {
   return (
     <ReceiptWrapper>
       <h1 className="text-vega-dark-300" data-testid={locators.referralCodeTitle}>

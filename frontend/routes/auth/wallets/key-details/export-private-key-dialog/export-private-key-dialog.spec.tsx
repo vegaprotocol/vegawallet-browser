@@ -1,19 +1,21 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { ExportPrivateKeysDialog, locators } from './export-private-key-dialog'
-import { ExportPrivateKeyFormProps } from './export-private-key-form'
-import { ViewPrivateKeyProps } from './view-private-key'
+import { ExportPrivateKeyFormProperties } from './export-private-key-form'
+import { ViewPrivateKeyProperties } from './view-private-key'
 
 jest.mock('./export-private-key-form', () => ({
-  ExportPrivateKeyForm: (props: ExportPrivateKeyFormProps) => (
+  ExportPrivateKeyForm: (properties: ExportPrivateKeyFormProperties) => (
     <div data-testid="export-private-key-form">
-      <button onClick={props.onClose} data-testid="close" />
-      <button onClick={() => props.onSuccess('0x1')} data-testid="set-private-key" />
+      <button onClick={properties.onClose} data-testid="close" />
+      <button onClick={() => properties.onSuccess('0x1')} data-testid="set-private-key" />
     </div>
   )
 }))
 
 jest.mock('./view-private-key', () => ({
-  ViewPrivateKey: (props: ViewPrivateKeyProps) => <button onClick={props.onClose} data-testid="view-private-key" />
+  ViewPrivateKey: (properties: ViewPrivateKeyProperties) => (
+    <button onClick={properties.onClose} data-testid="view-private-key" />
+  )
 }))
 
 describe('ExportPrivateKeyDialog', () => {

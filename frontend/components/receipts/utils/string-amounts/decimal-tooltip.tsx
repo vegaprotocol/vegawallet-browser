@@ -7,7 +7,7 @@ export const locators = {
   description2: 'description2',
   description3: 'description3',
   explorerLink: 'explorer-link',
-  docsLink: 'docs-link',
+  documentationLink: 'docs-link',
   decimalTooltip: 'decimal-tooltip'
 }
 
@@ -20,7 +20,7 @@ export const DecimalTooltip = ({
   entityText: string
   variableName: string
 }) => {
-  const docsHref = `${config.network.docs}/api/using-the-apis#decimal-precision`
+  const documentationHref = `${config.network.docs}/api/using-the-apis#decimal-precision`
   return (
     <div data-testid={locators.decimalTooltip} style={{ maxWidth: CONSTANTS.width - 60 }}>
       <p data-testid={locators.description1}>This number does not include a decimal point.</p>
@@ -41,7 +41,7 @@ export const DecimalTooltip = ({
         .{' '}
       </p>
       <p data-testid={locators.description3} className="mt-1">
-        <ExternalLink data-testid={locators.docsLink} href={docsHref}>
+        <ExternalLink data-testid={locators.documentationLink} href={documentationHref}>
           Read more
         </ExternalLink>
       </p>

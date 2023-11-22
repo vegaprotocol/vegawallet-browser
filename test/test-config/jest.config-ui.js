@@ -9,7 +9,7 @@ let overrides = {
   roots: ['<rootDir>/frontend'],
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/frontend/setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>/frontend/setup-tests.ts'],
   globalSetup: '<rootDir>/frontend/global-setup.ts',
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!test/**'],

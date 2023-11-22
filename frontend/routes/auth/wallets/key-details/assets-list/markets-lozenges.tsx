@@ -15,7 +15,7 @@ export const MarketLozenges = ({ assetId }: { assetId: string }) => {
     getMarketsByAssetId: state.getMarketsByAssetId
   }))
   const markets = getMarketsByAssetId(assetId)
-  const activeMarkets = markets.filter(isActiveMarket)
+  const activeMarkets = markets.filter((m) => isActiveMarket(m))
 
   const top5Markets = activeMarkets.slice(0, 5)
   if (top5Markets.length === 0) return null

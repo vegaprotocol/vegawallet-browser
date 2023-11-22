@@ -55,7 +55,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
   },
   async _loadWallets(request: SendMessage) {
     const { wallets } = await request(RpcMethods.ListWallets, null)
-    const res = await Promise.all(
+    const response = await Promise.all(
       wallets.map(async (w: string) => {
         const keyList = await request(RpcMethods.ListKeys, {
           wallet: w
@@ -64,7 +64,7 @@ export const useWalletStore = create<WalletsStore>()((set, get) => ({
         return { name: w, keys }
       })
     )
-    set({ wallets: res })
+    set({ wallets: response })
   },
   async reloadWallets(request: SendMessage) {
     await get()._loadWallets(request)

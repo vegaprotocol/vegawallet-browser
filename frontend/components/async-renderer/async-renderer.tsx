@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface AsyncRendererProps {
+export interface AsyncRendererProperties {
   loading?: boolean
   renderLoading?: () => ReactNode
   error?: Error | null
@@ -18,7 +18,7 @@ export function AsyncRenderer({
   error = null,
   loading = false,
   noData = false
-}: AsyncRendererProps) {
+}: AsyncRendererProperties) {
   if (loading) return renderLoading ? <>{renderLoading()}</> : null
   if (error) return errorView ? <>{errorView(error)}</> : null
   if (noData) return renderNoData ? <>{renderNoData()}</> : null

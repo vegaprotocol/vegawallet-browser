@@ -1,4 +1,4 @@
-import { ReceiptComponentProps } from '../../receipts'
+import { ReceiptComponentProperties } from '../../receipts'
 import { OrderBadges } from '../../utils/order/badges'
 import { OrderTable } from '../../utils/order-table'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
@@ -12,7 +12,7 @@ export const AmendmentView = ({ amendment }: { amendment: any }) => {
   )
 }
 
-export const Amendment = ({ transaction }: ReceiptComponentProps) => {
+export const Amendment = ({ transaction }: ReceiptComponentProperties) => {
   const amendment = transaction.orderAmendment
   if (amendment.pegged_offset || amendment.pegged_reference) return null
   return (

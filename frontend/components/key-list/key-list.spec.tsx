@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { KeyList, KeyListProps } from './key-list'
+import { KeyList, KeyListProperties } from './key-list'
 import config from '!/config'
 import { JsonRPCProvider } from '../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../test-helpers/mock-client'
@@ -12,14 +12,14 @@ const storeMock = {
 }
 
 jest.mock('../../stores/wallets', () => ({
-  useWalletStore: (fn: any) => fn(storeMock)
+  useWalletStore: (function_: any) => function_(storeMock)
 }))
 
-const renderComponent = (props: KeyListProps) =>
+const renderComponent = (properties: KeyListProperties) =>
   render(
     <MemoryRouter>
       <JsonRPCProvider>
-        <KeyList {...props} />
+        <KeyList {...properties} />
       </JsonRPCProvider>
     </MemoryRouter>
   )
@@ -59,10 +59,10 @@ describe('KeyList', () => {
 
     expect(header.textContent).toBe('Keys')
 
-    keys.forEach((key, index) => {
+    for (const [index, key] of keys.entries()) {
       expect(keyNames[index]).toHaveTextContent(key.name)
       expect(explorerLink[index]).toHaveAttribute('href', `${config.network.explorer}/parties/${key.publicKey}`)
       expect(copyWithCheck[index]).toBeVisible()
-    })
+    }
   })
 })

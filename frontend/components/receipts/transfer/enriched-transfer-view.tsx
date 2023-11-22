@@ -1,5 +1,5 @@
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
-import { ReceiptComponentProps } from '../receipts'
+import { ReceiptComponentProperties } from '../receipts'
 import { useFormatAssetAmount } from '../../../hooks/format-asset-amount'
 import { Header } from '../../header'
 
@@ -7,9 +7,9 @@ export const locators = {
   enrichedSection: 'enriched-section'
 }
 
-export const EnrichedTransferView = ({ transaction }: ReceiptComponentProps) => {
-  const { amount } = transaction.transfer
-  const { formattedAmount, symbol } = useFormatAssetAmount(transaction.transfer.asset, amount)
+export const EnrichedTransferView = ({ transaction }: ReceiptComponentProperties) => {
+  const { amount, asset } = transaction.transfer
+  const { formattedAmount, symbol } = useFormatAssetAmount(asset, amount)
   if (!formattedAmount || !symbol) return null
 
   return (

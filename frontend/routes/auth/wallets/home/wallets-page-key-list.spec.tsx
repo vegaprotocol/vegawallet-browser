@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { WalletsPageKeyList, WalletPageKeyListProps, locators } from './wallets-page-key-list'
+import { WalletsPageKeyList, WalletPageKeyListProperties, locators } from './wallets-page-key-list'
 import { JsonRPCProvider } from '../../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../../test-helpers/mock-client'
 import { MemoryRouter } from 'react-router-dom'
@@ -10,14 +10,14 @@ const storeMock = {
 }
 
 jest.mock('../../../../stores/wallets', () => ({
-  useWalletStore: (fn: any) => fn(storeMock)
+  useWalletStore: (function_: any) => function_(storeMock)
 }))
 
-const renderComponent = (props: WalletPageKeyListProps) =>
+const renderComponent = (properties: WalletPageKeyListProperties) =>
   render(
     <MemoryRouter>
       <JsonRPCProvider>
-        <WalletsPageKeyList {...props} />
+        <WalletsPageKeyList {...properties} />
       </JsonRPCProvider>
     </MemoryRouter>
   )

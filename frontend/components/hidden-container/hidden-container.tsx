@@ -4,14 +4,14 @@ import { CopyWithCheckmark } from '../copy-with-check'
 import { Hide } from '../icons/hide'
 import locators from '../locators'
 
-export interface HiddenContainerProps {
+export interface HiddenContainerProperties {
   text: ReactNode
   hiddenInformation: string
   onChange?: (show: boolean) => void
   wrapContent?: boolean
 }
 
-export const HiddenContainer = ({ hiddenInformation, onChange, text, wrapContent = false }: HiddenContainerProps) => {
+export const HiddenContainer = ({ hiddenInformation, onChange, text, wrapContent = false }: HiddenContainerProperties) => {
   const [showInformation, setShowInformation] = useState(false)
   return showInformation ? (
     <div data-testid={locators.mnemonicContainerShown}>

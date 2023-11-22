@@ -3,12 +3,12 @@ import locators from '../../locators'
 import { SuccessTick } from '../../icons/success-tick'
 import { Header } from '../../header'
 
-export interface ConnectionSuccessProps {
+export interface ConnectionSuccessProperties {
   onClose: () => void
   hostname: string
 }
 
-export const ConnectionSuccess = ({ onClose, hostname }: ConnectionSuccessProps) => {
+export const ConnectionSuccess = ({ onClose, hostname }: ConnectionSuccessProperties) => {
   useEffect(() => {
     const stamp = setTimeout(() => {
       onClose()

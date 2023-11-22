@@ -2,13 +2,13 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { ConnectionModal } from './connection-modal'
 import { useInteractionStore } from '../../../stores/interaction-store'
 import locators from '../../locators'
-import { ConnectionSuccessProps } from './connection-success'
+import { ConnectionSuccessProperties } from './connection-success'
 import { mockStore } from '../../../test-helpers/mock-store'
 
 jest.mock('../../../stores/interaction-store')
 
 jest.mock('./connection-success', () => ({
-  ConnectionSuccess: ({ onClose }: ConnectionSuccessProps) => (
+  ConnectionSuccess: ({ onClose }: ConnectionSuccessProperties) => (
     <button onClick={onClose} data-testid="connection-success" />
   )
 }))

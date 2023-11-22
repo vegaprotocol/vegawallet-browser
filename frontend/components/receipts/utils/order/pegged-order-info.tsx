@@ -13,12 +13,12 @@ export const referenceText: Record<vegaPeggedReference, string> = {
   [vegaPeggedReference.PEGGED_REFERENCE_UNSPECIFIED]: 'unspecified'
 }
 
-interface PeggedOrderInfoProps {
+interface PeggedOrderInfoProperties {
   peggedOrder: PeggedOrderOptions
   marketId: string
 }
 
-export const PeggedOrderInfo = ({ peggedOrder, marketId }: PeggedOrderInfoProps) => {
+export const PeggedOrderInfo = ({ peggedOrder, marketId }: PeggedOrderInfoProperties) => {
   const { offset, reference } = peggedOrder
   const formattedOffset = useFormatMarketPrice(marketId, offset)
   const settlementAsset = useMarketSettlementAsset(marketId)

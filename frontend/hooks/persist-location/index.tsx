@@ -4,7 +4,7 @@ import { FULL_ROUTES } from '../../routes/route-names'
 
 export const LOCATION_KEY = 'location'
 
-const IGNORED_PATHS = [
+const IGNORED_PATHS = new Set([
   FULL_ROUTES.home,
   FULL_ROUTES.login,
   FULL_ROUTES.onboarding,
@@ -14,7 +14,7 @@ const IGNORED_PATHS = [
   FULL_ROUTES.telemetry,
   FULL_ROUTES.createWallet,
   FULL_ROUTES.importWallet
-]
+])
 
 export const usePersistLocation = () => {
   let location = useLocation()
@@ -24,7 +24,7 @@ export const usePersistLocation = () => {
     // users will never be on the home route, it's only a passthrough
     // to get them to the place they need to be. So if on home this is
     // an initial load we do not wish to persist
-    if (!IGNORED_PATHS.includes(location.pathname)) {
+    if (!IGNORED_PATHS.has(location.pathname)) {
       localStorage.setItem(LOCATION_KEY, location.pathname)
     }
   }, [location])

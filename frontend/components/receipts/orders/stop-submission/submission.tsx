@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { ReceiptComponentProps } from '../../receipts'
+import { ReceiptComponentProperties } from '../../receipts'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { DataTable } from '../../../data-table/data-table'
 import { OrderTable } from '../../utils/order-table'
@@ -58,7 +58,7 @@ export const StopOrdersSubmissionView = ({ stopOrdersSubmission }: { stopOrdersS
   )
 }
 
-export const StopOrderSubmission = ({ transaction }: ReceiptComponentProps) => {
+export const StopOrderSubmission = ({ transaction }: ReceiptComponentProperties) => {
   const order = transaction.stopOrdersSubmission
   return (
     <ReceiptWrapper>

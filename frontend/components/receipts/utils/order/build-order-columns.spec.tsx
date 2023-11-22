@@ -64,8 +64,7 @@ describe('buildPeggedOrderColumn', () => {
 
   it('returns null when marketId is undefined', () => {
     const result = buildPeggedOrderColumn(
-      { offset: '12', reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID },
-      undefined
+      { offset: '12', reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID }
     )
     expect(result).toBeNull()
   })
@@ -91,7 +90,7 @@ describe('buildSizeColumn', () => {
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildSizeColumn('100', undefined)
+    const result = buildSizeColumn('100')
     expect(result).toBeNull()
   })
 })
@@ -111,7 +110,7 @@ describe('buildMarketColumn', () => {
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildMarketColumn(undefined)
+    const result = buildMarketColumn()
     expect(result).toBeNull()
   })
 })
@@ -219,7 +218,7 @@ describe('buildRemainingColumn', () => {
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildRemainingColumn('100', undefined)
+    const result = buildRemainingColumn('100')
     expect(result).toBeNull()
   })
 })

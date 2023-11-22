@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import App, { locators } from './App'
+import App, { locators } from './app'
 import { ReactNode } from 'react'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'
@@ -14,8 +14,8 @@ jest.mock('./components/global-error-boundary', () => ({ children }: { children:
   <div data-testid="global-error-boundary">{children}</div>
 ))
 jest.mock('./stores/popover-store', () => ({
-  usePopoverStore: (fn: any) => {
-    return fn({
+  usePopoverStore: (function_: any) => {
+    return function_({
       setup: jest.fn(),
       teardown: jest.fn()
     })

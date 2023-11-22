@@ -23,12 +23,12 @@ export const GetStarted = () => {
       <VegaHeader />
       <Frame>
         <ul className="list-none text-left">
-          {ITEMS.map((i) => (
-            <li key={i} className="flex">
+          {ITEMS.map((index) => (
+            <li key={index} className="flex">
               <div>
                 <Tick size={12} className="mr-2 text-vega-green-550" />
               </div>
-              <p className="text-white">{i}</p>
+              <p className="text-white">{index}</p>
             </li>
           ))}
         </ul>

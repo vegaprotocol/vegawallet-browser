@@ -7,7 +7,7 @@ import { ExportPrivateKeysDialog } from './export-private-key-dialog'
 import { AssetsList } from './assets-list'
 import { RenameKeyDialog } from './rename-key-dialog'
 import { BasePage } from '../../../../components/pages/page'
-import { AsyncRenderer } from '../../../../components/async-renderer/async-renderer'
+import { AsyncRenderer } from '../../../../components/async-renderer'
 import { useMarketsStore } from '../../../../stores/markets-store'
 
 export const locators = {

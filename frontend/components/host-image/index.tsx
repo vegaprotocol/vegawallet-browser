@@ -7,16 +7,17 @@ export const locators = {
   hostImageFallback: 'host-image-fallback'
 }
 
-function toHex(str: string) {
+function toHex(string_: string) {
   let result = ''
-  for (let i = 0; i < str.length; i++) {
-    result += str.charCodeAt(i).toString(16)
+  for (let index = 0; index < string_.length; index++) {
+    // eslint-disable-next-line unicorn/prefer-code-point
+    result += string_.charCodeAt(index).toString(16)
   }
   return result
 }
 
-const getRemainder = (str: string) => {
-  const h = toHex(str)
+const getRemainder = (string_: string) => {
+  const h = toHex(string_)
   return Number(BigInt('0x' + h) % BigInt(6))
 }
 
@@ -29,19 +30,19 @@ const COLORS_MAP = [
   { backgroundColor: 'bg-vega-orange-650', textColor: 'text-vega-orange-500' }
 ]
 
-export interface HostImageProps {
+export interface HostImageProperties {
   hostname: string
   size?: number
 }
 
-const FallbackImage = ({ hostname, size }: HostImageProps) => {
+const FallbackImage = ({ hostname, size }: HostImageProperties) => {
   const colorIndex = getRemainder(hostname)
   let letter = '?'
   try {
     const host = new URL(hostname).host
     const parseResult = parse(host)
     letter = parseResult.domain?.charAt(0) || '?'
-  } catch (e) {}
+  } catch {}
 
   return (
     <div
@@ -61,7 +62,7 @@ const FallbackImage = ({ hostname, size }: HostImageProps) => {
   )
 }
 
-export const HostImage = ({ hostname, size = 48 }: HostImageProps) => {
+export const HostImage = ({ hostname, size = 48 }: HostImageProperties) => {
   const [useFallback, setUseFallback] = useState(false)
   return useFallback ? (
     <FallbackImage hostname={hostname} size={size} />

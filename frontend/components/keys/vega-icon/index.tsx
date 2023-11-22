@@ -6,36 +6,36 @@ export const locators = {
 
 function getBitsFromByte(byte: number) {
   let bits = []
-  for (let i = 0; i < 8; i++) {
-    bits.push(byte & (1 << i))
+  for (let index = 0; index < 8; index++) {
+    bits.push(byte & (1 << index))
   }
   return bits
 }
 
 const getColorList = (publicKey: string) => {
-  return new Array(4).fill(null).flatMap((_, i) => {
-    let color1 = '#' + publicKey.slice(i * 16, i * 16 + 6)
-    let color2 = '#' + publicKey.slice(i * 16 + 6, i * 16 + 12)
-    let pattern = publicKey.slice(i * 16 + 12, i * 16 + 14) // each bit represents a pixel in the 3x3 grid except the center pixel
-    let centerColor = publicKey.slice(i * 16 + 14, i * 16 + 16)
+  return Array.from({length: 4}).fill(null).flatMap((_, index) => {
+    let color1 = '#' + publicKey.slice(index * 16, index * 16 + 6)
+    let color2 = '#' + publicKey.slice(index * 16 + 6, index * 16 + 12)
+    let pattern = publicKey.slice(index * 16 + 12, index * 16 + 14) // each bit represents a pixel in the 3x3 grid except the center pixel
+    let centerColor = publicKey.slice(index * 16 + 14, index * 16 + 16)
 
-    const bits = getBitsFromByte(parseInt(pattern, 16))
+    const bits = getBitsFromByte(Number.parseInt(pattern, 16))
 
     // Iterate through each pixel in the 3x3 grid
-    let bitIdx = 0
-    return new Array(9).fill(null).map((_, gridPos) => {
+    let bitIndex = 0
+    return Array.from({length: 9}).fill(null).map((_, gridPos) => {
       if (gridPos === 4) {
         // center pixel, it's color is determined by the first bit of the centerColor byte
         let color = color1
-        if (parseInt(centerColor, 16) & 0x80) {
+        if (Number.parseInt(centerColor, 16) & 0x80) {
           color = color2
         }
         return color
-      } else if (bits[bitIdx]) {
-        bitIdx++
+      } else if (bits[bitIndex]) {
+        bitIndex++
         return color2
       } else {
-        bitIdx++
+        bitIndex++
         return color1
       }
     })
@@ -43,10 +43,10 @@ const getColorList = (publicKey: string) => {
 }
 
 export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const canvasReference = useRef<HTMLCanvasElement | null>(null)
 
   useEffect(() => {
-    const canvas = canvasRef.current
+    const canvas = canvasReference.current
     const context = canvas?.getContext('2d')
     if (!context || !canvas) return
     const colorsList = getColorList(publicKey)
@@ -56,8 +56,8 @@ export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
     canvas.height = height
     let colorIndex = 0
     // Draw the first 2 rows
-    for (let i = 0; i < 2; i++) {
-      const start_x = i * 3 * squareSize
+    for (let index = 0; index < 2; index++) {
+      const start_x = index * 3 * squareSize
       const start_y = 0
       // Draw each horizontal line
       for (let x = 0; x < 3; x++) {
@@ -71,9 +71,9 @@ export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
     }
 
     // Draw the last 2 rows
-    for (let i = 2; i < 4; i++) {
+    for (let index = 2; index < 4; index++) {
       // Draw left to right
-      const start_x = (i - 2) * 3 * squareSize
+      const start_x = (index - 2) * 3 * squareSize
       // Offset by the height of the first 2 rows
       const start_y = 3 * squareSize
 
@@ -91,7 +91,7 @@ export const KeyIcon = ({ publicKey }: { publicKey: string }) => {
 
   return (
     <div className="rounded-md overflow-hidden" style={{ minWidth: 42 }}>
-      <canvas data-testid={locators.keyIcon} ref={canvasRef} />
+      <canvas data-testid={locators.keyIcon} ref={canvasReference} />
     </div>
   )
 }

@@ -1,16 +1,16 @@
 import { ComponentType } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
-export interface RouterProps {
+export interface RouterProperties {
   navigate: NavigateFunction
 }
 
-export function withRouter<P extends RouterProps>(Component: ComponentType<P>) {
-  const Wrapper = (props: Omit<P, keyof RouterProps>) => {
+export function withRouter<P extends RouterProperties>(Component: ComponentType<P>) {
+  const Wrapper = (properties: Omit<P, keyof RouterProperties>) => {
     const navigate = useNavigate()
-    const routerProps = { navigate }
+    const routerProperties = { navigate }
 
-    return <Component {...routerProps} {...(props as P)} />
+    return <Component {...routerProperties} {...(properties as P)} />
   }
 
   return Wrapper

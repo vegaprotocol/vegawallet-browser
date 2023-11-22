@@ -16,13 +16,13 @@ export const locators = {
   privateKeyDescription: 'private-key-description'
 }
 
-export interface ExportPrivateKeyFormProps {
+export interface ExportPrivateKeyFormProperties {
   publicKey: string
   onSuccess: (privateKey: string) => void
   onClose: () => void
 }
 
-export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPrivateKeyFormProps) => {
+export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPrivateKeyFormProperties) => {
   const { request } = useJsonRpcClient()
   const [loading, setLoading] = useState(false)
   const {
@@ -39,12 +39,12 @@ export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPr
       setLoading(true)
       const { secretKey } = await request(RpcMethods.ExportKey, { publicKey, passphrase }, true)
       onSuccess(secretKey)
-    } catch (e) {
-      if (e instanceof Error && e.message === REJECTION_ERROR_MESSAGE) {
+    } catch (error) {
+      if (error instanceof Error && error.message === REJECTION_ERROR_MESSAGE) {
         setError('passphrase', { message: 'Incorrect passphrase' })
       } else {
-        setError('passphrase', { message: `Unknown error occurred: ${(e as Error).message}` })
-        captureException(e)
+        setError('passphrase', { message: `Unknown error occurred: ${(error as Error).message}` })
+        captureException(error)
       }
     } finally {
       setLoading(false)

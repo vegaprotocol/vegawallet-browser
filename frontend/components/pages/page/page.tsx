@@ -7,7 +7,7 @@ export const locators = {
   basePageBack: 'base-page-back'
 }
 
-export interface BasePageProps {
+export interface BasePageProperties {
   dataTestId: string
   title: ReactNode
   children: ReactNode
@@ -16,7 +16,7 @@ export interface BasePageProps {
   onBack?: () => void
 }
 
-export const BasePage = ({ className, dataTestId, title, children, backLocation, onBack }: BasePageProps) => {
+export const BasePage = ({ className, dataTestId, title, children, backLocation, onBack }: BasePageProperties) => {
   return (
     <section className={className} data-testid={dataTestId}>
       {backLocation ? (

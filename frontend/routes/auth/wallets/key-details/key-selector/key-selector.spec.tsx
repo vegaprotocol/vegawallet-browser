@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { KeySelector, locators } from './key-selector'
 import { MemoryRouter } from 'react-router-dom'
-import { KeyListProps } from '../../../../../components/key-list'
+import { KeyListProperties } from '../../../../../components/key-list'
 
 const ID = '1'.repeat(64)
 
@@ -13,7 +13,7 @@ const MOCK_KEY = {
 }
 
 jest.mock('../../../../../components/key-list', () => ({
-  KeyList: ({ onClick }: KeyListProps) => <button onClick={onClick} data-testid="key-list" />
+  KeyList: ({ onClick }: KeyListProperties) => <button onClick={onClick} data-testid="key-list" />
 }))
 
 jest.mock('../../../../../components/keys/vega-key', () => ({
@@ -21,8 +21,8 @@ jest.mock('../../../../../components/keys/vega-key', () => ({
 }))
 
 jest.mock('../../../../../stores/wallets', () => ({
-  useWalletStore: jest.fn().mockImplementation((fn) =>
-    fn({
+  useWalletStore: jest.fn().mockImplementation((function_) =>
+    function_({
       wallets: [
         {
           keys: [

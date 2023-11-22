@@ -28,10 +28,10 @@ describe('DecimalTooltip', () => {
     expect(tooltipAssetExplorerLink).toHaveAttribute('href', 'https://example.com')
     expect(tooltipAssetExplorerLink).toHaveTextContent('asset')
 
-    const [docsLink] = screen.getAllByTestId(locators.docsLink)
+    const [documentationLink] = screen.getAllByTestId(locators.documentationLink)
 
-    expect(docsLink).toBeInTheDocument()
-    expect(docsLink).toHaveAttribute('href', `${config.network.docs}/api/using-the-apis#decimal-precision`)
-    expect(docsLink).toHaveTextContent('Read more')
+    expect(documentationLink).toBeInTheDocument()
+    expect(documentationLink).toHaveAttribute('href', `${config.network.docs}/api/using-the-apis#decimal-precision`)
+    expect(documentationLink).toHaveTextContent('Read more')
   })
 })

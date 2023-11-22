@@ -26,7 +26,7 @@ describe('useMarketSettlementAsset', () => {
   })
   it('returns nothing if marketId is undefined', () => {
     mockStores({}, {})
-    const { result } = renderHook(() => useMarketSettlementAsset(undefined))
+    const { result } = renderHook(() => useMarketSettlementAsset())
     expect(result.current).toBeUndefined()
   })
   it('returns settlement asset if settlement asset can be found', () => {

@@ -22,7 +22,10 @@
     {
       "extends": ["plugin:jest/style"],
       "files": ["**/*.spec.ts", "**/*.spec.tsx"],
-      "plugins": ["jest"]
+      "plugins": ["jest"],
+      "rules": {
+        "jest/consistent-test-it": "warn"
+      }
     }
   ]
 }

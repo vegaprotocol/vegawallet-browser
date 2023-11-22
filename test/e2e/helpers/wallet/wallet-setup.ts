@@ -2,7 +2,6 @@ import { WebDriver, until } from 'selenium-webdriver'
 import { APIHelper } from './wallet-api'
 import { initDriver } from '../driver'
 import { getLandingPageURL } from './common-wallet-values'
-import { CONSTANTS } from '../../../../lib/constants'
 
 export async function createWalletAndDriver(oldExtension = false) {
   const driver = await initDriver(oldExtension)
@@ -17,7 +16,6 @@ export async function navigateToExtensionLandingPage(driver: WebDriver, extensio
   const url = await getLandingPageURL(driver, extensionID)
   await driver.get(url)
   await driver.wait(until.urlContains(url), 10000)
-  driver.manage().window().setRect({ width: CONSTANTS.width, height: CONSTANTS.defaultHeight })
 }
 
 export async function setUpWalletAndKey(driver: WebDriver, extensionID = '') {

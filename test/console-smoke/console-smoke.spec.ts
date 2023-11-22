@@ -94,7 +94,7 @@ it('check console and browser wallet integrate', async () => {
 
 async function setUpTests() {
   driver = await initDriver()
-  driver.manage().window().maximize()
+  await driver.manage().window().maximize()
   connectWallet = new ConnectWallet(driver)
   apiHelper = new APIHelper(driver)
   transaction = new Transaction(driver)

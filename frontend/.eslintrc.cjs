@@ -1,5 +1,6 @@
 module.exports = {
-  extends: ['react-app', 'react-app/jest'],
+  extends: ['react-app', 'react-app/jest', 'plugin:unicorn/recommended'],
+  plugins: ['unicorn'],
   rules: {
     'import/no-webpack-loader-syntax': 'off', // We do not use webpack
     'no-restricted-imports': [
@@ -17,7 +18,9 @@ module.exports = {
           }
         ]
       }
-    ]
+    ],
+    'unicorn/no-null': 'off',
+    'unicorn/no-array-reduce': 'off'
   },
   overrides: [
     // Jest files

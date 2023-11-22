@@ -14,7 +14,7 @@ jest.mock('../../copy-with-check', () => ({
 }))
 
 describe('VegaKey component', () => {
-  test('renders the name and truncated publicKey with explorer link', () => {
+  it('renders the name and truncated publicKey with explorer link', () => {
     // 1115-EXPL-003 When I see a party id I can see a link to the party on the Vega block explorer
     // 1106-KEYS-005 There is a link from a key to the Block Explorer filtered transaction view
     // 1106-KEYS-015 From the main wallets screen I can click on a key to be shown the list of assets on that key
@@ -32,7 +32,7 @@ describe('VegaKey component', () => {
     expect(explorerLinkElement.getAttribute('href')).toBe(`${config.network.explorer}/parties/${mockPublicKey}`)
   })
 
-  test('renders the KeyIcon & CopyWithCheckmark components', () => {
+  it('renders the KeyIcon & CopyWithCheckmark components', () => {
     render(<VegaKey publicKey={mockPublicKey} name={mockName} />)
 
     expect(screen.getByTestId('key-icon')).toBeInTheDocument()
@@ -40,7 +40,7 @@ describe('VegaKey component', () => {
     expect(screen.getByTestId('copy-with-checkmark')).toBeInTheDocument()
   })
 
-  test('does not render name if not passed in', () => {
+  it('does not render name if not passed in', () => {
     render(<VegaKey publicKey={mockPublicKey} />)
     expect(screen.queryByTestId(locators.keyName)).not.toBeInTheDocument()
   })

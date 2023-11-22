@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { DataTable, locators } from './data-table'
 
 describe('DataTable', () => {
-  test('renders the correct number of rows', () => {
+  it('renders the correct number of rows', () => {
     const items: [string, string][] = [
       ['key1', 'value1'],
       ['key2', 'value2'],
@@ -14,7 +14,7 @@ describe('DataTable', () => {
     expect(rows).toHaveLength(items.length)
   })
 
-  test('renders the key-value pairs correctly', () => {
+  it('renders the key-value pairs correctly', () => {
     const items: [string, string][] = [
       ['key1', 'value1'],
       ['key2', 'value2'],

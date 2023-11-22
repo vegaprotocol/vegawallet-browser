@@ -46,7 +46,7 @@ describe('PageHeader', () => {
     expect(networkIndicatorElement).toHaveTextContent(config.network.name)
   })
 
-  test('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
+  it('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
     mockPopoverStore(false)
     config.closeWindowOnPopupOpen = true
     global.close = jest.fn()
@@ -60,7 +60,7 @@ describe('PageHeader', () => {
     await waitFor(() => expect(global.close).toHaveBeenCalled())
   })
 
-  test('when opening in new window does not close the window if config.closeWindowOnPopupOpen is false', async () => {
+  it('when opening in new window does not close the window if config.closeWindowOnPopupOpen is false', async () => {
     mockPopoverStore(false)
     config.closeWindowOnPopupOpen = false
     global.close = jest.fn()
@@ -74,7 +74,7 @@ describe('PageHeader', () => {
     await waitFor(() => expect(global.close).not.toHaveBeenCalled())
   })
 
-  test('renders close button if popover is open', async () => {
+  it('renders close button if popover is open', async () => {
     const mockClose = mockPopoverStore(true)
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
@@ -84,7 +84,7 @@ describe('PageHeader', () => {
 
     await waitFor(() => expect(mockClose).toHaveBeenCalled())
   })
-  test('does not render open in new window if feature is turned off', async () => {
+  it('does not render open in new window if feature is turned off', async () => {
     mockPopoverStore(true)
     config.features = {
       popoutHeader: false
@@ -94,7 +94,7 @@ describe('PageHeader', () => {
     render(<PageHeader />)
     expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
   })
-  test('does not render open in new window if feature is not defined', async () => {
+  it('does not render open in new window if feature is not defined', async () => {
     mockPopoverStore(true)
     config.features = undefined
     const mockRequest = jest.fn()

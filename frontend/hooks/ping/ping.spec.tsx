@@ -6,7 +6,7 @@ import { mockClient } from '../../test-helpers/mock-client'
 jest.mock('../../../lib/mv3-keep-alive')
 
 describe('usePing', () => {
-  test('should setup and clean up interval and timeout properly', () => {
+  it('should setup and clean up interval and timeout properly', () => {
     mockClient()
     const mockKeepAlive = jest.fn()
     ;(initKeepAlive as jest.Mock).mockReturnValue(

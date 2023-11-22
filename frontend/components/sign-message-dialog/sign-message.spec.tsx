@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { SignMessage, locators } from './sign-message'
 
 describe('SignMessage', () => {
-  test('renders header, description, and SignMessageForm', () => {
+  it('renders header, description, and SignMessageForm', () => {
     render(<SignMessage onCancel={jest.fn()} onSign={jest.fn()} disabled={false} />)
 
     expect(screen.getByTestId(locators.signMessageHeader)).toHaveTextContent('Sign Message')
@@ -11,7 +11,7 @@ describe('SignMessage', () => {
     expect(screen.getByTestId(locators.cancelButton)).toHaveTextContent('Cancel')
   })
 
-  test('calls onCancel when cancel button is clicked', async () => {
+  it('calls onCancel when cancel button is clicked', async () => {
     const onCancel = jest.fn()
     render(<SignMessage onCancel={onCancel} onSign={jest.fn()} disabled={false} />)
 
@@ -20,7 +20,7 @@ describe('SignMessage', () => {
     await waitFor(() => expect(onCancel).toHaveBeenCalledTimes(1))
   })
 
-  test('calls onSign with input message when sign button is clicked', async () => {
+  it('calls onSign with input message when sign button is clicked', async () => {
     const onSign = jest.fn()
     render(<SignMessage onCancel={jest.fn()} onSign={onSign} disabled={false} />)
 
@@ -30,7 +30,7 @@ describe('SignMessage', () => {
     await waitFor(() => expect(onSign).toHaveBeenCalledTimes(1))
   })
 
-  test('does not allow you to sign an empty message', async () => {
+  it('does not allow you to sign an empty message', async () => {
     // 1112-SIGN-003 I can see an error if I try to sign an empty message
     const onSign = jest.fn()
     render(<SignMessage onCancel={jest.fn()} onSign={onSign} disabled={false} />)

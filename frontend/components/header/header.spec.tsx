@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { Header, locators } from './header'
 
 describe('Header component', () => {
-  test('renders header correctly', () => {
+  it('renders header correctly', () => {
     const content = 'My Header'
     render(<Header content={content} />)
 

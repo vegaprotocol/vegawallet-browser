@@ -8,7 +8,7 @@ jest.mock('../../copy-with-check', () => ({
 const address = '0x1234567890abcdef'
 
 describe('EthereumKey', () => {
-  test('renders Ethereum address correctly', () => {
+  it('renders Ethereum address correctly', () => {
     // 1115-EXPL-001 When I see the Ethereum key I can see a link to an Ethereum block explorer based on that address
     render(<EthereumKey address={address} />)
 
@@ -18,7 +18,7 @@ describe('EthereumKey', () => {
     expect(explorerLink).toHaveTextContent('0x1234…cdef')
   })
 
-  test('renders the CopyWithCheckmark components', () => {
+  it('renders the CopyWithCheckmark components', () => {
     render(<EthereumKey address={address} />)
     expect(screen.getByTestId('copy-with-checkmark')).toBeInTheDocument()
   })

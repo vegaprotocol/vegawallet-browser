@@ -8,12 +8,12 @@ jest.mock('./transaction-map', () => ({
 }))
 
 describe('TransactionSwitch', () => {
-  test('renders null when transaction is unknown', () => {
+  it('renders null when transaction is unknown', () => {
     const { container } = render(<TransactionSwitch transaction={{ someUnknownType: {} }} />)
     expect(container).toBeEmptyDOMElement()
   })
 
-  test('renders the correct component based on transaction type', () => {
+  it('renders the correct component based on transaction type', () => {
     const transaction = {
       transfer: {
         amount: 200

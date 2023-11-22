@@ -67,7 +67,7 @@ describe('Telemetry', () => {
     fireEvent.click(screen.getByTestId(locators.reportBugsAndCrashes))
     await waitFor(() => expect(screen.getByTestId(locators.reportBugsAndCrashes)).toBeEnabled())
     expect(saveSettings).toHaveBeenCalledWith(mockedRequest, { telemetry: true })
-    expect(saveSettings).toBeCalledTimes(1)
+    expect(saveSettings).toHaveBeenCalledTimes(1)
     expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.wallets)
   })
 
@@ -76,7 +76,7 @@ describe('Telemetry', () => {
     fireEvent.click(screen.getByTestId(locators.noThanks))
     await waitFor(() => expect(screen.getByTestId(locators.noThanks)).toBeEnabled())
     expect(saveSettings).toHaveBeenCalledWith(mockedRequest, { telemetry: false })
-    expect(saveSettings).toBeCalledTimes(1)
+    expect(saveSettings).toHaveBeenCalledTimes(1)
     expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.wallets)
   })
 })

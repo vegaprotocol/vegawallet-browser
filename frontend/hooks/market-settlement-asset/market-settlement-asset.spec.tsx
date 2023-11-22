@@ -57,6 +57,6 @@ describe('useMarketSettlementAsset', () => {
       },
       {}
     )
-    expect(() => renderHook(() => useMarketSettlementAsset('someMarketId'))).toThrowError()
+    expect(() => renderHook(() => useMarketSettlementAsset('someMarketId'))).toThrow()
   })
 })

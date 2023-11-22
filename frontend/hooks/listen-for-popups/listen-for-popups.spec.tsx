@@ -16,9 +16,9 @@ jest.mock('../../stores/popover-store', () => ({
 describe('ListenForPopups', () => {
   it('returns the wallets page by default', async () => {
     const view = renderHook(() => useListenForPopups())
-    expect(setup).toBeCalled()
-    expect(teardown).not.toBeCalled()
+    expect(setup).toHaveBeenCalled()
+    expect(teardown).not.toHaveBeenCalled()
     view.unmount()
-    expect(teardown).toBeCalled()
+    expect(teardown).toHaveBeenCalled()
   })
 })

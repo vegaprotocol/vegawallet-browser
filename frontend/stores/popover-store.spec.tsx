@@ -60,20 +60,20 @@ describe('useWindowStore', () => {
     const windowStore = createStore()
     windowStore.getState().setup()
     expect(windowStore.getState().popoverOpen).toBe(false)
-    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().popoverId).toBeNull()
   })
   it('uses chrome if browser is not defined', () => {
     mockChrome()
     const windowStore = createStore()
     windowStore.getState().setup()
     expect(windowStore.getState().popoverOpen).toBe(false)
-    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().popoverId).toBeNull()
   })
 
   it('initially sets popupId and popupOpen are falsey', () => {
     mockChrome()
     const windowStore = createStore()
-    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().popoverId).toBeNull()
     expect(windowStore.getState().popoverOpen).toBe(false)
   })
 
@@ -83,9 +83,9 @@ describe('useWindowStore', () => {
     await windowStore.getState().setup()
     const { windows } = globalThis.chrome
     expect(windows.onRemoved.addListener).toHaveBeenCalledWith(windowStore.getState().onRemoved)
-    expect(windows.onRemoved.addListener).toBeCalledTimes(1)
+    expect(windows.onRemoved.addListener).toHaveBeenCalledTimes(1)
     expect(windows.onCreated.addListener).toHaveBeenCalledWith(windowStore.getState().onCreated)
-    expect(windows.onCreated.addListener).toBeCalledTimes(1)
+    expect(windows.onCreated.addListener).toHaveBeenCalledTimes(1)
   })
 
   it('does not setup sets up listeners if windows is undefined', async () => {
@@ -142,11 +142,11 @@ describe('useWindowStore', () => {
     windowStore.getState().teardown()
     const { windows } = globalThis.chrome
     expect(windows.onRemoved.removeListener).toHaveBeenCalledWith(windowStore.getState().onRemoved)
-    expect(windows.onRemoved.removeListener).toBeCalledTimes(1)
+    expect(windows.onRemoved.removeListener).toHaveBeenCalledTimes(1)
     expect(windows.onCreated.removeListener).toHaveBeenCalledWith(windowStore.getState().onCreated)
-    expect(windows.onCreated.removeListener).toBeCalledTimes(1)
+    expect(windows.onCreated.removeListener).toHaveBeenCalledTimes(1)
     expect(windowStore.getState().popoverOpen).toBe(false)
-    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().popoverId).toBeNull()
   })
 
   it('teardown logs message if windows is not defined', () => {
@@ -173,7 +173,7 @@ describe('useWindowStore', () => {
     windowStore.setState({ popoverId: 1, popoverOpen: true })
     await windowStore.getState().onRemoved(1)
     expect(windowStore.getState().popoverOpen).toBe(false)
-    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().popoverId).toBeNull()
   })
 
   it('onRemove sets nothing if id does not match popupId', async () => {
@@ -192,9 +192,9 @@ describe('useWindowStore', () => {
     windowStore.setState({ popoverId: 1, popoverOpen: true })
     windowStore.getState().focusPopover()
     expect(globalThis.chrome.windows.remove).toHaveBeenCalledWith(1)
-    expect(globalThis.chrome.windows.remove).toBeCalledTimes(1)
+    expect(globalThis.chrome.windows.remove).toHaveBeenCalledTimes(1)
     expect(windowStore.getState().popoverOpen).toBe(false)
-    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().popoverId).toBeNull()
   })
 
   it('focusPopover throws error if popupId is null', () => {

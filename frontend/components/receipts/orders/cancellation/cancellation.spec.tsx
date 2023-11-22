@@ -82,6 +82,6 @@ describe('Cancellation', () => {
         lastUpdated: mockLastUpdatedTimestamp,
         order: null
       })
-    ).toThrowError('Order not found')
+    ).toThrow('Order not found')
   })
 })

@@ -77,13 +77,13 @@ describe('getSettlementAssetId', () => {
         }
       }
     }
-    expect(() => getSettlementAssetId(market)).toThrowError('Could not find settlement asset from market market3')
+    expect(() => getSettlementAssetId(market)).toThrow('Could not find settlement asset from market market3')
   })
 
   it('should handle undefined tradableInstrument', () => {
     const market = {
       id: 'market4'
     }
-    expect(() => getSettlementAssetId(market)).toThrowError('Could not find settlement asset from market market4')
+    expect(() => getSettlementAssetId(market)).toThrow('Could not find settlement asset from market market4')
   })
 })

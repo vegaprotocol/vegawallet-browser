@@ -15,7 +15,7 @@ describe('KeyDetails', () => {
     ;(useParams as unknown as jest.Mock).mockReturnValue({
       id: undefined
     })
-    expect(() => render(<KeyDetails />)).toThrowError('Id param not provided')
+    expect(() => render(<KeyDetails />)).toThrow('Id param not provided')
   })
   it('renders the KeyDetailsPage', () => {
     ;(useParams as unknown as jest.Mock).mockReturnValue({

@@ -84,7 +84,7 @@ describe('ImportWallet', () => {
     jest.runAllTimers()
 
     // Needs longer timeout as this shows for 1 full second
-    await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.telemetry), { timeout: 1200 })
+    await waitFor(() => expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.telemetry), { timeout: 1200 })
   })
 
   it('requires mnemonic should be 24 words', async () => {

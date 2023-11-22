@@ -72,6 +72,6 @@ describe('OrderBadges component', () => {
           expiresAt={undefined}
         />
       )
-    ).toThrowError('GTT order without expiresAt')
+    ).toThrow('GTT order without expiresAt')
   })
 })

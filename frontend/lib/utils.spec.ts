@@ -2,9 +2,9 @@ import { formatDate, formatNanoDate, nanoSecondsToMilliseconds } from './utils'
 
 describe('nanoSecondsToMilliseconds', () => {
   it('should convert nanoseconds to milliseconds correctly', () => {
-    expect(nanoSecondsToMilliseconds('1000000000')).toEqual(1000)
-    expect(nanoSecondsToMilliseconds('5000000000')).toEqual(5000)
-    expect(nanoSecondsToMilliseconds('15000000000')).toEqual(15000)
+    expect(nanoSecondsToMilliseconds('1000000000')).toBe(1000)
+    expect(nanoSecondsToMilliseconds('5000000000')).toBe(5000)
+    expect(nanoSecondsToMilliseconds('15000000000')).toBe(15000)
   })
 })
 
@@ -26,7 +26,7 @@ describe('formatNanoDate', () => {
 
 describe('formatDate', () => {
   it('should format milliseconds date to a readable format correctly', () => {
-    expect(formatDate('invalid')).toEqual('Invalid time value: invalid')
-    expect(formatDate(1612432362000)).toEqual('2/4/2021, 9:52:42 AM')
+    expect(formatDate('invalid')).toBe('Invalid time value: invalid')
+    expect(formatDate(1612432362000)).toBe('2/4/2021, 9:52:42 AM')
   })
 })

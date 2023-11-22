@@ -79,7 +79,7 @@ describe('AssetsStore', () => {
     useAssetsStore.setState({ loading: false, error: new Error('1') })
     const promise = useAssetsStore.getState().fetchAssets(request as unknown as any)
     expect(useAssetsStore.getState().loading).toBe(true)
-    expect(useAssetsStore.getState().error).toBe(null)
+    expect(useAssetsStore.getState().error).toBeNull()
     await promise
     expect(useAssetsStore.getState().loading).toBe(false)
   })
@@ -94,7 +94,7 @@ describe('AssetsStore', () => {
 
   it('throws error if the asset is not found', async () => {
     await useAssetsStore.getState().fetchAssets(request as unknown as any)
-    expect(() => useAssetsStore.getState().getAssetById('nope')).toThrowError('Asset with id nope not found')
+    expect(() => useAssetsStore.getState().getAssetById('nope')).toThrow('Asset with id nope not found')
   })
 
   it('sets error if error is thrown in request', async () => {

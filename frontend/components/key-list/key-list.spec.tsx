@@ -57,7 +57,7 @@ describe('KeyList', () => {
     expect(keyNames).toHaveLength(keys.length)
     expect(explorerLink).toHaveLength(keys.length)
 
-    expect(header.textContent).toEqual('Keys')
+    expect(header.textContent).toBe('Keys')
 
     keys.forEach((key, index) => {
       expect(keyNames[index]).toHaveTextContent(key.name)

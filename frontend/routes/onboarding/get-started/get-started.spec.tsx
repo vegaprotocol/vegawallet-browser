@@ -31,7 +31,7 @@ describe('GetStarted', () => {
     const button = screen.getByTestId(locators.getStartedButton)
     expect(button).toHaveFocus()
     fireEvent.click(button)
-    expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.createPassword)
+    expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.createPassword)
   })
   it('Renders disclaimer when showDisclaimer is true', async () => {
     // 1101-ONBD-033 If built for mainnet I can see a legal disclaimer with a button to read more

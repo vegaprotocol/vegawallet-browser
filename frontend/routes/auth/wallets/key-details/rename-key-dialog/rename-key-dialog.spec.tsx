@@ -80,6 +80,6 @@ describe('RenameKeyDialog', () => {
     fireEvent.click(screen.getByTestId(locators.renameKeyTrigger))
     fireEvent.click(screen.getByTestId('rename-key-form'))
 
-    await waitFor(() => expect(mockRequest).toBeCalledWith(RpcMethods.ListWallets, null))
+    await waitFor(() => expect(mockRequest).toHaveBeenCalledWith(RpcMethods.ListWallets, null))
   })
 })

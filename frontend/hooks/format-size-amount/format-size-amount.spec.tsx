@@ -15,7 +15,7 @@ describe('useFormatSizeAmount', () => {
         decimalPlaces: undefined
       })
     })
-    expect(() => renderHook(() => useFormatSizeAmount('foo', '123'))).toThrowError(
+    expect(() => renderHook(() => useFormatSizeAmount('foo', '123'))).toThrow(
       'Could not find market or positionDecimals'
     )
   })
@@ -25,7 +25,7 @@ describe('useFormatSizeAmount', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => undefined
     })
-    expect(() => renderHook(() => useFormatSizeAmount('foo', '123'))).toThrowError(
+    expect(() => renderHook(() => useFormatSizeAmount('foo', '123'))).toThrow(
       'Could not find market or positionDecimals'
     )
   })

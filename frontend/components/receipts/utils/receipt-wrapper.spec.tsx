@@ -76,6 +76,6 @@ describe('ReceiptView', () => {
       </ReceiptWrapper>
     )
     fireEvent.click(screen.getByRole('button'))
-    expect(writeText).toBeCalledWith([error1.stack, error2.stack, error3.stack].join('. \n'))
+    expect(writeText).toHaveBeenCalledWith([error1.stack, error2.stack, error3.stack].join('. \n'))
   })
 })

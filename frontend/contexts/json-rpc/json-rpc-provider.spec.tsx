@@ -146,8 +146,8 @@ describe('JsonRpcProvider', () => {
         <TestComponent expect={expect} />
       </JsonRPCProvider>
     )
-    expect(addConnection).toBeCalledTimes(2)
-    expect(addConnection).toBeCalledWith({
+    expect(addConnection).toHaveBeenCalledTimes(2)
+    expect(addConnection).toHaveBeenCalledWith({
       allowList: {
         publicKeys: [],
         wallets: ['Wallet 1']
@@ -245,8 +245,8 @@ describe('JsonRpcProvider', () => {
         <TestComponent />
       </JsonRPCProvider>
     )
-    await waitFor(() => expect(setError).toBeCalledTimes(1))
-    expect(setError).toBeCalledWith(new Error('Method not found'))
+    await waitFor(() => expect(setError).toHaveBeenCalledTimes(1))
+    expect(setError).toHaveBeenCalledWith(new Error('Method not found'))
   })
   it('throws error message if a request fails when using the request methods and propagate is true', async () => {
     mockClient()
@@ -279,6 +279,6 @@ describe('JsonRpcProvider', () => {
       </JsonRPCProvider>
     )
     await waitFor(() => expect(errorCaught).toBe(true))
-    expect(setError).toBeCalledTimes(0)
+    expect(setError).toHaveBeenCalledTimes(0)
   })
 })

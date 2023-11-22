@@ -57,6 +57,6 @@ describe('ConnectionModal', () => {
     render(<ConnectionModal />)
     fireEvent.click(screen.getByTestId(locators.connectionModalApproveButton))
     fireEvent.click(screen.getByTestId('connection-success'))
-    expect(handleConnectionDecision).toBeCalledWith(true)
+    expect(handleConnectionDecision).toHaveBeenCalledWith(true)
   })
 })

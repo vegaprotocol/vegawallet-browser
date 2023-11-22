@@ -57,7 +57,7 @@ describe('GlobalErrorBoundary', () => {
     )
     expect(screen.getByTestId('error-modal')).toBeInTheDocument()
     fireEvent.click(screen.getByTestId('close'))
-    expect(mockedUsedNavigate).toBeCalled()
+    expect(mockedUsedNavigate).toHaveBeenCalled()
   })
 
   it('renders error modal when there is an async error', () => {
@@ -71,6 +71,6 @@ describe('GlobalErrorBoundary', () => {
     )
     expect(screen.getByTestId('error-modal')).toBeInTheDocument()
     fireEvent.click(screen.getByTestId('close'))
-    expect(mockedUsedNavigate).toBeCalled()
+    expect(mockedUsedNavigate).toHaveBeenCalled()
   })
 })

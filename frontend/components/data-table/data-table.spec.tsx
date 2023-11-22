@@ -11,7 +11,7 @@ describe('DataTable', () => {
     render(<DataTable items={items} />)
 
     const rows = screen.getAllByTestId(locators.dataRow)
-    expect(rows.length).toBe(items.length)
+    expect(rows).toHaveLength(items.length)
   })
 
   test('renders the key-value pairs correctly', () => {

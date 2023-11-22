@@ -64,7 +64,7 @@ describe('KeyDetailsPage', () => {
     mockStore(useMarketsStore, {
       loading: false
     })
-    expect(() => render(<KeyDetailsPage id={ID} />)).toThrowError(`Key with id ${ID} not found`)
+    expect(() => render(<KeyDetailsPage id={ID} />)).toThrow(`Key with id ${ID} not found`)
   })
 
   it('renders nothing while loading assets', () => {

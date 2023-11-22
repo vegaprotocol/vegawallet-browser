@@ -47,7 +47,7 @@ describe('Login', () => {
       target: { value: 'passphrase' }
     })
     fireEvent.click(screen.getByTestId(locators.loginButton))
-    await waitFor(() => expect(mockedUsedNavigate).toBeCalledWith(FULL_ROUTES.home))
+    await waitFor(() => expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.home))
   })
   it('renders loading state on login button', async () => {
     // 1102-LGIN-004 - I can see the button is disabled and a loading state after submitting

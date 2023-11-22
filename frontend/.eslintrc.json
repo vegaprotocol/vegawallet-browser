@@ -26,6 +26,10 @@
       "rules": {
         "jest/consistent-test-it": "warn"
       }
+    },
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "extends": ["plugin:jsx-a11y/strict"]
     }
   ]
 }

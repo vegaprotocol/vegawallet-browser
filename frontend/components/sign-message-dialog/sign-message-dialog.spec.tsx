@@ -17,7 +17,7 @@ describe('SignMessageDialog', () => {
   beforeEach(() => {
     mockClient()
   })
-  test('renders SignMessage component when signedMessage is null', () => {
+  it('renders SignMessage component when signedMessage is null', () => {
     const mockOnClose = jest.fn()
     renderComponent({
       publicKey: 'test-public-key',
@@ -29,7 +29,7 @@ describe('SignMessageDialog', () => {
     expect(screen.queryByTestId(signedMessageLocators.signedMessageHeader)).not.toBeInTheDocument()
   })
 
-  test('renders SignedMessage component when signedMessage is not null', async () => {
+  it('renders SignedMessage component when signedMessage is not null', async () => {
     // 1112-SIGN-001 There is a way to type a message from a key
     // 1112-SIGN-002 There is a way to "sign" the message from the key, creating a copyable encrypted message
     const mockOnClose = jest.fn()
@@ -49,7 +49,7 @@ describe('SignMessageDialog', () => {
     expect(messageText).toBeTruthy()
   })
 
-  test('calls onClose and resets dialog when signMessage is cancelled', () => {
+  it('calls onClose and resets dialog when signMessage is cancelled', () => {
     const mockOnClose = jest.fn()
     renderComponent({
       publicKey: 'test-public-key',

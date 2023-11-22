@@ -3,7 +3,7 @@ import { locators as decimalTooltipLocators } from './decimal-tooltip'
 import { SizeWithTooltip, locators } from './size-with-tooltip'
 
 describe('SizeWithTooltip', () => {
-  test('renders the amount', () => {
+  it('renders the amount', () => {
     const marketId = 'your-market-id'
     const amount = '100'
     render(<SizeWithTooltip marketId={marketId} size={amount} />)
@@ -12,7 +12,7 @@ describe('SizeWithTooltip', () => {
     expect(amountElement).toHaveTextContent(amount)
   })
 
-  test('renders the tooltip asset explorer link and docs links', async () => {
+  it('renders the tooltip asset explorer link and docs links', async () => {
     const marketId = 'your-market-id'
     const amount = '100'
     render(<SizeWithTooltip marketId={marketId} size={amount} />)

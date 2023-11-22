@@ -27,7 +27,7 @@ describe('WalletsPageKeyList', () => {
     mockClient()
   })
 
-  test('renders key list component', () => {
+  it('renders key list component', () => {
     const wallet = {
       name: 'Test Wallet',
       keys: [
@@ -43,7 +43,7 @@ describe('WalletsPageKeyList', () => {
     expect(screen.getByTestId(keyListLocators.viewDetails(wallet.keys[0].name))).toBeInTheDocument()
   })
 
-  test('calls onIconClick when icon button is clicked', () => {
+  it('calls onIconClick when icon button is clicked', () => {
     const wallet = {
       name: 'Test Wallet',
       keys: [
@@ -64,7 +64,7 @@ describe('WalletsPageKeyList', () => {
     expect(onIconClick).toHaveBeenCalledWith('publicKey1')
   })
 
-  test('calls createNewKey when create key button is clicked', async () => {
+  it('calls createNewKey when create key button is clicked', async () => {
     const wallet = {
       name: 'Test Wallet',
       keys: []

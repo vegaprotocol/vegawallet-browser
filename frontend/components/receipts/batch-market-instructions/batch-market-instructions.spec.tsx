@@ -32,7 +32,7 @@ describe('BatchMarketInstructions component', () => {
     }
   }
 
-  test('renders all command sections', () => {
+  it('renders all command sections', () => {
     render(<BatchMarketInstructions transaction={transaction} />)
     // 1114-BMKI-001 If there is at least one present I can see all submission details
     // 1114-BMKI-002 If there is at least one present I can see all amendment details
@@ -56,7 +56,7 @@ describe('BatchMarketInstructions component', () => {
     expect(screen.getByTestId('stop-order-cancellation-view')).toBeInTheDocument()
   })
 
-  test('renders titles for each transaction', () => {
+  it('renders titles for each transaction', () => {
     // 1114-BMKI-007 Renders a transaction title for each transaction type
 
     render(
@@ -81,7 +81,7 @@ describe('BatchMarketInstructions component', () => {
     expect(orderCancellation).toHaveTextContent('2. Order Cancellation')
   })
 
-  test('renders sections with populated transactions', () => {
+  it('renders sections with populated transactions', () => {
     const transaction = {
       batchMarketInstructions: {
         cancellations: [{}],
@@ -105,7 +105,7 @@ describe('BatchMarketInstructions component', () => {
     expect(screen.getByTestId('stop-order-cancellation-view')).toBeInTheDocument()
   })
 
-  test('does not render command section if no items', () => {
+  it('does not render command section if no items', () => {
     const transaction = {
       batchMarketInstructions: {}
     }
@@ -113,7 +113,7 @@ describe('BatchMarketInstructions component', () => {
     expect(screen.queryByTestId(componentLocators.collapsiblePanelTitle)).not.toBeInTheDocument()
   })
 
-  test('renders item for each submission', () => {
+  it('renders item for each submission', () => {
     const transactionWithSubmissions = {
       batchMarketInstructions: {
         cancellations: [],

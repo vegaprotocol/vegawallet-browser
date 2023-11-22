@@ -31,7 +31,7 @@ jest.mock('zxcvbn', () => {
 })
 
 describe('PasswordFeedback component', () => {
-  test('renders password feedback strength correctly', () => {
+  it('renders password feedback strength correctly', () => {
     const password = 'test123'
     render(<PasswordFeedback password={password} />)
 
@@ -43,7 +43,7 @@ describe('PasswordFeedback component', () => {
     expect(feedbackStrengthElements[3]).toHaveClass('bg-vega-dark-150')
   })
 
-  test('renders password error feedback correctly', () => {
+  it('renders password error feedback correctly', () => {
     const password = 'weak'
     render(<PasswordFeedback password={password} />)
 
@@ -54,7 +54,7 @@ describe('PasswordFeedback component', () => {
     expect(errorElement).toHaveTextContent(feedback)
   })
 
-  test('renders no password error feedback when password is strong', () => {
+  it('renders no password error feedback when password is strong', () => {
     const password = 'strong'
     render(<PasswordFeedback password={password} />)
 
@@ -62,7 +62,7 @@ describe('PasswordFeedback component', () => {
     expect(errorElement).toBeNull()
   })
 
-  test('render nothing for an empty password', () => {
+  it('render nothing for an empty password', () => {
     const { container } = render(<PasswordFeedback password={''} />)
 
     expect(container).toBeEmptyDOMElement()

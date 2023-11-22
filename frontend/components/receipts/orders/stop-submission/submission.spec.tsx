@@ -27,7 +27,7 @@ const validateStopOrderDetails = (type: string) => {
 }
 
 describe('StopOrderSubmission', () => {
-  test('renders the component with "Rises above" details', () => {
+  it('renders the component with "Rises above" details', () => {
     // 1121-STPS-001 If a rises above order is present I see the rises above section
     // 1121-STPS-003 In each section I can see the trigger price
     // 1121-STPS-004 In each section I can see the all the details of the order
@@ -50,7 +50,7 @@ describe('StopOrderSubmission', () => {
     validateStopOrderDetails('Rises Above ↗')
   })
 
-  test('renders the component with "Falls below" details', () => {
+  it('renders the component with "Falls below" details', () => {
     // 1121-STPS-002 If a falls below is present I see the falls below section
     // 1121-STPS-003 In each section I can see the trigger price
     // 1121-STPS-004 In each section I can see the all the details of the order
@@ -74,7 +74,7 @@ describe('StopOrderSubmission', () => {
     validateStopOrderDetails('Falls Below ↘')
   })
 
-  test('does not render falls below or rises above if not present', () => {
+  it('does not render falls below or rises above if not present', () => {
     const transaction = {
       stopOrdersSubmission: {}
     }
@@ -82,7 +82,7 @@ describe('StopOrderSubmission', () => {
     expect(screen.queryByTestId(locators.sectionHeader)).not.toBeInTheDocument()
   })
 
-  test('does not render stop order fields if not present', () => {
+  it('does not render stop order fields if not present', () => {
     const transaction = {
       stopOrdersSubmission: {
         risesAbove: {

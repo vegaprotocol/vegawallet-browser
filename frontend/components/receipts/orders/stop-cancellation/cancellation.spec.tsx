@@ -3,7 +3,7 @@ import { StopOrderCancellation } from './cancellation'
 import { locators as tableLocators } from '../../../data-table/data-table'
 
 describe('StopOrderCancellation', () => {
-  test('renders the component with market ID and stop order ID', () => {
+  it('renders the component with market ID and stop order ID', () => {
     // 1120-STPC-001 If present I can see the if of the market the order is being cancelled for
     // 1120-STPC-002 If present I can see the id of the stop order being cancelled
     const transaction = {
@@ -21,7 +21,7 @@ describe('StopOrderCancellation', () => {
     expect(order).toHaveTextContent('222222…2222')
   })
 
-  test('renders the component without market ID', () => {
+  it('renders the component without market ID', () => {
     const transaction = {
       stopOrdersCancellation: {
         marketId: null,
@@ -38,7 +38,7 @@ describe('StopOrderCancellation', () => {
     expect(order).toHaveTextContent('222222…2222')
   })
 
-  test('renders the component without stop order ID', () => {
+  it('renders the component without stop order ID', () => {
     const transaction = {
       stopOrdersCancellation: {
         marketId: '1'.repeat(64),

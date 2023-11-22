@@ -24,16 +24,18 @@ export const PasswordFeedback = ({ password }: { password: string }) => {
   return (
     <>
       <div data-testid={locators.passwordFeedback} className="grid grid-cols-4 gap-1 mt-1">
-        {Array.from({length: 4}).fill(0).map((_, index) => (
-          <div
-            data-testid={locators.feedbackStrength}
-            key={`password-feedback-bar-${index}`}
-            className={classNames('h-1 rounded-md', {
-              'bg-vega-dark-150': passwordStrength.score < index + 1,
-              [COLORS[index]]: passwordStrength.score >= index + 1
-            })}
-          ></div>
-        ))}
+        {Array.from({ length: 4 })
+          .fill(0)
+          .map((_, index) => (
+            <div
+              data-testid={locators.feedbackStrength}
+              key={`password-feedback-bar-${index}`}
+              className={classNames('h-1 rounded-md', {
+                'bg-vega-dark-150': passwordStrength.score < index + 1,
+                [COLORS[index]]: passwordStrength.score >= index + 1
+              })}
+            ></div>
+          ))}
       </div>
       {combinedFeedback.length > 0 ? (
         <InputError data-testid={locators.error} forInput="password">

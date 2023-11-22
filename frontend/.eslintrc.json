@@ -1,0 +1,19 @@
+{
+  "extends": ["react-app", "react-app/jest"],
+  "plugins": ["jest"],
+  "rules": {
+    "jest/prefer-to-be": "error",
+    "import/no-webpack-loader-syntax": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "@vegaprotocol/types",
+            "message": "Please use @vegaprotocol/rest-clients instead"
+          }
+        ]
+      }
+    ]
+  }
+}

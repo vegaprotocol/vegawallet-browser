@@ -1,8 +1,6 @@
 {
   "extends": ["react-app", "react-app/jest"],
-  "plugins": ["jest"],
   "rules": {
-    "jest/prefer-to-be": "error",
     "import/no-webpack-loader-syntax": "off",
     "no-restricted-imports": [
       "warn",
@@ -19,5 +17,12 @@
         ]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "extends": ["plugin:jest/style"],
+      "files": ["**/*.spec.ts", "**/*.spec.tsx"],
+      "plugins": ["jest"]
+    }
+  ]
 }

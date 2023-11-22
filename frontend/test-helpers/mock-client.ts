@@ -53,163 +53,164 @@ export const mockClient = (
       connect: () => ({
         postMessage: (message: any) => {
           switch (message.method) {
-          case RpcMethods.ListWallets: {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: { wallets },
-              id: message.id
-            })
-          
-          break;
-          }
-          case RpcMethods.ListKeys: {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: {
-                keys: [
-                  {
-                    publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-                    name: 'Key 1'
-                  }
-                ]
-              },
-              id: message.id
-            })
-          
-          break;
-          }
-          case RpcMethods.GenerateRecoveryPhrase: {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: { recoveryPhrase: 'Word '.repeat(24) },
-              id: message.id
-            })
-          
-          break;
-          }
-          case RpcMethods.GenerateKey: {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: {
-                publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
-                name: 'Key 2',
-                index: 0,
-                metadata: [
-                  {
-                    key: 'name',
-                    value: 'key 2'
-                  }
-                ]
-              },
-              id: message.id
-            })
-          
-          break;
-          }
-          case RpcMethods.AppGlobals: {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: {
+            case RpcMethods.ListWallets: {
+              pushMessage({
+                jsonrpc: '2.0',
+                result: { wallets },
+                id: message.id
+              })
+
+              break
+            }
+            case RpcMethods.ListKeys: {
+              pushMessage({
+                jsonrpc: '2.0',
+                result: {
+                  keys: [
+                    {
+                      publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+                      name: 'Key 1'
+                    }
+                  ]
+                },
+                id: message.id
+              })
+
+              break
+            }
+            case RpcMethods.GenerateRecoveryPhrase: {
+              pushMessage({
+                jsonrpc: '2.0',
+                result: { recoveryPhrase: 'Word '.repeat(24) },
+                id: message.id
+              })
+
+              break
+            }
+            case RpcMethods.GenerateKey: {
+              pushMessage({
+                jsonrpc: '2.0',
+                result: {
+                  publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
+                  name: 'Key 2',
+                  index: 0,
+                  metadata: [
+                    {
+                      key: 'name',
+                      value: 'key 2'
+                    }
+                  ]
+                },
+                id: message.id
+              })
+
+              break
+            }
+            case RpcMethods.AppGlobals: {
+              pushMessage({
+                jsonrpc: '2.0',
+                result: {
+                  ...defaultGlobals,
+                  ...globals
+                },
+                id: message.id
+              })
+
+              break
+            }
+            case RpcMethods.Unlock: {
+              if (message.params.passphrase === 'passphrase') {
+                pushMessage({
+                  jsonrpc: '2.0',
+                  result: null,
+                  id: message.id
+                })
+              } else {
+                pushMessage({
+                  jsonrpc: '2.0',
+                  error: { code: 1, message: 'Invalid passphrase or corrupted storage' },
+                  id: message.id
+                })
+              }
+
+              break
+            }
+            case RpcMethods.ListConnections: {
+              pushMessage({
+                jsonrpc: '2.0',
+                id: message.id,
+                result: {
+                  connections: [
+                    {
+                      allowList: {
+                        publicKeys: [],
+                        wallets: ['Wallet 1']
+                      },
+                      accessedAt: 1,
+                      origin: 'https://vega.xyz'
+                    },
+                    {
+                      allowList: {
+                        publicKeys: [],
+                        wallets: ['Wallet 1']
+                      },
+                      accessedAt: 2,
+                      origin: 'foo.com'
+                    }
+                  ]
+                }
+              })
+
+              break
+            }
+            case RpcMethods.UpdateSettings: {
+              // TODO this is a hack. We are getting to the point where a dumb mock client is not good enough
+              // need to investigate a better mocking solution]
+              globals = {
                 ...defaultGlobals,
-                ...globals
-              },
-              id: message.id
-            })
-          
-          break;
-          }
-          case RpcMethods.Unlock: {
-            if (message.params.passphrase === 'passphrase') {
+                ...globals,
+                settings: message.params
+              }
               pushMessage({
                 jsonrpc: '2.0',
                 result: null,
                 id: message.id
               })
-            } else {
+
+              break
+            }
+            case RpcMethods.SignMessage: {
               pushMessage({
                 jsonrpc: '2.0',
-                error: { code: 1, message: 'Invalid passphrase or corrupted storage' },
+                result: { signature: 'signature' },
                 id: message.id
               })
+
+              break
             }
-          
-          break;
-          }
-          case RpcMethods.ListConnections: {
-            pushMessage({
-              jsonrpc: '2.0',
-              id: message.id,
-              result: {
-                connections: [
-                  {
-                    allowList: {
-                      publicKeys: [],
-                      wallets: ['Wallet 1']
-                    },
-                    accessedAt: 1,
-                    origin: 'https://vega.xyz'
-                  },
-                  {
-                    allowList: {
-                      publicKeys: [],
-                      wallets: ['Wallet 1']
-                    },
-                    accessedAt: 2,
-                    origin: 'foo.com'
-                  }
-                ]
+            default: {
+              if (
+                [
+                  RpcMethods.ImportWallet,
+                  RpcMethods.Lock,
+                  RpcMethods.RemoveConnection,
+                  RpcMethods.OpenPopout,
+                  RpcMethods.CreatePassphrase
+                ].includes(message.method)
+              ) {
+                pushMessage({
+                  jsonrpc: '2.0',
+                  result: null,
+                  id: message.id
+                })
+              } else {
+                pushMessage({
+                  jsonrpc: '2.0',
+                  error: { code: -32_601, message: 'Method not found' },
+                  id: message.id
+                })
               }
-            })
-          
-          break;
-          }
-          case RpcMethods.UpdateSettings: {
-            // TODO this is a hack. We are getting to the point where a dumb mock client is not good enough
-            // need to investigate a better mocking solution]
-            globals = {
-              ...defaultGlobals,
-              ...globals,
-              settings: message.params
             }
-            pushMessage({
-              jsonrpc: '2.0',
-              result: null,
-              id: message.id
-            })
-          
-          break;
-          }
-          case RpcMethods.SignMessage: {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: { signature: 'signature' },
-              id: message.id
-            })
-          
-          break;
-          }
-          default: { if (
-            [
-              RpcMethods.ImportWallet,
-              RpcMethods.Lock,
-              RpcMethods.RemoveConnection,
-              RpcMethods.OpenPopout,
-              RpcMethods.CreatePassphrase
-            ].includes(message.method)
-          ) {
-            pushMessage({
-              jsonrpc: '2.0',
-              result: null,
-              id: message.id
-            })
-          } else {
-            pushMessage({
-              jsonrpc: '2.0',
-              error: { code: -32_601, message: 'Method not found' },
-              id: message.id
-            })
-          }
-          }
           }
         },
         onmessage: (...arguments_: any[]) => {

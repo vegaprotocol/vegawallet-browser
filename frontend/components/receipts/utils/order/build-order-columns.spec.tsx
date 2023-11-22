@@ -63,9 +63,7 @@ describe('buildPeggedOrderColumn', () => {
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildPeggedOrderColumn(
-      { offset: '12', reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID }
-    )
+    const result = buildPeggedOrderColumn({ offset: '12', reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID })
     expect(result).toBeNull()
   })
 })

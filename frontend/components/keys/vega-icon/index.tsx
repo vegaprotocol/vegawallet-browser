@@ -13,33 +13,37 @@ function getBitsFromByte(byte: number) {
 }
 
 const getColorList = (publicKey: string) => {
-  return Array.from({length: 4}).fill(null).flatMap((_, index) => {
-    let color1 = '#' + publicKey.slice(index * 16, index * 16 + 6)
-    let color2 = '#' + publicKey.slice(index * 16 + 6, index * 16 + 12)
-    let pattern = publicKey.slice(index * 16 + 12, index * 16 + 14) // each bit represents a pixel in the 3x3 grid except the center pixel
-    let centerColor = publicKey.slice(index * 16 + 14, index * 16 + 16)
+  return Array.from({ length: 4 })
+    .fill(null)
+    .flatMap((_, index) => {
+      let color1 = '#' + publicKey.slice(index * 16, index * 16 + 6)
+      let color2 = '#' + publicKey.slice(index * 16 + 6, index * 16 + 12)
+      let pattern = publicKey.slice(index * 16 + 12, index * 16 + 14) // each bit represents a pixel in the 3x3 grid except the center pixel
+      let centerColor = publicKey.slice(index * 16 + 14, index * 16 + 16)
 
-    const bits = getBitsFromByte(Number.parseInt(pattern, 16))
+      const bits = getBitsFromByte(Number.parseInt(pattern, 16))
 
-    // Iterate through each pixel in the 3x3 grid
-    let bitIndex = 0
-    return Array.from({length: 9}).fill(null).map((_, gridPos) => {
-      if (gridPos === 4) {
-        // center pixel, it's color is determined by the first bit of the centerColor byte
-        let color = color1
-        if (Number.parseInt(centerColor, 16) & 0x80) {
-          color = color2
-        }
-        return color
-      } else if (bits[bitIndex]) {
-        bitIndex++
-        return color2
-      } else {
-        bitIndex++
-        return color1
-      }
+      // Iterate through each pixel in the 3x3 grid
+      let bitIndex = 0
+      return Array.from({ length: 9 })
+        .fill(null)
+        .map((_, gridPos) => {
+          if (gridPos === 4) {
+            // center pixel, it's color is determined by the first bit of the centerColor byte
+            let color = color1
+            if (Number.parseInt(centerColor, 16) & 0x80) {
+              color = color2
+            }
+            return color
+          } else if (bits[bitIndex]) {
+            bitIndex++
+            return color2
+          } else {
+            bitIndex++
+            return color1
+          }
+        })
     })
-  })
 }
 
 export const KeyIcon = ({ publicKey }: { publicKey: string }) => {

@@ -11,7 +11,12 @@ export interface HiddenContainerProperties {
   wrapContent?: boolean
 }
 
-export const HiddenContainer = ({ hiddenInformation, onChange, text, wrapContent = false }: HiddenContainerProperties) => {
+export const HiddenContainer = ({
+  hiddenInformation,
+  onChange,
+  text,
+  wrapContent = false
+}: HiddenContainerProperties) => {
   const [showInformation, setShowInformation] = useState(false)
   return showInformation ? (
     <div data-testid={locators.mnemonicContainerShown}>

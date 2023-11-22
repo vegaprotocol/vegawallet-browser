@@ -33,7 +33,7 @@ async function initChromeDriver(useOldExtension = false) {
     .addArguments('--no-sandbox')
     .addArguments('--disable-dev-shm-usage')
     .addArguments('--disable-gpu')
-
+    .addArguments('--window-size=500,850')
   if (useOldExtension) {
     chromeOptions.addArguments(`--load-extension=${oldExtensionDirectory}`)
   } else {
@@ -62,7 +62,7 @@ export async function initFirefoxDriver(useProfile = false, installExtension = t
     firefoxOptions = firefoxOptions.headless()
   }
 
-  firefoxOptions.addArguments('--width=360', '--height=600')
+  firefoxOptions.addArguments('--width=500', '--height=850')
 
   if (useProfile) {
     createDirectoryIfNotExists(firefoxTestProfileDirectory)

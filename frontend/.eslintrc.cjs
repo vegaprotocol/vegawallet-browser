@@ -29,7 +29,8 @@ module.exports = {
       files: ['**/*.spec.ts', '**/*.spec.tsx'],
       plugins: ['jest'],
       rules: {
-        'jest/consistent-test-it': 'warn'
+        'jest/consistent-test-it': 'warn',
+        'unicorn/no-useless-undefined': 'off'
       }
     },
     // JSX files

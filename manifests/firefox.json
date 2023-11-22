@@ -3,10 +3,10 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "__GECKO_ID__",
-      "strict_min_version": "115.0",
-      "gecko_android": {
-        "strict_min_version": "115.0"
-      }
+      "strict_min_version": "115.0"
+    },
+    "gecko_android": {
+      "strict_min_version": "115.0"
     }
   },
   "browser_action": {

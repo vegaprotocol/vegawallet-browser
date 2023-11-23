@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import App, { locators } from './app-a'
+import App, { locators } from './app'
 import { ReactNode } from 'react'
 import { usePreventWindowResize } from './hooks/prevent-window-resize'
 import { usePing } from './hooks/ping'

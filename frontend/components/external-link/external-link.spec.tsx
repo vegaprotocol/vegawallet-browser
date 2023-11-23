@@ -9,14 +9,14 @@ describe('ExternalLink component', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
-  test('renders ExternalLink component correctly', () => {
+  it('renders ExternalLink component correctly', () => {
     render(<ExternalLink href="https://example.com">Example Link</ExternalLink>)
 
     expect(screen.getByTestId('external-link')).toHaveTextContent('Example Link')
     expect(screen.getByTestId('external-link')).toHaveAttribute('href', 'https://example.com')
   })
 
-  test('opens link in new tab when clicked', () => {
+  it('opens link in new tab when clicked', () => {
     mockStore(useGlobalsStore, { isMobile: true })
     // @ts-ignore
     window.chrome = { tabs: { create: jest.fn() } }
@@ -29,14 +29,14 @@ describe('ExternalLink component', () => {
     expect(window.chrome.tabs.create).toHaveBeenCalledWith({ url: 'https://example.com' })
   })
 
-  test('renders MobileLink component when isMobile is true', () => {
+  it('renders MobileLink component when isMobile is true', () => {
     mockStore(useGlobalsStore, { isMobile: true })
 
     render(<ExternalLink href="https://example.com">Example Link</ExternalLink>)
     expect(screen.getByTestId('link')).toBeInTheDocument()
   })
 
-  test('renders MobileLink component with sub components isMobile is true', () => {
+  it('renders MobileLink component with sub components isMobile is true', () => {
     mockStore(useGlobalsStore, { isMobile: true })
 
     render(
@@ -47,7 +47,7 @@ describe('ExternalLink component', () => {
     expect(screen.getByTestId('child')).toBeInTheDocument()
   })
 
-  test('renders ExLink component when isMobile is false', () => {
+  it('renders ExLink component when isMobile is false', () => {
     mockStore(useGlobalsStore, { isMobile: false })
 
     render(<ExternalLink href="https://example.com">Example Link</ExternalLink>)

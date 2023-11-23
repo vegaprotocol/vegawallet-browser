@@ -12,8 +12,8 @@ const useOrientation = () => {
   const [orientation, setOrientation] = useState(
     window.matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape'
   )
-  const updateOrientation = (e: MediaQueryListEvent) => {
-    const portrait = e.matches
+  const updateOrientation = (event: MediaQueryListEvent) => {
+    const portrait = event.matches
 
     if (portrait) {
       setOrientation('portrait')

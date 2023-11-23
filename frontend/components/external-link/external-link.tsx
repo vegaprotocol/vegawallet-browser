@@ -4,11 +4,11 @@ import { AnchorHTMLAttributes, ReactNode } from 'react'
 import { useGlobalsStore } from '../../stores/globals'
 import { getExtensionApi } from '../../lib/extension-apis'
 
-type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+type LinkProperties = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children?: ReactNode
 }
 
-const MobileLink = ({ children, className, href, ...props }: LinkProps) => {
+const MobileLink = ({ children, className, href, ...properties }: LinkProperties) => {
   const openInNewTab = () => {
     const api = getExtensionApi()
     api.tabs.create({ url: href })
@@ -17,7 +17,7 @@ const MobileLink = ({ children, className, href, ...props }: LinkProps) => {
     <Link
       onClick={openInNewTab}
       className={classNames('inline-flex items-center gap-1 underline-offset-4', className)}
-      {...props}
+      {...properties}
     >
       {typeof children === 'string' ? (
         <>
@@ -31,14 +31,14 @@ const MobileLink = ({ children, className, href, ...props }: LinkProps) => {
   )
 }
 
-export const ExternalLink = ({ children, className, ...props }: LinkProps) => {
+export const ExternalLink = ({ children, className, ...properties }: LinkProperties) => {
   const isMobile = useGlobalsStore((state) => state.isMobile)
   return isMobile ? (
-    <MobileLink className={className} {...props}>
+    <MobileLink className={className} {...properties}>
       {children}
     </MobileLink>
   ) : (
-    <ExLink className={className} {...props}>
+    <ExLink className={className} {...properties}>
       {children}
     </ExLink>
   )

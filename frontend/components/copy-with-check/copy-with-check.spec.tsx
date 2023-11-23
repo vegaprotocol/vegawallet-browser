@@ -2,7 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { CopyWithCheckmark } from './copy-with-check'
 import locators from '../locators'
 
-jest.mock('react-copy-to-clipboard', () => ({ children, onCopy }: any) => <button onClick={onCopy}>{children}</button>)
+// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+jest.mock('react-copy-to-clipboard', () => ({ children, onCopy }: any) => <div onClick={onCopy}>{children}</div>)
 
 describe('CopyWithCheckmark', () => {
   const text = 'Some code to copy'

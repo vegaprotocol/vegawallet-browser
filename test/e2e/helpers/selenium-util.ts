@@ -2,7 +2,7 @@ import { stat } from 'fs'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 import { captureScreenshot } from './driver'
 
-const defaultTimeoutMillis = 10000
+const defaultTimeoutMillis = 15000
 
 export async function clickElement(driver: WebDriver, locator: By, timeout: number = defaultTimeoutMillis) {
   const element = await waitForElementToBeReady(driver, locator, timeout)

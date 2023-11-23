@@ -2,7 +2,7 @@ import { render, screen, waitFor, act } from '@testing-library/react'
 import { OrientationSplash, locators } from '.'
 
 describe('OrientationSplash', () => {
-  test('renders null when in portrait mode', () => {
+  it('renders null when in portrait mode', () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation((query) => ({
@@ -18,7 +18,7 @@ describe('OrientationSplash', () => {
     expect(screen.queryByTestId(locators.orientationSplash)).toBeNull()
   })
 
-  test('renders splash when in landscape mode', () => {
+  it('renders splash when in landscape mode', () => {
     // 1132-ANDR-001 - If I rotate the device, I see a warning telling me to rotate it back to portrait mode
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
@@ -35,16 +35,16 @@ describe('OrientationSplash', () => {
     expect(screen.getByTestId(locators.orientationSplash)).toBeInTheDocument()
   })
 
-  test('sets mode to portrait on event handler being called', async () => {
-    let handler: null | ((e: MediaQueryListEvent) => void) = null
+  it('sets mode to portrait on event handler being called', async () => {
+    let handler: null | ((event: MediaQueryListEvent) => void) = null
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation((query) => ({
         matches: true,
         media: query,
         onchange: null,
-        addEventListener: jest.fn((evName: string, fn: (e: MediaQueryListEvent) => void) => {
-          handler = fn
+        addEventListener: jest.fn((eventName: string, function_: (event: MediaQueryListEvent) => void) => {
+          handler = function_
         }),
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn()
@@ -57,16 +57,16 @@ describe('OrientationSplash', () => {
     expect(screen.getByTestId(locators.orientationSplash)).toBeInTheDocument()
   })
 
-  test('sets mode to landscape on event handler being called', async () => {
-    let handler: null | ((e: MediaQueryListEvent) => void) = null
+  it('sets mode to landscape on event handler being called', async () => {
+    let handler: null | ((event: MediaQueryListEvent) => void) = null
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation((query) => ({
         matches: false,
         media: query,
         onchange: null,
-        addEventListener: jest.fn((evName: string, fn: (e: MediaQueryListEvent) => void) => {
-          handler = fn
+        addEventListener: jest.fn((eventName: string, function_: (event: MediaQueryListEvent) => void) => {
+          handler = function_
         }),
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn()

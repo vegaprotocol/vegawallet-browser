@@ -95,9 +95,9 @@ describe('useWindowStore', () => {
     const windowStore = createStore()
     await windowStore.getState().setup()
     expect(windowStore.getState().popoverOpen).toBe(false)
-    expect(windowStore.getState().popoverId).toBe(null)
+    expect(windowStore.getState().popoverId).toBeNull()
     expect(windowStore.getState().isPopoverInstance).toBe(false)
-    expect(console.log).toBeCalledWith('Setup nothing for popover store as windows could not be found')
+    expect(console.log).toHaveBeenCalledWith('Setup nothing for popover store as windows could not be found')
   })
 
   it('setup throws error if there a multiple popups', async () => {
@@ -155,7 +155,7 @@ describe('useWindowStore', () => {
     globalThis.chrome = {}
     const windowStore = createStore()
     windowStore.getState().teardown()
-    expect(console.log).toBeCalledWith('Tore down nothing from popover store as windows could not be found')
+    expect(console.log).toHaveBeenCalledWith('Tore down nothing from popover store as windows could not be found')
   })
 
   it('onCreate sets popupOpen to true and popupId to windowId', () => {

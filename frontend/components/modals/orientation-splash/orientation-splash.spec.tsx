@@ -19,6 +19,7 @@ describe('OrientationSplash', () => {
   })
 
   test('renders splash when in landscape mode', () => {
+    // 1132-ANDR-001 - If I rotate the device, I see a warning telling me to rotate it back to portrait mode
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation((query) => ({

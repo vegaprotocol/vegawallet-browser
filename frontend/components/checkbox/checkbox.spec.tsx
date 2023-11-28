@@ -1,4 +1,4 @@
-import { fireEvent,render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { useForm } from 'react-hook-form'
 
 import { Checkbox, CheckboxProperties } from '.'

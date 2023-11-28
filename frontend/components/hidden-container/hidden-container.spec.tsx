@@ -1,4 +1,4 @@
-import { fireEvent,render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 
 import locators from '../locators'
 import { HiddenContainer, HiddenContainerProperties } from './hidden-container'

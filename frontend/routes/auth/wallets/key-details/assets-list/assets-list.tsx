@@ -4,6 +4,7 @@ import { AsyncRenderer } from '@/components/async-renderer'
 import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
 import { useAssetsStore } from '@/stores/assets-store'
+
 import { useAccountsStore } from './accounts-store'
 import { AssetCard } from './asset-card'
 import { AssetListEmptyState } from './asset-list-empty-state'

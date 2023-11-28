@@ -4,6 +4,7 @@ import { BasePage } from '@/components/pages/page'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 import { useWalletStore } from '@/stores/wallets'
+
 import { FULL_ROUTES } from '../../../route-names'
 import { AssetsList } from './assets-list'
 import { ExportPrivateKeysDialog } from './export-private-key-dialog'

@@ -2,6 +2,7 @@ import { renderHook } from '@testing-library/react'
 import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { useAccountsStore } from './accounts-store'
 import { useAccounts } from './use-accounts'
 const MOCK_KEY = '1'.repeat(64)

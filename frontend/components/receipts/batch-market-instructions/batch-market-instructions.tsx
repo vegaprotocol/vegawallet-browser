@@ -3,6 +3,7 @@ import objectHash from 'object-hash'
 import { Fragment } from 'react'
 
 import { BatchTransactionCommands, TransactionKeys } from '@/lib/transactions'
+
 import { CollapsiblePanel } from '../../collapsible-panel'
 import { getBatchTitle } from '../../modals/transaction-modal/get-title'
 import { AmendmentView } from '../orders/amend'

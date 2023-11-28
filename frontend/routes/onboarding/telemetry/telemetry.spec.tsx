@@ -2,8 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import config from '!/config'
-
 import { mockClient } from '@/test-helpers/mock-client'
+
 import { FULL_ROUTES } from '../../route-names'
 import { locators, Telemetry } from '.'
 

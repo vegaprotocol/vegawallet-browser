@@ -4,6 +4,7 @@ import { useForm, useWatch } from 'react-hook-form'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { Validation } from '@/lib/form-validation'
+
 import { FormFields } from './rename-key-dialog'
 
 export const locators = {

@@ -1,4 +1,5 @@
 import { RpcMethods } from '@/lib/client-rpc-methods'
+
 import { useAssetsStore } from './assets-store'
 
 const assetsMock = {

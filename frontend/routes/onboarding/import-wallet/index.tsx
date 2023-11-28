@@ -8,6 +8,7 @@ import { OnboardingPage } from '@/components/pages/onboarding-page'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { createWallet } from '@/lib/create-wallet'
 import { Validation } from '@/lib/form-validation'
+
 import { FULL_ROUTES } from '../../route-names'
 import { WalletImported } from './wallet-imported'
 

@@ -1,8 +1,9 @@
 import { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { FULL_ROUTES } from '../../routes/route-names'
 import { Key } from '@/stores/wallets'
+
+import { FULL_ROUTES } from '../../routes/route-names'
 import { VegaKey } from '../keys/vega-key'
 import { List } from '../list'
 import { SubHeader } from '../sub-header'

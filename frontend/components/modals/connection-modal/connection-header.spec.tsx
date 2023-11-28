@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
 import { locators as headerLocators } from '@/components/header'
+
 import locators from '../../locators'
 import { ConnectionHeader } from './connection-header'
 

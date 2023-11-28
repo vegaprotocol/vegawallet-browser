@@ -12,6 +12,7 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
 import { useWalletStore } from '@/stores/wallets'
 import { mockClient } from '@/test-helpers/mock-client'
+
 import { Wallets } from '.'
 import { locators as depositAssetsCalloutLocators } from './deposit-assets-callout'
 import { locators as walletPageKeyListLocators } from './wallets-page-key-list'

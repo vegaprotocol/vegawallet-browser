@@ -6,6 +6,7 @@ import { OnboardingPage } from '@/components/pages/onboarding-page'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { clearMnemonic, useSuggestMnemonic } from '@/hooks/suggest-mnemonic'
 import { createWallet } from '@/lib/create-wallet'
+
 import { FULL_ROUTES } from '../../route-names'
 import { SaveMnemonicForm } from './save-mnemonic-form'
 import { WalletCreated } from './wallet-created'

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { RpcMethods } from '@/lib/client-rpc-methods'
+
 import { locators, RenameKeyDialog } from './rename-key-dialog'
 import { RenameKeyFormProperties } from './rename-key-form'
 

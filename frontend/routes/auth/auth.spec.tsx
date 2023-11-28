@@ -6,6 +6,7 @@ import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 import { useWalletStore } from '@/stores/wallets'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { FULL_ROUTES } from '../route-names'
 import { Auth } from '.'
 

@@ -1,9 +1,10 @@
 import { renderHook, waitFor } from '@testing-library/react'
 
-import { FULL_ROUTES } from '../../routes/route-names'
 import { AppGlobals, useGlobalsStore } from '@/stores/globals'
 import { mockStorage } from '@/test-helpers/mock-storage'
 import { mockStore } from '@/test-helpers/mock-store'
+
+import { FULL_ROUTES } from '../../routes/route-names'
 import { SUGGESTED_MNEMONIC_KEY } from '../suggest-mnemonic'
 import { useGetRedirectPath } from '.'
 

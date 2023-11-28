@@ -8,6 +8,7 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { Validation } from '@/lib/form-validation'
 import { REJECTION_ERROR_MESSAGE } from '@/lib/utils'
+
 import { FormFields } from './export-private-key-dialog'
 
 export const locators = {

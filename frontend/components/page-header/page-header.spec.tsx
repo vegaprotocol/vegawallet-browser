@@ -4,6 +4,7 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import config from '@/lib/config'
 import { usePopoverStore } from '@/stores/popover-store'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import componentLocators from '../locators'
 import { locators, PageHeader } from '.'
 

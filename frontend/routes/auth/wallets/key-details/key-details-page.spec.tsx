@@ -7,6 +7,7 @@ import { useMarketsStore } from '@/stores/markets-store'
 import { useWalletStore } from '@/stores/wallets'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
+
 import { FULL_ROUTES } from '../../../route-names'
 import { KeyDetailsPage } from './key-details-page'
 

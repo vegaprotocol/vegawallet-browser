@@ -4,6 +4,7 @@ import { MAX_POSITION_SIZE } from '@/lib/transactions'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
+
 import { useFormatSizeAmount } from './format-size-amount'
 
 jest.mock('@/stores/markets-store')

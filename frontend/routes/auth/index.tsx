@@ -9,6 +9,7 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 import { useWalletStore } from '@/stores/wallets'
+
 import { FULL_ROUTES } from '../route-names'
 
 export const Auth = () => {

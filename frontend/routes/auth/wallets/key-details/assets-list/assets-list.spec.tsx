@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import { locators as subHeaderLocators } from '@/components/sub-header'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { useAccountsStore } from './accounts-store'
 import { AssetsList, locators } from './assets-list'
 import { useAccounts } from './use-accounts'

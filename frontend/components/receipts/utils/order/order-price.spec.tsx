@@ -4,6 +4,7 @@ import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { AssetsStore, useAssetsStore } from '@/stores/assets-store'
 import { MarketsStore, useMarketsStore } from '@/stores/markets-store'
 import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
+
 import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
 import { locators as orderPriceLocators, OrderPrice } from './order-price'

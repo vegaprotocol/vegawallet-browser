@@ -2,12 +2,12 @@ import { Button } from '@vegaprotocol/ui-toolkit'
 import { useNavigate } from 'react-router-dom'
 
 import config from '!/config'
-
 import { ExternalLink } from '@/components/external-link'
 import { Frame } from '@/components/frame'
 import { Tick } from '@/components/icons/tick'
 import { StarsWrapper } from '@/components/stars-wrapper'
 import { VegaHeader } from '@/components/vega-header'
+
 import { FULL_ROUTES } from '../../route-names'
 import { Disclaimer } from './disclaimer'
 import { Incentives } from './incentives'

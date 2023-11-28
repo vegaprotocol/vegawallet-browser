@@ -6,6 +6,7 @@ import { Transaction } from '@/lib/transactions'
 import { formatDate, nanoSecondsToMilliseconds } from '@/lib/utils'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useWalletStore } from '@/stores/wallets'
+
 import { VegaKey } from '../../keys/vega-key'
 import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'

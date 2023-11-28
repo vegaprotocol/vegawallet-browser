@@ -4,6 +4,7 @@ import { useMarketsStore } from '@/stores/markets-store'
 import { OrdersStore, useOrdersStore } from '@/stores/orders-store'
 import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
+
 import { locators as dataTableLocators } from '../../../data-table/data-table'
 import { Cancellation } from './cancellation'
 import { locators } from './cancellation-view'

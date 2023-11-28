@@ -6,6 +6,7 @@ import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trad
 import { useAssetsStore } from '@/stores/assets-store'
 import { Key, useWalletStore } from '@/stores/wallets'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { locators, Transfer } from './transfer'
 
 jest.mock('./basic-transfer-view', () => ({

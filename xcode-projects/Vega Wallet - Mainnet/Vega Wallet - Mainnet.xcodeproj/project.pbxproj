@@ -1,0 +1,1072 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DF9C0CCA2B163449008C0B25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9C0CC92B163449008C0B25 /* AppDelegate.swift */; };
+		DF9C0CCC2B163449008C0B25 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9C0CCB2B163449008C0B25 /* SceneDelegate.swift */; };
+		DF9C0CCF2B163449008C0B25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CCD2B163449008C0B25 /* LaunchScreen.storyboard */; };
+		DF9C0CD22B163449008C0B25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CD02B163449008C0B25 /* Main.storyboard */; };
+		DF9C0CDB2B163449008C0B25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9C0CDA2B163449008C0B25 /* AppDelegate.swift */; };
+		DF9C0CDE2B163449008C0B25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CDC2B163449008C0B25 /* Main.storyboard */; };
+		DF9C0CE62B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF9C0CE52B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF9C0CF02B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF9C0CEF2B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF9C0CF62B163449008C0B25 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CB92B163448008C0B25 /* Main.html */; };
+		DF9C0CF72B163449008C0B25 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CB92B163448008C0B25 /* Main.html */; };
+		DF9C0CF82B163449008C0B25 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CBB2B163448008C0B25 /* Icon.png */; };
+		DF9C0CF92B163449008C0B25 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CBB2B163448008C0B25 /* Icon.png */; };
+		DF9C0CFA2B163449008C0B25 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CBC2B163448008C0B25 /* Style.css */; };
+		DF9C0CFB2B163449008C0B25 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CBC2B163448008C0B25 /* Style.css */; };
+		DF9C0CFC2B163449008C0B25 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CBD2B163448008C0B25 /* Script.js */; };
+		DF9C0CFD2B163449008C0B25 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CBD2B163448008C0B25 /* Script.js */; };
+		DF9C0CFE2B163449008C0B25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9C0CBE2B163448008C0B25 /* ViewController.swift */; };
+		DF9C0CFF2B163449008C0B25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9C0CBE2B163448008C0B25 /* ViewController.swift */; };
+		DF9C0D002B163449008C0B25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CBF2B163449008C0B25 /* Assets.xcassets */; };
+		DF9C0D012B163449008C0B25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0CBF2B163449008C0B25 /* Assets.xcassets */; };
+		DF9C0D022B163449008C0B25 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9C0CC12B163449008C0B25 /* SafariWebExtensionHandler.swift */; };
+		DF9C0D032B163449008C0B25 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9C0CC12B163449008C0B25 /* SafariWebExtensionHandler.swift */; };
+		DF9C0D2D2B163449008C0B25 /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D152B163449008C0B25 /* Fairground-64x64.png */; };
+		DF9C0D2E2B163449008C0B25 /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D162B163449008C0B25 /* Mainnet-48x48.png */; };
+		DF9C0D2F2B163449008C0B25 /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D172B163449008C0B25 /* Fairground-32x32.png */; };
+		DF9C0D302B163449008C0B25 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D182B163449008C0B25 /* popup.js */; };
+		DF9C0D312B163449008C0B25 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D192B163449008C0B25 /* index.html */; };
+		DF9C0D322B163449008C0B25 /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1A2B163449008C0B25 /* Mainnet-96x96.png */; };
+		DF9C0D332B163449008C0B25 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1B2B163449008C0B25 /* background.js */; };
+		DF9C0D342B163449008C0B25 /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1C2B163449008C0B25 /* Mainnet-64x64.png */; };
+		DF9C0D352B163449008C0B25 /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1D2B163449008C0B25 /* Fairground-48x48.png */; };
+		DF9C0D362B163449008C0B25 /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1E2B163449008C0B25 /* Mainnet-128x128.png */; };
+		DF9C0D372B163449008C0B25 /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1F2B163449008C0B25 /* chrome-pow.html */; };
+		DF9C0D382B163449008C0B25 /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D202B163449008C0B25 /* chrome-pow.js */; };
+		DF9C0D392B163449008C0B25 /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D212B163449008C0B25 /* Fairground-96x96.png */; };
+		DF9C0D3A2B163449008C0B25 /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D222B163449008C0B25 /* Mainnet-32x32.png */; };
+		DF9C0D3B2B163449008C0B25 /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D232B163449008C0B25 /* AlphaLyrae-Medium.woff2 */; };
+		DF9C0D3C2B163449008C0B25 /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D242B163449008C0B25 /* Fairground-128x128.png */; };
+		DF9C0D3D2B163449008C0B25 /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D252B163449008C0B25 /* pow-worker.js */; };
+		DF9C0D3E2B163449008C0B25 /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D262B163449008C0B25 /* Mainnet-16x16.png */; };
+		DF9C0D3F2B163449008C0B25 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D272B163449008C0B25 /* manifest.json */; };
+		DF9C0D402B163449008C0B25 /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D282B163449008C0B25 /* question-mark.png */; };
+		DF9C0D412B163449008C0B25 /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D292B163449008C0B25 /* content-script.js */; };
+		DF9C0D422B163449008C0B25 /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D2A2B163449008C0B25 /* in-page.js */; };
+		DF9C0D432B163449008C0B25 /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D2B2B163449008C0B25 /* Fairground-16x16.png */; };
+		DF9C0D442B163449008C0B25 /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D2C2B163449008C0B25 /* stars.png */; };
+		DF9C0D452B163449008C0B25 /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D152B163449008C0B25 /* Fairground-64x64.png */; };
+		DF9C0D462B163449008C0B25 /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D162B163449008C0B25 /* Mainnet-48x48.png */; };
+		DF9C0D472B163449008C0B25 /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D172B163449008C0B25 /* Fairground-32x32.png */; };
+		DF9C0D482B163449008C0B25 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D182B163449008C0B25 /* popup.js */; };
+		DF9C0D492B163449008C0B25 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D192B163449008C0B25 /* index.html */; };
+		DF9C0D4A2B163449008C0B25 /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1A2B163449008C0B25 /* Mainnet-96x96.png */; };
+		DF9C0D4B2B163449008C0B25 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1B2B163449008C0B25 /* background.js */; };
+		DF9C0D4C2B163449008C0B25 /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1C2B163449008C0B25 /* Mainnet-64x64.png */; };
+		DF9C0D4D2B163449008C0B25 /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1D2B163449008C0B25 /* Fairground-48x48.png */; };
+		DF9C0D4E2B163449008C0B25 /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1E2B163449008C0B25 /* Mainnet-128x128.png */; };
+		DF9C0D4F2B163449008C0B25 /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D1F2B163449008C0B25 /* chrome-pow.html */; };
+		DF9C0D502B163449008C0B25 /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D202B163449008C0B25 /* chrome-pow.js */; };
+		DF9C0D512B163449008C0B25 /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D212B163449008C0B25 /* Fairground-96x96.png */; };
+		DF9C0D522B163449008C0B25 /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D222B163449008C0B25 /* Mainnet-32x32.png */; };
+		DF9C0D532B163449008C0B25 /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D232B163449008C0B25 /* AlphaLyrae-Medium.woff2 */; };
+		DF9C0D542B163449008C0B25 /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D242B163449008C0B25 /* Fairground-128x128.png */; };
+		DF9C0D552B163449008C0B25 /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D252B163449008C0B25 /* pow-worker.js */; };
+		DF9C0D562B163449008C0B25 /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D262B163449008C0B25 /* Mainnet-16x16.png */; };
+		DF9C0D572B163449008C0B25 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D272B163449008C0B25 /* manifest.json */; };
+		DF9C0D582B163449008C0B25 /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D282B163449008C0B25 /* question-mark.png */; };
+		DF9C0D592B163449008C0B25 /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D292B163449008C0B25 /* content-script.js */; };
+		DF9C0D5A2B163449008C0B25 /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D2A2B163449008C0B25 /* in-page.js */; };
+		DF9C0D5B2B163449008C0B25 /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D2B2B163449008C0B25 /* Fairground-16x16.png */; };
+		DF9C0D5C2B163449008C0B25 /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9C0D2C2B163449008C0B25 /* stars.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DF9C0CE72B163449008C0B25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF9C0CB32B163448008C0B25 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF9C0CE42B163449008C0B25;
+			remoteInfo = "Vega Wallet - Mainnet Extension (iOS)";
+		};
+		DF9C0CF12B163449008C0B25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF9C0CB32B163448008C0B25 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF9C0CEE2B163449008C0B25;
+			remoteInfo = "Vega Wallet - Mainnet Extension (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DF9C0D092B163449008C0B25 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF9C0CE62B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0D102B163449008C0B25 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF9C0CF02B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DF9C0CBA2B163448008C0B25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		DF9C0CBB2B163448008C0B25 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		DF9C0CBC2B163448008C0B25 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		DF9C0CBD2B163448008C0B25 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		DF9C0CBE2B163448008C0B25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DF9C0CBF2B163449008C0B25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF9C0CC12B163449008C0B25 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		DF9C0CC62B163449008C0B25 /* Vega Wallet - Mainnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet - Mainnet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF9C0CC92B163449008C0B25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DF9C0CCB2B163449008C0B25 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DF9C0CCE2B163449008C0B25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DF9C0CD12B163449008C0B25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DF9C0CD32B163449008C0B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9C0CD82B163449008C0B25 /* Vega Wallet - Mainnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet - Mainnet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF9C0CDA2B163449008C0B25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DF9C0CDD2B163449008C0B25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DF9C0CDF2B163449008C0B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9C0CE02B163449008C0B25 /* Vega Wallet - Mainnet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Vega Wallet - Mainnet.entitlements"; sourceTree = "<group>"; };
+		DF9C0CE52B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet - Mainnet Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF9C0CEA2B163449008C0B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9C0CEF2B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet - Mainnet Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF9C0CF42B163449008C0B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF9C0CF52B163449008C0B25 /* Vega Wallet - Mainnet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Vega Wallet - Mainnet.entitlements"; sourceTree = "<group>"; };
+		DF9C0D152B163449008C0B25 /* Fairground-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-64x64.png"; path = "../../../build/safari/Fairground-64x64.png"; sourceTree = "<group>"; };
+		DF9C0D162B163449008C0B25 /* Mainnet-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-48x48.png"; path = "../../../build/safari/Mainnet-48x48.png"; sourceTree = "<group>"; };
+		DF9C0D172B163449008C0B25 /* Fairground-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-32x32.png"; path = "../../../build/safari/Fairground-32x32.png"; sourceTree = "<group>"; };
+		DF9C0D182B163449008C0B25 /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.js; path = ../../../build/safari/popup.js; sourceTree = "<group>"; };
+		DF9C0D192B163449008C0B25 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../../../build/safari/index.html; sourceTree = "<group>"; };
+		DF9C0D1A2B163449008C0B25 /* Mainnet-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-96x96.png"; path = "../../../build/safari/Mainnet-96x96.png"; sourceTree = "<group>"; };
+		DF9C0D1B2B163449008C0B25 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../build/safari/background.js; sourceTree = "<group>"; };
+		DF9C0D1C2B163449008C0B25 /* Mainnet-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-64x64.png"; path = "../../../build/safari/Mainnet-64x64.png"; sourceTree = "<group>"; };
+		DF9C0D1D2B163449008C0B25 /* Fairground-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-48x48.png"; path = "../../../build/safari/Fairground-48x48.png"; sourceTree = "<group>"; };
+		DF9C0D1E2B163449008C0B25 /* Mainnet-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-128x128.png"; path = "../../../build/safari/Mainnet-128x128.png"; sourceTree = "<group>"; };
+		DF9C0D1F2B163449008C0B25 /* chrome-pow.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "chrome-pow.html"; path = "../../../build/safari/chrome-pow.html"; sourceTree = "<group>"; };
+		DF9C0D202B163449008C0B25 /* chrome-pow.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "chrome-pow.js"; path = "../../../build/safari/chrome-pow.js"; sourceTree = "<group>"; };
+		DF9C0D212B163449008C0B25 /* Fairground-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-96x96.png"; path = "../../../build/safari/Fairground-96x96.png"; sourceTree = "<group>"; };
+		DF9C0D222B163449008C0B25 /* Mainnet-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-32x32.png"; path = "../../../build/safari/Mainnet-32x32.png"; sourceTree = "<group>"; };
+		DF9C0D232B163449008C0B25 /* AlphaLyrae-Medium.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AlphaLyrae-Medium.woff2"; path = "../../../build/safari/AlphaLyrae-Medium.woff2"; sourceTree = "<group>"; };
+		DF9C0D242B163449008C0B25 /* Fairground-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-128x128.png"; path = "../../../build/safari/Fairground-128x128.png"; sourceTree = "<group>"; };
+		DF9C0D252B163449008C0B25 /* pow-worker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "pow-worker.js"; path = "../../../build/safari/pow-worker.js"; sourceTree = "<group>"; };
+		DF9C0D262B163449008C0B25 /* Mainnet-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-16x16.png"; path = "../../../build/safari/Mainnet-16x16.png"; sourceTree = "<group>"; };
+		DF9C0D272B163449008C0B25 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../build/safari/manifest.json; sourceTree = "<group>"; };
+		DF9C0D282B163449008C0B25 /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "question-mark.png"; path = "../../../build/safari/question-mark.png"; sourceTree = "<group>"; };
+		DF9C0D292B163449008C0B25 /* content-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-script.js"; path = "../../../build/safari/content-script.js"; sourceTree = "<group>"; };
+		DF9C0D2A2B163449008C0B25 /* in-page.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "in-page.js"; path = "../../../build/safari/in-page.js"; sourceTree = "<group>"; };
+		DF9C0D2B2B163449008C0B25 /* Fairground-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-16x16.png"; path = "../../../build/safari/Fairground-16x16.png"; sourceTree = "<group>"; };
+		DF9C0D2C2B163449008C0B25 /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars.png; path = ../../../build/safari/stars.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DF9C0CC32B163449008C0B25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CD52B163449008C0B25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CE22B163449008C0B25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CEC2B163449008C0B25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DF9C0CB22B163448008C0B25 = {
+			isa = PBXGroup;
+			children = (
+				DF9C0CB72B163448008C0B25 /* Shared (App) */,
+				DF9C0CC02B163449008C0B25 /* Shared (Extension) */,
+				DF9C0CC82B163449008C0B25 /* iOS (App) */,
+				DF9C0CD92B163449008C0B25 /* macOS (App) */,
+				DF9C0CE92B163449008C0B25 /* iOS (Extension) */,
+				DF9C0CF32B163449008C0B25 /* macOS (Extension) */,
+				DF9C0CC72B163449008C0B25 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DF9C0CB72B163448008C0B25 /* Shared (App) */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0CBE2B163448008C0B25 /* ViewController.swift */,
+				DF9C0CBF2B163449008C0B25 /* Assets.xcassets */,
+				DF9C0CB82B163448008C0B25 /* Resources */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		DF9C0CB82B163448008C0B25 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0CB92B163448008C0B25 /* Main.html */,
+				DF9C0CBB2B163448008C0B25 /* Icon.png */,
+				DF9C0CBC2B163448008C0B25 /* Style.css */,
+				DF9C0CBD2B163448008C0B25 /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DF9C0CC02B163449008C0B25 /* Shared (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0D142B163449008C0B25 /* Resources */,
+				DF9C0CC12B163449008C0B25 /* SafariWebExtensionHandler.swift */,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		DF9C0CC72B163449008C0B25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0CC62B163449008C0B25 /* Vega Wallet - Mainnet.app */,
+				DF9C0CD82B163449008C0B25 /* Vega Wallet - Mainnet.app */,
+				DF9C0CE52B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex */,
+				DF9C0CEF2B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DF9C0CC82B163449008C0B25 /* iOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0CC92B163449008C0B25 /* AppDelegate.swift */,
+				DF9C0CCB2B163449008C0B25 /* SceneDelegate.swift */,
+				DF9C0CCD2B163449008C0B25 /* LaunchScreen.storyboard */,
+				DF9C0CD02B163449008C0B25 /* Main.storyboard */,
+				DF9C0CD32B163449008C0B25 /* Info.plist */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		DF9C0CD92B163449008C0B25 /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0CDA2B163449008C0B25 /* AppDelegate.swift */,
+				DF9C0CDC2B163449008C0B25 /* Main.storyboard */,
+				DF9C0CDF2B163449008C0B25 /* Info.plist */,
+				DF9C0CE02B163449008C0B25 /* Vega Wallet - Mainnet.entitlements */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		DF9C0CE92B163449008C0B25 /* iOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0CEA2B163449008C0B25 /* Info.plist */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		DF9C0CF32B163449008C0B25 /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0CF42B163449008C0B25 /* Info.plist */,
+				DF9C0CF52B163449008C0B25 /* Vega Wallet - Mainnet.entitlements */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+		DF9C0D142B163449008C0B25 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF9C0D152B163449008C0B25 /* Fairground-64x64.png */,
+				DF9C0D162B163449008C0B25 /* Mainnet-48x48.png */,
+				DF9C0D172B163449008C0B25 /* Fairground-32x32.png */,
+				DF9C0D182B163449008C0B25 /* popup.js */,
+				DF9C0D192B163449008C0B25 /* index.html */,
+				DF9C0D1A2B163449008C0B25 /* Mainnet-96x96.png */,
+				DF9C0D1B2B163449008C0B25 /* background.js */,
+				DF9C0D1C2B163449008C0B25 /* Mainnet-64x64.png */,
+				DF9C0D1D2B163449008C0B25 /* Fairground-48x48.png */,
+				DF9C0D1E2B163449008C0B25 /* Mainnet-128x128.png */,
+				DF9C0D1F2B163449008C0B25 /* chrome-pow.html */,
+				DF9C0D202B163449008C0B25 /* chrome-pow.js */,
+				DF9C0D212B163449008C0B25 /* Fairground-96x96.png */,
+				DF9C0D222B163449008C0B25 /* Mainnet-32x32.png */,
+				DF9C0D232B163449008C0B25 /* AlphaLyrae-Medium.woff2 */,
+				DF9C0D242B163449008C0B25 /* Fairground-128x128.png */,
+				DF9C0D252B163449008C0B25 /* pow-worker.js */,
+				DF9C0D262B163449008C0B25 /* Mainnet-16x16.png */,
+				DF9C0D272B163449008C0B25 /* manifest.json */,
+				DF9C0D282B163449008C0B25 /* question-mark.png */,
+				DF9C0D292B163449008C0B25 /* content-script.js */,
+				DF9C0D2A2B163449008C0B25 /* in-page.js */,
+				DF9C0D2B2B163449008C0B25 /* Fairground-16x16.png */,
+				DF9C0D2C2B163449008C0B25 /* stars.png */,
+			);
+			name = Resources;
+			path = "Shared (Extension)";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DF9C0CC52B163449008C0B25 /* Vega Wallet - Mainnet (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF9C0D0A2B163449008C0B25 /* Build configuration list for PBXNativeTarget "Vega Wallet - Mainnet (iOS)" */;
+			buildPhases = (
+				DF9C0CC22B163449008C0B25 /* Sources */,
+				DF9C0CC32B163449008C0B25 /* Frameworks */,
+				DF9C0CC42B163449008C0B25 /* Resources */,
+				DF9C0D092B163449008C0B25 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF9C0CE82B163449008C0B25 /* PBXTargetDependency */,
+			);
+			name = "Vega Wallet - Mainnet (iOS)";
+			productName = "Vega Wallet - Mainnet (iOS)";
+			productReference = DF9C0CC62B163449008C0B25 /* Vega Wallet - Mainnet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF9C0CD72B163449008C0B25 /* Vega Wallet - Mainnet (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF9C0D112B163449008C0B25 /* Build configuration list for PBXNativeTarget "Vega Wallet - Mainnet (macOS)" */;
+			buildPhases = (
+				DF9C0CD42B163449008C0B25 /* Sources */,
+				DF9C0CD52B163449008C0B25 /* Frameworks */,
+				DF9C0CD62B163449008C0B25 /* Resources */,
+				DF9C0D102B163449008C0B25 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF9C0CF22B163449008C0B25 /* PBXTargetDependency */,
+			);
+			name = "Vega Wallet - Mainnet (macOS)";
+			productName = "Vega Wallet - Mainnet (macOS)";
+			productReference = DF9C0CD82B163449008C0B25 /* Vega Wallet - Mainnet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF9C0CE42B163449008C0B25 /* Vega Wallet - Mainnet Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF9C0D062B163449008C0B25 /* Build configuration list for PBXNativeTarget "Vega Wallet - Mainnet Extension (iOS)" */;
+			buildPhases = (
+				DF9C0CE12B163449008C0B25 /* Sources */,
+				DF9C0CE22B163449008C0B25 /* Frameworks */,
+				DF9C0CE32B163449008C0B25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Vega Wallet - Mainnet Extension (iOS)";
+			productName = "Vega Wallet - Mainnet Extension (iOS)";
+			productReference = DF9C0CE52B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF9C0CEE2B163449008C0B25 /* Vega Wallet - Mainnet Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF9C0D0D2B163449008C0B25 /* Build configuration list for PBXNativeTarget "Vega Wallet - Mainnet Extension (macOS)" */;
+			buildPhases = (
+				DF9C0CEB2B163449008C0B25 /* Sources */,
+				DF9C0CEC2B163449008C0B25 /* Frameworks */,
+				DF9C0CED2B163449008C0B25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Vega Wallet - Mainnet Extension (macOS)";
+			productName = "Vega Wallet - Mainnet Extension (macOS)";
+			productReference = DF9C0CEF2B163449008C0B25 /* Vega Wallet - Mainnet Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DF9C0CB32B163448008C0B25 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					DF9C0CC52B163449008C0B25 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					DF9C0CD72B163449008C0B25 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					DF9C0CE42B163449008C0B25 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					DF9C0CEE2B163449008C0B25 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = DF9C0CB62B163448008C0B25 /* Build configuration list for PBXProject "Vega Wallet - Mainnet" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DF9C0CB22B163448008C0B25;
+			productRefGroup = DF9C0CC72B163449008C0B25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DF9C0CC52B163449008C0B25 /* Vega Wallet - Mainnet (iOS) */,
+				DF9C0CD72B163449008C0B25 /* Vega Wallet - Mainnet (macOS) */,
+				DF9C0CE42B163449008C0B25 /* Vega Wallet - Mainnet Extension (iOS) */,
+				DF9C0CEE2B163449008C0B25 /* Vega Wallet - Mainnet Extension (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DF9C0CC42B163449008C0B25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF9C0CF82B163449008C0B25 /* Icon.png in Resources */,
+				DF9C0CCF2B163449008C0B25 /* LaunchScreen.storyboard in Resources */,
+				DF9C0CF62B163449008C0B25 /* Main.html in Resources */,
+				DF9C0CFC2B163449008C0B25 /* Script.js in Resources */,
+				DF9C0D002B163449008C0B25 /* Assets.xcassets in Resources */,
+				DF9C0CD22B163449008C0B25 /* Main.storyboard in Resources */,
+				DF9C0CFA2B163449008C0B25 /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CD62B163449008C0B25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF9C0CF92B163449008C0B25 /* Icon.png in Resources */,
+				DF9C0CFB2B163449008C0B25 /* Style.css in Resources */,
+				DF9C0CDE2B163449008C0B25 /* Main.storyboard in Resources */,
+				DF9C0CFD2B163449008C0B25 /* Script.js in Resources */,
+				DF9C0D012B163449008C0B25 /* Assets.xcassets in Resources */,
+				DF9C0CF72B163449008C0B25 /* Main.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CE32B163449008C0B25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF9C0D582B163449008C0B25 /* question-mark.png in Resources */,
+				DF9C0D5C2B163449008C0B25 /* stars.png in Resources */,
+				DF9C0D492B163449008C0B25 /* index.html in Resources */,
+				DF9C0D532B163449008C0B25 /* AlphaLyrae-Medium.woff2 in Resources */,
+				DF9C0D4E2B163449008C0B25 /* Mainnet-128x128.png in Resources */,
+				DF9C0D4C2B163449008C0B25 /* Mainnet-64x64.png in Resources */,
+				DF9C0D4F2B163449008C0B25 /* chrome-pow.html in Resources */,
+				DF9C0D542B163449008C0B25 /* Fairground-128x128.png in Resources */,
+				DF9C0D572B163449008C0B25 /* manifest.json in Resources */,
+				DF9C0D552B163449008C0B25 /* pow-worker.js in Resources */,
+				DF9C0D562B163449008C0B25 /* Mainnet-16x16.png in Resources */,
+				DF9C0D5A2B163449008C0B25 /* in-page.js in Resources */,
+				DF9C0D452B163449008C0B25 /* Fairground-64x64.png in Resources */,
+				DF9C0D502B163449008C0B25 /* chrome-pow.js in Resources */,
+				DF9C0D4B2B163449008C0B25 /* background.js in Resources */,
+				DF9C0D472B163449008C0B25 /* Fairground-32x32.png in Resources */,
+				DF9C0D592B163449008C0B25 /* content-script.js in Resources */,
+				DF9C0D462B163449008C0B25 /* Mainnet-48x48.png in Resources */,
+				DF9C0D522B163449008C0B25 /* Mainnet-32x32.png in Resources */,
+				DF9C0D482B163449008C0B25 /* popup.js in Resources */,
+				DF9C0D512B163449008C0B25 /* Fairground-96x96.png in Resources */,
+				DF9C0D5B2B163449008C0B25 /* Fairground-16x16.png in Resources */,
+				DF9C0D4A2B163449008C0B25 /* Mainnet-96x96.png in Resources */,
+				DF9C0D4D2B163449008C0B25 /* Fairground-48x48.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CED2B163449008C0B25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF9C0D402B163449008C0B25 /* question-mark.png in Resources */,
+				DF9C0D442B163449008C0B25 /* stars.png in Resources */,
+				DF9C0D312B163449008C0B25 /* index.html in Resources */,
+				DF9C0D3B2B163449008C0B25 /* AlphaLyrae-Medium.woff2 in Resources */,
+				DF9C0D362B163449008C0B25 /* Mainnet-128x128.png in Resources */,
+				DF9C0D342B163449008C0B25 /* Mainnet-64x64.png in Resources */,
+				DF9C0D372B163449008C0B25 /* chrome-pow.html in Resources */,
+				DF9C0D3C2B163449008C0B25 /* Fairground-128x128.png in Resources */,
+				DF9C0D3F2B163449008C0B25 /* manifest.json in Resources */,
+				DF9C0D3D2B163449008C0B25 /* pow-worker.js in Resources */,
+				DF9C0D3E2B163449008C0B25 /* Mainnet-16x16.png in Resources */,
+				DF9C0D422B163449008C0B25 /* in-page.js in Resources */,
+				DF9C0D2D2B163449008C0B25 /* Fairground-64x64.png in Resources */,
+				DF9C0D382B163449008C0B25 /* chrome-pow.js in Resources */,
+				DF9C0D332B163449008C0B25 /* background.js in Resources */,
+				DF9C0D2F2B163449008C0B25 /* Fairground-32x32.png in Resources */,
+				DF9C0D412B163449008C0B25 /* content-script.js in Resources */,
+				DF9C0D2E2B163449008C0B25 /* Mainnet-48x48.png in Resources */,
+				DF9C0D3A2B163449008C0B25 /* Mainnet-32x32.png in Resources */,
+				DF9C0D302B163449008C0B25 /* popup.js in Resources */,
+				DF9C0D392B163449008C0B25 /* Fairground-96x96.png in Resources */,
+				DF9C0D432B163449008C0B25 /* Fairground-16x16.png in Resources */,
+				DF9C0D322B163449008C0B25 /* Mainnet-96x96.png in Resources */,
+				DF9C0D352B163449008C0B25 /* Fairground-48x48.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DF9C0CC22B163449008C0B25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF9C0CFE2B163449008C0B25 /* ViewController.swift in Sources */,
+				DF9C0CCA2B163449008C0B25 /* AppDelegate.swift in Sources */,
+				DF9C0CCC2B163449008C0B25 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CD42B163449008C0B25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF9C0CFF2B163449008C0B25 /* ViewController.swift in Sources */,
+				DF9C0CDB2B163449008C0B25 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CE12B163449008C0B25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF9C0D022B163449008C0B25 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF9C0CEB2B163449008C0B25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF9C0D032B163449008C0B25 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DF9C0CE82B163449008C0B25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF9C0CE42B163449008C0B25 /* Vega Wallet - Mainnet Extension (iOS) */;
+			targetProxy = DF9C0CE72B163449008C0B25 /* PBXContainerItemProxy */;
+		};
+		DF9C0CF22B163449008C0B25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF9C0CEE2B163449008C0B25 /* Vega Wallet - Mainnet Extension (macOS) */;
+			targetProxy = DF9C0CF12B163449008C0B25 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DF9C0CB92B163448008C0B25 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF9C0CBA2B163448008C0B25 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		DF9C0CCD2B163449008C0B25 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF9C0CCE2B163449008C0B25 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DF9C0CD02B163449008C0B25 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF9C0CD12B163449008C0B25 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DF9C0CDC2B163449008C0B25 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF9C0CDD2B163449008C0B25 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DF9C0D042B163449008C0B25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DF9C0D052B163449008C0B25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		DF9C0D072B163449008C0B25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Mainnet Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Mainnet.Extension";
+				PRODUCT_NAME = "Vega Wallet - Mainnet Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF9C0D082B163449008C0B25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Mainnet Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Mainnet.Extension";
+				PRODUCT_NAME = "Vega Wallet - Mainnet Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DF9C0D0B2B163449008C0B25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Mainnet";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Mainnet";
+				PRODUCT_NAME = "Vega Wallet - Mainnet";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF9C0D0C2B163449008C0B25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Mainnet";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Mainnet";
+				PRODUCT_NAME = "Vega Wallet - Mainnet";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DF9C0D0E2B163449008C0B25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Vega Wallet - Mainnet.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Mainnet Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Mainnet.Extension";
+				PRODUCT_NAME = "Vega Wallet - Mainnet Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF9C0D0F2B163449008C0B25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Vega Wallet - Mainnet.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Mainnet Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Mainnet.Extension";
+				PRODUCT_NAME = "Vega Wallet - Mainnet Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DF9C0D122B163449008C0B25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Vega Wallet - Mainnet.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Mainnet";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Mainnet";
+				PRODUCT_NAME = "Vega Wallet - Mainnet";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DF9C0D132B163449008C0B25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Vega Wallet - Mainnet.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Mainnet";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Mainnet";
+				PRODUCT_NAME = "Vega Wallet - Mainnet";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DF9C0CB62B163448008C0B25 /* Build configuration list for PBXProject "Vega Wallet - Mainnet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF9C0D042B163449008C0B25 /* Debug */,
+				DF9C0D052B163449008C0B25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF9C0D062B163449008C0B25 /* Build configuration list for PBXNativeTarget "Vega Wallet - Mainnet Extension (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF9C0D072B163449008C0B25 /* Debug */,
+				DF9C0D082B163449008C0B25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF9C0D0A2B163449008C0B25 /* Build configuration list for PBXNativeTarget "Vega Wallet - Mainnet (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF9C0D0B2B163449008C0B25 /* Debug */,
+				DF9C0D0C2B163449008C0B25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF9C0D0D2B163449008C0B25 /* Build configuration list for PBXNativeTarget "Vega Wallet - Mainnet Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF9C0D0E2B163449008C0B25 /* Debug */,
+				DF9C0D0F2B163449008C0B25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF9C0D112B163449008C0B25 /* Build configuration list for PBXNativeTarget "Vega Wallet - Mainnet (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF9C0D122B163449008C0B25 /* Debug */,
+				DF9C0D132B163449008C0B25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DF9C0CB32B163448008C0B25 /* Project object */;
+}

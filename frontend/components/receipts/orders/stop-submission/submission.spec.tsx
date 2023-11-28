@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
 import { locators as tableLocators } from '../../../data-table/data-table'
-import { locators,StopOrderSubmission } from './submission'
+import { locators, StopOrderSubmission } from './submission'
 
 jest.mock('../../utils/order-table', () => ({
   OrderTable: () => <div data-testid="order-table" />

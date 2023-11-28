@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import config from '!/config'
 
-import { locators,MarketLink } from './market-link'
+import { locators, MarketLink } from './market-link'
 
 describe('MarketLink', () => {
   it('renders truncated id and link', () => {

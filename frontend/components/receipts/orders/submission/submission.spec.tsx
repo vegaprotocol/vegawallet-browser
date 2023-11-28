@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
 import { locators as dataTableLocators } from '../../../data-table/data-table'
-import { locators,Submission, SubmissionView } from '.'
+import { locators, Submission, SubmissionView } from '.'
 
 describe('SubmissionReceipt', () => {
   it('renders nothing if the transaction is an iceberg order', () => {

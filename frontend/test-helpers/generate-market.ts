@@ -4,7 +4,8 @@ import {
   v1PropertyKeyType,
   vegaDataSourceSpecStatus,
   vegaMarket,
-  vegaMarketState} from '@vegaprotocol/rest-clients/dist/trading-data'
+  vegaMarketState
+} from '@vegaprotocol/rest-clients/dist/trading-data'
 import merge from 'lodash/merge'
 import type { PartialDeep } from 'type-fest'
 

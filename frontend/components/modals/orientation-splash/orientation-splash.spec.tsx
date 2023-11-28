@@ -1,6 +1,6 @@
-import { act,render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 
-import { locators,OrientationSplash } from '.'
+import { locators, OrientationSplash } from '.'
 
 describe('OrientationSplash', () => {
   it('renders null when in portrait mode', () => {

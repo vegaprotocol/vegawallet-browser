@@ -1,11 +1,12 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { Cancellation } from './cancellation'
-import { locators } from './cancellation-view'
+
+import { useMarketsStore } from '../../../../stores/markets-store'
 import { OrdersStore, useOrdersStore } from '../../../../stores/orders-store'
 import { DeepPartial, mockStore } from '../../../../test-helpers/mock-store'
-import { locators as dataTableLocators } from '../../../data-table/data-table'
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
-import { useMarketsStore } from '../../../../stores/markets-store'
+import { locators as dataTableLocators } from '../../../data-table/data-table'
+import { Cancellation } from './cancellation'
+import { locators } from './cancellation-view'
 
 jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({

@@ -1,6 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import { HiddenContainer, HiddenContainerProperties } from './hidden-container'
+import { fireEvent,render, screen } from '@testing-library/react'
+
 import locators from '../locators'
+import { HiddenContainer, HiddenContainerProperties } from './hidden-container'
 
 jest.mock('../copy-with-check', () => ({
   CopyWithCheckmark: () => <div data-testid="copy" />

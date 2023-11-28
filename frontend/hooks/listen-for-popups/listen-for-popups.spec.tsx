@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react'
+
 import { useListenForPopups } from '.'
 
 const setup = jest.fn()

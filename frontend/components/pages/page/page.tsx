@@ -1,7 +1,8 @@
-import { ReactNode } from 'react'
-import { Header } from '../../header'
 import { Icon } from '@vegaprotocol/ui-toolkit'
+import { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
+
+import { Header } from '../../header'
 
 export const locators = {
   basePageBack: 'base-page-back'

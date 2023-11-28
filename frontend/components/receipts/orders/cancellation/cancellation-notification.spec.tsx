@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { CancellationNotification } from './cancellation-notification'
-import { mockStore } from '../../../../test-helpers/mock-store'
+
 import { useMarketsStore } from '../../../../stores/markets-store'
+import { mockStore } from '../../../../test-helpers/mock-store'
+import { CancellationNotification } from './cancellation-notification'
 
 jest.mock('../../../../stores/markets-store')
 

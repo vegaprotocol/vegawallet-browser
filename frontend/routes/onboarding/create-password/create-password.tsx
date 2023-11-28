@@ -1,14 +1,15 @@
 import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
-import { OnboardingPage } from '../../../components/pages/onboarding-page'
-import { useForm, useWatch } from 'react-hook-form'
-import { Validation } from '../../../lib/form-validation'
 import { useState } from 'react'
-import { Checkbox } from '../../../components/checkbox'
+import { useForm, useWatch } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '../../route-names'
+
+import { Checkbox } from '../../../components/checkbox'
+import { LoadingButton } from '../../../components/loading-button'
+import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
-import { LoadingButton } from '../../../components/loading-button'
+import { Validation } from '../../../lib/form-validation'
+import { FULL_ROUTES } from '../../route-names'
 import { PasswordFeedback } from './password-feedback'
 
 export const locators = {

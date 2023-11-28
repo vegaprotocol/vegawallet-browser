@@ -1,14 +1,14 @@
+import { AsyncRenderer } from '../../../../components/async-renderer'
 import { VegaKey } from '../../../../components/keys/vega-key'
+import { BasePage } from '../../../../components/pages/page'
 import { useAssetsStore } from '../../../../stores/assets-store'
+import { useMarketsStore } from '../../../../stores/markets-store'
 import { useWalletStore } from '../../../../stores/wallets'
 import { FULL_ROUTES } from '../../../route-names'
-import { KeySelector } from './key-selector'
-import { ExportPrivateKeysDialog } from './export-private-key-dialog'
 import { AssetsList } from './assets-list'
+import { ExportPrivateKeysDialog } from './export-private-key-dialog'
+import { KeySelector } from './key-selector'
 import { RenameKeyDialog } from './rename-key-dialog'
-import { BasePage } from '../../../../components/pages/page'
-import { AsyncRenderer } from '../../../../components/async-renderer'
-import { useMarketsStore } from '../../../../stores/markets-store'
 
 export const locators = {
   keyDetailsPage: 'key-details-page',

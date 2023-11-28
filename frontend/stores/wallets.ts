@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+
 import { SendMessage } from '../contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '../lib/client-rpc-methods'
 

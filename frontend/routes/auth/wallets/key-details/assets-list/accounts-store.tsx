@@ -1,9 +1,10 @@
-import { RpcMethods } from '../../../../../lib/client-rpc-methods'
-import { create } from 'zustand'
-import { SendMessage } from '../../../../../contexts/json-rpc/json-rpc-provider'
-import groupBy from 'lodash/groupBy'
-import { removePaginationWrapper } from '../../../../../lib/remove-pagination'
 import { vegaAccount } from '@vegaprotocol/rest-clients/dist/trading-data'
+import groupBy from 'lodash/groupBy'
+import { create } from 'zustand'
+
+import { SendMessage } from '../../../../../contexts/json-rpc/json-rpc-provider'
+import { RpcMethods } from '../../../../../lib/client-rpc-methods'
+import { removePaginationWrapper } from '../../../../../lib/remove-pagination'
 
 const POLL_INTERVAL = 10_000
 

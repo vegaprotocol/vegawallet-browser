@@ -1,8 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { ReceiptWrapper, locators } from './receipt-wrapper'
-import { mockStore } from '../../../test-helpers/mock-store'
+
 import { useAssetsStore } from '../../../stores/assets-store'
 import { useMarketsStore } from '../../../stores/markets-store'
+import { mockStore } from '../../../test-helpers/mock-store'
+import { locators,ReceiptWrapper } from './receipt-wrapper'
 
 jest.mock('../../../stores/assets-store')
 jest.mock('../../../stores/markets-store')

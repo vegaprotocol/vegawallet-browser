@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+
 import { FULL_ROUTES } from '../../routes/route-names'
 
 export const LOCATION_KEY = 'location'

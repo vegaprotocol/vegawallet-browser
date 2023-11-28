@@ -3,9 +3,10 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
+import 'jest-canvas-mock'
+
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
-import 'jest-canvas-mock'
 import ResizeObserver from 'resize-observer-polyfill'
 
 TimeAgo.addDefaultLocale(en)

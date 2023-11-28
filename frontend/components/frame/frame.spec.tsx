@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { Frame } from './frame'
+
 import locators from '../locators'
+import { Frame } from './frame'
 
 describe('Frame', () => {
   it('renders border', () => {

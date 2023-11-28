@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react'
-import type { NavButtonProperties } from '.'
-import { NavButton, NavBar } from '.'
-import { MemoryRouter } from 'react-router-dom'
 import type { HTMLAttributes } from 'react'
+import { MemoryRouter } from 'react-router-dom'
+
+import type { NavButtonProperties } from '.'
+import { NavBar,NavButton } from '.'
 
 jest.mock('@vegaprotocol/ui-toolkit', () => ({
   Button: (properties: HTMLAttributes<HTMLButtonElement>) => <button {...properties} />

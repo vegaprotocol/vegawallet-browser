@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { SubHeader, locators } from './sub-header'
+
+import { locators,SubHeader } from './sub-header'
 
 describe('SubHeader', () => {
   it('renders the header text correctly', () => {

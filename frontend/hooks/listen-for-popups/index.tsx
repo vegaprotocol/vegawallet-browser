@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import { usePopoverStore } from '../../stores/popover-store'
 
 export function useListenForPopups() {

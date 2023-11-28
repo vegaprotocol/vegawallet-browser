@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+
 import { BasePage } from '../page'
 
 export interface PageProperties {

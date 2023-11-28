@@ -1,12 +1,14 @@
 import { Tooltip } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
+
 import config from '!/config'
-import { TradeIcon } from '../icons/trade'
+
+import { ExternalLink } from '../external-link'
 import { Deposit } from '../icons/deposit'
-import { Withdraw } from '../icons/withdraw'
 import { OpenExternal } from '../icons/open-external'
 import { Tick } from '../icons/tick'
-import { ExternalLink } from '../external-link'
+import { TradeIcon } from '../icons/trade'
+import { Withdraw } from '../icons/withdraw'
 
 export const locators = {
   walletsHeaderItem: 'wallets-header-item',

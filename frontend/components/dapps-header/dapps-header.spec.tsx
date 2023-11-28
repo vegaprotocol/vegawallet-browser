@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { DappsHeader, locators } from './dapps-header'
+
 import config from '!/config'
+
+import { DappsHeader, locators } from './dapps-header'
 
 describe('WalletsHeader', () => {
   it('should render the wallets header and buttons', () => {

@@ -1,9 +1,11 @@
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
-import { useMarketsStore } from '../../../../../stores/markets-store'
-import config from '!/config'
 import get from 'lodash/get'
-import { isActiveMarket } from '../../../../../lib/markets'
+
+import config from '!/config'
+
 import { ExternalLink } from '../../../../../components/external-link'
+import { isActiveMarket } from '../../../../../lib/markets'
+import { useMarketsStore } from '../../../../../stores/markets-store'
 
 export const locators = {
   marketsDescription: 'markets-description',

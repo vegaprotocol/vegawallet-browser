@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { NoAppsConnected, locators } from './no-dapps-connected'
+
+import { locators,NoAppsConnected } from './no-dapps-connected'
 
 describe('NoDappsConnected', () => {
   it('renders message', () => {

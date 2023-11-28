@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
-import { ListItem } from './list-item'
+
 import locators from '../locators'
+import { ListItem } from './list-item'
 
 export function List<T>({
   items,

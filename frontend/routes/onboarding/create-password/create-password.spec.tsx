@@ -1,11 +1,12 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { CreatePassword } from './create-password'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { FULL_ROUTES } from '../../route-names'
+
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../test-helpers/mock-client'
-import { locators as passwordFeedbackLocators } from './password-feedback'
+import { FULL_ROUTES } from '../../route-names'
 import { locators } from '.'
+import { CreatePassword } from './create-password'
+import { locators as passwordFeedbackLocators } from './password-feedback'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({

@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { OrderBadges } from './badges'
-import { silenceErrors } from '../../../../test-helpers/silence-errors'
 import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
+
+import { silenceErrors } from '../../../../test-helpers/silence-errors'
+import { OrderBadges } from './badges'
 
 describe('OrderBadges component', () => {
   it('renders Good til date badge when timeInForce is GTT', () => {

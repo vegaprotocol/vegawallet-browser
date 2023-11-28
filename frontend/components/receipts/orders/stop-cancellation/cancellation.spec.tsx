@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { StopOrderCancellation } from './cancellation'
+
 import { locators as tableLocators } from '../../../data-table/data-table'
+import { StopOrderCancellation } from './cancellation'
 
 describe('StopOrderCancellation', () => {
   it('renders the component with market ID and stop order ID', () => {

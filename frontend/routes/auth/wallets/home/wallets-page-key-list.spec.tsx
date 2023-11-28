@@ -1,9 +1,10 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { WalletsPageKeyList, WalletPageKeyListProperties, locators } from './wallets-page-key-list'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+
+import { locators as keyListLocators } from '../../../../components/key-list'
 import { JsonRPCProvider } from '../../../../contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '../../../../test-helpers/mock-client'
-import { MemoryRouter } from 'react-router-dom'
-import { locators as keyListLocators } from '../../../../components/key-list'
+import { locators,WalletPageKeyListProperties, WalletsPageKeyList } from './wallets-page-key-list'
 
 const storeMock = {
   createKey: jest.fn()

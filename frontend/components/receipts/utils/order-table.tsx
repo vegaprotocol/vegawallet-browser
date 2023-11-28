@@ -1,20 +1,21 @@
+import { vegaOrderStatus,vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { ReactNode } from 'react'
-import { vegaOrderType, vegaSide, vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { DataTable } from '../../data-table/data-table'
+
 import { PeggedOrderOptions } from '../../../types/transactions'
+import { DataTable } from '../../data-table/data-table'
 import {
-  buildPriceColumn,
-  buildReferenceColumn,
+  buildCreatedAtColumn,
   buildMarketColumn,
   buildOrderColumn,
-  buildSideColumn,
   buildPeggedOrderColumn,
-  buildSizeColumn,
-  buildTypeColumn,
-  buildCreatedAtColumn,
-  buildUpdatedAtColumn,
+  buildPriceColumn,
+  buildReferenceColumn,
   buildRemainingColumn,
+  buildSideColumn,
+  buildSizeColumn,
   buildStatusColumn,
+  buildTypeColumn,
+  buildUpdatedAtColumn,
   buildVersionColumn
 } from './order/build-order-columns'
 

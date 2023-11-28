@@ -1,6 +1,7 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { RenameKeyForm, locators } from './rename-key-form' // Update the import path
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+
 import { RpcMethods } from '../../../../../lib/client-rpc-methods'
+import { locators,RenameKeyForm } from './rename-key-form' // Update the import path
 
 const mockRequest = jest.fn().mockResolvedValue(null)
 

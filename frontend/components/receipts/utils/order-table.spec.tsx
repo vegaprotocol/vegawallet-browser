@@ -1,14 +1,15 @@
 import { render, screen } from '@testing-library/react'
-import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { OrderTable } from './order-table'
-import { locators as dataTableLocators } from '../../data-table/data-table'
-import { useMarketsStore } from '../../../stores/markets-store'
-import { useAssetsStore } from '../../../stores/assets-store'
-import { generateMarket } from '../../../test-helpers/generate-market'
-import { generateAsset } from '../../../test-helpers/generate-asset'
-import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { mockStore } from '../../../test-helpers/mock-store'
 import { vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/core'
+import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
+
+import { useAssetsStore } from '../../../stores/assets-store'
+import { useMarketsStore } from '../../../stores/markets-store'
+import { generateAsset } from '../../../test-helpers/generate-asset'
+import { generateMarket } from '../../../test-helpers/generate-market'
+import { mockStore } from '../../../test-helpers/mock-store'
+import { locators as dataTableLocators } from '../../data-table/data-table'
+import { OrderTable } from './order-table'
 
 jest.mock('../../../stores/markets-store', () => ({
   ...jest.requireActual('../../../stores/markets-store'),

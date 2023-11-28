@@ -1,8 +1,9 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { LockSection, locators } from './lock-section'
-import { FULL_ROUTES } from '../../route-names'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+
 import { RpcMethods } from '../../../lib/client-rpc-methods'
+import { FULL_ROUTES } from '../../route-names'
+import { locators,LockSection } from './lock-section'
 
 const mockRequest = jest.fn()
 const mockNavigate = jest.fn()

@@ -1,13 +1,12 @@
-import merge from 'lodash/merge'
-import type { PartialDeep } from 'type-fest'
 import {
   ConditionOperator,
+  MarketTradingMode,
   v1PropertyKeyType,
-  vegaMarket,
-  vegaMarketState,
   vegaDataSourceSpecStatus,
-  MarketTradingMode
-} from '@vegaprotocol/rest-clients/dist/trading-data'
+  vegaMarket,
+  vegaMarketState} from '@vegaprotocol/rest-clients/dist/trading-data'
+import merge from 'lodash/merge'
+import type { PartialDeep } from 'type-fest'
 
 export function generateMarket(override?: PartialDeep<vegaMarket>): vegaMarket {
   const defaultMarket: vegaMarket = {

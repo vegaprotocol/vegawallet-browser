@@ -1,5 +1,6 @@
-import { PasswordFeedback, locators } from './password-feedback'
-import { screen, render } from '@testing-library/react'
+import { render,screen } from '@testing-library/react'
+
+import { locators,PasswordFeedback } from './password-feedback'
 
 jest.mock('zxcvbn', () => {
   return jest.fn((password: string) => {

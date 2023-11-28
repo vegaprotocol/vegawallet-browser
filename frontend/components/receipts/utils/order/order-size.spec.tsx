@@ -1,9 +1,10 @@
-import { screen, render } from '@testing-library/react'
-import { OrderSize } from './order-size'
-import { locators as sizeWithTooltipLocators } from '../string-amounts/size-with-tooltip'
-import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
-import { mockStore } from '../../../../test-helpers/mock-store'
+import { render,screen } from '@testing-library/react'
+
 import { useMarketsStore } from '../../../../stores/markets-store'
+import { mockStore } from '../../../../test-helpers/mock-store'
+import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
+import { locators as sizeWithTooltipLocators } from '../string-amounts/size-with-tooltip'
+import { OrderSize } from './order-size'
 
 jest.mock('../../../../stores/markets-store')
 

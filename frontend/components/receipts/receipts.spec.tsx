@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { TransactionSwitch } from '.'
 
 jest.mock('./transaction-map', () => ({

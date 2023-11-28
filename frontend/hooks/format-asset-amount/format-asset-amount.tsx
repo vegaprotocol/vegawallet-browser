@@ -1,6 +1,7 @@
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
-import { useAssetsStore } from '../../stores/assets-store'
 import get from 'lodash/get'
+
+import { useAssetsStore } from '../../stores/assets-store'
 
 export const useFormatAssetAmount = (assetId?: string, amount?: string) => {
   const { getAssetById, loading } = useAssetsStore((state) => ({

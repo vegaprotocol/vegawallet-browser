@@ -1,7 +1,8 @@
 import { renderHook } from '@testing-library/react'
-import { usePing } from '.'
+
 import initKeepAlive from '../../../lib/mv3-keep-alive'
 import { mockClient } from '../../test-helpers/mock-client'
+import { usePing } from '.'
 
 jest.mock('../../../lib/mv3-keep-alive')
 

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { Home } from '.'
+
 import { useGetRedirectPath } from '../../hooks/redirect-path'
+import { Home } from '.'
 
 jest.mock('../../hooks/redirect-path', () => ({
   useGetRedirectPath: jest.fn()

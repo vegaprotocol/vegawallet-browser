@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react'
-import { AssetListEmptyState, locators } from './asset-list-empty-state'
-import { mockStore } from '../../../../../test-helpers/mock-store'
+import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
+
+import { locators as subheaderLocators } from '../../../../../components/sub-header'
 import { useAssetsStore } from '../../../../../stores/assets-store'
 import { useMarketsStore } from '../../../../../stores/markets-store'
-import { locators as subheaderLocators } from '../../../../../components/sub-header'
+import { mockStore } from '../../../../../test-helpers/mock-store'
 import { locators as assetCardLocators } from './asset-card'
-import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { AssetListEmptyState, locators } from './asset-list-empty-state'
 
 // Mocking useAssetsStore and useMarketsStore
 jest.mock('../../../../../stores/assets-store')

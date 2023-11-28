@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+
 import { CopyWithCheckmark } from '../copy-with-check'
 import locators from '../locators'
 

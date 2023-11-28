@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { DataTable, locators } from './data-table'
 
 describe('DataTable', () => {

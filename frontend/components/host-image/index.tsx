@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import classnames from 'classnames'
+import { useState } from 'react'
 import { parse } from 'tldts'
 
 export const locators = {

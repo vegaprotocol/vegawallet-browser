@@ -1,7 +1,8 @@
 import { vegaOrder } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { CancellationNotification } from './cancellation-notification'
-import { OrderTable } from '../../utils/order-table'
+
 import { OrderBadges } from '../../utils/order/badges'
+import { OrderTable } from '../../utils/order-table'
+import { CancellationNotification } from './cancellation-notification'
 
 export const locators = {
   cancellationView: 'cancellation-view'

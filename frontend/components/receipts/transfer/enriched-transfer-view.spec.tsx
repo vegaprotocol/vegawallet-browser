@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react'
-import { EnrichedTransferView, locators as enrichedLocators } from './enriched-transfer-view'
-import { Key, useWalletStore } from '../../../stores/wallets'
-import { locators as priceWithSymbolLocators } from '../utils/string-amounts/amount-with-symbol'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
-import { useAssetsStore } from '../../../stores/assets-store'
 import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
+
+import { useAssetsStore } from '../../../stores/assets-store'
+import { Key, useWalletStore } from '../../../stores/wallets'
 import { mockStore } from '../../../test-helpers/mock-store'
+import { locators as priceWithSymbolLocators } from '../utils/string-amounts/amount-with-symbol'
+import { EnrichedTransferView, locators as enrichedLocators } from './enriched-transfer-view'
 
 jest.mock('../../../stores/wallets', () => ({
   useWalletStore: jest.fn()

@@ -1,5 +1,6 @@
-import { isActiveMarket, getSettlementAssetId } from './markets'
 import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
+
+import { getSettlementAssetId,isActiveMarket } from './markets'
 
 describe('isActiveMarket', () => {
   it('should return true for CONTINUOUS trading mode', () => {

@@ -1,10 +1,11 @@
-import { VegaIcon } from '../icons/vega-icon'
 import config from '!/config'
-import { ExpandIcon } from '../icons/expand'
+
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../lib/client-rpc-methods'
 import { usePopoverStore } from '../../stores/popover-store'
 import { Cross } from '../icons/cross'
+import { ExpandIcon } from '../icons/expand'
+import { VegaIcon } from '../icons/vega-icon'
 
 export const locators = {
   pageHeader: 'page-header',

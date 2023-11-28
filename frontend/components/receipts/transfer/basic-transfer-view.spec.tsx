@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { BasicTransferView, locators as basicLocators } from './basic-transfer-view'
-import { locators as amountWithTooltipLocators } from '../utils/string-amounts/amount-with-tooltip'
+
+import { render, screen } from '@testing-library/react'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
+
+import { locators as amountWithTooltipLocators } from '../utils/string-amounts/amount-with-tooltip'
+import { BasicTransferView, locators as basicLocators } from './basic-transfer-view'
 
 const mockTransaction = {
   transfer: {

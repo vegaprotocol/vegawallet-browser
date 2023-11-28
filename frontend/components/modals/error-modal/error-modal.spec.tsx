@@ -1,6 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import { ErrorModal, locators } from '.'
+import { fireEvent,render, screen } from '@testing-library/react'
+
 import componentLocators from '../../locators'
+import { ErrorModal, locators } from '.'
 
 describe('ErrorModal', () => {
   const error = new Error('Test error')

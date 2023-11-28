@@ -1,7 +1,8 @@
+import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
+
 import { formatNanoDate } from '../../../../lib/utils'
-import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 const TIF_MAP: { [key in OrderTimeInForce]: string } = {
   [OrderTimeInForce.TIME_IN_FORCE_GTC]: 'GTC',

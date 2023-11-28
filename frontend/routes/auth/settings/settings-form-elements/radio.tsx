@@ -1,9 +1,10 @@
 import { Radio, RadioGroup } from '@vegaprotocol/ui-toolkit'
-import { useGlobalsStore } from '../../../../stores/globals'
-import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
-import { VegaSection } from '../../../../components/vega-section'
 import { ReactNode } from 'react'
+
 import { SubHeader } from '../../../../components/sub-header'
+import { VegaSection } from '../../../../components/vega-section'
+import { useJsonRpcClient } from '../../../../contexts/json-rpc/json-rpc-context'
+import { useGlobalsStore } from '../../../../stores/globals'
 
 export const locators = {
   settingsRadioDescription: 'settings-radio-description',

@@ -1,8 +1,9 @@
-import React from 'react'
 import { render } from '@testing-library/react'
-import { WalletsRoot } from './index'
+import React from 'react'
+
 import { useWalletStore } from '../../../stores/wallets'
 import { mockStore } from '../../../test-helpers/mock-store'
+import { WalletsRoot } from './index'
 
 jest.mock('../../../stores/wallets')
 

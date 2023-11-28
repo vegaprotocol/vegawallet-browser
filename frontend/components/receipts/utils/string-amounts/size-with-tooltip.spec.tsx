@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+
 import { locators as decimalTooltipLocators } from './decimal-tooltip'
-import { SizeWithTooltip, locators } from './size-with-tooltip'
+import { locators,SizeWithTooltip } from './size-with-tooltip'
 
 describe('SizeWithTooltip', () => {
   it('renders the amount', () => {

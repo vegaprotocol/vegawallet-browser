@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { VegaHeader } from '.'
+
 import locators from '../locators'
+import { VegaHeader } from '.'
 
 describe('VegaHeader', () => {
   it('renders vega icon, vega logo and wallets text', () => {

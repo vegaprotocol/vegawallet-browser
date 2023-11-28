@@ -1,6 +1,6 @@
+import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 import merge from 'lodash/merge'
 import type { PartialDeep } from 'type-fest'
-import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 export function generateAsset(override?: PartialDeep<vegaAsset>): vegaAsset {
   const defaultAsset: vegaAsset = {

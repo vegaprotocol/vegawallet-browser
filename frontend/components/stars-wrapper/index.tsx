@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+
 import locators from '../locators'
 
 export const StarsWrapper = ({ children }: { children: ReactNode }) => {

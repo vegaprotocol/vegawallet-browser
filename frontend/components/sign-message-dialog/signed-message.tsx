@@ -1,4 +1,5 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
+
 import { CodeWindow } from '../code-window'
 
 export const locators = {

@@ -1,8 +1,9 @@
-import { create } from 'zustand'
-import { RpcMethods } from '../lib/client-rpc-methods'
-import uniqBy from 'lodash/uniqBy'
 import orderBy from 'lodash/orderBy'
+import uniqBy from 'lodash/uniqBy'
+import { create } from 'zustand'
+
 import { SendMessage } from '../contexts/json-rpc/json-rpc-provider'
+import { RpcMethods } from '../lib/client-rpc-methods'
 
 export interface Connection {
   allowList: AllowList

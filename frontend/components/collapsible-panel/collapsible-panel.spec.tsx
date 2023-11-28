@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { CollapsiblePanel } from './collapsible-panel'
+
 import locators from '../locators'
+import { CollapsiblePanel } from './collapsible-panel'
 
 const renderComponent = ({ initiallyOpen }: { initiallyOpen?: boolean }) => {
   return render(

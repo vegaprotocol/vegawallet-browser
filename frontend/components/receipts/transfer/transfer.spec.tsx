@@ -1,11 +1,12 @@
-import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer'
-import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 import { render, screen } from '@testing-library/react'
-import { locators, Transfer } from './transfer'
+import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
+import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer'
+import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
+
 import { useAssetsStore } from '../../../stores/assets-store'
 import { Key, useWalletStore } from '../../../stores/wallets'
-import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { mockStore } from '../../../test-helpers/mock-store'
+import { locators, Transfer } from './transfer'
 
 jest.mock('./basic-transfer-view', () => ({
   BasicTransferView: () => <div data-testid="basic-transfer-view" />

@@ -1,7 +1,8 @@
 import { ReactNode, useState } from 'react'
-import { Show } from '../icons/show'
+
 import { CopyWithCheckmark } from '../copy-with-check'
 import { Hide } from '../icons/hide'
+import { Show } from '../icons/show'
 import locators from '../locators'
 
 export interface HiddenContainerProperties {

@@ -1,14 +1,15 @@
-import { useForm, useWatch } from 'react-hook-form'
-import { OnboardingPage } from '../../../components/pages/onboarding-page'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { FormGroup, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
-import { Validation } from '../../../lib/form-validation'
-import { FULL_ROUTES } from '../../route-names'
+import { useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+
+import { LoadingButton } from '../../../components/loading-button'
+import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
 import { createWallet } from '../../../lib/create-wallet'
+import { Validation } from '../../../lib/form-validation'
+import { FULL_ROUTES } from '../../route-names'
 import { WalletImported } from './wallet-imported'
-import { LoadingButton } from '../../../components/loading-button'
 
 export const locators = {
   importMnemonic: 'import-mnemonic',

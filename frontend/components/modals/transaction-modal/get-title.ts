@@ -1,4 +1,4 @@
-import { TransactionKeys, TRANSACTION_TITLES, Transaction, MAX_POSITION_SIZE } from '../../../lib/transactions'
+import { MAX_POSITION_SIZE,Transaction, TRANSACTION_TITLES, TransactionKeys } from '../../../lib/transactions'
 
 const processTitle = (type: TransactionKeys, data: any) => {
   // If we have a mass order cancellation (i.e. no order ID, with or without a market ID)

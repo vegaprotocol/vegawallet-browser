@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { Amendment } from '.'
+
 import { locators } from '../../../data-table/data-table'
+import { Amendment } from '.'
 
 describe('Amend', () => {
   it('should render nothing if the order has pegged offset set', () => {

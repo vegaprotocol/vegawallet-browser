@@ -112,21 +112,21 @@ describe('AssetListEmptyState Component', () => {
         return id === assets[0].id
           ? [
               {
-                id: '1',
+                id: 'M1',
                 tradingMode: MarketTradingMode.TRADING_MODE_NO_TRADING
               },
               {
-                id: '2',
+                id: 'M2',
                 tradingMode: MarketTradingMode.TRADING_MODE_SUSPENDED_VIA_GOVERNANCE
               }
             ]
           : [
               {
-                id: '3',
+                id: 'M3',
                 tradingMode: MarketTradingMode.TRADING_MODE_CONTINUOUS
               },
               {
-                id: '4',
+                id: 'M4',
                 tradingMode: MarketTradingMode.TRADING_MODE_MONITORING_AUCTION
               }
             ]

@@ -9,6 +9,7 @@ import { OnboardingPage } from '@/components/pages/onboarding-page'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { Validation } from '@/lib/form-validation'
+
 import { FULL_ROUTES } from '../../route-names'
 import { PasswordFeedback } from './password-feedback'
 

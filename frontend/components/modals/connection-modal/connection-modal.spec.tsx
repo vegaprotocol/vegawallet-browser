@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import { useInteractionStore } from '@/stores/interaction-store'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import locators from '../../locators'
 import { ConnectionModal } from './connection-modal'
 import { ConnectionSuccessProperties } from './connection-success'

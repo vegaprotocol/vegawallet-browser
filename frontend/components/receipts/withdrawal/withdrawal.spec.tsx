@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import { useAssetsStore } from '@/stores/assets-store'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { Withdraw } from './withdrawal'
 
 jest.mock('./basic-withdrawal', () => ({

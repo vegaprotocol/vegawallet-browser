@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { locators as keyListLocators } from '@/components/key-list'
 import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '@/test-helpers/mock-client'
+
 import { locators, WalletPageKeyListProperties, WalletsPageKeyList } from './wallets-page-key-list'
 
 const storeMock = {

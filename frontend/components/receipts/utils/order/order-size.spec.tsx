@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 import { locators as sizeWithTooltipLocators } from '../string-amounts/size-with-tooltip'
 import { OrderSize } from './order-size'

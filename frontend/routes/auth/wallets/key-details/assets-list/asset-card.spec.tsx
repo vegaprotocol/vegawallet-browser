@@ -5,6 +5,7 @@ import { locators as dataTableLocators } from '@/components/data-table/data-tabl
 import { useAssetsStore } from '@/stores/assets-store'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
+
 import { AssetCard, locators } from './asset-card'
 
 const assetId = '1'.repeat(64)

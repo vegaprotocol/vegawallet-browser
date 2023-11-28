@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { REJECTION_ERROR_MESSAGE } from '@/lib/utils'
+
 import { ExportPrivateKeyForm, locators } from './export-private-key-form'
 
 jest.mock('@/contexts/json-rpc/json-rpc-context')

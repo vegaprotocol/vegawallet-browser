@@ -1,11 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { validRecoveryPhrase } from '../../../../test/e2e/helpers/wallet/common-wallet-values'
 import { locators as pageLocators } from '@/components/pages/page'
 import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '@/test-helpers/mock-client'
 import { mockStorage } from '@/test-helpers/mock-storage'
+
+import { validRecoveryPhrase } from '../../../../test/e2e/helpers/wallet/common-wallet-values'
 import { FULL_ROUTES } from '../../route-names'
 import { ImportWallet, locators } from '.'
 

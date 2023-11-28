@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+
 import { useAccountsStore } from './accounts-store'
 
 export const useAccounts = (publicKey: string) => {

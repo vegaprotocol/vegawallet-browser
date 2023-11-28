@@ -4,6 +4,7 @@ import get from 'lodash/get'
 import { useFormatMarketPrice } from '@/hooks/format-market-price'
 import { useMarketSettlementAsset } from '@/hooks/market-settlement-asset'
 import { PeggedOrderOptions } from '@/types/transactions'
+
 import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
 import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
 

@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { useGlobalsStore } from '@/stores/globals'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
+
 import { locators, SettingsRadio } from './radio'
 
 jest.mock('@/stores/globals')

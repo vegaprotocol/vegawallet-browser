@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useOrdersStore } from '@/stores/orders-store'
+
 import { ReceiptComponentProperties } from '../../receipts'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { CancellationView } from './cancellation-view'

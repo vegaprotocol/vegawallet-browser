@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
 import config from '!/config'
-
 import componentLocators from '@/components/locators'
+
 import { FULL_ROUTES } from '../../route-names'
 import { GetStarted, locators } from '.'
 import { locators as disclaimerLocators } from './disclaimer'

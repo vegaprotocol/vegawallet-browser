@@ -5,6 +5,7 @@ import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trad
 import { useAssetsStore } from '@/stores/assets-store'
 import { Key, useWalletStore } from '@/stores/wallets'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { locators as priceWithSymbolLocators } from '../utils/string-amounts/amount-with-symbol'
 import { EnrichedTransferView, locators as enrichedLocators } from './enriched-transfer-view'
 

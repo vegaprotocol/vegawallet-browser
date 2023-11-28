@@ -5,6 +5,7 @@ import { locators as subheaderLocators } from '@/components/sub-header'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { locators as assetCardLocators } from './asset-card'
 import { AssetListEmptyState, locators } from './asset-list-empty-state'
 

@@ -4,6 +4,7 @@ import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { useMarketsStore } from '@/stores/markets-store.ts'
 import { generateMarket } from '@/test-helpers/generate-market.ts'
 import { mockStore } from '@/test-helpers/mock-store.ts'
+
 import { locators as marketLinkLocators } from './market-link'
 import { locators as orderMarketComponentLocators, OrderMarket } from './order-market'
 

@@ -7,6 +7,7 @@ import { VegaSection } from '@/components/vega-section'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import config from '@/lib/config'
+
 import { FULL_ROUTES } from '../../../routes/route-names'
 
 export const locators = {

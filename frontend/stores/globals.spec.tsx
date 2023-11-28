@@ -1,4 +1,5 @@
 import { RpcMethods } from '@/lib/client-rpc-methods'
+
 import { useGlobalsStore } from './globals'
 
 const globalsMock = {

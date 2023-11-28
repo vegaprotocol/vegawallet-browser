@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
+
 import { VegaSection } from '../../vega-section'
 
 export const locators = {

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
 import { useFormatAssetAmount } from '@/hooks/format-asset-amount'
+
 import { EnrichedWithdrawal } from './enriched-withdrawal'
 
 jest.mock('@/hooks/format-asset-amount')

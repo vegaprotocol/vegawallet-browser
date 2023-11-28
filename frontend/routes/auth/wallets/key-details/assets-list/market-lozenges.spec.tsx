@@ -4,6 +4,7 @@ import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
 import config from '@/lib/config'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { locators, MarketLozenges } from './markets-lozenges'
 
 jest.mock('@/stores/markets-store')

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Header } from '@/components/header'
 import { Wallet } from '@/components/icons/wallet'
+
 import { FULL_ROUTES } from '../../route-names'
 
 export const locators = {

@@ -8,6 +8,7 @@ import { useMarketsStore } from '@/stores/markets-store'
 import { generateAsset } from '@/test-helpers/generate-asset'
 import { generateMarket } from '@/test-helpers/generate-market'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { locators as dataTableLocators } from '../../data-table/data-table'
 import { OrderTable } from './order-table'
 

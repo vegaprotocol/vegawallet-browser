@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { ReactNode } from 'react'
 
-import App, { locators } from './app'
 import { usePing } from '@/hooks/ping'
 import { usePreventWindowResize } from '@/hooks/prevent-window-resize'
 import { useGlobalsStore } from '@/stores/globals'
 import { mockStore } from '@/test-helpers/mock-store'
+
+import App, { locators } from './app'
 
 jest.mock('@/stores/globals')
 jest.mock('@/hooks/prevent-window-resize')

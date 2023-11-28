@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import { useGlobalsStore } from '@/stores/globals'
 import { mockStore } from '@/test-helpers/mock-store'
+
 import { ExternalLink } from './external-link'
 
 jest.mock('@/stores/globals')

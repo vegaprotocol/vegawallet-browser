@@ -1,4 +1,5 @@
 import { Transaction } from '@/lib/transactions'
+
 import { CodeWindow } from '../../code-window'
 import { CollapsiblePanel } from '../../collapsible-panel'
 import { VegaSection } from '../../vega-section'

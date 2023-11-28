@@ -9,6 +9,7 @@ import { useInteractionStore } from '@/stores/interaction-store'
 import { mockClient } from '@/test-helpers/mock-client'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
+
 import { useJsonRpcClient } from './json-rpc-context'
 import { JsonRPCProvider } from './json-rpc-provider'
 

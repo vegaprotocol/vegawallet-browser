@@ -6,6 +6,7 @@ import get from 'lodash/get'
 import { CollapsibleCard } from '@/components/collapsible-card'
 import { DataTable } from '@/components/data-table/data-table'
 import { useAssetsStore } from '@/stores/assets-store'
+
 import { MarketLozenges } from './markets-lozenges'
 
 export const ACCOUNT_TYPE_MAP: Record<vegaAccountType, string> = {

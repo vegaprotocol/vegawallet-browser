@@ -1,4 +1,4 @@
-import { TransactionKeys } from '../../lib/transactions'
+import { TransactionKeys } from '@/lib/transactions'
 import { ReceiptViewErrorBoundary } from './receipt-error-boundary'
 import { ReceiptComponentProperties } from './receipts'
 import { TransactionMap } from './transaction-map'

@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 
-import { useMarketsStore } from '../../../../stores/markets-store'
-import { mockStore } from '../../../../test-helpers/mock-store'
+import { useMarketsStore } from '@/stores/markets-store'
+import { mockStore } from '@/test-helpers/mock-store'
 import { CancellationNotification } from './cancellation-notification'
 
-jest.mock('../../../../stores/markets-store')
+jest.mock('@/stores/markets-store')
 
 describe('CancellationNotification', () => {
   it('should display "Cancel all open orders in this market" when marketId is provided and orderId is not', () => {

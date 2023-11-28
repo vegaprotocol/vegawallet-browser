@@ -3,9 +3,9 @@ import get from 'lodash/get'
 
 import config from '!/config'
 
-import { ExternalLink } from '../../../../../components/external-link'
-import { isActiveMarket } from '../../../../../lib/markets'
-import { useMarketsStore } from '../../../../../stores/markets-store'
+import { ExternalLink } from '@/components/external-link'
+import { isActiveMarket } from '@/lib/markets'
+import { useMarketsStore } from '@/stores/markets-store'
 
 export const locators = {
   marketsDescription: 'markets-description',

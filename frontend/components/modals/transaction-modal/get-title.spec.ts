@@ -1,4 +1,4 @@
-import { MAX_POSITION_SIZE, TransactionKeys } from '../../../lib/transactions'
+import { MAX_POSITION_SIZE, TransactionKeys } from '@/lib/transactions'
 import { getTitle } from './get-title'
 
 describe('getTitle', () => {

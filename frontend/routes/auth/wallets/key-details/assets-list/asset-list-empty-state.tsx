@@ -1,9 +1,9 @@
 import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import { SubHeader } from '../../../../../components/sub-header'
-import { isActiveMarket } from '../../../../../lib/markets'
-import { useAssetsStore } from '../../../../../stores/assets-store'
-import { useMarketsStore } from '../../../../../stores/markets-store'
+import { SubHeader } from '@/components/sub-header'
+import { isActiveMarket } from '@/lib/markets'
+import { useAssetsStore } from '@/stores/assets-store'
+import { useMarketsStore } from '@/stores/markets-store'
 import { AssetCard } from './asset-card'
 
 export const locators = {

@@ -1,8 +1,8 @@
 import { Dialog } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
 
-import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
-import { RpcMethods } from '../../lib/client-rpc-methods'
+import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { RpcMethods } from '@/lib/client-rpc-methods'
 import { SignMessage } from './sign-message'
 import { SignedMessage } from './signed-message'
 

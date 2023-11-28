@@ -1,4 +1,4 @@
-import { useFormatSizeAmount } from '../../../../hooks/format-size-amount'
+import { useFormatSizeAmount } from '@/hooks/format-size-amount'
 import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
 import { SizeWithTooltip } from '../string-amounts/size-with-tooltip'
 

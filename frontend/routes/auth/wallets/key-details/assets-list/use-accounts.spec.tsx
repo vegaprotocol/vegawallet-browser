@@ -1,20 +1,20 @@
 import { renderHook } from '@testing-library/react'
 import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import { mockStore } from '../../../../../test-helpers/mock-store'
+import { mockStore } from '@/test-helpers/mock-store'
 import { useAccountsStore } from './accounts-store'
 import { useAccounts } from './use-accounts'
 const MOCK_KEY = '1'.repeat(64)
 const ASSET_ID = '2'.repeat(64)
 const MARKET_ID = '3'.repeat(64)
 
-jest.mock('../../../../../contexts/json-rpc/json-rpc-context', () => ({
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
     request: jest.fn()
   })
 }))
 
-jest.mock('../../../../../stores/wallets', () => ({
+jest.mock('@/stores/wallets', () => ({
   useWalletStore: jest.fn().mockImplementation((function_) =>
     function_({
       getKeyById: jest.fn().mockReturnValue({

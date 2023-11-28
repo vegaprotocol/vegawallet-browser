@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { locators,ViewPrivateKey } from './view-private-key'
+import { locators, ViewPrivateKey } from './view-private-key'
 
-jest.mock('../../../../../components/hidden-container', () => ({
+jest.mock('@/components/hidden-container', () => ({
   HiddenContainer: () => <div data-testid="hidden-container" />
 }))
 

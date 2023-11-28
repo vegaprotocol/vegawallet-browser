@@ -1,6 +1,6 @@
 import packageJson from '../../../../package.json'
-import { SubHeader } from '../../../components/sub-header'
-import { VegaSection } from '../../../components/vega-section'
+import { SubHeader } from '@/components/sub-header'
+import { VegaSection } from '@/components/vega-section'
 
 export const locators = {
   settingsVersionTitle: 'settings-version-title',

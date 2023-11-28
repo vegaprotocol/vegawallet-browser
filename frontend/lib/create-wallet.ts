@@ -1,5 +1,5 @@
-import { SendMessage } from '../contexts/json-rpc/json-rpc-provider'
-import { clearMnemonic } from '../hooks/suggest-mnemonic'
+import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import { clearMnemonic } from '@/hooks/suggest-mnemonic'
 import { RpcMethods } from './client-rpc-methods'
 
 export const createWallet = async (mnemonic: string, request: SendMessage, propagateError = false) => {

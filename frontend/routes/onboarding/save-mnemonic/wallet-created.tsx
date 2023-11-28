@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-import { Header } from '../../../components/header'
-import { SuccessTick } from '../../../components/icons/success-tick'
-import { StarsWrapper } from '../../../components/stars-wrapper'
+import { Header } from '@/components/header'
+import { SuccessTick } from '@/components/icons/success-tick'
+import { StarsWrapper } from '@/components/stars-wrapper'
 
 export const locators = {
   walletCreated: 'wallet-created'

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
-import { useAssetsStore } from '../../../stores/assets-store'
-import { mockStore } from '../../../test-helpers/mock-store'
+import { useAssetsStore } from '@/stores/assets-store'
+import { mockStore } from '@/test-helpers/mock-store'
 import { Withdraw } from './withdrawal'
 
 jest.mock('./basic-withdrawal', () => ({
@@ -12,7 +12,7 @@ jest.mock('./enriched-withdrawal', () => ({
   EnrichedWithdrawal: () => <div data-testid="enriched-withdrawal" />
 }))
 
-jest.mock('../../../stores/assets-store')
+jest.mock('@/stores/assets-store')
 
 describe('Withdrawal', () => {
   it('renders nothing if withdrawal is not of type erc20', () => {

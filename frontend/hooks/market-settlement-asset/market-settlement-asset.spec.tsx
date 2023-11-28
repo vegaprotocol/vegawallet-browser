@@ -1,13 +1,13 @@
 import { renderHook } from '@testing-library/react'
 
-import { AssetsStore, useAssetsStore } from '../../stores/assets-store'
-import { MarketsStore, useMarketsStore } from '../../stores/markets-store'
-import { DeepPartial, mockStore } from '../../test-helpers/mock-store'
-import { silenceErrors } from '../../test-helpers/silence-errors'
+import { AssetsStore, useAssetsStore } from '@/stores/assets-store'
+import { MarketsStore, useMarketsStore } from '@/stores/markets-store'
+import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import { useMarketSettlementAsset } from './market-settlement-asset'
 
-jest.mock('../../stores/assets-store')
-jest.mock('../../stores/markets-store')
+jest.mock('@/stores/assets-store')
+jest.mock('@/stores/markets-store')
 
 const mockStores = (marketStore: DeepPartial<MarketsStore>, assetStore: DeepPartial<AssetsStore>) => {
   mockStore(useMarketsStore, marketStore)

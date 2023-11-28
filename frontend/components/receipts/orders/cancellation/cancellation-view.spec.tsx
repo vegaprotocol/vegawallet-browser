@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 
-import { useMarketsStore } from '../../../../stores/markets-store'
-import { mockStore } from '../../../../test-helpers/mock-store'
+import { useMarketsStore } from '@/stores/markets-store'
+import { mockStore } from '@/test-helpers/mock-store'
 import { CancellationView } from './cancellation-view'
 
-jest.mock('../../../../stores/markets-store')
+jest.mock('@/stores/markets-store')
 
 jest.mock('../../utils/order-table', () => ({
   OrderTable: () => <div data-testid="order-table"></div>

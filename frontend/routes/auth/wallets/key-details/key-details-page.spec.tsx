@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { locators as pageLocators } from '../../../../components/pages/page'
-import { useAssetsStore } from '../../../../stores/assets-store'
-import { useMarketsStore } from '../../../../stores/markets-store'
-import { useWalletStore } from '../../../../stores/wallets'
-import { mockStore } from '../../../../test-helpers/mock-store'
-import { silenceErrors } from '../../../../test-helpers/silence-errors'
+import { locators as pageLocators } from '@/components/pages/page'
+import { useAssetsStore } from '@/stores/assets-store'
+import { useMarketsStore } from '@/stores/markets-store'
+import { useWalletStore } from '@/stores/wallets'
+import { mockStore } from '@/test-helpers/mock-store'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import { FULL_ROUTES } from '../../../route-names'
 import { KeyDetailsPage } from './key-details-page'
 
@@ -22,7 +22,7 @@ jest.mock('./key-selector', () => ({
   KeySelector: () => <div data-testid="key-selector" />
 }))
 
-jest.mock('../../../../components/keys/vega-key', () => ({
+jest.mock('@/components/keys/vega-key', () => ({
   VegaKey: () => <div data-testid="vega-key" />
 }))
 
@@ -30,13 +30,13 @@ jest.mock('./assets-list', () => ({
   AssetsList: () => <div data-testid="assets-list" />
 }))
 
-jest.mock('../../../../stores/assets-store')
-jest.mock('../../../../stores/wallets')
-jest.mock('../../../../stores/markets-store')
+jest.mock('@/stores/assets-store')
+jest.mock('@/stores/wallets')
+jest.mock('@/stores/markets-store')
 
 const mockRequest = jest.fn().mockResolvedValue(null)
 
-jest.mock('../../../../contexts/json-rpc/json-rpc-context', () => ({
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
     request: mockRequest
   })

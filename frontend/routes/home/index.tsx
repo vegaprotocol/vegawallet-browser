@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 
-import { useGetRedirectPath } from '../../hooks/redirect-path'
-import { useSentry } from '../../hooks/sentry'
+import { useGetRedirectPath } from '@/hooks/redirect-path'
+import { useSentry } from '@/hooks/sentry'
 
 export const Home = () => {
   const { loading, path } = useGetRedirectPath()

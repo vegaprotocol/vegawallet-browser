@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import { silenceErrors } from '../../../../test-helpers/silence-errors'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import { OrderBadges } from './badges'
 
 describe('OrderBadges component', () => {

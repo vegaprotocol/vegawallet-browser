@@ -1,10 +1,10 @@
-import { vegaOrderStatus,vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { vegaOrderStatus, vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
-import { nanoSecondsToMilliseconds } from '../../../../lib/utils'
-import { PeggedOrderOptions } from '../../../../types/transactions'
+import { nanoSecondsToMilliseconds } from '@/lib/utils'
+import { PeggedOrderOptions } from '@/types/transactions'
 import { CopyWithCheckmark } from '../../../copy-with-check'
 import { OrderMarket } from './order-market'
 import { OrderPrice } from './order-price'

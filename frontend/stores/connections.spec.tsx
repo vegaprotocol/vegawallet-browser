@@ -1,4 +1,4 @@
-import { RpcMethods } from '../lib/client-rpc-methods'
+import { RpcMethods } from '@/lib/client-rpc-methods'
 import { useConnectionStore } from './connections'
 
 const request = (method: string) => {

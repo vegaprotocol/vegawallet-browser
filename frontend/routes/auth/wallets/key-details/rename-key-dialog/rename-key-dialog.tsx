@@ -1,10 +1,11 @@
 import { Dialog } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
 
+import { VegaKey } from '@/components/keys/vega-key'
+import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { Key, useWalletStore } from '@/stores/wallets'
+
 import { CONSTANTS } from '../../../../../../lib/constants'
-import { VegaKey } from '../../../../../components/keys/vega-key'
-import { useJsonRpcClient } from '../../../../../contexts/json-rpc/json-rpc-context'
-import { Key, useWalletStore } from '../../../../../stores/wallets'
 import { RenameKeyForm } from './rename-key-form'
 
 export const locators = {

@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
-import { useWalletStore } from '../../../stores/wallets'
-import { mockStore } from '../../../test-helpers/mock-store'
+import { useWalletStore } from '@/stores/wallets'
+import { mockStore } from '@/test-helpers/mock-store'
 import { WalletsRoot } from './index'
 
-jest.mock('../../../stores/wallets')
+jest.mock('@/stores/wallets')
 
 describe('WalletsRoot Component', () => {
   afterEach(() => {

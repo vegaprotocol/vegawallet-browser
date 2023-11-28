@@ -1,13 +1,13 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { RpcMethods } from '../../../lib/client-rpc-methods'
+import { RpcMethods } from '@/lib/client-rpc-methods'
 import { FULL_ROUTES } from '../../route-names'
-import { locators,LockSection } from './lock-section'
+import { locators, LockSection } from './lock-section'
 
 const mockRequest = jest.fn()
 const mockNavigate = jest.fn()
-jest.mock('../../../contexts/json-rpc/json-rpc-context', () => ({
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
     request: mockRequest
   })

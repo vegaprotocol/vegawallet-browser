@@ -1,6 +1,6 @@
 import get from 'lodash/get'
 
-import { useMarketsStore } from '../../../../stores/markets-store'
+import { useMarketsStore } from '@/stores/markets-store'
 import { MarketLink } from './market-link'
 
 export const locators = {

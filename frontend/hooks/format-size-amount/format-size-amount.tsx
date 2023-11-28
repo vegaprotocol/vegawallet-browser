@@ -1,8 +1,8 @@
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import get from 'lodash/get'
 
-import { MAX_POSITION_SIZE } from '../../lib/transactions'
-import { useMarketsStore } from '../../stores/markets-store'
+import { MAX_POSITION_SIZE } from '@/lib/transactions'
+import { useMarketsStore } from '@/stores/markets-store'
 
 export const useFormatSizeAmount = (marketId?: string, size?: string) => {
   const { loading, getMarketById } = useMarketsStore((state) => ({

@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react'
 
-import { useMarketsStore } from '../../stores/markets-store'
-import { mockStore } from '../../test-helpers/mock-store'
-import { silenceErrors } from '../../test-helpers/silence-errors'
+import { useMarketsStore } from '@/stores/markets-store'
+import { mockStore } from '@/test-helpers/mock-store'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import { useFormatMarketPrice } from './format-market-price'
 
-jest.mock('../../stores/markets-store')
+jest.mock('@/stores/markets-store')
 
 describe('useFormatMarketPrice', () => {
   it('throw error if market decimals are not defined', () => {

@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { useAssetsStore } from '../../../stores/assets-store'
-import { useMarketsStore } from '../../../stores/markets-store'
-import { mockStore } from '../../../test-helpers/mock-store'
-import { locators,ReceiptWrapper } from './receipt-wrapper'
+import { useAssetsStore } from '@/stores/assets-store'
+import { useMarketsStore } from '@/stores/markets-store'
+import { mockStore } from '@/test-helpers/mock-store'
+import { locators, ReceiptWrapper } from './receipt-wrapper'
 
-jest.mock('../../../stores/assets-store')
-jest.mock('../../../stores/markets-store')
+jest.mock('@/stores/assets-store')
+jest.mock('@/stores/markets-store')
 
 describe('ReceiptView', () => {
   it('should render vega section, title and children', () => {

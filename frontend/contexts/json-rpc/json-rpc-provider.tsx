@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { useInteractionStore } from '../../stores/interaction-store'
+import { useInteractionStore } from '@/stores/interaction-store'
+
 import { useCreateClient } from './hooks/create-client'
 import { createServer } from './hooks/create-server'
 import { JsonRpcContext } from './json-rpc-context'

@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { Outlet, useMatch } from 'react-router-dom'
 
-import { DappsHeader } from '../../components/dapps-header/dapps-header'
-import { ModalWrapper } from '../../components/modals'
-import { NavBar } from '../../components/navbar'
-import { PageHeader } from '../../components/page-header'
-import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
-import { useAssetsStore } from '../../stores/assets-store'
-import { useMarketsStore } from '../../stores/markets-store'
-import { useWalletStore } from '../../stores/wallets'
+import { DappsHeader } from '@/components/dapps-header/dapps-header'
+import { ModalWrapper } from '@/components/modals'
+import { NavBar } from '@/components/navbar'
+import { PageHeader } from '@/components/page-header'
+import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { useAssetsStore } from '@/stores/assets-store'
+import { useMarketsStore } from '@/stores/markets-store'
+import { useWalletStore } from '@/stores/wallets'
 import { FULL_ROUTES } from '../route-names'
 
 export const Auth = () => {

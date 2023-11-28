@@ -1,12 +1,13 @@
 import { close, init, setTag } from '@sentry/react'
 import { renderHook } from '@testing-library/react'
 
+import { useGlobalsStore } from '@/stores/globals'
+import { mockStore } from '@/test-helpers/mock-store'
+
 import { sanitizeEvent } from '../../../lib/sanitize-event'
-import { useGlobalsStore } from '../../stores/globals'
-import { mockStore } from '../../test-helpers/mock-store'
 import { useSentry } from '.'
 
-jest.mock('../../stores/globals')
+jest.mock('@/stores/globals')
 jest.mock('@sentry/react')
 jest.mock('!/config', () => ({
   ...jest.requireActual('../../../config/test').default,
@@ -33,10 +34,10 @@ describe('useSentry', () => {
       close: closeMock,
       setTag: setTagMock
     }))
-    jest.mock('../../stores/globals', () => ({
+    jest.mock('@/stores/globals', () => ({
       useGlobalsStore: useGlobalsStoreMock
     }))
-    jest.mock('../../stores/wallets', () => ({
+    jest.mock('@/stores/wallets', () => ({
       useWalletStore: useWalletStoreMock
     }))
   })

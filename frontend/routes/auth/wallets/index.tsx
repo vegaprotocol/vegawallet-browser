@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 
-import { useWalletStore } from '../../../stores/wallets'
+import { useWalletStore } from '@/stores/wallets'
 
 export const WalletsRoot = () => {
   const { loading } = useWalletStore((store) => ({

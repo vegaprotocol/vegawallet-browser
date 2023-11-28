@@ -1,11 +1,12 @@
 import { useCallback, useMemo } from 'react'
 
+import { getExtensionApi } from '@/lib/extension-apis'
+import { log } from '@/lib/logging'
+import { Connection, useConnectionStore } from '@/stores/connections'
+import { useErrorStore } from '@/stores/error'
+
 import JSONRPCClient from '../../../../lib/json-rpc-client'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
-import { getExtensionApi } from '../../../lib/extension-apis'
-import { log } from '../../../lib/logging'
-import { Connection, useConnectionStore } from '../../../stores/connections'
-import { useErrorStore } from '../../../stores/error'
 import { JsonRpcNotification } from '../json-rpc-provider'
 
 const createClient = (notificationHandler: Function) => {

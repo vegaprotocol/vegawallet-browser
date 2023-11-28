@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
-import { RpcMethods } from '../../../../../lib/client-rpc-methods'
-import { locators,RenameKeyForm } from './rename-key-form' // Update the import path
+import { RpcMethods } from '@/lib/client-rpc-methods'
+import { locators, RenameKeyForm } from './rename-key-form' // Update the import path
 
 const mockRequest = jest.fn().mockResolvedValue(null)
 
-jest.mock('../../../../../contexts/json-rpc/json-rpc-context', () => ({
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
     request: mockRequest
   })

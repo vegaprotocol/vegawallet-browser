@@ -2,10 +2,10 @@ import { close, init, setTag } from '@sentry/react'
 import { useEffect } from 'react'
 
 import config from '!/config'
+import { useGlobalsStore } from '@/stores/globals'
+import { useWalletStore } from '@/stores/wallets'
 
 import { sanitizeEvent } from '../../../lib/sanitize-event.js'
-import { useGlobalsStore } from '../../stores/globals'
-import { useWalletStore } from '../../stores/wallets'
 
 export const useSentry = () => {
   const { globals } = useGlobalsStore((state) => ({

@@ -1,4 +1,4 @@
-import { Transaction, TransactionKeys } from '../../lib/transactions'
+import { Transaction, TransactionKeys } from '@/lib/transactions'
 import { ApplyReferralCode } from './apply-referral-code'
 import { BatchMarketInstructions } from './batch-market-instructions'
 import { Amendment } from './orders/amend'

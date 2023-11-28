@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react'
 
-import { useAssetsStore } from '../../stores/assets-store'
-import { mockStore } from '../../test-helpers/mock-store'
-import { silenceErrors } from '../../test-helpers/silence-errors'
+import { useAssetsStore } from '@/stores/assets-store'
+import { mockStore } from '@/test-helpers/mock-store'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import { useFormatAssetAmount } from './format-asset-amount'
 
-jest.mock('../../stores/assets-store')
+jest.mock('@/stores/assets-store')
 
 describe('useFormatAssetAmount', () => {
   it('throw error if asset symbol is not defined', () => {

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
-import { RpcMethods } from '../../../../../lib/client-rpc-methods'
-import { locators,RenameKeyDialog } from './rename-key-dialog'
+import { RpcMethods } from '@/lib/client-rpc-methods'
+import { locators, RenameKeyDialog } from './rename-key-dialog'
 import { RenameKeyFormProperties } from './rename-key-form'
 
 jest.mock('./rename-key-form', () => ({
@@ -10,13 +10,13 @@ jest.mock('./rename-key-form', () => ({
   )
 }))
 
-jest.mock('../../../../../components/keys/vega-key', () => ({
+jest.mock('@/components/keys/vega-key', () => ({
   VegaKey: () => <div data-testid="vega-key" />
 }))
 
 const mockRequest = jest.fn().mockResolvedValue({ wallets: [] })
 
-jest.mock('../../../../../contexts/json-rpc/json-rpc-context', () => ({
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({
     request: mockRequest
   })

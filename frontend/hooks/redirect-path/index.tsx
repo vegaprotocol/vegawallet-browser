@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
-import { getExtensionApi } from '../../lib/extension-apis'
+import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { getExtensionApi } from '@/lib/extension-apis'
 import { FULL_ROUTES } from '../../routes/route-names'
-import { useGlobalsStore } from '../../stores/globals'
+import { useGlobalsStore } from '@/stores/globals'
 import { LOCATION_KEY } from '../persist-location'
 import { SUGGESTED_MNEMONIC_KEY } from '../suggest-mnemonic'
 

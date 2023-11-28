@@ -1,8 +1,9 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
+
 import { CodeWindow } from '../../code-window'
-import { Splash } from '../../splash'
-import { ErrorIcon } from '../../icons/error'
 import { Header } from '../../header'
+import { ErrorIcon } from '../../icons/error'
+import { Splash } from '../../splash'
 
 export const locators = {
   errorModal: 'error-modal',

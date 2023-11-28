@@ -1,12 +1,13 @@
 import { ReactNode } from 'react'
-import { ReceiptComponentProperties } from '../../receipts'
-import { ReceiptWrapper } from '../../utils/receipt-wrapper'
+
+import { formatNanoDate } from '../../../../lib/utils'
 import { DataTable } from '../../../data-table/data-table'
-import { OrderTable } from '../../utils/order-table'
+import { ReceiptComponentProperties } from '../../receipts'
 import { OrderBadges } from '../../utils/order/badges'
+import { OrderTable } from '../../utils/order-table'
+import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { PriceWithTooltip } from '../../utils/string-amounts/price-with-tooltip'
 import { ExpiryStrategyComponent } from './expiry-strategy'
-import { formatNanoDate } from '../../../../lib/utils'
 
 export const locators = {
   sectionHeader: 'section-header',

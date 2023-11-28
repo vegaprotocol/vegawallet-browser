@@ -1,23 +1,21 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
-import { Home } from './home'
-import { Login } from './login'
-
-import { GetStarted } from './onboarding/get-started'
-import { CreateWallet } from './onboarding/create-wallet'
-import { CreatePassword } from './onboarding/create-password'
-import { SaveMnemonic } from './onboarding/save-mnemonic'
-import { ImportWallet } from './onboarding/import-wallet'
-import { Telemetry } from './onboarding/telemetry'
-
-import { Auth } from './auth'
-import { Wallets } from './auth/wallets/home'
-import { KeyDetails } from './auth/wallets/key-details'
-import { Settings } from './auth/settings'
-import { Connections } from './auth/connections'
 
 import { usePersistLocation } from '../hooks/persist-location'
-import { FULL_ROUTES, ROUTES } from './route-names'
+import { Auth } from './auth'
+import { Connections } from './auth/connections'
+import { Settings } from './auth/settings'
 import { WalletsRoot } from './auth/wallets'
+import { Wallets } from './auth/wallets/home'
+import { KeyDetails } from './auth/wallets/key-details'
+import { Home } from './home'
+import { Login } from './login'
+import { CreatePassword } from './onboarding/create-password'
+import { CreateWallet } from './onboarding/create-wallet'
+import { GetStarted } from './onboarding/get-started'
+import { ImportWallet } from './onboarding/import-wallet'
+import { SaveMnemonic } from './onboarding/save-mnemonic'
+import { Telemetry } from './onboarding/telemetry'
+import { FULL_ROUTES, ROUTES } from './route-names'
 
 export const Routing = () => {
   usePersistLocation()

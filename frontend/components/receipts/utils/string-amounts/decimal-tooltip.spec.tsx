@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { DecimalTooltip, locators } from './decimal-tooltip'
+
 import config from '!/config'
+
+import { DecimalTooltip, locators } from './decimal-tooltip'
 
 describe('DecimalTooltip', () => {
   it('renders and description the explorer link and docs links', () => {

@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { Incentives, locators } from './incentives'
 
 describe('Incentives', () => {

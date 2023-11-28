@@ -1,15 +1,16 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { JsonRPCProvider } from './json-rpc-provider'
-import { useJsonRpcClient } from './json-rpc-context'
-import { useInteractionStore } from '../../stores/interaction-store'
-import { ServerRpcMethods } from '../../lib/server-rpc-methods'
-import { RpcMethods } from '../../lib/client-rpc-methods'
 import { useEffect } from 'react'
+
+import { RpcMethods } from '../../lib/client-rpc-methods'
+import { ServerRpcMethods } from '../../lib/server-rpc-methods'
 import { useConnectionStore } from '../../stores/connections'
 import { useErrorStore } from '../../stores/error'
+import { useInteractionStore } from '../../stores/interaction-store'
 import { mockClient } from '../../test-helpers/mock-client'
-import { silenceErrors } from '../../test-helpers/silence-errors'
 import { mockStore } from '../../test-helpers/mock-store'
+import { silenceErrors } from '../../test-helpers/silence-errors'
+import { useJsonRpcClient } from './json-rpc-context'
+import { JsonRPCProvider } from './json-rpc-provider'
 
 jest.mock('../../stores/interaction-store')
 jest.mock('../../stores/error')

@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { VersionSection, locators } from './version-section'
+
 import packageJson from '../../../../package.json'
 import { locators as headerLocators } from '../../../components/sub-header'
+import { locators,VersionSection } from './version-section'
 
 describe('VersionSection', () => {
   it('renders the section header correctly', () => {

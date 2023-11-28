@@ -1,10 +1,11 @@
 import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
-import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
-import { PeggedOrderOptions } from '../../../../types/transactions'
+import get from 'lodash/get'
+
 import { useFormatMarketPrice } from '../../../../hooks/format-market-price'
 import { useMarketSettlementAsset } from '../../../../hooks/market-settlement-asset'
-import get from 'lodash/get'
+import { PeggedOrderOptions } from '../../../../types/transactions'
+import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
+import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
 
 export const referenceText: Record<vegaPeggedReference, string> = {
   [vegaPeggedReference.PEGGED_REFERENCE_BEST_ASK]: 'best ask',

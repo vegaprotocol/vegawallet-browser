@@ -1,8 +1,9 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { BasePage } from './page'
 import { MemoryRouter } from 'react-router-dom'
+
 import { locators as headerLocators } from '../../header'
 import { locators } from '../page'
+import { BasePage } from './page'
 
 describe('Page', () => {
   it('renders page header correctly', () => {

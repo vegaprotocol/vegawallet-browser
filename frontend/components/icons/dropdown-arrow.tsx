@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 
-import { className as defaultClassName } from './style'
 import locators from '../locators'
+import { className as defaultClassName } from './style'
 
 export function DropdownArrow({ className }: { className?: string }) {
   return (

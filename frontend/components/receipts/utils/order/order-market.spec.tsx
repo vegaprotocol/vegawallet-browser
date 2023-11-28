@@ -1,10 +1,11 @@
-import { screen, render } from '@testing-library/react'
+import { render,screen } from '@testing-library/react'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { OrderMarket, locators as orderMarketComponentLocators } from './order-market'
-import { locators as marketLinkLocators } from './market-link'
+
+import { useMarketsStore } from '../../../../stores/markets-store.ts'
 import { generateMarket } from '../../../../test-helpers/generate-market.ts'
 import { mockStore } from '../../../../test-helpers/mock-store.ts'
-import { useMarketsStore } from '../../../../stores/markets-store.ts'
+import { locators as marketLinkLocators } from './market-link'
+import { locators as orderMarketComponentLocators,OrderMarket } from './order-market'
 
 jest.mock('../../../../stores/markets-store')
 

@@ -1,4 +1,5 @@
 import config from '!/config'
+
 import { CONSTANTS } from '../../../../../lib/constants'
 import { ExternalLink } from '../../../external-link'
 

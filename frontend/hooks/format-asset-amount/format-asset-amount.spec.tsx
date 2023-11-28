@@ -1,8 +1,9 @@
 import { renderHook } from '@testing-library/react'
+
 import { useAssetsStore } from '../../stores/assets-store'
-import { useFormatAssetAmount } from './format-asset-amount'
-import { silenceErrors } from '../../test-helpers/silence-errors'
 import { mockStore } from '../../test-helpers/mock-store'
+import { silenceErrors } from '../../test-helpers/silence-errors'
+import { useFormatAssetAmount } from './format-asset-amount'
 
 jest.mock('../../stores/assets-store')
 

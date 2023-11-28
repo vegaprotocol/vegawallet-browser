@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { PeggedOrderInfo } from './pegged-order-info'
-import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
-import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
+
 import { AssetsStore, useAssetsStore } from '../../../../stores/assets-store'
 import { MarketsStore, useMarketsStore } from '../../../../stores/markets-store'
 import { DeepPartial, mockStore } from '../../../../test-helpers/mock-store'
+import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
+import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
+import { PeggedOrderInfo } from './pegged-order-info'
 
 jest.mock('../../../../stores/assets-store')
 jest.mock('../../../../stores/markets-store')

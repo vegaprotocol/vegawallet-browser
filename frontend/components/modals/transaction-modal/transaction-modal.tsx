@@ -1,11 +1,12 @@
-import { useInteractionStore } from '../../../stores/interaction-store'
-import { Splash } from '../../splash'
 import { Button } from '@vegaprotocol/ui-toolkit'
-import { PageHeader } from '../../page-header'
 import ReactTimeAgo from 'react-time-ago'
+
+import { useInteractionStore } from '../../../stores/interaction-store'
+import { PageHeader } from '../../page-header'
+import { Splash } from '../../splash'
+import { EnrichedDetails } from './enriched-details'
 import { RawTransaction } from './raw-transaction'
 import { TransactionHeader } from './transaction-header'
-import { EnrichedDetails } from './enriched-details'
 
 export const locators = {
   transactionWrapper: 'transaction-wrapper',

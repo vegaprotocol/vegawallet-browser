@@ -1,9 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { ConnectionModal } from './connection-modal'
+
 import { useInteractionStore } from '../../../stores/interaction-store'
-import locators from '../../locators'
-import { ConnectionSuccessProperties } from './connection-success'
 import { mockStore } from '../../../test-helpers/mock-store'
+import locators from '../../locators'
+import { ConnectionModal } from './connection-modal'
+import { ConnectionSuccessProperties } from './connection-success'
 
 jest.mock('../../../stores/interaction-store')
 

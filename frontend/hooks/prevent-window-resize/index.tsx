@@ -1,4 +1,5 @@
 import { useLayoutEffect, useMemo } from 'react'
+
 import { CONSTANTS } from '../../../lib/constants'
 
 export const usePreventWindowResize = () => {

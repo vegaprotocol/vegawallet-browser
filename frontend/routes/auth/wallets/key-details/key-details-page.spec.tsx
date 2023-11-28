@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react'
-import { KeyDetailsPage } from './key-details-page'
-import { useAssetsStore } from '../../../../stores/assets-store'
-import { silenceErrors } from '../../../../test-helpers/silence-errors'
-import { useWalletStore } from '../../../../stores/wallets'
 import { MemoryRouter } from 'react-router-dom'
-import { mockStore } from '../../../../test-helpers/mock-store'
+
 import { locators as pageLocators } from '../../../../components/pages/page'
-import { FULL_ROUTES } from '../../../route-names'
+import { useAssetsStore } from '../../../../stores/assets-store'
 import { useMarketsStore } from '../../../../stores/markets-store'
+import { useWalletStore } from '../../../../stores/wallets'
+import { mockStore } from '../../../../test-helpers/mock-store'
+import { silenceErrors } from '../../../../test-helpers/silence-errors'
+import { FULL_ROUTES } from '../../../route-names'
+import { KeyDetailsPage } from './key-details-page'
 
 jest.mock('./export-private-key-dialog', () => ({
   ExportPrivateKeysDialog: () => <div data-testid="export-private-key-dialog" />

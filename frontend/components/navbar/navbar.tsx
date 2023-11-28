@@ -1,12 +1,13 @@
+import classnames from 'classnames'
 import type { ReactNode } from 'react'
-import { Settings } from '../icons/settings'
-import { Wallet } from '../icons/wallet'
 import type { To } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
-import classnames from 'classnames'
+
 import { FULL_ROUTES } from '../../routes/route-names'
-import locators from '../locators'
+import { Settings } from '../icons/settings'
 import { UpDownArrows } from '../icons/up-down-arrows'
+import { Wallet } from '../icons/wallet'
+import locators from '../locators'
 
 export interface NavButtonProperties {
   end?: boolean

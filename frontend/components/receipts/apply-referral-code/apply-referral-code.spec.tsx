@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { ApplyReferralCode, locators } from './apply-referral-code'
 
 describe('ApplyReferralCode', () => {

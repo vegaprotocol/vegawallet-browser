@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { CodeWindow } from './code-window'
 
 jest.mock('../copy-with-check', () => ({

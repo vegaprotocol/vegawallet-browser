@@ -1,10 +1,10 @@
-import { Splash } from '../../splash'
 import { useCallback, useState } from 'react'
 
 import { useInteractionStore } from '../../../stores/interaction-store'
 import locators from '../../locators'
-import { ConnectionSuccess } from './connection-success'
+import { Splash } from '../../splash'
 import { ConnectionDetails } from './connection-details'
+import { ConnectionSuccess } from './connection-success'
 
 export const ConnectionModal = () => {
   const { isOpen, handleConnectionDecision, details } = useInteractionStore((store) => ({

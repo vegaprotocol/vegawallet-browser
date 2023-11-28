@@ -1,9 +1,10 @@
-import type { ReactNode } from 'react'
-import type { Control, Path, FieldValues } from 'react-hook-form'
-import { Controller } from 'react-hook-form'
 import { Checkbox as UICheckbox } from '@vegaprotocol/ui-toolkit'
-import locators from '../locators'
 import classnames from 'classnames'
+import type { ReactNode } from 'react'
+import type { Control, FieldValues,Path } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
+
+import locators from '../locators'
 
 export type CheckboxProperties<T extends FieldValues> = {
   name: Path<T>

@@ -1,16 +1,17 @@
-import { ReactNode } from 'react'
-import { vegaOrderType, vegaSide, vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { vegaOrderStatus,vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
+import { ReactNode } from 'react'
+
+import { nanoSecondsToMilliseconds } from '../../../../lib/utils'
 import { PeggedOrderOptions } from '../../../../types/transactions'
+import { CopyWithCheckmark } from '../../../copy-with-check'
+import { OrderMarket } from './order-market'
 import { OrderPrice } from './order-price'
 import { OrderSize } from './order-size'
-import { OrderMarket } from './order-market'
 import { OrderType } from './order-type'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { Side } from './side'
-import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
-import { nanoSecondsToMilliseconds } from '../../../../lib/utils'
-import { CopyWithCheckmark } from '../../../copy-with-check'
 
 const orderStatuses: Record<vegaOrderStatus, string> = {
   STATUS_UNSPECIFIED: 'Unspecified',

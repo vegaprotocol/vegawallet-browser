@@ -1,10 +1,10 @@
-import { ConnectionMessage } from '../../../stores/interaction-store'
-import { ServerRpcMethods } from '../../../lib/server-rpc-methods'
 import JSONRPCServer from '../../../../lib/json-rpc-server'
 import { PortServer } from '../../../../lib/port-server'
-import { log } from '../../../lib/logging'
 import { getExtensionApi } from '../../../lib/extension-apis'
+import { log } from '../../../lib/logging'
+import { ServerRpcMethods } from '../../../lib/server-rpc-methods'
 import { TransactionMessage } from '../../../lib/transactions'
+import { ConnectionMessage } from '../../../stores/interaction-store'
 
 const maybeCloseWindow = () => {
   const url = new URL(window.location.href)

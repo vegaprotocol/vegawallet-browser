@@ -1,6 +1,6 @@
 import { InputError } from '@vegaprotocol/ui-toolkit'
-import zxcvbn from 'zxcvbn'
 import classNames from 'classnames'
+import zxcvbn from 'zxcvbn'
 
 const COLORS = [
   'bg-vega-yellow-650',

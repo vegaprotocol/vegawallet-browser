@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { EthereumKey, locators } from '.'
 
 jest.mock('../../copy-with-check', () => ({

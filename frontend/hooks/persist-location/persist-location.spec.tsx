@@ -1,7 +1,8 @@
 import { renderHook } from '@testing-library/react'
-import { LOCATION_KEY, usePersistLocation } from '.'
-import { MemoryRouter, useNavigate } from 'react-router-dom'
 import { ReactNode, useEffect } from 'react'
+import { MemoryRouter, useNavigate } from 'react-router-dom'
+
+import { LOCATION_KEY, usePersistLocation } from '.'
 
 describe('PersistLocation', () => {
   beforeEach(() => {

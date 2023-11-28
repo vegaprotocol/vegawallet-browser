@@ -1,13 +1,14 @@
+import { captureException } from '@sentry/browser'
+import { Button, FormGroup, Input, InputError, Intent,Notification } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
-import { useJsonRpcClient } from '../../../../../contexts/json-rpc/json-rpc-context'
-import { FormGroup, InputError, Button, Input, Notification, Intent } from '@vegaprotocol/ui-toolkit'
 import { useForm, useWatch } from 'react-hook-form'
+
 import { LoadingButton } from '../../../../../components/loading-button'
+import { useJsonRpcClient } from '../../../../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../../../../lib/client-rpc-methods'
 import { Validation } from '../../../../../lib/form-validation'
 import { REJECTION_ERROR_MESSAGE } from '../../../../../lib/utils'
 import { FormFields } from './export-private-key-dialog'
-import { captureException } from '@sentry/browser'
 
 export const locators = {
   privateKeyModalPassphrase: 'private-key-modal-passphrase',

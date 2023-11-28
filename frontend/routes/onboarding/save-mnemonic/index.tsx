@@ -1,13 +1,14 @@
 import { useState } from 'react'
-import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '../../route-names'
+
 import { HiddenContainer } from '../../../components/hidden-container'
+import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { createWallet } from '../../../lib/create-wallet'
-import { WalletCreated } from './wallet-created'
 import { clearMnemonic, useSuggestMnemonic } from '../../../hooks/suggest-mnemonic'
+import { createWallet } from '../../../lib/create-wallet'
+import { FULL_ROUTES } from '../../route-names'
 import { SaveMnemonicForm } from './save-mnemonic-form'
+import { WalletCreated } from './wallet-created'
 
 export const locators = {
   saveMnemonicDescription: 'save-mnemonic-description'

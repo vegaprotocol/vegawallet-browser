@@ -1,9 +1,10 @@
-import { create } from 'zustand'
-import { RpcMethods } from '../lib/client-rpc-methods.ts'
-import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
-import { removePaginationWrapper } from '../lib/remove-pagination.ts'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { create } from 'zustand'
+
+import { SendMessage } from '../contexts/json-rpc/json-rpc-provider.tsx'
+import { RpcMethods } from '../lib/client-rpc-methods.ts'
 import { getSettlementAssetId } from '../lib/markets'
+import { removePaginationWrapper } from '../lib/remove-pagination.ts'
 
 export type MarketsStore = {
   markets: vegaMarket[]

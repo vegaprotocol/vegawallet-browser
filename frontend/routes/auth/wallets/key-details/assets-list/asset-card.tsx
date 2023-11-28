@@ -1,11 +1,12 @@
-import { useAssetsStore } from '../../../../../stores/assets-store'
-import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/utils'
-import { DataTable } from '../../../../../components/data-table/data-table'
-import BigNumber from 'bignumber.js'
-import { CollapsibleCard } from '../../../../../components/collapsible-card'
-import { MarketLozenges } from './markets-lozenges'
 import { vegaAccount, vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/utils'
+import BigNumber from 'bignumber.js'
 import get from 'lodash/get'
+
+import { CollapsibleCard } from '../../../../../components/collapsible-card'
+import { DataTable } from '../../../../../components/data-table/data-table'
+import { useAssetsStore } from '../../../../../stores/assets-store'
+import { MarketLozenges } from './markets-lozenges'
 
 export const ACCOUNT_TYPE_MAP: Record<vegaAccountType, string> = {
   [vegaAccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',

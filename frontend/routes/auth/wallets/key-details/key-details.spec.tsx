@@ -1,7 +1,8 @@
-import { screen, render } from '@testing-library/react'
-import { KeyDetails } from './key-details'
+import { render,screen } from '@testing-library/react'
 import { useParams } from 'react-router-dom'
+
 import { silenceErrors } from '../../../../test-helpers/silence-errors'
+import { KeyDetails } from './key-details'
 
 jest.mock('./key-details-page', () => ({
   KeyDetailsPage: () => <div data-testid="key-details-page" />

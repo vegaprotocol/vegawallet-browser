@@ -1,9 +1,9 @@
-import { MemoryRouter } from 'react-router-dom'
-import { CreateWallet, locators } from '.'
-import componentLocators from '../../../components/locators'
-
 import { fireEvent, render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+
+import componentLocators from '../../../components/locators'
 import { FULL_ROUTES } from '../../route-names'
+import { CreateWallet, locators } from '.'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({

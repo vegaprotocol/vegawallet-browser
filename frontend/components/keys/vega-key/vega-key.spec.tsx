@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { VegaKey, locators } from '.'
+
 import config from '!/config'
+
+import { locators,VegaKey } from '.'
 
 const mockPublicKey = '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673'
 const mockName = 'My Vega Key'

@@ -1,6 +1,7 @@
-import { Frame } from '../../../../components/frame'
 import config from '!/config'
+
 import { ExternalLink } from '../../../../components/external-link'
+import { Frame } from '../../../../components/frame'
 
 export const locators = {
   walletsAssetHeader: 'wallets-asset-header',

@@ -1,4 +1,5 @@
 import config from '!/config'
+
 import { ExternalLink } from '../../../components/external-link'
 
 export const locators = {

@@ -1,6 +1,7 @@
 import classnames from 'classnames'
 import type { ReactNode } from 'react'
 import { useState } from 'react'
+
 import { DropdownArrow } from '../icons/dropdown-arrow'
 
 export const locators = {

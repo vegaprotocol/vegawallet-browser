@@ -1,15 +1,16 @@
-import ReactTimeAgo from 'react-time-ago'
+import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
 import { isBefore } from 'date-fns'
-import { ReceiptComponentProperties } from '../receipts'
+import ReactTimeAgo from 'react-time-ago'
+
 import { Transaction } from '../../../lib/transactions'
-import { BasicTransferView } from './basic-transfer-view'
-import { EnrichedTransferView } from './enriched-transfer-view'
-import { ReceiptWrapper } from '../utils/receipt-wrapper'
+import { formatDate, nanoSecondsToMilliseconds } from '../../../lib/utils'
 import { useAssetsStore } from '../../../stores/assets-store'
 import { useWalletStore } from '../../../stores/wallets'
-import { formatDate, nanoSecondsToMilliseconds } from '../../../lib/utils'
 import { VegaKey } from '../../keys/vega-key'
-import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
+import { ReceiptComponentProperties } from '../receipts'
+import { ReceiptWrapper } from '../utils/receipt-wrapper'
+import { BasicTransferView } from './basic-transfer-view'
+import { EnrichedTransferView } from './enriched-transfer-view'
 
 const getTime = (transaction: Transaction) => {
   const deliverOn = transaction.transfer.oneOff?.deliverOn

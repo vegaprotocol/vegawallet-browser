@@ -1,12 +1,14 @@
-import { render, screen, act, waitFor, fireEvent } from '@testing-library/react'
-import { Connections, locators as connectionsLocators } from '.'
-import { mockClient } from '../../../test-helpers/mock-client'
+import { act, fireEvent,render, screen, waitFor } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+
+import config from '!/config'
+
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
 import { ConnectionsStore, useConnectionStore } from '../../../stores/connections'
+import { mockClient } from '../../../test-helpers/mock-client'
+import { Connections, locators as connectionsLocators } from '.'
 import { locators as connectionListLocators } from './connection-list'
 import { locators as noConnectionsLocators } from './no-dapps-connected'
-import config from '!/config'
-import { MemoryRouter } from 'react-router-dom'
 
 const renderComponent = () =>
   render(

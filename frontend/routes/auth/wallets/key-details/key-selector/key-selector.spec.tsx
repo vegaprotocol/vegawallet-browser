@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { KeySelector, locators } from './key-selector'
 import { MemoryRouter } from 'react-router-dom'
+
 import { KeyListProperties } from '../../../../../components/key-list'
+import { KeySelector, locators } from './key-selector'
 
 const ID = '1'.repeat(64)
 

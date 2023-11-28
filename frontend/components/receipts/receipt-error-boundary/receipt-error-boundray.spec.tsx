@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { ReceiptViewErrorBoundary } from './receipt-error-boundary'
-import locators from '../../locators'
+import React, { useEffect } from 'react'
+
 import { silenceErrors } from '../../../test-helpers/silence-errors'
+import locators from '../../locators'
+import { ReceiptViewErrorBoundary } from './receipt-error-boundary'
 
 // Mock the Sentry captureException function
 jest.mock('@sentry/browser', () => ({

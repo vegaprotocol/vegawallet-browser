@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import { MarketLozenges, locators } from './markets-lozenges'
-import { useMarketsStore } from '../../../../../stores/markets-store'
-import config from '../../../../../lib/config'
-import { mockStore } from '../../../../../test-helpers/mock-store'
 import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
+
+import config from '../../../../../lib/config'
+import { useMarketsStore } from '../../../../../stores/markets-store'
+import { mockStore } from '../../../../../test-helpers/mock-store'
+import { locators,MarketLozenges } from './markets-lozenges'
 
 jest.mock('../../../../../stores/markets-store')
 

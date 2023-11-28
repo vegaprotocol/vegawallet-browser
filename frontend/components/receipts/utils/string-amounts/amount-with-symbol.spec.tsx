@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { AmountWithSymbol, locators } from './amount-with-symbol'
 
 describe('AmountWithSymbol', () => {

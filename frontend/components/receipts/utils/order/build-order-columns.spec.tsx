@@ -5,19 +5,20 @@ import {
   vegaPeggedReference,
   vegaSide
 } from '@vegaprotocol/rest-clients/dist/trading-data'
+
 import {
-  buildSideColumn,
+  buildCreatedAtColumn,
   buildMarketColumn,
   buildOrderColumn,
   buildPeggedOrderColumn,
   buildPriceColumn,
   buildReferenceColumn,
-  buildSizeColumn,
-  buildTypeColumn,
-  buildCreatedAtColumn,
-  buildUpdatedAtColumn,
   buildRemainingColumn,
+  buildSideColumn,
+  buildSizeColumn,
   buildStatusColumn,
+  buildTypeColumn,
+  buildUpdatedAtColumn,
   buildVersionColumn
 } from './build-order-columns'
 

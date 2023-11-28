@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
-import { JsonRpcContext } from './json-rpc-context'
+
 import { useInteractionStore } from '../../stores/interaction-store'
-import { createServer } from './hooks/create-server'
 import { useCreateClient } from './hooks/create-client'
+import { createServer } from './hooks/create-server'
+import { JsonRpcContext } from './json-rpc-context'
 
 export type SendMessage = (method: string, parameters?: any, propagateErrors?: boolean) => Promise<any>
 

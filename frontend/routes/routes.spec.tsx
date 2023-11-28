@@ -1,7 +1,8 @@
 import { render } from '@testing-library/react'
-import { Routing } from './routes'
 import { MemoryRouter } from 'react-router-dom'
+
 import { usePersistLocation } from '../hooks/persist-location'
+import { Routing } from './routes'
 
 jest.mock('../hooks/persist-location')
 

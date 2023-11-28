@@ -1,5 +1,6 @@
-import { List } from './list'
 import { render, screen } from '@testing-library/react'
+
+import { List } from './list'
 
 interface Item {
   name: string

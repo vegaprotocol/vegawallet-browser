@@ -1,8 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import { SignMessageDialog, SignMessageDialogProperties } from './sign-message-dialog'
-import { mockClient } from '../../test-helpers/mock-client'
+import { fireEvent,render, screen } from '@testing-library/react'
+
 import { JsonRPCProvider } from '../../contexts/json-rpc/json-rpc-provider'
+import { mockClient } from '../../test-helpers/mock-client'
 import { locators as signMessageLocators } from './sign-message'
+import { SignMessageDialog, SignMessageDialogProperties } from './sign-message-dialog'
 import { locators as signedMessageLocators } from './signed-message'
 
 const renderComponent = (properties: SignMessageDialogProperties) => {

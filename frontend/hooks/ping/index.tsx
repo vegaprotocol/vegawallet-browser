@@ -1,5 +1,6 @@
-import initKeepAlive from '../../../lib/mv3-keep-alive'
 import { useEffect, useMemo } from 'react'
+
+import initKeepAlive from '../../../lib/mv3-keep-alive'
 import { getExtensionApi } from '../../lib/extension-apis'
 
 export const usePing = () => {

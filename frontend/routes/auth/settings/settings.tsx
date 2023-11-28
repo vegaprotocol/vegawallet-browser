@@ -1,10 +1,11 @@
-import { VersionSection } from './version-section'
-import { LockSection } from './lock-section'
-import { SettingsRadio } from './settings-form-elements/radio'
 import config from '!/config'
+
+import { ExternalLink } from '../../../components/external-link'
 import { BasePage } from '../../../components/pages/page'
 import { useGlobalsStore } from '../../../stores/globals'
-import { ExternalLink } from '../../../components/external-link'
+import { LockSection } from './lock-section'
+import { SettingsRadio } from './settings-form-elements/radio'
+import { VersionSection } from './version-section'
 
 export const locators = {
   settingsPage: 'settings-page',

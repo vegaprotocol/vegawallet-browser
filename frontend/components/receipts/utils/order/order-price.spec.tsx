@@ -1,11 +1,12 @@
-import { screen, render } from '@testing-library/react'
+import { render,screen } from '@testing-library/react'
 import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { OrderPrice, locators as orderPriceLocators } from './order-price'
-import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
-import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
-import { DeepPartial, mockStore } from '../../../../test-helpers/mock-store'
+
 import { AssetsStore, useAssetsStore } from '../../../../stores/assets-store'
 import { MarketsStore, useMarketsStore } from '../../../../stores/markets-store'
+import { DeepPartial, mockStore } from '../../../../test-helpers/mock-store'
+import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
+import { locators as priceWithTooltipLocators } from '../string-amounts/price-with-tooltip'
+import { locators as orderPriceLocators,OrderPrice } from './order-price'
 
 jest.mock('../../../../stores/assets-store')
 jest.mock('../../../../stores/markets-store')

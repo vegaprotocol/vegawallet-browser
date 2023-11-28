@@ -1,7 +1,7 @@
 import { ConnectionModal } from '../connection-modal'
+import { OrientationSplash } from '../orientation-splash'
 import { PopoverOpenSplash } from '../popover-open-splash'
 import { TransactionModal } from '../transaction-modal'
-import { OrientationSplash } from '../orientation-splash'
 
 export const ModalWrapper = () => {
   return (

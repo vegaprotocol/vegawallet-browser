@@ -1,9 +1,9 @@
 import { Transaction } from '../../../lib/transactions'
-import { VegaSection } from '../../vega-section'
-import { HostImage } from '../../host-image'
 import { Header } from '../../header'
+import { HostImage } from '../../host-image'
 import { VegaKey } from '../../keys/vega-key'
 import { SubHeader } from '../../sub-header'
+import { VegaSection } from '../../vega-section'
 import { getTitle } from './get-title'
 
 export const locators = {

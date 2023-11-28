@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+
 import { useWalletStore } from '../../../stores/wallets'
 
 export const WalletsRoot = () => {

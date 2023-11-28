@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom'
+
 import { useGetRedirectPath } from '../../hooks/redirect-path'
 import { useSentry } from '../../hooks/sentry'
 

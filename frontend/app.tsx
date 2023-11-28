@@ -1,12 +1,13 @@
 import { MemoryRouter as Router } from 'react-router-dom'
-import { Routing } from './routes'
-import { JsonRPCProvider } from './contexts/json-rpc/json-rpc-provider'
-import GlobalErrorBoundary from './components/global-error-boundary'
-import { usePreventWindowResize } from './hooks/prevent-window-resize'
-import { usePing } from './hooks/ping'
-import { useListenForPopups } from './hooks/listen-for-popups'
-import { useGlobalsStore } from './stores/globals'
+
 import { CONSTANTS } from '../lib/constants'
+import GlobalErrorBoundary from './components/global-error-boundary'
+import { JsonRPCProvider } from './contexts/json-rpc/json-rpc-provider'
+import { useListenForPopups } from './hooks/listen-for-popups'
+import { usePing } from './hooks/ping'
+import { usePreventWindowResize } from './hooks/prevent-window-resize'
+import { Routing } from './routes'
+import { useGlobalsStore } from './stores/globals'
 
 export const locators = {
   appWrapper: 'app-wrapper'

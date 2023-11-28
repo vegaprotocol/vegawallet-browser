@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { BasicWithdrawal } from './basic-withdrawal'
 
 jest.mock('../utils/string-amounts/amount-with-tooltip', () => ({

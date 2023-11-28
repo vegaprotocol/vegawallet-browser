@@ -1,8 +1,10 @@
-import config from '!/config'
 import { Tooltip, truncateMiddle } from '@vegaprotocol/ui-toolkit'
+
+import config from '!/config'
+
+import { ExternalLink } from '../../../external-link'
 import { Info } from '../../../icons/info'
 import { DecimalTooltip } from './decimal-tooltip'
-import { ExternalLink } from '../../../external-link'
 
 export const locators = {
   amount: 'amount',

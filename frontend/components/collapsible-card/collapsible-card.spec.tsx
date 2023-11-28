@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { CollapsibleCard, locators } from './collapsible-card'
+
 import generalLocators from '../locators'
+import { CollapsibleCard, locators } from './collapsible-card'
 
 const renderComponent = ({ initiallyOpen }: { initiallyOpen?: boolean }) => {
   return render(<CollapsibleCard title="Title" initiallyOpen={initiallyOpen} cardContent={<div>Card content</div>} />)

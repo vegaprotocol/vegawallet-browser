@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Strike, locators } from './strike'
+
+import { locators,Strike } from './strike'
 
 describe('Strike Component', () => {
   it('renders strike text correctly', () => {

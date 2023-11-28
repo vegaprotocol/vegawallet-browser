@@ -1,12 +1,13 @@
+import { Intent,Notification } from '@vegaprotocol/ui-toolkit'
+
 import { AsyncRenderer } from '../../../../../components/async-renderer'
 import { SubHeader } from '../../../../../components/sub-header'
 import { VegaSection } from '../../../../../components/vega-section'
+import { useAssetsStore } from '../../../../../stores/assets-store'
 import { useAccountsStore } from './accounts-store'
 import { AssetCard } from './asset-card'
-import { useAccounts } from './use-accounts'
-import { Notification, Intent } from '@vegaprotocol/ui-toolkit'
 import { AssetListEmptyState } from './asset-list-empty-state'
-import { useAssetsStore } from '../../../../../stores/assets-store'
+import { useAccounts } from './use-accounts'
 
 export const locators = {
   assetListDescription: 'asset-list-description'

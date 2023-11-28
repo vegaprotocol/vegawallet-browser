@@ -1,17 +1,17 @@
-import { AmendmentView } from '../orders/amend'
-import { SubmissionView } from '../orders/submission'
-import { StopOrdersSubmissionView } from '../orders/stop-submission'
-import { StopOrderCancellationView } from '../orders/stop-cancellation'
-
-import { ReceiptComponentProperties } from '../receipts'
-import { ReceiptWrapper } from '../utils/receipt-wrapper'
-import { CollapsiblePanel } from '../../collapsible-panel'
+import { Intent,Notification } from '@vegaprotocol/ui-toolkit'
 import objectHash from 'object-hash'
 import { Fragment } from 'react'
-import { Notification, Intent } from '@vegaprotocol/ui-toolkit'
-import { CancellationView } from '../orders/cancellation/cancellation-view'
-import { getBatchTitle } from '../../modals/transaction-modal/get-title'
+
 import { BatchTransactionCommands, TransactionKeys } from '../../../lib/transactions'
+import { CollapsiblePanel } from '../../collapsible-panel'
+import { getBatchTitle } from '../../modals/transaction-modal/get-title'
+import { AmendmentView } from '../orders/amend'
+import { CancellationView } from '../orders/cancellation/cancellation-view'
+import { StopOrderCancellationView } from '../orders/stop-cancellation'
+import { StopOrdersSubmissionView } from '../orders/stop-submission'
+import { SubmissionView } from '../orders/submission'
+import { ReceiptComponentProperties } from '../receipts'
+import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 const BATCH_COMMAND_TITLE_MAP: Record<BatchTransactionCommands, string> = {
   [TransactionKeys.ORDER_SUBMISSION]: 'Submissions',

@@ -1,9 +1,10 @@
-import { List } from '../list'
-import { Key } from '../../stores/wallets'
 import { ReactNode } from 'react'
-import { VegaKey } from '../keys/vega-key'
 import { NavLink } from 'react-router-dom'
+
 import { FULL_ROUTES } from '../../routes/route-names'
+import { Key } from '../../stores/wallets'
+import { VegaKey } from '../keys/vega-key'
+import { List } from '../list'
 import { SubHeader } from '../sub-header'
 
 export const locators = {

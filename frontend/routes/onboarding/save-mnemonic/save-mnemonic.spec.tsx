@@ -1,14 +1,15 @@
-import { MemoryRouter } from 'react-router-dom'
-import { SaveMnemonic } from '.'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+
 import locators from '../../../components/locators'
-import { FULL_ROUTES } from '../../route-names'
 import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
-import { mockClient } from '../../../test-helpers/mock-client'
-import { locators as saveMnemonicFormLocators } from './save-mnemonic-form'
 import { SUGGESTED_MNEMONIC_KEY } from '../../../hooks/suggest-mnemonic'
+import { mockClient } from '../../../test-helpers/mock-client'
 import { mockStorage } from '../../../test-helpers/mock-storage'
+import { FULL_ROUTES } from '../../route-names'
+import { SaveMnemonic } from '.'
 import { locators as saveMnemonicLocators } from '.'
+import { locators as saveMnemonicFormLocators } from './save-mnemonic-form'
 
 const mockedUsedNavigate = jest.fn()
 const saveMnemonicDescriptionText =

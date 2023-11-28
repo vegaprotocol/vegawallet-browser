@@ -1,5 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { fireEvent,render, screen } from '@testing-library/react'
 import { useForm } from 'react-hook-form'
+
 import { Checkbox, CheckboxProperties } from '.'
 
 const renderComponent = (properties: Omit<CheckboxProperties<any>, 'control'>) => {

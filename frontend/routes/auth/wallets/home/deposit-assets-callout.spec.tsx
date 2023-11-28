@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+
 import { DepositAssetsCallout, locators } from './deposit-assets-callout'
 
 describe('DepositAssetsCallout', () => {

@@ -1,6 +1,7 @@
-import { MarketLink } from './market-link'
 import get from 'lodash/get'
+
 import { useMarketsStore } from '../../../../stores/markets-store'
+import { MarketLink } from './market-link'
 
 export const locators = {
   orderDetailsMarketCode: 'order-details-market-code'

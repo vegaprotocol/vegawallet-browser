@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+
 import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '../../lib/client-rpc-methods'
 import { getExtensionApi } from '../../lib/extension-apis'

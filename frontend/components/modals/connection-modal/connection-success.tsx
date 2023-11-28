@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import locators from '../../locators'
-import { SuccessTick } from '../../icons/success-tick'
+
 import { Header } from '../../header'
+import { SuccessTick } from '../../icons/success-tick'
+import locators from '../../locators'
 
 export interface ConnectionSuccessProperties {
   onClose: () => void

@@ -1,14 +1,16 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
-import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { FULL_ROUTES } from '../../route-names'
+
+import config from '!/config'
+
+import { ExternalLink } from '../../../components/external-link'
 import { Frame } from '../../../components/frame'
 import { Tick } from '../../../components/icons/tick'
-import config from '!/config'
-import { useGlobalsStore } from '../../../stores/globals'
+import { OnboardingPage } from '../../../components/pages/onboarding-page'
 import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { ExternalLink } from '../../../components/external-link'
+import { useGlobalsStore } from '../../../stores/globals'
+import { FULL_ROUTES } from '../../route-names'
 
 export const locators = {
   description: 'description',

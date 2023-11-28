@@ -1,9 +1,10 @@
 import { renderHook } from '@testing-library/react'
+
 import { AssetsStore, useAssetsStore } from '../../stores/assets-store'
 import { MarketsStore, useMarketsStore } from '../../stores/markets-store'
 import { DeepPartial, mockStore } from '../../test-helpers/mock-store'
-import { useMarketSettlementAsset } from './market-settlement-asset'
 import { silenceErrors } from '../../test-helpers/silence-errors'
+import { useMarketSettlementAsset } from './market-settlement-asset'
 
 jest.mock('../../stores/assets-store')
 jest.mock('../../stores/markets-store')

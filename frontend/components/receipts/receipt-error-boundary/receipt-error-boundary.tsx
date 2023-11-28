@@ -1,9 +1,10 @@
 import { captureException } from '@sentry/browser'
-import { Component, ReactNode } from 'react'
 import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
+import { Component, ReactNode } from 'react'
+
 import { CodeWindow } from '../../code-window'
-import { VegaSection } from '../../vega-section'
 import { CollapsiblePanel } from '../../collapsible-panel'
+import { VegaSection } from '../../vega-section'
 
 interface State {
   error: Error | null

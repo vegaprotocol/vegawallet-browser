@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react'
-import { ConnectionDetails } from './connection-details'
-import locators from '../../locators'
-import { locators as hostImageLocators } from '../../host-image'
+
 import { locators as headerLocators } from '../../header'
+import { locators as hostImageLocators } from '../../host-image'
+import locators from '../../locators'
+import { ConnectionDetails } from './connection-details'
 
 describe('ConnectionDetails', () => {
   it('should render header, hostname, keys and permissions', () => {

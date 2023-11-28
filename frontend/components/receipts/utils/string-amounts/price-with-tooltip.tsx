@@ -1,5 +1,7 @@
-import config from '!/config'
 import { Tooltip } from '@vegaprotocol/ui-toolkit'
+
+import config from '!/config'
+
 import { Info } from '../../../icons/info'
 import { DecimalTooltip } from './decimal-tooltip'
 

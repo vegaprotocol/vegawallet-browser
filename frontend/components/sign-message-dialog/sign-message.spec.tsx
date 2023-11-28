@@ -1,5 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { SignMessage, locators } from './sign-message'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+
+import { locators,SignMessage } from './sign-message'
 
 describe('SignMessage', () => {
   it('renders header, description, and SignMessageForm', () => {

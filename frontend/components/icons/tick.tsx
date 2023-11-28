@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 
-import { className as defaultClassName } from './style'
 import locators from '../locators'
+import { className as defaultClassName } from './style'
 
 export function Tick({ className, size }: { className?: string; size?: number }) {
   return (

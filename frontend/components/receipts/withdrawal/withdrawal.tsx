@@ -1,4 +1,4 @@
-import { useAssetsStore } from '../../../stores/assets-store'
+import { useAssetsStore } from '@/stores/assets-store'
 import { AsyncRenderer } from '../../async-renderer'
 import { ReceiptComponentProperties } from '../receipts'
 import { BasicWithdrawal } from './basic-withdrawal'

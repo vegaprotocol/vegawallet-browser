@@ -1,9 +1,9 @@
-import { getDateFormat,getTimeFormat } from '@vegaprotocol/utils'
+import { getDateFormat, getTimeFormat } from '@vegaprotocol/utils'
 
-import { HostImage } from '../../../components/host-image'
-import { Cross } from '../../../components/icons/cross'
-import { List } from '../../../components/list'
-import { Connection } from '../../../stores/connections'
+import { HostImage } from '@/components/host-image'
+import { Cross } from '@/components/icons/cross'
+import { List } from '@/components/list'
+import { Connection } from '@/stores/connections'
 
 export const locators = {
   connectionDetails: 'connection-details',

@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
 
-import { useFormatAssetAmount } from '../../../hooks/format-asset-amount'
+import { useFormatAssetAmount } from '@/hooks/format-asset-amount'
 import { EnrichedWithdrawal } from './enriched-withdrawal'
 
-jest.mock('../../../hooks/format-asset-amount')
+jest.mock('@/hooks/format-asset-amount')
 jest.mock('../utils/string-amounts/amount-with-symbol', () => ({
   AmountWithSymbol: () => <div data-testid="amount-with-symbol" />
 }))

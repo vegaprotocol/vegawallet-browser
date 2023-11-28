@@ -1,6 +1,6 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
-import { usePersistLocation } from '../hooks/persist-location'
+import { usePersistLocation } from '@/hooks/persist-location'
 import { Auth } from './auth'
 import { Connections } from './auth/connections'
 import { Settings } from './auth/settings'

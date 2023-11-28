@@ -1,8 +1,8 @@
 import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
 import get from 'lodash/get'
 
-import { useFormatMarketPrice } from '../../../../hooks/format-market-price/format-market-price.tsx'
-import { useMarketSettlementAsset } from '../../../../hooks/market-settlement-asset/market-settlement-asset.tsx'
+import { useFormatMarketPrice } from '@/hooks/format-market-price/format-market-price.tsx'
+import { useMarketSettlementAsset } from '@/hooks/market-settlement-asset/market-settlement-asset.tsx'
 import { AmountWithSymbol } from '../string-amounts/amount-with-symbol.tsx'
 import { PriceWithTooltip } from '../string-amounts/price-with-tooltip.tsx'
 

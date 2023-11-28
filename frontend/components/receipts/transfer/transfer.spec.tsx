@@ -3,9 +3,9 @@ import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer'
 import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import { useAssetsStore } from '../../../stores/assets-store'
-import { Key, useWalletStore } from '../../../stores/wallets'
-import { mockStore } from '../../../test-helpers/mock-store'
+import { useAssetsStore } from '@/stores/assets-store'
+import { Key, useWalletStore } from '@/stores/wallets'
+import { mockStore } from '@/test-helpers/mock-store'
 import { locators, Transfer } from './transfer'
 
 jest.mock('./basic-transfer-view', () => ({
@@ -22,11 +22,11 @@ jest.mock('../utils/receipt-wrapper', () => ({
   }
 }))
 
-jest.mock('../../../stores/assets-store', () => ({
+jest.mock('@/stores/assets-store', () => ({
   useAssetsStore: jest.fn()
 }))
 
-jest.mock('../../../stores/wallets', () => ({
+jest.mock('@/stores/wallets', () => ({
   useWalletStore: jest.fn()
 }))
 

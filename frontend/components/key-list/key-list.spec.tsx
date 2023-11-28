@@ -3,8 +3,8 @@ import { MemoryRouter } from 'react-router-dom'
 
 import config from '!/config'
 
-import { JsonRPCProvider } from '../../contexts/json-rpc/json-rpc-provider'
-import { mockClient } from '../../test-helpers/mock-client'
+import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
+import { mockClient } from '@/test-helpers/mock-client'
 import { locators as vegaKeyLocators } from '../keys/vega-key'
 import componentLocators from '../locators'
 import { KeyList, KeyListProperties } from './key-list'
@@ -13,7 +13,7 @@ const storeMock = {
   createKey: jest.fn()
 }
 
-jest.mock('../../stores/wallets', () => ({
+jest.mock('@/stores/wallets', () => ({
   useWalletStore: (function_: any) => function_(storeMock)
 }))
 

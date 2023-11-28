@@ -1,4 +1,4 @@
-import { TransactionMessage } from '../lib/transactions'
+import { TransactionMessage } from '@/lib/transactions'
 import { useInteractionStore } from './interaction-store'
 
 const initialState = useInteractionStore.getState()

@@ -1,6 +1,6 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
 
-import { HiddenContainer } from '../../../../../components/hidden-container'
+import { HiddenContainer } from '@/components/hidden-container'
 
 export const locators = {
   viewPrivateKeyClose: 'view-private-key-close'

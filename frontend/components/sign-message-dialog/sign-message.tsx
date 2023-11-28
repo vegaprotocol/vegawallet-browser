@@ -1,7 +1,7 @@
 import { Button, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
 import { useForm } from 'react-hook-form'
 
-import { Validation } from '../../lib/form-validation'
+import { Validation } from '@/lib/form-validation'
 
 export const locators = {
   messageInput: 'message-input',

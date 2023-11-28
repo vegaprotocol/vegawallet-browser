@@ -1,7 +1,7 @@
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import get from 'lodash/get'
 
-import { useMarketsStore } from '../../stores/markets-store'
+import { useMarketsStore } from '@/stores/markets-store'
 
 export const useFormatMarketPrice = (marketId?: string, price?: string) => {
   const { loading, getMarketById } = useMarketsStore((state) => ({

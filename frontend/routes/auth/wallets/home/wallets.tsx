@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-import { AsyncRenderer } from '../../../../components/async-renderer'
-import { BasePage } from '../../../../components/pages/page'
-import { SignMessageDialog } from '../../../../components/sign-message-dialog'
-import { useWalletStore } from '../../../../stores/wallets'
+import { AsyncRenderer } from '@/components/async-renderer'
+import { BasePage } from '@/components/pages/page'
+import { SignMessageDialog } from '@/components/sign-message-dialog'
+import { useWalletStore } from '@/stores/wallets'
 import { DepositAssetsCallout } from './deposit-assets-callout'
 import { WalletsPageKeyList } from './wallets-page-key-list'
 

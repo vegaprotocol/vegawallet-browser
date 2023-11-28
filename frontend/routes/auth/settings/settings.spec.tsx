@@ -2,13 +2,13 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import { locators } from '../../../../frontend/routes/auth/settings'
-import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
-import { useGlobalsStore } from '../../../stores/globals'
-import { mockClient } from '../../../test-helpers/mock-client'
-import { mockStore } from '../../../test-helpers/mock-store'
+import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
+import { useGlobalsStore } from '@/stores/globals'
+import { mockClient } from '@/test-helpers/mock-client'
+import { mockStore } from '@/test-helpers/mock-store'
 import { Settings } from '.'
 
-jest.mock('../../../stores/globals')
+jest.mock('@/stores/globals')
 jest.mock('./version-section', () => ({
   VersionSection: () => <div data-testid="version-section" />
 }))

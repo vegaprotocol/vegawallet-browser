@@ -3,9 +3,9 @@
 // TODO We are getting to the point where a dumb mock client is not good enough
 // need to investigate a better mocking solution]
 
-import { RpcMethods } from '../lib/client-rpc-methods'
-import { AppGlobals } from '../stores/globals'
-import { Key } from '../stores/wallets'
+import { RpcMethods } from '@/lib/client-rpc-methods'
+import { AppGlobals } from '@/stores/globals'
+import { Key } from '@/stores/wallets'
 
 const defaultWallets = ['wallet 1']
 const defaultKeys = [

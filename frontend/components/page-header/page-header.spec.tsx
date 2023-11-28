@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
-import { useJsonRpcClient } from '../../contexts/json-rpc/json-rpc-context'
-import config from '../../lib/config'
-import { usePopoverStore } from '../../stores/popover-store'
-import { mockStore } from '../../test-helpers/mock-store'
+import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import config from '@/lib/config'
+import { usePopoverStore } from '@/stores/popover-store'
+import { mockStore } from '@/test-helpers/mock-store'
 import componentLocators from '../locators'
-import { locators,PageHeader } from '.'
+import { locators, PageHeader } from '.'
 
 const mockPopoverStore = (isPopoverInstance: boolean) => {
   const focusPopover = jest.fn()
@@ -21,11 +21,11 @@ jest.mock('!/config', () => ({
   closeWindowOnPopupOpen: true
 }))
 
-jest.mock('../../contexts/json-rpc/json-rpc-context', () => ({
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: jest.fn()
 }))
 
-jest.mock('../../stores/popover-store')
+jest.mock('@/stores/popover-store')
 
 describe('PageHeader', () => {
   it('renders the VegaIcon component', () => {

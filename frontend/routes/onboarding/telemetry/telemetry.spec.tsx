@@ -3,13 +3,13 @@ import { MemoryRouter } from 'react-router-dom'
 
 import config from '!/config'
 
-import { mockClient } from '../../../test-helpers/mock-client'
+import { mockClient } from '@/test-helpers/mock-client'
 import { FULL_ROUTES } from '../../route-names'
-import { locators,Telemetry } from '.'
+import { locators, Telemetry } from '.'
 
 const saveSettings = jest.fn()
 
-jest.mock('../../../stores/globals', () => ({
+jest.mock('@/stores/globals', () => ({
   useGlobalsStore: jest.fn((function_) => {
     return function_({
       saveSettings
@@ -19,7 +19,7 @@ jest.mock('../../../stores/globals', () => ({
 
 const mockedRequest = jest.fn()
 
-jest.mock('../../../contexts/json-rpc/json-rpc-context', () => ({
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({ request: mockedRequest })
 }))
 

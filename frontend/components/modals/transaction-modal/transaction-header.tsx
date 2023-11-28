@@ -1,4 +1,4 @@
-import { Transaction } from '../../../lib/transactions'
+import { Transaction } from '@/lib/transactions'
 import { Header } from '../../header'
 import { HostImage } from '../../host-image'
 import { VegaKey } from '../../keys/vega-key'

@@ -1,7 +1,7 @@
 import { useForm, useWatch } from 'react-hook-form'
 
-import { Checkbox } from '../../../components/checkbox'
-import { LoadingButton } from '../../../components/loading-button'
+import { Checkbox } from '@/components/checkbox'
+import { LoadingButton } from '@/components/loading-button'
 
 export const locators = {
   saveMnemonicButton: 'save-mnemonic-button',

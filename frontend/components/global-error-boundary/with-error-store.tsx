@@ -1,6 +1,6 @@
 import { ComponentType } from 'react'
 
-import { useErrorStore } from '../../stores/error'
+import { useErrorStore } from '@/stores/error'
 
 export interface ErrorProperties {
   error: Error | null

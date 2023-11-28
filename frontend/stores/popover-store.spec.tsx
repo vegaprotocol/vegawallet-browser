@@ -1,4 +1,4 @@
-import { silenceErrors, silenceLogs } from '../test-helpers/silence-errors'
+import { silenceErrors, silenceLogs } from '@/test-helpers/silence-errors'
 import { createStore } from './popover-store'
 
 const mockBrowser = () => {

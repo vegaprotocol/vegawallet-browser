@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { JsonRPCProvider } from '../../../contexts/json-rpc/json-rpc-provider'
-import { mockClient } from '../../../test-helpers/mock-client'
+import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
+import { mockClient } from '@/test-helpers/mock-client'
 import { FULL_ROUTES } from '../../route-names'
 import { locators } from '.'
 import { CreatePassword } from './create-password'

@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { useEffect, useState } from 'react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { useErrorStore } from '../../stores/error'
-import { silenceErrors } from '../../test-helpers/silence-errors'
+import { useErrorStore } from '@/stores/error'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import GlobalErrorBoundary from '.'
 
 const mockedUsedNavigate = jest.fn()

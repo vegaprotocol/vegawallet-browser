@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { useInteractionStore } from '../../../stores/interaction-store'
+import { useInteractionStore } from '@/stores/interaction-store'
 import locators from '../../locators'
 import { Splash } from '../../splash'
 import { ConnectionDetails } from './connection-details'

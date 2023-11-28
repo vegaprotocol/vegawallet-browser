@@ -1,20 +1,20 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { useEffect } from 'react'
 
-import { RpcMethods } from '../../lib/client-rpc-methods'
-import { ServerRpcMethods } from '../../lib/server-rpc-methods'
-import { useConnectionStore } from '../../stores/connections'
-import { useErrorStore } from '../../stores/error'
-import { useInteractionStore } from '../../stores/interaction-store'
-import { mockClient } from '../../test-helpers/mock-client'
-import { mockStore } from '../../test-helpers/mock-store'
-import { silenceErrors } from '../../test-helpers/silence-errors'
+import { RpcMethods } from '@/lib/client-rpc-methods'
+import { ServerRpcMethods } from '@/lib/server-rpc-methods'
+import { useConnectionStore } from '@/stores/connections'
+import { useErrorStore } from '@/stores/error'
+import { useInteractionStore } from '@/stores/interaction-store'
+import { mockClient } from '@/test-helpers/mock-client'
+import { mockStore } from '@/test-helpers/mock-store'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import { useJsonRpcClient } from './json-rpc-context'
 import { JsonRPCProvider } from './json-rpc-provider'
 
-jest.mock('../../stores/interaction-store')
-jest.mock('../../stores/error')
-jest.mock('../../stores/connections')
+jest.mock('@/stores/interaction-store')
+jest.mock('@/stores/error')
+jest.mock('@/stores/connections')
 
 const mockModalStore = () => {
   const store = useInteractionStore as jest.MockedFunction<typeof useInteractionStore>

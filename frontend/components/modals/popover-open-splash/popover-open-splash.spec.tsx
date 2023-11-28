@@ -1,10 +1,10 @@
-import { fireEvent,render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 
-import { usePopoverStore } from '../../../stores/popover-store'
-import { mockStore } from '../../../test-helpers/mock-store'
-import { locators,PopoverOpenSplash } from '.'
+import { usePopoverStore } from '@/stores/popover-store'
+import { mockStore } from '@/test-helpers/mock-store'
+import { locators, PopoverOpenSplash } from '.'
 
-jest.mock('../../../stores/popover-store')
+jest.mock('@/stores/popover-store')
 
 describe('PopoverOpenSplash', () => {
   beforeEach(() => {

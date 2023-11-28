@@ -1,6 +1,6 @@
-import { getSettlementAssetId } from '../../lib/markets'
-import { useAssetsStore } from '../../stores/assets-store'
-import { useMarketsStore } from '../../stores/markets-store'
+import { getSettlementAssetId } from '@/lib/markets'
+import { useAssetsStore } from '@/stores/assets-store'
+import { useMarketsStore } from '@/stores/markets-store'
 
 export const useMarketSettlementAsset = (marketId?: string) => {
   const { getMarketById, loading: marketsLoading } = useMarketsStore((state) => ({

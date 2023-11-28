@@ -1,5 +1,5 @@
-import { RpcMethods } from '../lib/client-rpc-methods'
-import { generateMarket } from '../test-helpers/generate-market.ts'
+import { RpcMethods } from '@/lib/client-rpc-methods'
+import { generateMarket } from '@/test-helpers/generate-market.ts'
 import { useMarketsStore } from './markets-store'
 
 const MARKET_FIXTURE = generateMarket()

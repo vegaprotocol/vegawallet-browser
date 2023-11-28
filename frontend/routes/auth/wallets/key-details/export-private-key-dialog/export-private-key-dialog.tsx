@@ -1,7 +1,7 @@
-import { ButtonLink,Dialog } from '@vegaprotocol/ui-toolkit'
+import { ButtonLink, Dialog } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
 
-import { VegaSection } from '../../../../../components/vega-section'
+import { VegaSection } from '@/components/vega-section'
 import { ExportPrivateKeyForm } from './export-private-key-form'
 import { ViewPrivateKey } from './view-private-key'
 

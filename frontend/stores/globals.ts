@@ -1,8 +1,8 @@
 import isMobile from 'is-mobile'
 import { create } from 'zustand'
 
-import { SendMessage } from '../contexts/json-rpc/json-rpc-provider'
-import { RpcMethods } from '../lib/client-rpc-methods'
+import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import { RpcMethods } from '@/lib/client-rpc-methods'
 
 export interface AppGlobals {
   // Has the user set a passphrase

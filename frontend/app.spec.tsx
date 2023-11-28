@@ -2,19 +2,19 @@ import { render, screen } from '@testing-library/react'
 import { ReactNode } from 'react'
 
 import App, { locators } from './app'
-import { usePing } from './hooks/ping'
-import { usePreventWindowResize } from './hooks/prevent-window-resize'
-import { useGlobalsStore } from './stores/globals'
-import { mockStore } from './test-helpers/mock-store'
+import { usePing } from '@/hooks/ping'
+import { usePreventWindowResize } from '@/hooks/prevent-window-resize'
+import { useGlobalsStore } from '@/stores/globals'
+import { mockStore } from '@/test-helpers/mock-store'
 
-jest.mock('./stores/globals')
-jest.mock('./hooks/prevent-window-resize')
-jest.mock('./hooks/ping')
+jest.mock('@/stores/globals')
+jest.mock('@/hooks/prevent-window-resize')
+jest.mock('@/hooks/ping')
 
-jest.mock('./components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
+jest.mock('@/components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
   <div data-testid="global-error-boundary">{children}</div>
 ))
-jest.mock('./stores/popover-store', () => ({
+jest.mock('@/stores/popover-store', () => ({
   usePopoverStore: (function_: any) => {
     return function_({
       setup: jest.fn(),
@@ -23,11 +23,11 @@ jest.mock('./stores/popover-store', () => ({
   }
 }))
 
-jest.mock('./components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
+jest.mock('@/components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
   <div data-testid="global-error-boundary">{children}</div>
 ))
 
-jest.mock('./contexts/json-rpc/json-rpc-provider', () => ({
+jest.mock('@/contexts/json-rpc/json-rpc-provider', () => ({
   JsonRPCProvider: ({ children }: { children: ReactNode }) => <div data-testid="json-rpc-provider">{children}</div>
 }))
 

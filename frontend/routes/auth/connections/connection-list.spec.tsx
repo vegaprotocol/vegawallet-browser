@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { locators as hostImageLocators } from '../../../components/host-image'
+import { locators as hostImageLocators } from '@/components/host-image'
 import { ConnectionsList, locators } from './connection-list'
 
 describe('ConnectionList', () => {

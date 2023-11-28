@@ -1,7 +1,7 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
 import ReactTimeAgo from 'react-time-ago'
 
-import { useInteractionStore } from '../../../stores/interaction-store'
+import { useInteractionStore } from '@/stores/interaction-store'
 import { PageHeader } from '../../page-header'
 import { Splash } from '../../splash'
 import { EnrichedDetails } from './enriched-details'

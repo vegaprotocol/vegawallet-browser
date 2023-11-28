@@ -1,12 +1,12 @@
-import { render,screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
-import { useMarketsStore } from '../../../../stores/markets-store'
-import { mockStore } from '../../../../test-helpers/mock-store'
+import { useMarketsStore } from '@/stores/markets-store'
+import { mockStore } from '@/test-helpers/mock-store'
 import { locators as amountWithSymbolLocators } from '../string-amounts/amount-with-symbol'
 import { locators as sizeWithTooltipLocators } from '../string-amounts/size-with-tooltip'
 import { OrderSize } from './order-size'
 
-jest.mock('../../../../stores/markets-store')
+jest.mock('@/stores/markets-store')
 
 describe('OrderSizeComponent', () => {
   it('should return basic data if markets are loading or formattedSize or symbol is not defined', () => {

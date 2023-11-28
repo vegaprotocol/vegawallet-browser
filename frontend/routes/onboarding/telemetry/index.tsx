@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom'
 
 import config from '!/config'
 
-import { ExternalLink } from '../../../components/external-link'
-import { Frame } from '../../../components/frame'
-import { Tick } from '../../../components/icons/tick'
-import { OnboardingPage } from '../../../components/pages/onboarding-page'
-import { useJsonRpcClient } from '../../../contexts/json-rpc/json-rpc-context'
-import { useGlobalsStore } from '../../../stores/globals'
+import { ExternalLink } from '@/components/external-link'
+import { Frame } from '@/components/frame'
+import { Tick } from '@/components/icons/tick'
+import { OnboardingPage } from '@/components/pages/onboarding-page'
+import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { useGlobalsStore } from '@/stores/globals'
 import { FULL_ROUTES } from '../../route-names'
 
 export const locators = {

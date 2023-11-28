@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react'
 
-import { MAX_POSITION_SIZE } from '../../lib/transactions'
-import { useMarketsStore } from '../../stores/markets-store'
-import { mockStore } from '../../test-helpers/mock-store'
-import { silenceErrors } from '../../test-helpers/silence-errors'
+import { MAX_POSITION_SIZE } from '@/lib/transactions'
+import { useMarketsStore } from '@/stores/markets-store'
+import { mockStore } from '@/test-helpers/mock-store'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import { useFormatSizeAmount } from './format-size-amount'
 
-jest.mock('../../stores/markets-store')
+jest.mock('@/stores/markets-store')
 
 describe('useFormatSizeAmount', () => {
   it('throw error if market decimals are not defined', () => {

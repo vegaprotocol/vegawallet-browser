@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import React, { useEffect } from 'react'
 
-import { silenceErrors } from '../../../test-helpers/silence-errors'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 import locators from '../../locators'
 import { ReceiptViewErrorBoundary } from './receipt-error-boundary'
 

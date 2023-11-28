@@ -1,13 +1,13 @@
-import { render,screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import { useMarketsStore } from '../../../../stores/markets-store.ts'
-import { generateMarket } from '../../../../test-helpers/generate-market.ts'
-import { mockStore } from '../../../../test-helpers/mock-store.ts'
+import { useMarketsStore } from '@/stores/markets-store.ts'
+import { generateMarket } from '@/test-helpers/generate-market.ts'
+import { mockStore } from '@/test-helpers/mock-store.ts'
 import { locators as marketLinkLocators } from './market-link'
-import { locators as orderMarketComponentLocators,OrderMarket } from './order-market'
+import { locators as orderMarketComponentLocators, OrderMarket } from './order-market'
 
-jest.mock('../../../../stores/markets-store')
+jest.mock('@/stores/markets-store')
 
 describe('OrderMarketComponent', () => {
   it('should return basic market link if markets are loading or market is not defined', () => {

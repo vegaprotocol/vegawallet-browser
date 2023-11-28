@@ -3,16 +3,16 @@ import { vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/core'
 import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
-import { useAssetsStore } from '../../../stores/assets-store'
-import { useMarketsStore } from '../../../stores/markets-store'
-import { generateAsset } from '../../../test-helpers/generate-asset'
-import { generateMarket } from '../../../test-helpers/generate-market'
-import { mockStore } from '../../../test-helpers/mock-store'
+import { useAssetsStore } from '@/stores/assets-store'
+import { useMarketsStore } from '@/stores/markets-store'
+import { generateAsset } from '@/test-helpers/generate-asset'
+import { generateMarket } from '@/test-helpers/generate-market'
+import { mockStore } from '@/test-helpers/mock-store'
 import { locators as dataTableLocators } from '../../data-table/data-table'
 import { OrderTable } from './order-table'
 
-jest.mock('../../../stores/markets-store', () => ({
-  ...jest.requireActual('../../../stores/markets-store'),
+jest.mock('@/stores/markets-store', () => ({
+  ...jest.requireActual('@/stores/markets-store'),
   useMarketsStore: jest.fn(() => {
     return {
       loading: false,
@@ -21,7 +21,7 @@ jest.mock('../../../stores/markets-store', () => ({
     }
   })
 }))
-jest.mock('../../../stores/assets-store')
+jest.mock('@/stores/assets-store')
 
 // refactor store mocks to use new mocking component when available
 describe('OrderTable', () => {

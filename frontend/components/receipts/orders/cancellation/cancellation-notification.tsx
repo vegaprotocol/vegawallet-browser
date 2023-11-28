@@ -1,7 +1,7 @@
 import { Intent, Notification, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import get from 'lodash/get'
 
-import { useMarketsStore } from '../../../../stores/markets-store'
+import { useMarketsStore } from '@/stores/markets-store'
 
 export const locators = {
   cancellationNotification: 'cancellation-notification'

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { useInteractionStore } from '../../../stores/interaction-store'
-import { mockStore } from '../../../test-helpers/mock-store'
+import { useInteractionStore } from '@/stores/interaction-store'
+import { mockStore } from '@/test-helpers/mock-store'
 import genericLocators from '../../locators'
 import { TransactionModal } from '.'
 import { locators } from './transaction-modal'
@@ -40,7 +40,7 @@ jest.mock('./transaction-header', () => ({
   TransactionHeader: () => <div data-testid="transaction-header" />
 }))
 
-jest.mock('../../../stores/interaction-store')
+jest.mock('@/stores/interaction-store')
 
 jest.mock('../../page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />

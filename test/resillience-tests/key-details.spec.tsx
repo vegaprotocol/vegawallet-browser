@@ -2,32 +2,22 @@ import { WebDriver } from 'selenium-webdriver'
 import { captureScreenshot } from '../e2e/helpers/driver'
 import { ViewWallet } from '../e2e/page-objects/view-wallet'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from '../e2e/helpers/wallet/wallet-setup'
-import { ServerConfig, closeServerAndWait, createServer } from '../e2e/helpers/wallet/http-server'
+import { closeServerAndWait } from '../e2e/helpers/wallet/http-server'
 import { KeyDetails } from '../e2e/page-objects/key-details'
 import { Server } from 'http'
-import test from '../../config/test'
-import { VegaAPI } from '../e2e/helpers/wallet/vega-api'
-import { ConnectWallet } from '../e2e/page-objects/connect-wallet'
-import { Transaction } from '../e2e/page-objects/transaction'
-import { dummyTransaction } from '../e2e/helpers/wallet/common-wallet-values'
+import { startServer } from './helpers'
 
-describe('Check browser wallet is resillient to node outages', () => {
+describe('Check browser wallet is resilient to node outages', () => {
   let driver: WebDriver
   let viewWallet: ViewWallet
   let keyDetails: KeyDetails
   let server: Server
   let closeServer: boolean
-  let vegaAPI: VegaAPI
-  let connectWallet: ConnectWallet
-  let transaction: Transaction
 
   beforeEach(async () => {
     driver = await createWalletAndDriver()
     viewWallet = new ViewWallet(driver)
     keyDetails = new KeyDetails(driver)
-    vegaAPI = new VegaAPI(driver)
-    connectWallet = new ConnectWallet(driver)
-    transaction = new Transaction(driver)
     closeServer = true
   })
 
@@ -39,38 +29,7 @@ describe('Check browser wallet is resillient to node outages', () => {
     await driver.quit()
   })
 
-  describe('transaction views are resilient to node outages', () => {
-    beforeEach(async () => {
-      await navigateToExtensionLandingPage(driver)
-    })
-
-    const testCases = [
-      { name: 'no nodes available', options: {}, startServer: false, expectError: true },
-      { name: 'market endpoint is down', options: { includeMarkets: false }, startServer: true, expectError: true },
-      { name: 'assets endpoint is down', options: { includeAssets: false }, startServer: true, expectError: true },
-      { name: 'accounts endpoint is down', options: { includeAccounts: false }, startServer: true, expectError: false },
-      {
-        name: 'blockchain height endpoint is down',
-        options: { includeBlockchainHeight: false },
-        startServer: true,
-        expectError: true
-      },
-      { name: 'all endpoints available', options: {}, startServer: true, expectError: false }
-    ]
-
-    testCases.forEach((testCase) => {
-      it(`shows the appropriate view when ${testCase.name}`, async () => {
-        if (testCase.startServer) {
-          server = await startServer(testCase.options)
-        }
-        await connectWalletAndSendTransaction()
-        expect(await transaction.isErrorLoadingDataDisplayed()).toBe(testCase.expectError)
-        closeServer = testCase.startServer
-      })
-    })
-  })
-
-  describe('key details are resillient to node outages', () => {
+  describe('key details are resilient to node outages', () => {
     it('shows an error when no nodes are available', async () => {
       closeServer = false
       await navigateToExtensionLandingPage(driver)
@@ -113,18 +72,4 @@ describe('Check browser wallet is resillient to node outages', () => {
       expect(errorText).toBe('An error occurred when loading account information: Failed to fetch data')
     })
   })
-
-  async function startServer(config: ServerConfig = {}) {
-    const sv = createServer(config)
-    sv.listen(test.test.mockPort)
-    return sv
-  }
-
-  async function connectWalletAndSendTransaction() {
-    await vegaAPI.connectWalletAndCheckSuccess()
-    await connectWallet.checkOnConnectWallet()
-    await connectWallet.approveConnectionAndCheckSuccess()
-    const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
-  }
 })

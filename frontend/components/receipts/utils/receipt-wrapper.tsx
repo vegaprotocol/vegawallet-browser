@@ -20,8 +20,6 @@ export const ReceiptWrapper = ({ children, errors = [] }: { children: ReactNode;
   }))
   const allErrors = [assetsError, marketsError, ...errors].filter(Boolean) as Error[]
   const hasError = allErrors.length > 0
-  console.log('*********')
-  console.log(allErrors)
   return (
     <VegaSection>
       {!hasError && <section data-testid={locators.receiptWrapper}>{children}</section>}

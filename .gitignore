@@ -29,3 +29,7 @@ approbation-diff.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# User settings for xcode projects
+xcode-projects/Vega Wallet - Fairground/Vega Wallet - Fairground.xcodeproj/project.xcworkspace/xcuserdata/
+xcode-projects/Vega Wallet - Mainnet/Vega Wallet - Mainnet.xcodeproj/project.xcworkspace/xcuserdata/

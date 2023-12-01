@@ -747,7 +747,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground Extension";
@@ -763,7 +763,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.fairgroundwallet;
 				PRODUCT_NAME = "Vega Wallet - Fairground Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -778,7 +778,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground Extension";
@@ -794,7 +794,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.fairgroundwallet;
 				PRODUCT_NAME = "Vega Wallet - Fairground Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -813,7 +813,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground";
@@ -834,7 +834,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.fairgroundwallet;
 				PRODUCT_NAME = "Vega Wallet - Fairground";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -851,7 +851,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet - Fairground";
@@ -872,7 +872,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.fairgroundwallet;
 				PRODUCT_NAME = "Vega Wallet - Fairground";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -888,7 +888,7 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Vega Wallet - Fairground.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
@@ -905,7 +905,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.fairgroundwallet;
 				PRODUCT_NAME = "Vega Wallet - Fairground Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -920,7 +920,7 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Vega Wallet - Fairground.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
@@ -937,7 +937,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.fairgroundwallet;
 				PRODUCT_NAME = "Vega Wallet - Fairground Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -955,7 +955,7 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Vega Wallet - Fairground.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
@@ -974,7 +974,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.fairgroundwallet;
 				PRODUCT_NAME = "Vega Wallet - Fairground";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -991,7 +991,7 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Vega Wallet - Fairground.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZZ5BWD7JV;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
@@ -1010,7 +1010,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet---Fairground";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.fairgroundwallet;
 				PRODUCT_NAME = "Vega Wallet - Fairground";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;

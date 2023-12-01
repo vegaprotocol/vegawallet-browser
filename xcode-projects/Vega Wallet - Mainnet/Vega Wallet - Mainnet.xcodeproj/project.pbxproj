@@ -905,7 +905,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.mainnetwallet;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.mainnetwallet.macosextension;
 				PRODUCT_NAME = "Vega Wallet - Mainnet Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -937,7 +937,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.mainnetwallet;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.mainnetwallet.macosextension;
 				PRODUCT_NAME = "Vega Wallet - Mainnet Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;

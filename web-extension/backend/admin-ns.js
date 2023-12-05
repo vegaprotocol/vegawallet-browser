@@ -3,6 +3,7 @@ import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../package.json'
 import { toBase64, string as fromString } from '@vegaprotocol/crypto/buf'
 import { createWindow } from './windows.js'
+import { default as createKeepAlive } from '../../lib/mv3-keep-alive.js'
 
 const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 
@@ -45,6 +46,16 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         handle = null
       }
     })
+  }
+  // This could potentially take a settings timeout for how long to keep the
+  // extension alive
+  // For now we keep the extension alive for 8 hours and ping every 20 seconds
+  // 8 hours as normal workday (putting the machine to sleep will delay timers and probably sleep anyway)
+  // 20 seconds as per chrome recommendation for something less than 30 seconds (sleep timeout)
+  const keepAlive = createKeepAlive(1000 * 60 * 60 * 8, 1000 * 20)
+  function keepAliveFn () {
+    const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
+    runtime.getPlatformInfo()
   }
 
   var server = new JSONRPCServer({
@@ -115,6 +126,8 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         if ((await encryptedStore.exists()) === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
         try {
           await encryptedStore.unlock(params.passphrase)
+          // start keepalive loop
+          keepAlive(keepAliveFn)
         } catch (e) {
           if (e.message === 'Invalid passphrase or corrupted storage') {
             throw new JSONRPCServer.Error('Invalid passphrase or corrupted storage', 1)
@@ -128,6 +141,9 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
       async 'admin.lock'(params) {
         doValidate(adminValidation.lock, params)
         await encryptedStore.lock()
+
+        // stop keepalive loop
+        keepAlive(null)
 
         return null
       },

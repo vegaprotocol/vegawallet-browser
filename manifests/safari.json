@@ -14,8 +14,7 @@
     "default_popup": "index.html"
   },
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
   "web_accessible_resources": ["in-page.js"],

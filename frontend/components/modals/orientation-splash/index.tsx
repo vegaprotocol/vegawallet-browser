@@ -32,14 +32,14 @@ const useOrientation = () => {
   return orientation
 }
 
-const isiOS =
-  typeof navigator !== 'undefined' &&
-  (/iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
-
 export const OrientationSplash = () => {
   const orientation = useOrientation()
   const isLandscape = orientation.includes('landscape')
+  const isiOS =
+    typeof navigator !== 'undefined' &&
+    (/iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
+  console.log(navigator.userAgent)
   if (isLandscape && !isiOS) {
     return (
       <Splash data-testid={locators.orientationSplash} centered={true}>

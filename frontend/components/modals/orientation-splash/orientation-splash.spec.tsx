@@ -46,7 +46,7 @@ describe('OrientationSplash', () => {
   })
 
   it('does not render splash when in mobile mode', () => {
-    // 1132-ANDR-001 - If I rotate the device, I see a warning telling me to rotate it back to portrait mode
+    // 1133-IOS-001 If I rotate the device, I do not see a warning telling me to rotate it back to portrait mode
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation((query) => ({

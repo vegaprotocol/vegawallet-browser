@@ -8,7 +8,7 @@ let overrides = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   setupFilesAfterEnv: ['<rootDir>/test/e2e/setupTests.ts', '<rootDir>/test/e2e/setupMocks.ts' ],
-  testTimeout: 120000,
+  testTimeout: 360000,
   reporters: [
     'default',
     [

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { isIos } from '@/lib/is-ios'
+
 import { Frame } from '../../frame'
 import { Splash } from '../../splash'
 
@@ -35,12 +37,9 @@ const useOrientation = () => {
 export const OrientationSplash = () => {
   const orientation = useOrientation()
   const isLandscape = orientation.includes('landscape')
-  const isiOS =
-    typeof navigator !== 'undefined' &&
-    (/iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
-  console.log(navigator.userAgent)
-  if (isLandscape && !isiOS) {
+  const ios = isIos()
+
+  if (isLandscape && !ios) {
     return (
       <Splash data-testid={locators.orientationSplash} centered={true}>
         <div className="px-5">

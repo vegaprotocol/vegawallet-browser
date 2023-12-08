@@ -33,6 +33,7 @@ describe('Keep alive', () => {
   })
 
   it('app does not sleep after five minutes of inactivity', async () => {
+    // 1133-KPAL-001 If I do not interact with browser wallet for five minutes I remain logged in to the wallet
     await viewWallet.checkOnViewWalletPage()
     const vegaWalletHandle = await driver.getWindowHandle()
     await vegaAPI.openNewWindow()

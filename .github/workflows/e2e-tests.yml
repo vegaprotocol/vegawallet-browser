@@ -144,4 +144,4 @@ jobs:
         if: always()
         with:
           name: keep alive screenshots chrome
-          path: ./test/keepalive
+          path: ./test/test-screenshots

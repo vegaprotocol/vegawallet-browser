@@ -13,6 +13,11 @@
     "default_title": "__BUILD_NAME__",
     "default_popup": "index.html"
   },
+  "browser_specific_settings": {
+    "safari": {
+      "strict_min_version": "16.4"
+    }
+  },
   "background": {
     "service_worker": "background.js"
   },

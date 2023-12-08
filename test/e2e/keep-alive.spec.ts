@@ -36,6 +36,7 @@ describe('Keep alive', () => {
     await viewWallet.checkOnViewWalletPage()
     const vegaWalletHandle = await driver.getWindowHandle()
     await vegaAPI.openNewWindow()
+    //sleep for five minutes. This is to give the app chance to (incorrectly) go to sleep
     await staticWait(300000)
     await switchWindowHandles(driver, false, vegaWalletHandle)
     await viewWallet.checkOnViewWalletPage()

@@ -13,7 +13,16 @@ const mockGlobals = (isMobile = true) => {
   })
 }
 
+const navigator = window.navigator
+
 describe('OrientationSplash', () => {
+  afterEach(() => {
+    Object.defineProperty(window, 'navigator', {
+      writable: true,
+      value: navigator
+    })
+  })
+
   it('renders null when in portrait mode', () => {
     mockGlobals()
     Object.defineProperty(window, 'matchMedia', {
@@ -61,6 +70,29 @@ describe('OrientationSplash', () => {
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn()
       }))
+    })
+    render(<OrientationSplash />)
+    expect(screen.queryByTestId(locators.orientationSplash)).not.toBeInTheDocument()
+  })
+
+  it('does not render splash when in mobile mode', () => {
+    // 1133-IOS-001 If I rotate the device, I do not see a warning telling me to rotate it back to portrait mode
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn()
+      }))
+    })
+    Object.defineProperty(window, 'navigator', {
+      writable: true,
+      value: {
+        userAgent: 'iPhone'
+      }
     })
     render(<OrientationSplash />)
     expect(screen.queryByTestId(locators.orientationSplash)).not.toBeInTheDocument()

@@ -25,8 +25,12 @@ function App() {
   // in mobile the height is the available screen height by default, so we cannot set min height
   // for smaller screen would end up with scroll.
   useEffect(() => {
+    const minHeight = document.body.style.minHeight
     if (isDesktop) {
       document.body.style.minHeight = `${CONSTANTS.defaultHeight}px`
+    }
+    return () => {
+      document.body.style.minHeight = minHeight
     }
   }, [isDesktop])
   return (

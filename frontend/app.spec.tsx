@@ -47,7 +47,7 @@ describe('App', () => {
     expect(screen.getByTestId('global-error-boundary')).toBeInTheDocument()
     expect(screen.getByTestId('routing')).toBeInTheDocument()
     expect(screen.getByTestId('json-rpc-provider')).toBeInTheDocument()
-    expect(screen.getByTestId(locators.appWrapper)).toHaveStyle('min-height: 600px')
+    expect(document.body.style.minHeight).toBe('600px')
   })
 
   it('calls global level hooks', () => {
@@ -64,6 +64,6 @@ describe('App', () => {
       isMobile: true
     })
     render(<App />)
-    expect(screen.getByTestId(locators.appWrapper)).not.toHaveStyle('min-height: 600px')
+    expect(document.body.style.minHeight).toBe('')
   })
 })

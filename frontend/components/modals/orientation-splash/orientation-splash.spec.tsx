@@ -7,7 +7,7 @@ import { locators, OrientationSplash } from '.'
 
 jest.mock('@/stores/globals')
 
-const mockGlobals = (isMobile = false) => {
+const mockGlobals = (isMobile = true) => {
   mockStore(useGlobalsStore, {
     isMobile
   })
@@ -50,7 +50,7 @@ describe('OrientationSplash', () => {
   })
 
   it('does not render splash when if not in mobile mode', () => {
-    mockGlobals(true)
+    mockGlobals(false)
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation((query) => ({

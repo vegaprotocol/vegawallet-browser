@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { useGlobalsStore } from '@/stores/globals'
 
+import { isIos } from '@/lib/is-ios'
+
 import { Frame } from '../../frame'
 import { Splash } from '../../splash'
 
@@ -38,7 +40,8 @@ export const OrientationSplash = () => {
   const orientation = useOrientation()
   const isLandscape = orientation.includes('landscape')
   const isMobile = useGlobalsStore((state) => state.isMobile)
-  if (isLandscape && isMobile) {
+  const ios = isIos()
+  if (isLandscape && isMobile && !isIos) {
     return (
       <Splash data-testid={locators.orientationSplash} centered={true}>
         <div className="px-5">

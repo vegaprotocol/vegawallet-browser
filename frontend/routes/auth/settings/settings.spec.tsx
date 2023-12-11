@@ -48,6 +48,8 @@ describe('Settings', () => {
 
   it('does not render pop out settings on mobile', () => {
     // 1132-ANDR-002 If I am on mobile on settings I do not see the auto popout setting
+    // 1133-IOS-002 If I am on mobile on settings I do not see the auto popout setting
+
     mockStore(useGlobalsStore, { isMobile: true })
 
     mockClient()

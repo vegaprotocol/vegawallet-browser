@@ -6,7 +6,7 @@ import path from 'path'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-const browsers = ['chrome', 'firefox']
+const browsers = ['chrome', 'firefox', 'safari']
 
 const destinationPath = 'build'
 const commonPath = `${destinationPath}/common`
@@ -35,15 +35,24 @@ const config = async (cliArgs) => {
 
   const isTestBuild = walletConfigName === 'test' || walletConfigName.includes('console-smoke')
 
-  const postbuilds = await Promise.all(browsers.map((b) => postbuild(b, commonPath, destinationPath, isTestBuild, walletConfigName, config)))
+  const postbuilds = await Promise.all(
+    browsers.map((b) => postbuild(b, commonPath, destinationPath, isTestBuild, walletConfigName, config))
+  )
 
   return [
     ...prebuild(),
     ...backend({
-      isProduction, outputPath: commonPath, walletConfigName, analyze
+      isProduction,
+      outputPath: commonPath,
+      walletConfigName,
+      analyze
     }),
     ...frontend({
-      isProduction, outputPath: commonPath, walletConfigName, analyze, config
+      isProduction,
+      outputPath: commonPath,
+      walletConfigName,
+      analyze,
+      config
     }),
     ...postbuilds.flat()
   ]

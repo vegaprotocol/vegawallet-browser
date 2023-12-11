@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "browser_action": {
+    "browser_style": false,
+    "default_icon": {
+      "16": "__ICON_PREFIX__-16x16.png",
+      "32": "__ICON_PREFIX__-32x32.png",
+      "48": "__ICON_PREFIX__-48x48.png",
+      "64": "__ICON_PREFIX__-64x64.png",
+      "96": "__ICON_PREFIX__-96x96.png",
+      "128": "__ICON_PREFIX__-128x128.png"
+    },
+    "default_title": "__BUILD_NAME__",
+    "default_popup": "index.html"
+  },
+  "browser_specific_settings": {
+    "safari": {
+      "strict_min_version": "16.4"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
+  "web_accessible_resources": ["in-page.js"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_end"
+    }
+  ]
+}

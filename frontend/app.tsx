@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { MemoryRouter as Router } from 'react-router-dom'
 
 import GlobalErrorBoundary from '@/components/global-error-boundary'
@@ -19,17 +20,20 @@ function App() {
   usePreventWindowResize()
   usePing()
   const isDesktop = useGlobalsStore((state) => !state.isMobile)
+  // Firefox android, firefox and chrome all have different ways of handling the viewport height.
+  // this allows us to set the min-height of the body to the correct value for desktop
+  // in mobile the height is the available screen height by default, so we cannot set min height
+  // for smaller screen would end up with scroll.
+  useEffect(() => {
+    if (isDesktop) {
+      document.body.style.minHeight = `${CONSTANTS.defaultHeight}px`
+    }
+  }, [isDesktop])
   return (
     <Router>
       <GlobalErrorBoundary>
         <JsonRPCProvider>
-          <main
-            data-testid={locators.appWrapper}
-            style={{
-              minHeight: isDesktop ? CONSTANTS.defaultHeight : undefined
-            }}
-            className="w-full h-full bg-black font-alpha text-vega-dark-400"
-          >
+          <main data-testid={locators.appWrapper} className="w-full h-full bg-black font-alpha text-vega-dark-400">
             <Routing />
           </main>
         </JsonRPCProvider>

@@ -75,7 +75,8 @@ describe('OrientationSplash', () => {
     expect(screen.queryByTestId(locators.orientationSplash)).not.toBeInTheDocument()
   })
 
-  it('does not render splash when in mobile mode', () => {
+  it('does not render splash when in mobile mode but on iOS', () => {
+    mockGlobals(false)
     // 1133-IOS-001 If I rotate the device, I do not see a warning telling me to rotate it back to portrait mode
     Object.defineProperty(window, 'matchMedia', {
       writable: true,

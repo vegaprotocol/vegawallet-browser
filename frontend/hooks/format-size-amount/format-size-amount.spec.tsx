@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react'
 
-import { MAX_POSITION_SIZE } from '@/lib/transactions'
+import { HALF_MAX_POSITION_SIZE } from '@/lib/transactions'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
@@ -48,7 +48,7 @@ describe('useFormatSizeAmount', () => {
         positionDecimalPlaces: 12
       })
     })
-    const { result } = renderHook(() => useFormatSizeAmount('foo', MAX_POSITION_SIZE))
+    const { result } = renderHook(() => useFormatSizeAmount('foo', HALF_MAX_POSITION_SIZE))
     expect(result.current).toBe('Max')
   })
 
@@ -59,7 +59,7 @@ describe('useFormatSizeAmount', () => {
         positionDecimalPlaces: 12
       })
     })
-    const { result } = renderHook(() => useFormatSizeAmount('foo', MAX_POSITION_SIZE))
+    const { result } = renderHook(() => useFormatSizeAmount('foo', HALF_MAX_POSITION_SIZE))
     expect(result.current).toBeUndefined()
   })
 

@@ -1,9 +1,21 @@
 import { act, render, screen, waitFor } from '@testing-library/react'
 
+import { useGlobalsStore } from '@/stores/globals'
+import { mockStore } from '@/test-helpers/mock-store'
+
 import { locators, OrientationSplash } from '.'
+
+jest.mock('@/stores/globals')
+
+const mockGlobals = (isMobile = false) => {
+  mockStore(useGlobalsStore, {
+    isMobile
+  })
+}
 
 describe('OrientationSplash', () => {
   it('renders null when in portrait mode', () => {
+    mockGlobals()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation((query) => ({
@@ -21,6 +33,7 @@ describe('OrientationSplash', () => {
 
   it('renders splash when in landscape mode', () => {
     // 1132-ANDR-001 - If I rotate the device, I see a warning telling me to rotate it back to portrait mode
+    mockGlobals()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation((query) => ({
@@ -36,7 +49,25 @@ describe('OrientationSplash', () => {
     expect(screen.getByTestId(locators.orientationSplash)).toBeInTheDocument()
   })
 
+  it('does not render splash when if not in mobile mode', () => {
+    mockGlobals(true)
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn()
+      }))
+    })
+    render(<OrientationSplash />)
+    expect(screen.queryByTestId(locators.orientationSplash)).not.toBeInTheDocument()
+  })
+
   it('sets mode to portrait on event handler being called', async () => {
+    mockGlobals()
     let handler: null | ((event: MediaQueryListEvent) => void) = null
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
@@ -59,6 +90,7 @@ describe('OrientationSplash', () => {
   })
 
   it('sets mode to landscape on event handler being called', async () => {
+    mockGlobals()
     let handler: null | ((event: MediaQueryListEvent) => void) = null
     Object.defineProperty(window, 'matchMedia', {
       writable: true,

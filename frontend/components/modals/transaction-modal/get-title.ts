@@ -1,11 +1,16 @@
-import { MAX_POSITION_SIZE, Transaction, TRANSACTION_TITLES, TransactionKeys } from '@/lib/transactions'
+import { HALF_MAX_POSITION_SIZE, Transaction, TRANSACTION_TITLES, TransactionKeys } from '@/lib/transactions'
 
 const processTitle = (type: TransactionKeys, data: any) => {
   // If we have a mass order cancellation (i.e. no order ID, with or without a market ID)
   // then we want to display a different title
   if (type === TransactionKeys.ORDER_CANCELLATION && data && !data.orderId) {
     return 'Mass Order Cancellation'
-  } else if (type === TransactionKeys.ORDER_SUBMISSION && data && data.reduceOnly && data.size === MAX_POSITION_SIZE) {
+  } else if (
+    type === TransactionKeys.ORDER_SUBMISSION &&
+    data &&
+    data.reduceOnly &&
+    data.size === HALF_MAX_POSITION_SIZE
+  ) {
     return 'Close Position'
   }
 

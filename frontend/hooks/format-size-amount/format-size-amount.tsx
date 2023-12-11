@@ -1,7 +1,7 @@
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import get from 'lodash/get'
 
-import { MAX_POSITION_SIZE } from '@/lib/transactions'
+import { HALF_MAX_POSITION_SIZE } from '@/lib/transactions'
 import { useMarketsStore } from '@/stores/markets-store'
 
 export const useFormatSizeAmount = (marketId?: string, size?: string) => {
@@ -10,7 +10,7 @@ export const useFormatSizeAmount = (marketId?: string, size?: string) => {
     getMarketById: state.getMarketById
   }))
   if (loading || !marketId || !size) return
-  if (size === MAX_POSITION_SIZE) return 'Max'
+  if (size === HALF_MAX_POSITION_SIZE) return 'Max'
   const market = getMarketById(marketId)
   const positionDecimals = Number(get(market, 'positionDecimalPlaces'))
   if (!market || !positionDecimals) throw new Error('Could not find market or positionDecimals')

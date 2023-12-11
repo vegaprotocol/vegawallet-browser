@@ -1,4 +1,4 @@
-export const MAX_POSITION_SIZE = '9223372036854775807'
+export const HALF_MAX_POSITION_SIZE = '4611686018427387903'
 
 export type BatchTransactionCommands =
   | TransactionKeys.ORDER_SUBMISSION

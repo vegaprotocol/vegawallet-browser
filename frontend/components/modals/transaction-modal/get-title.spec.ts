@@ -1,4 +1,4 @@
-import { MAX_POSITION_SIZE, TransactionKeys } from '@/lib/transactions'
+import { HALF_MAX_POSITION_SIZE, TransactionKeys } from '@/lib/transactions'
 
 import { getTitle } from './get-title'
 
@@ -31,7 +31,7 @@ describe('getTitle', () => {
 
   it('should return "Close position" when order submission is reduceOnly with max size', () => {
     const transaction = {
-      [TransactionKeys.ORDER_SUBMISSION]: { reduceOnly: true, size: MAX_POSITION_SIZE }
+      [TransactionKeys.ORDER_SUBMISSION]: { reduceOnly: true, size: HALF_MAX_POSITION_SIZE }
     }
     expect(getTitle(transaction as any)).toBe('Close Position')
   })

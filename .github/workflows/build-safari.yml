@@ -1,0 +1,45 @@
+name: Build safari
+
+on:
+  pull_request:
+  push:
+    branches:
+      - ci/safari
+
+jobs:
+  build-safari:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build:test-e2e
+        env:
+          REACT_APP_TEST: true
+
+      # - name: Import DeveloperID Certificate
+      #   uses: apple-actions/import-codesign-certs@v1
+      #   with:
+      #     keychain: vega
+      #     create-keychain: true
+      #     p12-file-base64: ${{ secrets.MACOS_CERTIFICATE }}
+      #     p12-password: ${{ secrets.MACOS_CERTIFICATE_PASS }}
+
+      - uses: yukiarrr/ios-build-action@v1.11.1
+        with:
+          p12-base64: ${{ secrets.MACOS_CERTIFICATE }}
+          certificate-password: ${{ secrets.MACOS_CERTIFICATE_PASS }}
+          code-signing-identity: ${{ secrets.MACOS_CERTIFICATE_IDENTITY_ID }}
+          mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }}
+          team-id: '35466DARSS'
+          workspace-path: xcode-projects/"Vega Wallet - Fairground"

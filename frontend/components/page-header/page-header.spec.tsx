@@ -2,20 +2,12 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import config from '@/lib/config'
+import { useGlobalsStore } from '@/stores/globals'
 import { usePopoverStore } from '@/stores/popover-store'
 import { mockStore } from '@/test-helpers/mock-store'
 
 import componentLocators from '../locators'
 import { locators, PageHeader } from '.'
-
-const mockPopoverStore = (isPopoverInstance: boolean) => {
-  const focusPopover = jest.fn()
-  mockStore(usePopoverStore, {
-    isPopoverInstance,
-    focusPopover
-  })
-  return focusPopover
-}
 
 jest.mock('!/config', () => ({
   ...jest.requireActual('../../../config/test').default,
@@ -27,10 +19,27 @@ jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
 }))
 
 jest.mock('@/stores/popover-store')
+jest.mock('@/stores/globals')
+
+const mockPopoverStore = (isPopoverInstance: boolean) => {
+  const focusPopover = jest.fn()
+  mockStore(usePopoverStore, {
+    isPopoverInstance,
+    focusPopover
+  })
+  return focusPopover
+}
+
+const mockGlobalsStore = (isMobile = false) => {
+  mockStore(useGlobalsStore, {
+    isMobile
+  })
+}
 
 describe('PageHeader', () => {
   it('renders the VegaIcon component', () => {
     mockPopoverStore(false)
+    mockGlobalsStore()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: jest.fn() })
     render(<PageHeader />)
     const vegaIconElement = screen.getByTestId(componentLocators.vegaIcon)
@@ -39,6 +48,7 @@ describe('PageHeader', () => {
 
   it('renders the network indicator correctly', () => {
     mockPopoverStore(false)
+    mockGlobalsStore()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: jest.fn() })
     render(<PageHeader />)
     const networkIndicatorElement = screen.getByTestId(locators.networkIndicator)
@@ -48,6 +58,7 @@ describe('PageHeader', () => {
 
   it('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
     mockPopoverStore(false)
+    mockGlobalsStore()
     config.closeWindowOnPopupOpen = true
     global.close = jest.fn()
 
@@ -62,6 +73,7 @@ describe('PageHeader', () => {
 
   it('when opening in new window does not close the window if config.closeWindowOnPopupOpen is false', async () => {
     mockPopoverStore(false)
+    mockGlobalsStore()
     config.closeWindowOnPopupOpen = false
     global.close = jest.fn()
 
@@ -75,6 +87,7 @@ describe('PageHeader', () => {
   })
 
   it('renders close button if popover is open', async () => {
+    mockGlobalsStore()
     const mockClose = mockPopoverStore(true)
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
@@ -86,6 +99,7 @@ describe('PageHeader', () => {
   })
   it('does not render open in new window if feature is turned off', async () => {
     mockPopoverStore(true)
+    mockGlobalsStore()
     config.features = {
       popoutHeader: false
     }
@@ -96,7 +110,17 @@ describe('PageHeader', () => {
   })
   it('does not render open in new window if feature is not defined', async () => {
     mockPopoverStore(true)
+    mockGlobalsStore()
     config.features = undefined
+    const mockRequest = jest.fn()
+    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
+    render(<PageHeader />)
+    expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
+  })
+
+  it('does not render popout button when in mobile', async () => {
+    mockPopoverStore(true)
+    mockGlobalsStore(true)
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
     render(<PageHeader />)

@@ -37,6 +37,9 @@ const mainnet = {
     geckoId: 'browser-extension-mainnet@vega.xyz',
     iconPrefix: 'Mainnet'
   },
+  features: {
+    popoutHeader: true
+  },
   autoOpenOnInstall: true
 }
 

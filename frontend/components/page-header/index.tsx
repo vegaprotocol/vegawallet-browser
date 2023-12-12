@@ -1,6 +1,7 @@
 import config from '!/config'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
+import { useGlobalsStore } from '@/stores/globals'
 import { usePopoverStore } from '@/stores/popover-store'
 
 import { Cross } from '../icons/cross'
@@ -25,6 +26,9 @@ const useOpenInNewWindow = () => {
 }
 
 export const PageHeader = () => {
+  const { isMobile } = useGlobalsStore((state) => ({
+    isMobile: state.isMobile
+  }))
   const { isPopoverInstance, focusPopover } = usePopoverStore((state) => ({
     isPopoverInstance: state.isPopoverInstance,
     focusPopover: state.focusPopover
@@ -43,7 +47,7 @@ export const PageHeader = () => {
         >
           {config.network.name}
         </div>
-        {config.features?.popoutHeader ? (
+        {config.features?.popoutHeader && !isMobile ? (
           <button
             data-testid={locators.openPopoutButton}
             onClick={isPopoverInstance ? focusPopover : open}

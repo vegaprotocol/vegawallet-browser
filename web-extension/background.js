@@ -90,12 +90,20 @@ setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor)
 
 async function setPending () {
   const pending = interactor.totalPending()
+
+  // Early return as there is not much else to do
+  if (pending === 0) {
+    action.setBadgeText({ text: '' })
+    return
+  }
+
   try {
     if (pending > 0 && popupPorts.ports.size < 1 && await settings.get('autoOpen')) {
       await createNotificationWindow()
     }
   } catch (_) { }
+
   action.setBadgeText({
-    text: pending === 0 ? '' : pending.toString()
+    text: pending.toString()
   })
 }

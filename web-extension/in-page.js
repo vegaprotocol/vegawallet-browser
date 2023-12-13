@@ -1,22 +1,19 @@
 import JsonRpcClient from '../lib/json-rpc-client.js'
 import { isNotification, isResponse } from '../lib/json-rpc.js'
+import { KeyedSet } from './lib/keyed-set.js'
 
 // Wrap in a closure to protect scope
 ; (() => {
-  const listeners = new Map()
+  const listeners = new KeyedSet()
 
   function on (event, callback) {
-    const l = listeners.get(event) ?? new Set()
-    l.add(callback)
+    listeners.add(event, callback)
 
-    return () => {
-      l.delete(callback)
-    }
+    return () => listeners.delete(event, callback)
   }
 
   function off (event, callback) {
-    const l = listeners.get(event) ?? new Set()
-    l.delete(callback)
+    listeners.delete(event, callback)
   }
 
   const client = new JsonRpcClient({
@@ -25,8 +22,7 @@ import { isNotification, isResponse } from '../lib/json-rpc.js'
       window.postMessage(msg, '*')
     },
     onnotification: (msg) => {
-      const l = listeners.get(msg.method) ?? new Set()
-      for (const callback of l) {
+      for (const callback of listeners.values(msg.method)) {
         try {
           callback(msg.params)
         } catch (_) { }

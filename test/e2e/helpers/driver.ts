@@ -34,6 +34,11 @@ async function initChromeDriver(useOldExtension = false) {
     .addArguments('--disable-dev-shm-usage')
     .addArguments('--disable-gpu')
     .addArguments('--window-size=500,850')
+
+  if (process.env.HEADLESS) {
+    chromeOptions.addArguments('--headless=new')
+  }
+
   if (useOldExtension) {
     chromeOptions.addArguments(`--load-extension=${oldExtensionDirectory}`)
   } else {

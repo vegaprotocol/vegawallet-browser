@@ -61,6 +61,7 @@
     "test:backend:ci": "yarn test:backend --coverage",
     "test:e2e": "jest ./test/e2e --config=test/test-config/jest.config-e2e.js --maxWorkers=1 --testPathIgnorePatterns='keep-alive.spec.ts'",
     "test:e2e:chrome": "BROWSER=chrome yarn test:e2e",
+    "test:e2e:chrome:ci": "HEADLESS=true yarn test:e2e:chrome",
     "test:e2e:firefox": "BROWSER=firefox yarn test:e2e",
     "test:e2e:firefox:ci": "HEADLESS=true yarn test:e2e:firefox",
     "test:console": "jest ./test/console-smoke --config=test/test-config/jest.config-console-smoke.js --maxWorkers=1",

@@ -8,6 +8,7 @@ interface EventTracker {
 
 declare global {
   interface Window {
+    vega: any
     __events__: Record<string, EventTracker>
   }
 }

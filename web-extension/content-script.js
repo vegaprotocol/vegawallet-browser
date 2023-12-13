@@ -1,4 +1,4 @@
-import { isRequest, isNotification } from '../lib/json-rpc.js'
+import { isRequest } from '../lib/json-rpc.js'
 import createKeepAlive from '../lib/mv3-keep-alive.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
@@ -31,8 +31,8 @@ function onwindowmessage(event) {
   if (event.source !== window) return
   const data = event.data
 
-  // Only react to requests and notifications
-  if (!isNotification(data) && !isRequest(data)) return
+  // Only react to requests. Notifications and responses are not supported from dApps
+  if (!isRequest(data)) return
 
   if (backgroundPort == null) connect()
 
@@ -52,6 +52,10 @@ function onbackgrounddisconnect() {
   backgroundPort.onDisconnect.removeListener(onbackgrounddisconnect)
   backgroundPort = null
   keepAlive(null) // stop keepalive
+
+  // Background port disconnected (eg. went to sleep) so we inject a disconnect notification
+  // Background scripts in MV3 are service workers in our case and hence do not emit onSuspend
+  window.postMessage({ jsonrpc: '2.0', method: 'disconnect', params: null }, '*')
 }
 
 connect()

@@ -140,6 +140,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
 
       async 'admin.lock'(params) {
         doValidate(adminValidation.lock, params)
+        await connections.disconnect('*')
         await encryptedStore.lock()
 
         // stop keepalive loop

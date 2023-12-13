@@ -247,8 +247,8 @@ export class VegaAPI {
     const events = await this.driver.executeScript<string>(async (event: string) => {
       try {
         return JSON.stringify([
-          window[`${event}Result`].splice(0, window[`__${event}Result`].length),
-          window[`__${event}CallCounter`]
+          window.__events__[event].result.splice(0, window.__events__[event].result.length),
+          window.__events__[event].callCounter
         ])
       } catch (error: any) {
         return error.message

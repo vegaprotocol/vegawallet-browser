@@ -1,6 +1,7 @@
 import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 import { generate as generateMnemonic, validate } from '@vegaprotocol/crypto/bip-0039/mnemonic'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
+import { PERMITTED_RECOVERY_PHRASE_LENGTH } from '../../lib/constants.js'
 
 export class WalletCollection {
   constructor({ walletsStore, publicKeyIndexStore }) {
@@ -85,7 +86,7 @@ export class WalletCollection {
       await validate(recoveryPhrase)
 
       const words = recoveryPhrase.split(/\s+/)
-      if (words.length !== 24) throw new Error('Recovery phrase must be 24 words')
+      if (!PERMITTED_RECOVERY_PHRASE_LENGTH.includes(words.length)) throw new Error('Recovery phrase must be 24 words')
     } catch (err) {
       throw new Error(err.message)
     }

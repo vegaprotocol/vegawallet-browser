@@ -9,6 +9,7 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { importWallet } from '@/lib/create-wallet'
 import { Validation } from '@/lib/form-validation'
 
+import { PERMITTED_RECOVERY_PHRASE_LENGTH } from '../../../../lib/constants'
 import { FULL_ROUTES } from '../../route-names'
 import { WalletImported } from './wallet-imported'
 
@@ -73,7 +74,8 @@ export const ImportWallet = () => {
               {...register('mnemonic', {
                 required: Validation.REQUIRED,
                 validate: (value: string) => {
-                  if (value.toString().split(' ').length !== 24) return 'Recovery phrase must be 24 words'
+                  if (!PERMITTED_RECOVERY_PHRASE_LENGTH.includes(value.toString().split(' ').length))
+                    return 'Recovery phrase must be 12, 15, 18, 21 or 24 words'
                 }
               })}
             />

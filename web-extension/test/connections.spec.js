@@ -120,7 +120,7 @@ describe('ConnectionsCollection', () => {
     expect(await connections.listAllowedKeys('https://example.com')).toEqual([])
   })
 
-  it('should emit events', async () => {
+  it('should emit events set/delete', async () => {
     jest.useFakeTimers().setSystemTime(0)
 
     const connectionsStore = new ConcurrentStorage(new Map())
@@ -153,6 +153,25 @@ describe('ConnectionsCollection', () => {
     expect(await connections.list()).toEqual([])
 
     jest.useRealTimers()
+  })
+
+  it('should emit events disconnect', async () => {
+    const connectionsStore = new ConcurrentStorage(new Map())
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+
+    const connections = new ConnectionsCollection({
+      connectionsStore,
+      publicKeyIndexStore
+    })
+
+    const listener = jest.fn()
+    connections.listen(listener)
+
+    connections.disconnect('*')
+    expect(listener).toHaveBeenCalledWith('disconnect', '*')
+
+    connections.disconnect('https://example.com')
+    expect(listener).toHaveBeenCalledWith('disconnect', 'https://example.com')
   })
 
   it('should order origins by last accessed', async () => {

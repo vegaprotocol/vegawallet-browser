@@ -68,16 +68,21 @@ describe('list connections tests', () => {
   it('allows disconnecting of a dapp, check disconnected dapps cannot send a transaction without reconnecting', async () => {
     // 1109-VCON-006 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
     await firstDapp.connectWallet()
+    await firstDapp.addEventListener('client.disconnect')
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(1)
 
     await secondDapp.connectWallet()
+    await secondDapp.addEventListener('client.disconnect')
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(2)
 
     const keys = await firstDapp.listKeys()
 
     await connections.disconnectConnection('https://vegaprotocol.github.io')
+    const { callCounter: firstDappCallCounter } = await firstDapp.getEventResult('client.disconnect')
+    expect(firstDappCallCounter).toEqual(1)
+
     await connections.checkNumConnections(1)
     let connectionNames = await connections.getConnectionNames()
     expect(connectionNames[0]).toContain('https://vega.xyz')
@@ -90,29 +95,44 @@ describe('list connections tests', () => {
     await connectWalletModal.checkOnConnectWallet()
     await connectWalletModal.denyConnection()
 
+    const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnect')
+    expect(secondDappCallCounter).toEqual(0)
+
     await secondDapp.connectWallet(false)
     await connections.checkOnListConnectionsPage()
+
+    await firstDapp.removeEventListener('client.disconnect')
+    await secondDapp.removeEventListener('client.disconnect')
   })
 
   it('disconnects all instances of a dapp when I have more than one instance when I click disonnect', async () => {
     secondDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
+    await firstDapp.addEventListener('client.disconnect')
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkOnListConnectionsPage()
     await connections.checkNumConnections(1)
 
     await secondDapp.connectWallet()
+    await secondDapp.addEventListener('client.disconnect')
     await connections.checkOnListConnectionsPage()
     await connections.checkNumConnections(1)
 
     await connections.disconnectConnection('https://vegaprotocol.github.io')
     expect(await connections.connectionsExist()).toBe(false)
 
+    const { callCounter: firstDappCallCounter } = await firstDapp.getEventResult('client.disconnect')
+    expect(firstDappCallCounter).toEqual(1)
     await firstDapp.connectWallet(false)
     await connectWalletModal.checkOnConnectWallet()
     await connectWalletModal.denyConnection()
 
+    const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnect')
+    expect(secondDappCallCounter).toEqual(1)
     await secondDapp.connectWallet(false)
     await connectWalletModal.checkOnConnectWallet()
+
+    await firstDapp.removeEventListener('client.disconnect')
+    await secondDapp.removeEventListener('client.disconnect')
   })
 })

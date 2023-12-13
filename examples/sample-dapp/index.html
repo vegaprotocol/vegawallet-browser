@@ -30,6 +30,12 @@
         busy: false,
         chainId: null,
 
+        ondisconnect() {
+          App.connected = false
+          App.chainId = null
+          m.redraw()
+        },
+
         getChainId() {
           if (App.connected === false) return
           App.busy = true
@@ -79,6 +85,7 @@
                         .connectWallet()
                         .then(() => {
                           App.connected = true
+                          window.vega.on('client.disconnect', App.ondisconnect)
                         })
                         .finally(() => {
                           App.busy = false
@@ -102,6 +109,7 @@
                         .then(() => {
                           App.connected = false
                           App.chainId = null
+                          window.vega.off('client.disconnect', App.ondisconnect)
                         })
                         .finally(() => {
                           App.busy = false

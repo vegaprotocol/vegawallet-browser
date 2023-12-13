@@ -59,6 +59,12 @@ methods exposed on `window`/`globalThis`:
 - `await vega.getChainId()`
 - `await vega.listKeys()`
 - `await vega.sendTransaction({ publicKey, transaction, sendingMode })`
+- `vega.on(event, listener)` / `vega.addEventListener(event, listener)`
+- `vega.off(event, listener)` / `vega.removeEventListener(event, listener)`
+
+Possible events include:
+
+- `client.disconnect`
 
 A sample dApp is provided in [examples/sample-dapp/index.html](./examples/sample-dapp/index.html), and is also
 published to Github Pages - [see the live demo](https://vegaprotocol.github.io/vegawallet-browser/).

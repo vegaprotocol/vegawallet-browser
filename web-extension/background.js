@@ -81,8 +81,11 @@ const popupPorts = new PortServer({
 })
 
 connections.listen((ev, connection) => {
-  if (ev === 'delete') {
-    clientPorts.disconnect(connection.origin)
+  switch (ev) {
+    case 'delete':
+    case 'disconnect':
+      clientPorts.disconnect(connection.origin)
+      break
   }
 })
 

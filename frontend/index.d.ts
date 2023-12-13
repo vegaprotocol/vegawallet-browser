@@ -1,6 +1,12 @@
 import type JSONRPCClient from '@/lib/json-rpc-client'
 import type JSONRPCServer from '@/lib/json-rpc-server'
 
+interface EventTracker {
+  listener: Function
+  result: any[]
+  callCounter: number
+}
+
 declare global {
   interface Window {
     client: JSONRPCClient
@@ -9,5 +15,7 @@ declare global {
     vega: any
     sendTransactionResult: any
     connectWalletResult: any
+    vega: any
+    __events__: Record<string, EventTracker>
   }
 }

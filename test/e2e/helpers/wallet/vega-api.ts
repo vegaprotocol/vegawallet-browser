@@ -93,7 +93,11 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeGetConnectionResult())
   }
 
-  async getEventResult(event: string, withNewTab = false, closeTab = false): Promise<{ events: any[], callCounter: number }> {
+  async getEventResult(
+    event: string,
+    withNewTab = false,
+    closeTab = false
+  ): Promise<{ events: any[]; callCounter: number }> {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeGetEventResult(event))
   }
 
@@ -206,33 +210,32 @@ export class VegaAPI {
     })
   }
 
-  private async executeAddEventListeners (event: string) {
+  private async executeAddEventListeners(event: string) {
     return await this.driver.executeScript<string>(async (event: string) => {
       try {
-        if (window[`__${event}Listener`]) {
+        if (window.__events__[event]) {
           throw new Error(`There is already a listener for ${event}`)
         }
-
-        window[`__${event}CallCounter`] = 0
-        window[`__${event}Result`] = []
-        window[`__${event}Listener`] = (result: any) => { 
-          window[`__${event}Result`].push(result ?? null); // undefined is not serialisable but null is
-          window[`__${event}CallCounter`]++ 
+        window.__events__[event] = {
+          callCounter: 0,
+          result: [],
+          listener: (result: any) => {
+            window.__events__[event].result.push(result ?? null) // undefined is not serialisable but null is
+            window.__events__[event].callCounter++
+          }
         }
-        return window.vega.addEventListener(event, window[`__${event}Listener`])
+        return window.vega.addEventListener(event, window.__events__[event].listener)
       } catch (error: any) {
         return error.message
       }
     }, event)
   }
 
-  private async executeRemoveEventListeners (event: string) {
+  private async executeRemoveEventListeners(event: string) {
     return await this.driver.executeScript<string>(async (event: string) => {
       try {
-        const res = window.vega.removeEventListener(event, window[`__${event}Listener`])
-        delete window[`__${event}Listener`]
-        delete window[`__${event}Result`]
-        delete window[`__${event}CallCounter`]
+        const res = window.vega.removeEventListener(event, window.__events__[event].listener)
+        delete window.__events__[event]
         return res
       } catch (error: any) {
         return error.message
@@ -240,8 +243,8 @@ export class VegaAPI {
     }, event)
   }
 
-  private async executeGetEventResult (event: string): Promise<{ events: any[], callCounter: number }> {
-    const events = await this.driver.executeScript<string>(async (event:string ) => {
+  private async executeGetEventResult(event: string): Promise<{ events: any[]; callCounter: number }> {
+    const events = await this.driver.executeScript<string>(async (event: string) => {
       try {
         return JSON.stringify([
           window[`${event}Result`].splice(0, window[`__${event}Result`].length),

@@ -62,6 +62,14 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeListKeys())
   }
 
+  async addEventListener(event: string, withNewTab = false, closeTab = false) {
+    return await this.controlTabs(withNewTab, closeTab, () => this.executeAddEventListeners(event))
+  }
+
+  async removeEventListener(event: string, withNewTab = false, closeTab = false) {
+    return await this.controlTabs(withNewTab, closeTab, () => this.executeRemoveEventListeners(event))
+  }
+
   async sendTransaction(
     publicKey: string,
     transaction: any,
@@ -83,6 +91,10 @@ export class VegaAPI {
 
   async getConnectionResult(withNewTab = false, closeTab = false) {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeGetConnectionResult())
+  }
+
+  async getEventResult(event: string, withNewTab = false, closeTab = false): Promise<{ events: any[], callCounter: number }> {
+    return await this.controlTabs(withNewTab, closeTab, () => this.executeGetEventResult(event))
   }
 
   private async controlTabs<T>(
@@ -192,6 +204,59 @@ export class VegaAPI {
         return error.message
       }
     })
+  }
+
+  private async executeAddEventListeners (event: string) {
+    return await this.driver.executeScript<string>(async (event: string) => {
+      try {
+        if (window[`__${event}Listener`]) {
+          throw new Error(`There is already a listener for ${event}`)
+        }
+
+        window[`__${event}CallCounter`] = 0
+        window[`__${event}Result`] = []
+        window[`__${event}Listener`] = (result: any) => { 
+          window[`__${event}Result`].push(result ?? null); // undefined is not serialisable but null is
+          window[`__${event}CallCounter`]++ 
+        }
+        return window.vega.addEventListener(event, window[`__${event}Listener`])
+      } catch (error: any) {
+        return error.message
+      }
+    }, event)
+  }
+
+  private async executeRemoveEventListeners (event: string) {
+    return await this.driver.executeScript<string>(async (event: string) => {
+      try {
+        const res = window.vega.removeEventListener(event, window[`__${event}Listener`])
+        delete window[`__${event}Listener`]
+        delete window[`__${event}Result`]
+        delete window[`__${event}CallCounter`]
+        return res
+      } catch (error: any) {
+        return error.message
+      }
+    }, event)
+  }
+
+  private async executeGetEventResult (event: string): Promise<{ events: any[], callCounter: number }> {
+    const events = await this.driver.executeScript<string>(async (event:string ) => {
+      try {
+        return JSON.stringify([
+          window[`${event}Result`].splice(0, window[`__${event}Result`].length),
+          window[`__${event}CallCounter`]
+        ])
+      } catch (error: any) {
+        return error.message
+      }
+    }, event)
+
+    console.error(events)
+
+    const res = JSON.parse(events)
+
+    return { events: res[0], callCounter: res[1] }
   }
 
   async connectWalletAndCheckSuccess(withNewTab = true, closeTab = false) {

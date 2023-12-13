@@ -26,12 +26,5 @@
     "scripts": ["./background.js"]
   },
   "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
-  "web_accessible_resources": ["/in-page.js"],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["./content-script.js"],
-      "run_at": "document_end"
-    }
-  ]
+  "web_accessible_resources": ["/in-page.js"]
 }

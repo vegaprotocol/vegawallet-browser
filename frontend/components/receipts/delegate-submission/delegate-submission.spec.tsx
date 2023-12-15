@@ -14,6 +14,9 @@ jest.mock('../utils/receipt-wrapper', () => ({
 
 describe('DelegateSubmission', () => {
   it('render nodeId and', () => {
+    // 1135-DLGT-001 I can see the node Id of the node I want to delegate to
+    // 1135-DLGT-002 I can see a link to see the node information
+    // 1135-DLGT-003 I can see the amount I am delegating
     render(
       <DelegateSubmission
         transaction={{

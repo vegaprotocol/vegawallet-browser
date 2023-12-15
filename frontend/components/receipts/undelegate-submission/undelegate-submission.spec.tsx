@@ -14,7 +14,7 @@ jest.mock('../utils/receipt-wrapper', () => ({
 }))
 
 describe('UndelegateSubmission', () => {
-  it('render nodeId and', () => {
+  it('render nodeId, amount and method at end of epoch', () => {
     // 1136-UDLG-001 I can see the node Id of the node I want to undelegate from
     // 1136-UDLG-002 I can see a link to see the node information
     // 1136-UDLG-003 I can see the amount I am undelegating

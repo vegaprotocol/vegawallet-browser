@@ -4,7 +4,7 @@ import { vegaVoteValue } from '@vegaprotocol/rest-clients/dist/trading-data'
 import config from '!/config'
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
 
-import { locators } from '../utils/vega-entities/proposal-link'
+import { locators } from '../../vega-entities/proposal-link'
 import { VoteSubmission } from './vote-submission'
 
 jest.mock('../utils/receipt-wrapper', () => ({

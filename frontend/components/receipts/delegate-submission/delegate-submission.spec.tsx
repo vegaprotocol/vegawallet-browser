@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import config from '!/config'
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
 
-import { locators } from '../utils/vega-entities/proposal-link'
+import { locators } from '../../vega-entities/proposal-link'
 import { DelegateSubmission } from './delegate-submission'
 
 jest.mock('../utils/receipt-wrapper', () => ({

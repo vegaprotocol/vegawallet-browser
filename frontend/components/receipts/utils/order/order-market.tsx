@@ -2,7 +2,7 @@ import get from 'lodash/get'
 
 import { useMarketsStore } from '@/stores/markets-store'
 
-import { MarketLink } from '../vega-entities/market-link'
+import { MarketLink } from '../../../vega-entities/market-link'
 
 export const locators = {
   orderDetailsMarketCode: 'order-details-market-code'

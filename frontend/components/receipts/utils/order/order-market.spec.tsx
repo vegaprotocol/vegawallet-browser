@@ -5,7 +5,7 @@ import { useMarketsStore } from '@/stores/markets-store.ts'
 import { generateMarket } from '@/test-helpers/generate-market.ts'
 import { mockStore } from '@/test-helpers/mock-store.ts'
 
-import { locators as marketLinkLocators } from '../vega-entities/market-link'
+import { locators as marketLinkLocators } from '../../../vega-entities/market-link'
 import { locators as orderMarketComponentLocators, OrderMarket } from './order-market'
 
 jest.mock('@/stores/markets-store')

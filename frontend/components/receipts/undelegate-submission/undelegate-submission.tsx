@@ -4,10 +4,10 @@ import { ReactNode } from 'react'
 
 import { DataTable } from '@/components/data-table/data-table'
 
+import { NodeLink } from '../../vega-entities/node-link'
 import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
-import { NodeLink } from '../utils/vega-entities/node-link'
 
 const UNDELEGATE_METHOD_MAP: Record<UndelegateSubmissionMethod, string> = {
   [UndelegateSubmissionMethod.METHOD_AT_END_OF_EPOCH]: 'End of epoch',

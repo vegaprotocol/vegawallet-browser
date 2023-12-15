@@ -3,9 +3,9 @@ import { ReactNode } from 'react'
 
 import { DataTable } from '@/components/data-table/data-table'
 
+import { ProposalLink } from '../../vega-entities/proposal-link'
 import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
-import { ProposalLink } from '../utils/vega-entities/proposal-link'
 
 const VOTE_VALUE_MAP = {
   [vegaVoteValue.VALUE_YES]: 'For',

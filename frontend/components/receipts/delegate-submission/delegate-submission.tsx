@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { DataTable } from '@/components/data-table/data-table'
 
 import { ReceiptComponentProperties } from '../receipts'
+import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
 import { NodeLink } from '../utils/vega-entities/node-link'
 
@@ -16,5 +17,9 @@ export const DelegateSubmission = ({ transaction }: ReceiptComponentProperties) 
     ['Node ID', <NodeLink nodeId={nodeId} />],
     ['Amount', <AmountWithSymbol amount={formattedAmount} symbol={'VEGA'} />]
   ] as [ReactNode, ReactNode][]
-  return <DataTable items={items} />
+  return (
+    <ReceiptWrapper>
+      <DataTable items={items} />
+    </ReceiptWrapper>
+  )
 }

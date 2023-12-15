@@ -21,7 +21,7 @@ export const UndelegateSubmission = ({ transaction }: ReceiptComponentProperties
   const formattedAmount = formatNumber(toBigNum(amount, 18), 18)
 
   const items = [
-    ['Node ID', <NodeLink nodeId={nodeId} />],
+    ['Node Id', <NodeLink nodeId={nodeId} />],
     ['Amount', <AmountWithSymbol amount={formattedAmount} symbol={'VEGA'} />],
     ['Method', <>{UNDELEGATE_METHOD_MAP[method as UndelegateSubmissionMethod]}</>]
   ] as [ReactNode, ReactNode][]

@@ -16,8 +16,8 @@ const VOTE_VALUE_MAP = {
 export const VoteSubmission = ({ transaction }: ReceiptComponentProperties) => {
   const { proposalId, value } = transaction.voteSubmission
   const items = [
-    ['Proposal ID', <ProposalLink proposalId={proposalId} />],
-    ['Vote', <>{VOTE_VALUE_MAP[value as vegaVoteValue]}</>]
+    ['Proposal Id', <ProposalLink proposalId={proposalId} />],
+    ['Value', <>{VOTE_VALUE_MAP[value as vegaVoteValue]}</>]
   ] as [ReactNode, ReactNode][]
   return (
     <ReceiptWrapper>

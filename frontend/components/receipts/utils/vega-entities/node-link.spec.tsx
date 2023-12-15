@@ -4,7 +4,7 @@ import config from '!/config'
 
 import { locators, NodeLink } from './node-link'
 
-describe('ProposalLink', () => {
+describe('NodeLink', () => {
   it('renders truncated id and link', () => {
     const id = '1'.repeat(64)
     render(<NodeLink nodeId={id} />)

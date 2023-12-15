@@ -9,6 +9,7 @@ import { StopOrderSubmission } from './orders/stop-submission'
 import { Submission } from './orders/submission'
 import { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
+import { VoteSubmission } from './vote-submission'
 import { Withdraw } from './withdrawal'
 
 export const hasReceiptView = (transaction: Transaction) => {
@@ -26,5 +27,6 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.STOP_ORDERS_SUBMISSION]: StopOrderSubmission,
   [TransactionKeys.STOP_ORDERS_CANCELLATION]: StopOrderCancellation,
   [TransactionKeys.BATCH_MARKET_INSTRUCTIONS]: BatchMarketInstructions,
-  [TransactionKeys.APPLY_REFERRAL_CODE]: ApplyReferralCode
+  [TransactionKeys.APPLY_REFERRAL_CODE]: ApplyReferralCode,
+  [TransactionKeys.VOTE_SUBMISSION]: VoteSubmission
 }

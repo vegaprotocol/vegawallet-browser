@@ -4,7 +4,7 @@ import { UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trad
 import config from '!/config'
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
 
-import { locators } from '../../vega-entities/proposal-link'
+import { locators } from '../../vega-entities/node-link'
 import { UndelegateSubmission } from './undelegate-submission'
 
 jest.mock('../utils/receipt-wrapper', () => ({
@@ -38,7 +38,7 @@ describe('UndelegateSubmission', () => {
     expect(rows[1]).toHaveTextContent('1')
     expect(rows[1]).toHaveTextContent('VEGA')
 
-    expect(screen.getByTestId(locators.proposalLink)).toHaveAttribute(
+    expect(screen.getByTestId(locators.nodeLink)).toHaveAttribute(
       'href',
       `${config.network.governance}/validators/${'1'.repeat(64)}`
     )

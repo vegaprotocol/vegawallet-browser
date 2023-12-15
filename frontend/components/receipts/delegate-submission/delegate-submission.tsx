@@ -14,7 +14,7 @@ export const DelegateSubmission = ({ transaction }: ReceiptComponentProperties) 
   const formattedAmount = formatNumber(toBigNum(amount, 18), 18)
 
   const items = [
-    ['Node ID', <NodeLink nodeId={nodeId} />],
+    ['Node Id', <NodeLink nodeId={nodeId} />],
     ['Amount', <AmountWithSymbol amount={formattedAmount} symbol={'VEGA'} />]
   ] as [ReactNode, ReactNode][]
   return (

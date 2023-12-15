@@ -43,7 +43,7 @@ describe('Keep alive', () => {
     const { events, callCounter } = await vegaAPI.getEventResult('client.disconnect')
     expect(events).toEqual([])
     expect(callCounter).toEqual(0)
-    const vegaAPI.removeEventListener('client.disconnect')
+    vegaAPI.removeEventListener('client.disconnect')
     await switchWindowHandles(driver, false, vegaWalletHandle)
     await viewWallet.checkOnViewWalletPage()
   })

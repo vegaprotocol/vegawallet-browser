@@ -213,6 +213,7 @@ export class VegaAPI {
   private async executeAddEventListeners(event: string) {
     return await this.driver.executeScript<string>(async (event: string) => {
       try {
+        window.__events__ = window.__events__ || {}
         if (window.__events__[event]) {
           throw new Error(`There is already a listener for ${event}`)
         }

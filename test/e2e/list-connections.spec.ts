@@ -5,6 +5,7 @@ import { VegaAPI } from './helpers/wallet/vega-api'
 import { ConnectWallet } from './page-objects/connect-wallet'
 import { ListConnections } from './page-objects/list-connections'
 import { createWalletAndDriver } from './helpers/wallet/wallet-setup'
+import { staticWait, switchWindowHandles } from './helpers/selenium-util'
 
 const transferReq = {
   fromAccountType: 4,
@@ -38,7 +39,7 @@ describe('list connections tests', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    //await driver.quit()
   })
 
   it('shows no connections when no dapp connected, updates and shows connections after approving one or more', async () => {
@@ -67,12 +68,15 @@ describe('list connections tests', () => {
 
   it('allows disconnecting of a dapp, check disconnected dapps cannot send a transaction without reconnecting', async () => {
     // 1109-VCON-006 I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection)
-    await firstDapp.connectWallet()
+    const extensionHandle = await driver.getWindowHandle()
+    await firstDapp.connectWallet(true, false, false)
+    const firstDappWindowHandle = await driver.getWindowHandle()
     await firstDapp.addEventListener('client.disconnect')
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(1)
 
-    await secondDapp.connectWallet()
+    await secondDapp.connectWallet(true, false, false)
+    const secondDappWindowHandle = await driver.getWindowHandle()
     await secondDapp.addEventListener('client.disconnect')
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(2)
@@ -80,25 +84,33 @@ describe('list connections tests', () => {
     const keys = await firstDapp.listKeys()
 
     await connections.disconnectConnection('https://vegaprotocol.github.io')
+    await staticWait(10000)
+    await switchWindowHandles(driver, false, firstDappWindowHandle)
+    await staticWait(10000)
     const { callCounter: firstDappCallCounter } = await firstDapp.getEventResult('client.disconnect')
     expect(firstDappCallCounter).toEqual(1)
 
+    await switchWindowHandles(driver, false, extensionHandle)
     await connections.checkNumConnections(1)
     let connectionNames = await connections.getConnectionNames()
     expect(connectionNames[0]).toContain('https://vega.xyz')
 
+    await switchWindowHandles(driver, false, firstDappWindowHandle)
     await firstDapp.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     const res = await firstDapp.getTransactionResult()
     expect(res).toBe('Not connected')
 
     await firstDapp.connectWallet(false)
+    await switchWindowHandles(driver, false, extensionHandle)
     await connectWalletModal.checkOnConnectWallet()
     await connectWalletModal.denyConnection()
 
+    await switchWindowHandles(driver, false, secondDappWindowHandle)
     const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnect')
     expect(secondDappCallCounter).toEqual(0)
 
     await secondDapp.connectWallet(false)
+    await switchWindowHandles(driver, false, extensionHandle)
     await connections.checkOnListConnectionsPage()
 
     await firstDapp.removeEventListener('client.disconnect')

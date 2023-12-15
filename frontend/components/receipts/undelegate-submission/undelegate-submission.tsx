@@ -5,6 +5,7 @@ import { ReactNode } from 'react'
 import { DataTable } from '@/components/data-table/data-table'
 
 import { ReceiptComponentProperties } from '../receipts'
+import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
 import { NodeLink } from '../utils/vega-entities/node-link'
 
@@ -24,5 +25,9 @@ export const UndelegateSubmission = ({ transaction }: ReceiptComponentProperties
     ['Amount', <AmountWithSymbol amount={formattedAmount} symbol={'VEGA'} />],
     ['Method', <>{UNDELEGATE_METHOD_MAP[method as UndelegateSubmissionMethod]}</>]
   ] as [ReactNode, ReactNode][]
-  return <DataTable items={items} />
+  return (
+    <ReceiptWrapper>
+      <DataTable items={items} />
+    </ReceiptWrapper>
+  )
 }

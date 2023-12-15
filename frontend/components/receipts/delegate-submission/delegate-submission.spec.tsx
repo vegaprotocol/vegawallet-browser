@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import config from '!/config'
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
 
-import { locators } from '../../vega-entities/proposal-link'
+import { locators } from '../../vega-entities/node-link'
 import { DelegateSubmission } from './delegate-submission'
 
 jest.mock('../utils/receipt-wrapper', () => ({
@@ -35,7 +35,7 @@ describe('DelegateSubmission', () => {
     expect(rows[1]).toHaveTextContent('1')
     expect(rows[1]).toHaveTextContent('VEGA')
 
-    expect(screen.getByTestId(locators.proposalLink)).toHaveAttribute(
+    expect(screen.getByTestId(locators.nodeLink)).toHaveAttribute(
       'href',
       `${config.network.governance}/validators/${'1'.repeat(64)}`
     )

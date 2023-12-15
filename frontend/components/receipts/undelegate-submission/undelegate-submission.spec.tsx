@@ -4,7 +4,7 @@ import { UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trad
 import config from '!/config'
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
 
-import { locators } from '../utils/vega-entities/proposal-link'
+import { locators } from '../../vega-entities/proposal-link'
 import { UndelegateSubmission } from './undelegate-submission'
 
 jest.mock('../utils/receipt-wrapper', () => ({

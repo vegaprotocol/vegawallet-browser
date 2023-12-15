@@ -3,10 +3,10 @@ import { ReactNode } from 'react'
 
 import { DataTable } from '@/components/data-table/data-table'
 
+import { NodeLink } from '../../vega-entities/node-link'
 import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
-import { NodeLink } from '../utils/vega-entities/node-link'
 
 export const DelegateSubmission = ({ transaction }: ReceiptComponentProperties) => {
   const { nodeId, amount } = transaction.delegateSubmission

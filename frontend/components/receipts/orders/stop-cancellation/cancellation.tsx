@@ -2,8 +2,8 @@ import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 
 import { DataTable } from '../../../data-table/data-table'
+import { MarketLink } from '../../../vega-entities/market-link'
 import { ReceiptComponentProperties } from '../../receipts'
-import { MarketLink } from '../../utils/vega-entities/market-link'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 
 export const StopOrderCancellationView = ({ stopOrdersCancellation }: { stopOrdersCancellation: any }) => {

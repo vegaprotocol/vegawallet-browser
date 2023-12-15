@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 import { DataTable } from '../../../data-table/data-table'
 import { ReceiptComponentProperties } from '../../receipts'
-import { MarketLink } from '../../utils/order/market-link'
+import { MarketLink } from '../../utils/vega-entities/market-link'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 
 export const StopOrderCancellationView = ({ stopOrdersCancellation }: { stopOrdersCancellation: any }) => {

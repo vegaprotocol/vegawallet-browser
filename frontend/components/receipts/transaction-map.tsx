@@ -2,6 +2,7 @@ import { Transaction, TransactionKeys } from '@/lib/transactions'
 
 import { ApplyReferralCode } from './apply-referral-code'
 import { BatchMarketInstructions } from './batch-market-instructions'
+import { DelegateSubmission } from './delegate-submission'
 import { Amendment } from './orders/amend'
 import { Cancellation } from './orders/cancellation'
 import { StopOrderCancellation } from './orders/stop-cancellation'
@@ -28,5 +29,6 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.STOP_ORDERS_CANCELLATION]: StopOrderCancellation,
   [TransactionKeys.BATCH_MARKET_INSTRUCTIONS]: BatchMarketInstructions,
   [TransactionKeys.APPLY_REFERRAL_CODE]: ApplyReferralCode,
-  [TransactionKeys.VOTE_SUBMISSION]: VoteSubmission
+  [TransactionKeys.VOTE_SUBMISSION]: VoteSubmission,
+  [TransactionKeys.DELEGATE_SUBMISSION]: DelegateSubmission
 }

@@ -10,6 +10,7 @@ import { StopOrderSubmission } from './orders/stop-submission'
 import { Submission } from './orders/submission'
 import { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
+import { UndelegateSubmission } from './undelegate-submission'
 import { VoteSubmission } from './vote-submission'
 import { Withdraw } from './withdrawal'
 
@@ -30,5 +31,6 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.BATCH_MARKET_INSTRUCTIONS]: BatchMarketInstructions,
   [TransactionKeys.APPLY_REFERRAL_CODE]: ApplyReferralCode,
   [TransactionKeys.VOTE_SUBMISSION]: VoteSubmission,
-  [TransactionKeys.DELEGATE_SUBMISSION]: DelegateSubmission
+  [TransactionKeys.DELEGATE_SUBMISSION]: DelegateSubmission,
+  [TransactionKeys.UNDELEGATE_SUBMISSION]: UndelegateSubmission
 }

@@ -15,6 +15,9 @@ jest.mock('../utils/receipt-wrapper', () => ({
 
 describe('VoteSubmission', () => {
   it('renders proposalId with link and value', () => {
+    // 1134-VTSB-001 I can see the proposals Id of the proposal I am voting on
+    // 1134-VTSB-002 I can see a link to see the proposal information
+    // 1134-VTSB-003 I can see the direction I am voting in
     render(
       <VoteSubmission
         transaction={{

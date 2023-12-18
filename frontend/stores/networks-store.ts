@@ -26,7 +26,11 @@ export const useNetworksStore = create<NetworksStore>((set, get) => ({
   networks: [],
   loading: true,
   async loadNetworks(request) {
-    const { networks } = await request(RpcMethods.ListNetworks)
-    set({ networks })
+    try {
+      const { networks } = await request(RpcMethods.ListNetworks)
+      set({ networks })
+    } finally {
+      set({ loading: false })
+    }
   }
 }))

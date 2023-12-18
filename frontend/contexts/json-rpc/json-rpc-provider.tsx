@@ -6,7 +6,7 @@ import { useCreateClient } from './hooks/create-client'
 import { createServer } from './hooks/create-server'
 import { JsonRpcContext } from './json-rpc-context'
 
-export type SendMessage = (method: string, parameters?: any, propagateErrors?: boolean) => Promise<any>
+export type SendMessage<T = any> = (method: string, parameters?: any, propagateErrors?: boolean) => Promise<T>
 
 export interface JsonRpcNotification {
   method: string

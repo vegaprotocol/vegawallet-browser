@@ -54,7 +54,7 @@ export const Dropdown = ({ enabled = false, trigger, content }: DropdownProperti
         }
       >
         <DropdownMenuContent
-          style={{ overflow: 'hidden', overflowY: 'auto', maxHeight: 360 }}
+          style={{ overflow: 'hidden', overflowY: 'auto', maxHeight: 360, maxWidth: 300 }}
           onInteractOutside={() => setOpen(false)}
           onEscapeKeyDown={() => setOpen(false)}
         >

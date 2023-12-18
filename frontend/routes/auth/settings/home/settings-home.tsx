@@ -3,8 +3,9 @@ import { ExternalLink } from '@/components/external-link'
 import { BasePage } from '@/components/pages/page'
 import { useGlobalsStore } from '@/stores/globals'
 
+import { SettingsRadio } from '../settings-form-elements/radio'
 import { LockSection } from './lock-section'
-import { SettingsRadio } from './settings-form-elements/radio'
+import { NetworksSection } from './networks-section'
 import { VersionSection } from './version-section'
 
 export const locators = {
@@ -12,13 +13,13 @@ export const locators = {
   settingsDataPolicy: 'settings-data-policy'
 }
 
-export const Settings = () => {
+export const SettingsHome = () => {
   const isDesktop = useGlobalsStore((state) => !state.isMobile)
 
   return (
     <BasePage dataTestId={locators.settingsPage} title="Settings">
       <VersionSection />
-
+      <NetworksSection />
       <SettingsRadio
         description="Improve Vega Wallet by automatically reporting bugs and crashes."
         sectionHeader="Telemetry"

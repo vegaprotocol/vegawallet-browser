@@ -11,7 +11,8 @@ export const ROUTE_NAMES = {
   telemetry: 'telemetry',
   createWallet: 'create-wallet',
   getStarted: 'get-started',
-  importWallet: 'import-wallet'
+  importWallet: 'import-wallet',
+  networks: 'networks'
 }
 
 export const ROUTES = {
@@ -29,6 +30,7 @@ export const ROUTES = {
   importWallet: ROUTE_NAMES.importWallet,
 
   settings: ROUTE_NAMES.settings,
+  networkSettings: ROUTE_NAMES.networks,
   wallets: ROUTE_NAMES.wallets,
   transactions: ROUTE_NAMES.transactions,
   connections: ROUTE_NAMES.connections
@@ -48,7 +50,9 @@ export const FULL_ROUTES = {
   login: `/${ROUTE_NAMES.login}`,
 
   auth: `/${ROUTE_NAMES.auth}`,
-  settings: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.settings}`,
+
   wallets: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.wallets}`,
-  connections: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.connections}`
+  connections: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.connections}`,
+  settings: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.settings}`,
+  networkSettings: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.settings}/${ROUTE_NAMES.networks}`
 }

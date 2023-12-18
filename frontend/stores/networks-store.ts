@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider.tsx'
 import { RpcMethods } from '@/lib/client-rpc-methods.ts'
 
-interface Network {
+export interface Network {
   name: string
   rest: string[]
   explorer: string

@@ -70,7 +70,12 @@ export class NetworkCollection {
    */
   async listNetworkDetails() {
     const networks = await this.list()
-    return Promise.all(networks.map((k) => this.get(k)))
+    return Promise.all(
+      networks.map(async (k) => ({
+        ...(await this.get(k)),
+        id: k
+      }))
+    )
   }
 }
 

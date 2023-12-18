@@ -33,7 +33,7 @@ export async function install({ networks, settings }) {
       explorer: config.network.explorer
     }),
     networks.set('network-2', {
-      name: config.network.name,
+      name: 'Network 2',
       rest: config.network.rest,
       explorer: config.network.explorer
     }),

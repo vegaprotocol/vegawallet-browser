@@ -54,6 +54,7 @@ export const Auth = () => {
   }, [loadAssets, loadMarkets, loadingNetworks, loadingWallets, request])
 
   const isWallets = !!useMatch(FULL_ROUTES.wallets)
+  if (loadingNetworks) return null
 
   return (
     <div className="h-full w-full grid grid-rows-[min-content_1fr_min-content] bg-vega-dark-100">

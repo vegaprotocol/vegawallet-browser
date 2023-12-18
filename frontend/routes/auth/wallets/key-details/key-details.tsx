@@ -4,6 +4,6 @@ import { KeyDetailsPage } from './key-details-page'
 
 export const KeyDetails = () => {
   const { id } = useParams<{ id: string }>()
-  if (!id) throw new Error('Id param not provided')
+  if (!id) throw new Error('Id param not provided to key details')
   return <KeyDetailsPage id={id} />
 }

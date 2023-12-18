@@ -19,7 +19,6 @@ export const SettingsHome = () => {
   return (
     <BasePage dataTestId={locators.settingsPage} title="Settings">
       <VersionSection />
-      <NetworksSection />
       <SettingsRadio
         description="Improve Vega Wallet by automatically reporting bugs and crashes."
         sectionHeader="Telemetry"
@@ -41,6 +40,7 @@ export const SettingsHome = () => {
           setting="autoOpen"
         />
       )}
+      <NetworksSection />
 
       <LockSection />
     </BasePage>

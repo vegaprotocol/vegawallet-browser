@@ -21,6 +21,7 @@ export const useSentry = () => {
         release: `@vegaprotocol/vegawallet-browser@${globals.version}`,
         dsn: config.sentryDsn,
         integrations: [],
+        // TODO this needs to be removed when multi-network becomes a thing
         environment: config.network.name,
         /* istanbul ignore next */
 

@@ -26,9 +26,7 @@ export const NetworkSwitcher = () => {
         trigger={selectedNetwork.name}
         content={() => (
           <div>
-            <div className="text-base">
-              <Header content="Select a network to view" />
-            </div>
+            <Header content="Select a network to view" />
             <p className="text-vega-dark-300 mt-4">
               Your selected network is for display purposes only, you can connect and place transactions on any
               configured network regardless of what network you have selected.

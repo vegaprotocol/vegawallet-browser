@@ -25,6 +25,7 @@ export type NetworksStore = {
   selectedNetwork: Network | null
   loadNetworks: (request: SendMessage<NetworksResponse>) => Promise<void>
   setSelectedNetwork: (newSelectedNetwork: string) => void
+  getNetworkById: (networkId: string) => Network | undefined
 }
 
 export const useNetworksStore = create<NetworksStore>((set, get) => ({
@@ -41,6 +42,9 @@ export const useNetworksStore = create<NetworksStore>((set, get) => ({
     } finally {
       set({ loading: false })
     }
+  },
+  getNetworkById(networkId) {
+    return get().networks.find(({ id }) => id === networkId)
   },
   setSelectedNetwork(newSelectedNetwork) {
     const selectedNetwork = get().networks.find(({ id }) => id === newSelectedNetwork)

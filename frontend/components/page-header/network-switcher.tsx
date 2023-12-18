@@ -14,7 +14,7 @@ export const NetworkSwitcher = () => {
   return (
     <div
       data-testid={locators.networkSwitcher}
-      className="flex flex-col justify-center border rounded-md border-vega-dark-300 text-sm mx-2 h-6"
+      className="flex flex-col justify-center border rounded-md border-vega-dark-300 text-sm px-2 h-6"
     >
       <Dropdown
         enabled={networks.length > 1}

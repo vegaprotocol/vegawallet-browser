@@ -30,6 +30,7 @@ export const ROUTES = {
   importWallet: ROUTE_NAMES.importWallet,
   networkDetails: ROUTE_NAMES.networks,
   settings: ROUTE_NAMES.settings,
+  networkSettings: ROUTE_NAMES.networks,
   wallets: ROUTE_NAMES.wallets,
   transactions: ROUTE_NAMES.transactions,
   connections: ROUTE_NAMES.connections

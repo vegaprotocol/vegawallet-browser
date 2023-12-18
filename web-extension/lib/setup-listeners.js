@@ -30,12 +30,20 @@ export async function install({ networks, settings }) {
     networks.set(id, {
       name: config.network.name,
       rest: config.network.rest,
-      explorer: config.network.explorer
+      explorer: config.network.explorer,
+      console: config.network.console,
+      governance: config.network.governance,
+      docs: config.network.docs,
+      ethereumExplorer: config.network.ethereumExplorerLink
     }),
     networks.set('network-2', {
       name: 'Network 2',
       rest: config.network.rest,
-      explorer: config.network.explorer
+      explorer: config.network.explorer,
+      console: config.network.console,
+      governance: config.network.governance,
+      docs: config.network.docs,
+      ethereumExplorer: config.network.ethereumExplorerLink
     }),
     settings.set('selectedNetwork', id),
     settings.set('autoOpen', true),

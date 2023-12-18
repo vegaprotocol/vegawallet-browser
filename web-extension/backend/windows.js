@@ -4,7 +4,7 @@ const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
 export const createWindow = (top = undefined, left = undefined, once = false) => {
-  const url = once ? '/index.html?once=1' : '/index.html'
+  const url = once ? 'index.html?once=1' : 'index.html'
   return windows.create({
     url: runtime.getURL(url),
     type: 'popup',

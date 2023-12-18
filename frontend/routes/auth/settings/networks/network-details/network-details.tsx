@@ -26,11 +26,12 @@ export const NetworkDetails = () => {
         <div className="text-white mt-1">{network.id}</div>
       </VegaSection>
       <VegaSection>
-        <SubHeader content="Name" />
+        <SubHeader content="Explorer" />
         <div className="text-white mt-1">{network.explorer}</div>
       </VegaSection>
       <VegaSection>
         <CollapsiblePanel
+          initiallyOpen
           title="Nodes"
           panelContent={
             <ul>

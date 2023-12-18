@@ -47,7 +47,7 @@ export const Dropdown = ({ enabled = false, trigger, content }: DropdownProperti
           <DropdownMenuTrigger
             onClick={() => setOpen(!open)}
             data-testid={locators.keySelectorTrigger}
-            className="text-white"
+            className="border-0"
           >
             <WrappedTrigger clickable={true} trigger={trigger} />
           </DropdownMenuTrigger>

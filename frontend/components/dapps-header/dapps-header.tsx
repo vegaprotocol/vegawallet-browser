@@ -41,6 +41,10 @@ const DappsHeaderButton = ({
   )
 }
 
+const TRANSFER_LINK = `${config.network.console}/#/portfolio/assets/transfer`
+const DEPOSIT_LINK = `${config.network.console}/#/portfolio/assets/deposit`
+const WITHDRAW_LINK = `${config.network.console}/#/portfolio/assets/withdraw`
+
 export const DappsHeader = () => {
   return (
     <div
@@ -54,14 +58,9 @@ export const DappsHeader = () => {
         icon={<Tick size={24} />}
         text="Vote"
       />
-      <DappsHeaderButton
-        href={config.network.transfer}
-        tooltipContent="Transfer"
-        icon={<OpenExternal />}
-        text="Transfer"
-      />
-      <DappsHeaderButton href={config.network.deposit} tooltipContent="Deposit" icon={<Deposit />} text="Deposit" />
-      <DappsHeaderButton href={config.network.withdraw} tooltipContent="Withdraw" icon={<Withdraw />} text="Withdraw" />
+      <DappsHeaderButton href={TRANSFER_LINK} tooltipContent="Transfer" icon={<OpenExternal />} text="Transfer" />
+      <DappsHeaderButton href={DEPOSIT_LINK} tooltipContent="Deposit" icon={<Deposit />} text="Deposit" />
+      <DappsHeaderButton href={WITHDRAW_LINK} tooltipContent="Withdraw" icon={<Withdraw />} text="Withdraw" />
     </div>
   )
 }

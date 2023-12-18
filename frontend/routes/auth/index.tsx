@@ -23,8 +23,9 @@ export const Auth = () => {
   }))
 
   // Networks store
-  const { loadNetworks } = useNetworksStore((state) => ({
-    loadNetworks: state.loadNetworks
+  const { loadNetworks, loading: loadingNetworks } = useNetworksStore((state) => ({
+    loadNetworks: state.loadNetworks,
+    loading: state.loading
   }))
 
   // Assets store
@@ -33,14 +34,13 @@ export const Auth = () => {
   }))
 
   // Markets store
-  const { loadMarkets, loading: loadingNetworks } = useMarketsStore((state) => ({
-    loadMarkets: state.fetchMarkets,
-    loading: state.loading
+  const { loadMarkets } = useMarketsStore((state) => ({
+    loadMarkets: state.fetchMarkets
   }))
 
   useEffect(() => {
-    loadWallets(request)
     loadNetworks(request)
+    loadWallets(request)
   }, [request, loadWallets, loadNetworks])
 
   // TODO: Remove

@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/page-header'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
+import { useNetworksStore } from '@/stores/networks-store'
 import { useWalletStore } from '@/stores/wallets'
 
 import { FULL_ROUTES } from '../route-names'
@@ -19,6 +20,11 @@ export const Auth = () => {
   const { loadWallets, loading } = useWalletStore((state) => ({
     loadWallets: state.loadWallets,
     loading: state.loading
+  }))
+
+  // Networks store
+  const { loadNetworks } = useNetworksStore((state) => ({
+    loadNetworks: state.loadNetworks
   }))
 
   // Assets store
@@ -33,7 +39,8 @@ export const Auth = () => {
 
   useEffect(() => {
     loadWallets(request)
-  }, [request, loadWallets])
+    loadNetworks(request)
+  }, [request, loadWallets, loadNetworks])
 
   // TODO: Remove
   // HACK: This is work around to ensure that the wallets are loaded before network requests.

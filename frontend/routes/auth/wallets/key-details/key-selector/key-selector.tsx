@@ -18,6 +18,16 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
   }))
   const [open, setOpen] = useState<boolean>(false)
 
+  if (keys.length === 1) {
+    return (
+      <div className="items-center">
+        <div data-testid={locators.keySelectedCurrentKey(currentKey.name)} className="flex items-center text-left">
+          <Header content={currentKey.name} />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="item-center">
       <DropdownMenu

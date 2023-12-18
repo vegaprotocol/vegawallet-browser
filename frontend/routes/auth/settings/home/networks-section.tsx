@@ -12,7 +12,7 @@ export const NetworksSection = () => {
       <div className="flex justify-between h-12">
         <div className="flex items-center">View configured networks</div>
         <NavLink
-          to={{ pathname: FULL_ROUTES.networkSettings }}
+          to={{ pathname: FULL_ROUTES.networksSettings }}
           data-testid={'view-networks'}
           className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
         >

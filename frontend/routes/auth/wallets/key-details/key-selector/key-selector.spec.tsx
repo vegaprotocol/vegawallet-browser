@@ -70,7 +70,7 @@ describe('KeySelector', () => {
     renderComponent()
     expect(screen.getByTestId(locators.keySelectedCurrentKey(MOCK_KEY.name))).toHaveTextContent('test')
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
-    await screen.findByTestId(locators.keySelectedDropdown)
+    await screen.findByTestId(locators.keySelectorDropdownContent)
     const keyList = screen.getByTestId('key-list')
     expect(keyList).toBeInTheDocument()
     fireEvent.click(keyList)
@@ -80,7 +80,7 @@ describe('KeySelector', () => {
   it('closes modal when clicking trigger', async () => {
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
-    await screen.findByTestId(locators.keySelectedDropdown)
+    await screen.findByTestId(locators.keySelectorDropdownContent)
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
     await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
   })
@@ -88,7 +88,7 @@ describe('KeySelector', () => {
   it('closes dropdown when clicking outside', async () => {
     const { container } = renderComponent()
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
-    await screen.findByTestId(locators.keySelectedDropdown)
+    await screen.findByTestId(locators.keySelectorDropdownContent)
     fireEvent.pointerDown(
       container,
       new PointerEvent('pointerdown', {
@@ -102,7 +102,7 @@ describe('KeySelector', () => {
   it('closes dropdown when escape key is pressed', async () => {
     const { container } = renderComponent()
     fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
-    await screen.findByTestId(locators.keySelectedDropdown)
+    await screen.findByTestId(locators.keySelectorDropdownContent)
     fireEvent.keyDown(container, {
       key: 'Escape',
       code: 'Escape',

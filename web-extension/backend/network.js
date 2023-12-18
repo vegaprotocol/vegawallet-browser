@@ -63,6 +63,15 @@ export class NetworkCollection {
   async list() {
     return Array.from(await this.store.keys())
   }
+
+  /**
+   *
+   * @returns {Promise<Network[]>}
+   */
+  async listNetworkDetails() {
+    const networks = await this.list()
+    return Promise.all(networks.map((k) => this.get(k)))
+  }
 }
 
 const DEFAULT_PREFERRED_NODE_TTL = 1000 * 5 // 5 seconds
@@ -95,19 +104,22 @@ class Network {
     this.probing = true
 
     this.preferredNode = NodeRPC.findHealthyNode(this.rest.map((u) => new URL(u)))
-      .then((node) => {
-        // Only set timeout if successful
-        this._nodeTimeout = setTimeout(() => {
-          this.preferredNode = null
-        }, DEFAULT_PREFERRED_NODE_TTL)
+      .then(
+        (node) => {
+          // Only set timeout if successful
+          this._nodeTimeout = setTimeout(() => {
+            this.preferredNode = null
+          }, DEFAULT_PREFERRED_NODE_TTL)
 
-        return node
-      }, (err) => {
-        // The promise will reject all pending calls, but clear state
-        // such that the next call will try to find a healthy node again
-        this.preferredNode = null
-        throw err
-      })
+          return node
+        },
+        (err) => {
+          // The promise will reject all pending calls, but clear state
+          // such that the next call will try to find a healthy node again
+          this.preferredNode = null
+          throw err
+        }
+      )
       .finally(() => {
         this.probing = false
       })

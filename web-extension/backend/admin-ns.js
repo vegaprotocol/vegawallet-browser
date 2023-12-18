@@ -53,7 +53,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
   // 8 hours as normal workday (putting the machine to sleep will delay timers and probably sleep anyway)
   // 20 seconds as per chrome recommendation for something less than 30 seconds (sleep timeout)
   const keepAlive = createKeepAlive(1000 * 60 * 60 * 8, 1000 * 20)
-  function keepAliveFn () {
+  function keepAliveFn() {
     const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
     runtime.getPlatformInfo()
   }
@@ -150,7 +150,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
 
       async 'admin.list_networks'(params) {
         doValidate(adminValidation.listNetworks, params)
-        return { networks: await networks.list() }
+        return { networks: await networks.listNetworkDetails() }
       },
 
       async 'admin.generate_recovery_phrase'(params) {

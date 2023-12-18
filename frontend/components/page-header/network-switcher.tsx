@@ -1,6 +1,7 @@
 import { useNetworksStore } from '@/stores/networks-store'
 
 import { Dropdown } from '../dropdown'
+import { Header } from '../header'
 import { NetworksList } from '../networks-list'
 
 export const locators = {
@@ -23,7 +24,18 @@ export const NetworkSwitcher = () => {
       <Dropdown
         enabled={networks.length > 1}
         trigger={selectedNetwork.name}
-        content={() => <NetworksList networks={networks} onClick={(n) => setSelectedNetwork(n.id)} />}
+        content={() => (
+          <div>
+            <div className="text-base">
+              <Header content="Select a network to view" />
+            </div>
+            <p className="text-vega-dark-300 mt-4">
+              Your selected network is for display purposes only, you can connect and place transactions on any
+              configured network regardless of what network you have selected.
+            </p>
+            <NetworksList networks={networks} onClick={(n) => setSelectedNetwork(n.id)} />
+          </div>
+        )}
       />
     </div>
   )

@@ -11,7 +11,7 @@ export interface NetworkListProperties {
 
 export const NetworksList = ({ networks, onClick }: NetworkListProperties) => {
   return (
-    <section className="text-base">
+    <section className="text-base mt-6">
       <SubHeader content="Networks" />
       <List<Network>
         className="mt-2"

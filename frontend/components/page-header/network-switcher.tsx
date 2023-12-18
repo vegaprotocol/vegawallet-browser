@@ -8,9 +8,13 @@ export const locators = {
 }
 
 export const NetworkSwitcher = () => {
-  const { networks } = useNetworksStore((state) => ({
-    networks: state.networks
+  const { networks, selectedNetwork, setSelectedNetwork } = useNetworksStore((state) => ({
+    networks: state.networks,
+    selectedNetwork: state.selectedNetwork,
+    setSelectedNetwork: state.setSelectedNetwork
   }))
+  if (!selectedNetwork)
+    throw new Error('Selected network not found when rendering page header. This should not be possible.')
   return (
     <div
       data-testid={locators.networkSwitcher}
@@ -18,8 +22,8 @@ export const NetworkSwitcher = () => {
     >
       <Dropdown
         enabled={networks.length > 1}
-        trigger={networks[0]?.name}
-        content={() => <NetworksList networks={networks} />}
+        trigger={selectedNetwork.name}
+        content={() => <NetworksList networks={networks} onClick={(n) => setSelectedNetwork(n.id)} />}
       />
     </div>
   )

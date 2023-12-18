@@ -20,9 +20,6 @@ declare module '!/config' {
     name: string
     rest: string[]
     console: string
-    deposit: string
-    transfer: string
-    withdraw: string
     explorer: string
     ethereumExplorerLink: string
     governance: string

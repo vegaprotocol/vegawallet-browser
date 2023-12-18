@@ -41,6 +41,10 @@ const DappsHeaderButton = ({
   )
 }
 
+const TRANSFER_LINK = `${config.network.console}/#/portfolio/assets/transfer`
+const DEPOSIT_LINK = `${config.network.console}/#/portfolio/assets/deposit`
+const WITHDRAW_LINK = `${config.network.console}/#/portfolio/assets/withdraw`
+
 export const DappsHeader = () => {
   const { network } = useNetwork()
   return (
@@ -48,11 +52,16 @@ export const DappsHeader = () => {
       className="flex justify-evenly bg-vega-dark-150/25 w-full py-3 border-b border-1 border-vega-dark-150"
       data-testid={locators.walletsHeader}
     >
-      <DappsHeaderButton href={network.console} tooltipContent="Console" icon={<TradeIcon />} text="Trade" />
-      <DappsHeaderButton href={network.governance} tooltipContent="Governance" icon={<Tick size={24} />} text="Vote" />
-      <DappsHeaderButton href={network.transfer} tooltipContent="Transfer" icon={<OpenExternal />} text="Transfer" />
-      <DappsHeaderButton href={network.deposit} tooltipContent="Deposit" icon={<Deposit />} text="Deposit" />
-      <DappsHeaderButton href={network.withdraw} tooltipContent="Withdraw" icon={<Withdraw />} text="Withdraw" />
+      <DappsHeaderButton href={config.network.console} tooltipContent="Console" icon={<TradeIcon />} text="Trade" />
+      <DappsHeaderButton
+        href={config.network.governance}
+        tooltipContent="Governance"
+        icon={<Tick size={24} />}
+        text="Vote"
+      />
+      <DappsHeaderButton href={TRANSFER_LINK} tooltipContent="Transfer" icon={<OpenExternal />} text="Transfer" />
+      <DappsHeaderButton href={DEPOSIT_LINK} tooltipContent="Deposit" icon={<Deposit />} text="Deposit" />
+      <DappsHeaderButton href={WITHDRAW_LINK} tooltipContent="Withdraw" icon={<Withdraw />} text="Withdraw" />
     </div>
   )
 }

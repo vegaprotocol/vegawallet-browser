@@ -17,14 +17,8 @@ export interface Wallet {
 
 export interface Key {
   index: number
-  metadata: Metadata[]
   name: string
   publicKey: string
-}
-
-export interface Metadata {
-  key: string
-  value: string
 }
 
 export interface Network {

@@ -20,6 +20,7 @@ describe('ConnectionList', () => {
         removeConnection={() => {}}
         connections={[
           {
+            id: 'foo',
             allowList: {
               publicKeys: [],
               wallets: ['Wallet 1']
@@ -28,6 +29,7 @@ describe('ConnectionList', () => {
             origin: 'https://vega.xyz'
           },
           {
+            id: 'bar',
             allowList: {
               publicKeys: [],
               wallets: ['Wallet 1']
@@ -51,6 +53,7 @@ describe('ConnectionList', () => {
     const mockRemoveConnection = jest.fn()
     const connections = [
       {
+        id: 'foo',
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
@@ -59,6 +62,7 @@ describe('ConnectionList', () => {
         accessedAt: Date.now()
       },
       {
+        id: 'bar',
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
@@ -78,6 +82,7 @@ describe('ConnectionList', () => {
         removeConnection={() => {}}
         connections={[
           {
+            id: 'foo',
             allowList: {
               publicKeys: [],
               wallets: ['Wallet 1']

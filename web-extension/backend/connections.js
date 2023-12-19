@@ -1,5 +1,3 @@
-import { randomUUID } from 'crypto'
-
 export class ConnectionsCollection {
   constructor({ connectionsStore, publicKeyIndexStore }) {
     this.store = connectionsStore
@@ -27,7 +25,7 @@ export class ConnectionsCollection {
       origin,
       allowList,
       accessedAt: Date.now(),
-      id: randomUUID()
+      id: window.crypto.randomUUID()
     }
 
     const res = await this.store.set(origin, value)

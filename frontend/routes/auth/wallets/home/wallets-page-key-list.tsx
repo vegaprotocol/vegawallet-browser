@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { MessageIcon } from '@/components/icons/message'
 import { KeyList } from '@/components/key-list'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
-import { useWalletStore, Wallet } from '@/stores/wallets'
+import { useWalletStore } from '@/stores/wallets'
+import { Wallet } from '@/types/backend'
 
 export const locators = {
   walletsCreateKey: 'wallets-create-key',

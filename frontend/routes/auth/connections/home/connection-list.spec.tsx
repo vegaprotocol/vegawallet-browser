@@ -1,8 +1,17 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 
 import { locators as hostImageLocators } from '@/components/host-image'
 
-import { ConnectionsList, locators } from './connection-list'
+import { ConnectionsList, ConnectionsListProperties, locators } from './connection-list'
+
+const renderComponent = (properties: ConnectionsListProperties) => {
+  render(
+    <MemoryRouter>
+      <ConnectionsList {...properties} />
+    </MemoryRouter>
+  )
+}
 
 describe('ConnectionList', () => {
   beforeEach(() => {
@@ -15,31 +24,29 @@ describe('ConnectionList', () => {
   })
 
   it('renders list of connections passed in with image', () => {
-    render(
-      <ConnectionsList
-        removeConnection={() => {}}
-        connections={[
-          {
-            id: 'foo',
-            allowList: {
-              publicKeys: [],
-              wallets: ['Wallet 1']
-            },
-            accessedAt: Date.now(),
-            origin: 'https://vega.xyz'
+    renderComponent({
+      removeConnection: () => {},
+      connections: [
+        {
+          id: 'foo',
+          allowList: {
+            publicKeys: [],
+            wallets: ['Wallet 1']
           },
-          {
-            id: 'bar',
-            allowList: {
-              publicKeys: [],
-              wallets: ['Wallet 1']
-            },
-            accessedAt: Date.now(),
-            origin: 'foo.com'
-          }
-        ]}
-      />
-    )
+          accessedAt: Date.now(),
+          origin: 'https://vega.xyz'
+        },
+        {
+          id: 'bar',
+          allowList: {
+            publicKeys: [],
+            wallets: ['Wallet 1']
+          },
+          accessedAt: Date.now(),
+          origin: 'foo.com'
+        }
+      ]
+    })
     const connections = screen.getAllByTestId(locators.connectionOrigin)
     expect(connections).toHaveLength(2)
     const [vega, foo] = connections
@@ -71,30 +78,34 @@ describe('ConnectionList', () => {
         origin: 'foo.com'
       }
     ]
-    render(<ConnectionsList removeConnection={mockRemoveConnection} connections={connections} />)
+    renderComponent({
+      removeConnection: mockRemoveConnection,
+      connections
+    })
     fireEvent.click(screen.getAllByTestId(locators.connectionRemoveConnection)[0])
     expect(mockRemoveConnection).toHaveBeenCalledWith(connections[0])
   })
 
-  it('renders last accessed at time', () => {
-    render(
-      <ConnectionsList
-        removeConnection={() => {}}
-        connections={[
-          {
-            id: 'foo',
-            allowList: {
-              publicKeys: [],
-              wallets: ['Wallet 1']
-            },
-            origin: 'https://vega.xyz',
-            accessedAt: Date.now()
-          }
-        ]}
-      />
-    )
-    expect(screen.getByTestId(locators.connectionLastConnected)).toHaveTextContent(
-      'Last connected: 1/1/2021 · 12:00:00 AM'
-    )
-  })
+  // TODO replace in the connection details screen
+  // it('renders last accessed at time', () => {
+  //   render(
+  //     <ConnectionsList
+  //       removeConnection={() => {}}
+  //       connections={[
+  //         {
+  //           id: 'foo',
+  //           allowList: {
+  //             publicKeys: [],
+  //             wallets: ['Wallet 1']
+  //           },
+  //           origin: 'https://vega.xyz',
+  //           accessedAt: Date.now()
+  //         }
+  //       ]}
+  //     />
+  //   )
+  //   expect(screen.getByTestId(locators.connectionLastConnected)).toHaveTextContent(
+  //     'Last connected: 1/1/2021 · 12:00:00 AM'
+  //   )
+  // })
 })

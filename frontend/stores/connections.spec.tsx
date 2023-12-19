@@ -7,6 +7,7 @@ const request = (method: string) => {
     return {
       connections: [
         {
+          id: 'foo',
           allowList: {
             publicKeys: [],
             wallets: ['Wallet 1']
@@ -37,6 +38,7 @@ describe('Store', () => {
     expect(useConnectionStore.getState().loading).toBe(false)
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {
+        id: 'foo',
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
@@ -60,6 +62,7 @@ describe('Store', () => {
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {
+        id: 'foo',
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']

@@ -13,13 +13,12 @@ export const locators = {
   connectionLastConnected: 'connections-last-connected'
 }
 
-export const ConnectionsList = ({
-  connections,
-  removeConnection
-}: {
+export interface ConnectionsListProperties {
   connections: Connection[]
   removeConnection: (connection: Connection) => void
-}) => {
+}
+
+export const ConnectionsList = ({ connections, removeConnection }: ConnectionsListProperties) => {
   return (
     <>
       <p className="mb-6" data-testid={locators.connectionDetails}>

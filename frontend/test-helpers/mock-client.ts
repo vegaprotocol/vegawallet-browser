@@ -12,13 +12,7 @@ const defaultKeys = [
   {
     publicKey: '07248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
     name: 'Key 1',
-    index: 0,
-    metadata: [
-      {
-        key: 'name',
-        value: 'key 1'
-      }
-    ]
+    index: 0
   }
 ]
 const defaultGlobals = {
@@ -93,13 +87,7 @@ export const mockClient = (
                 result: {
                   publicKey: '17248acbd899061ba9c5f3ab47791df2045c8e249f1805a04c2a943160533673',
                   name: 'Key 2',
-                  index: 0,
-                  metadata: [
-                    {
-                      key: 'name',
-                      value: 'key 2'
-                    }
-                  ]
+                  index: 0
                 },
                 id: message.id
               })

@@ -60,7 +60,6 @@ describe('EnrichedTransferView', () => {
     // 1124-TRAN-006 I can see the enriched price details if the data is provided - correctly formatted decimals and asset name
     mockStores({
       index: 0,
-      metadata: [],
       name: 'MyKey',
       publicKey: '1'.repeat(64)
     })
@@ -82,7 +81,6 @@ describe('EnrichedTransferView', () => {
     mockStore(useWalletStore, {
       getKeyById: () => ({
         index: 0,
-        metadata: [],
         name: 'MyKey',
         publicKey: '1'.repeat(64)
       })

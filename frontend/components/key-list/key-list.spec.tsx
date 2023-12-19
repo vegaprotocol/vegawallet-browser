@@ -38,14 +38,12 @@ describe('KeyList', () => {
       {
         publicKey: 'publicKey1',
         name: 'Key 1',
-        index: 1,
-        metadata: []
+        index: 1
       },
       {
         publicKey: 'publicKey2',
         name: 'Key 2',
-        index: 1,
-        metadata: []
+        index: 1
       }
     ]
     renderComponent({ keys })

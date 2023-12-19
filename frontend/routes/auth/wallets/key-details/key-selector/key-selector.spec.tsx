@@ -10,8 +10,7 @@ const ID = '1'.repeat(64)
 const MOCK_KEY = {
   publicKey: ID,
   name: 'test',
-  index: 0,
-  metadata: []
+  index: 0
 }
 
 jest.mock('@/components/key-list', () => ({
@@ -31,20 +30,17 @@ jest.mock('@/stores/wallets', () => ({
             {
               publicKey: '1'.repeat(64),
               name: 'test',
-              index: 0,
-              metadata: []
+              index: 0
             },
             {
               publicKey: '2'.repeat(64),
               name: 'test2',
-              index: 1,
-              metadata: []
+              index: 1
             },
             {
               publicKey: '3'.repeat(64),
               name: 'test3',
-              index: 2,
-              metadata: []
+              index: 2
             }
           ]
         }

@@ -50,6 +50,7 @@ describe('Store', () => {
     expect(useConnectionStore.getState().loading).toBe(true)
     expect(useConnectionStore.getState().connections).toStrictEqual([])
     useConnectionStore.getState().addConnection({
+      id: 'foo',
       allowList: {
         publicKeys: [],
         wallets: ['Wallet 1']
@@ -68,6 +69,7 @@ describe('Store', () => {
       }
     ])
     useConnectionStore.getState().addConnection({
+      id: 'foo',
       allowList: {
         publicKeys: [],
         wallets: ['Wallet 1']
@@ -77,6 +79,7 @@ describe('Store', () => {
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {
+        id: 'foo',
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
@@ -88,6 +91,7 @@ describe('Store', () => {
   })
   it('removes connections from backend', async () => {
     const mockConnection = {
+      id: 'foo',
       allowList: {
         publicKeys: [],
         wallets: ['Wallet 1']

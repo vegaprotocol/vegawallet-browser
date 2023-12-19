@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
+import { DappsHeader, DEPOSIT_LINK, locators, TRANSFER_LINK, WITHDRAW_LINK } from './dapps-header'
 import { fairground } from '../../../config/well-known-networks'
-import { DappsHeader, locators } from './dapps-header'
 
 const renderComponent = () =>
   render(
@@ -34,11 +34,11 @@ describe('WalletsHeader', () => {
     expect(governButton).toHaveTextContent('Vote')
     expect(governButton).toHaveAttribute('href', fairground.governance)
     expect(transferButton).toHaveTextContent('Transfer')
-    expect(transferButton).toHaveAttribute('href', fairground.transfer)
+    expect(transferButton).toHaveAttribute('href', TRANSFER_LINK)
     expect(depositButton).toHaveTextContent('Deposit')
-    expect(depositButton).toHaveAttribute('href', fairground.deposit)
+    expect(depositButton).toHaveAttribute('href', DEPOSIT_LINK)
     expect(withdrawButton).toHaveTextContent('Withdraw')
-    expect(withdrawButton).toHaveAttribute('href', fairground.withdraw)
+    expect(withdrawButton).toHaveAttribute('href', WITHDRAW_LINK)
   })
 
   it('renders the correct tooltip content', async () => {

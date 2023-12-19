@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import config from '!/config'
 
-import { DappsHeader, locators } from './dapps-header'
+import { DappsHeader, DEPOSIT_LINK, locators, TRANSFER_LINK, WITHDRAW_LINK } from './dapps-header'
 
 describe('WalletsHeader', () => {
   it('should render the wallets header and buttons', () => {
@@ -26,11 +26,11 @@ describe('WalletsHeader', () => {
     expect(governButton).toHaveTextContent('Vote')
     expect(governButton).toHaveAttribute('href', config.network.governance)
     expect(transferButton).toHaveTextContent('Transfer')
-    expect(transferButton).toHaveAttribute('href', config.network.transfer)
+    expect(transferButton).toHaveAttribute('href', TRANSFER_LINK)
     expect(depositButton).toHaveTextContent('Deposit')
-    expect(depositButton).toHaveAttribute('href', config.network.deposit)
+    expect(depositButton).toHaveAttribute('href', DEPOSIT_LINK)
     expect(withdrawButton).toHaveTextContent('Withdraw')
-    expect(withdrawButton).toHaveAttribute('href', config.network.withdraw)
+    expect(withdrawButton).toHaveAttribute('href', WITHDRAW_LINK)
   })
 
   it('renders the correct tooltip content', async () => {

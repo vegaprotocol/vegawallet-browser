@@ -41,9 +41,9 @@ const DappsHeaderButton = ({
   )
 }
 
-const TRANSFER_LINK = `${config.network.console}/#/portfolio/assets/transfer`
-const DEPOSIT_LINK = `${config.network.console}/#/portfolio/assets/deposit`
-const WITHDRAW_LINK = `${config.network.console}/#/portfolio/assets/withdraw`
+export const TRANSFER_LINK = `${config.network.console}/#/portfolio/assets/transfer`
+export const DEPOSIT_LINK = `${config.network.console}/#/portfolio/assets/deposit`
+export const WITHDRAW_LINK = `${config.network.console}/#/portfolio/assets/withdraw`
 
 export const DappsHeader = () => {
   return (

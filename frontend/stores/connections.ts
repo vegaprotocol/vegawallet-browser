@@ -9,6 +9,7 @@ export interface Connection {
   allowList: AllowList
   origin: string
   accessedAt: number
+  id: string
 }
 
 export interface AllowList {

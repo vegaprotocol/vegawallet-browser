@@ -2,8 +2,9 @@ import { useCallback, useMemo } from 'react'
 
 import { getExtensionApi } from '@/lib/extension-apis'
 import { log } from '@/lib/logging'
-import { Connection, useConnectionStore } from '@/stores/connections'
+import { useConnectionStore } from '@/stores/connections'
 import { useErrorStore } from '@/stores/error'
+import { Connection } from '@/types/backend'
 
 import JSONRPCClient from '../../../../lib/json-rpc-client'
 import { RpcMethods } from '../../../lib/client-rpc-methods'

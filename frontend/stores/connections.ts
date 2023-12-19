@@ -4,18 +4,7 @@ import { create } from 'zustand'
 
 import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-
-export interface Connection {
-  allowList: AllowList
-  origin: string
-  accessedAt: number
-  id: string
-}
-
-export interface AllowList {
-  publicKeys: any[]
-  wallets: string[]
-}
+import { Connection } from '@/types/backend'
 
 export type ConnectionsStore = {
   connections: Connection[]

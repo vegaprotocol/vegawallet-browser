@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto'
+
 export class ConnectionsCollection {
   constructor({ connectionsStore, publicKeyIndexStore }) {
     this.store = connectionsStore
@@ -16,7 +18,7 @@ export class ConnectionsCollection {
     for (const listener of this.listeners) {
       try {
         listener(event, ...args)
-      } catch (_) { }
+      } catch (_) {}
     }
   }
 
@@ -24,7 +26,8 @@ export class ConnectionsCollection {
     const value = {
       origin,
       allowList,
-      accessedAt: Date.now()
+      accessedAt: Date.now(),
+      id: randomUUID()
     }
 
     const res = await this.store.set(origin, value)
@@ -35,7 +38,7 @@ export class ConnectionsCollection {
   }
 
   async touch(origin) {
-    return await this.store.transaction(async store => {
+    return await this.store.transaction(async (store) => {
       const conn = await store.get(origin)
       if (conn == null) return
 

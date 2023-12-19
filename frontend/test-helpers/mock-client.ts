@@ -5,7 +5,7 @@
 
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { AppGlobals } from '@/stores/globals'
-import { Key } from '@/stores/wallets'
+import { Key } from '@/types/backend'
 
 const defaultWallets = ['wallet 1']
 const defaultKeys = [

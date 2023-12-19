@@ -2,18 +2,9 @@ import { create } from 'zustand'
 
 import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider.tsx'
 import { RpcMethods } from '@/lib/client-rpc-methods.ts'
+import { Network } from '@/types/backend'
 
 export const SELECTED_NETWORK_STORAGE_KEY = 'selected-network'
-
-export interface Network {
-  id: string
-  name: string
-  rest: string[]
-  explorer: string
-  // TODO needed?
-  probing: boolean
-  preferredNode: string | null
-}
 
 interface NetworksResponse {
   networks: Network[]

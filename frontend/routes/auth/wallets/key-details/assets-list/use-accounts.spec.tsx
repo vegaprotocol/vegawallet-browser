@@ -22,8 +22,7 @@ jest.mock('@/stores/wallets', () => ({
       getKeyById: jest.fn().mockReturnValue({
         publicKey: MOCK_KEY,
         name: 'test',
-        index: 0,
-        metadata: []
+        index: 0
       })
     })
   )

@@ -39,8 +39,7 @@ describe('WalletsPageKeyList', () => {
         {
           publicKey: 'publicKey1',
           name: 'Key 1',
-          index: 1,
-          metadata: []
+          index: 1
         }
       ]
     }
@@ -55,8 +54,7 @@ describe('WalletsPageKeyList', () => {
         {
           publicKey: 'publicKey1',
           name: 'Key 1',
-          index: 1,
-          metadata: []
+          index: 1
         }
       ]
     }

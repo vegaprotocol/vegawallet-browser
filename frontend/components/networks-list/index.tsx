@@ -1,4 +1,4 @@
-import { Network } from '@/stores/networks-store'
+import { Network } from '@/types/backend'
 
 import { ChevronRight } from '../icons/chevron-right'
 import { List } from '../list'

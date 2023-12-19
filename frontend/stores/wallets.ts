@@ -2,23 +2,7 @@ import { create } from 'zustand'
 
 import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-
-export interface Wallet {
-  name: string
-  keys: Key[]
-}
-
-export interface Key {
-  index: number
-  metadata: Metadata[]
-  name: string
-  publicKey: string
-}
-
-export interface Metadata {
-  key: string
-  value: string
-}
+import { Key, Wallet } from '@/types/backend'
 
 export type WalletsStore = {
   wallets: Wallet[]

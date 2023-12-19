@@ -5,8 +5,9 @@ import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trad
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useAssetsStore } from '@/stores/assets-store'
-import { Key, useWalletStore } from '@/stores/wallets'
+import { useWalletStore } from '@/stores/wallets'
 import { mockStore } from '@/test-helpers/mock-store'
+import { Key } from '@/types/backend'
 
 import { locators, Transfer } from './transfer'
 

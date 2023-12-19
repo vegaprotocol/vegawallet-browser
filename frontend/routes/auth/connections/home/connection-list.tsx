@@ -1,11 +1,10 @@
-import { getDateFormat, getTimeFormat } from '@vegaprotocol/utils'
 import { NavLink } from 'react-router-dom'
 
 import { HostImage } from '@/components/host-image'
 import { Cross } from '@/components/icons/cross'
 import { List } from '@/components/list'
 import { FULL_ROUTES } from '@/routes/route-names'
-import { Connection } from '@/stores/connections'
+import { Connection } from '@/types/backend'
 
 export const locators = {
   connectionDetails: 'connection-details',

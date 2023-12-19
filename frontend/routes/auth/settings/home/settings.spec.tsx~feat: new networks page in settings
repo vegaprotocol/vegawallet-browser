@@ -13,7 +13,7 @@ jest.mock('@/stores/globals')
 jest.mock('./version-section', () => ({
   VersionSection: () => <div data-testid="version-section" />
 }))
-jest.mock('./settings-form-elements/radio', () => ({
+jest.mock('../settings-form-elements/radio', () => ({
   SettingsRadio: () => <div data-testid="radio" />
 }))
 jest.mock('./lock-section', () => ({

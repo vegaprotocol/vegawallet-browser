@@ -30,7 +30,6 @@ describe('RenameKeyDialog', () => {
         vegaKey={{
           name: 'Key 1',
           publicKey: '123',
-          metadata: [],
           index: 0
         }}
       />
@@ -43,7 +42,6 @@ describe('RenameKeyDialog', () => {
         vegaKey={{
           name: 'Key 1',
           publicKey: '123',
-          metadata: [],
           index: 0
         }}
       />
@@ -59,7 +57,6 @@ describe('RenameKeyDialog', () => {
         vegaKey={{
           name: 'Key 1',
           publicKey: '123',
-          metadata: [],
           index: 0
         }}
       />
@@ -76,7 +73,6 @@ describe('RenameKeyDialog', () => {
         vegaKey={{
           name: 'Key 1',
           publicKey: '123',
-          metadata: [],
           index: 0
         }}
       />

@@ -233,7 +233,6 @@ describe('TransferReceipt', () => {
   it('should render show EnrichedTransferView showing key data when available', () => {
     mockStores(mockAsset, {
       index: 0,
-      metadata: [],
       name: 'Key 1',
       publicKey: '1'.repeat(64)
     })

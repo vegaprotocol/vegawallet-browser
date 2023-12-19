@@ -13,14 +13,14 @@ jest.mock('@/stores/globals')
 jest.mock('./version-section', () => ({
   VersionSection: () => <div data-testid="version-section" />
 }))
-jest.mock('../settings-form-elements/radio', () => ({
+jest.mock('./settings-form-elements/radio', () => ({
   SettingsRadio: () => <div data-testid="radio" />
 }))
 jest.mock('./lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
 jest.mock('!/config', () => ({
-  ...jest.requireActual('../../../../config/test').default,
+  ...jest.requireActual('../../../../../config/test').default,
   closeWindowOnPopupOpen: true
 }))
 

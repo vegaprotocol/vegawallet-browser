@@ -1,0 +1,22 @@
+
+
+Tue Dec 19 2023 15:18:38:852 GMT+0000 (GMT) -- [ERROR] Necessary ports to start BrowserStack Binary were occupied by PID: -
+Tue Dec 19 2023 15:18:38:852 GMT+0000 (GMT) -- [ERROR] Please ensure that 45691 is available to use
+Tue Dec 19 2023 15:18:38:852 GMT+0000 (GMT) -- [ERROR] SYS_CONFLICT:1001 https://browserstack.com/docs/local-testing/binary/errors/1001
+Tue Dec 19 2023 15:18:38:857 GMT+0000 (GMT) -- [ERROR] Necessary ports to start BrowserStack Binary were occupied by PID: -
+Tue Dec 19 2023 15:18:38:857 GMT+0000 (GMT) -- [ERROR] Please ensure that 45690 is available to use
+Tue Dec 19 2023 15:18:38:857 GMT+0000 (GMT) -- [ERROR] SYS_CONFLICT:1001 https://browserstack.com/docs/local-testing/binary/errors/1001
+Tue Dec 19 2023 15:18:38:858 GMT+0000 (GMT) -- You can learn more about BrowserStack Binary flags by running ./BrowserStackLocal --help
+Tue Dec 19 2023 15:18:38:858 GMT+0000 (GMT) -- You can learn more about BrowserStack Binary flags by running ./BrowserStackLocal --help
+Tue Dec 19 2023 15:23:12:310 GMT+0000 (GMT) -- Press Ctrl-C to exit
+
+
+Wed Dec 20 2023 09:36:22:504 GMT+0000 (GMT) -- Press Ctrl-C to exit
+
+
+Wed Dec 20 2023 09:36:22:615 GMT+0000 (GMT) -- Press Ctrl-C to exit
+
+
+Wed Dec 20 2023 10:49:43:965 GMT+0000 (GMT) -- Press Ctrl-C to exit
+
+

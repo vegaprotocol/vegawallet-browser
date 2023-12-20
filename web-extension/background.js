@@ -63,6 +63,10 @@ const clientServer = initClient({
 
 const clientPorts = new PortServer({
   onerror,
+  onconnect: async (context) => {
+    // Auto connect if origin is already approved (what we internally call connected)
+    context.isConnected = await connections.has(context.origin)
+  },
   server: clientServer
 })
 

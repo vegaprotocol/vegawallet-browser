@@ -13,6 +13,10 @@
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
     "@vegaprotocol/ui-toolkit": "0.12.6",
     "@vegaprotocol/utils": "^0.0.10",
+    "@wdio/browserstack-service": "^8.26.1",
+    "@wdio/cli": "^8.26.1",
+    "@wdio/local-runner": "^8.26.1",
+    "@wdio/mocha-framework": "^8.24.12",
     "bignumber.js": "^9.0.2",
     "classnames": "^2.2.0",
     "date-fns": "^2.30.0",
@@ -33,6 +37,7 @@
     "react-time-ago": "^7.2.1",
     "tailwindcss": "^3.3.2",
     "tldts": "^6.0.8",
+    "webdriverio": "^8.26.1",
     "zustand": "^4.3.2",
     "zxcvbn": "^4.4.2"
   },

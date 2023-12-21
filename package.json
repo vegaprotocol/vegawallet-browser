@@ -75,6 +75,7 @@
     "test:resillience": "jest ./test/resillience-tests --config=test/test-config/jest.config-resillience.js --maxWorkers=1",
     "test:keepalive": "BROWSER=chrome jest ./test/e2e/keep-alive.spec.ts --config=test/test-config/jest.config-e2e.js --maxWorkers=1",
     "test:e2e:chrome-upgrade:ci": "./.github/scripts/upgrade-test-download-management/download_old_extension.sh && yarn test:e2e:chrome-upgrade && ./.github/scripts/upgrade-test-download-management/remove_old_extension.sh",
+    "test:ios": "npx wdio ./test/mobile/test.conf.cjs",
     "test:frontend": "jest --config=test/test-config/jest.config-ui.js",
     "test:frontend:ci": "yarn test:frontend --coverage",
     "watch": "yarn build:dev -w",

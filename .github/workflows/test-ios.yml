@@ -1,0 +1,35 @@
+name: iOS Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  ios-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: #build the ios app locally
+        env:
+          REACT_APP_TEST: true
+
+    #Upload the build to browser stack 
+
+      - name: Run E2E tests using Xvfb
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: yarn test:ios

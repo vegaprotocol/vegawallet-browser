@@ -7,8 +7,8 @@ exports.config = {
       'browserstack',
       {
         buildIdentifier: '${BUILD_NUMBER}',
-        browserstackLocal: true,
-        opts: { forcelocal: false, localIdentifier: "VegaWallet" },
+        //browserstackLocal: true,
+        //opts: { forcelocal: false, localIdentifier: "VegaWallet" },
         app: "bs://a25c4dc3e4c2ae24d67f8b47646044f281bbac23"
       }
     ]

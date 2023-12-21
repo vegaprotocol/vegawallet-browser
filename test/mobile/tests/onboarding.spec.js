@@ -1,24 +1,29 @@
-async function enableVegaWallet() {
-    var button = await $('~PageFormatMenuButton')
-    await button.click();
-    var manageExtensionsButton = await $('~ManageExtensions')
-    await manageExtensionsButton.click();
+//Native selectors
+const safariAddressBarMenuButton = '~PageFormatMenuButton';
+const safariManageExtensionsMenuItem = '~ManageExtensions';
+const safariEnableVegaWalletToggle = '//XCUIElementTypeSwitch[@name="Vega Wallet - Fairground"]';
+const safariManageExtensionsDoneButton = '~Done';
+const openVegaWalletMenuItem = '~Vega Wallet - Fairground';
+const grantPermissionButton = '~Always Allow…';
+const grantPermissionToAllWebsitesButton = '~Always Allow on Every Website';
 
-    var vegaExtensionToggle = await $('//XCUIElementTypeSwitch[@name="Vega Wallet - Fairground"]');
-    await vegaExtensionToggle.click();
+//Browser wallet elements
+const getStartedButton = '~GET STARTED';
+const passwordField = '//XCUIElementTypeSecureTextField[@value="Enter a password"]';
+const confirmPasswordField = '//XCUIElementTypeSecureTextField[@value="Enter password again"]';
+const acceptWarning = '//XCUIElementTypeSwitch[@value="0"]';
+const createPasswordButton = '~CREATE PASSWORD';
+const createWalletButton = '~CREATE A WALLET';
+const revealRecoveryPhrase = '~Reveal recovery phrase';
+const revealRecoveryPhraseWarning = '//XCUIElementTypeStaticText[@name="I understand that if I lose my recovery phrase, I lose access to my wallet and keys."]'
+const recoveryPhraseCreateWalletButton = '~CREATE WALLET';
+const optOutOfErrorReportingButton = '~NO THANKS';
+const viewWalletDefaultKey = '~Key 1';
 
-    var doneButton = await $('~Done');
-    await doneButton.click();
-
-    var openVegaWalletButton = await $('~Vega Wallet - Fairground');
-    await openVegaWalletButton.click();
-
-    var alwaysAllowPermission = await $('~Always Allow…');
-    await alwaysAllowPermission.click();
-
-    var alwaysAllowEverySite = await $('~Always Allow on Every Website');
-    await alwaysAllowEverySite.click();
-}
+const click = async (selector) => {
+  const element = await $(selector);
+  await element.click();
+};
 
 async function switchToNativeContext() {
   const contexts = await driver.getContexts();
@@ -34,48 +39,38 @@ async function switchToWebViewContext() {
   await driver.switchContext(contexts[1]);
 }
 
-async function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+async function enableVegaWallet() {
+    await switchToNativeContext();
+    await click(safariAddressBarMenuButton);
+    await click(safariManageExtensionsMenuItem);
+    await click(safariEnableVegaWalletToggle);
+    await click(safariManageExtensionsDoneButton);
+    await click(openVegaWalletMenuItem)
+    await click(grantPermissionButton);
+    await click(grantPermissionToAllWebsitesButton);
 }
 
-describe('Safari test', () => {
-  it('should do something in safari', async () => {
+describe('Onboarding', () => {
+  it('Can onboard in safari using the wallet extension', async () => {
     await browser.url('https://vegaprotocol.github.io/vegawallet-browser/');
-    await switchToNativeContext();
     await enableVegaWallet();
 
-    var getStartedButton = await $('~GET STARTED');
-    await getStartedButton.click();
+    await click(getStartedButton);
+    await $(passwordField).setValue('password');
+    await $(confirmPasswordField).setValue('password');
+    await click(acceptWarning);
+    await click(createPasswordButton);
 
-    var passwordField = await $('//XCUIElementTypeSecureTextField[@value="Enter a password"]');
-    await passwordField.setValue('password');
+    await click(createWalletButton);
 
-    var confirmPasswordField = await $('//XCUIElementTypeSecureTextField[@value="Enter password again"]');
-    await confirmPasswordField.setValue('password');
-
-    var acceptWarning = await $('//XCUIElementTypeSwitch[@value="0"]');
-    await acceptWarning.click();
-
-    var createPasswordButton = await $('~CREATE PASSWORD');
-    await createPasswordButton.click();
-
-    var createWalletButton = await $('~CREATE A WALLET');
-    await createWalletButton.click();
-
-    var revealRecoveryPhrase = await $('~Reveal recovery phrase');
-    await revealRecoveryPhrase.click();
-
+    await click(revealRecoveryPhrase);
     await $('~Hide');
-    var acceptWarning = await $('//XCUIElementTypeStaticText[@name="I understand that if I lose my recovery phrase, I lose access to my wallet and keys."]');
-    await acceptWarning.click();
+    await click(revealRecoveryPhraseWarning);
+    await click(recoveryPhraseCreateWalletButton);
 
-    var createWalletButton = await $('~CREATE WALLET');
-    await createWalletButton.click();
+    await click(optOutOfErrorReportingButton);
 
-    const optOutOfErrorReportingButton = await $('~NO THANKS')
-    await optOutOfErrorReportingButton.click();
-
-    var keyOne = $('~Key 1');
+    var keyOne = $(viewWalletDefaultKey);
     expect(await keyOne.isDisplayed()).toBe(true);
   });
 });

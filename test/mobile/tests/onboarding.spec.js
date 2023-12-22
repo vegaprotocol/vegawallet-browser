@@ -1,3 +1,5 @@
+import { ok } from 'assert';
+
 //Native selectors
 const safariAddressBarMenuButton = '~PageFormatMenuButton';
 const safariManageExtensionsMenuItem = '~ManageExtensions';
@@ -50,11 +52,23 @@ async function enableVegaWallet() {
     await click(grantPermissionToAllWebsitesButton);
 }
 
+async function switchToVegaWallet() {
+  await click(safariAddressBarMenuButton);
+  await click(openVegaWalletMenuItem)
+}
+
+
 describe('Onboarding', () => {
-  it('Can onboard in safari using the wallet extension', async () => {
+  before(async () => {
     await browser.url('https://vegaprotocol.github.io/vegawallet-browser/');
     await enableVegaWallet();
+  });
 
+  afterEach(async () => {
+    await click('//XCUIElementTypeStaticText[@name="Sample dApp"]');
+  });
+
+  it('Can onboard in safari using the wallet extension', async () => {
     await click(getStartedButton);
     await $(passwordField).setValue('password');
     await $(confirmPasswordField).setValue('password');
@@ -71,6 +85,33 @@ describe('Onboarding', () => {
     await click(optOutOfErrorReportingButton);
 
     var keyOne = $(viewWalletDefaultKey);
-    expect(await keyOne.isDisplayed()).toBe(true);
+    ok(await keyOne.isDisplayed(), "Could not locate Key 1, onboarding may have been unsuccessful");
+  });
+
+  it('Can connect to the wallet', async () => {
+    await browser.url('https://vegaprotocol.github.io/vegawallet-browser/');
+    await click('~Connect wallet');
+
+    await switchToVegaWallet();
+    ok(await $('~CONNECT').isDisplayed(), "The connect popout was not displayed in vega wallet");
+
+    await click('~CONNECT');
+    await click('//XCUIElementTypeLink[@name="Connections"]')
+
+    ok(await $('~https://vegaprotocol.github.io').isDisplayed(), "Could not find the connection to the dapp in the 'connections' vega wallet page");
+  });
+
+  it('Can send a transaction to the wallet for approval', async () => {
+    await click('//XCUIElementTypeButton[@name="Transfer"]');
+
+    await switchToVegaWallet();
+    ok(await $('~CONFIRM').isDisplayed(), "The transaction approval popout was not displayed in the wallet");
+    await click('~CONFIRM');  
+
+    ok(await keyOne.isDisplayed(), "Expected to see the view wallets page after approving but could not locate the default key");
   });
 });
+
+
+
+  

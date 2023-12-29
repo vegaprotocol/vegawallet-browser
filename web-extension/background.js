@@ -84,13 +84,12 @@ const popupPorts = new PortServer({
   server
 })
 
-connections.listen((ev, connection) => {
-  switch (ev) {
-    case 'delete':
-    case 'disconnect':
-      clientPorts.disconnect(connection.origin)
-      break
-  }
+connections.on('delete', ({ origin }) => {
+  clientPorts.broadcast(origin, {
+    jsonrpc: '2.0',
+    method: 'client.disconnected',
+    params: null
+  })
 })
 
 setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor)

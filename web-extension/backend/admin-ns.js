@@ -31,11 +31,19 @@ function doValidate(validator, params) {
  * @returns {JSONRPCServer}
  */
 export default function init({ encryptedStore, settings, wallets, networks, connections, fetchCache, onerror }) {
-  connections.listen((ev, connection) => {
+  connections.on('set', (connection) => {
     server.notify('admin.connections_change', {
-      add: ev === 'set' ? [connection] : [],
+      add: [connection],
       update: [],
-      delete: ev === 'delete' ? [connection] : []
+      delete: []
+    })
+  })
+
+  connections.on('delete', (connection) => {
+    server.notify('admin.connections_change', {
+      add: [],
+      update: [],
+      delete: [connection]
     })
   })
 

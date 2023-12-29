@@ -1,20 +1,10 @@
 import JsonRpcClient from '../lib/json-rpc-client.js'
 import { isNotification, isResponse } from '../lib/json-rpc.js'
-import { KeyedSet } from './lib/keyed-set.js'
+import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
 
 // Wrap in a closure to protect scope
 ; (() => {
-  const listeners = new KeyedSet()
-
-  function on (event, callback) {
-    listeners.add(event, callback)
-
-    return () => listeners.delete(event, callback)
-  }
-
-  function off (event, callback) {
-    listeners.delete(event, callback)
-  }
+  const events = new TinyEventemitter()
 
   const client = new JsonRpcClient({
     idPrefix: 'vega.in-page-',
@@ -22,11 +12,7 @@ import { KeyedSet } from './lib/keyed-set.js'
       window.postMessage(msg, '*')
     },
     onnotification: (msg) => {
-      for (const callback of listeners.values(msg.method)) {
-        try {
-          callback(msg.params)
-        } catch (_) { }
-      }
+      events.emit(msg.method, msg.params)
     }
   })
 
@@ -66,10 +52,18 @@ import { KeyedSet } from './lib/keyed-set.js'
       return client.request('client.get_chain_id', null)
     },
 
-    // events
-    on,
-    off,
-    addEventListener: on,
-    removeEventListener: off
+    // Event API wrapped to protect prototype
+    on (name, cb) {
+      return events.on(name, cb)
+    },
+    off (name, cb) {
+      return events.off(name, cb)
+    },
+    addEventListener (name, cb) {
+      return events.on(name, cb)
+    },
+    removeEventListener (name, cb) {
+      return events.off(name, cb)
+    }
   })
 })()

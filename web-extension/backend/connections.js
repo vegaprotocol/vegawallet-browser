@@ -60,10 +60,6 @@ export class ConnectionsCollection {
     return res
   }
 
-  disconnect(origin) {
-    this._emit('disconnect', { origin })
-  }
-
   async isAllowed(origin, publicKey) {
     const conn = await this.store.get(origin)
     if (conn?.allowList == null) return false

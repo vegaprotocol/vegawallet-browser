@@ -1,23 +1,19 @@
+import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
+
 export class ConnectionsCollection {
   constructor({ connectionsStore, publicKeyIndexStore }) {
     this.store = connectionsStore
     this.index = publicKeyIndexStore
 
-    this.listeners = new Set()
+    this._emitter = new TinyEventemitter()
   }
 
-  listen(listener) {
-    this.listeners.add(listener)
-
-    return () => this.listeners.delete(listener)
+  on (event, listener) {
+    return this._emitter.on(event, listener)
   }
 
-  _emit(event, ...args) {
-    for (const listener of this.listeners) {
-      try {
-        listener(event, ...args)
-      } catch (_) { }
-    }
+  off (event, listener) {
+    return this._emitter.off(event, listener)
   }
 
   async set(origin, allowList) {
@@ -29,7 +25,7 @@ export class ConnectionsCollection {
 
     const res = await this.store.set(origin, value)
 
-    this._emit('set', value)
+    this._emitter.emit('set', value)
 
     return res
   }
@@ -42,7 +38,7 @@ export class ConnectionsCollection {
       conn.accessedAt = Date.now()
 
       await store.set(origin, conn)
-      this._emit('set', conn)
+      this._emitter.emit('set', conn)
     })
   }
 
@@ -59,7 +55,7 @@ export class ConnectionsCollection {
   async delete(origin) {
     const res = await this.store.delete(origin)
 
-    this._emit('delete', { origin })
+    this._emitter.emit('delete', { origin })
 
     return res
   }

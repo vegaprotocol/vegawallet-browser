@@ -52,10 +52,6 @@ function onbackgrounddisconnect() {
   backgroundPort.onDisconnect.removeListener(onbackgrounddisconnect)
   backgroundPort = null
   keepAlive(null) // stop keepalive
-
-  // Background port disconnected (eg. went to sleep) so we inject a disconnect notification
-  // Background scripts in MV3 are service workers in our case and hence do not emit onSuspend
-  window.postMessage({ jsonrpc: '2.0', method: 'disconnect', params: null }, '*')
 }
 
 connect()

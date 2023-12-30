@@ -33,8 +33,11 @@ import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
 
   // Define end-use API
   globalThis.vega = Object.freeze({
-    async connectWallet () {
-      return client.request('client.connect_wallet', null)
+    async connectWallet (params) {
+      if (params.chainId == null) {
+        console.warn('Deprecated: client.connect_wallet should be called with a chainId')
+      }
+      return client.request('client.connect_wallet', params)
     },
     async disconnectWallet () {
       return client.request('client.disconnect_wallet', null)
@@ -49,6 +52,7 @@ import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
       return client.request('client.send_transaction', params)
     },
     async getChainId () {
+      console.warn('Deprecated: select the preferred chainId using client.connect_wallet instead')
       return client.request('client.get_chain_id', null)
     },
 

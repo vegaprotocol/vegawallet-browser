@@ -251,8 +251,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         doValidate(adminValidation.fetch, params)
 
         try {
-          const selectedNetwork = await settings.get('selectedNetwork')
-          const network = await networks.get(selectedNetwork)
+          const network = await networks.getByNetworkId(params.networkId)
           const rpc = await network.rpc()
 
           const cached = await fetchCache.get(params.path)

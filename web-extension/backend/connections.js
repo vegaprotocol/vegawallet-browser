@@ -16,10 +16,23 @@ export class ConnectionsCollection {
     return this._emitter.off(event, listener)
   }
 
-  async set(origin, allowList) {
+  /**
+   * Set a connection.
+   *
+   * @param {string} origin - The origin of the connection
+   * @param {object} params - The connection parameters
+   * @param {string[]} params.allowList.publicKeys - Individual public keys visible to a connection
+   * @param {string[]} params.allowList.wallets - Complete wallets visible to a connection
+   * @param {string} [params.chainId] - The chainId that was approved for the connection
+   * @param {string} [params.networkId] - Preferred networkId that was approved for the connection
+   * @returns {Promise<void>}
+   */
+  async set(origin, { allowList, chainId = null, networkId = null }) {
     const value = {
       origin,
       allowList,
+      chainId,
+      networkId,
       accessedAt: Date.now()
     }
 
@@ -30,6 +43,13 @@ export class ConnectionsCollection {
     return res
   }
 
+  /**
+   * Update the last access time of a connection.
+   * Like UNIX `touch`
+   *
+   * @param {string} origin - The origin of the connection
+   * @returns {Promise<void>}
+   */
   async touch(origin) {
     return await this.store.transaction(async store => {
       const conn = await store.get(origin)
@@ -93,5 +113,34 @@ export class ConnectionsCollection {
     }
 
     return keys
+  }
+  
+  /**
+   * Get the chainId that was approved for a given origin on initial connection.
+   * The chainId should not be changed without user consent.
+   *
+   * @param {string} origin - The origin of the connection
+   * @returns {string | null} The chainId
+   */
+  async getChainId(origin) {
+    const conn = await this.store.get(origin)
+    if (conn == null) return null
+
+    return conn.chainId ?? null
+  }
+
+  /**
+   * Get the networkId that was approved for a given origin on initial connection.
+   * The networkId is only facing the extension and references a specific
+   * network configuration.
+   *
+   * @param {string} origin - The origin of the connection
+   * @returns {string | null} The networkId
+   */
+  async getNetworkId(origin) {
+    const conn = await this.store.get(origin)
+    if (conn == null) return null
+
+    return conn.networkId ?? null
   }
 }

@@ -1,12 +1,18 @@
 const mockPort = 9090
+const mockChainId = 'testnet'
 
 const test = {
   title: 'Vega Wallet - Test',
+  defaultNetworkId: 'test',
+  defaultChainId: mockChainId,
   test: {
     mockPort
   },
-  network: {
+  network: [{
+    id: 'test',
     name: 'Test',
+    chainId: mockChainId,
+    hidden: false,
     rest: [`http://localhost:${mockPort}`],
     console: 'https://console.fairground.wtf',
     ethereumExplorerLink: 'https://sepolia.etherscan.io',
@@ -17,7 +23,7 @@ const test = {
     withdraw: 'https://console.fairground.wtf/#/portfolio/assets/withdraw',
     docs: 'https://docs.vega.xyz/testnet',
     vegaDapps: 'https://vega.xyz/apps'
-  },
+  }],
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',
   encryptionSettings: {

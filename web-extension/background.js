@@ -92,7 +92,7 @@ connections.on('delete', ({ origin }) => {
   })
 })
 
-setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor)
+setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor, connections)
 
 async function setPending () {
   const pending = interactor.totalPending()

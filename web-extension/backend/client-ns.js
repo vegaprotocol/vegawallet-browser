@@ -12,6 +12,7 @@ const Errors = {
 
   TRANSACTION_FAILED: ['Transaction failed', -5 /* This is filled in by the error thrown */],
 
+  MISMATCHING_CHAIN_ID: ['Mismatching chain ID', -6, 'The chain ID does not match the connected chain ID, please remove the connection from the wallet and connect again']
 }
 
 function doValidate(validator, params) {
@@ -31,18 +32,29 @@ export default function init({ onerror, settings, wallets, networks, connections
         doValidate(clientValidation.connectWallet, params)
         if (context.isConnected === true) return null
         if ((await connections.has(context.origin)) === false) {
-          const approved = await interactor.reviewConnection({
+          // If this is a connection request, without a chainId we look up the default one for the extension
+          if (params.chainId == null) {
+            const selectedNetworkId = await settings.get('selectedNetwork')
+            params.chainId = (await networks.getByNetworkId(selectedNetworkId)).chainId
+          }
+
+          const reply = await interactor.reviewConnection({
             origin: context.origin,
+            chainId: params.chainId,
             receivedAt
           })
 
-          if (approved === false) throw new JSONRPCServer.Error(...Errors.CONNECTION_DENIED)
+          if (reply.approved === false) throw new JSONRPCServer.Error(...Errors.CONNECTION_DENIED)
 
           await connections.set(context.origin, {
             publicKeys: [],
             // TODO: Allow all wallets and keys for now
-            wallets: await wallets.list()
+            wallets: await wallets.list(),
+            chainId: params.chainId,
+            networkId: reply.networkId
           })
+        } else if (params.chainId != null && await connections.getChainId(context.origin) !== params.chainId) {
+          throw new JSONRPCServer.Error(...Errors.MISMATCHING_CHAIN_ID)
         }
 
         await connections.touch(context.origin)
@@ -77,6 +89,8 @@ export default function init({ onerror, settings, wallets, networks, connections
           wallet: keyInfo.wallet,
           sendingMode: params.sendingMode,
           origin: context.origin,
+          chainId: await connections.getChainId(context.origin),
+          networkId: await connections.getNetworkId(context.origin),
           receivedAt
         })
 
@@ -84,8 +98,9 @@ export default function init({ onerror, settings, wallets, networks, connections
 
         const key = await wallets.getKeypair({ publicKey: params.publicKey })
 
-        const selectedNetwork = await settings.get('selectedNetwork')
-        const network = await networks.get(selectedNetwork)
+        const selectedNetworkId = await connections.getNetworkId(context.origin)
+        const selectedChainId = await connections.getChainId(context.origin)
+        const network = await networks.get(selectedNetworkId, selectedChainId)
         const rpc = await network.rpc()
 
         try {
@@ -116,12 +131,18 @@ export default function init({ onerror, settings, wallets, networks, connections
       async 'client.get_chain_id'(params, context) {
         doValidate(clientValidation.getChainId, params)
 
-        const selectedNetwork = await settings.get('selectedNetwork')
-        const network = await networks.get(selectedNetwork)
-        const rpc = await network.rpc()
+        if (context.isConnected === true) {
+          const selectedNetworkId = await connections.getNetworkId(context.origin)
+          const selectedChainId = await connections.getChainId(context.origin)
+          const network = await networks.get(selectedNetworkId, selectedChainId)
 
-        const chainID = await txHelpers.getChainId({ rpc })
-        return { chainID }
+          return { chainID: network.chainId }
+        }
+
+        const selectedNetworkId = await settings.get('selectedNetwork')
+        const network = await networks.getByNetworkId(selectedNetworkId)
+
+        return { chainID: network.chainId }
       },
 
       async 'client.list_keys'(params, context) {

@@ -57,14 +57,13 @@ export default function init({ onerror, settings, wallets, networks, connections
           throw new JSONRPCServer.Error(...Errors.MISMATCHING_CHAIN_ID)
         }
 
-        await connections.touch(context.origin)
         context.isConnected = true
 
         return null
       },
       async 'client.disconnect_wallet'(params, context) {
         doValidate(clientValidation.disconnectWallet, params)
-        context.isConnected = false
+        // context.isConnected = false
 
         return null
       },

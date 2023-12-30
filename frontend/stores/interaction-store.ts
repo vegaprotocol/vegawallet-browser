@@ -4,7 +4,13 @@ import { TransactionMessage } from '@/lib/transactions'
 
 export interface ConnectionMessage {
   origin: string
+  chainId: string
   receivedAt: string
+}
+
+export interface ConnectionReply {
+  approved: boolean
+  networkId?: string
 }
 
 export type InteractionStore = {
@@ -15,8 +21,8 @@ export type InteractionStore = {
   currentTransactionDetails: TransactionMessage | null
 
   connectionModalOpen: boolean
-  handleConnection: (parameters: ConnectionMessage) => Promise<boolean>
-  handleConnectionDecision: (decision: boolean) => void
+  handleConnection: (parameters: ConnectionMessage) => Promise<ConnectionReply>
+  handleConnectionDecision: (decision: ConnectionReply) => void
   connectionPromise: [Function, Function] | null
   currentConnectionDetails: ConnectionMessage | null
 }

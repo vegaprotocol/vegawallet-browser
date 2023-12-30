@@ -29,20 +29,33 @@ export class NetworkCollection {
     return net
   }
 
+  async getByChainId(chainId) {
+    const nets = await this.list()
+    return nets.find((net) => net.chainId === chainId)
+  }
+
+  getByNetworkId(networkId) {
+    if (this._cache.has(networkId)) return this._cache.get(networkId)
+
+    return this.store.get(networkId)
+  }
+
   /**
+   * Get a network by networkId, with a fallback to chainId
    *
-   * @param {string} name
+   * @param {string} networkId - The preferred network configuration id
+   * @param {string} chainId - The preferred chain id (fallback)
    * @returns {Promise<Network>}
    */
-  async get(name) {
-    if (this._cache.has(name)) return this._cache.get(name)
+  async get(networkId, chainId) {
+    if (this._cache.has(networkId)) return this._cache.get(networkId)
 
-    const candidate = await this.store.get(name)
+    const candidate = await this.getByNetworkId(networkId) ?? await this.getByChainId(chainId)
 
-    if (candidate == null) throw new Error('Unknown network')
+    if (candidate == null) throw new Error(`No network found for networkId ${networkId} or chainId ${chainId}`)
 
     const net = new Network(candidate)
-    this._cache.set(name, net)
+    this._cache.set(networkId, net)
     return net
   }
 

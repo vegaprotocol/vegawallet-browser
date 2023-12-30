@@ -3,7 +3,7 @@ import * as adminValidation from '../validation/admin/index.js'
 import pkg from '../../package.json'
 import { toBase64, string as fromString } from '@vegaprotocol/crypto/buf'
 import { createWindow } from './windows.js'
-import { default as createKeepAlive } from '../../lib/mv3-keep-alive.js'
+import createKeepAlive from '../../lib/mv3-keep-alive.js'
 
 const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 
@@ -84,6 +84,12 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
 
         const hasPassphrase = await encryptedStore.exists()
         const isLocked = encryptedStore.isLocked === true
+
+        if (isLocked === false) {
+          // kick keepalive loop
+          keepAlive(keepAliveFn)
+        }
+
         // TODO this is kinda indeterminate, as we don't know if the storage is empty
         const hasWallet = isLocked ? false : Array.from(await wallets.list()).length > 0
         return {

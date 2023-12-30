@@ -42,6 +42,9 @@ import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
     async disconnectWallet () {
       return client.request('client.disconnect_wallet', null)
     },
+    async isConnected () {
+      return client.request('client.is_connected', null)
+    },
     async listKeys () {
       return client.request('client.list_keys', null)
     },

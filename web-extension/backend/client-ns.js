@@ -69,6 +69,11 @@ export default function init({ onerror, settings, wallets, networks, connections
         return null
       },
       async 'client.send_transaction'(params, context) {
+      async 'client.is_connected' (params, context) {
+        doValidate(clientValidation.isConnected, params)
+
+        return context.isConnected === true
+      },
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.sendTransaction, params)
         if (context.isConnected !== true) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)

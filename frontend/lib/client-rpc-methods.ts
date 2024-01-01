@@ -23,6 +23,9 @@ export const RpcMethods = {
   UpdateSettings: 'admin.update_app_settings',
   RemoveConnection: 'admin.remove_connection',
 
+  // Networks
+  ListNetworks: 'admin.list_networks',
+
   // Misc
   SignMessage: 'admin.sign_message',
   Fetch: 'admin.fetch'

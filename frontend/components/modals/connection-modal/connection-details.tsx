@@ -1,7 +1,5 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
 
-import { ConnectionReply } from '@/stores/interaction-store'
-
 import { Frame } from '../../frame'
 import { Tick } from '../../icons/tick'
 import locators from '../../locators'
@@ -11,7 +9,7 @@ export const ConnectionDetails = ({
   handleDecision,
   hostname
 }: {
-  handleDecision: (decision: ConnectionReply) => void
+  handleDecision: (decision: boolean) => void
   hostname: string
 }) => {
   return (
@@ -41,14 +39,14 @@ export const ConnectionDetails = ({
         </ul>
       </Frame>
       <div className="grid grid-cols-[1fr_1fr] justify-between gap-4 mt-5">
-        <Button data-testid={locators.connectionModalDenyButton} onClick={() => handleDecision({ approved: false })}>
+        <Button data-testid={locators.connectionModalDenyButton} onClick={() => handleDecision(false)}>
           Deny
         </Button>
         <Button
           data-testid={locators.connectionModalApproveButton}
           variant="primary"
           // TODO find and set networkId based on chainId
-          onClick={() => handleDecision({ approved: true })}
+          onClick={() => handleDecision(true)}
         >
           Connect
         </Button>

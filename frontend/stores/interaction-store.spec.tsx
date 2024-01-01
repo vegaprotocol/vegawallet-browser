@@ -4,7 +4,7 @@ import { useInteractionStore } from './interaction-store'
 
 const initialState = useInteractionStore.getState()
 
-const mockMessage = {
+const mockTransaction = {
   transaction: {},
   publicKey: 'foo',
   name: 'bar',
@@ -14,14 +14,20 @@ const mockMessage = {
   receivedAt: new Date().toISOString()
 } as TransactionMessage
 
-describe('ModalStore', () => {
+const mockConnectionMessage = {
+  origin: 'foo.com',
+  chainId: 'chainId',
+  receivedAt: new Date().toISOString()
+}
+
+describe('InteractionStore', () => {
   beforeEach(() => {
     useInteractionStore.setState(initialState)
   })
   it('transaction modal sets modal as open and resolves promise with value', () => {
     expect(useInteractionStore.getState().transactionModalOpen).toBe(false)
     expect(useInteractionStore.getState().transactionPromise).toBeNull()
-    const promise = useInteractionStore.getState().handleTransaction(mockMessage)
+    const promise = useInteractionStore.getState().handleTransaction(mockTransaction)
     expect(useInteractionStore.getState().transactionModalOpen).toBe(true)
     expect(useInteractionStore.getState().transactionPromise).not.toBeNull()
     useInteractionStore.getState().handleTransactionDecision(true)
@@ -33,7 +39,7 @@ describe('ModalStore', () => {
   it('transaction resolves with false if not approved', () => {
     expect(useInteractionStore.getState().transactionModalOpen).toBe(false)
     expect(useInteractionStore.getState().transactionPromise).toBeNull()
-    const promise = useInteractionStore.getState().handleTransaction(mockMessage)
+    const promise = useInteractionStore.getState().handleTransaction(mockTransaction)
     expect(useInteractionStore.getState().transactionModalOpen).toBe(true)
     expect(useInteractionStore.getState().transactionPromise).not.toBeNull()
     useInteractionStore.getState().handleTransactionDecision(false)
@@ -57,10 +63,10 @@ describe('ModalStore', () => {
   it('connection modal sets modal as open and resolves promise with value', () => {
     expect(useInteractionStore.getState().connectionModalOpen).toBe(false)
     expect(useInteractionStore.getState().connectionPromise).toBeNull()
-    const promise = useInteractionStore.getState().handleConnection(mockMessage)
+    const promise = useInteractionStore.getState().handleConnection(mockConnectionMessage)
     expect(useInteractionStore.getState().connectionModalOpen).toBe(true)
     expect(useInteractionStore.getState().connectionPromise).not.toBeNull()
-    useInteractionStore.getState().handleConnectionDecision(true)
+    useInteractionStore.getState().handleConnectionDecision({ approved: true, networkId: 'chainId' })
     expect(useInteractionStore.getState().connectionModalOpen).toBe(false)
     expect(useInteractionStore.getState().connectionPromise).toBeNull()
     expect(useInteractionStore.getState().currentConnectionDetails).toBeNull()
@@ -69,10 +75,10 @@ describe('ModalStore', () => {
   it('connection resolves with false if not approved', () => {
     expect(useInteractionStore.getState().connectionModalOpen).toBe(false)
     expect(useInteractionStore.getState().connectionPromise).toBeNull()
-    const promise = useInteractionStore.getState().handleConnection(mockMessage)
+    const promise = useInteractionStore.getState().handleConnection(mockConnectionMessage)
     expect(useInteractionStore.getState().connectionModalOpen).toBe(true)
     expect(useInteractionStore.getState().connectionPromise).not.toBeNull()
-    useInteractionStore.getState().handleConnectionDecision(false)
+    useInteractionStore.getState().handleConnectionDecision({ approved: true, networkId: 'chainId' })
     expect(useInteractionStore.getState().connectionModalOpen).toBe(false)
     expect(useInteractionStore.getState().connectionPromise).toBeNull()
     expect(useInteractionStore.getState().currentConnectionDetails).toBeNull()

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { useInteractionStore } from '@/stores/interaction-store'
+import { ConnectionReply, useInteractionStore } from '@/stores/interaction-store'
 
 import locators from '../../locators'
 import { Splash } from '../../splash'
@@ -15,11 +15,11 @@ export const ConnectionModal = () => {
   }))
   const [hasConnected, setHasConnected] = useState(false)
   const handleDecision = useCallback(
-    (decision: boolean) => {
+    (decision: ConnectionReply) => {
       if (!decision) {
         handleConnectionDecision(decision)
       }
-      setHasConnected(decision)
+      setHasConnected(decision.approved)
     },
     [handleConnectionDecision]
   )
@@ -32,7 +32,10 @@ export const ConnectionModal = () => {
           hostname={details.origin}
           onClose={() => {
             setHasConnected(false)
-            handleConnectionDecision(true)
+            handleConnectionDecision({
+              approved: true
+              // TODO find and set networkId based on chainId
+            })
           }}
         />
       ) : (

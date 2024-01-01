@@ -59,10 +59,10 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
   currentConnectionDetails: null,
   connectionPromise: null,
   connectionModalOpen: false,
-  handleConnectionDecision: (decision: boolean) => {
+  handleConnectionDecision: (reply: ConnectionReply) => {
     const promise = get().connectionPromise
     if (promise) {
-      promise[0](decision)
+      promise[0](reply)
     }
     set({
       connectionPromise: null,
@@ -70,13 +70,13 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
       connectionModalOpen: false
     })
   },
-  handleConnection: async (parameters: ConnectionMessage) => {
+  handleConnection: async (reply: ConnectionMessage) => {
     set({
       connectionModalOpen: true
     })
-    const connectionPromise = new Promise<boolean>((resolve, reject) => {
+    const connectionPromise = new Promise<ConnectionReply>((resolve, reject) => {
       set({
-        currentConnectionDetails: parameters,
+        currentConnectionDetails: reply,
         connectionPromise: [resolve, reject]
       })
     })

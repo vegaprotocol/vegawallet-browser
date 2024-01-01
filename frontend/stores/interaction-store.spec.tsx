@@ -70,7 +70,7 @@ describe('InteractionStore', () => {
     expect(useInteractionStore.getState().connectionModalOpen).toBe(false)
     expect(useInteractionStore.getState().connectionPromise).toBeNull()
     expect(useInteractionStore.getState().currentConnectionDetails).toBeNull()
-    return expect(promise).resolves.toBe(true)
+    return expect(promise).resolves.toBe({ approved: true, networkId: 'chainId' })
   })
   it('connection resolves with false if not approved', () => {
     expect(useInteractionStore.getState().connectionModalOpen).toBe(false)
@@ -78,11 +78,11 @@ describe('InteractionStore', () => {
     const promise = useInteractionStore.getState().handleConnection(mockConnectionMessage)
     expect(useInteractionStore.getState().connectionModalOpen).toBe(true)
     expect(useInteractionStore.getState().connectionPromise).not.toBeNull()
-    useInteractionStore.getState().handleConnectionDecision({ approved: true, networkId: 'chainId' })
+    useInteractionStore.getState().handleConnectionDecision({ approved: false, networkId: 'chainId' })
     expect(useInteractionStore.getState().connectionModalOpen).toBe(false)
     expect(useInteractionStore.getState().connectionPromise).toBeNull()
     expect(useInteractionStore.getState().currentConnectionDetails).toBeNull()
-    return expect(promise).resolves.toBe(false)
+    return expect(promise).resolves.toBe({ approved: false, networkId: 'chainId' })
   })
   // TODO this should throw an error but until sync across windows is implemented it will not
   it('connection clears state when promise could not be found', () => {

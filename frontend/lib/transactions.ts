@@ -95,4 +95,5 @@ export interface TransactionMessage {
   sendingMode: string
   origin: string
   receivedAt: string
+  chainId: string
 }

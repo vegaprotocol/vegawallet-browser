@@ -4,8 +4,6 @@ import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider.tsx'
 import { RpcMethods } from '@/lib/client-rpc-methods.ts'
 import { Network } from '@/types/backend'
 
-export const SELECTED_NETWORK_STORAGE_KEY = 'selected-network'
-
 interface NetworksResponse {
   networks: Network[]
 }
@@ -15,7 +13,7 @@ export type NetworksStore = {
   loading: boolean
   selectedNetwork: Network | null
   loadNetworks: (request: SendMessage) => Promise<void>
-  setSelectedNetwork: (newSelectedNetwork: string) => void
+  setSelectedNetwork: (request: SendMessage, newSelectedNetwork: string) => void
   getNetworkById: (networkId: string) => Network | undefined
 }
 
@@ -26,7 +24,8 @@ export const useNetworksStore = create<NetworksStore>((set, get) => ({
   async loadNetworks(request) {
     try {
       const { networks } = (await request(RpcMethods.ListNetworks)) as NetworksResponse
-      const selectedNetworkId = localStorage.getItem(SELECTED_NETWORK_STORAGE_KEY) || null
+      const globals = await request(RpcMethods.AppGlobals)
+      const selectedNetworkId = globals.settings.selectedNetwork
       const network = networks.find(({ id }) => id === selectedNetworkId)
       if (selectedNetworkId && !network) throw new Error(`Could not find selected network ${selectedNetworkId}`)
       set({ networks, selectedNetwork: network ?? networks[0] })
@@ -37,13 +36,12 @@ export const useNetworksStore = create<NetworksStore>((set, get) => ({
   getNetworkById(networkId) {
     return get().networks.find(({ id }) => id === networkId)
   },
-  setSelectedNetwork(newSelectedNetwork) {
-    // TODO use settings property for this NOT localStorage
+  async setSelectedNetwork(request, newSelectedNetwork) {
     const selectedNetwork = get().networks.find(({ id }) => id === newSelectedNetwork)
     if (!selectedNetwork) {
       throw new Error('Attempted to set selected network to a network that could not be found')
     }
-    localStorage.setItem(SELECTED_NETWORK_STORAGE_KEY, newSelectedNetwork)
+    await request(RpcMethods.UpdateSettings, { selectedNetwork: newSelectedNetwork })
     set({ selectedNetwork })
   }
 }))

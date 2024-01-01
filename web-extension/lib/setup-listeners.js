@@ -24,7 +24,7 @@ export const createOnInstalledListener = (networks, settings, connections) => as
   }
 }
 
-export async function install ({ networks, settings }) {
+export async function install({ networks, settings }) {
   await Promise.allSettled([
     ...config.networks.map((network) => networks.set(network.id, network)),
     settings.set('selectedNetwork', config.defaultNetworkId),
@@ -36,9 +36,9 @@ export async function install ({ networks, settings }) {
 const migrations = [
   // The first migration is due to the introduction of autoOpen in 0.11.0,
   // however, we failed to test updates in CI.
-  async function v1 ({ settings }) {
+  async function v1({ settings }) {
     await settings.transaction(async (store) => {
-      if (await store.get('autoOpen') == null) await store.set('autoOpen', true)
+      if ((await store.get('autoOpen')) == null) await store.set('autoOpen', true)
 
       await store.set('version', 1)
     })
@@ -47,7 +47,7 @@ const migrations = [
   // The second migration is modifying the network structure,
   // introducing a fixed chainId, and tying a connection to a specific
   // chainId (with a preferred networkId).
-  async function v2 ({ settings, networks, connections }) {
+  async function v2({ settings, networks, connections }) {
     await settings.transaction(async (store) => {
       const defaultNetworkId = config.defaultNetworkId
       const defaultChainId = config.defaultChainId
@@ -56,6 +56,7 @@ const migrations = [
 
       // populate all networks
       await networks.store.clear()
+      console.log(config)
       for (const network of config.networks) {
         await networks.set(network.id, network)
       }
@@ -74,8 +75,8 @@ const migrations = [
 ]
 
 // Migration function, add more dependencies as needed for migrations
-export async function update (stores) {
-  const previousVersion = await stores.settings.get('version') ?? 0
+export async function update(stores) {
+  const previousVersion = (await stores.settings.get('version')) ?? 0
 
   for (let i = previousVersion; i < migrations.length; i++) {
     await migrations[i](stores)

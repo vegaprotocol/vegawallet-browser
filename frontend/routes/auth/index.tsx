@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/page-header'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
+import { useNetworksStore } from '@/stores/networks-store'
 import { useWalletStore } from '@/stores/wallets'
 
 import { FULL_ROUTES } from '../route-names'
@@ -16,7 +17,7 @@ export const Auth = () => {
   const { request } = useJsonRpcClient()
 
   // Wallets store
-  const { loadWallets, loading } = useWalletStore((state) => ({
+  const { loadWallets, loading: loadingWallets } = useWalletStore((state) => ({
     loadWallets: state.loadWallets,
     loading: state.loading
   }))
@@ -31,21 +32,28 @@ export const Auth = () => {
     loadMarkets: state.fetchMarkets
   }))
 
+  // Networks store
+  const { loadNetworks, loading: loadingNetworks } = useNetworksStore((state) => ({
+    loadNetworks: state.loadNetworks,
+    loading: state.loading
+  }))
+
   useEffect(() => {
+    loadNetworks(request)
     loadWallets(request)
-  }, [request, loadWallets])
+  }, [request, loadWallets, loadNetworks])
 
   // TODO: Remove
   // HACK: This is work around to ensure that the wallets are loaded before network requests.
   // Ideally the backend should be capable of doing this in parallel, but increases perceived performance for now.
   useEffect(() => {
-    if (!loading) {
+    if (!loadingNetworks && !loadingWallets) {
       loadAssets(request)
       loadMarkets(request)
     }
-  }, [loadAssets, loadMarkets, loading, request])
-
+  }, [loadAssets, loadMarkets, loadingNetworks, loadingWallets, request])
   const isWallets = !!useMatch(FULL_ROUTES.wallets)
+  if (loadingWallets || loadingNetworks) return null
 
   return (
     <div className="h-full w-full grid grid-rows-[min-content_1fr_min-content] bg-vega-dark-100">

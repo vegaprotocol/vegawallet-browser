@@ -2,7 +2,7 @@ import { getExtensionApi } from '@/lib/extension-apis'
 import { log } from '@/lib/logging'
 import { ServerRpcMethods } from '@/lib/server-rpc-methods'
 import { TransactionMessage } from '@/lib/transactions'
-import { ConnectionMessage } from '@/stores/interaction-store'
+import { ConnectionMessage, ConnectionReply } from '@/stores/interaction-store'
 
 import JSONRPCServer from '../../../../lib/json-rpc-server'
 import { PortServer } from '../../../../lib/port-server'
@@ -17,7 +17,7 @@ const maybeCloseWindow = () => {
 
 // TODO add own tests
 export const createServer = (
-  handleConnection: (parameters: ConnectionMessage) => Promise<boolean>,
+  handleConnection: (parameters: ConnectionMessage) => Promise<ConnectionReply>,
   handleTransaction: (parameters: TransactionMessage) => Promise<boolean>
 ) => {
   const { runtime } = getExtensionApi()
@@ -41,7 +41,8 @@ export const createServer = (
   window.server = server
   const portServer = new PortServer({
     onerror: () => {},
-    server
+    server,
+    onconnect: () => {}
   })
   portServer.listen(backgroundPort)
   return server

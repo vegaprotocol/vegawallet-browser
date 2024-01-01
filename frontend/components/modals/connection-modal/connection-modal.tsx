@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 
+import { useErrorStore } from '@/stores/error'
 import { useInteractionStore } from '@/stores/interaction-store'
 import { useNetworksStore } from '@/stores/networks-store'
 
@@ -14,6 +15,9 @@ export const ConnectionModal = () => {
     handleConnectionDecision: store.handleConnectionDecision,
     details: store.currentConnectionDetails
   }))
+  const { setError } = useErrorStore((store) => ({
+    setError: store.setError
+  }))
   const { networks } = useNetworksStore((store) => ({
     networks: store.networks
   }))
@@ -24,11 +28,11 @@ export const ConnectionModal = () => {
       const { id: networkId } = networks.find((network) => network.chainId === details?.chainId) || {}
       console.log(networks, details?.chainId)
       if (!networkId) {
-        throw new Error(`Network could not be found with chainId ${details?.chainId}`)
+        setError(new Error(`Network could not be found with chainId ${details?.chainId}`))
       }
       handleConnectionDecision({ approved, networkId })
     },
-    [details?.chainId, handleConnectionDecision, networks]
+    [details?.chainId, handleConnectionDecision, networks, setError]
   )
   const handleDecision = useCallback(
     (approved: boolean) => {

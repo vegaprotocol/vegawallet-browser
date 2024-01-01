@@ -18,18 +18,26 @@ export const ConnectionModal = () => {
     networks: store.networks
   }))
   const [hasConnected, setHasConnected] = useState(false) || {}
-  const { id: networkId } = networks.find((network) => network.chainId === details?.chainId) || {}
-  if (!networkId) {
-    throw new Error(`Network could not be found with chainId ${details?.chainId}`)
-  }
+
+  const sendConnectionDecision = useCallback(
+    (approved: boolean) => {
+      const { id: networkId } = networks.find((network) => network.chainId === details?.chainId) || {}
+      console.log(networks, details?.chainId)
+      if (!networkId) {
+        throw new Error(`Network could not be found with chainId ${details?.chainId}`)
+      }
+      handleConnectionDecision({ approved, networkId })
+    },
+    [details?.chainId, handleConnectionDecision, networks]
+  )
   const handleDecision = useCallback(
     (approved: boolean) => {
       if (!approved) {
-        handleConnectionDecision({ approved, networkId })
+        sendConnectionDecision(approved)
       }
       setHasConnected(approved)
     },
-    [handleConnectionDecision, networkId, setHasConnected]
+    [sendConnectionDecision, setHasConnected]
   )
 
   if (!isOpen || !details) return null
@@ -40,10 +48,7 @@ export const ConnectionModal = () => {
           hostname={details.origin}
           onClose={() => {
             setHasConnected(false)
-            handleConnectionDecision({
-              approved: true,
-              networkId
-            })
+            sendConnectionDecision(true)
           }}
         />
       ) : (

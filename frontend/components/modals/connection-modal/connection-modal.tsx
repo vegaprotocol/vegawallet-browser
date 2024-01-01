@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 
-import { ConnectionReply, useInteractionStore } from '@/stores/interaction-store'
+import { useInteractionStore } from '@/stores/interaction-store'
+import { useNetworksStore } from '@/stores/networks-store'
 
 import locators from '../../locators'
 import { Splash } from '../../splash'
@@ -13,15 +14,22 @@ export const ConnectionModal = () => {
     handleConnectionDecision: store.handleConnectionDecision,
     details: store.currentConnectionDetails
   }))
-  const [hasConnected, setHasConnected] = useState(false)
+  const { networks } = useNetworksStore((store) => ({
+    networks: store.networks
+  }))
+  const [hasConnected, setHasConnected] = useState(false) || {}
+  const { id: networkId } = networks.find((network) => network.chainId === details?.chainId) || {}
+  if (!networkId) {
+    throw new Error(`Network could not be found with chainId ${details?.chainId}`)
+  }
   const handleDecision = useCallback(
-    (decision: ConnectionReply) => {
-      if (!decision) {
-        handleConnectionDecision(decision)
+    (approved: boolean) => {
+      if (!approved) {
+        handleConnectionDecision({ approved, networkId })
       }
-      setHasConnected(decision.approved)
+      setHasConnected(approved)
     },
-    [handleConnectionDecision]
+    [handleConnectionDecision, networkId, setHasConnected]
   )
 
   if (!isOpen || !details) return null
@@ -33,8 +41,8 @@ export const ConnectionModal = () => {
           onClose={() => {
             setHasConnected(false)
             handleConnectionDecision({
-              approved: true
-              // TODO find and set networkId based on chainId
+              approved: true,
+              networkId
             })
           }}
         />

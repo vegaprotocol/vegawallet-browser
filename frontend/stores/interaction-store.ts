@@ -2,6 +2,7 @@ import { create } from 'zustand'
 
 import { TransactionMessage } from '@/lib/transactions'
 
+// TODO move into types/backend
 export interface ConnectionMessage {
   origin: string
   chainId: string

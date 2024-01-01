@@ -12,7 +12,11 @@ const Errors = {
 
   TRANSACTION_FAILED: ['Transaction failed', -5 /* This is filled in by the error thrown */],
 
-  MISMATCHING_CHAIN_ID: ['Mismatching chain ID', -6, 'The chain ID does not match the connected chain ID, please remove the connection from the wallet and connect again']
+  MISMATCHING_CHAIN_ID: [
+    'Mismatching chain ID',
+    -6,
+    'The chain ID does not match the connected chain ID, please remove the connection from the wallet and connect again'
+  ]
 }
 
 function doValidate(validator, params) {
@@ -53,7 +57,7 @@ export default function init({ onerror, settings, wallets, networks, connections
             chainId: params.chainId,
             networkId: reply.networkId
           })
-        } else if (params.chainId != null && await connections.getChainId(context.origin) !== params.chainId) {
+        } else if (params.chainId != null && (await connections.getChainId(context.origin)) !== params.chainId) {
           throw new JSONRPCServer.Error(...Errors.MISMATCHING_CHAIN_ID)
         }
 
@@ -67,12 +71,12 @@ export default function init({ onerror, settings, wallets, networks, connections
 
         return null
       },
-      async 'client.send_transaction'(params, context) {
-      async 'client.is_connected' (params, context) {
+      async 'client.is_connected'(params, context) {
         doValidate(clientValidation.isConnected, params)
 
         return context.isConnected === true
       },
+      async 'client.send_transaction'(params, context) {
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.sendTransaction, params)
         if (context.isConnected !== true) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)

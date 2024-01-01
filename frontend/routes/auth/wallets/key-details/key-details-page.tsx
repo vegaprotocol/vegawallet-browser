@@ -32,6 +32,7 @@ export const KeyDetailsPage = ({ id }: { id: string }) => {
     loading: state.loading
   }))
   if (!key) {
+    // TODO remove this now we are requiring wallets to be loaded at auth
     if (!walletsLoading) {
       throw new Error(`Key with id ${id} not found`)
     }

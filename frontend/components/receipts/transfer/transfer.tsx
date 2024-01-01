@@ -39,6 +39,7 @@ export const Transfer = ({ transaction }: ReceiptComponentProperties) => {
   const keyInfo = getKeyById(transaction.transfer.to)
   const isOwnKey = !!keyInfo
 
+  // TODO remove this now we are requiring wallets to be loaded at auth
   if (walletsLoading) return null
   // Not supporting recurring transfers yet
   if (transaction.transfer.recurring) return null

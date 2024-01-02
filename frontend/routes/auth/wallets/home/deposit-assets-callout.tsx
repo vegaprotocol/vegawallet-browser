@@ -1,6 +1,6 @@
-import config from '!/config'
 import { ExternalLink } from '@/components/external-link'
 import { Frame } from '@/components/frame'
+import { useNetwork } from '@/contexts/network/network-context'
 
 export const locators = {
   walletsAssetHeader: 'wallets-asset-header',
@@ -9,6 +9,8 @@ export const locators = {
 }
 
 export const DepositAssetsCallout = () => {
+  const { network } = useNetwork()
+
   return (
     <section className="mt-10">
       <Frame>
@@ -22,7 +24,7 @@ export const DepositAssetsCallout = () => {
         <ExternalLink
           data-testid={locators.walletsDepositLink}
           className="break-word text-white"
-          href={config.network.console}
+          href={network.console}
         >
           Vega Console dapp
         </ExternalLink>

@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 import { locators as subheaderLocators } from '@/components/sub-header'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
@@ -15,6 +16,13 @@ jest.mock('@/stores/markets-store', () => ({
   useMarketsStore: jest.fn()
 }))
 
+const renderComponent = () =>
+  render(
+    <MockNetworkProvider>
+      <AssetListEmptyState publicKey="testPublicKey" />
+    </MockNetworkProvider>
+  )
+
 describe('AssetListEmptyState Component', () => {
   it('should display "Currently you have no assets." when no assets are available', () => {
     mockStore(useAssetsStore, {
@@ -25,7 +33,7 @@ describe('AssetListEmptyState Component', () => {
         return []
       }
     })
-    render(<AssetListEmptyState publicKey="testPublicKey" />)
+    renderComponent()
 
     expect(screen.getByTestId(locators.noAssets)).toHaveTextContent('Currently you have no assets.')
   })
@@ -47,7 +55,7 @@ describe('AssetListEmptyState Component', () => {
         return []
       }
     })
-    render(<AssetListEmptyState publicKey="testPublicKey" />)
+    renderComponent()
 
     expect(screen.getByTestId(subheaderLocators.subHeader)).toHaveTextContent('Balances')
     const assetCards = screen.getAllByTestId(assetCardLocators.assetCard)
@@ -69,7 +77,7 @@ describe('AssetListEmptyState Component', () => {
         return []
       }
     })
-    render(<AssetListEmptyState publicKey="testPublicKey" />)
+    renderComponent()
 
     expect(screen.getByTestId(subheaderLocators.subHeader)).toHaveTextContent('Balances')
     const assetCards = screen.queryAllByTestId(assetCardLocators.assetCard)
@@ -91,7 +99,7 @@ describe('AssetListEmptyState Component', () => {
         return []
       }
     })
-    render(<AssetListEmptyState publicKey="testPublicKey" />)
+    renderComponent()
 
     expect(screen.getByTestId(subheaderLocators.subHeader)).toHaveTextContent('Balances')
     const assetCards = screen.queryAllByTestId(assetCardLocators.assetCard)
@@ -134,7 +142,7 @@ describe('AssetListEmptyState Component', () => {
             ]
       }
     })
-    render(<AssetListEmptyState publicKey="testPublicKey" />)
+    renderComponent()
 
     expect(screen.getByTestId(subheaderLocators.subHeader)).toHaveTextContent('Balances')
     const assetCards = screen.queryAllByTestId(assetCardLocators.assetCard)

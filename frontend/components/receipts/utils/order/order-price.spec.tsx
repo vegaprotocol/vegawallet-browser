@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { AssetsStore, useAssetsStore } from '@/stores/assets-store'
 import { MarketsStore, useMarketsStore } from '@/stores/markets-store'
 import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
@@ -26,6 +27,14 @@ const ASSET_MOCK = {
   symbol: 'SYM'
 }
 
+const renderComponent = ({ price, marketId, type }: { price: string; marketId: string; type?: vegaOrderType }) => {
+  render(
+    <MockNetworkProvider>
+      <OrderPrice price={price} marketId={marketId} type={type} />
+    </MockNetworkProvider>
+  )
+}
+
 describe('OrderPriceComponent', () => {
   it('should return "Market price" if tx is of market type', () => {
     mockStores(
@@ -37,7 +46,7 @@ describe('OrderPriceComponent', () => {
       }
     )
     // 1130-ODTB-010 I can see 'Market price'
-    render(<OrderPrice price="0" marketId="someMarketId" type={vegaOrderType.TYPE_MARKET} />)
+    renderComponent({ price: '0', marketId: 'someMarketId', type: vegaOrderType.TYPE_MARKET })
     expect(screen.getByTestId(orderPriceLocators.orderDetailsMarketPrice).textContent).toBe('Market price')
   })
 
@@ -52,7 +61,7 @@ describe('OrderPriceComponent', () => {
         getAssetById: () => ASSET_MOCK
       }
     )
-    render(<OrderPrice price="10" marketId="someMarketId" type={undefined} />)
+    renderComponent({ price: '0', marketId: 'someMarketId' })
     expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toBeInTheDocument()
   })
 
@@ -66,7 +75,8 @@ describe('OrderPriceComponent', () => {
       }
     )
     // 1130-ODTB-013 I see the order price in the enriched data view when data has been loaded successfully
-    render(<OrderPrice price="10" marketId="someMarketId" type={undefined} />)
+    renderComponent({ price: '10', marketId: 'someMarketId' })
+
     expect(screen.getByTestId(amountWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
   })
 })

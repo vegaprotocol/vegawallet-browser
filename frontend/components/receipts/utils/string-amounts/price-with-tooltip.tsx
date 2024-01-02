@@ -1,6 +1,6 @@
 import { Tooltip } from '@vegaprotocol/ui-toolkit'
 
-import config from '!/config'
+import { useNetwork } from '@/contexts/network/network-context'
 
 import { Info } from '../../../icons/info'
 import { DecimalTooltip } from './decimal-tooltip'
@@ -11,7 +11,9 @@ export const locators = {
 }
 
 export const PriceWithTooltip = ({ marketId, price }: { marketId: string; price: string }) => {
-  const marketHref = `${config.network.explorer}/markets/${marketId}`
+  const { network } = useNetwork()
+
+  const marketHref = `${network.explorer}/markets/${marketId}`
   return (
     <span className="flex items-center" data-testid={locators.priceWithTooltip}>
       <Tooltip description={<DecimalTooltip variableName="decimals" entityLink={marketHref} entityText="market" />}>

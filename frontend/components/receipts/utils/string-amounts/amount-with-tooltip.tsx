@@ -1,6 +1,6 @@
 import { Tooltip, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
-import config from '!/config'
+import { useNetwork } from '@/contexts/network/network-context'
 
 import { ExternalLink } from '../../../external-link'
 import { Info } from '../../../icons/info'
@@ -13,7 +13,9 @@ export const locators = {
 }
 
 export const AmountWithTooltip = ({ assetId, amount }: { assetId: string; amount: string }) => {
-  const assetHref = `${config.network.explorer}/assets/${assetId}`
+  const { network } = useNetwork()
+
+  const assetHref = `${network.explorer}/assets/${assetId}`
   return (
     <span className="flex items-center flex-wrap" data-testid={locators.amountWithTooltip}>
       <Tooltip description={<DecimalTooltip variableName="decimals" entityLink={assetHref} entityText="asset" />}>

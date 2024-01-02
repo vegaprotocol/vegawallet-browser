@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import config from '!/config'
 import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { mockClient } from '@/test-helpers/mock-client'
 
+import { fairground } from '../../../config/well-known-networks'
 import { locators as vegaKeyLocators } from '../keys/vega-key'
 import componentLocators from '../locators'
 import { KeyList, KeyListProperties } from './key-list'
@@ -21,7 +22,9 @@ const renderComponent = (properties: KeyListProperties) =>
   render(
     <MemoryRouter>
       <JsonRPCProvider>
-        <KeyList {...properties} />
+        <MockNetworkProvider>
+          <KeyList {...properties} />
+        </MockNetworkProvider>
       </JsonRPCProvider>
     </MemoryRouter>
   )
@@ -63,7 +66,7 @@ describe('KeyList', () => {
 
     for (const [index, key] of keys.entries()) {
       expect(keyNames[index]).toHaveTextContent(key.name)
-      expect(explorerLink[index]).toHaveAttribute('href', `${config.network.explorer}/parties/${key.publicKey}`)
+      expect(explorerLink[index]).toHaveAttribute('href', `${fairground.explorer}/parties/${key.publicKey}`)
       expect(copyWithCheck[index]).toBeVisible()
     }
   })

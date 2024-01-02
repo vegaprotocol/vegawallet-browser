@@ -2,12 +2,15 @@ import { close, init, setTag } from '@sentry/react'
 import { useEffect } from 'react'
 
 import config from '!/config'
+import { useNetwork } from '@/contexts/network/network-context.js'
 import { useGlobalsStore } from '@/stores/globals'
 import { useWalletStore } from '@/stores/wallets'
 
 import { sanitizeEvent } from '../../../lib/sanitize-event.js'
 
 export const useSentry = () => {
+  const { network } = useNetwork()
+
   const { globals } = useGlobalsStore((state) => ({
     globals: state.globals
   }))
@@ -21,7 +24,7 @@ export const useSentry = () => {
         release: `@vegaprotocol/vegawallet-browser@${globals.version}`,
         dsn: config.sentryDsn,
         integrations: [],
-        environment: config.network.name,
+        environment: network.name,
         /* istanbul ignore next */
 
         beforeSend(event) {
@@ -37,5 +40,5 @@ export const useSentry = () => {
     } else {
       close()
     }
-  }, [globals?.settings.telemetry, globals?.version, wallets])
+  }, [globals?.settings.telemetry, globals?.version, network.name, wallets])
 }

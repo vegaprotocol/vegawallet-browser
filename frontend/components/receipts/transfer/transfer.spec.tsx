@@ -3,6 +3,7 @@ import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 import { Transfer as TransferType } from '@vegaprotocol/protos/vega/commands/v1/Transfer'
 import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useAssetsStore } from '@/stores/assets-store'
 import { Key, useWalletStore } from '@/stores/wallets'
 import { mockStore } from '@/test-helpers/mock-store'
@@ -83,6 +84,13 @@ const mockStores = (asset: vegaAsset | undefined, key?: Key) => {
   })
 }
 
+const renderComponent = (transaction: any) =>
+  render(
+    <MockNetworkProvider>
+      <Transfer transaction={transaction} />
+    </MockNetworkProvider>
+  )
+
 describe('TransferReceipt', () => {
   beforeEach(() => {
     jest.useFakeTimers()
@@ -104,7 +112,8 @@ describe('TransferReceipt', () => {
         }
       }
     }
-    const { container } = render(<Transfer transaction={recurringTransfer} />)
+
+    const { container } = renderComponent(recurringTransfer)
     expect(container).toBeEmptyDOMElement()
   })
 
@@ -124,7 +133,7 @@ describe('TransferReceipt', () => {
         }
       }
     }
-    render(<Transfer transaction={oneOffTransfer} />)
+    renderComponent(oneOffTransfer)
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
   })
 
@@ -136,7 +145,8 @@ describe('TransferReceipt', () => {
         ...baseTransfer
       }
     }
-    render(<Transfer transaction={oneOffTransfer} />)
+    renderComponent(oneOffTransfer)
+
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
   })
 
@@ -152,7 +162,8 @@ describe('TransferReceipt', () => {
         }
       }
     }
-    render(<Transfer transaction={oneOffTransfer} />)
+    renderComponent(oneOffTransfer)
+
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('in 3 months')
     expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('4/11/1970, 12:00:00 AM')
   })
@@ -165,16 +176,13 @@ describe('TransferReceipt', () => {
       wallets: [],
       getKeyById: jest.fn().mockReturnValue(undefined)
     })
-    render(
-      <Transfer
-        transaction={{
-          transfer: {
-            ...baseTransfer,
-            to: '2'.repeat(64)
-          }
-        }}
-      />
-    )
+    renderComponent({
+      transfer: {
+        ...baseTransfer,
+        to: '2'.repeat(64)
+      }
+    })
+
     const notification = screen.getByTestId('notification')
     expect(notification).toHaveTextContent('External key')
     expect(notification).toHaveTextContent(
@@ -200,8 +208,8 @@ describe('TransferReceipt', () => {
         }
       }
     }
+    renderComponent(oneOffTransfer)
 
-    render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId('basic-transfer-view')).toBeVisible()
   })
 
@@ -216,8 +224,8 @@ describe('TransferReceipt', () => {
         }
       }
     }
+    renderComponent(oneOffTransfer)
 
-    render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId('enriched-transfer-view')).toBeVisible()
   })
 
@@ -237,8 +245,8 @@ describe('TransferReceipt', () => {
         }
       }
     }
+    renderComponent(oneOffTransfer)
 
-    render(<Transfer transaction={oneOffTransfer} />)
     expect(screen.getByTestId('enriched-transfer-view')).toBeVisible()
   })
 
@@ -263,7 +271,7 @@ describe('TransferReceipt', () => {
       }
     }
 
-    const { container } = render(<Transfer transaction={oneOffTransfer} />)
+    const { container } = renderComponent(oneOffTransfer)
     expect(container).toBeEmptyDOMElement()
   })
 })

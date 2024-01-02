@@ -1,5 +1,6 @@
 import config from '!/config'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { useNetwork } from '@/contexts/network/network-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { useGlobalsStore } from '@/stores/globals'
 import { usePopoverStore } from '@/stores/popover-store'
@@ -26,6 +27,7 @@ const useOpenInNewWindow = () => {
 }
 
 export const PageHeader = () => {
+  const { network } = useNetwork()
   const { isMobile } = useGlobalsStore((state) => ({
     isMobile: state.isMobile
   }))
@@ -45,7 +47,7 @@ export const PageHeader = () => {
           data-testid={locators.networkIndicator}
           className="flex flex-col justify-center border rounded-md border-vega-dark-300 text-sm px-2 h-6"
         >
-          {config.network.name}
+          {network.name}
         </div>
         {config.features?.popoutHeader && !isMobile ? (
           <button

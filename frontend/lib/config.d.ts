@@ -1,6 +1,6 @@
 declare module '!/config' {
   export interface Config {
-    network: Network
+    networks: Network[]
     feedbackLink: string
     encryptionSettings: EncryptionSettings
     closeWindowOnPopupOpen: boolean

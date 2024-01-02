@@ -26,7 +26,6 @@ export const ConnectionModal = () => {
   const sendConnectionDecision = useCallback(
     (approved: boolean) => {
       const { id: networkId } = networks.find((network) => network.chainId === details?.chainId) || {}
-      console.log(networks, details?.chainId)
       if (!networkId) {
         setError(new Error(`Network could not be found with chainId ${details?.chainId}`))
       }

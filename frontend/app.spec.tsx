@@ -11,6 +11,9 @@ import App from './app'
 jest.mock('@/stores/globals')
 jest.mock('@/hooks/prevent-window-resize')
 jest.mock('@/hooks/ping')
+jest.mock('@/contexts/network/network-provider', () => ({
+  NetworkProvider: ({ children }: { children: ReactNode }) => <div data-testid="network-provider">{children}</div>
+}))
 
 jest.mock('@/components/global-error-boundary', () => ({ children }: { children: ReactNode }) => (
   <div data-testid="global-error-boundary">{children}</div>
@@ -37,7 +40,7 @@ jest.mock('./routes', () => ({
 }))
 
 describe('App', () => {
-  it('renders routing, error boundary and jsonrpcprovider', () => {
+  it('renders routing, error boundary, network provider and jsonrpcprovider', () => {
     mockStore(useGlobalsStore, {
       isMobile: false
     })
@@ -46,6 +49,7 @@ describe('App', () => {
     render(<App />)
     expect(screen.getByTestId('global-error-boundary')).toBeInTheDocument()
     expect(screen.getByTestId('routing')).toBeInTheDocument()
+    expect(screen.getByTestId('network-provider')).toBeInTheDocument()
     expect(screen.getByTestId('json-rpc-provider')).toBeInTheDocument()
     expect(document.body.style.minHeight).toBe('600px')
   })

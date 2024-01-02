@@ -1,6 +1,7 @@
 import { close, init, setTag } from '@sentry/react'
 import { renderHook } from '@testing-library/react'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useGlobalsStore } from '@/stores/globals'
 import { mockStore } from '@/test-helpers/mock-store'
 
@@ -61,12 +62,11 @@ describe('useSentry', () => {
       wallets: []
     })
 
-    renderHook(() => useSentry())
+    renderHook(() => useSentry(), { wrapper: MockNetworkProvider })
 
     expect(init).toHaveBeenCalledWith({
       dsn: 'dsn',
       integrations: [],
-      environment: 'Test',
       release: '@vegaprotocol/vegawallet-browser@1.0.0',
       beforeSend: expect.any(Function)
     })
@@ -85,7 +85,7 @@ describe('useSentry', () => {
       }
     })
 
-    renderHook(() => useSentry())
+    renderHook(() => useSentry(), { wrapper: MockNetworkProvider })
 
     expect(init).not.toHaveBeenCalled()
     expect(setTag).not.toHaveBeenCalled()

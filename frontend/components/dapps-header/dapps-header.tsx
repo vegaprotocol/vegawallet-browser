@@ -1,7 +1,7 @@
 import { Tooltip } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 
-import config from '!/config'
+import { useNetwork } from '@/contexts/network/network-context'
 
 import { ExternalLink } from '../external-link'
 import { Deposit } from '../icons/deposit'
@@ -42,26 +42,17 @@ const DappsHeaderButton = ({
 }
 
 export const DappsHeader = () => {
+  const { network } = useNetwork()
   return (
     <div
       className="flex justify-evenly bg-vega-dark-150/25 w-full py-3 border-b border-1 border-vega-dark-150"
       data-testid={locators.walletsHeader}
     >
-      <DappsHeaderButton href={config.network.console} tooltipContent="Console" icon={<TradeIcon />} text="Trade" />
-      <DappsHeaderButton
-        href={config.network.governance}
-        tooltipContent="Governance"
-        icon={<Tick size={24} />}
-        text="Vote"
-      />
-      <DappsHeaderButton
-        href={config.network.transfer}
-        tooltipContent="Transfer"
-        icon={<OpenExternal />}
-        text="Transfer"
-      />
-      <DappsHeaderButton href={config.network.deposit} tooltipContent="Deposit" icon={<Deposit />} text="Deposit" />
-      <DappsHeaderButton href={config.network.withdraw} tooltipContent="Withdraw" icon={<Withdraw />} text="Withdraw" />
+      <DappsHeaderButton href={network.console} tooltipContent="Console" icon={<TradeIcon />} text="Trade" />
+      <DappsHeaderButton href={network.governance} tooltipContent="Governance" icon={<Tick size={24} />} text="Vote" />
+      <DappsHeaderButton href={network.transfer} tooltipContent="Transfer" icon={<OpenExternal />} text="Transfer" />
+      <DappsHeaderButton href={network.deposit} tooltipContent="Deposit" icon={<Deposit />} text="Deposit" />
+      <DappsHeaderButton href={network.withdraw} tooltipContent="Withdraw" icon={<Withdraw />} text="Withdraw" />
     </div>
   )
 }

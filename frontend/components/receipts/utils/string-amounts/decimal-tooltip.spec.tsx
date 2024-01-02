@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
 
-import config from '!/config'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
+import { fairground } from '../../../../../config/well-known-networks'
 import { DecimalTooltip, locators } from './decimal-tooltip'
 
 describe('DecimalTooltip', () => {
@@ -9,7 +10,11 @@ describe('DecimalTooltip', () => {
     // 1127-DECM-001 I can see a tooltip for how to add the decimals to the number
     // 1127-DECM-002 I can see a link in the tooltip to the relevant entity on the block explorer
     // 1127-DECM-003 I can see a link to the documentation about decimals in Vega
-    render(<DecimalTooltip variableName="decimals" entityLink="https://example.com" entityText="asset" />)
+    render(
+      <MockNetworkProvider>
+        <DecimalTooltip variableName="decimals" entityLink="https://example.com" entityText="asset" />
+      </MockNetworkProvider>
+    )
 
     const [description1] = screen.getAllByTestId(locators.description1)
     expect(description1).toBeInTheDocument()
@@ -33,7 +38,7 @@ describe('DecimalTooltip', () => {
     const [documentationLink] = screen.getAllByTestId(locators.documentationLink)
 
     expect(documentationLink).toBeInTheDocument()
-    expect(documentationLink).toHaveAttribute('href', `${config.network.docs}/api/using-the-apis#decimal-precision`)
+    expect(documentationLink).toHaveAttribute('href', `${fairground.docs}/api/using-the-apis#decimal-precision`)
     expect(documentationLink).toHaveTextContent('Read more')
   })
 })

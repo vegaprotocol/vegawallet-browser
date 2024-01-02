@@ -1,7 +1,16 @@
 import { render, screen } from '@testing-library/react'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
+
 import { locators as tableLocators } from '../../../data-table/data-table'
 import { StopOrderCancellation } from './cancellation'
+
+const renderComponent = ({ transaction }: { transaction: any }) =>
+  render(
+    <MockNetworkProvider>
+      <StopOrderCancellation transaction={transaction} />
+    </MockNetworkProvider>
+  )
 
 describe('StopOrderCancellation', () => {
   it('renders the component with market ID and stop order ID', () => {
@@ -14,7 +23,9 @@ describe('StopOrderCancellation', () => {
       }
     }
 
-    render(<StopOrderCancellation transaction={transaction} />)
+    renderComponent({
+      transaction
+    })
     const [market, order] = screen.getAllByTestId(tableLocators.dataRow)
     expect(market).toHaveTextContent('Market')
     expect(market).toHaveTextContent('111111…1111')
@@ -30,7 +41,9 @@ describe('StopOrderCancellation', () => {
       }
     }
 
-    render(<StopOrderCancellation transaction={transaction} />)
+    renderComponent({
+      transaction
+    })
 
     const rows = screen.getAllByTestId(tableLocators.dataRow)
     expect(rows).toHaveLength(1)
@@ -46,7 +59,9 @@ describe('StopOrderCancellation', () => {
         stopOrderId: null
       }
     }
-    render(<StopOrderCancellation transaction={transaction} />)
+    renderComponent({
+      transaction
+    })
 
     const rows = screen.getAllByTestId(tableLocators.dataRow)
     expect(rows).toHaveLength(1)

@@ -1,4 +1,4 @@
-import config from '!/config'
+import { useNetwork } from '@/contexts/network/network-context'
 
 import { CONSTANTS } from '../../../../../lib/constants'
 import { ExternalLink } from '../../../external-link'
@@ -21,7 +21,9 @@ export const DecimalTooltip = ({
   entityText: string
   variableName: string
 }) => {
-  const documentationHref = `${config.network.docs}/api/using-the-apis#decimal-precision`
+  const { network } = useNetwork()
+
+  const documentationHref = `${network.docs}/api/using-the-apis#decimal-precision`
   return (
     <div data-testid={locators.decimalTooltip} style={{ maxWidth: CONSTANTS.width - 60 }}>
       <p data-testid={locators.description1}>This number does not include a decimal point.</p>

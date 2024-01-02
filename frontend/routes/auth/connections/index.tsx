@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-import config from '!/config'
 import { AsyncRenderer } from '@/components/async-renderer'
 import { ExternalLink } from '@/components/external-link'
 import { Frame } from '@/components/frame'
 import { BasePage } from '@/components/pages/page'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { useNetwork } from '@/contexts/network/network-context'
 import { useConnectionStore } from '@/stores/connections'
 
 import { ConnectionsList } from './connection-list'
@@ -19,6 +19,7 @@ export const locators = {
 
 export const Connections = () => {
   const { request } = useJsonRpcClient()
+  const { network } = useNetwork()
   const { connections, loading, loadConnections, removeConnection } = useConnectionStore((state) => ({
     connections: state.connections,
     loading: state.loading,
@@ -55,7 +56,7 @@ export const Connections = () => {
             <ExternalLink
               data-testid={locators.connectionInstructionsLink}
               className="underline"
-              href={config.network.vegaDapps}
+              href={network.vegaDapps}
             >
               <span>Vega dapp?</span>
             </ExternalLink>{' '}

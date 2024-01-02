@@ -10,6 +10,7 @@ import { locators as signMessageLocators } from '@/components/sign-message-dialo
 import { locators as signedMessageLocators } from '@/components/sign-message-dialog/signed-message'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useWalletStore } from '@/stores/wallets'
 import { mockClient } from '@/test-helpers/mock-client'
 
@@ -37,7 +38,9 @@ const renderComponent = () => {
   render(
     <MemoryRouter>
       <JsonRPCProvider>
-        <WrappedComponent />
+        <MockNetworkProvider>
+          <WrappedComponent />
+        </MockNetworkProvider>
       </JsonRPCProvider>
     </MemoryRouter>
   )

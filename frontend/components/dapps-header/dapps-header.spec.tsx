@@ -1,8 +1,16 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import config from '!/config'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
+import { fairground } from '../../../config/well-known-networks'
 import { DappsHeader, locators } from './dapps-header'
+
+const renderComponent = () =>
+  render(
+    <MockNetworkProvider>
+      <DappsHeader />
+    </MockNetworkProvider>
+  )
 
 describe('WalletsHeader', () => {
   it('should render the wallets header and buttons', () => {
@@ -12,7 +20,7 @@ describe('WalletsHeader', () => {
     // 1106-KEYS-013 There is a way to withdraw which takes me to console withdraw screen
     // 1106-KEYS-014 There is a link to deposit which takes me to console deposit screen
 
-    render(<DappsHeader />)
+    renderComponent()
 
     const walletsHeader = screen.getByTestId(locators.walletsHeader)
     const [tradeButton, governButton, transferButton, depositButton, withdrawButton] = screen.getAllByTestId(
@@ -22,20 +30,20 @@ describe('WalletsHeader', () => {
     expect(walletsHeader).toBeInTheDocument()
 
     expect(tradeButton).toHaveTextContent('Trade')
-    expect(tradeButton).toHaveAttribute('href', config.network.console)
+    expect(tradeButton).toHaveAttribute('href', fairground.console)
     expect(governButton).toHaveTextContent('Vote')
-    expect(governButton).toHaveAttribute('href', config.network.governance)
+    expect(governButton).toHaveAttribute('href', fairground.governance)
     expect(transferButton).toHaveTextContent('Transfer')
-    expect(transferButton).toHaveAttribute('href', config.network.transfer)
+    expect(transferButton).toHaveAttribute('href', fairground.transfer)
     expect(depositButton).toHaveTextContent('Deposit')
-    expect(depositButton).toHaveAttribute('href', config.network.deposit)
+    expect(depositButton).toHaveAttribute('href', fairground.deposit)
     expect(withdrawButton).toHaveTextContent('Withdraw')
-    expect(withdrawButton).toHaveAttribute('href', config.network.withdraw)
+    expect(withdrawButton).toHaveAttribute('href', fairground.withdraw)
   })
 
   it('renders the correct tooltip content', async () => {
     // 1106-KEYS-009 There is a way to see what's linked to my wallet from the wallet view
-    render(<DappsHeader />)
+    renderComponent()
 
     const [tradeButton, governButton, transferButton, depositButton, withdrawButton] = screen.getAllByTestId(
       locators.walletsHeaderItem

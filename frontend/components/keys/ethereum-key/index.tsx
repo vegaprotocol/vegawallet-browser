@@ -1,6 +1,6 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
-import config from '!/config'
+import { useNetwork } from '@/contexts/network/network-context'
 
 import { CopyWithCheckmark } from '../../copy-with-check'
 import { ExternalLink } from '../../external-link'
@@ -13,6 +13,7 @@ export const locators = {
 }
 
 export const EthereumKey = ({ address }: { address: string }) => {
+  const { network } = useNetwork()
   return (
     <div className="flex items-center">
       <EthereumIcon />
@@ -23,7 +24,7 @@ export const EthereumKey = ({ address }: { address: string }) => {
         <ExternalLink
           className="text-vega-dark-400"
           data-testid={locators.explorerLink}
-          href={`${config.network.ethereumExplorerLink}/address/${address}`}
+          href={`${network.ethereumExplorerLink}/address/${address}`}
         >
           {truncateMiddle(address)}
         </ExternalLink>

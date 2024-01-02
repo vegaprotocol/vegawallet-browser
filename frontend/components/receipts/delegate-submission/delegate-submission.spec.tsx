@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react'
 
-import config from '!/config'
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
+import { fairground } from '../../../../config/well-known-networks'
 import { locators } from '../../vega-entities/node-link'
 import { DelegateSubmission } from './delegate-submission'
 
@@ -18,14 +19,16 @@ describe('DelegateSubmission', () => {
     // 1135-DLGT-002 I can see a link to see the node information
     // 1135-DLGT-003 I can see the amount I am delegating
     render(
-      <DelegateSubmission
-        transaction={{
-          delegateSubmission: {
-            nodeId: '1'.repeat(64),
-            amount: '1' + '0'.repeat(18)
-          }
-        }}
-      />
+      <MockNetworkProvider>
+        <DelegateSubmission
+          transaction={{
+            delegateSubmission: {
+              nodeId: '1'.repeat(64),
+              amount: '1' + '0'.repeat(18)
+            }
+          }}
+        />
+      </MockNetworkProvider>
     )
     const rows = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(rows[0]).toHaveTextContent('111111…1111')
@@ -37,7 +40,7 @@ describe('DelegateSubmission', () => {
 
     expect(screen.getByTestId(locators.nodeLink)).toHaveAttribute(
       'href',
-      `${config.network.governance}/validators/${'1'.repeat(64)}`
+      `${fairground.governance}/validators/${'1'.repeat(64)}`
     )
   })
 })

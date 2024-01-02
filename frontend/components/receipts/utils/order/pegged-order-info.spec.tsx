@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { AssetsStore, useAssetsStore } from '@/stores/assets-store'
 import { MarketsStore, useMarketsStore } from '@/stores/markets-store'
 import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
@@ -28,6 +29,13 @@ const ASSET_MOCK = {
   }
 }
 
+const renderComponent = ({ peggedOrder, marketId }: { peggedOrder: any; marketId: string }) =>
+  render(
+    <MockNetworkProvider>
+      <PeggedOrderInfo peggedOrder={peggedOrder} marketId={marketId} />
+    </MockNetworkProvider>
+  )
+
 describe('PeggedOrderInfo', () => {
   const marketId = 'someMarketId'
 
@@ -45,7 +53,10 @@ describe('PeggedOrderInfo', () => {
       offset: '12',
       reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID
     }
-    render(<PeggedOrderInfo peggedOrder={peggedOrder} marketId={marketId} />)
+    renderComponent({
+      peggedOrder,
+      marketId
+    })
     expect(screen.getByTestId(priceWithTooltipLocators.priceWithTooltip)).toHaveTextContent('12')
   })
 
@@ -63,7 +74,10 @@ describe('PeggedOrderInfo', () => {
       reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID
     }
 
-    render(<PeggedOrderInfo peggedOrder={peggedOrder} marketId={marketId} />)
+    renderComponent({
+      peggedOrder,
+      marketId
+    })
     expect(screen.getByTestId(amountWithSymbolLocators.amount)).toHaveTextContent('0.12')
     expect(screen.getByTestId(amountWithSymbolLocators.symbol)).toHaveTextContent('BTC')
   })
@@ -88,7 +102,10 @@ describe('PeggedOrderInfo', () => {
         offset: '12',
         reference
       }
-      render(<PeggedOrderInfo peggedOrder={peggedOrder} marketId={marketId} />)
+      renderComponent({
+        peggedOrder,
+        marketId
+      })
       expect(screen.getByText(expectedText)).toBeInTheDocument()
     }
   })

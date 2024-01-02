@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
+
 import { locators as tableLocators } from '../../../data-table/data-table'
 import { locators, StopOrderSubmission } from './submission'
 
@@ -27,6 +29,13 @@ const validateStopOrderDetails = (type: string) => {
   expect(screen.getByTestId('order-badges')).toBeTruthy()
 }
 
+const renderComponent = ({ transaction }: { transaction: any }) =>
+  render(
+    <MockNetworkProvider>
+      <StopOrderSubmission transaction={transaction} />
+    </MockNetworkProvider>
+  )
+
 describe('StopOrderSubmission', () => {
   it('renders the component with "Rises above" details', () => {
     // 1121-STPS-001 If a rises above order is present I see the rises above section
@@ -47,7 +56,7 @@ describe('StopOrderSubmission', () => {
       }
     }
 
-    render(<StopOrderSubmission transaction={transaction} />)
+    renderComponent({ transaction })
     validateStopOrderDetails('Rises Above ↗')
   })
 
@@ -70,7 +79,7 @@ describe('StopOrderSubmission', () => {
       }
     }
 
-    render(<StopOrderSubmission transaction={transaction} />)
+    renderComponent({ transaction })
 
     validateStopOrderDetails('Falls Below ↘')
   })
@@ -79,7 +88,8 @@ describe('StopOrderSubmission', () => {
     const transaction = {
       stopOrdersSubmission: {}
     }
-    render(<StopOrderSubmission transaction={transaction} />)
+    renderComponent({ transaction })
+
     expect(screen.queryByTestId(locators.sectionHeader)).not.toBeInTheDocument()
   })
 
@@ -91,7 +101,8 @@ describe('StopOrderSubmission', () => {
         }
       }
     }
-    render(<StopOrderSubmission transaction={transaction} />)
+    renderComponent({ transaction })
+
     const rows = screen.queryAllByTestId(tableLocators.dataRow)
     expect(rows).toHaveLength(0)
   })

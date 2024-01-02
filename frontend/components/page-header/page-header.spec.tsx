@@ -1,11 +1,13 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import config from '@/lib/config'
 import { useGlobalsStore } from '@/stores/globals'
 import { usePopoverStore } from '@/stores/popover-store'
 import { mockStore } from '@/test-helpers/mock-store'
 
+import { fairground } from '../../../config/well-known-networks'
 import componentLocators from '../locators'
 import { locators, PageHeader } from '.'
 
@@ -36,12 +38,19 @@ const mockGlobalsStore = (isMobile = false) => {
   })
 }
 
+const renderComponent = () =>
+  render(
+    <MockNetworkProvider>
+      <PageHeader />
+    </MockNetworkProvider>
+  )
+
 describe('PageHeader', () => {
   it('renders the VegaIcon component', () => {
     mockPopoverStore(false)
     mockGlobalsStore()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: jest.fn() })
-    render(<PageHeader />)
+    renderComponent()
     const vegaIconElement = screen.getByTestId(componentLocators.vegaIcon)
     expect(vegaIconElement).toBeVisible()
   })
@@ -50,10 +59,11 @@ describe('PageHeader', () => {
     mockPopoverStore(false)
     mockGlobalsStore()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: jest.fn() })
-    render(<PageHeader />)
+    renderComponent()
+
     const networkIndicatorElement = screen.getByTestId(locators.networkIndicator)
     expect(networkIndicatorElement).toBeInTheDocument()
-    expect(networkIndicatorElement).toHaveTextContent(config.network.name)
+    expect(networkIndicatorElement).toHaveTextContent(fairground.name)
   })
 
   it('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
@@ -64,7 +74,7 @@ describe('PageHeader', () => {
 
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    render(<PageHeader />)
+    renderComponent()
 
     fireEvent.click(screen.getByTestId(locators.openPopoutButton))
 
@@ -79,7 +89,7 @@ describe('PageHeader', () => {
 
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    render(<PageHeader />)
+    renderComponent()
 
     fireEvent.click(screen.getByTestId(locators.openPopoutButton))
 
@@ -91,7 +101,7 @@ describe('PageHeader', () => {
     const mockClose = mockPopoverStore(true)
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    render(<PageHeader />)
+    renderComponent()
 
     fireEvent.click(screen.getByTestId(locators.openPopoutButton))
 
@@ -105,7 +115,8 @@ describe('PageHeader', () => {
     }
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    render(<PageHeader />)
+    renderComponent()
+
     expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
   })
   it('does not render open in new window if feature is not defined', async () => {
@@ -114,7 +125,8 @@ describe('PageHeader', () => {
     config.features = undefined
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    render(<PageHeader />)
+    renderComponent()
+
     expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
   })
 
@@ -123,7 +135,8 @@ describe('PageHeader', () => {
     mockGlobalsStore(true)
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    render(<PageHeader />)
+    renderComponent()
+
     expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
   })
 })

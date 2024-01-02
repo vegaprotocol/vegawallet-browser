@@ -17,7 +17,7 @@ export const useSelectedNetwork = () => {
   return selectedNetwork
 }
 
-export const useNetworkFromChainId = (chainId: string | null) => {
+export const useNetworkFromChainId = (chainId?: string) => {
   const { networks } = useNetworksStore((store) => ({
     networks: store.networks
   }))
@@ -26,7 +26,12 @@ export const useNetworkFromChainId = (chainId: string | null) => {
   return network
 }
 
-export const JsonRPCProvider = ({ children }: { children: JSX.Element }) => {
+/**
+ * Provides a network through useNetworkProvider. If the app is in interaction mode with the network specified in the currentConnectionDetails or currentTransactionDetails then that network is provided. Otherwise the selected network is provided.
+ * @param param0
+ * @returns
+ */
+export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
   const { transactionModalOpen, connectionModalOpen, currentConnectionDetails, currentTransactionDetails } =
     useInteractionStore((store) => ({
       transactionModalOpen: store.transactionModalOpen,

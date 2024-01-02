@@ -1,13 +1,21 @@
 import { render, screen } from '@testing-library/react'
 import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import config from '@/lib/config'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
 
+import { fairground } from '../../../../../../config/well-known-networks'
 import { locators, MarketLozenges } from './markets-lozenges'
 
 jest.mock('@/stores/markets-store')
+
+const renderComponent = ({ assetId }: { assetId: string }) =>
+  render(
+    <MockNetworkProvider>
+      <MarketLozenges assetId={assetId} />
+    </MockNetworkProvider>
+  )
 
 describe('MarketLozenges', () => {
   it('renders a lozenge for each market', () => {
@@ -34,7 +42,9 @@ describe('MarketLozenges', () => {
       ]
     })
 
-    render(<MarketLozenges assetId="1" />)
+    renderComponent({
+      assetId: '1'
+    })
     expect(screen.getByTestId(locators.marketsDescription)).toHaveTextContent('Currently traded in:')
     expect(screen.getAllByTestId(locators.marketLozenge)).toHaveLength(2)
   })
@@ -98,14 +108,16 @@ describe('MarketLozenges', () => {
         }
       ]
     })
-    render(<MarketLozenges assetId="1" />)
+    renderComponent({
+      assetId: '1'
+    })
     const lozenges = screen.getAllByTestId(locators.marketLozenge)
     expect(lozenges).toHaveLength(5)
-    expect(lozenges[0]).toHaveAttribute('href', `${config.network.console}/#/markets/1`)
-    expect(lozenges[1]).toHaveAttribute('href', `${config.network.console}/#/markets/2`)
-    expect(lozenges[2]).toHaveAttribute('href', `${config.network.console}/#/markets/3`)
-    expect(lozenges[3]).toHaveAttribute('href', `${config.network.console}/#/markets/4`)
-    expect(lozenges[4]).toHaveAttribute('href', `${config.network.console}/#/markets/5`)
+    expect(lozenges[0]).toHaveAttribute('href', `${fairground.console}/#/markets/1`)
+    expect(lozenges[1]).toHaveAttribute('href', `${fairground.console}/#/markets/2`)
+    expect(lozenges[2]).toHaveAttribute('href', `${fairground.console}/#/markets/3`)
+    expect(lozenges[3]).toHaveAttribute('href', `${fairground.console}/#/markets/4`)
+    expect(lozenges[4]).toHaveAttribute('href', `${fairground.console}/#/markets/5`)
   })
   it('renders only markets that are active', () => {
     // 1125-KEYD-009 The market lozenges should only show active markets
@@ -167,7 +179,9 @@ describe('MarketLozenges', () => {
         }
       ]
     })
-    render(<MarketLozenges assetId="1" />)
+    renderComponent({
+      assetId: '1'
+    })
     const lozenges = screen.getAllByTestId(locators.marketLozenge)
     expect(lozenges).toHaveLength(2)
   })
@@ -176,7 +190,9 @@ describe('MarketLozenges', () => {
       getMarketsByAssetId: () => []
     })
 
-    render(<MarketLozenges assetId="1" />)
+    renderComponent({
+      assetId: '1'
+    })
     expect(screen.queryAllByTestId(locators.marketLozenge)).toHaveLength(0)
   })
 })

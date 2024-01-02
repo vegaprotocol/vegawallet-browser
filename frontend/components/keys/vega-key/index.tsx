@@ -1,7 +1,7 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 
-import config from '!/config'
+import { useNetwork } from '@/contexts/network/network-context'
 
 import { CopyWithCheckmark } from '../../copy-with-check'
 import { ExternalLink } from '../../external-link'
@@ -12,17 +12,16 @@ export const locators = {
   explorerLink: 'vega-explorer-link'
 }
 
-export const VegaKey = ({
-  publicKey,
-  name,
-  children,
-  actions
-}: {
+export interface VegaKeyProperties {
   publicKey: string
   name?: string
   children?: ReactNode
   actions?: ReactNode
-}) => {
+}
+
+export const VegaKey = ({ publicKey, name, children, actions }: VegaKeyProperties) => {
+  const { network } = useNetwork()
+
   return (
     <div className="flex items-center justify-between h-12">
       <div className="flex items-center">
@@ -37,7 +36,7 @@ export const VegaKey = ({
             <ExternalLink
               className="text-vega-dark-400"
               data-testid={locators.explorerLink}
-              href={`${config.network.explorer}/parties/${publicKey}`}
+              href={`${network.explorer}/parties/${publicKey}`}
             >
               {truncateMiddle(publicKey)}
             </ExternalLink>

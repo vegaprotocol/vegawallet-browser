@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useMarketsStore } from '@/stores/markets-store.ts'
 import { generateMarket } from '@/test-helpers/generate-market.ts'
 import { mockStore } from '@/test-helpers/mock-store.ts'
@@ -10,13 +11,20 @@ import { locators as orderMarketComponentLocators, OrderMarket } from './order-m
 
 jest.mock('@/stores/markets-store')
 
+const renderComponent = ({ marketId }: { marketId: string }) =>
+  render(
+    <MockNetworkProvider>
+      <OrderMarket marketId={marketId} />
+    </MockNetworkProvider>
+  )
+
 describe('OrderMarketComponent', () => {
   it('should return basic market link if markets are loading or market is not defined', () => {
     mockStore(useMarketsStore, {
       loading: true,
       getMarketById: () => {}
     })
-    render(<OrderMarket marketId="someMarketId" />)
+    renderComponent({ marketId: 'someMarketId' })
     expect(screen.getByTestId(marketLinkLocators.marketLink)).toBeInTheDocument()
   })
 
@@ -28,7 +36,8 @@ describe('OrderMarketComponent', () => {
       getMarketById: () => mockMarket
     })
 
-    render(<OrderMarket marketId={mockMarket.id as string} />)
+    renderComponent({ marketId: mockMarket.id! })
+
     expect(screen.getByTestId(orderMarketComponentLocators.orderDetailsMarketCode).textContent).toBe(
       mockMarket.tradableInstrument?.instrument?.code as string
     )

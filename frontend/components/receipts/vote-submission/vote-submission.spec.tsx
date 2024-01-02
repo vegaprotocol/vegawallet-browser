@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import { vegaVoteValue } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import config from '!/config'
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
+import { fairground } from '../../../../config/well-known-networks'
 import { locators } from '../../vega-entities/proposal-link'
 import { VoteSubmission } from './vote-submission'
 
@@ -19,14 +20,16 @@ describe('VoteSubmission', () => {
     // 1134-VTSB-002 I can see a link to see the proposal information
     // 1134-VTSB-003 I can see the direction I am voting in
     render(
-      <VoteSubmission
-        transaction={{
-          voteSubmission: {
-            proposalId: '1'.repeat(64),
-            value: vegaVoteValue.VALUE_YES
-          }
-        }}
-      />
+      <MockNetworkProvider>
+        <VoteSubmission
+          transaction={{
+            voteSubmission: {
+              proposalId: '1'.repeat(64),
+              value: vegaVoteValue.VALUE_YES
+            }
+          }}
+        />
+      </MockNetworkProvider>
     )
     const rows = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(rows[0]).toHaveTextContent('111111…1111')
@@ -36,7 +39,7 @@ describe('VoteSubmission', () => {
 
     expect(screen.getByTestId(locators.proposalLink)).toHaveAttribute(
       'href',
-      `${config.network.governance}/proposals/${'1'.repeat(64)}`
+      `${fairground.governance}/proposals/${'1'.repeat(64)}`
     )
   })
 })

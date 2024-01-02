@@ -1,8 +1,8 @@
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import get from 'lodash/get'
 
-import config from '!/config'
 import { ExternalLink } from '@/components/external-link'
+import { useNetwork } from '@/contexts/network/network-context'
 import { isActiveMarket } from '@/lib/markets'
 import { useMarketsStore } from '@/stores/markets-store'
 
@@ -12,6 +12,8 @@ export const locators = {
 }
 
 export const MarketLozenges = ({ assetId }: { assetId: string }) => {
+  const { network } = useNetwork()
+
   const { getMarketsByAssetId } = useMarketsStore((state) => ({
     getMarketsByAssetId: state.getMarketsByAssetId
   }))
@@ -30,7 +32,7 @@ export const MarketLozenges = ({ assetId }: { assetId: string }) => {
           <ExternalLink
             className="text-xs"
             data-testid={locators.marketLozenge}
-            href={`${config.network.console}/#/markets/${m.id}`}
+            href={`${network.console}/#/markets/${m.id}`}
             key={m.id}
           >
             <Lozenge>{get(m, 'tradableInstrument.instrument.code')}</Lozenge>

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
 
@@ -9,10 +10,17 @@ import { OrderSize } from './order-size'
 
 jest.mock('@/stores/markets-store')
 
+const renderComponent = ({ size, marketId }: { size: string; marketId: string }) =>
+  render(
+    <MockNetworkProvider>
+      <OrderSize size={size} marketId={marketId} />
+    </MockNetworkProvider>
+  )
+
 describe('OrderSizeComponent', () => {
   it('should return basic data if markets are loading or formattedSize or symbol is not defined', () => {
     mockStore(useMarketsStore, { loading: true })
-    render(<OrderSize size="100" marketId="someMarketId" />)
+    renderComponent({ size: '100', marketId: 'someMarketId' })
     expect(screen.getByTestId(sizeWithTooltipLocators.sizeWithTooltip)).toBeInTheDocument()
   })
 
@@ -23,7 +31,8 @@ describe('OrderSizeComponent', () => {
         positionDecimalPlaces: 2
       })
     })
-    render(<OrderSize size="100" marketId="someMarketId" />)
+    renderComponent({ size: '100', marketId: 'someMarketId' })
+
     expect(screen.getByTestId(amountWithSymbolLocators.amountWithSymbol)).toBeInTheDocument()
   })
 })

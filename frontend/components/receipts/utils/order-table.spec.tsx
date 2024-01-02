@@ -3,6 +3,7 @@ import { vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/core'
 import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 import { generateAsset } from '@/test-helpers/generate-asset'
@@ -10,7 +11,7 @@ import { generateMarket } from '@/test-helpers/generate-market'
 import { mockStore } from '@/test-helpers/mock-store'
 
 import { locators as dataTableLocators } from '../../data-table/data-table'
-import { OrderTable } from './order-table'
+import { OrderTable, OrderTableProperties } from './order-table'
 
 jest.mock('@/stores/markets-store', () => ({
   ...jest.requireActual('@/stores/markets-store'),
@@ -23,6 +24,13 @@ jest.mock('@/stores/markets-store', () => ({
   })
 }))
 jest.mock('@/stores/assets-store')
+
+const renderComponent = (properties: OrderTableProperties) =>
+  render(
+    <MockNetworkProvider>
+      <OrderTable {...properties} />
+    </MockNetworkProvider>
+  )
 
 // refactor store mocks to use new mocking component when available
 describe('OrderTable', () => {
@@ -58,22 +66,20 @@ describe('OrderTable', () => {
 
     // 1116-ORDA-001 I can see the order id of the order I am amending
     // 1116-ORDA-002 I can see the market id relating to the order I am amending
+    renderComponent({
+      side: vegaSide.SIDE_BUY,
+      marketId: '1'.repeat(64),
+      orderId: '2'.repeat(64),
+      size: '12',
+      price: '123',
+      reference: 'ref',
+      type: vegaOrderType.TYPE_LIMIT,
+      peggedOrder: {
+        reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID,
+        offset: '6'
+      }
+    })
 
-    render(
-      <OrderTable
-        side={vegaSide.SIDE_BUY}
-        marketId={'1'.repeat(64)}
-        orderId={'2'.repeat(64)}
-        size={'12'}
-        price={'123'}
-        reference="ref"
-        type={vegaOrderType.TYPE_LIMIT}
-        peggedOrder={{
-          reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID,
-          offset: '6'
-        }}
-      />
-    )
     const [priceRow, peggedInfoRow, sizeRow, marketRow, orderRow, directionRow, typeRow, referenceRow] =
       screen.getAllByTestId(dataTableLocators.dataRow)
     expect(priceRow).toHaveTextContent('Price')
@@ -108,16 +114,15 @@ describe('OrderTable', () => {
     // 1130-ODTB-016 If applicable I can see the size of the order remaining
     // 1130-ODTB-017 If applicable I can see the version of the order
     // 1130-ODTB-018 If applicable I can see the status of the order
-    render(
-      <OrderTable
-        marketId="123"
-        createdAt={'1000000000000'}
-        updatedAt={'1000000000000'}
-        remaining={'100'}
-        version={'1'}
-        status={vegaOrderStatus.STATUS_ACTIVE}
-      />
-    )
+    renderComponent({
+      marketId: '123',
+      createdAt: '1000000000000',
+      updatedAt: '1000000000000',
+      remaining: '100',
+      version: '1',
+      status: vegaOrderStatus.STATUS_ACTIVE
+    })
+
     // Skip market row, as asserted above
     const [, createdAtRow, updatedAtRow, remainingRow, statusRow, versionRow] = screen.getAllByTestId(
       dataTableLocators.dataRow

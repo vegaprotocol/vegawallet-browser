@@ -20,6 +20,22 @@ import {
   buildVersionColumn
 } from './order/build-order-columns'
 
+export type OrderTableProperties = Partial<{
+  marketId?: string
+  orderId?: string
+  side?: vegaSide
+  size?: string
+  price?: string
+  reference?: string
+  type?: vegaOrderType
+  peggedOrder?: PeggedOrderOptions
+  createdAt?: string
+  updatedAt?: string
+  remaining?: string
+  status?: vegaOrderStatus
+  version?: string
+}>
+
 export const OrderTable = ({
   marketId,
   side,
@@ -34,21 +50,7 @@ export const OrderTable = ({
   remaining,
   status,
   version
-}: Partial<{
-  marketId?: string
-  orderId?: string
-  side?: vegaSide
-  size?: string
-  price?: string
-  reference?: string
-  type?: vegaOrderType
-  peggedOrder?: PeggedOrderOptions
-  createdAt?: string
-  updatedAt?: string
-  remaining?: string
-  status?: vegaOrderStatus
-  version?: string
-}>) => {
+}: OrderTableProperties) => {
   const columns = [
     buildPriceColumn(price, marketId, type),
     buildPeggedOrderColumn(peggedOrder, marketId),

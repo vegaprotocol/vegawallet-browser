@@ -1,11 +1,12 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import config from '!/config'
 import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { ConnectionsStore, useConnectionStore } from '@/stores/connections'
 import { mockClient } from '@/test-helpers/mock-client'
 
+import { fairground } from '../../../../config/well-known-networks'
 import { Connections, locators as connectionsLocators } from '.'
 import { locators as connectionListLocators } from './connection-list'
 import { locators as noConnectionsLocators } from './no-dapps-connected'
@@ -14,7 +15,9 @@ const renderComponent = () =>
   render(
     <MemoryRouter>
       <JsonRPCProvider>
-        <Connections />
+        <MockNetworkProvider>
+          <Connections />
+        </MockNetworkProvider>
       </JsonRPCProvider>
     </MemoryRouter>
   )
@@ -47,7 +50,7 @@ describe('Connections', () => {
     )
     expect(screen.getByTestId(connectionsLocators.connectionInstructionsLink)).toHaveAttribute(
       'href',
-      config.network.vegaDapps
+      fairground.vegaDapps
     )
   })
   it('renders empty state with instructions on how to connect', async () => {

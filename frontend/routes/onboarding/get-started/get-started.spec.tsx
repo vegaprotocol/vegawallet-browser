@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import config from '!/config'
 import componentLocators from '@/components/locators'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
 import { FULL_ROUTES } from '../../route-names'
 import { GetStarted, locators } from '.'
@@ -15,21 +16,30 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedUsedNavigate
 }))
 
+const renderComponent = () =>
+  render(
+    <MockNetworkProvider>
+      <GetStarted />
+    </MockNetworkProvider>
+  )
+
 describe('GetStarted', () => {
   it('renders title', () => {
-    render(<GetStarted />)
+    renderComponent()
     expect(screen.getByTestId(componentLocators.vegaIcon)).toBeInTheDocument()
     expect(screen.getByTestId(componentLocators.vega)).toBeInTheDocument()
     expect(screen.getByText('wallet')).toBeInTheDocument()
   })
   it('renders list of reasons to use vega wallet & get started button', () => {
-    render(<GetStarted />)
+    renderComponent()
+
     expect(screen.getByText('Securely connect to Vega dapps')).toBeInTheDocument()
     expect(screen.getByText('Instantly approve and reject transactions')).toBeInTheDocument()
     expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('Get Started')
   })
   it('Redirects to the create password route when button is clicked', () => {
-    render(<GetStarted />)
+    renderComponent()
+
     const button = screen.getByTestId(locators.getStartedButton)
     expect(button).toHaveFocus()
     fireEvent.click(button)
@@ -40,7 +50,8 @@ describe('GetStarted', () => {
     // 1101-ONBD-034 If built for mainnet I can press read more to see the full disclaimer
 
     config.showDisclaimer = true
-    render(<GetStarted />)
+    renderComponent()
+
     expect(screen.getByTestId(disclaimerLocators.readMoreButton)).toBeInTheDocument()
     expect(screen.getByTestId(disclaimerLocators.previewText)).toBeInTheDocument()
     expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('I understand')
@@ -51,7 +62,8 @@ describe('GetStarted', () => {
   it('Renders incentive banner when showDisclaimer is false', () => {
     // 1101-ONBD-035 If not built for mainnet I can see a message related to testnet
     config.showDisclaimer = false
-    render(<GetStarted />)
+    renderComponent()
+
     expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('Get Started')
     expect(screen.getByTestId(incentivesLocators.paragraph)).toBeInTheDocument()
   })

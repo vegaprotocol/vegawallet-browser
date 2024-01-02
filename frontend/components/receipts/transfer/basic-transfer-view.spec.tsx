@@ -3,6 +3,8 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import { AccountType } from '@vegaprotocol/protos/vega/AccountType'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
+
 import { locators as amountWithTooltipLocators } from '../utils/string-amounts/amount-with-tooltip'
 import { BasicTransferView, locators as basicLocators } from './basic-transfer-view'
 
@@ -20,7 +22,11 @@ const mockTransaction = {
 
 describe('BasicTransferView', () => {
   it('renders correctly', () => {
-    render(<BasicTransferView transaction={mockTransaction} />)
+    render(
+      <MockNetworkProvider>
+        <BasicTransferView transaction={mockTransaction} />
+      </MockNetworkProvider>
+    )
 
     expect(screen.getByTestId(basicLocators.basicSection)).toBeInTheDocument()
     expect(screen.getByTestId(amountWithTooltipLocators.amountWithTooltip)).toBeInTheDocument()

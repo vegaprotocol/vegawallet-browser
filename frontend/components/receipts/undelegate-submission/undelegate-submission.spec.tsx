@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import { UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import config from '!/config'
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
+import { fairground } from '../../../../config/well-known-networks'
 import { locators } from '../../vega-entities/node-link'
 import { UndelegateSubmission } from './undelegate-submission'
 
@@ -20,15 +21,17 @@ describe('UndelegateSubmission', () => {
     // 1136-UDLG-003 I can see the amount I am undelegating
     // 1136-UDLG-004 I can see the method of undelegation I am using
     render(
-      <UndelegateSubmission
-        transaction={{
-          undelegateSubmission: {
-            nodeId: '1'.repeat(64),
-            amount: '1' + '0'.repeat(18),
-            method: UndelegateSubmissionMethod.METHOD_AT_END_OF_EPOCH
-          }
-        }}
-      />
+      <MockNetworkProvider>
+        <UndelegateSubmission
+          transaction={{
+            undelegateSubmission: {
+              nodeId: '1'.repeat(64),
+              amount: '1' + '0'.repeat(18),
+              method: UndelegateSubmissionMethod.METHOD_AT_END_OF_EPOCH
+            }
+          }}
+        />
+      </MockNetworkProvider>
     )
     const rows = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(rows[0]).toHaveTextContent('111111…1111')
@@ -40,7 +43,7 @@ describe('UndelegateSubmission', () => {
 
     expect(screen.getByTestId(locators.nodeLink)).toHaveAttribute(
       'href',
-      `${config.network.governance}/validators/${'1'.repeat(64)}`
+      `${fairground.governance}/validators/${'1'.repeat(64)}`
     )
 
     expect(rows[2]).toHaveTextContent('Method')

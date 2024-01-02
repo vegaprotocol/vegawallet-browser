@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import locators from '@/components/locators'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
+import { useNetworksStore } from '@/stores/networks-store'
 import { useWalletStore } from '@/stores/wallets'
 import { mockStore } from '@/test-helpers/mock-store'
 
@@ -20,12 +21,13 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
-  useJsonRpcClient: () => ({ client: jest.fn() })
+  useJsonRpcClient: () => ({ request: jest.fn() })
 }))
 
 jest.mock('@/stores/wallets')
 jest.mock('@/stores/assets-store')
 jest.mock('@/stores/markets-store')
+jest.mock('@/stores/networks-store')
 
 jest.mock('@/components/modals', () => ({
   ModalWrapper: () => <div data-testid="modal-wrapper" />
@@ -39,6 +41,7 @@ const mockStores = () => {
   const loadWallets = jest.fn()
   const fetchAssets = jest.fn()
   const fetchMarkets = jest.fn()
+  const loadNetworks = jest.fn()
   mockStore(useWalletStore, {
     loadWallets
   })
@@ -48,11 +51,15 @@ const mockStores = () => {
   mockStore(useMarketsStore, {
     fetchMarkets
   })
+  mockStore(useNetworksStore, {
+    loadNetworks
+  })
 
   return {
     loadWallets,
     fetchAssets,
-    fetchMarkets
+    fetchMarkets,
+    loadNetworks
   }
 }
 
@@ -74,13 +81,14 @@ describe('Auth', () => {
     expect(screen.getByTestId('modal-wrapper')).toBeInTheDocument()
     expect(screen.getByTestId('page-header')).toBeInTheDocument()
   })
-  it('loads the users wallets, assets and markets', () => {
-    const { loadWallets, fetchAssets, fetchMarkets } = mockStores()
+  it('loads the users wallets, networks, assets and markets', () => {
+    const { loadWallets, fetchAssets, fetchMarkets, loadNetworks } = mockStores()
     renderComponent()
 
     expect(loadWallets).toHaveBeenCalledTimes(1)
     expect(fetchAssets).toHaveBeenCalledTimes(1)
     expect(fetchMarkets).toHaveBeenCalledTimes(1)
+    expect(loadNetworks).toHaveBeenCalledTimes(1)
   })
   it('renders wallets header on wallets page', () => {
     mockStores()

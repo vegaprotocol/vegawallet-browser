@@ -9,6 +9,7 @@ import { usePreventWindowResize } from '@/hooks/prevent-window-resize'
 import { useGlobalsStore } from '@/stores/globals'
 
 import { CONSTANTS } from '../lib/constants'
+import { NetworkProvider } from './contexts/network/network-provider'
 import { Routing } from './routes'
 
 export const locators = {
@@ -37,9 +38,11 @@ function App() {
     <Router>
       <GlobalErrorBoundary>
         <JsonRPCProvider>
-          <main data-testid={locators.appWrapper} className="w-full h-full bg-black font-alpha text-vega-dark-400">
-            <Routing />
-          </main>
+          <NetworkProvider>
+            <main data-testid={locators.appWrapper} className="w-full h-full bg-black font-alpha text-vega-dark-400">
+              <Routing />
+            </main>
+          </NetworkProvider>
         </JsonRPCProvider>
       </GlobalErrorBoundary>
     </Router>

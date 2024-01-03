@@ -87,6 +87,7 @@
                           App.connected = true
                           window.vega.on('client.disconnect', App.ondisconnect)
                         })
+                        .catch(console.error)
                         .finally(() => {
                           App.busy = false
                           m.redraw()
@@ -149,6 +150,7 @@
               Transfer.keys = keys
               Transfer.selectedKey = keys[0]
             })
+            .catch(console.error)
             .finally(() => {
               Transfer.loading = false
               m.redraw()

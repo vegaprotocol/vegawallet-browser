@@ -11,7 +11,6 @@ export const useNetworkFromChainId = (chainId?: string) => {
   const { networks } = useNetworksStore((store) => ({
     networks: store.networks
   }))
-  console.log(chainId, networks)
   if (!chainId) return null
   const network = networks.find((n) => n.chainId === chainId)
   return network
@@ -45,7 +44,6 @@ export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
       currentConnectionDetails: store.currentConnectionDetails,
       currentTransactionDetails: store.currentTransactionDetails
     }))
-  console.log(currentConnectionDetails, currentTransactionDetails)
   const networkFromChainId = useNetworkFromChainId(
     currentConnectionDetails?.chainId ?? currentTransactionDetails?.chainId
   )

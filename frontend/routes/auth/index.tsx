@@ -33,15 +33,13 @@ export const Auth = () => {
   }))
 
   // Networks store
-  const { loadNetworks, loading: loadingNetworks } = useNetworksStore((state) => ({
-    loadNetworks: state.loadNetworks,
+  const { loading: loadingNetworks } = useNetworksStore((state) => ({
     loading: state.loading
   }))
 
   useEffect(() => {
-    loadNetworks(request)
     loadWallets(request)
-  }, [request, loadWallets, loadNetworks])
+  }, [request, loadWallets])
 
   // TODO: Remove
   // HACK: This is work around to ensure that the wallets are loaded before network requests.
@@ -53,6 +51,8 @@ export const Auth = () => {
     }
   }, [loadAssets, loadMarkets, loadingNetworks, loadingWallets, request])
   const isWallets = !!useMatch(FULL_ROUTES.wallets)
+
+  // Only render the UI if the wallets and networks have loaded
   if (loadingWallets || loadingNetworks) return null
 
   return (

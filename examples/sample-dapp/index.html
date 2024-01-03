@@ -82,7 +82,7 @@
                       App.busy = true
 
                       vega
-                        .connectWallet({ chainId: 'vega-fairground-202305051805' })
+                        .connectWallet()
                         .then(() => {
                           App.connected = true
                           window.vega.on('client.disconnect', App.ondisconnect)

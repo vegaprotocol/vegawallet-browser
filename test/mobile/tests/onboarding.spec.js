@@ -108,7 +108,7 @@ describe('Onboarding', () => {
     ok(await $('~CONFIRM').isDisplayed(), "The transaction approval popout was not displayed in the wallet");
     await click('~CONFIRM');  
 
-    ok(await keyOne.isDisplayed(), "Expected to see the view wallets page after approving but could not locate the default key");
+    ok(await $(viewWalletDefaultKey).isDisplayed(), "Expected to see the view wallets page after approving but could not locate the default key");
   });
 });
 

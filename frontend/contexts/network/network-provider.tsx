@@ -1,26 +1,17 @@
+import { useEffect } from 'react'
+
 import { useGlobalsStore } from '@/stores/globals'
 import { useInteractionStore } from '@/stores/interaction-store'
 import { useNetworksStore } from '@/stores/networks-store'
 
+import { useJsonRpcClient } from '../json-rpc/json-rpc-context'
 import { NetworkContext } from './network-context'
-
-export const useSelectedNetwork = () => {
-  const { networks } = useNetworksStore((store) => ({
-    networks: store.networks
-  }))
-  const { globals } = useGlobalsStore((store) => ({
-    globals: store.globals
-  }))
-  const selectedNetworkId = globals?.settings.selectedNetwork
-  const selectedNetwork = networks.find(({ id }) => id === selectedNetworkId)
-  if (!selectedNetwork) throw new Error(`Could not find selected network ${selectedNetworkId}`)
-  return selectedNetwork
-}
 
 export const useNetworkFromChainId = (chainId?: string) => {
   const { networks } = useNetworksStore((store) => ({
     networks: store.networks
   }))
+  console.log(chainId, networks)
   if (!chainId) return null
   const network = networks.find((n) => n.chainId === chainId)
   return network
@@ -32,6 +23,21 @@ export const useNetworkFromChainId = (chainId?: string) => {
  * @returns
  */
 export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
+  const { request } = useJsonRpcClient()
+  const { loadGlobals, loading: loadingGlobals } = useGlobalsStore((store) => ({
+    loadGlobals: store.loadGlobals,
+    loading: store.loading
+  }))
+  const {
+    loadNetworks,
+    loading: loadingNetworks,
+    selectedNetwork
+  } = useNetworksStore((state) => ({
+    loadNetworks: state.loadNetworks,
+    loading: state.loading,
+    selectedNetwork: state.selectedNetwork
+  }))
+
   const { transactionModalOpen, connectionModalOpen, currentConnectionDetails, currentTransactionDetails } =
     useInteractionStore((store) => ({
       transactionModalOpen: store.transactionModalOpen,
@@ -39,16 +45,25 @@ export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
       currentConnectionDetails: store.currentConnectionDetails,
       currentTransactionDetails: store.currentTransactionDetails
     }))
-  const selectedNetwork = useSelectedNetwork()
+  console.log(currentConnectionDetails, currentTransactionDetails)
   const networkFromChainId = useNetworkFromChainId(
     currentConnectionDetails?.chainId ?? currentTransactionDetails?.chainId
   )
-  const interactionMode = transactionModalOpen || connectionModalOpen
-  if (interactionMode && !networkFromChainId) {
-    throw new Error('Could not find network from chainId')
-  }
-  // If interaction mode is true then the above if ensures that networkFromChainId is always defined
-  const value = interactionMode ? networkFromChainId! : selectedNetwork
 
+  useEffect(() => {
+    loadGlobals(request)
+    loadNetworks(request)
+  }, [loadGlobals, loadNetworks, request])
+
+  if (loadingNetworks || loadingGlobals) return null
+
+  const interactionMode = transactionModalOpen || connectionModalOpen
+
+  const value = interactionMode ? networkFromChainId : selectedNetwork
+  if (!value) {
+    throw new Error('Could not find selected network')
+  }
+
+  // The above if statement ensures that either networkFromChainId or selectedNetwork is defined. So value is always defined.
   return <NetworkContext.Provider value={{ network: value }}>{children}</NetworkContext.Provider>
 }

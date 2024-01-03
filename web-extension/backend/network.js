@@ -95,10 +95,36 @@ export class NetworkCollection {
 const DEFAULT_PREFERRED_NODE_TTL = 1000 * 5 // 5 seconds
 
 class Network {
-  constructor({ name, rest, explorer }) {
+  constructor({
+    id,
+    name,
+    chainId,
+    hidden,
+    rest,
+    console,
+    ethereumExplorerLink,
+    explorer,
+    governance,
+    deposit,
+    transfer,
+    withdraw,
+    docs,
+    vegaDapps
+  }) {
+    this.id = id
     this.name = name
+    this.chainId = chainId
+    this.hidden = hidden
     this.rest = rest
+    this.console = console
+    this.ethereumExplorerLink = ethereumExplorerLink
     this.explorer = explorer
+    this.governance = governance
+    this.deposit = deposit
+    this.transfer = transfer
+    this.withdraw = withdraw
+    this.docs = docs
+    this.vegaDapps = vegaDapps
 
     this.probing = false
     this.preferredNode = null

@@ -84,7 +84,7 @@ describe('Onboarding', () => {
 
     await click(optOutOfErrorReportingButton);
 
-    var keyOne = $(viewWalletDefaultKey);
+    var keyOne = await $(viewWalletDefaultKey);
     ok(await keyOne.isDisplayed(), "Could not locate Key 1, onboarding may have been unsuccessful");
   });
 

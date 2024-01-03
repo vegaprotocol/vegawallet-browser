@@ -50,7 +50,7 @@ export class NetworkCollection {
   async get(networkId, chainId) {
     if (this._cache.has(networkId)) return this._cache.get(networkId)
 
-    const candidate = await this.getByNetworkId(networkId) ?? await this.getByChainId(chainId)
+    const candidate = (await this.getByNetworkId(networkId)) ?? (await this.getByChainId(chainId))
 
     if (candidate == null) throw new Error(`No network found for networkId ${networkId} or chainId ${chainId}`)
 
@@ -75,6 +75,20 @@ export class NetworkCollection {
    */
   async list() {
     return Array.from(await this.store.keys())
+  }
+
+  /**
+   *
+   * @returns {Promise<Network[]>}
+   */
+  async listNetworkDetails() {
+    const networks = await this.list()
+    return Promise.all(
+      networks.map(async (k) => ({
+        ...(await this.get(k)),
+        id: k
+      }))
+    )
   }
 }
 
@@ -108,19 +122,22 @@ class Network {
     this.probing = true
 
     this.preferredNode = NodeRPC.findHealthyNode(this.rest.map((u) => new URL(u)))
-      .then((node) => {
-        // Only set timeout if successful
-        this._nodeTimeout = setTimeout(() => {
-          this.preferredNode = null
-        }, DEFAULT_PREFERRED_NODE_TTL)
+      .then(
+        (node) => {
+          // Only set timeout if successful
+          this._nodeTimeout = setTimeout(() => {
+            this.preferredNode = null
+          }, DEFAULT_PREFERRED_NODE_TTL)
 
-        return node
-      }, (err) => {
-        // The promise will reject all pending calls, but clear state
-        // such that the next call will try to find a healthy node again
-        this.preferredNode = null
-        throw err
-      })
+          return node
+        },
+        (err) => {
+          // The promise will reject all pending calls, but clear state
+          // such that the next call will try to find a healthy node again
+          this.preferredNode = null
+          throw err
+        }
+      )
       .finally(() => {
         this.probing = false
       })

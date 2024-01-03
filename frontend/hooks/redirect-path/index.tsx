@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { getExtensionApi } from '@/lib/extension-apis'
 import { useGlobalsStore } from '@/stores/globals'
 
@@ -16,15 +15,10 @@ export const useGetRedirectPath = () => {
     loading: true,
     path: null
   })
-  const { request } = useJsonRpcClient()
-  const { loadGlobals, loading, globals } = useGlobalsStore((state) => ({
-    loadGlobals: state.loadGlobals,
+  const { loading, globals } = useGlobalsStore((state) => ({
     loading: state.loading,
     globals: state.globals
   }))
-  useEffect(() => {
-    loadGlobals(request)
-  }, [request, loadGlobals])
 
   const getRedirectPath = useCallback(async () => {
     const {

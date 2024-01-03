@@ -27,7 +27,8 @@ jobs:
     #   run: 
         
 
-    #Upload the build to browser stack in another action here
+    #Upload the build to browser stack in another action here, you will need to retrieve the app url from the response and set it as an env var for the test.conf.cjs to consume
+    # https://www.browserstack.com/docs/app-automate/api-reference/appium/apps#upload-an-app
 
       - name: Run E2E tests using Xvfb
         uses: coactions/setup-xvfb@v1

@@ -22,14 +22,6 @@ export const Auth = () => {
     loading: state.loading
   }))
 
-  // Networks store
-  const { loadNetworks, loading: loadingNetworks } = useNetworksStore((state) => ({
-    loadNetworks: state.loadNetworks,
-    loading: state.loading
-  }))
-
-  const loading = loadingWallets || loadingNetworks
-
   // Assets store
   const { loadAssets } = useAssetsStore((state) => ({
     loadAssets: state.fetchAssets
@@ -40,22 +32,28 @@ export const Auth = () => {
     loadMarkets: state.fetchMarkets
   }))
 
+  // Networks store
+  const { loading: loadingNetworks } = useNetworksStore((state) => ({
+    loading: state.loading
+  }))
+
   useEffect(() => {
-    loadNetworks(request)
     loadWallets(request)
-  }, [request, loadWallets, loadNetworks])
+  }, [request, loadWallets])
 
   // TODO: Remove
   // HACK: This is work around to ensure that the wallets are loaded before network requests.
   // Ideally the backend should be capable of doing this in parallel, but increases perceived performance for now.
   useEffect(() => {
-    if (!loading) {
+    if (!loadingNetworks && !loadingWallets) {
       loadAssets(request)
       loadMarkets(request)
     }
-  }, [loadAssets, loadMarkets, loading, request])
-
+  }, [loadAssets, loadMarkets, loadingNetworks, loadingWallets, request])
   const isWallets = !!useMatch(FULL_ROUTES.wallets)
+
+  // Only render the UI if the wallets and networks have loaded
+  if (loadingWallets || loadingNetworks) return null
 
   return (
     <div className="h-full w-full grid grid-rows-[min-content_1fr_min-content] bg-vega-dark-100">

@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom'
 
 import { RpcMethods } from '@/lib/client-rpc-methods'
 
-import { FULL_ROUTES } from '../../route-names'
+import { FULL_ROUTES } from '../../../../route-names'
 import { locators, LockSection } from './lock-section'
 
 const mockRequest = jest.fn()

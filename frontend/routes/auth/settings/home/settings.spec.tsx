@@ -6,8 +6,7 @@ import { useGlobalsStore } from '@/stores/globals'
 import { mockClient } from '@/test-helpers/mock-client'
 import { mockStore } from '@/test-helpers/mock-store'
 
-import { locators } from '../../../../frontend/routes/auth/settings'
-import { Settings } from '.'
+import { locators, Settings } from '.'
 
 jest.mock('@/stores/globals')
 jest.mock('./version-section', () => ({

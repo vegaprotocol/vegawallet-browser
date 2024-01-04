@@ -3,9 +3,10 @@ import { ExternalLink } from '@/components/external-link'
 import { BasePage } from '@/components/pages/page'
 import { useGlobalsStore } from '@/stores/globals'
 
-import { LockSection } from './lock-section'
+import { LockSection } from './sections/lock-section'
+import { NetworksSection } from './sections/networks-section'
+import { VersionSection } from './sections/version-section'
 import { SettingsRadio } from './settings-form-elements/radio'
-import { VersionSection } from './version-section'
 
 export const locators = {
   settingsPage: 'settings-page',
@@ -40,6 +41,8 @@ export const Settings = () => {
           setting="autoOpen"
         />
       )}
+
+      <NetworksSection />
 
       <LockSection />
     </BasePage>

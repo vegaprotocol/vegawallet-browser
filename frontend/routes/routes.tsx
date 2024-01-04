@@ -4,7 +4,9 @@ import { usePersistLocation } from '@/hooks/persist-location'
 
 import { Auth } from './auth'
 import { Connections } from './auth/connections'
-import { Settings } from './auth/settings'
+import { Settings } from './auth/settings/home'
+import { NetworkSettings } from './auth/settings/networks/home'
+import { NetworkDetails } from './auth/settings/networks/network-details'
 import { WalletsRoot } from './auth/wallets'
 import { Wallets } from './auth/wallets/home'
 import { KeyDetails } from './auth/wallets/key-details'
@@ -30,7 +32,13 @@ export const Routing = () => {
             <Route path={':id'} element={<KeyDetails />} />
           </Route>
           <Route path={ROUTES.connections} element={<Connections />} />
-          <Route path={ROUTES.settings} element={<Settings />} />
+          <Route path={ROUTES.settings} element={<Outlet />}>
+            <Route index element={<Settings />} />
+            <Route path={ROUTES.networkDetails} element={<Outlet />}>
+              <Route index element={<NetworkSettings />} />
+              <Route path={':id'} element={<NetworkDetails />} />
+            </Route>
+          </Route>
         </Route>
         <Route path={ROUTES.onboarding} element={<Outlet />}>
           <Route index element={<Navigate to={FULL_ROUTES.getStarted} />} />

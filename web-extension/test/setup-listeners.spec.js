@@ -8,7 +8,7 @@ import {
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import config from '!/config'
 import { NetworkCollection } from '../backend/network.js'
-import { fairground } from '../../config/well-known-networks.js'
+import { testingNetwork } from '../../config/well-known-networks.js'
 import { ConnectionsCollection } from '../backend/connections.js'
 
 describe('SetupListeners', () => {
@@ -52,24 +52,9 @@ describe('SetupListeners', () => {
     await onInstalledListener(detailsMock)
 
     expect(networksMock.set).toHaveBeenCalledTimes(1)
-    expect(networksMock.set).toHaveBeenCalledWith('test', {
-      chainId: 'testnet',
-      console: 'https://console.fairground.wtf',
-      deposit: 'https://console.fairground.wtf/#/portfolio/assets/deposit',
-      docs: 'https://docs.vega.xyz/testnet',
-      ethereumExplorerLink: 'https://sepolia.etherscan.io',
-      explorer: 'https://explorer.fairground.wtf',
-      governance: 'https://governance.fairground.wtf',
-      hidden: false,
-      id: 'test',
-      name: 'Test',
-      rest: ['http://localhost:9090'],
-      transfer: 'https://console.fairground.wtf/#/portfolio/assets/transfer',
-      vegaDapps: 'https://vega.xyz/apps',
-      withdraw: 'https://console.fairground.wtf/#/portfolio/assets/withdraw'
-    })
+    expect(networksMock.set).toHaveBeenCalledWith(testingNetwork.id, testingNetwork)
     expect(settingsMock.set).toHaveBeenCalledTimes(3)
-    expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', 'test')
+    expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', testingNetwork.id)
     expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
     expect(settingsMock.set).toHaveBeenCalledWith('version', 2)
   })
@@ -122,7 +107,6 @@ describe('SetupListeners', () => {
   })
 
   it('should apply migrations from version null to version 1', async () => {
-    const nets = fairground.networks
     const networks = new NetworkCollection(new Map())
     const settings = new ConcurrentStorage(
       new Map([
@@ -185,4 +169,9 @@ describe('SetupListeners', () => {
 
     expect(Array.from(await settings.entries())).toEqual(clone)
   })
+
+  // // Add test for migration of networks
+  // it('should migrate existing networks', () => {
+  //   expect(false).toBe(true)
+  // })
 })

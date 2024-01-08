@@ -1,3 +1,5 @@
+import { testingNetwork } from './well-known-networks'
+
 const mockPort = 9090
 const mockChainId = 'testnet'
 

@@ -8,7 +8,8 @@ import { FULL_ROUTES } from '@/routes/route-names'
 import { useNetworksStore } from '@/stores/networks-store'
 
 export const locators = {
-  networkDetails: 'network-details'
+  networkDetails: 'network-details',
+  networkId: 'network-id'
 }
 
 export const NetworkDetails = () => {
@@ -23,7 +24,9 @@ export const NetworkDetails = () => {
     <BasePage backLocation={FULL_ROUTES.networksSettings} dataTestId={locators.networkDetails} title={network.name}>
       <VegaSection>
         <SubHeader content="Id" />
-        <div className="text-white mt-1">{network.id}</div>
+        <div className="text-white mt-1" data-testid={locators.networkId}>
+          {network.id}
+        </div>
       </VegaSection>
       <VegaSection>
         <SubHeader content="Explorer" />

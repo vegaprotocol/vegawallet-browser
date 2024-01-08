@@ -11,6 +11,7 @@ import {
 import { Login } from './login'
 import * as settingsLock from '../../../frontend/routes/auth/settings/lock-section'
 import * as radioLocators from '../../../frontend/routes/auth/settings/settings-form-elements/radio'
+import * as networkLocators from '../../../frontend/routes/auth/settings/home/sections/networks-section.tsx'
 import * as exportLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase'
 import * as exportFormLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase/export-recovery-phrase-form'
 import * as exportViewLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase/view-recovery-phrase'
@@ -39,6 +40,7 @@ export class Settings {
   private readonly passwordErrorText: By = getByDataTestID(locators.errorMessage)
   private readonly recoveryPhraseHidden: By = getByDataTestID(locators.mnemonicContainerHidden)
   private readonly recoveryPhraseRevealed: By = getByDataTestID(locators.mnemonicContainerMnemonic)
+  private readonly viewNetwork: By = getByDataTestID(networkLocators.locators.viewNetworks)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -121,6 +123,11 @@ export class Settings {
     await this.checkOnSettingsPage()
     await clickElement(this.driver, this.telemetryNo)
     await waitForElementToBeSelected(this.driver, this.telemetryNo)
+  }
+
+  async viewConfiguredNetworks() {
+    await this.checkOnSettingsPage()
+    await clickElement(this.driver, this.viewNetwork)
   }
 
   async isAutoOpenSelected() {

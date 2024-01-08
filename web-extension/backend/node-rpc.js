@@ -8,7 +8,7 @@ export default class NodeRPC {
    *
    * @param {URL[]} nodeUrls
    */
-  constructor (nodeUrl, timeout = DEFAULT_TIMEOUT) {
+  constructor(nodeUrl, timeout = DEFAULT_TIMEOUT) {
     assert(nodeUrl instanceof URL, 'nodeUrl must be WHATWG URLs')
 
     this._url = nodeUrl
@@ -24,7 +24,7 @@ export default class NodeRPC {
    * @throws {Error} if response status is not 2xx
    * @throws {Error} if response body is not JSON
    */
-  async getJSON (url) {
+  async getJSON(url) {
     const _url = new URL(url, this._url)
 
     const res = await fetch(_url, {
@@ -50,7 +50,7 @@ export default class NodeRPC {
    * @throws {Error} if response status is not 2xx
    * @throws {Error} if response body is not JSON
    */
-  async postJSON (url, body) {
+  async postJSON(url, body) {
     const _url = new URL(url, this._url)
 
     const res = await fetch(_url, {
@@ -83,9 +83,8 @@ export default class NodeRPC {
    *
    * @returns URL
    */
-  static async findHealthyNode (urls, maxDrift = 2, bucketSize = 3, maxDelay = 800) {
+  static async findHealthyNode(urls, maxDrift = 2, bucketSize = 3, maxDelay = 800) {
     const timeout = new AbortController()
-
     const nodesHeights = await promiseAllResolved(
       urls.map(async (u) => {
         const res = await fetch(new URL('/blockchain/height', u), {
@@ -131,24 +130,31 @@ export default class NodeRPC {
      * @param {bigint} b
      * @returns bigint
      */
-    function bigintMax (a, b) {
+    function bigintMax(a, b) {
       return a > b ? a : b
     }
 
-    async function promiseAllResolved (promises) {
+    async function promiseAllResolved(promises) {
       const timers = []
 
       // Add a max default timeout
-      timers.push(setTimeout(() => {
-        timeout.abort()
-      }, DEFAULT_TIMEOUT))
+      timers.push(
+        setTimeout(() => {
+          timeout.abort()
+        }, DEFAULT_TIMEOUT)
+      )
 
       promises.forEach((p) => {
-        p.then(res => {
-          timers.push(setTimeout(() => {
-            timeout.abort()
-          }, maxDelay))
-        }, () => { })
+        p.then(
+          (res) => {
+            timers.push(
+              setTimeout(() => {
+                timeout.abort()
+              }, maxDelay)
+            )
+          },
+          () => {}
+        )
       })
 
       return Promise.allSettled(promises).then((results) => {
@@ -157,7 +163,7 @@ export default class NodeRPC {
       })
     }
 
-    function group (values, fn) {
+    function group(values, fn) {
       const groups = values.reduce((map, val) => {
         const [key, value] = fn(val)
 
@@ -171,20 +177,20 @@ export default class NodeRPC {
       return Array.from(groups.values())
     }
 
-    function findLargest (arr) {
+    function findLargest(arr) {
       return arr.reduce((largest, group) => (group.length > largest.length ? group : largest), [])
     }
 
-    function pickRandom (arr) {
+    function pickRandom(arr) {
       return arr[(arr.length * Math.random()) | 0]
     }
   }
 
-  async blockchainHeight () {
+  async blockchainHeight() {
     return this.getJSON('/blockchain/height')
   }
 
-  async statistics () {
+  async statistics() {
     return this.getJSON('/statistics')
   }
 
@@ -193,18 +199,18 @@ export default class NodeRPC {
    * @param {{ partyId: string }} param0
    * @returns
    */
-  async statisticsSpam ({ partyId }) {
+  async statisticsSpam({ partyId }) {
     assert(typeof partyId === 'string')
     return this.getJSON(`/statistics/spam/${partyId}`)
   }
 
-  async checkRawTransaction (tx) {
+  async checkRawTransaction(tx) {
     const res = await this.postJSON('/transaction/raw/check', { tx })
 
     return res
   }
 
-  async submitRawTransaction (tx, type) {
+  async submitRawTransaction(tx, type) {
     assert(typeof tx === 'string')
     assert(typeof type === 'string')
 
@@ -239,41 +245,43 @@ export default class NodeRPC {
     }
   }
 
-  static isTxError (err) {
-    return err instanceof NodeRPC.TxErrors.AbciTxnValidationFailure ||
+  static isTxError(err) {
+    return (
+      err instanceof NodeRPC.TxErrors.AbciTxnValidationFailure ||
       err instanceof NodeRPC.TxErrors.AbciTxnDecodingFailure ||
       err instanceof NodeRPC.TxErrors.AbciTxnInternalError ||
       err instanceof NodeRPC.TxErrors.AbciUnknownCommandError ||
       err instanceof NodeRPC.TxErrors.AbciSpamError
+    )
   }
 
   static TxErrors = {
     AbciTxnValidationFailure: class extends Error {
-      constructor (msg, code) {
+      constructor(msg, code) {
         super(msg)
         this.code = code
       }
     },
     AbciTxnDecodingFailure: class extends Error {
-      constructor (msg, code) {
+      constructor(msg, code) {
         super(msg)
         this.code = code
       }
     },
     AbciTxnInternalError: class extends Error {
-      constructor (msg, code) {
+      constructor(msg, code) {
         super(msg)
         this.code = code
       }
     },
     AbciUnknownCommandError: class extends Error {
-      constructor (msg, code) {
+      constructor(msg, code) {
         super(msg)
         this.code = code
       }
     },
     AbciSpamError: class extends Error {
-      constructor (msg, code) {
+      constructor(msg, code) {
         super(msg)
         this.code = code
       }

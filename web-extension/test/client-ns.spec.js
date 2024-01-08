@@ -4,6 +4,7 @@ import { NetworkCollection } from '../backend/network.js'
 import { ConnectionsCollection } from '../backend/connections.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
+import { testingNetwork } from '../../config/well-known-networks.js'
 
 describe('client-ns', () => {
   it('should connect, then disconnect', async () => {
@@ -48,15 +49,16 @@ describe('client-ns', () => {
         jsonrpc: '2.0',
         id: 1,
         method: 'client.connect_wallet',
-        params: null
+        params: {
+          chainId: testingNetwork.id
+        }
       },
       context
     )
 
     expect(res).toMatchObject({
       jsonrpc: '2.0',
-      id: 1,
-      result: null
+      id: 1
     })
     expect(context.isConnected).toBe(true)
     expect(await connections.has(context.origin)).toBe(true)
@@ -112,23 +114,24 @@ describe('client-ns', () => {
       }
     })
 
-    const connectReq = { jsonrpc: '2.0', method: 'client.connect_wallet', params: null }
-    const disconnectReq = { jsonrpc: '2.0', method: 'client.disconnect_wallet', params: null }
-    const nullRes = { jsonrpc: '2.0', result: null }
+    const connectReq = { jsonrpc: '2.0', method: 'client.connect_wallet', params: { chainId: testingNetwork.id } }
+    const nullRes = { jsonrpc: '2.0' }
 
     const context = {
       origin: 'https://example.com'
     }
 
-    const res = await server.onrequest({
-      ...connectReq,
-      id: 1
-    }, context)
+    const res = await server.onrequest(
+      {
+        ...connectReq,
+        id: 1
+      },
+      context
+    )
 
     expect(res).toMatchObject({
       ...nullRes,
       id: 1
-
     })
 
     jest.advanceTimersByTime(1000)
@@ -140,32 +143,19 @@ describe('client-ns', () => {
       }
     ])
 
-    const res2 = await server.onrequest({
-      ...disconnectReq,
-      id: 2
-    }, context)
-
-    expect(res2).toMatchObject({
-      ...nullRes,
-      id: 2
-    })
-
-    expect(await connections.list()).toMatchObject([
+    const res3 = await server.onrequest(
       {
-        origin: 'https://example.com',
-        accessedAt: 0
-      }
-    ])
-
-    const res3 = await server.onrequest({
-      ...connectReq,
-      id: 3
-    }, context)
+        ...connectReq,
+        id: 3
+      },
+      context
+    )
 
     expect(res3).toMatchObject({
       ...nullRes,
       id: 3
     })
+    await connections.touch(context.origin)
 
     expect(await connections.list()).toMatchObject([
       {

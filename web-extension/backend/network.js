@@ -94,7 +94,7 @@ export class NetworkCollection {
 
 const DEFAULT_PREFERRED_NODE_TTL = 1000 * 5 // 5 seconds
 
-class Network {
+export class Network {
   constructor({
     id,
     name,

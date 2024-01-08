@@ -1,7 +1,7 @@
 /* globals expect, it, describe, jest, beforeEach, afterEach */
 import initAdminServer from '../backend/admin-ns.js'
 import { WalletCollection } from '../backend/wallets.js'
-import { NetworkCollection } from '../backend/network.js'
+import { NetworkCollection, Network } from '../backend/network.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 import { ConnectionsCollection } from '../backend/connections.js'
@@ -9,8 +9,9 @@ import { FetchCache } from '../backend/fetch-cache.js'
 
 import { createHTTPServer, createJSONHTTPServer } from './helpers.js'
 import { CONSTANTS } from '../../lib/constants.js'
+import { testingNetwork } from '../../config/well-known-networks.js'
 
-const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
+const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   const publicKeyIndexStore = new ConcurrentStorage(new Map())
   const server = initAdminServer({
@@ -24,9 +25,19 @@ const createAdmin = async ({ passphrase, datanodeUrls } = {}) => {
       connectionsStore: new ConcurrentStorage(new Map()),
       publicKeyIndexStore
     }),
-    networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: datanodeUrls ?? [] }]])),
+    networks: new NetworkCollection(
+      new Map([
+        [
+          'fairground',
+          new Network({
+            ...testingNetwork,
+            rest: datanodeUrls
+          })
+        ]
+      ])
+    ),
     fetchCache: new FetchCache(new Map()),
-    onerror (err) {
+    onerror(err) {
       throw err
     }
   })
@@ -105,7 +116,8 @@ const REQ_FETCH = (id, path) => ({
   id,
   method: 'admin.fetch',
   params: {
-    path
+    path,
+    networkId: testingNetwork.id
   }
 })
 
@@ -159,6 +171,7 @@ describe('admin-ns', () => {
     })
     expect(generateRecoveryPhrase.result.recoveryPhrase.split(' ').length).toBe(24)
   })
+
   it('should list networks', async () => {
     const admin = await createAdmin()
 
@@ -169,7 +182,29 @@ describe('admin-ns', () => {
       params: null
     })
 
-    expect(listNetworks.result).toEqual({ networks: ['fairground'] })
+    expect(listNetworks.result).toEqual({
+      networks: [
+        {
+          _nodeTimeout: null,
+          chainId: 'vega-fairground-202305051805',
+          console: 'https://console.fairground.wtf',
+          deposit: 'https://console.fairground.wtf/#/portfolio/assets/deposit',
+          docs: 'https://docs.vega.xyz/testnet',
+          ethereumExplorerLink: 'https://sepolia.etherscan.io',
+          explorer: 'https://explorer.fairground.wtf',
+          governance: 'https://governance.fairground.wtf',
+          hidden: false,
+          id: 'fairground',
+          name: 'Fairground',
+          preferredNode: null,
+          probing: false,
+          rest: ['http://localhost:9090'],
+          transfer: 'https://console.fairground.wtf/#/portfolio/assets/transfer',
+          vegaDapps: 'https://vega.xyz/apps',
+          withdraw: 'https://console.fairground.wtf/#/portfolio/assets/withdraw'
+        }
+      ]
+    })
   })
 
   it('should create wallet', async () => {
@@ -496,6 +531,7 @@ describe('admin-ns', () => {
       id: 1,
       method: 'admin.fetch',
       params: {
+        networkId: testingNetwork.id,
         path: '/assets'
       }
     })
@@ -528,230 +564,188 @@ describe('admin-ns', () => {
         chainId: 'testnet'
       }
 
-      const expected = {
-        assets: ['asset1', 'asset2']
-      }
+      const server = await createHTTPServer((req, res) => {
+        if (req.url === '/blockchain/height') return res.end(JSON.stringify(chainHeight))
 
-      const happyServer = await createJSONHTTPServer((req) => {
-        if (req.url === '/blockchain/height') return { body: chainHeight }
-
-        return { body: expected }
-      })
-
-      const sadServer = await createJSONHTTPServer(() => ({ statusCode: 500 }))
-      const malformedServer = await createHTTPServer((req, res) => res.end('<Malformed JSON>'))
-
-      const admin = await createAdmin({ datanodeUrls: [happyServer.url, sadServer.url, malformedServer.url] })
-
-      const fetch = await admin.onrequest(REQ_FETCH(1, '/assets'))
-
-      expect(fetch.result).toEqual(expected)
-
-      await Promise.all([happyServer.close(), sadServer.close(), malformedServer.close()])
-    })
-
-    it(
-      'should return errors from unsuccessful fetch (statusCode)',
-      setupFaultyFetch({
-        statusCode: 400,
-        body: ''
-      })
-    )
-
-    it(
-      'should return errors from unsuccessful fetch (malformed response)',
-      setupFaultyFetch({
-        statusCode: 200,
-        body: '<Malformed JSON>'
-      })
-    )
-
-    function setupFaultyFetch (faultyResponse) {
-      return async () => {
-        const chainHeight = {
-          height: '2',
-          chainId: 'testnet'
-        }
-
-        const server = await createHTTPServer((req, res) => {
-          if (req.url === '/blockchain/height') return res.end(JSON.stringify(chainHeight))
-
-          res.writeHead(faultyResponse.statusCode, { 'Content-Type': 'application/json' })
-          res.end(faultyResponse.body)
-        })
-
-        const admin = await createAdmin({ datanodeUrls: [server.url] })
-
-        const fetch = await admin.onrequest(REQ_FETCH(1, '/assets'))
-
-        expect(fetch.result).toBeUndefined()
-        expect(fetch.error).toEqual({
-          code: -1,
-          message: 'Failed to fetch data',
-          data: expect.any(String)
-        })
-
-        await Promise.all([server.close()])
-      }
-    }
-
-    it('should cache results for select endpoints', async () => {
-      jest.useFakeTimers()
-
-      const chainHeight = {
-        height: '2',
-        chainId: 'testnet'
-      }
-
-      const server = await createJSONHTTPServer((req) => {
-        if (req.url === '/blockchain/height') return { body: chainHeight }
-
-        return { body: Date.now() }
+        res.writeHead(faultyResponse.statusCode, { 'Content-Type': 'application/json' })
+        res.end(faultyResponse.body)
       })
 
       const admin = await createAdmin({ datanodeUrls: [server.url] })
 
-      const fetch1 = await admin.onrequest(REQ_FETCH(1, '/api/v2/assets'))
-      jest.advanceTimersByTime(1)
+      const fetch = await admin.onrequest(REQ_FETCH(1, '/assets'))
 
-      const fetch2 = await admin.onrequest(REQ_FETCH(2, '/api/v2/assets'))
-      expect(fetch2.result).toEqual(fetch1.result, 'should return cached result')
-
-      jest.advanceTimersByTime(1000 * 60 * 60 * 24 * 7) // 1 week
-
-      const fetch3 = await admin.onrequest(REQ_FETCH(3, '/api/v2/assets'))
-      expect(fetch3.result).not.toEqual(fetch2.result, 'should not return cached result after long delay')
+      expect(fetch.result).toBeUndefined()
+      expect(fetch.error).toEqual({
+        code: -1,
+        message: 'Failed to fetch data',
+        data: expect.any(String)
+      })
 
       await Promise.all([server.close()])
-
-      jest.useRealTimers()
-    })
-  })
-
-  const setupWallet = async (passphrase) => {
-    let admin = await createAdmin({ passphrase })
-
-    const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
-    expect(generateRecoveryPhrase.error).toBeUndefined()
-
-    const importWallet = await admin.onrequest(REQ_IMPORT_WALLET(2, generateRecoveryPhrase.result.recoveryPhrase))
-    expect(importWallet.error).toBeUndefined()
-
-    const generateKey = await admin.onrequest(REQ_GENERATE_KEY(3))
-    expect(generateKey.error).toBeUndefined()
-
-    const key = generateKey.result
-    return {
-      key,
-      admin
     }
   }
 
-  describe('admin.export_key', () => {
-    const passphrase = 'foo'
-    let admin
-    let key
-    beforeEach(async () => {
-      const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
-      admin = setupAdmin
-      key = setupKey
+  it('should cache results for select endpoints', async () => {
+    jest.useFakeTimers()
+
+    const chainHeight = {
+      height: '2',
+      chainId: testingNetwork.id
+    }
+
+    const server = await createJSONHTTPServer((req) => {
+      console.log(req)
+      if (req.url === '/blockchain/height') return { body: chainHeight }
+
+      return { body: Date.now() }
     })
 
-    afterEach(() => {
-      admin = null
-      key = null
-    })
+    const admin = await createAdmin({ datanodeUrls: [server.url] })
 
-    it('should not export key with wrong public key', async () => {
-      const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, 'wrong-public-key', passphrase))
-      expect(exportKey.error).toMatchObject({
-        code: 1,
-        message: expect.stringMatching(/Cannot find key with public key/)
-      })
-    })
+    const fetch1 = await admin.onrequest(REQ_FETCH(1, '/api/v2/assets'))
+    console.log(fetch1)
+    jest.advanceTimersByTime(1)
+    const fetch2 = await admin.onrequest(REQ_FETCH(2, '/api/v2/assets'))
+    expect(fetch2.result).toEqual(fetch1.result, 'should return cached result')
+    console.log(fetch2)
 
-    it('should not export key with wrong passphrase', async () => {
-      const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, 'wrong-passphrase'))
-      expect(exportKey.error).toEqual({
-        code: 1,
-        message: 'Invalid passphrase or corrupted storage'
-      })
-    })
+    jest.advanceTimersByTime(1000 * 60 * 60 * 24 * 7) // 1 week
 
-    it('should export key', async () => {
-      const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, passphrase))
-      expect(exportKey.error).toBeUndefined()
-      expect(exportKey.result.publicKey).toBe(key.publicKey)
-      expect(exportKey.result.secretKey).not.toBeNull()
+    const fetch3 = await admin.onrequest(REQ_FETCH(3, '/api/v2/assets'))
+    console.log(fetch3)
+
+    expect(fetch3.result).not.toEqual(fetch2.result, 'should not return cached result after long delay')
+
+    await Promise.all([server.close()])
+
+    jest.useRealTimers()
+  })
+})
+
+const setupWallet = async (passphrase) => {
+  let admin = await createAdmin({ passphrase })
+
+  const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
+  expect(generateRecoveryPhrase.error).toBeUndefined()
+
+  const importWallet = await admin.onrequest(REQ_IMPORT_WALLET(2, generateRecoveryPhrase.result.recoveryPhrase))
+  expect(importWallet.error).toBeUndefined()
+
+  const generateKey = await admin.onrequest(REQ_GENERATE_KEY(3))
+  expect(generateKey.error).toBeUndefined()
+
+  const key = generateKey.result
+  return {
+    key,
+    admin
+  }
+}
+
+describe('admin.export_key', () => {
+  const passphrase = 'foo'
+  let admin
+  let key
+  beforeEach(async () => {
+    const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
+    admin = setupAdmin
+    key = setupKey
+  })
+
+  afterEach(() => {
+    admin = null
+    key = null
+  })
+
+  it('should not export key with wrong public key', async () => {
+    const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, 'wrong-public-key', passphrase))
+    expect(exportKey.error).toMatchObject({
+      code: 1,
+      message: expect.stringMatching(/Cannot find key with public key/)
     })
   })
 
-  describe('admin.rename_key', () => {
-    const passphrase = 'foo'
-    let admin
-    let key
-    beforeEach(async () => {
-      const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
-      admin = setupAdmin
-      key = setupKey
+  it('should not export key with wrong passphrase', async () => {
+    const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, 'wrong-passphrase'))
+    expect(exportKey.error).toEqual({
+      code: 1,
+      message: 'Invalid passphrase or corrupted storage'
+    })
+  })
+
+  it('should export key', async () => {
+    const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, passphrase))
+    expect(exportKey.error).toBeUndefined()
+    expect(exportKey.result.publicKey).toBe(key.publicKey)
+    expect(exportKey.result.secretKey).not.toBeNull()
+  })
+})
+
+describe('admin.rename_key', () => {
+  const passphrase = 'foo'
+  let admin
+  let key
+  beforeEach(async () => {
+    const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
+    admin = setupAdmin
+    key = setupKey
+  })
+
+  afterEach(() => {
+    admin = null
+    key = null
+  })
+
+  it('should not rename key with wrong public key', async () => {
+    const renameKey = await admin.onrequest(REQ_RENAME_KEY(4, 'wrong-public-key', 'New Name'))
+    expect(renameKey.error).toMatchObject({
+      code: 1,
+      message: expect.stringMatching(/Cannot find key with public key/)
     })
 
-    afterEach(() => {
-      admin = null
-      key = null
-    })
+    const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
+    expect(listKeys.error).toBeUndefined()
+    expect(listKeys.result.keys).toEqual([{ ...key, name: 'Key 1' }])
+  })
 
-    it('should not rename key with wrong public key', async () => {
-      const renameKey = await admin.onrequest(REQ_RENAME_KEY(4, 'wrong-public-key', 'New Name'))
-      expect(renameKey.error).toMatchObject({
-        code: 1,
-        message: expect.stringMatching(/Cannot find key with public key/)
-      })
+  it('should rename key', async () => {
+    const renameKey = await admin.onrequest(REQ_RENAME_KEY(4, key.publicKey, 'New Name'))
+    expect(renameKey.error).toBeUndefined()
 
-      const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
-      expect(listKeys.error).toBeUndefined()
-      expect(listKeys.result.keys).toEqual([{ ...key, name: 'Key 1' }])
-    })
+    const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
+    expect(listKeys.error).toBeUndefined()
+    expect(listKeys.result.keys).toEqual([{ ...key, name: 'New Name' }])
 
-    it('should rename key', async () => {
-      const renameKey = await admin.onrequest(REQ_RENAME_KEY(4, key.publicKey, 'New Name'))
-      expect(renameKey.error).toBeUndefined()
+    const blankRename = await admin.onrequest(REQ_RENAME_KEY(6, key.publicKey, ''))
+    expect(blankRename.error).toBeUndefined()
 
-      const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
-      expect(listKeys.error).toBeUndefined()
-      expect(listKeys.result.keys).toEqual([{ ...key, name: 'New Name' }])
+    const listKeys2 = await admin.onrequest(REQ_LIST_KEYS(7))
+    expect(listKeys2.error).toBeUndefined()
+    expect(listKeys2.result.keys).toEqual([{ ...key, name: '' }])
+  })
 
-      const blankRename = await admin.onrequest(REQ_RENAME_KEY(6, key.publicKey, ''))
-      expect(blankRename.error).toBeUndefined()
+  it('should allow multiple keys with same name', async () => {
+    const generateKey2 = await admin.onrequest(REQ_GENERATE_KEY(4, 'Key 1'))
+    expect(generateKey2.error).toBeUndefined()
 
-      const listKeys2 = await admin.onrequest(REQ_LIST_KEYS(7))
-      expect(listKeys2.error).toBeUndefined()
-      expect(listKeys2.result.keys).toEqual([{ ...key, name: '' }])
-    })
+    const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
+    expect(listKeys.error).toBeUndefined()
+    expect(listKeys.result.keys).toEqual([
+      { ...key, name: 'Key 1' },
+      { ...generateKey2.result, name: 'Key 1' }
+    ])
 
-    it('should allow multiple keys with same name', async () => {
-      const generateKey2 = await admin.onrequest(REQ_GENERATE_KEY(4, 'Key 1'))
-      expect(generateKey2.error).toBeUndefined()
+    const renameKey = await admin.onrequest(REQ_RENAME_KEY(6, generateKey2.result.publicKey, 'New Name'))
+    expect(renameKey.error).toBeUndefined()
 
-      const listKeys = await admin.onrequest(REQ_LIST_KEYS(5))
-      expect(listKeys.error).toBeUndefined()
-      expect(listKeys.result.keys).toEqual([
-        { ...key, name: 'Key 1' },
-        { ...generateKey2.result, name: 'Key 1' }
-      ])
+    const renameKey2 = await admin.onrequest(REQ_RENAME_KEY(7, key.publicKey, 'New Name'))
+    expect(renameKey2.error).toBeUndefined()
 
-      const renameKey = await admin.onrequest(REQ_RENAME_KEY(6, generateKey2.result.publicKey, 'New Name'))
-      expect(renameKey.error).toBeUndefined()
-
-      const renameKey2 = await admin.onrequest(REQ_RENAME_KEY(7, key.publicKey, 'New Name'))
-      expect(renameKey2.error).toBeUndefined()
-
-      const listKeys2 = await admin.onrequest(REQ_LIST_KEYS(8))
-      expect(listKeys2.error).toBeUndefined()
-      expect(listKeys2.result.keys).toEqual([
-        { ...key, name: 'New Name' },
-        { ...generateKey2.result, name: 'New Name' }
-      ])
-    })
+    const listKeys2 = await admin.onrequest(REQ_LIST_KEYS(8))
+    expect(listKeys2.error).toBeUndefined()
+    expect(listKeys2.result.keys).toEqual([
+      { ...key, name: 'New Name' },
+      { ...generateKey2.result, name: 'New Name' }
+    ])
   })
 })

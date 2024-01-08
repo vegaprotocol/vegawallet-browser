@@ -19,10 +19,13 @@ export const NetworksList = ({ networks, onClick }: NetworkListProperties) => {
         items={networks}
         renderItem={(n) => (
           <div className="flex justify-between h-12">
-            <div className="flex items-center">{n.name}</div>
+            <div className="flex items-center" data-testid={n.name}>
+              {n.name}
+            </div>
             <button
               onClick={() => onClick?.(n)}
               className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
+              data-testid={n.name + '-details'}
             >
               <ChevronRight />
             </button>

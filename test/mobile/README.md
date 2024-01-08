@@ -13,31 +13,30 @@ For the best experience, you will need to use the [Browserstack devices](https:/
 
 ### iOS specific set up
 Once the app is loaded onto the device, you will see the vega wallet app displayed     
-![Alt text](./readme-images/app.png)    
+![Alt text](./readme-images/app.png)     
 
-Navigate back to the home screen
-![Alt text](./readme-images/homescreen.png)    
+Navigate back to the home screen   
+![Alt text](./readme-images/homescreen.png)      
 
-Open safari and navigate to a webpage, (you could use our test dapp https://vegaprotocol.github.io/vegawallet-browser/), then click the extensions button located in the address bar (circled below)
-![Alt text](./readme-images/extension-button.png)      
-
-Click 'Manage Extensions'
+Open safari and navigate to a webpage, (you could use our test dapp https://vegaprotocol.github.io/vegawallet-browser/), then click the extensions button located in the address bar (circled below)   
+![Alt text](./readme-images/extension-button.png)        
+      
+Click 'Manage Extensions'    
 ![Alt text](./readme-images/manage-extensions.png)  
 
-Toggle Vega Wallet to be enabled and then click Done
+Toggle Vega Wallet to be enabled and then click Done   
 ![Alt text](./readme-images/enable-extension.png)    
 
-Click the 'Vega Wallet' extension to open, allow any permissions that the iPhone requests.
-![Alt text](./readme-images/vegawallet-extensions-menu.png)   
+Click the 'Vega Wallet' extension to open, allow any permissions that the iPhone requests.   
+![Alt text](./readme-images/vegawallet-extensions-menu.png)    
 
-The wallet should open
+The wallet should open   
 ![Alt text](./readme-images/wallet-open.png)
 
-
 ### Locating Elements
-You should use appium inspector for this. Open it by clicking the buttons circled below
-![Alt text](./readme-images/inspect-button.png)
-![Alt text](./readme-images/open-inspector.png)
+You should use appium inspector for this. Open it by clicking the buttons circled below   
+![Alt text](./readme-images/inspect-button.png)   
+![Alt text](./readme-images/open-inspector.png)   
 
 You could also integrate it with a desktop instance of the inspector, however using Browserstack's inspector is likely the simplest option.   
 

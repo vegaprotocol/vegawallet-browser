@@ -56,7 +56,6 @@ const migrations = [
 
       // populate all networks
       await networks.store.clear()
-      console.log(config)
       for (const network of config.networks) {
         await networks.set(network.id, network)
       }

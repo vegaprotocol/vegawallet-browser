@@ -1,6 +1,15 @@
-import { createConnectionHandler, createOnInstalledListener, setupListeners, update, install } from '../lib/setup-listeners.js'
+import {
+  createConnectionHandler,
+  createOnInstalledListener,
+  setupListeners,
+  update,
+  install
+} from '../lib/setup-listeners.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import config from '!/config'
+import { NetworkCollection } from '../backend/network.js'
+import { fairground } from '../../config/well-known-networks.js'
+import { ConnectionsCollection } from '../backend/connections.js'
 
 describe('SetupListeners', () => {
   beforeEach(() => {
@@ -44,14 +53,25 @@ describe('SetupListeners', () => {
 
     expect(networksMock.set).toHaveBeenCalledTimes(1)
     expect(networksMock.set).toHaveBeenCalledWith('test', {
+      chainId: 'testnet',
+      console: 'https://console.fairground.wtf',
+      deposit: 'https://console.fairground.wtf/#/portfolio/assets/deposit',
+      docs: 'https://docs.vega.xyz/testnet',
+      ethereumExplorerLink: 'https://sepolia.etherscan.io',
       explorer: 'https://explorer.fairground.wtf',
+      governance: 'https://governance.fairground.wtf',
+      hidden: false,
+      id: 'test',
       name: 'Test',
-      rest: ['http://localhost:9090']
+      rest: ['http://localhost:9090'],
+      transfer: 'https://console.fairground.wtf/#/portfolio/assets/transfer',
+      vegaDapps: 'https://vega.xyz/apps',
+      withdraw: 'https://console.fairground.wtf/#/portfolio/assets/withdraw'
     })
     expect(settingsMock.set).toHaveBeenCalledTimes(3)
     expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', 'test')
     expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
-    expect(settingsMock.set).toHaveBeenCalledWith('version', 1)
+    expect(settingsMock.set).toHaveBeenCalledWith('version', 2)
   })
 
   it('should create a window if autoOpenOnInstall is true', async () => {
@@ -102,52 +122,66 @@ describe('SetupListeners', () => {
   })
 
   it('should apply migrations from version null to version 1', async () => {
-    const settings = new ConcurrentStorage(new Map([
-      ['version', null],
-      ['autoOpen', null]
-    ]))
+    const nets = fairground.networks
+    const networks = new NetworkCollection(new Map())
+    const settings = new ConcurrentStorage(
+      new Map([
+        ['version', null],
+        ['autoOpen', null]
+      ])
+    )
+    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
 
-    await update({ settings })
+    await update({ settings, networks, connections })
 
-    expect(await settings.get('version')).toBe(1)
+    expect(await settings.get('version')).toBe(2)
     expect(await settings.get('autoOpen')).toBe(true)
   })
 
   it('should apply migrations from version 0 to version 1', async () => {
-    const settings = new ConcurrentStorage(new Map([
-      ['version', 0],
-      ['autoOpen', null]
-    ]))
+    const networks = new NetworkCollection(new Map())
+    const settings = new ConcurrentStorage(
+      new Map([
+        ['version', 0],
+        ['autoOpen', null]
+      ])
+    )
+    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
 
-    await update({ settings })
+    await update({ settings, networks, connections })
 
-    expect(await settings.get('version')).toBe(1)
+    expect(await settings.get('version')).toBe(2)
     expect(await settings.get('autoOpen')).toBe(true)
   })
 
   it('should not apply migration 1 if autoOpen is already set', async () => {
-    const settings = new ConcurrentStorage(new Map([
-      ['version', 0],
-      ['autoOpen', false]
-    ]))
+    const networks = new NetworkCollection(new Map())
+    const settings = new ConcurrentStorage(
+      new Map([
+        ['version', 0],
+        ['autoOpen', false]
+      ])
+    )
+    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
 
-    await update({ settings })
+    await update({ settings, networks, connections })
 
-    expect(await settings.get('version')).toBe(1)
+    expect(await settings.get('version')).toBe(2)
     expect(await settings.get('autoOpen')).toBe(false)
   })
 
   // latest version
   it('should not apply migrations from version 1', async () => {
     const settings = new ConcurrentStorage(new Map())
-    const networks = new ConcurrentStorage(new Map())
+    const networks = new NetworkCollection(new Map())
+    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
 
     await install({ networks, settings })
 
-    expect(await settings.get('version')).toBe(1)
+    expect(await settings.get('version')).toBe(2)
     const clone = Array.from(await settings.entries())
 
-    await update({ settings })
+    await update({ settings, connections })
 
     expect(Array.from(await settings.entries())).toEqual(clone)
   })

@@ -8,11 +8,11 @@ export class ConnectionsCollection {
     this._emitter = new TinyEventemitter()
   }
 
-  on (event, listener) {
+  on(event, listener) {
     return this._emitter.on(event, listener)
   }
 
-  off (event, listener) {
+  off(event, listener) {
     return this._emitter.off(event, listener)
   }
 
@@ -51,7 +51,7 @@ export class ConnectionsCollection {
    * @returns {Promise<void>}
    */
   async touch(origin) {
-    return await this.store.transaction(async store => {
+    return await this.store.transaction(async (store) => {
       const conn = await store.get(origin)
       if (conn == null) return
 
@@ -114,7 +114,7 @@ export class ConnectionsCollection {
 
     return keys
   }
-  
+
   /**
    * Get the chainId that was approved for a given origin on initial connection.
    * The chainId should not be changed without user consent.

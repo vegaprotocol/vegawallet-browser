@@ -46,7 +46,7 @@ describe('NetworkCollection', () => {
 
     await networks.delete('testnet')
 
-    await expect(networks.get('testnet')).rejects.toThrow('Unknown network')
+    await expect(networks.get('testnet')).rejects.toThrow('No network found for networkId testnet or chainId undefined')
   })
 
   it('should find a healthy data node and cache result', async () => {
@@ -67,10 +67,7 @@ describe('NetworkCollection', () => {
       explorer: 'https://explorer.testnet.com'
     })
 
-    const [a, b] = await Promise.all([
-      net.rpc(),
-      net.rpc(),
-    ])
+    const [a, b] = await Promise.all([net.rpc(), net.rpc()])
 
     expect(dnHandler).toHaveBeenCalledTimes(1)
     expect(a).toBe(b)
@@ -100,7 +97,7 @@ describe('NetworkCollection', () => {
     await Promise.all([
       expect(net.rpc()).rejects.toThrowError('No healthy node found'),
       expect(net.rpc()).rejects.toThrowError('No healthy node found'),
-      expect(net.rpc()).rejects.toThrowError('No healthy node found'),
+      expect(net.rpc()).rejects.toThrowError('No healthy node found')
     ])
 
     expect(dnHandler).toHaveBeenCalledTimes(1)
@@ -114,10 +111,7 @@ describe('NetworkCollection', () => {
       }
     })
 
-    const [a, b] = await Promise.all([
-      net.rpc(),
-      net.rpc(),
-    ])
+    const [a, b] = await Promise.all([net.rpc(), net.rpc()])
 
     expect(dnHandler).toHaveBeenCalledTimes(2)
     expect(a).toBe(b)

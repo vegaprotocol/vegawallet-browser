@@ -16,20 +16,22 @@ describe('ConnectionsCollection', () => {
     await publicKeyIndexStore.set('443', { publicKey: '443', wallet: 'w2', name: 'k3' })
 
     await connections.set('https://example.com', {
-      wallets: ['w2'],
-      publicKeys: []
+      allowList: {
+        wallets: ['w2'],
+        publicKeys: []
+      }
     })
 
     expect(await connections.isAllowed('https://example.com', '123')).toBe(false)
     expect(await connections.isAllowed('https://example.com', '321')).toBe(false)
     expect(await connections.isAllowed('https://example.com', '443')).toBe(true)
-    expect(await connections.listAllowedKeys('https://example.com')).toEqual([
-      { publicKey: '443', name: 'k3' }
-    ])
+    expect(await connections.listAllowedKeys('https://example.com')).toEqual([{ publicKey: '443', name: 'k3' }])
 
     await connections.set('https://example.com', {
-      wallets: ['w1'],
-      publicKeys: []
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      }
     })
 
     expect(await connections.isAllowed('https://example.com', '123')).toBe(true)
@@ -41,8 +43,10 @@ describe('ConnectionsCollection', () => {
     ])
 
     await connections.set('https://example.com', {
-      wallets: [],
-      publicKeys: ['123', '443']
+      allowList: {
+        wallets: [],
+        publicKeys: ['123', '443']
+      }
     })
 
     expect(await connections.isAllowed('https://example.com', '123')).toBe(true)
@@ -54,8 +58,10 @@ describe('ConnectionsCollection', () => {
     ])
 
     await connections.set('https://example.com', {
-      wallets: [],
-      publicKeys: []
+      allowList: {
+        wallets: [],
+        publicKeys: []
+      }
     })
 
     expect(await connections.isAllowed('https://example.com', '123')).toBe(false)
@@ -64,8 +70,10 @@ describe('ConnectionsCollection', () => {
     expect(await connections.listAllowedKeys('https://example.com')).toEqual([])
 
     await connections.set('https://example.com', {
-      wallets: ['w1', 'w2'],
-      publicKeys: []
+      allowList: {
+        wallets: ['w1', 'w2'],
+        publicKeys: []
+      }
     })
 
     expect(await connections.isAllowed('https://example.com', '123')).toBe(true)
@@ -90,14 +98,16 @@ describe('ConnectionsCollection', () => {
     await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
 
     await connections.set('https://example.com', {
-      wallets: ['w1'],
-      publicKeys: []
+      chainId: 'chainId',
+      networkId: 'networkId',
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      }
     })
 
     expect(await connections.isAllowed('https://example.com', '123')).toBe(true)
-    expect(await connections.listAllowedKeys('https://example.com')).toEqual([
-      { publicKey: '123', name: 'k1' }
-    ])
+    expect(await connections.listAllowedKeys('https://example.com')).toEqual([{ publicKey: '123', name: 'k1' }])
 
     await publicKeyIndexStore.set('321', { publicKey: '321', wallet: 'w1', name: 'k2' })
 
@@ -110,9 +120,7 @@ describe('ConnectionsCollection', () => {
     await publicKeyIndexStore.delete('123')
 
     expect(await connections.isAllowed('https://example.com', '123')).toBe(false)
-    expect(await connections.listAllowedKeys('https://example.com')).toEqual([
-      { publicKey: '321', name: 'k2' }
-    ])
+    expect(await connections.listAllowedKeys('https://example.com')).toEqual([{ publicKey: '321', name: 'k2' }])
 
     await publicKeyIndexStore.delete('321')
 
@@ -132,7 +140,8 @@ describe('ConnectionsCollection', () => {
     })
 
     const listener = jest.fn()
-    connections.listen(listener)
+    connections.on('set', listener)
+    connections.on('delete', listener)
 
     await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
 
@@ -141,7 +150,12 @@ describe('ConnectionsCollection', () => {
       publicKeys: []
     })
 
-    expect(listener).toHaveBeenCalledWith('set', { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 })
+    expect(listener).toHaveBeenCalledWith('set', {
+      origin: 'https://example.com',
+      networkId: undefined,
+      allowList: { wallets: ['w1'], publicKeys: [] },
+      accessedAt: 0
+    })
 
     expect(await connections.list()).toEqual([
       { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 }
@@ -188,28 +202,52 @@ describe('ConnectionsCollection', () => {
     await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
 
     await connections.set('https://example.com', {
-      wallets: ['w1'],
-      publicKeys: []
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      }
     })
 
     jest.setSystemTime(1000)
 
     await connections.set('https://example.org', {
-      wallets: ['w1'],
-      publicKeys: []
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      }
     })
 
     jest.setSystemTime(2000)
 
     await connections.set('https://example.net', {
-      wallets: ['w1'],
-      publicKeys: []
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      }
     })
 
     expect(await connections.list()).toEqual([
-      { origin: 'https://example.net', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 2000 },
-      { origin: 'https://example.org', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 1000 },
-      { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 }
+      {
+        origin: 'https://example.net',
+        allowList: { wallets: ['w1'], publicKeys: [] },
+        accessedAt: 2000,
+        chainId: null,
+        networkId: null
+      },
+      {
+        origin: 'https://example.org',
+        allowList: { wallets: ['w1'], publicKeys: [] },
+        accessedAt: 1000,
+        chainId: null,
+        networkId: null
+      },
+      {
+        origin: 'https://example.com',
+        allowList: { wallets: ['w1'], publicKeys: [] },
+        accessedAt: 0,
+        chainId: null,
+        networkId: null
+      }
     ])
 
     jest.setSystemTime(3000)
@@ -217,9 +255,27 @@ describe('ConnectionsCollection', () => {
     await connections.touch('https://example.org')
 
     expect(await connections.list()).toEqual([
-      { origin: 'https://example.org', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 3000 },
-      { origin: 'https://example.net', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 2000 },
-      { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 }
+      {
+        chainId: null,
+        networkId: null,
+        origin: 'https://example.org',
+        allowList: { wallets: ['w1'], publicKeys: [] },
+        accessedAt: 3000
+      },
+      {
+        chainId: null,
+        networkId: null,
+        origin: 'https://example.net',
+        allowList: { wallets: ['w1'], publicKeys: [] },
+        accessedAt: 2000
+      },
+      {
+        chainId: null,
+        networkId: null,
+        origin: 'https://example.com',
+        allowList: { wallets: ['w1'], publicKeys: [] },
+        accessedAt: 0
+      }
     ])
 
     jest.useRealTimers()

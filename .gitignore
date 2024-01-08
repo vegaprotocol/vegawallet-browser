@@ -14,7 +14,7 @@ approbation-diff.txt
 /test/e2e/firefox-profile
 /.vscode/launch.json
 /test/vega-browserwallet-testnet-chrome-v0.10.0*
-/test/mobile/logs
+/logs
 # approbation
 /results
 

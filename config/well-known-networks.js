@@ -54,5 +54,7 @@ export const fairground = {
 
 export const testingNetwork = {
   ...fairground,
+  id: 'test',
+  name: 'Test',
   rest: [`http://localhost:${mockPort}`]
 }

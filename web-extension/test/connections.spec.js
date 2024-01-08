@@ -139,30 +139,41 @@ describe('ConnectionsCollection', () => {
       publicKeyIndexStore
     })
 
-    const listener = jest.fn()
-    connections.on('set', listener)
-    connections.on('delete', listener)
+    const deleteListener = jest.fn()
+    const setListener = jest.fn()
+    connections.on('set', setListener)
+    connections.on('delete', deleteListener)
 
     await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
 
     await connections.set('https://example.com', {
-      wallets: ['w1'],
-      publicKeys: []
+      origin: 'https://example.com',
+      networkId: null,
+      chainId: null,
+      allowList: { wallets: ['w1'], publicKeys: [] },
+      accessedAt: 0
     })
 
-    expect(listener).toHaveBeenCalledWith('set', {
+    expect(setListener).toHaveBeenCalledWith({
       origin: 'https://example.com',
-      networkId: undefined,
+      networkId: null,
+      chainId: null,
       allowList: { wallets: ['w1'], publicKeys: [] },
       accessedAt: 0
     })
 
     expect(await connections.list()).toEqual([
-      { origin: 'https://example.com', allowList: { wallets: ['w1'], publicKeys: [] }, accessedAt: 0 }
+      {
+        origin: 'https://example.com',
+        allowList: { wallets: ['w1'], publicKeys: [] },
+        accessedAt: 0,
+        networkId: null,
+        chainId: null
+      }
     ])
 
     await connections.delete('https://example.com')
-    expect(listener).toHaveBeenCalledWith('delete', { origin: 'https://example.com' })
+    expect(deleteListener).toHaveBeenCalledWith({ origin: 'https://example.com' })
 
     expect(await connections.list()).toEqual([])
 
@@ -179,13 +190,13 @@ describe('ConnectionsCollection', () => {
     })
 
     const listener = jest.fn()
-    connections.listen(listener)
+    connections.on('delete', listener)
 
-    connections.disconnect('*')
-    expect(listener).toHaveBeenCalledWith('disconnect', '*')
+    await connections.delete('*')
+    expect(listener).toHaveBeenCalledWith({ origin: '*' })
 
-    connections.disconnect('https://example.com')
-    expect(listener).toHaveBeenCalledWith('disconnect', 'https://example.com')
+    await connections.delete('https://example.com')
+    expect(listener).toHaveBeenCalledWith({ origin: 'https://example.com' })
   })
 
   it('should order origins by last accessed', async () => {

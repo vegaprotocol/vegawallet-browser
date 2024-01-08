@@ -2,7 +2,6 @@ import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
-import { flatMap } from 'lodash'
 
 const Errors = {
   NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],
@@ -38,7 +37,7 @@ export default function init({ onerror, settings, wallets, networks, connections
         if (context.isConnected === true) return null
         if ((await connections.has(context.origin)) === false) {
           // If this is a connection request, without a chainId we look up the default one for the extension
-          if (!params.chainId == null) {
+          if (params.chainId == null) {
             const selectedNetworkId = await settings.get('selectedNetwork')
             params.chainId = (await networks.getByNetworkId(selectedNetworkId)).chainId
           }
@@ -67,7 +66,7 @@ export default function init({ onerror, settings, wallets, networks, connections
       },
       async 'client.disconnect_wallet'(params, context) {
         doValidate(clientValidation.disconnectWallet, params)
-        // context.isConnected = false
+        context.isConnected = false
 
         return null
       },

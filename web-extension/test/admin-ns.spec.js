@@ -28,7 +28,7 @@ const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = 
     networks: new NetworkCollection(
       new Map([
         [
-          'fairground',
+          testingNetwork.id,
           new Network({
             ...testingNetwork,
             rest: datanodeUrls
@@ -194,8 +194,8 @@ describe('admin-ns', () => {
           explorer: 'https://explorer.fairground.wtf',
           governance: 'https://governance.fairground.wtf',
           hidden: false,
-          id: 'fairground',
-          name: 'Fairground',
+          id: 'test',
+          name: 'Test',
           preferredNode: null,
           probing: false,
           rest: ['http://localhost:9090'],
@@ -595,7 +595,6 @@ describe('admin-ns', () => {
     }
 
     const server = await createJSONHTTPServer((req) => {
-      console.log(req)
       if (req.url === '/blockchain/height') return { body: chainHeight }
 
       return { body: Date.now() }
@@ -604,16 +603,13 @@ describe('admin-ns', () => {
     const admin = await createAdmin({ datanodeUrls: [server.url] })
 
     const fetch1 = await admin.onrequest(REQ_FETCH(1, '/api/v2/assets'))
-    console.log(fetch1)
     jest.advanceTimersByTime(1)
     const fetch2 = await admin.onrequest(REQ_FETCH(2, '/api/v2/assets'))
     expect(fetch2.result).toEqual(fetch1.result, 'should return cached result')
-    console.log(fetch2)
 
     jest.advanceTimersByTime(1000 * 60 * 60 * 24 * 7) // 1 week
 
     const fetch3 = await admin.onrequest(REQ_FETCH(3, '/api/v2/assets'))
-    console.log(fetch3)
 
     expect(fetch3.result).not.toEqual(fetch2.result, 'should not return cached result after long delay')
 

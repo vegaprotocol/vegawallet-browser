@@ -1,3 +1,5 @@
+const mockPort = 9090
+
 export const mainnet = {
   id: 'mainnet',
   name: 'Mainnet',
@@ -48,4 +50,9 @@ export const fairground = {
   withdraw: 'https://console.fairground.wtf/#/portfolio/assets/withdraw',
   docs: 'https://docs.vega.xyz/testnet',
   vegaDapps: 'https://vega.xyz/apps'
+}
+
+export const testingNetwork = {
+  ...fairground,
+  rest: [`http://localhost:${mockPort}`]
 }

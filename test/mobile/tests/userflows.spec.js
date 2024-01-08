@@ -32,15 +32,6 @@ async function switchToNativeContext() {
   await driver.switchContext(contexts[0]);
 }
 
-async function switchToWebViewContext() {
-  const contexts = await driver.getContexts();
-  console.log('Available Contexts:', contexts);
-  if (contexts.length < 2) {
-    throw new Error('Expect to have native and web view context available. Something is wrong.');
-  }
-  await driver.switchContext(contexts[1]);
-}
-
 async function enableVegaWallet() {
     await switchToNativeContext();
     await click(safariAddressBarMenuButton);
@@ -108,7 +99,8 @@ describe('Onboarding', () => {
     ok(await $('~CONFIRM').isDisplayed(), "The transaction approval popout was not displayed in the wallet");
     await click('~CONFIRM');  
 
-    ok(await $(viewWalletDefaultKey).isDisplayed(), "Expected to see the view wallets page after approving but could not locate the default key");
+    // should be back on the connectons page after approving, this is due to the state of the previous test. Should make this independent if possible. POC disclaimer ;)
+    ok(await $('~https://vegaprotocol.github.io', "Expected to see the connections page displayed after confirming the transaction").isDisplayed())
   });
 });
 

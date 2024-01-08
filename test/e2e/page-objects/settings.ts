@@ -7,8 +7,9 @@ import {
   waitForElementToBeSelected
 } from '../helpers/selenium-util'
 import { Login } from './login'
-import * as settingsLock from '../../../frontend/routes/auth/settings/lock-section'
-import * as radioLocators from '../../../frontend/routes/auth/settings/settings-form-elements/radio'
+import * as settingsLock from '../../../frontend/routes/auth/settings/home/sections/lock-section'
+import * as radioLocators from '../../../frontend/routes/auth/settings/home/settings-form-elements/radio'
+import * as networkLocators from '../../../frontend/routes/auth/settings/home/sections/networks-section.tsx'
 
 export class Settings {
   private readonly lockWalletButton: By = getByDataTestID(settingsLock.locators.settingsLockButton)
@@ -16,6 +17,7 @@ export class Settings {
   private readonly telemetryNo: By = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioNo}`)
   private readonly autoOpenYes: By = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioYes}`)
   private readonly autoOpenNo: By = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioNo}`)
+  private readonly viewNetwork: By = getByDataTestID(networkLocators.locators.viewNetworks)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -51,6 +53,11 @@ export class Settings {
     await this.checkOnSettingsPage()
     await clickElement(this.driver, this.telemetryNo)
     await waitForElementToBeSelected(this.driver, this.telemetryNo)
+  }
+
+  async viewConfiguredNetworks() {
+    await this.checkOnSettingsPage()
+    await clickElement(this.driver, this.viewNetwork)
   }
 
   async isAutoOpenSelected() {

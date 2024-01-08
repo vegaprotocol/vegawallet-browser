@@ -9,6 +9,8 @@ import { Settings } from './page-objects/settings'
 import { ExtensionHeader } from './page-objects/extension-header'
 import { WalletOpenInOtherWindow } from './page-objects/wallet-open-in-other-window'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
+import { NetworkSettings } from './page-objects/network-settings'
+import test from '../../config/test'
 
 describe('Settings test', () => {
   let driver: WebDriver
@@ -138,6 +140,18 @@ describe('Settings test', () => {
       windowHandles,
       "expected the popout window handle to be closed after clicking the 'continue here button' but it was still found in the window handles"
     ).not.toContain(popoutWindowHandle)
+  })
+
+  it('can navigate to multi network details', async () => {
+    await settingsPage.viewConfiguredNetworks()
+    const networkSettings = new NetworkSettings(driver)
+    await networkSettings.checkExpectedNetworksExist()
+    const networkList = test.networks
+    for (let network of networkList) {
+      await networkSettings.openNetworkDetails(network.name)
+      await networkSettings.checkNetworkID(network.name)
+      await networkSettings.goBack()
+    }
   })
 
   async function switchToExtensionTab(

@@ -1,5 +1,6 @@
 import { RpcMethods } from '@/lib/client-rpc-methods'
 
+import { testingNetwork } from '../../config/well-known-networks'
 import { useAssetsStore } from './assets-store'
 
 const assetsMock = {
@@ -70,7 +71,7 @@ describe('AssetsStore', () => {
     expect(useAssetsStore.getState().loading).toBe(true)
     expect(useAssetsStore.getState().assets).toStrictEqual([])
     expect(useAssetsStore.getState().error).toBeNull()
-    await useAssetsStore.getState().fetchAssets(request as unknown as any)
+    await useAssetsStore.getState().fetchAssets(request as unknown as any, testingNetwork.id)
     expect(useAssetsStore.getState().loading).toBe(false)
     expect(useAssetsStore.getState().assets).toHaveLength(2)
     expect(useAssetsStore.getState().error).toBeNull()
@@ -78,7 +79,7 @@ describe('AssetsStore', () => {
 
   it('sets loading and error states while fetching', async () => {
     useAssetsStore.setState({ loading: false, error: new Error('1') })
-    const promise = useAssetsStore.getState().fetchAssets(request as unknown as any)
+    const promise = useAssetsStore.getState().fetchAssets(request as unknown as any, testingNetwork.id)
     expect(useAssetsStore.getState().loading).toBe(true)
     expect(useAssetsStore.getState().error).toBeNull()
     await promise
@@ -86,7 +87,7 @@ describe('AssetsStore', () => {
   })
 
   it('allows you to fetch an asset by id', async () => {
-    await useAssetsStore.getState().fetchAssets(request as unknown as any)
+    await useAssetsStore.getState().fetchAssets(request as unknown as any, testingNetwork.id)
     const asset = useAssetsStore
       .getState()
       .getAssetById('fc7fd956078fb1fc9db5c19b88f0874c4299b2a7639ad05a47a28c0aef291b55')
@@ -94,7 +95,7 @@ describe('AssetsStore', () => {
   })
 
   it('throws error if the asset is not found', async () => {
-    await useAssetsStore.getState().fetchAssets(request as unknown as any)
+    await useAssetsStore.getState().fetchAssets(request as unknown as any, testingNetwork.id)
     expect(() => useAssetsStore.getState().getAssetById('nope')).toThrow('Asset with id nope not found')
   })
 
@@ -102,7 +103,7 @@ describe('AssetsStore', () => {
     const error = new Error('1')
     await useAssetsStore.getState().fetchAssets(() => {
       throw error
-    })
+    }, testingNetwork.id)
     expect(useAssetsStore.getState().error).toBe(error)
   })
 })

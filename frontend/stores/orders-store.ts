@@ -9,7 +9,7 @@ export type OrdersStore = {
   error: Error | null
   lastUpdated: number | null
   order: vegaOrder | null
-  getOrderById: (id: string, request: SendMessage) => Promise<void>
+  getOrderById: (request: SendMessage, id: string, networkId: string) => Promise<void>
 }
 
 export const useOrdersStore = create<OrdersStore>((set) => ({
@@ -17,10 +17,10 @@ export const useOrdersStore = create<OrdersStore>((set) => ({
   error: null,
   lastUpdated: null,
   order: null,
-  async getOrderById(id: string, request: SendMessage) {
+  async getOrderById(request, id, networkId) {
     try {
       set({ loading: true, error: null, lastUpdated: null })
-      const response = await request(RpcMethods.Fetch, { path: `api/v2/order/${id}` }, true)
+      const response = await request(RpcMethods.Fetch, { path: `api/v2/order/${id}`, networkId }, true)
       const order = response.order
 
       set({ order })

@@ -1,6 +1,7 @@
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { generateMarket } from '@/test-helpers/generate-market.ts'
 
+import { testingNetwork } from '../../config/well-known-networks'
 import { useMarketsStore } from './markets-store'
 
 const MARKET_FIXTURE = generateMarket()
@@ -43,7 +44,7 @@ describe('MarketsStore', () => {
     expect(useMarketsStore.getState().loading).toBe(true)
     expect(useMarketsStore.getState().markets).toStrictEqual([])
     expect(useMarketsStore.getState().error).toBeNull()
-    await useMarketsStore.getState().fetchMarkets(request as unknown as any)
+    await useMarketsStore.getState().fetchMarkets(request as unknown as any, testingNetwork.id)
     expect(useMarketsStore.getState().loading).toBe(false)
     expect(useMarketsStore.getState().markets).toHaveLength(1)
     expect(useMarketsStore.getState().error).toBeNull()
@@ -51,7 +52,7 @@ describe('MarketsStore', () => {
 
   it('sets loading and error states while fetching', async () => {
     useMarketsStore.setState({ loading: false, error: new Error('1') })
-    const promise = useMarketsStore.getState().fetchMarkets(request as unknown as any)
+    const promise = useMarketsStore.getState().fetchMarkets(request as unknown as any, testingNetwork.id)
     expect(useMarketsStore.getState().loading).toBe(true)
     expect(useMarketsStore.getState().error).toBeNull()
     await promise
@@ -60,7 +61,7 @@ describe('MarketsStore', () => {
 
   it('allows you to fetch a market by id', async () => {
     useMarketsStore.setState({ markets: [MARKET_FIXTURE] })
-    await useMarketsStore.getState().fetchMarkets(request as unknown as any)
+    await useMarketsStore.getState().fetchMarkets(request as unknown as any, testingNetwork.id)
     const market = useMarketsStore.getState().getMarketById(MARKET_FIXTURE.id as string)
     expect(market).toStrictEqual(marketsMock.markets.edges[0].node)
   })
@@ -114,7 +115,7 @@ describe('MarketsStore', () => {
     const error = new Error('1')
     await useMarketsStore.getState().fetchMarkets(() => {
       throw error
-    })
+    }, testingNetwork.id)
     expect(useMarketsStore.getState().error).toBe(error)
   })
 })

@@ -1,5 +1,6 @@
 import { RpcMethods } from '@/lib/client-rpc-methods'
 
+import { testingNetwork } from '../../../../../../config/well-known-networks'
 import { useAccountsStore } from './accounts-store'
 
 const ACCOUNT_FIXTURE = {
@@ -51,7 +52,7 @@ describe('AccountsStore', () => {
     const { fetchAccounts } = useAccountsStore.getState()
     expect(useAccountsStore.getState().loading).toBeTruthy()
     expect(useAccountsStore.getState().error).toBeNull()
-    await fetchAccounts(id, request)
+    await fetchAccounts(request, id, testingNetwork.id)
     expect(useAccountsStore.getState().loading).toBeFalsy()
     expect(useAccountsStore.getState().error).toBeNull()
     const { accounts, accountsByAsset } = useAccountsStore.getState()
@@ -65,9 +66,13 @@ describe('AccountsStore', () => {
     const { fetchAccounts } = useAccountsStore.getState()
     expect(useAccountsStore.getState().loading).toBeTruthy()
     expect(useAccountsStore.getState().error).toBeNull()
-    await fetchAccounts(id, () => {
-      throw new Error('Error')
-    })
+    await fetchAccounts(
+      () => {
+        throw new Error('Error')
+      },
+      id,
+      testingNetwork.id
+    )
     expect(useAccountsStore.getState().loading).toBeFalsy()
     expect(useAccountsStore.getState().error).toStrictEqual(new Error('Error'))
     const { accounts, accountsByAsset } = useAccountsStore.getState()
@@ -78,7 +83,7 @@ describe('AccountsStore', () => {
     const id = '1'.repeat(64)
     const { startPoll, stopPoll } = useAccountsStore.getState()
     const mockRequest = jest.fn().mockImplementation(request)
-    startPoll(id, mockRequest)
+    startPoll(mockRequest, id, testingNetwork.id)
     expect(mockRequest).not.toHaveBeenCalled()
     jest.advanceTimersByTime(10_000)
     expect(mockRequest).toHaveBeenCalledTimes(1)
@@ -93,7 +98,7 @@ describe('AccountsStore', () => {
     const { reset } = useAccountsStore.getState()
     const id = '1'.repeat(64)
     const mockRequest = jest.fn().mockImplementation(request)
-    await useAccountsStore.getState().fetchAccounts(id, mockRequest)
+    await useAccountsStore.getState().fetchAccounts(mockRequest, id, testingNetwork.id)
     expect(useAccountsStore.getState().accounts).toStrictEqual([ACCOUNT_FIXTURE])
     expect(useAccountsStore.getState().accountsByAsset).toStrictEqual({
       [ACCOUNT_FIXTURE.asset]: [ACCOUNT_FIXTURE]

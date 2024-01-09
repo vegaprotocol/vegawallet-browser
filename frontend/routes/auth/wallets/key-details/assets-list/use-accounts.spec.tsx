@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { mockStore } from '@/test-helpers/mock-store'
 
 import { useAccountsStore } from './accounts-store'
@@ -57,7 +58,7 @@ describe('UseAccounts', () => {
       reset
     })
 
-    const view = renderHook(() => useAccounts(MOCK_KEY))
+    const view = renderHook(() => useAccounts(MOCK_KEY), { wrapper: MockNetworkProvider })
     const { accountsByAsset } = view.result.current
     expect(accountsByAsset).toStrictEqual({
       [ASSET_ID]: [

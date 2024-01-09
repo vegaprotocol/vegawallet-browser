@@ -13,7 +13,6 @@ export type NetworksStore = {
   loading: boolean
   selectedNetwork: Network | null
   loadNetworks: (request: SendMessage) => Promise<void>
-  setSelectedNetwork: (request: SendMessage, newSelectedNetwork: string) => void
   getNetworkById: (networkId: string) => Network | undefined
 }
 
@@ -35,13 +34,5 @@ export const useNetworksStore = create<NetworksStore>((set, get) => ({
   },
   getNetworkById(networkId) {
     return get().networks.find(({ id }) => id === networkId)
-  },
-  async setSelectedNetwork(request, newSelectedNetwork) {
-    const selectedNetwork = get().networks.find(({ id }) => id === newSelectedNetwork)
-    if (!selectedNetwork) {
-      throw new Error('Attempted to set selected network to a network that could not be found')
-    }
-    await request(RpcMethods.UpdateSettings, { selectedNetwork: newSelectedNetwork })
-    set({ selectedNetwork })
   }
 }))

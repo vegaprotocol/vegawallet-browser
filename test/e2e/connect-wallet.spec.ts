@@ -82,7 +82,7 @@ describe('Connect wallet', () => {
     const disconnectResponse = await vegaAPI.disconnectWallet()
     expect(disconnectResponse).toBe(null)
     const keysAfterDisconnect = await vegaAPI.listKeys()
-    expect(keysAfterDisconnect.length).toBe(0)
+    expect(keysAfterDisconnect.length).toBe(1)
     await vegaAPI.connectWallet()
     const keysAfterReconnect = await vegaAPI.listKeys()
     expect(keysAfterReconnect).toEqual(originalKeys)

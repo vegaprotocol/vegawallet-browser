@@ -186,7 +186,7 @@ describe('admin-ns', () => {
       networks: [
         {
           _nodeTimeout: null,
-          chainId: 'test-chain-id"',
+          chainId: 'test-chain-id',
           console: 'https://console.fairground.wtf',
           deposit: 'https://console.fairground.wtf/#/portfolio/assets/deposit',
           docs: 'https://docs.vega.xyz/testnet',

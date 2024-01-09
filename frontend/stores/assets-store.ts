@@ -9,7 +9,7 @@ export type AssetsStore = {
   assets: vegaAsset[]
   loading: boolean
   error: Error | null
-  fetchAssets: (request: SendMessage) => Promise<void>
+  fetchAssets: (request: SendMessage, networkId: string) => Promise<void>
   getAssetById: (id: string) => vegaAsset
 }
 
@@ -17,10 +17,10 @@ export const useAssetsStore = create<AssetsStore>((set, get) => ({
   assets: [],
   loading: true,
   error: null,
-  async fetchAssets(request) {
+  async fetchAssets(request, networkId) {
     try {
       set({ loading: true, error: null })
-      const response = await request(RpcMethods.Fetch, { path: 'api/v2/assets' }, true)
+      const response = await request(RpcMethods.Fetch, { path: 'api/v2/assets', networkId }, true)
       const assets = removePaginationWrapper<vegaAsset>(response.assets.edges)
       set({ assets })
     } catch (error) {

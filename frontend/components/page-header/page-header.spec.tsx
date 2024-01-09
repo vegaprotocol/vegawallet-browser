@@ -7,7 +7,7 @@ import { useGlobalsStore } from '@/stores/globals'
 import { usePopoverStore } from '@/stores/popover-store'
 import { mockStore } from '@/test-helpers/mock-store'
 
-import { fairground } from '../../../config/well-known-networks'
+import { testingNetwork } from '../../../config/well-known-networks'
 import componentLocators from '../locators'
 import { locators, PageHeader } from '.'
 
@@ -63,7 +63,7 @@ describe('PageHeader', () => {
 
     const networkIndicatorElement = screen.getByTestId(locators.networkIndicator)
     expect(networkIndicatorElement).toBeInTheDocument()
-    expect(networkIndicatorElement).toHaveTextContent(fairground.name)
+    expect(networkIndicatorElement).toHaveTextContent(testingNetwork.name)
   })
 
   it('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {

@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import locators from '@/components/locators'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 import { useNetworksStore } from '@/stores/networks-store'
@@ -61,9 +62,11 @@ const mockStores = () => {
 
 const renderComponent = (route: string = '') => {
   return render(
-    <MemoryRouter initialEntries={[route]}>
-      <Auth />
-    </MemoryRouter>
+    <MockNetworkProvider>
+      <MemoryRouter initialEntries={[route]}>
+        <Auth />
+      </MemoryRouter>
+    </MockNetworkProvider>
   )
 }
 

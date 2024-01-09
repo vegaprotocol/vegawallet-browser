@@ -1,12 +1,11 @@
 import * as networks from './well-known-networks.js'
 
 const mockPort = 9090
-const mockChainId = 'testnet'
 
 const test = {
   title: 'Vega Wallet - Test',
-  defaultNetworkId: 'test',
-  defaultChainId: mockChainId,
+  defaultNetworkId: networks.testingNetwork.id,
+  defaultChainId: networks.testingNetwork.chainId,
   test: {
     mockPort
   },

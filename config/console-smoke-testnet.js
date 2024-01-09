@@ -10,7 +10,7 @@ const overrides = {
   autoOpenOnInstall: false
 }
 
-smokeConsoleTestnet.network.find(n => n.id === 'fairground').console = 'http://localhost:3000'
+smokeConsoleTestnet.networks.find((n) => n.id === 'fairground').console = 'http://localhost:3000'
 
 merge(smokeConsoleTestnet, overrides)
 export default smokeConsoleTestnet

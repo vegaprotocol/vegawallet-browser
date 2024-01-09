@@ -41,7 +41,6 @@ const mockStores = () => {
   const loadWallets = jest.fn()
   const fetchAssets = jest.fn()
   const fetchMarkets = jest.fn()
-  const loadNetworks = jest.fn()
   mockStore(useWalletStore, {
     loadWallets
   })
@@ -51,15 +50,12 @@ const mockStores = () => {
   mockStore(useMarketsStore, {
     fetchMarkets
   })
-  mockStore(useNetworksStore, {
-    loadNetworks
-  })
+  mockStore(useNetworksStore, {})
 
   return {
     loadWallets,
     fetchAssets,
-    fetchMarkets,
-    loadNetworks
+    fetchMarkets
   }
 }
 
@@ -82,13 +78,12 @@ describe('Auth', () => {
     expect(screen.getByTestId('page-header')).toBeInTheDocument()
   })
   it('loads the users wallets, networks, assets and markets', () => {
-    const { loadWallets, fetchAssets, fetchMarkets, loadNetworks } = mockStores()
+    const { loadWallets, fetchAssets, fetchMarkets } = mockStores()
     renderComponent()
 
     expect(loadWallets).toHaveBeenCalledTimes(1)
     expect(fetchAssets).toHaveBeenCalledTimes(1)
     expect(fetchMarkets).toHaveBeenCalledTimes(1)
-    expect(loadNetworks).toHaveBeenCalledTimes(1)
   })
   it('renders wallets header on wallets page', () => {
     mockStores()

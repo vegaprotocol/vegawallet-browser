@@ -1,4 +1,4 @@
-import { testingNetwork } from './well-known-networks'
+import * as networks from './well-known-networks.js'
 
 const mockPort = 9090
 const mockChainId = 'testnet'
@@ -10,7 +10,7 @@ const test = {
   test: {
     mockPort
   },
-  networks: [testingNetwork],
+  networks: [networks.testingNetwork],
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',
   encryptionSettings: {

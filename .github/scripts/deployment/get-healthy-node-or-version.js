@@ -22,7 +22,7 @@ async function main(configPath, command) {
     }
 
     const configModule = await import(configPath)
-    const defaultNetwork = config.default.defaultNetworkId
+    const defaultNetwork = configModule.default.defaultNetworkId
     const urls = configModule.default.networks.find((n) => n.id === defaultNetwork).rest
 
     for (const url of urls) {

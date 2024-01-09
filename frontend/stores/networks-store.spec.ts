@@ -11,7 +11,7 @@ const globalsMock = {
   wallet: true,
   version: '0.0.1',
   settings: {
-    selectedNetwork: testingNetwork.id
+    selectedNetwork: fairground.id
   }
 }
 
@@ -36,7 +36,7 @@ describe('NetworksStore', () => {
     await useNetworksStore.getState().loadNetworks(request)
     expect(useNetworksStore.getState().loading).toBe(false)
     expect(useNetworksStore.getState().networks).toStrictEqual([testingNetwork, fairground])
-    expect(useNetworksStore.getState().selectedNetwork).toStrictEqual(testingNetwork)
+    expect(useNetworksStore.getState().selectedNetwork).toStrictEqual(fairground)
   })
   it('throws error if selected network cannot be found', async () => {
     const net = globalsMock.settings.selectedNetwork
@@ -45,6 +45,14 @@ describe('NetworksStore', () => {
       'Could not find selected network foo'
     )
 
+    globalsMock.settings.selectedNetwork = net
+  })
+  it('sets selected network to be the first network if selected network cannot be found', async () => {
+    const net = globalsMock.settings.selectedNetwork
+    // @ts-ignore
+    globalsMock.settings.selectedNetwork = undefined
+    await useNetworksStore.getState().loadNetworks(request)
+    expect(useNetworksStore.getState().selectedNetwork).toStrictEqual(testingNetwork)
     globalsMock.settings.selectedNetwork = net
   })
   it('gets network by networkId', async () => {

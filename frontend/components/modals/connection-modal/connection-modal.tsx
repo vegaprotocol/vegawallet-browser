@@ -28,6 +28,7 @@ export const ConnectionModal = () => {
       const { id: networkId } = networks.find((network) => network.chainId === details?.chainId) || {}
       if (!networkId) {
         setError(new Error(`Network could not be found with chainId ${details?.chainId}`))
+        return
       }
       handleConnectionDecision({ approved, networkId })
     },

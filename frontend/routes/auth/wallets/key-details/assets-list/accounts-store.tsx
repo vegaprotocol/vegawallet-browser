@@ -14,8 +14,8 @@ export type AccountsStore = {
   interval: NodeJS.Timer | null
   error: Error | null
   loading: boolean
-  fetchAccounts: (id: string, request: SendMessage) => Promise<void>
-  startPoll: (id: string, request: SendMessage) => void
+  fetchAccounts: (request: SendMessage, id: string, networkId: string) => Promise<void>
+  startPoll: (request: SendMessage, id: string, networkId: string) => void
   stopPoll: () => void
   reset: () => void
 }
@@ -26,10 +26,14 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
   interval: null,
   error: null,
   loading: true,
-  async fetchAccounts(id, request) {
+  async fetchAccounts(request, id, networkId) {
     try {
       set({ loading: true, error: null })
-      const accountsResponse = await request(RpcMethods.Fetch, { path: `api/v2/accounts?filter.partyIds=${id}` }, true)
+      const accountsResponse = await request(
+        RpcMethods.Fetch,
+        { path: `api/v2/accounts?filter.partyIds=${id}`, networkId },
+        true
+      )
       const accounts = removePaginationWrapper<vegaAccount>(accountsResponse.accounts.edges)
       const accountsByAsset = groupBy(accounts, 'asset')
       set({
@@ -44,9 +48,9 @@ export const useAccountsStore = create<AccountsStore>()((set, get) => ({
       set({ loading: false })
     }
   },
-  startPoll(id, request) {
+  startPoll(request, id, networkId) {
     const interval = setInterval(() => {
-      get().fetchAccounts(id, request)
+      get().fetchAccounts(request, id, networkId)
     }, POLL_INTERVAL)
     set({
       interval

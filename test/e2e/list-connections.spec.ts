@@ -39,7 +39,7 @@ describe('list connections tests', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    //await driver.quit()
+    // await driver.quit()
   })
 
   it('shows no connections when no dapp connected, updates and shows connections after approving one or more', async () => {
@@ -98,7 +98,7 @@ describe('list connections tests', () => {
     await switchWindowHandles(driver, false, firstDappWindowHandle)
     await firstDapp.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     const res = await firstDapp.getTransactionResult()
-    expect(res).toBe('Not connected')
+    expect(res).toBe('Unknown public key')
 
     await firstDapp.connectWallet(false)
     await switchWindowHandles(driver, false, extensionHandle)
@@ -135,12 +135,15 @@ describe('list connections tests', () => {
 
     const { callCounter: firstDappCallCounter } = await firstDapp.getEventResult('client.disconnected')
     expect(firstDappCallCounter).toEqual(1)
+    await firstDapp.driver.navigate().refresh()
     await firstDapp.connectWallet(false)
+
     await connectWalletModal.checkOnConnectWallet()
     await connectWalletModal.denyConnection()
 
     const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnected')
     expect(secondDappCallCounter).toEqual(1)
+    await secondDapp.driver.navigate().refresh()
     await secondDapp.connectWallet(false)
     await connectWalletModal.checkOnConnectWallet()
 

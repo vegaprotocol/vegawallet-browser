@@ -40,6 +40,6 @@ This method is deprecated and is kept for backward compatibility.
 
 ## Events
 
-### Disconnect (client.disconnect)
+### Disconnect (client.disconnect_wallet)
 
 - If I connect and the user disconnects, an event is sent to all listeners

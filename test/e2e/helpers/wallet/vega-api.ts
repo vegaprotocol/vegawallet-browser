@@ -10,7 +10,7 @@ interface Key {
 }
 
 export class VegaAPI {
-  private driver: WebDriver
+  public driver: WebDriver
   private vegaDappWindowHandle = ''
   private vegaExtensionWindowHandle: string
   private dappUrl: string

@@ -256,8 +256,6 @@ export class VegaAPI {
       }
     }, event)
 
-    console.error(events)
-
     const res = JSON.parse(events)
 
     return { events: res[0], callCounter: res[1] }

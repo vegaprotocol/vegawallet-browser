@@ -71,13 +71,13 @@ describe('list connections tests', () => {
     const extensionHandle = await driver.getWindowHandle()
     await firstDapp.connectWallet(true, false, false)
     const firstDappWindowHandle = await driver.getWindowHandle()
-    await firstDapp.addEventListener('client.disconnect')
+    await firstDapp.addEventListener('client.disconnected')
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(1)
 
     await secondDapp.connectWallet(true, false, false)
     const secondDappWindowHandle = await driver.getWindowHandle()
-    await secondDapp.addEventListener('client.disconnect')
+    await secondDapp.addEventListener('client.disconnected')
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkNumConnections(2)
 
@@ -87,7 +87,7 @@ describe('list connections tests', () => {
     await staticWait(10000)
     await switchWindowHandles(driver, false, firstDappWindowHandle)
     await staticWait(10000)
-    const { callCounter: firstDappCallCounter } = await firstDapp.getEventResult('client.disconnect')
+    const { callCounter: firstDappCallCounter } = await firstDapp.getEventResult('client.disconnected')
     expect(firstDappCallCounter).toEqual(1)
 
     await switchWindowHandles(driver, false, extensionHandle)
@@ -106,45 +106,45 @@ describe('list connections tests', () => {
     await connectWalletModal.denyConnection()
 
     await switchWindowHandles(driver, false, secondDappWindowHandle)
-    const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnect')
+    const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnected')
     expect(secondDappCallCounter).toEqual(0)
 
     await secondDapp.connectWallet(false)
     await switchWindowHandles(driver, false, extensionHandle)
     await connections.checkOnListConnectionsPage()
 
-    await firstDapp.removeEventListener('client.disconnect')
-    await secondDapp.removeEventListener('client.disconnect')
+    await firstDapp.removeEventListener('client.disconnected')
+    await secondDapp.removeEventListener('client.disconnected')
   })
 
   it('disconnects all instances of a dapp when I have more than one instance when I click disonnect', async () => {
     secondDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
-    await firstDapp.addEventListener('client.disconnect')
+    await firstDapp.addEventListener('client.disconnected')
     await connectWalletModal.approveConnectionAndCheckSuccess()
     await connections.checkOnListConnectionsPage()
     await connections.checkNumConnections(1)
 
     await secondDapp.connectWallet()
-    await secondDapp.addEventListener('client.disconnect')
+    await secondDapp.addEventListener('client.disconnected')
     await connections.checkOnListConnectionsPage()
     await connections.checkNumConnections(1)
 
     await connections.disconnectConnection('https://vegaprotocol.github.io')
     expect(await connections.connectionsExist()).toBe(false)
 
-    const { callCounter: firstDappCallCounter } = await firstDapp.getEventResult('client.disconnect')
+    const { callCounter: firstDappCallCounter } = await firstDapp.getEventResult('client.disconnected')
     expect(firstDappCallCounter).toEqual(1)
     await firstDapp.connectWallet(false)
     await connectWalletModal.checkOnConnectWallet()
     await connectWalletModal.denyConnection()
 
-    const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnect')
+    const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnected')
     expect(secondDappCallCounter).toEqual(1)
     await secondDapp.connectWallet(false)
     await connectWalletModal.checkOnConnectWallet()
 
-    await firstDapp.removeEventListener('client.disconnect')
-    await secondDapp.removeEventListener('client.disconnect')
+    await firstDapp.removeEventListener('client.disconnected')
+    await secondDapp.removeEventListener('client.disconnected')
   })
 })

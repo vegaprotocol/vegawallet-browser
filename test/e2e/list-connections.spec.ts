@@ -100,6 +100,7 @@ describe('list connections tests', () => {
     const res = await firstDapp.getTransactionResult()
     expect(res).toBe('Unknown public key')
 
+    await firstDapp.driver.navigate().refresh()
     await firstDapp.connectWallet(false)
     await switchWindowHandles(driver, false, extensionHandle)
     await connectWalletModal.checkOnConnectWallet()
@@ -109,6 +110,7 @@ describe('list connections tests', () => {
     const { callCounter: secondDappCallCounter } = await secondDapp.getEventResult('client.disconnected')
     expect(secondDappCallCounter).toEqual(0)
 
+    await secondDapp.driver.navigate().refresh()
     await secondDapp.connectWallet(false)
     await switchWindowHandles(driver, false, extensionHandle)
     await connections.checkOnListConnectionsPage()

@@ -10,7 +10,9 @@ const overrides = {
   autoOpenOnInstall: false
 }
 
-smokeConsoleMainnet.networks.find(n => n.id === 'mainnet').console = 'http://localhost:3001'
+export const consolePath = 'http://localhost:3001'
+
+smokeConsoleMainnet.networks.find((n) => n.id === 'mainnet').console = consolePath
 
 merge(smokeConsoleMainnet, overrides)
 export default smokeConsoleMainnet

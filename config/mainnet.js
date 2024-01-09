@@ -1,12 +1,9 @@
-import * as networks from './networks'
+import * as networks from './well-known-networks.js'
 const mainnet = {
   title: 'Vega Wallet - Mainnet',
   defaultNetworkId: networks.mainnet.id,
   defaultChainId: networks.mainnet.chainId,
-  networks: [
-    networks.mainnet,
-    networks.fairground
-  ],
+  networks: [networks.mainnet, networks.fairground],
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   encryptionSettings: undefined,
   closeWindowOnPopupOpen: true,

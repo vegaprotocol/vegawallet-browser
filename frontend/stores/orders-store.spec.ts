@@ -1,3 +1,4 @@
+import { testingNetwork } from '../../config/well-known-networks'
 import { useOrdersStore } from './orders-store'
 
 const mockOrderData = { id: 'some-id', name: 'Test Order' }
@@ -31,7 +32,7 @@ describe('Orders Store', () => {
     )
 
     useOrdersStore.setState({ loading: false })
-    const promise = useOrdersStore.getState().getOrderById('some-id', requestMock)
+    const promise = useOrdersStore.getState().getOrderById(requestMock, 'some-id', testingNetwork.id)
     expect(useOrdersStore.getState().loading).toBe(true)
     await promise
     expect(useOrdersStore.getState().loading).toBe(false)
@@ -39,21 +40,21 @@ describe('Orders Store', () => {
 
   it('should set loading to false when getOrderById is done', async () => {
     requestMock.mockResolvedValue({ order: mockOrderData })
-    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    await useOrdersStore.getState().getOrderById(requestMock, 'some-id', testingNetwork.id)
     expect(useOrdersStore.getState().loading).toBe(false)
   })
 
   it('should set the order when found', async () => {
     requestMock.mockResolvedValue({ order: mockOrderData })
 
-    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    await useOrdersStore.getState().getOrderById(requestMock, 'some-id', testingNetwork.id)
     expect(useOrdersStore.getState().order).toEqual(mockOrderData)
   })
 
   it('should set lastUpdated after getOrderById is done', async () => {
     useOrdersStore.setState({ lastUpdated: null })
     requestMock.mockResolvedValue({ order: mockOrderData })
-    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    await useOrdersStore.getState().getOrderById(requestMock, 'some-id', testingNetwork.id)
     expect(useOrdersStore.getState().lastUpdated).toBe(0)
   })
 
@@ -61,7 +62,7 @@ describe('Orders Store', () => {
     const errorMessage = 'unexpected error'
     requestMock.mockRejectedValue(new Error(errorMessage))
 
-    await useOrdersStore.getState().getOrderById('some-id', requestMock)
+    await useOrdersStore.getState().getOrderById(requestMock, 'some-id', testingNetwork.id)
     expect(useOrdersStore.getState().error?.message).toBe(errorMessage)
   })
 })

@@ -91,4 +91,36 @@ describe('Auth', () => {
 
     expect(screen.getByTestId('dapps-header')).toBeVisible()
   })
+  it('renders nothing if wallets are loading', () => {
+    mockStore(useWalletStore, {
+      loadWallets: jest.fn(),
+      loading: true
+    })
+    mockStore(useAssetsStore, {
+      fetchAssets: jest.fn()
+    })
+    mockStore(useMarketsStore, {
+      fetchMarkets: jest.fn()
+    })
+    mockStore(useNetworksStore, {})
+    const { container } = renderComponent()
+
+    expect(container).toBeEmptyDOMElement()
+  })
+  it('renders nothing if networks are loading', () => {
+    mockStore(useWalletStore, {
+      loadWallets: jest.fn()
+    })
+    mockStore(useAssetsStore, {
+      fetchAssets: jest.fn()
+    })
+    mockStore(useMarketsStore, {
+      fetchMarkets: jest.fn()
+    })
+    mockStore(useNetworksStore, {
+      loading: true
+    })
+    const { container } = renderComponent()
+    expect(container).toBeEmptyDOMElement()
+  })
 })

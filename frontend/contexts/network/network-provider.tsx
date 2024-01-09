@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
+import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useGlobalsStore } from '@/stores/globals'
 import { useInteractionStore } from '@/stores/interaction-store'
 import { useNetworksStore } from '@/stores/networks-store'
 
-import { useJsonRpcClient } from '../json-rpc/json-rpc-context'
 import { NetworkContext } from './network-context'
 
 export const useNetworkFromChainId = (chainId?: string) => {
@@ -56,7 +56,6 @@ export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
   if (loadingNetworks || loadingGlobals) return null
 
   const interactionMode = transactionModalOpen || connectionModalOpen
-
   const value = interactionMode ? networkFromChainId : selectedNetwork
   if (!value) {
     throw new Error('Could not find selected network')

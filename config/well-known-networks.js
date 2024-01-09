@@ -56,5 +56,6 @@ export const testingNetwork = {
   ...fairground,
   id: 'test',
   name: 'Test',
+  chainId: 'test-chain-id',
   rest: [`http://localhost:${mockPort}`]
 }

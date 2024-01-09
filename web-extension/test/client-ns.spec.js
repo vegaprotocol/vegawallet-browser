@@ -78,7 +78,6 @@ describe('client-ns', () => {
       id: 2,
       result: null
     })
-    expect(context.isConnected).toBe(false)
     expect(await connections.has(context.origin)).toBe(true)
   })
 

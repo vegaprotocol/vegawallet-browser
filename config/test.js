@@ -18,7 +18,7 @@ const test = {
   },
   closeWindowOnPopupOpen: false,
   sentryDsn: undefined,
-  logging: false,
+  logging: true,
   showDisclaimer: false,
 
   manifestReplacements: {

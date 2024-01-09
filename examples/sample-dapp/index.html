@@ -85,7 +85,7 @@
                         .connectWallet()
                         .then(() => {
                           App.connected = true
-                          window.vega.on('client.disconnect', App.ondisconnect)
+                          window.vega.on('client.disconnected', App.ondisconnect)
                         })
                         .catch(console.error)
                         .finally(() => {
@@ -110,7 +110,7 @@
                         .then(() => {
                           App.connected = false
                           App.chainId = null
-                          window.vega.off('client.disconnect', App.ondisconnect)
+                          window.vega.off('client.disconnected', App.ondisconnect)
                         })
                         .finally(() => {
                           App.busy = false

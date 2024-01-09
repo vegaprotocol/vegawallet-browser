@@ -14,6 +14,7 @@ import { Console } from './console'
 import { consolePath as mainnetConsolePath } from '../../config/console-smoke-mainnet'
 import { consolePath as fairgroundConsolePath } from '../../config/console-smoke-testnet'
 import dotenv from 'dotenv'
+import path from 'path'
 
 let driver: WebDriver
 let connectWallet: ConnectWallet
@@ -23,7 +24,7 @@ let vegaConsole: Console
 let recoveryPhrase: string
 let approveTransaction: boolean
 let market: string
-let path: any
+let consolePath: any
 let acceptRisk: boolean
 
 beforeAll(async () => {
@@ -53,7 +54,7 @@ afterEach(async () => {
 
 it('check console and browser wallet integrate', async () => {
   await runTestRetryIfDriverCrashes(async () => {
-    driver.get(path)
+    driver.get(consolePath)
     const handlesBeforeConnect = await driver.getAllWindowHandles()
     const consoleHandle = await driver.getWindowHandle()
 
@@ -103,13 +104,13 @@ async function setUpTests() {
     recoveryPhrase = process.env.MAINNET_RECOVERY_PHRASE ?? ''
     approveTransaction = false
     market = 'USDT'
-    path = mainnetConsolePath
+    consolePath = mainnetConsolePath
     acceptRisk = true
   } else {
     recoveryPhrase = process.env.TESTNET_RECOVERY_PHRASE ?? ''
     approveTransaction = true
     market = 'USDT'
-    path = fairgroundConsolePath
+    consolePath = fairgroundConsolePath
     acceptRisk = false
   }
   await apiHelper.setUpWalletAndKey('password', 'wallet', 'Key 1', false, recoveryPhrase)

@@ -22,6 +22,10 @@ describe('Network tests', () => {
     // 1108-NTWK-001 The browser wallet defaults to use the network declared in config
     // 1108-NTWK-002 I can see which vega network the browser wallet is connected to from the view wallet page
     const connectedNetwork = await extensionHeader.getNetworkConnectedTo()
-    expect(connectedNetwork.toLowerCase()).toBe(test.network.name.toLowerCase())
+    const defaultNetwork = test.networks.find((n) => n.id === test.defaultNetworkId)
+    if (!defaultNetwork) {
+      throw new Error(`Could not find default network ${test.defaultNetworkId}`)
+    }
+    expect(connectedNetwork.toLowerCase()).toBe(defaultNetwork.name.toLowerCase())
   })
 })

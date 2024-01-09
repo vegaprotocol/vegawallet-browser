@@ -21,7 +21,7 @@ export const ConnectionModal = () => {
   const { networks } = useNetworksStore((store) => ({
     networks: store.networks
   }))
-  const [hasConnected, setHasConnected] = useState(false) || {}
+  const [hasConnected, setHasConnected] = useState(false)
 
   const sendConnectionDecision = useCallback(
     (approved: boolean) => {

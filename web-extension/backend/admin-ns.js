@@ -217,6 +217,17 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         }
       },
 
+      async 'admin.export_recovery_phrase'(params) {
+        doValidate(adminValidation.exportRecoveryPhrase, params)
+        if ((await encryptedStore.verifyPassphrase(params.passphrase)) !== true)
+          throw new JSONRPCServer.Error('Invalid passphrase or corrupted storage', 1)
+        try {
+          return await wallets.exportRecoveryPhrase({ walletName: params.walletName })
+        } catch (ex) {
+          throw new JSONRPCServer.Error(ex.message, 1)
+        }
+      },
+
       async 'admin.rename_key'(params) {
         doValidate(adminValidation.renameKey, params)
 

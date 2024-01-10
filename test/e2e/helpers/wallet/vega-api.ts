@@ -63,6 +63,9 @@ export class VegaAPI {
   }
 
   async addEventListener(event: string, withNewTab = false, closeTab = false) {
+    if (!this.vegaExtensionWindowHandle) {
+      this.vegaExtensionWindowHandle = await this.driver.getWindowHandle()
+    }
     return await this.controlTabs(withNewTab, closeTab, () => this.executeAddEventListeners(event))
   }
 

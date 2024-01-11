@@ -69,6 +69,13 @@ export class APIHelper {
     })
   }
 
+  async listNetworks() {
+    return await this.driver.executeAsyncScript<string>(async (callback: (arg0: any) => void) => {
+      const { networks } = await window.client.request('admin.list_networks', null)
+      callback(networks)
+    })
+  }
+
   async setTelemetry(optIn: boolean = false) {
     return await this.driver.executeScript<string>(
       async (optIn: boolean, rpcMethod: string) => {

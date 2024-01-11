@@ -62,10 +62,6 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeListKeys())
   }
 
-  async listNetworks(withNewTab = false, closeTab = false) {
-    return await this.controlTabs(withNewTab, closeTab, () => this.executeListNetworks())
-  }
-
   async addEventListener(event: string, withNewTab = false, closeTab = false) {
     if (!this.vegaExtensionWindowHandle) {
       this.vegaExtensionWindowHandle = await this.driver.getWindowHandle()

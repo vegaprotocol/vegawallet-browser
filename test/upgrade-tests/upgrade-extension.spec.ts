@@ -13,9 +13,12 @@ import { copyDirectoryToNewLocation, updateOrAddJsonProperty } from '../e2e/help
 import { chromePublicKey } from '../../rollup/postbuild'
 import { Settings } from '../e2e/page-objects/settings'
 import { Login } from '../e2e/page-objects/login'
+import { APIHelper } from '../e2e/helpers/wallet/wallet-api'
+import { testingNetwork } from '../../config/well-known-networks'
 
 describe('Check migration of settings after upgrade', () => {
   let driver: WebDriver
+  let apiHelper: APIHelper
   let navPanel: NavPanel
   let settingsPage: Settings
   const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled but it was not'
@@ -28,6 +31,7 @@ describe('Check migration of settings after upgrade', () => {
     const handles = await driver.getAllWindowHandles()
     let extensionID = await getHandleWithExtensionAutoOpened(driver, handles)
     navPanel = new NavPanel(driver)
+    apiHelper = new APIHelper(driver)
     await navPanel.goToSettings()
     await copyDirectoryToNewLocation(extensionPath + '/chrome', oldExtensionDirectory)
     await updateOrAddJsonProperty(oldExtensionDirectory + '/manifest.json', 'key', chromePublicKey)
@@ -41,12 +45,17 @@ describe('Check migration of settings after upgrade', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    // await driver.quit()
   })
 
   it('the correct settings defaults are loaded when upgrading', async () => {
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
     expect(await settingsPage.isAutoOpenSelected(), expectedAutoOpenEnabledMessage).toBe(true)
     await settingsPage.lockWalletAndCheckLoginPageAppears()
+  })
+
+  it('adjusts the networks as required', async () => {
+    const networks = await apiHelper.listNetworks()
+    expect(networks).toStrictEqual([testingNetwork])
   })
 })

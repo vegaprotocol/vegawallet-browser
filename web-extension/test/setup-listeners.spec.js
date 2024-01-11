@@ -8,7 +8,7 @@ import {
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import config from '!/config'
 import { NetworkCollection } from '../backend/network.js'
-import { testingNetwork } from '../../config/well-known-networks.js'
+import { fairground, testingNetwork } from '../../config/well-known-networks.js'
 import { ConnectionsCollection } from '../backend/connections.js'
 
 describe('SetupListeners', () => {
@@ -106,6 +106,21 @@ describe('SetupListeners', () => {
     expect(runtimeMock.onConnect.addListener).toHaveBeenCalledWith(expect.any(Function))
   })
 
+  it('should not apply migrations if installing', async () => {
+    const settings = new ConcurrentStorage(new Map())
+    const networks = new NetworkCollection(new Map())
+    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
+
+    await install({ networks, settings })
+
+    expect(await settings.get('version')).toBe(2)
+    const clone = Array.from(await settings.entries())
+
+    await update({ settings, connections })
+
+    expect(Array.from(await settings.entries())).toEqual(clone)
+  })
+
   it('should apply migrations from version null to version 1', async () => {
     const networks = new NetworkCollection(new Map())
     const settings = new ConcurrentStorage(
@@ -154,24 +169,34 @@ describe('SetupListeners', () => {
     expect(await settings.get('autoOpen')).toBe(false)
   })
 
-  // latest version
-  it('should not apply migrations from version 1', async () => {
-    const settings = new ConcurrentStorage(new Map())
-    const networks = new NetworkCollection(new Map())
+  // Add test for migration of networks
+  it('should apply migrations from version 1 to version 2', async () => {
+    const networks = new NetworkCollection(new Map([['something', fairground]]))
+    const settings = new ConcurrentStorage(
+      new Map([
+        ['version', 1],
+        ['autoOpen', true]
+      ])
+    )
     const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
-
-    await install({ networks, settings })
-
-    expect(await settings.get('version')).toBe(2)
-    const clone = Array.from(await settings.entries())
-
-    await update({ settings, connections })
-
-    expect(Array.from(await settings.entries())).toEqual(clone)
+    await connections.set('https://example.com', {
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      },
+      accessedAt: 0
+    })
+    await update({ settings, networks, connections })
+    expect(await networks.list()).toStrictEqual(['test'])
+    expect(await connections.get('https://example.com')).toStrictEqual({
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      },
+      accessedAt: 0,
+      origin: 'https://example.com',
+      chainId: 'test-chain-id',
+      networkId: 'test'
+    })
   })
-
-  // // Add test for migration of networks
-  // it('should migrate existing networks', () => {
-  //   expect(false).toBe(true)
-  // })
 })

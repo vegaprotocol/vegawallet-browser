@@ -14,7 +14,7 @@ import { chromePublicKey } from '../../rollup/postbuild'
 import { Settings } from '../e2e/page-objects/settings'
 import { Login } from '../e2e/page-objects/login'
 import { APIHelper } from '../e2e/helpers/wallet/wallet-api'
-import { fairground, mainnet, testingNetwork } from '../../config/well-known-networks'
+import { fairground, mainnet } from '../../config/well-known-networks'
 
 describe('Check migration of settings after upgrade', () => {
   let driver: WebDriver
@@ -56,6 +56,20 @@ describe('Check migration of settings after upgrade', () => {
 
   it('adjusts the networks as required', async () => {
     const networks = await apiHelper.listNetworks()
-    expect(networks).toStrictEqual([fairground, mainnet])
+    expect(networks).toStrictEqual([
+      {
+        ...fairground,
+        _nodeTimeout: expect.any(Number),
+        preferredNode: expect.any(Object),
+        probing: expect.any(Boolean)
+      },
+      {
+        ...mainnet,
+        // Never used so default values
+        _nodeTimeout: null,
+        preferredNode: null,
+        probing: false
+      }
+    ])
   })
 })

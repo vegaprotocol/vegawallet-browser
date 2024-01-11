@@ -6,7 +6,12 @@ const backendConfig = cloneDeep(baseConfig)
 let overrides = {
   roots: ['<rootDir>/web-extension'],
   setupFiles: ['jest-webextension-mock', './web-extension/test/setup-tests.js'],
-  collectCoverageFrom: ['**/*.js', '!**/node_modules/**'],
+  collectCoverageFrom: [
+    '**/*.js',
+    '!**/node_modules/**',
+    '!**/web-extension/validation/client/**',
+    '!**/web-extension/validation/admin/**'
+  ],
   coverageDirectory: 'coverage/backend',
   coverageReporters: ['html', 'lcov'],
   reporters: [

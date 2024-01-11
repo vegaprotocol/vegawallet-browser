@@ -27,13 +27,13 @@ export class ConnectionsCollection {
    * @param {string} [params.networkId] - Preferred networkId that was approved for the connection
    * @returns {Promise<void>}
    */
-  async set(origin, { allowList, chainId = null, networkId = null }) {
+  async set(origin, { allowList, chainId = null, networkId = null, accessedAt }) {
     const value = {
       origin,
       allowList,
       chainId,
       networkId,
-      accessedAt: Date.now()
+      accessedAt: accessedAt ?? Date.now()
     }
 
     const res = await this.store.set(origin, value)
@@ -78,6 +78,10 @@ export class ConnectionsCollection {
     this._emitter.emit('delete', { origin })
 
     return res
+  }
+
+  async get(origin) {
+    return await this.store.get(origin)
   }
 
   async isAllowed(origin, publicKey) {

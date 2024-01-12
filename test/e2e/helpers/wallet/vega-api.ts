@@ -43,11 +43,16 @@ export class VegaAPI {
     return await this.driver.getWindowHandle()
   }
 
-  async connectWallet(withNewTab = true, closeTab = false, switchBackToOriginalTab = true) {
+  async connectWallet(withNewTab = true, closeTab = false, switchBackToOriginalTab = true, params: any = null) {
     if (!this.vegaExtensionWindowHandle) {
       this.vegaExtensionWindowHandle = await this.driver.getWindowHandle()
     }
-    return await this.controlTabs(withNewTab, closeTab, () => this.executeConnectWallet(), switchBackToOriginalTab)
+    return await this.controlTabs(
+      withNewTab,
+      closeTab,
+      () => this.executeConnectWallet(params),
+      switchBackToOriginalTab
+    )
   }
 
   async disconnectWallet(withNewTab = true, closeTab = false) {
@@ -160,13 +165,13 @@ export class VegaAPI {
     })
   }
 
-  private async executeConnectWallet() {
-    return await this.driver.executeScript(async () => {
+  private async executeConnectWallet(params: any) {
+    return await this.driver.executeScript(async (params: any) => {
       if (!window.vega) {
         throw new Error('content script not found')
       }
-      window.connectWalletResult = window.vega.connectWallet()
-    })
+      window.connectWalletResult = window.vega.connectWallet(params)
+    }, params)
   }
 
   private async executeDisconnectWallet() {

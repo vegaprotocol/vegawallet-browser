@@ -12,9 +12,6 @@ import { JsonRpcNotification } from '../json-rpc-provider'
 const createClient = (notificationHandler: Function) => {
   const { runtime } = getExtensionApi()
   const backgroundPort = runtime.connect({ name: 'popup' })
-  backgroundPort.onDisconnect.addListener(() => {
-    console.log('Disconnected from background')
-  })
   const client = new JSONRPCClient({
     onnotification: (...arguments_) => {
       notificationHandler(...arguments_)
@@ -30,6 +27,12 @@ const createClient = (notificationHandler: Function) => {
     log('info', 'Received message from background', message)
     client.onmessage(message)
   })
+
+  backgroundPort.onDisconnect.addListener(
+    /* istanbul ignore next */ () => {
+      console.log('Port disconnected from background')
+    }
+  )
   return client
 }
 

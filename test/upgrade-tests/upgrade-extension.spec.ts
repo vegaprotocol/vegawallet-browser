@@ -45,7 +45,7 @@ describe('Check migration of settings after upgrade', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    // await driver.quit()
   })
 
   it('the correct settings defaults are loaded when upgrading', async () => {

@@ -164,7 +164,9 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
 
       async 'admin.list_networks'(params) {
         doValidate(adminValidation.listNetworks, params)
-        return { networks: await networks.listNetworkDetails() }
+        const nets = await networks.listNetworkDetails()
+        console.log(nets)
+        return { networks: nets }
       },
 
       async 'admin.generate_recovery_phrase'(params) {

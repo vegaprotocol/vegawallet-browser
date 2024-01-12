@@ -67,7 +67,6 @@ describe('Check migration of settings after upgrade', () => {
         ...mainnet,
         // Never used so default values
         _nodeTimeout: null,
-        preferredNode: null,
         probing: false
       }
     ])

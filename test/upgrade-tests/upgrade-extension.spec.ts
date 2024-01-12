@@ -60,7 +60,7 @@ describe('Check migration of settings after upgrade', () => {
       {
         ...fairground,
         _nodeTimeout: expect.any(Number),
-        preferredNode: expect.any(Object),
+        preferredNode: expect.any(String),
         probing: expect.any(Boolean)
       },
       {

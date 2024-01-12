@@ -51,8 +51,9 @@ describe('SetupListeners', () => {
     const onInstalledListener = createOnInstalledListener(networksMock, settingsMock)
     await onInstalledListener(detailsMock)
 
-    expect(networksMock.set).toHaveBeenCalledTimes(1)
+    expect(networksMock.set).toHaveBeenCalledTimes(2)
     expect(networksMock.set).toHaveBeenCalledWith(testingNetwork.id, testingNetwork)
+    expect(networksMock.set).toHaveBeenCalledWith(fairground.id, fairground)
     expect(settingsMock.set).toHaveBeenCalledTimes(3)
     expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', testingNetwork.id)
     expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
@@ -187,7 +188,7 @@ describe('SetupListeners', () => {
       accessedAt: 0
     })
     await update({ settings, networks, connections })
-    expect(await networks.list()).toStrictEqual(['test'])
+    expect(await networks.list()).toStrictEqual(['test', 'fairground'])
     expect(await connections.get('https://example.com')).toStrictEqual({
       allowList: {
         wallets: ['w1'],

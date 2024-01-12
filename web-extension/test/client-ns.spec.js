@@ -1,6 +1,6 @@
 import initClientServer from '../backend/client-ns.js'
 import { WalletCollection } from '../backend/wallets.js'
-import { NetworkCollection } from '../backend/network.js'
+import { Network, NetworkCollection } from '../backend/network.js'
 import { ConnectionsCollection } from '../backend/connections.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
@@ -27,12 +27,12 @@ describe('client-ns', () => {
     await enc.create()
 
     const server = initClientServer({
-      settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
+      settings: new ConcurrentStorage(new Map([['selectedNetwork', testingNetwork.id]])),
       wallets: new WalletCollection({
         walletsStore: enc,
         publicKeyIndexStore
       }),
-      networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: [] }]])),
+      networks: new NetworkCollection(new Map([[testingNetwork.id, new Network(testingNetwork)]])),
       connections,
       interactor,
       onerror(err) {
@@ -50,7 +50,7 @@ describe('client-ns', () => {
         id: 1,
         method: 'client.connect_wallet',
         params: {
-          chainId: testingNetwork.id
+          chainId: testingNetwork.chainId
         }
       },
       context
@@ -100,12 +100,12 @@ describe('client-ns', () => {
     await enc.create()
 
     const server = initClientServer({
-      settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
+      settings: new ConcurrentStorage(new Map([['selectedNetwork', testingNetwork.id]])),
       wallets: new WalletCollection({
         walletsStore: enc,
         publicKeyIndexStore
       }),
-      networks: new NetworkCollection(new Map([['fairground', { name: 'Fairground', rest: [] }]])),
+      networks: new NetworkCollection(new Map([[testingNetwork.id, new Network(testingNetwork)]])),
       connections,
       interactor,
       onerror(err) {
@@ -113,7 +113,7 @@ describe('client-ns', () => {
       }
     })
 
-    const connectReq = { jsonrpc: '2.0', method: 'client.connect_wallet', params: { chainId: testingNetwork.id } }
+    const connectReq = { jsonrpc: '2.0', method: 'client.connect_wallet', params: { chainId: testingNetwork.chainId } }
     const nullRes = { jsonrpc: '2.0' }
 
     const context = {

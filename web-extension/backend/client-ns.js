@@ -38,7 +38,6 @@ export default function init({ onerror, settings, wallets, networks, connections
     onerror,
     methods: {
       async 'client.connect_wallet'(params, context) {
-        console.log(0, params)
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.connectWallet, params)
         if (context.isConnected === true) {

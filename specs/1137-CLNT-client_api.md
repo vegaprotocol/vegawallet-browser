@@ -2,7 +2,7 @@
 
 ## Methods
 
-### Connect (client.connect_wallet)
+### Connect
 
 - If I connect and it is not approved then I get an error telling me the user rejected the connection (<a name="1137-CLNT-001" href="#1137-CLNT-001">1137-CLNT-001</a>)
 - If I connect and it is approved then I do not get an error (<a name="1137-CLNT-002" href="#1137-CLNT-002">1137-CLNT-002</a>)
@@ -14,13 +14,13 @@
 - If I connect with a chainId and then connect again with a different chainId then I get an error indicating that I am already connected to a different chain (<a name="1137-CLNT-008" href="#1137-CLNT-008">1137-CLNT-008</a>)
 - If I connect and it is approved and use the UI to disconnect then I am required to approve the connection again (<a name="1137-CLNT-014" href="#1137-CLNT-014">1137-CLNT-014</a>)
 
-### Is Connected (client.is_connected)
+### Is Connected
 
 - If I connect and it is approved then isConnected is true (<a name="1137-CLNT-009" href="#1137-CLNT-009">1137-CLNT-009</a>)
 - If I connect and it is not approved then isConnected is false (<a name="1137-CLNT-010" href="#1137-CLNT-010">1137-CLNT-010</a>)
 - If I connect and it is approved and the user disconnects then isConnected is true (<a name="1137-CLNT-011" href="#1137-CLNT-011">1137-CLNT-011</a>)
 
-### Disconnect wallet (client.disconnect_wallet)
+### Disconnect wallet
 
 This method is deprecated and is kept for backward compatibility.
 
@@ -28,6 +28,6 @@ This method is deprecated and is kept for backward compatibility.
 
 ## Events
 
-### Disconnect (client.disconnect_wallet)
+### Disconnect
 
 - If I connect and the user disconnects via the UI, an event is sent to all listeners (<a name="1137-CLNT-013" href="#1137-CLNT-013">1137-CLNT-013</a>)

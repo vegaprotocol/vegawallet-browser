@@ -12,8 +12,9 @@
 - If I connect with a non-existent chain Id I get an error telling me the network was not found (<a name="1137-CLNT-006" href="#1137-CLNT-006">1137-CLNT-006</a>)
 - If I connect with a chainId I am connected to that chain (<a name="1137-CLNT-007" href="#1137-CLNT-007">1137-CLNT-007</a>)
 - If I connect with a chainId and then connect again with a different chainId then I get an error indicating that I am already connected to a different chain (<a name="1137-CLNT-008" href="#1137-CLNT-008">1137-CLNT-008</a>)
-
+- If I connect and it is approved and use the UI to disconnect then I am required to approve the connection again (<a name="1137-CLNT-014" href="#1137-CLNT-014">1137-CLNT-014</a>)
 <!-- ### Get Chain Id (client.get_chain_id)
+
 
 - If I am not connected then I receive the selected chainId for the wallet
 - If I connect and then get the chain id then I get the chain id of that network -->

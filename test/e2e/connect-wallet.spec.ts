@@ -12,6 +12,7 @@ import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
 import { testDAppUrl } from './helpers/wallet/common-wallet-values'
 import { fairground, testingNetwork } from '../../config/well-known-networks'
+import { ListConnections } from './page-objects/list-connections'
 
 describe('Connect wallet', () => {
   let driver: WebDriver
@@ -20,6 +21,7 @@ describe('Connect wallet', () => {
   let connectWallet: ConnectWallet
   let apiHelper: APIHelper
   let telemetry: Telemetry
+  let connections: ListConnections
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -29,6 +31,7 @@ describe('Connect wallet', () => {
     connectWallet = new ConnectWallet(driver)
     telemetry = new Telemetry(driver)
     apiHelper = new APIHelper(driver)
+    connections = new ListConnections(driver)
     await navigateToExtensionLandingPage(driver)
   })
 
@@ -54,6 +57,40 @@ describe('Connect wallet', () => {
       const isConnectedResult = await vegaAPI.getIsConnectedResult()
       expect(isConnectedResult).toBe(true)
       await settings.checkOnSettingsPage()
+    })
+
+    it('approving and removing a connection asks me to connect again', async () => {
+      // 1137-CLNT-014 If I connect and it is approved and use the UI to disconnect then I am required to approve the connection again
+      await setUpWalletAndKey(driver)
+      const navPanel = new NavPanel(driver)
+      const settings = await navPanel.goToSettings()
+      const responsePromise = await vegaAPI.connectWallet()
+      await connectWallet.checkOnConnectWallet()
+      await connectWallet.approveConnectionAndCheckSuccess() // Perform the necessary user interaction
+      const response = await responsePromise
+      expect(response).toBe(null)
+      {
+        await vegaAPI.getIsConnected()
+        const isConnectedResult = await vegaAPI.getIsConnectedResult()
+        expect(isConnectedResult).toBe(true)
+      }
+      await navPanel.goToListConnections()
+      await connections.disconnectConnection('https://vegaprotocol.github.io')
+      expect(await connections.connectionsExist()).toBe(false)
+
+      {
+        await vegaAPI.getIsConnected()
+        const isConnectedResult = await vegaAPI.getIsConnectedResult()
+        expect(isConnectedResult).toBe(false)
+      }
+      await vegaAPI.connectWallet()
+      await connectWallet.checkOnConnectWallet()
+      await connectWallet.approveConnectionAndCheckSuccess()
+      {
+        await vegaAPI.getIsConnected()
+        const isConnectedResult = await vegaAPI.getIsConnectedResult()
+        expect(isConnectedResult).toBe(true)
+      }
     })
 
     it('connects to the default chainId for the wallet if not chainId is specified', async () => {

@@ -30,7 +30,7 @@ export class NetworkCollection {
   }
 
   async getByChainId(chainId) {
-    const nets = await this.list()
+    const nets = await this.listNetworkDetails()
     return nets.find((net) => net.chainId === chainId)
   }
 

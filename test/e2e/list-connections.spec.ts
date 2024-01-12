@@ -99,7 +99,7 @@ describe('list connections tests', () => {
     await switchWindowHandles(driver, false, firstDappWindowHandle)
     await firstDapp.sendTransaction(keys[0].publicKey, { transfer: transferReq })
     const res = await firstDapp.getTransactionResult()
-    expect(res).toBe('Unknown public key')
+    expect(res).toBe('Not connected')
 
     await firstDapp.driver.navigate().refresh()
     await firstDapp.connectWallet(false)

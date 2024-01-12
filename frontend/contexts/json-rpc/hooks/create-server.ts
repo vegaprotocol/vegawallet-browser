@@ -40,7 +40,7 @@ export const createServer = (
   })
   window.server = server
   const portServer = new PortServer({
-    onerror: () => {},
+    onerror: console.error,
     server,
     onconnect: () => {}
   })

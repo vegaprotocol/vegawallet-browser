@@ -82,7 +82,8 @@ const server = initAdmin({
 })
 
 const popupPorts = new PortServer({
-  server
+  server,
+  onerror
 })
 
 connections.on('delete', ({ origin }) => {

@@ -11,6 +11,7 @@ import { CreateAWallet } from './page-objects/create-a-wallet'
 import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
 import { testDAppUrl } from './helpers/wallet/common-wallet-values'
+import { fairground, testingNetwork } from '../../config/well-known-networks'
 
 describe('Connect wallet', () => {
   let driver: WebDriver
@@ -186,7 +187,41 @@ describe('Connect wallet', () => {
 
   describe('Specific chainId', () => {
     it('throws error if I attempt to connect to a non-existent chainId', async () => {
-      expect(false).toBe(true)
+      // 1137-CLNT-006 If I connect with a non-existent chain Id I get an error telling me the network was not found
+      await setUpWalletAndKey(driver)
+      const api = new VegaAPI(driver, 'https://google.co.uk', await driver.getWindowHandle())
+      await api.connectWallet(true, false, true, { chainId: 'some-non-existent-chain-id' })
+      const result = await api.getConnectionResult()
+      expect(result).toBe('Unknown chain ID')
+    })
+
+    it('connects to the requested chainId', async () => {
+      // 1137-CLNT-007 If I connect with a chainId I am connected to that chain
+      await setUpWalletAndKey(driver)
+      const api = new VegaAPI(driver, 'https://google.co.uk', await driver.getWindowHandle())
+      await api.connectWallet(true, false, true, { chainId: testingNetwork.chainId })
+
+      await connectWallet.checkOnConnectWallet()
+      await connectWallet.approveConnectionAndCheckSuccess()
+      const connections = await apiHelper.listConnections()
+      expect(
+        connections.length,
+        `expected to still have 1 active connection to the wallet, but found ${connections.length}`
+      ).toBe(1)
+      expect(connections[0].chainId).toBe('test-chain-id')
+    })
+
+    it('prevents connection to a new chainId from a dApp that is already connected', async () => {
+      // 1137-CLNT-007 If I connect with a chainId and then connect again with a different chainId then I get an error indicating that I am already connected to a different chain
+      await setUpWalletAndKey(driver)
+      const api = new VegaAPI(driver, 'https://google.co.uk', await driver.getWindowHandle())
+      await api.connectWallet(true, false, true, { chainId: testingNetwork.chainId })
+      await connectWallet.checkOnConnectWallet()
+      await connectWallet.approveConnectionAndCheckSuccess()
+      await driver.switchTo().window(await api.getVegaDappWindowHandle())
+      await api.connectWallet(true, false, true, { chainId: fairground.chainId })
+      const result = await api.getConnectionResult()
+      expect(result).toBe('Mismatching chain ID')
     })
   })
 })

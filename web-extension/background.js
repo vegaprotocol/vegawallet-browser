@@ -92,11 +92,17 @@ connections.on('delete', ({ origin }) => {
     method: 'client.disconnected',
     params: null
   })
+  // TODO @emil to review as this doesn't seem like the correct place to do this
+  for (const [port, context] of clientPorts.ports.entries()) {
+    if (context.origin === origin || context.origin === '*') {
+      context.isConnected = false
+    }
+  }
 })
 
 setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor, connections)
 
-async function setPending () {
+async function setPending() {
   const pending = interactor.totalPending()
 
   // Early return as there is not much else to do
@@ -106,10 +112,10 @@ async function setPending () {
   }
 
   try {
-    if (pending > 0 && popupPorts.ports.size < 1 && await settings.get('autoOpen')) {
+    if (pending > 0 && popupPorts.ports.size < 1 && (await settings.get('autoOpen'))) {
       await createNotificationWindow()
     }
-  } catch (_) { }
+  } catch (_) {}
 
   action.setBadgeText({
     text: pending.toString()

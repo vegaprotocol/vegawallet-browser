@@ -23,7 +23,8 @@ describe('Connect wallet', () => {
   beforeEach(async () => {
     driver = await initDriver()
     viewWallet = new ViewWallet(driver)
-    vegaAPI = new VegaAPI(driver)
+    const vegaHandle = await driver.getWindowHandle()
+    vegaAPI = new VegaAPI(driver, undefined, vegaHandle)
     connectWallet = new ConnectWallet(driver)
     telemetry = new Telemetry(driver)
     apiHelper = new APIHelper(driver)
@@ -38,6 +39,8 @@ describe('Connect wallet', () => {
   it('can approve a connection to the wallet and return to previously active view', async () => {
     // 1103-CONN-008 There is a visual way to understand that a connection has been successful
     // 1103-CONN-009 If the had the browser wallet open when I instigated the connection request, the browser wallet returns your view to where you were before the request came in
+    // 1137-CLNT-002 If I connect and it is approved then I do not get an error
+    // 1137-CLNT-009 If I connect and it is approved then isConnected is true
     await setUpWalletAndKey(driver)
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
@@ -46,16 +49,27 @@ describe('Connect wallet', () => {
     await connectWallet.approveConnectionAndCheckSuccess() // Perform the necessary user interaction
     const response = await responsePromise
     expect(response).toBe(null)
+    await vegaAPI.getIsConnected()
+    const isConnectedResult = await vegaAPI.getIsConnectedResult()
+    expect(isConnectedResult).toBe(true)
     await settings.checkOnSettingsPage()
   })
 
   it('can reject a connection to the wallet and return to previously active view', async () => {
+    // 1137-CLNT-001 If I connect and it is not approved then I get an error telling me the user rejected the connection
+    // 1137-CLNT-003 If I connect and it is rejected I am not connected
+    // 1137-CLNT-010 If I connect and it is not approved then isConnected is false
     await setUpWalletAndKey(driver)
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
     await vegaAPI.connectWallet() //change this to assert success when connectWallet is fixed
     await connectWallet.checkOnConnectWallet()
     await connectWallet.denyConnection()
+    const connectionResult = await vegaAPI.getConnectionResult()
+    expect(connectionResult).toBe('Connection denied')
+    await vegaAPI.getIsConnected()
+    const isConnectedResult = await vegaAPI.getIsConnectedResult()
+    expect(isConnectedResult).toBe(false)
     await settings.checkOnSettingsPage()
   })
 
@@ -69,6 +83,9 @@ describe('Connect wallet', () => {
   it('can disconnect wallet via dapp and reconnect without needing approval', async () => {
     // 1104-DCON-001 I can call client.disconnect_wallet after successfully calling client.connect_wallet
     // 1104-DCON-003 A dapp can disconnect the current active connection (not it's pre-approved status i.e. the dapp can re-instate the connection without further approval)
+    // 1137-CLNT-004 If I connect and it is approved and I try to connect again then the connection is automatically approved
+    // 1137-CLNT-012 If I call the client.disconnect_wallet method nothing happens
+    // 1137-CLNT-011 If I connect and it is approved and the user disconnects then isConnected is true
     await setUpWalletAndKey(driver)
     const navPanel = new NavPanel(driver)
     const settings = await navPanel.goToSettings()
@@ -86,6 +103,9 @@ describe('Connect wallet', () => {
     await vegaAPI.connectWallet()
     const keysAfterReconnect = await vegaAPI.listKeys()
     expect(keysAfterReconnect).toEqual(originalKeys)
+    await vegaAPI.getIsConnected()
+    const isConnectedResult = await vegaAPI.getIsConnectedResult()
+    expect(isConnectedResult).toBe(true)
     await settings.checkOnSettingsPage()
   })
 

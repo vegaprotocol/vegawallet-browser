@@ -58,6 +58,14 @@ export class VegaAPI {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeGetConnectedNetwork())
   }
 
+  async getIsConnected(withNewTab = false, closeTab = false) {
+    return await this.controlTabs(withNewTab, closeTab, () => this.executeIsConnected())
+  }
+
+  async getIsConnectedResult(withNewTab = false, closeTab = false) {
+    return await this.controlTabs(withNewTab, closeTab, () => this.executeIsConnectedResult())
+  }
+
   async listKeys(withNewTab = false, closeTab = false) {
     return await this.controlTabs(withNewTab, closeTab, () => this.executeListKeys())
   }
@@ -131,6 +139,25 @@ export class VegaAPI {
       this.driver.switchTo().window(this.vegaExtensionWindowHandle)
     }
     return result
+  }
+
+  private async executeIsConnected() {
+    return await this.driver.executeScript(async () => {
+      if (!window.vega) {
+        throw new Error('content script not found')
+      }
+      window.isConnectedResult = window.vega.isConnected()
+    })
+  }
+
+  async executeIsConnectedResult() {
+    return await this.driver.executeScript<string>(async () => {
+      try {
+        return await window.isConnectedResult
+      } catch (error: any) {
+        return error.message
+      }
+    })
   }
 
   private async executeConnectWallet() {

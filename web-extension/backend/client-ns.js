@@ -38,11 +38,13 @@ export default function init({ onerror, settings, wallets, networks, connections
     onerror,
     methods: {
       async 'client.connect_wallet'(params, context) {
+        console.log(0, params)
         const receivedAt = new Date().toISOString()
         doValidate(clientValidation.connectWallet, params)
-        if (context.isConnected === true && params.chainId === (await connections.getChainId(context.origin)))
-          return null
-        else if (context.isConnected === true && params.chainId == null) return null
+        if (context.isConnected === true) {
+          if (!params.chainId) return null
+          if (params.chainId && params.chainId === (await connections.getChainId(context.origin))) return null
+        }
         if ((await connections.has(context.origin)) === false) {
           // If this is a connection request, without a chainId we look up the default one for the extension
           if (params.chainId == null) {

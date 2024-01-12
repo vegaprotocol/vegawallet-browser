@@ -43,7 +43,7 @@ export class VegaAPI {
     return await this.driver.getWindowHandle()
   }
 
-  async connectWallet(withNewTab = true, closeTab = false, switchBackToOriginalTab = true, params: any = null) {
+  async connectWallet(withNewTab = true, closeTab = false, switchBackToOriginalTab = true, params: any = undefined) {
     if (!this.vegaExtensionWindowHandle) {
       this.vegaExtensionWindowHandle = await this.driver.getWindowHandle()
     }
@@ -170,7 +170,7 @@ export class VegaAPI {
       if (!window.vega) {
         throw new Error('content script not found')
       }
-      window.connectWalletResult = window.vega.connectWallet(params)
+      window.connectWalletResult = window.vega.connectWallet(params ? params : undefined)
     }, params)
   }
 

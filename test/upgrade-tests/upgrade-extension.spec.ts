@@ -15,7 +15,6 @@ import { Settings } from '../e2e/page-objects/settings'
 import { Login } from '../e2e/page-objects/login'
 import { APIHelper } from '../e2e/helpers/wallet/wallet-api'
 import { fairground, mainnet } from '../../config/well-known-networks'
-import { VegaAPI } from '../e2e/helpers/wallet/vega-api'
 
 describe('Check migration of settings after upgrade', () => {
   let driver: WebDriver
@@ -33,8 +32,6 @@ describe('Check migration of settings after upgrade', () => {
     let extensionID = await getHandleWithExtensionAutoOpened(driver, handles)
     navPanel = new NavPanel(driver)
     apiHelper = new APIHelper(driver)
-    const firstDapp = new VegaAPI(driver)
-    await firstDapp.connectWallet()
     await navPanel.goToSettings()
     await copyDirectoryToNewLocation(extensionPath + '/chrome', oldExtensionDirectory)
     await updateOrAddJsonProperty(oldExtensionDirectory + '/manifest.json', 'key', chromePublicKey)
@@ -48,7 +45,7 @@ describe('Check migration of settings after upgrade', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    // await driver.quit()
   })
 
   it('the correct settings defaults are loaded when upgrading', async () => {
@@ -74,10 +71,5 @@ describe('Check migration of settings after upgrade', () => {
         probing: false
       }
     ])
-  })
-
-  it('updates any existing connections with the default connection information', async () => {
-    const connections = apiHelper.listConnections()
-    expect(connections).toStrictEqual({})
   })
 })

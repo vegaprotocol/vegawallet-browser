@@ -16,6 +16,12 @@ const Errors = {
     'Mismatching chain ID',
     -6,
     'The chain ID does not match the connected chain ID, please remove the connection from the wallet and connect again'
+  ],
+
+  UNKNOWN_CHAIN_ID: [
+    'Unknown chain ID',
+    -7,
+    'The chain ID is not known to the wallet, please review the chain ID and try again'
   ]
 }
 
@@ -40,6 +46,10 @@ export default function init({ onerror, settings, wallets, networks, connections
           if (params.chainId == null) {
             const selectedNetworkId = await settings.get('selectedNetwork')
             params.chainId = (await networks.getByNetworkId(selectedNetworkId)).chainId
+          }
+
+          if ((await networks.getByChainId(params.chainId)) == null) {
+            throw new JSONRPCServer.Error(...Errors.UNKNOWN_CHAIN_ID)
           }
 
           const reply = await interactor.reviewConnection({

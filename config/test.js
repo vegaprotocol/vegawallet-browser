@@ -9,7 +9,7 @@ const test = {
   test: {
     mockPort
   },
-  networks: [networks.testingNetwork],
+  networks: [networks.testingNetwork, networks.fairground],
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',
   encryptionSettings: {

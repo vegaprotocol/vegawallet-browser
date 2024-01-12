@@ -63,7 +63,7 @@ export class APIHelper {
   }
 
   async listConnections() {
-    return await this.driver.executeAsyncScript<string>(async (callback: (arg0: any) => void) => {
+    return await this.driver.executeAsyncScript<any>(async (callback: (arg0: any) => void) => {
       const { connections } = await window.client.request('admin.list_connections', null)
       callback(connections)
     })

@@ -83,12 +83,19 @@ export class NetworkCollection {
    */
   async listNetworkDetails() {
     const networks = await this.list()
-    return Promise.all(
-      networks.map(async (k) => ({
-        ...(await this.get(k)),
+    const promises = networks.map(async (k) => {
+      const network = await this.get(k)
+      const sanitizedNetwork = {
+        ...network,
+        // Firefox cannot clone promises/url objects like this to send over the port
+        preferredNode: await network.preferredNode?.toString()
+      }
+      return {
+        ...sanitizedNetwork,
         id: k
-      }))
-    )
+      }
+    })
+    return Promise.all(promises)
   }
 }
 

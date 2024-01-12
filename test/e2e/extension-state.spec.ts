@@ -11,7 +11,6 @@ import { Login } from './page-objects/login'
 import { switchWindowHandles, openNewWindowAndSwitchToIt } from './helpers/selenium-util'
 import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
-import test from '../../config/test'
 
 describe('Check correct app state persists after closing the extension', () => {
   let driver: WebDriver

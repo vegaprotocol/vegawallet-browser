@@ -196,7 +196,7 @@ describe('admin-ns', () => {
           hidden: false,
           id: 'test',
           name: 'Test',
-          preferredNode: null,
+          preferredNode: undefined,
           probing: false,
           rest: ['http://localhost:9090'],
           transfer: 'https://console.fairground.wtf/#/portfolio/assets/transfer',

@@ -165,7 +165,6 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
       async 'admin.list_networks'(params) {
         doValidate(adminValidation.listNetworks, params)
         const nets = await networks.listNetworkDetails()
-        console.log(nets)
         return { networks: nets }
       },
 

@@ -15,6 +15,7 @@ declare global {
     vega: any
     sendTransactionResult: any
     connectWalletResult: any
+    isConnectedResult: any
     vega: any
     __events__: Record<string, EventTracker>
   }

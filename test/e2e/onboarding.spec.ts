@@ -37,7 +37,7 @@ describe('Onboarding', () => {
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    //await driver.quit()
+    await driver.quit()
   })
 
   it('can create a new wallet and remember that a wallet has been created when I navigate back to the landing page', async () => {

@@ -88,6 +88,7 @@ const orderAmendment: OrderAmendment = {
   orderId: '234234',
   marketId: '234234',
   price: '1',
+  size: BigInt(1),
   sizeDelta: BigInt(1),
   expiresAt: BigInt(1),
   timeInForce: TimeInForce.TIME_IN_FORCE_GTT,
@@ -147,6 +148,7 @@ const orderCancellation: OrderCancellation = {
 const amendment: OrderAmendment = {
   orderId: 'orderId',
   marketId: 'marketId',
+  size: BigInt(1),
   price: '1',
   sizeDelta: BigInt(1),
   expiresAt: BigInt(1),
@@ -189,7 +191,9 @@ const stopOrderSetup: StopOrderSetup = {
   orderSubmission: orderSubmission,
   expiresAt: BigInt(1),
   expiryStrategy: ExpiryStrategy.EXPIRY_STRATEGY_CANCELS,
-  trigger: null
+  trigger: null,
+  sizeOverrideSetting: null,
+  sizeOverrideValue: null
 }
 
 const stopOrdersSubmission: StopOrdersSubmission = {
@@ -202,7 +206,8 @@ const batchMarketInstructions: BatchMarketInstructions = {
   amendments: [amendment],
   submissions: [orderSubmission],
   stopOrdersCancellation: [stopOrdersCancellation],
-  stopOrdersSubmission: [stopOrdersSubmission]
+  stopOrdersSubmission: [stopOrdersSubmission],
+  updateMarginMode: []
 }
 
 const withdrawSubmission: WithdrawSubmission = {
@@ -236,9 +241,7 @@ const liquidityProvisionAmendment: LiquidityProvisionAmendment = {
   marketId: 'marketId',
   commitmentAmount: '1',
   fee: '1',
-  reference: 'reference',
-  sells: [],
-  buys: []
+  reference: 'reference'
 }
 
 const liquidityProvisionCancellation: LiquidityProvisionCancellation = {
@@ -249,9 +252,7 @@ const liquidityProvisionSubmission: LiquidityProvisionSubmission = {
   marketId: 'marketId',
   commitmentAmount: '1',
   fee: '1',
-  reference: 'reference',
-  sells: [],
-  buys: []
+  reference: 'reference'
 }
 
 const transfer: Transfer = {

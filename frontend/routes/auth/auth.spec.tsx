@@ -34,7 +34,7 @@ jest.mock('@/components/modals', () => ({
   ModalWrapper: () => <div data-testid="modal-wrapper" />
 }))
 
-jest.mock('@/components/dapps-header/dapps-header', () => ({
+jest.mock('@/components/dapps-header', () => ({
   DappsHeader: () => <div data-testid="dapps-header" />
 }))
 

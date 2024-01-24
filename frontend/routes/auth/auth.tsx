@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet, useMatch } from 'react-router-dom'
 
-import { DappsHeader } from '@/components/dapps-header/dapps-header'
+import { DappsHeader } from '@/components/dapps-header'
 import { ModalWrapper } from '@/components/modals'
 import { NavBar } from '@/components/navbar'
 import { PageHeader } from '@/components/page-header'

@@ -56,4 +56,20 @@ describe('ExternalLink component', () => {
 
     expect(screen.getByTestId('external-link')).toBeInTheDocument()
   })
+
+  it('renders href if children is not defined (desktop)', () => {
+    mockStore(useGlobalsStore, { isMobile: false })
+
+    render(<ExternalLink href="https://example.com" />)
+
+    expect(screen.getByText('https://example.com')).toBeInTheDocument()
+  })
+
+  it('renders href if children is not defined (mobile)', () => {
+    mockStore(useGlobalsStore, { isMobile: true })
+
+    render(<ExternalLink href="https://example.com" />)
+
+    expect(screen.getByText('https://example.com')).toBeInTheDocument()
+  })
 })

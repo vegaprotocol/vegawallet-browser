@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
+import { locators as subHeaderLocators } from '@/components/sub-header'
 import { silenceErrors } from '@/test-helpers/silence-errors'
 
 import locators from '../../locators'
@@ -45,7 +46,7 @@ describe('ReceiptViewErrorBoundary', () => {
     )
     expect(errorMessage).toBeInTheDocument()
 
-    expect(screen.getByTestId(locators.collapsiblePanelTitle)).toHaveTextContent('Error details')
+    expect(screen.getByTestId(subHeaderLocators.subHeader)).toHaveTextContent('Error details')
 
     fireEvent.click(screen.getByTestId(locators.collapsiblePanelButton))
     const errorStack = screen.getByTestId(locators.collapsiblePanelContent)
@@ -68,7 +69,7 @@ describe('ReceiptViewErrorBoundary', () => {
     )
     expect(errorMessage).toBeInTheDocument()
 
-    expect(screen.getByTestId(locators.collapsiblePanelTitle)).toHaveTextContent('Error details')
+    expect(screen.getByTestId(subHeaderLocators.subHeader)).toHaveTextContent('Error details')
 
     fireEvent.click(screen.getByTestId(locators.collapsiblePanelButton))
     const errorStack = screen.getByTestId(locators.collapsiblePanelContent)

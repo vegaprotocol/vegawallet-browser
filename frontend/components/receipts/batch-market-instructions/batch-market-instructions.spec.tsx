@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react'
 
 import { locators as subHeaderLocators } from '@/components/sub-header'
 
-import componentLocators from '../../locators'
 import { BatchMarketInstructions, locators } from './batch-market-instructions'
 jest.mock('../orders/amend', () => ({
   AmendmentView: () => <div data-testid="amendment-view" />

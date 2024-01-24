@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom'
 
 import { CollapsiblePanel } from '@/components/collapsible-panel'
+import { DataTable } from '@/components/data-table/data-table'
+import { ExternalLink } from '@/components/external-link/external-link'
 import { BasePage } from '@/components/pages/page'
 import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
@@ -29,8 +31,25 @@ export const NetworkDetails = () => {
         </div>
       </VegaSection>
       <VegaSection>
-        <SubHeader content="Explorer" />
-        <div className="text-white mt-1">{network.explorer}</div>
+        <SubHeader content="Chain id" />
+        <div className="text-white mt-1" data-testid={locators.networkId}>
+          {network.chainId}
+        </div>
+      </VegaSection>
+      <VegaSection>
+        <SubHeader content="Vega URLs" />
+        <DataTable
+          items={[
+            ['Console', <ExternalLink className="text-white mt-1" href={network.console} />],
+            ['Governance', <ExternalLink className="text-white mt-1" href={network.governance} />],
+            ['Explorer', <ExternalLink className="text-white mt-1" href={network.explorer} />],
+            ['Docs', <ExternalLink className="text-white mt-1" href={network.docs} />]
+          ]}
+        />
+      </VegaSection>
+      <VegaSection>
+        <SubHeader content="Ethereum Explorer" />
+        <ExternalLink className="text-white mt-1" href={network.ethereumExplorerLink} />
       </VegaSection>
       <VegaSection>
         <CollapsiblePanel
@@ -39,7 +58,7 @@ export const NetworkDetails = () => {
           panelContent={
             <ul>
               {network.rest.map((r) => (
-                <li key={r}>{r}</li>
+                <ExternalLink key={r} className="text-white" href={r} />
               ))}
             </ul>
           }

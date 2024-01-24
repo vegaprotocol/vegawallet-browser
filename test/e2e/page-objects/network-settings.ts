@@ -3,6 +3,7 @@ import { clickElement, getByDataTestID, getElementText, isElementDisplayed } fro
 import * as config from '../../../config/test'
 import * as networkLocators from '../../../frontend/routes/auth/settings/networks/network-details'
 import { locators as baseLocators } from '../../../frontend/components/pages/page'
+import { locators as networksLocators } from '../../../frontend/components/networks-list'
 
 export class NetworkSettings {
   constructor(private readonly driver: WebDriver) {}
@@ -18,7 +19,7 @@ export class NetworkSettings {
     })
   }
   async openNetworkDetails(network: string) {
-    await clickElement(this.driver, getByDataTestID(network + '-details'))
+    await clickElement(this.driver, getByDataTestID(networksLocators.networkListButton(network)))
   }
 
   async checkNetworkID(network: string) {

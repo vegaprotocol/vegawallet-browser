@@ -10,7 +10,7 @@ export interface NetworkListProperties {
 }
 
 export const locators = {
-  networkListButton: 'network-list-button',
+  networkListButton: (name: string) => name + '-network-details',
   networksList: 'networks-list'
 }
 
@@ -31,7 +31,7 @@ export const NetworksList = ({ networks, onClick }: NetworkListProperties) => {
               <button
                 onClick={() => onClick(n)}
                 className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
-                data-testid={locators.networkListButton}
+                data-testid={n.name + '-details'}
               >
                 <ChevronRight />
               </button>

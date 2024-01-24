@@ -10,12 +10,13 @@ export interface NetworkListProperties {
 }
 
 export const locators = {
-  networkListButton: 'network-list-button'
+  networkListButton: 'network-list-button',
+  networksList: 'networks-list'
 }
 
 export const NetworksList = ({ networks, onClick }: NetworkListProperties) => {
   return (
-    <section className="text-base mt-6">
+    <section data-testid={locators.networksList} className="text-base mt-6">
       <SubHeader content="Networks" />
       <List<Network>
         className="mt-2"
@@ -26,13 +27,15 @@ export const NetworksList = ({ networks, onClick }: NetworkListProperties) => {
             <div className="flex items-center" data-testid={n.name}>
               {n.name}
             </div>
-            <button
-              onClick={() => onClick?.(n)}
-              className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
-              data-testid={locators.networkListButton}
-            >
-              <ChevronRight />
-            </button>
+            {onClick && (
+              <button
+                onClick={() => onClick?.(n)}
+                className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
+                data-testid={locators.networkListButton}
+              >
+                <ChevronRight />
+              </button>
+            )}
           </div>
         )}
       />

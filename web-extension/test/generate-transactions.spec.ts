@@ -275,7 +275,8 @@ const createReferralSet: CreateReferralSet = {
     name: 'Baked Beans',
     teamUrl: 'https://en.wikipedia.org/wiki/Baked_beans',
     avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Baked_beans_in_tomato_sauce.jpg',
-    closed: true
+    closed: true,
+    allowList: []
   }
 }
 
@@ -286,7 +287,8 @@ const updateReferralSet: UpdateReferralSet = {
     closed: null,
     avatarUrl: null,
     teamUrl: null,
-    name: null
+    name: null,
+    allowList: []
   }
 }
 

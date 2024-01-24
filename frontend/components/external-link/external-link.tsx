@@ -36,11 +36,11 @@ export const ExternalLink = ({ children, className, ...properties }: LinkPropert
   const isMobile = useGlobalsStore((state) => state.isMobile)
   return isMobile ? (
     <MobileLink className={className} {...properties}>
-      {children}
+      {children ?? properties.href}
     </MobileLink>
   ) : (
     <ExLink className={className} {...properties}>
-      {children}
+      {children ?? properties.href}
     </ExLink>
   )
 }

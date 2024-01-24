@@ -42,7 +42,7 @@ describe('Networks', () => {
   it('navigates to the selected network', () => {
     renderComponent()
     const [test] = screen.getAllByTestId(locators.listItem)
-    fireEvent.click(within(test).getByTestId(networkListLocators.networkListButton))
+    fireEvent.click(within(test).getByTestId(networkListLocators.networkListButton(testingNetwork.name)))
     expect(mockedUsedNavigate).toHaveBeenCalledWith(`${FULL_ROUTES.networksSettings}/${testingNetwork.id}`)
   })
 })

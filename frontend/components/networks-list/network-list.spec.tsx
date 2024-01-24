@@ -19,7 +19,7 @@ describe('NetworksList', () => {
       networks: [testingNetwork]
     })
     expect(screen.getByTestId(locators.networksList)).toBeInTheDocument()
-    expect(screen.queryByTestId(locators.networkListButton)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(locators.networkListButton(testingNetwork.name))).not.toBeInTheDocument()
   })
   it('calls onClick if button is rendered and button is clicked', () => {
     const onClick = jest.fn()
@@ -27,8 +27,8 @@ describe('NetworksList', () => {
       networks: [testingNetwork],
       onClick
     })
-    expect(screen.getByTestId(locators.networkListButton)).toBeInTheDocument()
-    fireEvent.click(screen.getByTestId(locators.networkListButton))
+    expect(screen.getByTestId(locators.networkListButton(testingNetwork.name))).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId(locators.networkListButton(testingNetwork.name)))
     expect(onClick).toHaveBeenCalledWith(testingNetwork)
   })
 })

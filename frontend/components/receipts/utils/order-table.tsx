@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 import { PeggedOrderOptions } from '@/types/transactions'
 
-import { DataTable } from '../../data-table/data-table'
+import { DataTable } from '../../data-table'
 import {
   buildCreatedAtColumn,
   buildMarketColumn,

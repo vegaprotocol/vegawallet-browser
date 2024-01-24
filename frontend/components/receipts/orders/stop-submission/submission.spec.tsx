@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
-import { locators as tableLocators } from '../../../data-table/data-table'
+import { locators as tableLocators } from '../../../data-table'
 import { locators, StopOrderSubmission } from './submission'
 
 jest.mock('../../utils/order-table', () => ({

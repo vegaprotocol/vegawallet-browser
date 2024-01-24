@@ -7,7 +7,7 @@ import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
 
 import { testingNetwork } from '../../../../../config/well-known-networks'
-import { locators as dataTableLocators } from '../../../data-table/data-table'
+import { locators as dataTableLocators } from '../../../data-table'
 import { Cancellation } from './cancellation'
 import { locators } from './cancellation-view'
 

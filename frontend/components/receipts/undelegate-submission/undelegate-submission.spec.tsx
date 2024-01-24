@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import { locators as dataTableLocators } from '@/components/data-table/data-table'
+import { locators as dataTableLocators } from '@/components/data-table'
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
 import { fairground } from '../../../../config/well-known-networks'

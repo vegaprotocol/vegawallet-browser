@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { locators } from '../../../data-table/data-table'
+import { locators } from '../../../data-table'
 import { Amendment } from '.'
 
 describe('Amend', () => {

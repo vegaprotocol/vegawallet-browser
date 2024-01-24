@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 
 import { CollapsiblePanel } from '@/components/collapsible-panel'
-import { DataTable } from '@/components/data-table/data-table'
+import { DataTable } from '@/components/data-table'
 import { ExternalLink } from '@/components/external-link/external-link'
 import { BasePage } from '@/components/pages/page'
 import { SubHeader } from '@/components/sub-header'

@@ -29,6 +29,8 @@ export enum TransactionKeys {
   CREATE_REFERRAL_SET = 'createReferralSet',
   UPDATE_REFERRAL_SET = 'updateReferralSet',
   APPLY_REFERRAL_CODE = 'applyReferralCode',
+  UPDATE_MARGIN_MODE = 'updateMarginMode',
+  JOIN_TEAM = 'joinTeam',
   NODE_VOTE = 'nodeVote',
   NODE_SIGNATURE = 'nodeSignature',
   CHAIN_EVENT = 'chainEvent',
@@ -38,7 +40,8 @@ export enum TransactionKeys {
   ETHEREUM_KEY_ROTATE_SUBMISSION = 'ethereumKeyRotateSubmission',
   PROTOCOL_UPGRADE_PROPOSAL = 'protocolUpgradeProposal',
   ISSUE_SIGNATURES = 'issueSignatures',
-  ORACLE_DATA_SUBMISSION = 'oracleDataSubmission'
+  ORACLE_DATA_SUBMISSION = 'oracleDataSubmission',
+  BATCH_PROPOSAL_SUBMISSION = 'batchProposalSubmission'
 }
 
 export const TRANSACTION_TITLES: Record<TransactionKeys, string> = {
@@ -72,7 +75,10 @@ export const TRANSACTION_TITLES: Record<TransactionKeys, string> = {
   [TransactionKeys.ETHEREUM_KEY_ROTATE_SUBMISSION]: 'Ethereum Key Rotate Submission',
   [TransactionKeys.PROTOCOL_UPGRADE_PROPOSAL]: 'Protocol Upgrade Proposal',
   [TransactionKeys.ISSUE_SIGNATURES]: 'Issue Signatures',
-  [TransactionKeys.ORACLE_DATA_SUBMISSION]: 'Oracle Data Submission'
+  [TransactionKeys.ORACLE_DATA_SUBMISSION]: 'Oracle Data Submission',
+  [TransactionKeys.UPDATE_MARGIN_MODE]: 'Update Margin Mode',
+  [TransactionKeys.JOIN_TEAM]: 'Join Team',
+  [TransactionKeys.BATCH_PROPOSAL_SUBMISSION]: 'Batch Proposal Submission'
 }
 
 type TransactionData = Record<string, any>

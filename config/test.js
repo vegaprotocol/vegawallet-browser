@@ -18,7 +18,7 @@ const test = {
   },
   closeWindowOnPopupOpen: false,
   sentryDsn: undefined,
-  logging: !['true', '1'].includes(process.env.CI),
+  logging: false,
   showDisclaimer: false,
 
   manifestReplacements: {

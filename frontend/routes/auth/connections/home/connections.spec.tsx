@@ -6,7 +6,7 @@ import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { ConnectionsStore, useConnectionStore } from '@/stores/connections'
 import { mockClient } from '@/test-helpers/mock-client'
 
-import { fairground } from '../../../../config/well-known-networks'
+import { fairground } from '../../../../../config/well-known-networks'
 import { Connections, locators as connectionsLocators } from '.'
 import { locators as connectionListLocators } from './connection-list'
 import { locators as noConnectionsLocators } from './no-dapps-connected'

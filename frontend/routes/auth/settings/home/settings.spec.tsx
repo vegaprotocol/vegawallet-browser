@@ -6,20 +6,18 @@ import { useGlobalsStore } from '@/stores/globals'
 import { mockClient } from '@/test-helpers/mock-client'
 import { mockStore } from '@/test-helpers/mock-store'
 
-import { locators, Settings } from '.'
+import { Settings } from '.'
+import { locators } from './settings'
 
 jest.mock('@/stores/globals')
-jest.mock('./sections/version-section', () => ({
+jest.mock('./version-section', () => ({
   VersionSection: () => <div data-testid="version-section" />
 }))
 jest.mock('./settings-form-elements/radio', () => ({
   SettingsRadio: () => <div data-testid="radio" />
 }))
-jest.mock('./sections/lock-section', () => ({
+jest.mock('./lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
-}))
-jest.mock('./sections/networks-section', () => ({
-  NetworksSection: () => <div data-testid="networks-section" />
 }))
 jest.mock('!/config', () => ({
   ...jest.requireActual('../../../../../config/test').default,
@@ -46,7 +44,6 @@ describe('Settings', () => {
     expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
     expect(screen.getAllByTestId('radio')).toHaveLength(2)
     expect(screen.getByTestId('lock-section')).toBeVisible()
-    expect(screen.getByTestId('networks-section')).toBeVisible()
   })
 
   it('does not render pop out settings on mobile', () => {

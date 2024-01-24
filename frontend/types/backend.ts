@@ -31,9 +31,6 @@ export interface Network {
   ethereumExplorerLink: string
   explorer: string
   governance: string
-  deposit: string
-  transfer: string
-  withdraw: string
   docs: string
   vegaDapps: string
 }

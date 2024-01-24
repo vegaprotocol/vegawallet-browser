@@ -22,9 +22,6 @@ export const mainnet = {
   ethereumExplorerLink: 'https://etherscan.io',
   explorer: 'https://explorer.vega.xyz',
   governance: 'https://governance.vega.xyz',
-  deposit: 'https://console.vega.xyz/#/portfolio/assets/deposit',
-  transfer: 'https://console.vega.xyz/#/portfolio/assets/transfer',
-  withdraw: 'https://console.vega.xyz/#/portfolio/assets/withdraw',
   docs: 'https://docs.vega.xyz/mainnet',
   vegaDapps: 'https://vega.xyz/apps'
 }
@@ -45,9 +42,6 @@ export const fairground = {
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
   explorer: 'https://explorer.fairground.wtf',
   governance: 'https://governance.fairground.wtf',
-  deposit: 'https://console.fairground.wtf/#/portfolio/assets/deposit',
-  transfer: 'https://console.fairground.wtf/#/portfolio/assets/transfer',
-  withdraw: 'https://console.fairground.wtf/#/portfolio/assets/withdraw',
   docs: 'https://docs.vega.xyz/testnet',
   vegaDapps: 'https://vega.xyz/apps'
 }

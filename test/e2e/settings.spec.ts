@@ -168,7 +168,7 @@ describe('Settings test', () => {
     const networkList = test.networks
     for (let network of networkList) {
       await networkSettings.openNetworkDetails(network.name)
-      await networkSettings.checkNetworkID(network.name)
+      await networkSettings.checkNetworkID(network.id)
       await networkSettings.goBack()
     }
   })

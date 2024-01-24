@@ -6,10 +6,6 @@ import { VegaSection } from '@/components/vega-section'
 import { ExportPrivateKeyForm } from './export-private-key-form'
 import { ViewPrivateKey } from './view-private-key'
 
-export interface FormFields {
-  passphrase: string
-}
-
 export const locators = {
   privateKeyDialog: 'private-key-dialog',
   privateKeyTitle: 'private-key-title',

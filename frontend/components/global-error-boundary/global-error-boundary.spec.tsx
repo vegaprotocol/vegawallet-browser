@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { useErrorStore } from '@/stores/error'
 import { silenceErrors } from '@/test-helpers/silence-errors'
 
-import GlobalErrorBoundary from '.'
+import GlobalErrorBoundary from './global-error-boundary'
 
 const mockedUsedNavigate = jest.fn()
 

@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { DropdownArrow } from '../icons/dropdown-arrow'
 import locators from '../locators'
+import { SubHeader } from '../sub-header'
 
 export const CollapsiblePanel = ({
   initiallyOpen = false,
@@ -22,9 +23,7 @@ export const CollapsiblePanel = ({
         onClick={() => setIsOpen(!isOpen)}
         data-testid={locators.collapsiblePanelButton}
       >
-        <span className="text-sm uppercase" data-testid={locators.collapsiblePanelTitle}>
-          {title}
-        </span>
+        <SubHeader content={title} />
         <DropdownArrow
           className={classnames('w-3 ml-3 mb-1', {
             'rotate-180': isOpen

@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react'
 
+import { locators as subHeaderLocators } from '@/components/sub-header'
+
 import componentLocators from '../../locators'
 import { BatchMarketInstructions, locators } from './batch-market-instructions'
-
 jest.mock('../orders/amend', () => ({
   AmendmentView: () => <div data-testid="amendment-view" />
 }))
@@ -41,7 +42,7 @@ describe('BatchMarketInstructions component', () => {
     // 1114-BMKI-004 If there is at least one present I can see all stop order submission details
     // 1114-BMKI-005 If there is at least one present I can see all stop order cancellation details
     const [cancellation, amendment, submission, stopOrderCancellation, stopOrderSubmission] = screen.getAllByTestId(
-      componentLocators.collapsiblePanelTitle
+      subHeaderLocators.subHeader
     )
 
     expect(submission).toHaveTextContent('Submission')
@@ -93,9 +94,7 @@ describe('BatchMarketInstructions component', () => {
       }
     }
     render(<BatchMarketInstructions transaction={transaction} />)
-    const [cancellation, submission, stopOrderSubmission] = screen.getAllByTestId(
-      componentLocators.collapsiblePanelTitle
-    )
+    const [cancellation, submission, stopOrderSubmission] = screen.getAllByTestId(subHeaderLocators.subHeader)
 
     expect(submission).toHaveTextContent('Submission')
     expect(cancellation).toHaveTextContent('Cancellation')
@@ -111,7 +110,7 @@ describe('BatchMarketInstructions component', () => {
       batchMarketInstructions: {}
     }
     render(<BatchMarketInstructions transaction={transaction} />)
-    expect(screen.queryByTestId(componentLocators.collapsiblePanelTitle)).not.toBeInTheDocument()
+    expect(screen.queryByTestId(subHeaderLocators.subHeader)).not.toBeInTheDocument()
   })
 
   it('renders item for each submission', () => {

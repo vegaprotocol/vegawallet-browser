@@ -247,6 +247,13 @@
           "properties": {
             "batchProposalSubmission": {}
           }
+        },
+        {
+          "additionalProperties": false,
+          "required": ["updatePartyProfile"],
+          "properties": {
+            "updatePartyProfile": {}
+          }
         }
       ]
     }

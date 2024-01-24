@@ -1,7 +1,7 @@
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
-import { DataTable } from '@/components/data-table/data-table'
+import { DataTable } from '@/components/data-table'
 
 import { NodeLink } from '../../vega-entities/node-link'
 import { ReceiptComponentProperties } from '../receipts'

@@ -10,7 +10,7 @@ import { generateAsset } from '@/test-helpers/generate-asset'
 import { generateMarket } from '@/test-helpers/generate-market'
 import { mockStore } from '@/test-helpers/mock-store'
 
-import { locators as dataTableLocators } from '../../data-table/data-table'
+import { locators as dataTableLocators } from '../../data-table'
 import { OrderTable, OrderTableProperties } from './order-table'
 
 jest.mock('@/stores/markets-store', () => ({

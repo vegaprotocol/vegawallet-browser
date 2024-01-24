@@ -2,7 +2,7 @@ import { v1UndelegateSubmissionMethod as UndelegateSubmissionMethod } from '@veg
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
-import { DataTable } from '@/components/data-table/data-table'
+import { DataTable } from '@/components/data-table'
 import { UNDELEGATE_METHOD_MAP } from '@/components/enums'
 
 import { NodeLink } from '../../vega-entities/node-link'

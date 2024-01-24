@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
-import { locators as tableLocators } from '../../../data-table/data-table'
+import { locators as tableLocators } from '../../../data-table'
 import { StopOrderCancellation } from './cancellation'
 
 const renderComponent = ({ transaction }: { transaction: any }) =>

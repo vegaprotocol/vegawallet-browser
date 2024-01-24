@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import get from 'lodash/get'
 
 import { CollapsibleCard } from '@/components/collapsible-card'
-import { DataTable } from '@/components/data-table/data-table'
+import { DataTable } from '@/components/data-table'
 import { ACCOUNT_TYPE_MAP } from '@/components/enums'
 import { useAssetsStore } from '@/stores/assets-store'
 

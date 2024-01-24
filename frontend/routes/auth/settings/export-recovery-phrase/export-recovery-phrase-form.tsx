@@ -9,24 +9,25 @@ import { RpcMethods } from '@/lib/client-rpc-methods'
 import { Validation } from '@/lib/form-validation'
 import { REJECTION_ERROR_MESSAGE } from '@/lib/utils'
 
-interface FormFields {
+export const locators = {
+  exportRecoveryPhraseForm: 'export-recovery-phrase-form',
+  exportRecoveryPhraseFormDescription: 'export-recovery-phrase-form-description',
+  exportRecoveryPhraseFormModalPassphrase: 'export-recovery-phrase-form-modal-passphrase',
+  exportRecoveryPhraseFormModalSubmit: 'export-recovery-phrase-form-modal-submit',
+  exportRecoveryPhraseFormModalClose: 'export-recovery-phrase-form-modal-close'
+}
+
+export interface FormFields {
   passphrase: string
 }
 
-export const locators = {
-  privateKeyModalPassphrase: 'private-key-modal-passphrase',
-  privateKeyModalClose: 'private-key-modal-close',
-  privateKeyModalSubmit: 'private-key-modal-submit',
-  privateKeyDescription: 'private-key-description'
-}
-
-export interface ExportPrivateKeyFormProperties {
-  publicKey: string
-  onSuccess: (privateKey: string) => void
+export const ExportRecoveryPhraseForm = ({
+  onSuccess,
+  onClose
+}: {
+  onSuccess: (recoveryPhrase: string) => void
   onClose: () => void
-}
-
-export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPrivateKeyFormProperties) => {
+}) => {
   const { request } = useJsonRpcClient()
   const [loading, setLoading] = useState(false)
   const {
@@ -41,7 +42,7 @@ export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPr
   const exportPrivateKey = async ({ passphrase }: FormFields) => {
     try {
       setLoading(true)
-      const { secretKey } = await request(RpcMethods.ExportKey, { publicKey, passphrase }, true)
+      const { secretKey } = await request(RpcMethods.ExportRecoveryPhrase, { passphrase }, true)
       onSuccess(secretKey)
     } catch (error) {
       if (error instanceof Error && error.message === REJECTION_ERROR_MESSAGE) {
@@ -59,14 +60,14 @@ export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPr
       <Notification
         message="Warning: Never share this key. Anyone who has access to this key will have access to your assets."
         intent={Intent.Danger}
-        data-testid={locators.privateKeyDescription}
+        data-testid={locators.exportRecoveryPhraseFormDescription}
       />
       <form className="text-left mt-3" onSubmit={handleSubmit(exportPrivateKey)}>
         <FormGroup label="Password" labelFor="passphrase">
           <Input
             autoFocus
             hasError={!!errors.passphrase?.message}
-            data-testid={locators.privateKeyModalPassphrase}
+            data-testid={locators.exportRecoveryPhraseFormModalPassphrase}
             type="password"
             {...register('passphrase', {
               required: Validation.REQUIRED
@@ -80,14 +81,14 @@ export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPr
             fill={true}
             loadingText="Exporting"
             text="Export"
-            data-testid={locators.privateKeyModalSubmit}
+            data-testid={locators.exportRecoveryPhraseFormModalSubmit}
             className="mt-2"
             variant="secondary"
             type="submit"
             disabled={!passphrase}
           />
           <Button
-            data-testid={locators.privateKeyModalClose}
+            data-testid={locators.exportRecoveryPhraseFormModalClose}
             fill={true}
             onClick={onClose}
             className="mt-2"

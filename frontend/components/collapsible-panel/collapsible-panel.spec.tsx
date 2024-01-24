@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
 import locators from '../locators'
+import { locators as subHeaderLocators } from '../sub-header'
 import { CollapsiblePanel } from './collapsible-panel'
 
 const renderComponent = ({ initiallyOpen }: { initiallyOpen?: boolean }) => {
@@ -13,7 +14,7 @@ describe('Collapsible panel', () => {
   it('renders title, arrow and does not render content', () => {
     renderComponent({})
     expect(screen.getByTestId(locators.collapsiblePanelButton)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.collapsiblePanelTitle)).toHaveTextContent('Title')
+    expect(screen.getByTestId(subHeaderLocators.subHeader)).toHaveTextContent('Title')
     expect(screen.getByTestId(locators.collapsiblePanelContent)).toHaveClass('hidden')
     expect(screen.getByTestId(locators.dropdownArrow)).toBeInTheDocument()
   })

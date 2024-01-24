@@ -11,7 +11,10 @@ import { useNetworksStore } from '@/stores/networks-store'
 
 export const locators = {
   networkDetails: 'network-details',
-  networkId: 'network-id'
+  networkId: 'network-id',
+  chainId: 'chain-id',
+  ethereumExplorer: 'ethereum-explorer',
+  networkDetailsNode: 'network-details-node'
 }
 
 export const NetworkDetails = () => {
@@ -32,7 +35,7 @@ export const NetworkDetails = () => {
       </VegaSection>
       <VegaSection>
         <SubHeader content="Chain id" />
-        <div className="text-white mt-1" data-testid={locators.networkId}>
+        <div className="text-white mt-1" data-testid={locators.chainId}>
           {network.chainId}
         </div>
       </VegaSection>
@@ -49,7 +52,11 @@ export const NetworkDetails = () => {
       </VegaSection>
       <VegaSection>
         <SubHeader content="Ethereum Explorer" />
-        <ExternalLink className="text-white mt-1" href={network.ethereumExplorerLink} />
+        <ExternalLink
+          data-testid={locators.ethereumExplorer}
+          className="text-white mt-1"
+          href={network.ethereumExplorerLink}
+        />
       </VegaSection>
       <VegaSection>
         <CollapsiblePanel
@@ -58,7 +65,7 @@ export const NetworkDetails = () => {
           panelContent={
             <ul>
               {network.rest.map((r) => (
-                <ExternalLink key={r} className="text-white" href={r} />
+                <ExternalLink data-testid={locators.networkDetailsNode} key={r} className="text-white" href={r} />
               ))}
             </ul>
           }

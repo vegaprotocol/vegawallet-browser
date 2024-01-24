@@ -9,20 +9,23 @@ import { mockStore } from '@/test-helpers/mock-store'
 import { locators, Settings } from '.'
 
 jest.mock('@/stores/globals')
-jest.mock('./version-section', () => ({
+jest.mock('./sections/version-section', () => ({
   VersionSection: () => <div data-testid="version-section" />
 }))
 jest.mock('./settings-form-elements/radio', () => ({
   SettingsRadio: () => <div data-testid="radio" />
 }))
-jest.mock('./lock-section', () => ({
+jest.mock('./sections/lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
 jest.mock('./export-recovery-phrase', () => ({
   ExportRecoveryPhraseSection: () => <div data-testid="export-recovery-phrase-section" />
 }))
+jest.mock('./sections/networks-section', () => ({
+  NetworksSection: () => <div data-testid="networks-section" />
+}))
 jest.mock('!/config', () => ({
-  ...jest.requireActual('../../../../config/test').default,
+  ...jest.requireActual('../../../../../config/test').default,
   closeWindowOnPopupOpen: true
 }))
 
@@ -47,6 +50,7 @@ describe('Settings', () => {
     expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
     expect(screen.getAllByTestId('radio')).toHaveLength(2)
     expect(screen.getByTestId('lock-section')).toBeVisible()
+    expect(screen.getByTestId('networks-section')).toBeVisible()
     expect(screen.getByTestId('export-recovery-phrase-section')).toBeVisible()
   })
 

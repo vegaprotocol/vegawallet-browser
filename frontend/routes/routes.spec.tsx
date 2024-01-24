@@ -7,21 +7,22 @@ import { Routing } from './routes'
 
 jest.mock('@/hooks/persist-location')
 
-jest.mock('./home')
-jest.mock('./login')
-
-jest.mock('./onboarding/get-started')
-jest.mock('./onboarding/create-password')
-jest.mock('./onboarding/import-wallet')
-jest.mock('./onboarding/create-wallet')
-jest.mock('./onboarding/save-mnemonic')
-jest.mock('./onboarding/telemetry')
-
 jest.mock('./auth')
+jest.mock('./auth/connections')
+jest.mock('./auth/settings/home')
+jest.mock('./auth/settings/networks/home')
+jest.mock('./auth/settings/networks/network-details')
+jest.mock('./auth/wallets')
 jest.mock('./auth/wallets/home')
 jest.mock('./auth/wallets/key-details')
-jest.mock('./auth/settings')
-jest.mock('./auth/connections')
+jest.mock('./home')
+jest.mock('./login')
+jest.mock('./onboarding/create-password')
+jest.mock('./onboarding/create-wallet')
+jest.mock('./onboarding/get-started')
+jest.mock('./onboarding/import-wallet')
+jest.mock('./onboarding/save-mnemonic')
+jest.mock('./onboarding/telemetry')
 
 describe('Routes', () => {
   it('calls persist location', () => {

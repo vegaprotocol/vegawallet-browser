@@ -1,7 +1,7 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 
-import { DataTable } from '../../../data-table/data-table'
+import { DataTable } from '../../../data-table'
 import { MarketLink } from '../../../vega-entities/market-link'
 import { ReceiptComponentProperties } from '../../receipts'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'

@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import { EXPIRY_STRATEGY_MAP } from '@/components/enums'
 import { formatNanoDate } from '@/lib/utils'
 
-import { DataTable } from '../../../data-table/data-table'
+import { DataTable } from '../../../data-table'
 import { ReceiptComponentProperties } from '../../receipts'
 import { OrderBadges } from '../../utils/order/badges'
 import { OrderTable } from '../../utils/order-table'

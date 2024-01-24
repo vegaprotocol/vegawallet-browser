@@ -6,6 +6,7 @@ import { ModalWrapper } from '@/components/modals'
 import { NavBar } from '@/components/navbar'
 import { PageHeader } from '@/components/page-header'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { useNetwork } from '@/contexts/network/network-context'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 import { useNetworksStore } from '@/stores/networks-store'
@@ -15,6 +16,7 @@ import { FULL_ROUTES } from '../route-names'
 
 export const Auth = () => {
   const { request } = useJsonRpcClient()
+  const { network } = useNetwork()
 
   // Wallets store
   const { loadWallets, loading: loadingWallets } = useWalletStore((state) => ({
@@ -46,10 +48,10 @@ export const Auth = () => {
   // Ideally the backend should be capable of doing this in parallel, but increases perceived performance for now.
   useEffect(() => {
     if (!loadingNetworks && !loadingWallets) {
-      loadAssets(request)
-      loadMarkets(request)
+      loadAssets(request, network.id)
+      loadMarkets(request, network.id)
     }
-  }, [loadAssets, loadMarkets, loadingNetworks, loadingWallets, request])
+  }, [loadAssets, loadMarkets, loadingNetworks, loadingWallets, network.id, request])
   const isWallets = !!useMatch(FULL_ROUTES.wallets)
 
   // Only render the UI if the wallets and networks have loaded

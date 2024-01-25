@@ -29,6 +29,7 @@ export async function install({ networks, settings }) {
     ...config.networks.map((network) => networks.set(network.id, network)),
     settings.set('selectedNetwork', config.defaultNetworkId),
     settings.set('autoOpen', true),
+    settings.set('showHiddenNetworks', false),
     settings.set('version', migrations.length)
   ])
 }
@@ -81,7 +82,7 @@ const migrations = [
       for (const network of config.networks) {
         await networks.set(network.id, network)
       }
-
+      await settings.set('showHiddenNetworks', false)
       await store.set('version', 3)
     })
   }

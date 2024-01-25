@@ -1,3 +1,4 @@
+import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useNetworksStore } from '@/stores/networks-store'
 
 import { Dropdown } from '../dropdown'
@@ -9,6 +10,7 @@ export const locators = {
 }
 
 export const NetworkSwitcher = () => {
+  const { request } = useJsonRpcClient()
   const { networks, selectedNetwork, setSelectedNetwork } = useNetworksStore((state) => ({
     networks: state.networks,
     selectedNetwork: state.selectedNetwork,
@@ -31,7 +33,7 @@ export const NetworkSwitcher = () => {
               Your selected network is for display purposes only, you can connect and place transactions on any
               configured network regardless of what network you have selected.
             </p>
-            <NetworksList networks={networks} onClick={(n) => setSelectedNetwork(n.id)} />
+            <NetworksList networks={networks} onClick={(n) => setSelectedNetwork(request, n.id)} />
           </div>
         )}
       />

@@ -30,13 +30,15 @@ export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
   const {
     loadNetworks,
     loading: loadingNetworks,
-    selectedNetwork
+    selectedNetwork,
+    networks
   } = useNetworksStore((state) => ({
     loadNetworks: state.loadNetworks,
     loading: state.loading,
-    selectedNetwork: state.selectedNetwork
+    selectedNetwork: state.selectedNetwork,
+    networks: state.networks
   }))
-
+  console.log(networks, selectedNetwork, loadingNetworks)
   const { transactionModalOpen, connectionModalOpen, currentConnectionDetails, currentTransactionDetails } =
     useInteractionStore((store) => ({
       transactionModalOpen: store.transactionModalOpen,

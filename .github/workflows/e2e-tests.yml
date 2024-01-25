@@ -32,6 +32,17 @@ jobs:
         env:
           REACT_APP_TEST: true
 
+      # If the build results in changes this points to uncommitted schema changes for AJV not being generated
+      # fail the release if that is the case
+      - name: Check for uncommitted changes
+        id: check-changes
+        uses: mskri/check-uncommitted-changes-action@v1.0.1
+      - name: Evaluate if there are changes
+        if: steps.check-changes.outputs.outcome == failure()
+        run: |
+          echo "There are uncommitted schema changes for AJV"
+          exit 1
+
       - name: Run Chrome e2e tests
         run: yarn test:e2e:chrome:ci
 

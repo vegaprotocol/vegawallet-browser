@@ -8,6 +8,9 @@
     },
     "autoOpen": {
       "type": "boolean"
+    },
+    "selectedNetwork": {
+      "type": "string"
     }
   }
 }

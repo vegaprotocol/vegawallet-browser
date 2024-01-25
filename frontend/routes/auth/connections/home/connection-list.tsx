@@ -42,7 +42,6 @@ export const ConnectionsList = ({ connections, removeConnection }: ConnectionsLi
               <button data-testid={locators.connectionRemoveConnection} onClick={() => removeConnection(connection)}>
                 <Cross className="w-4 h-4" />
               </button>
-              <NavLink to={`${FULL_ROUTES.connections}/${connection.id}`}>Click</NavLink>
             </div>
           </div>
         )}

@@ -8,3 +8,8 @@ To watch for changes in the `frontend` and `web-extension` fire up two terminals
 # Building
 
 `yarn build`
+
+# Updating the protos
+
+1. Run `yarn update-protos`
+2. Commit all the changes

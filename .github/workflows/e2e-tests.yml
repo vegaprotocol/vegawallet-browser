@@ -85,6 +85,17 @@ jobs:
       - name: Build
         run: yarn build:test-e2e
 
+      # If the build results in changes this points to uncommitted schema changes for AJV not being generated
+      # fail the release if that is the case
+      - name: Check for uncommitted changes
+        id: check-changes
+        uses: mskri/check-uncommitted-changes-action@v1.0.1
+      - name: Evaluate if there are changes
+        if: steps.check-changes.outputs.outcome == failure()
+        run: |
+          echo "There are uncommitted schema changes for AJV"
+          exit 1
+
       - name: Install dev version of firefox
         run: |
           wget "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" -O Firefox-dev.tar.bz2

@@ -50,8 +50,11 @@ export default function init({ onerror, settings, wallets, networks, connections
             const selectedNetworkId = await settings.get('selectedNetwork')
             params.chainId = (await networks.getByNetworkId(selectedNetworkId)).chainId
           }
-
-          if ((await networks.getByChainId(params.chainId)) == null) {
+          const network = await networks.getByChainId(params.chainId)
+          if (network == null) {
+            throw new JSONRPCServer.Error(...Errors.UNKNOWN_CHAIN_ID)
+          }
+          if (network.hidden && settings.get('showHiddenNetworks') !== true) {
             throw new JSONRPCServer.Error(...Errors.UNKNOWN_CHAIN_ID)
           }
 
@@ -121,6 +124,7 @@ export default function init({ onerror, settings, wallets, networks, connections
         const selectedNetworkId = await connections.getNetworkId(context.origin)
         const selectedChainId = await connections.getChainId(context.origin)
         const network = await networks.get(selectedNetworkId, selectedChainId)
+
         const rpc = await network.rpc()
 
         try {

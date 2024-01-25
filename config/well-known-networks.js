@@ -50,6 +50,99 @@ export const fairground = {
   vegaDapps: 'https://vega.xyz/apps'
 }
 
+export const devnet = {
+  id: 'devnet',
+  name: 'Devnet',
+  chainId: 'vega-devnet1-202401251038',
+  hidden: true,
+  rest: ['https://api.devnet1.vega.rocks', 'https://api.n06.devnet1.vega.rocks', 'https://api.n07.devnet1.vega.rocks'],
+  ethereumExplorerLink: 'https://sepolia.etherscan.io',
+
+  console: '',
+  explorer: '',
+  governance: '',
+
+  deposit: '',
+  transfer: '',
+  withdraw: '',
+
+  docs: 'https://docs.vega.xyz/testnet',
+  vegaDapps: 'https://vega.xyz/apps'
+}
+
+export const stagnet1 = {
+  id: 'stagnet1',
+  name: 'Stagnet 1',
+  chainId: 'vega-stagnet1-202307191148',
+  hidden: true,
+  rest: [
+    'https://api.stagnet1.vega.rocks',
+    'https://api.n05.stagnet1.vega.rocks',
+    'https://api.n06.stagnet1.vega.rocks'
+  ],
+  ethereumExplorerLink: 'https://sepolia.etherscan.io',
+
+  console: 'https://console.stagnet1.vega.rocks',
+  explorer: 'https://explorer.stagnet1.vega.rocks',
+  governance: 'https://governance.stagnet1.vega.rocks',
+
+  deposit: 'https://console.stagnet1.vega.rocks/#/portfolio/assets/deposit',
+  transfer: 'https://console.stagnet1.vega.rocks/#/portfolio/assets/transfer',
+  withdraw: 'https://console.stagnet1.vega.rocks/#/portfolio/assets/withdraw',
+
+  docs: 'https://docs.vega.xyz/testnet',
+  vegaDapps: 'https://vega.xyz/apps'
+}
+
+export const mirror = {
+  id: 'mainnet-mirror',
+  name: 'Mainnet Mirror',
+  chainId: 'vega-mainnet-mirror-202306231148',
+  hidden: true,
+  rest: ['https://api.mainnet-mirror.vega.rocks', 'https://api.n06.mainnet-mirror.vega.rocks'],
+  ethereumExplorerLink: 'https://sepolia.etherscan.io',
+
+  console: 'https://console.mainnet-mirror.vega.rocks',
+  explorer: 'https://explorer.mainnet-mirror.vega.rocks',
+  governance: 'https://governance.mainnet-mirror.vega.rocks',
+
+  deposit: 'https://console.mainnet-mirror.vega.rocks/#/portfolio/assets/deposit',
+  transfer: 'https://console.mainnet-mirror.vega.rocks/#/portfolio/assets/transfer',
+  withdraw: 'https://console.mainnet-mirror.vega.rocks/#/portfolio/assets/withdraw',
+
+  docs: 'https://docs.vega.xyz/testnet',
+  vegaDapps: 'https://vega.xyz/apps'
+}
+
+export const validatorTestnet = {
+  id: 'validator-testnet',
+  name: 'Validator Testnet',
+  chainId: 'vega-testnet-0002-v4',
+  hidden: true,
+  rest: [
+    'https://rest.venom.tm.p2p.org',
+    'https://vega-testnet.anyvalid.com',
+    'https://testnet.vega.xprv.io/datanode',
+    'https://vega-testnet.nodes.guru:3008',
+    'https://testnet.vega.greenfield.xyz',
+    'https://vega-testnet-data.commodum.io',
+    'https://vega-rest.testnet.lovali.xyz',
+    'https://vega-test-data.bharvest.io:3009'
+  ],
+  ethereumExplorerLink: 'https://sepolia.etherscan.io',
+
+  console: 'https://console..validator-testnet.vega.rocks',
+  explorer: 'https://explorer..validator-testnet.vega.rocks',
+  governance: 'https://governance..validator-testnet.vega.rocks',
+
+  deposit: 'https://console..validator-testnet.vega.rocks/#/portfolio/assets/deposit',
+  transfer: 'https://console..validator-testnet.vega.rocks/#/portfolio/assets/transfer',
+  withdraw: 'https://console..validator-testnet.vega.rocks/#/portfolio/assets/withdraw',
+
+  docs: 'https://docs.vega.xyz/testnet',
+  vegaDapps: 'https://vega.xyz/apps'
+}
+
 export const testingNetwork = {
   ...fairground,
   id: 'test',

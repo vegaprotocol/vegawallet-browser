@@ -677,15 +677,19 @@ describe('admin.export_key', () => {
   })
 })
 
-describe('admin.rename_key', () => {
-  const passphrase = 'foo'
-  let admin
-  let key
-  beforeEach(async () => {
-    const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
-    admin = setupAdmin
-    key = setupKey
+  describe('admin.export_recovery_phrase', () => {
+    expect(false).toBe(true)
   })
+
+  describe('admin.rename_key', () => {
+    const passphrase = 'foo'
+    let admin
+    let key
+    beforeEach(async () => {
+      const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
+      admin = setupAdmin
+      key = setupKey
+    })
 
   afterEach(() => {
     admin = null

@@ -19,6 +19,9 @@ jest.mock('./settings-form-elements/radio', () => ({
 jest.mock('./lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
+jest.mock('./export-recovery-phrase', () => ({
+  ExportRecoveryPhraseSection: () => <div data-testid="export-recovery-phrase-section" />
+}))
 jest.mock('!/config', () => ({
   ...jest.requireActual('../../../../config/test').default,
   closeWindowOnPopupOpen: true
@@ -44,6 +47,7 @@ describe('Settings', () => {
     expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
     expect(screen.getAllByTestId('radio')).toHaveLength(2)
     expect(screen.getByTestId('lock-section')).toBeVisible()
+    expect(screen.getByTestId('export-recovery-phrase-section')).toBeVisible()
   })
 
   it('does not render pop out settings on mobile', () => {

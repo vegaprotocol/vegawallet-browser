@@ -6,7 +6,12 @@ export const locators = {
   exportRecoveryPhraseClose: 'export-recovery-phrase-close'
 }
 
-export const ViewRecoveryPhrase = ({ recoveryPhrase, onClose }: { recoveryPhrase: string; onClose: () => void }) => {
+export interface ViewRecoveryPhraseProperties {
+  recoveryPhrase: string
+  onClose: () => void
+}
+
+export const ViewRecoveryPhrase = ({ recoveryPhrase, onClose }: ViewRecoveryPhraseProperties) => {
   return (
     <>
       <HiddenContainer wrapContent={true} text="Reveal private key" hiddenInformation={recoveryPhrase} />

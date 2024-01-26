@@ -66,7 +66,7 @@ export class WalletCollection {
   }
 
   async exportRecoveryPhrase({ walletName }) {
-    const { recoveryPhrase } = this.store.get(walletName)
+    const { recoveryPhrase } = await this.store.get(walletName)
     return { recoveryPhrase }
   }
 

@@ -2,6 +2,7 @@ import { ButtonLink, Dialog } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
 
 import { VegaSection } from '@/components/vega-section'
+import { WALLET_NAME } from '@/lib/create-wallet'
 
 import { ExportRecoveryPhraseForm } from './export-recovery-phrase-form'
 import { ViewRecoveryPhrase } from './view-recovery-phrase'
@@ -35,6 +36,7 @@ export const ExportRecoveryPhraseSection = () => {
             <ViewRecoveryPhrase recoveryPhrase={recoveryPhrase} onClose={resetDialog} />
           ) : (
             <ExportRecoveryPhraseForm
+              walletName={WALLET_NAME}
               onSuccess={(recoveryPhrase: string) => setRecoveryPhrase(recoveryPhrase)}
               onClose={() => setOpen(false)}
             />

@@ -21,15 +21,13 @@ export interface FormFields {
   passphrase: string
 }
 
-export const ExportRecoveryPhraseForm = ({
-  onSuccess,
-  onClose,
-  walletName
-}: {
-  onSuccess: (recoveryPhrase: string) => void
-  onClose: () => void
+export interface ExportRecoveryPhraseFromProperties {
   walletName: string
-}) => {
+  onSuccess: (privateKey: string) => void
+  onClose: () => void
+}
+
+export const ExportRecoveryPhraseForm = ({ onSuccess, onClose, walletName }: ExportRecoveryPhraseFromProperties) => {
   const { request } = useJsonRpcClient()
   const [loading, setLoading] = useState(false)
   const {

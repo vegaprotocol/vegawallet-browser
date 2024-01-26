@@ -3,13 +3,14 @@ import { clearMnemonic } from '@/hooks/suggest-mnemonic'
 
 import { RpcMethods } from './client-rpc-methods'
 
+export const WALLET_NAME = 'Wallet 1'
+
 export const createWallet = async (mnemonic: string, request: SendMessage, propagateError = false) => {
-  const walletName = 'Wallet 1'
-  await request(RpcMethods.ImportWallet, { recoveryPhrase: mnemonic, name: walletName }, propagateError)
+  await request(RpcMethods.ImportWallet, { recoveryPhrase: mnemonic, name: WALLET_NAME }, propagateError)
   await request(
     RpcMethods.GenerateKey,
     {
-      wallet: walletName,
+      wallet: WALLET_NAME,
       name: `Key 1`
     },
     propagateError

@@ -23,10 +23,12 @@ export interface FormFields {
 
 export const ExportRecoveryPhraseForm = ({
   onSuccess,
-  onClose
+  onClose,
+  walletName
 }: {
   onSuccess: (recoveryPhrase: string) => void
   onClose: () => void
+  walletName: string
 }) => {
   const { request } = useJsonRpcClient()
   const [loading, setLoading] = useState(false)
@@ -42,8 +44,8 @@ export const ExportRecoveryPhraseForm = ({
   const exportPrivateKey = async ({ passphrase }: FormFields) => {
     try {
       setLoading(true)
-      const { secretKey } = await request(RpcMethods.ExportRecoveryPhrase, { passphrase }, true)
-      onSuccess(secretKey)
+      const { recoveryPhrase } = await request(RpcMethods.ExportRecoveryPhrase, { passphrase, walletName }, true)
+      onSuccess(recoveryPhrase)
     } catch (error) {
       if (error instanceof Error && error.message === REJECTION_ERROR_MESSAGE) {
         setError('passphrase', { message: 'Incorrect passphrase' })

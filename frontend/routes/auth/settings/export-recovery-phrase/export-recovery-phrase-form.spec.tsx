@@ -61,15 +61,12 @@ describe('ExportRecoveryPhraseForm', () => {
     const onClose = jest.fn()
     render(<ExportRecoveryPhraseForm walletName={WALLET_NAME} onSuccess={onSuccess} onClose={onClose} />)
 
-    // Simulate user entering a password
     const passwordInput = screen.getByTestId(locators.exportRecoveryPhraseFormModalPassphrase)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
-    // Simulate form submission
     const exportButton = screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)
     fireEvent.click(exportButton)
 
-    // Wait for the success callback to be called
     await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1))
     expect(onSuccess).toHaveBeenCalledWith('0x123')
     expect(onClose).not.toHaveBeenCalled()

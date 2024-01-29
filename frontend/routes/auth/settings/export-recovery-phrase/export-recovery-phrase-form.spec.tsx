@@ -10,6 +10,7 @@ jest.mock('@/contexts/json-rpc/json-rpc-context')
 
 describe('ExportRecoveryPhraseForm', () => {
   it('renders notification, passphrase input, export and close buttons', () => {
+    // 1138-EXRP-003 When I do not enter a password the export button remains disabled
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockReturnValue({ privateKey: '0x123' })
     })
@@ -20,10 +21,12 @@ describe('ExportRecoveryPhraseForm', () => {
     )
     expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalPassphrase)).toBeInTheDocument()
     expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalClose)).toBeInTheDocument()
+    expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalClose)).toBeDisabled()
     expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)).toBeInTheDocument()
   })
 
   it('renders error message if passphrase is incorrect', async () => {
+    // 1138-EXRP-005 When I input an incorrect password I can see this incorrect password message
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockRejectedValue(new Error(REJECTION_ERROR_MESSAGE))
     })
@@ -73,6 +76,7 @@ describe('ExportRecoveryPhraseForm', () => {
   })
 
   it('calls onClose when close button is clicked', async () => {
+    // 1138-EXRP-004 When I press close on the modal the modal is closed
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({
       request: jest.fn().mockReturnValue({ secretKey: '0x123' })
     })

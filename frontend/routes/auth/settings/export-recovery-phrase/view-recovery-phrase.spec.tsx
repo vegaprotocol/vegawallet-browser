@@ -8,6 +8,7 @@ jest.mock('@/components/hidden-container', () => ({
 
 describe('ViewRecoveryPhrase', () => {
   it('renders hidden information container and close button', () => {
+    // 1138-EXRP-006 When I input the correct password I am presented with a hidden container with my recovery phrase in it
     render(<ViewRecoveryPhrase onClose={jest.fn()} recoveryPhrase="0x1" />)
     expect(screen.getByTestId('hidden-container')).toBeInTheDocument()
     expect(screen.getByTestId(locators.exportRecoveryPhraseClose)).toBeInTheDocument()

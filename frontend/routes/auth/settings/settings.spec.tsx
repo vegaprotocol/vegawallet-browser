@@ -41,6 +41,7 @@ describe('Settings', () => {
     mockStore(useGlobalsStore, { isMobile: false })
     // 1107-SETT-007 I can see the version # of the browser extension
     // 1107-SETT-008 I can see the feedback link
+    // 1138-EXRP-001 I can see export recovery phrase on settings
     mockClient()
     renderComponent()
     expect(screen.getByTestId('version-section')).toBeVisible()

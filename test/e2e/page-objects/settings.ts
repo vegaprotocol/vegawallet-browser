@@ -13,6 +13,8 @@ import * as settingsLock from '../../../frontend/routes/auth/settings/lock-secti
 import * as radioLocators from '../../../frontend/routes/auth/settings/settings-form-elements/radio'
 import * as exportLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase'
 import * as exportFormLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase/export-recovery-phrase-form'
+import * as exportViewLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase/view-recovery-phrase'
+
 import { defaultPassword } from '../helpers/wallet/common-wallet-values'
 import locators from '../../../frontend/components/locators'
 
@@ -32,7 +34,7 @@ export class Settings {
     exportFormLocators.locators.exportRecoveryPhraseFormModalSubmit
   )
   private readonly exportRecoveryPhraseClose: By = getByDataTestID(
-    exportFormLocators.locators.exportRecoveryPhraseFormModalClose
+    exportViewLocators.locators.exportRecoveryPhraseClose
   )
   private readonly passwordErrorText: By = getByDataTestID(locators.errorMessage)
   private readonly recoveryPhraseHidden: By = getByDataTestID(locators.mnemonicContainerHidden)

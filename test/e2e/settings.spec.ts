@@ -87,6 +87,29 @@ describe('Settings test', () => {
     await sendTransactionAndCheckNumberOfHandles(driver, vegaAPI, true)
   })
 
+  it('can export the recovery phrase of a connected wallet', async () => {
+    // 1138-EXRP-007 When I export my recovery phrase and enter the correct password I can reveal my recovery phrase
+    const navPanel = new NavPanel(driver)
+    const settingsPage = await navPanel.goToSettings()
+    await settingsPage.exportRecoveryPhrase()
+    await settingsPage.checkRecoveryPhraseExportedAndHidden()
+    const recoveryPhrase = await settingsPage.revealRecoveryPhraseAndGetText()
+    expect(recoveryPhrase).toBeTruthy()
+  })
+
+  it('can export the recovery phrase of a connected wallet', async () => {
+    // 1138-EXRP-008 When I enter an incorrect my recovery phrase is not exported
+    const navPanel = new NavPanel(driver)
+    const settingsPage = await navPanel.goToSettings()
+    await settingsPage.exportRecoveryPhrase('wrong passphrase')
+    const error = await settingsPage.checkForPasswordError()
+    expect(error).toBe('Incorrect passphrase')
+    await settingsPage.exportRecoveryPhrase()
+    await settingsPage.checkRecoveryPhraseExportedAndHidden()
+    const recoveryPhrase = await settingsPage.revealRecoveryPhraseAndGetText()
+    expect(recoveryPhrase).toBeTruthy()
+  })
+
   // TODO this test shouldn't be hidden in settings tests as is available across all of the app
   it('can open the wallet extension in a pop out window and approve or reject a transaction', async () => {
     // 1107-SETT-006 There is a way for me to open the browser wallet in a new window

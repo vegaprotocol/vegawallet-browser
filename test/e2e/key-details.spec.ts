@@ -71,7 +71,7 @@ describe('Key details', () => {
     // 1128-EXPT-005 If I enter the correct passphrase then I see the [reveal hidden information component](./1129-HDCN-hidden_container.md) and a button to close the modal
     await keyDetails.openExportPrivateKeyDialog()
     await exportKey.exportPrivateKey()
-    await exportKey.checkPrivateKeyExportedandHidden()
+    await exportKey.checkPrivateKeyExportedAndHidden()
     const privateKey = await exportKey.revealPrivateKeyAndGetText()
     expect(privateKey).toBeTruthy()
   })
@@ -83,6 +83,6 @@ describe('Key details', () => {
     const error = await exportKey.checkForPasswordError()
     expect(error).toBe('Incorrect passphrase')
     await exportKey.exportPrivateKey()
-    await exportKey.checkPrivateKeyExportedandHidden()
+    await exportKey.checkPrivateKeyExportedAndHidden()
   })
 })

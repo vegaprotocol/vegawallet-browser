@@ -27,7 +27,7 @@ export class ExportPrivateKey {
     await clickElement(this.driver, this.exportButton)
   }
 
-  async checkPrivateKeyExportedandHidden() {
+  async checkPrivateKeyExportedAndHidden() {
     expect(
       await isElementDisplayed(this.driver, this.privateKeyHidden),
       'expected the private key to be available to reveal but could not locate it'

@@ -19,7 +19,7 @@
       "oneOf": [
         {
           "additionalProperties": false,
-          "required": ["foo"],
+          "required": ["orderSubmission"],
           "properties": {
             "orderSubmission": {}
           }

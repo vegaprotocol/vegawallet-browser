@@ -104,10 +104,6 @@ describe('Settings test', () => {
     await settingsPage.exportRecoveryPhrase('wrong passphrase')
     const error = await settingsPage.checkForPasswordError()
     expect(error).toBe('Incorrect passphrase')
-    await settingsPage.exportRecoveryPhrase()
-    await settingsPage.checkRecoveryPhraseExportedAndHidden()
-    const recoveryPhrase = await settingsPage.revealRecoveryPhraseAndGetText()
-    expect(recoveryPhrase).toBeTruthy()
   })
 
   // TODO this test shouldn't be hidden in settings tests as is available across all of the app

@@ -66,8 +66,13 @@ export class WalletCollection {
   }
 
   async exportRecoveryPhrase({ walletName }) {
-    const { recoveryPhrase } = await this.store.get(walletName)
-    return { recoveryPhrase }
+    const wallet = await this.store.get(walletName)
+
+    if (wallet == null) {
+      throw new Error(`Cannot find wallet "${walletName}".`)
+    }
+
+    return { recoveryPhrase: wallet.recoveryPhrase }
   }
 
   async generateRecoveryPhrase() {

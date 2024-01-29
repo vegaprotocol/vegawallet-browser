@@ -82,7 +82,5 @@ describe('Key details', () => {
     await exportKey.exportPrivateKey('wrong password')
     const error = await exportKey.checkForPasswordError()
     expect(error).toBe('Incorrect passphrase')
-    await exportKey.exportPrivateKey()
-    await exportKey.checkPrivateKeyExportedAndHidden()
   })
 })

@@ -12,8 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3
@@ -33,26 +31,6 @@ jobs:
         run: yarn build:test-e2e
         env:
           REACT_APP_TEST: true
-
-      # If the build results in changes this points to uncommitted schema changes for AJV not being generated
-      # fail the release if that is the case
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v42
-        with:
-          base_sha: ${ GITHUB_SHA }
-          files_yaml: |
-            extension:
-              - web-extension/**
-            yarn:
-              - yarn.lock
-      - name: List all changed files
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: |
-          for file in "$ALL_CHANGED_FILES"; do
-            echo "$file was changed"
-          done
 
       - name: Run Chrome e2e tests
         run: yarn test:e2e:chrome:ci
@@ -96,26 +74,6 @@ jobs:
       - name: Build
         run: yarn build:test-e2e
 
-      # If the build results in changes this points to uncommitted schema changes for AJV not being generated
-      # fail the release if that is the case
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v42
-        with:
-          base_sha: ${ GITHUB_SHA }
-          files_yaml: |
-            extension:
-              - web-extension/**
-            yarn:
-              - yarn.lock
-      - name: List all changed files
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: |
-          for file in "$ALL_CHANGED_FILES"; do
-            echo "$file was changed"
-          done
-
       - name: Install dev version of firefox
         run: |
           wget "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" -O Firefox-dev.tar.bz2
@@ -146,8 +104,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3

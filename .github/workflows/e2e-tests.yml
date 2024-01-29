@@ -95,6 +95,12 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v42
+        with:
+          files_yaml: |
+            extension:
+              - web-extension/**
+            yarn:
+              - yarn.lock
       - name: List all changed files
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
@@ -102,12 +108,7 @@ jobs:
           for file in "$ALL_CHANGED_FILES"; do
             echo "$file was changed"
           done
-        with:
-          files_yaml: |
-            web-extension:
-              - web-extension/**
-            yarn:
-              - yarn.lock
+
       # - name: Evaluate if there are changes
       #   if: steps.check-changes.outputs.outcome == failure()
       #   run: |

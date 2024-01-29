@@ -26,6 +26,7 @@ describe('ExportRecoveryPhraseSection', () => {
     expect(screen.getByTestId(locators.exportRecoveryPhraseTrigger)).toHaveTextContent('Export recovery phrase')
   })
   it('open dialog when export button is pressed with title', async () => {
+    // 1138-EXRP-002 When I click on export recovery phrase I am present with a modal to enter my password
     render(<ExportRecoveryPhraseSection />)
 
     fireEvent.click(screen.getByTestId(locators.exportRecoveryPhraseTrigger))

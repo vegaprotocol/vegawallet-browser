@@ -6,4 +6,3 @@
 - When I press close on the modal the modal is closed (<a name="1138-EXRP-004" href="#1138-EXRP-004">1138-EXRP-004</a>)
 - When I input an incorrect password I can see this incorrect password message (<a name="1138-EXRP-005" href="#1138-EXRP-005">1138-EXRP-005</a>)
 - When I input the correct password I am presented with a [hidden container](./1129-HDCN-hidden_container.md) with my recovery phrase in it (<a name="1138-EXRP-006" href="#1138-EXRP-006">1138-EXRP-006</a>)
-- When I press close the modal is closed (<a name="1138-EXRP-007" href="#1138-EXRP-007">1138-EXRP-007</a>)

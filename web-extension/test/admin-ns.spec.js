@@ -92,6 +92,16 @@ const REQ_EXPORT_KEY = (id, publicKey, passphrase) => ({
   }
 })
 
+const REQ_EXPORT_RECOVERY_PHRASE = (id, walletName, passphrase) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.export_recovery_phrase',
+  params: {
+    walletName,
+    passphrase
+  }
+})
+
 const REQ_RENAME_KEY = (id, publicKey, name) => ({
   jsonrpc: '2.0',
   id,
@@ -134,6 +144,7 @@ describe('admin-ns', () => {
     expect(/^\d+\.\d+\.\d+$/.test(appGlobals.result.version)).toBe(true)
     expect(appGlobals.result.settings).toEqual({ selectedNetwork: 'fairground' })
   })
+
   it('should update app settings', async () => {
     const admin = await createAdmin()
     const updateAppSettings = await admin.onrequest({
@@ -147,6 +158,7 @@ describe('admin-ns', () => {
     const appGlobals2 = await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.app_globals', params: null }, {})
     expect(appGlobals2.result.settings.telemetry).toBe(false)
   })
+
   it('should create passphrase', async () => {
     const admin = await createAdmin()
 
@@ -160,6 +172,7 @@ describe('admin-ns', () => {
     const appGlobals3 = await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.app_globals', params: null }, {})
     expect(appGlobals3.result.passphrase).toBe(true)
   })
+
   it('should generate recovery phrase', async () => {
     const admin = await createAdmin()
 
@@ -678,7 +691,42 @@ describe('admin.export_key', () => {
 })
 
   describe('admin.export_recovery_phrase', () => {
-    expect(false).toBe(true)
+    const passphrase = 'foo'
+    let admin
+    let key
+    beforeEach(async () => {
+      const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
+      admin = setupAdmin
+      key = setupKey
+    })
+
+    afterEach(() => {
+      admin = null
+      key = null
+    })
+
+    it('should not export key with wrong wallet', async () => {
+      const exportKey = await admin.onrequest(REQ_EXPORT_RECOVERY_PHRASE(4, 'Wrong wallet', passphrase))
+      expect(exportKey.error).toMatchObject({
+        code: 1,
+        message: expect.stringMatching(/Cannot find wallet \"Wrong wallet\"./)
+      })
+    })
+
+    it('should not export key with wrong passphrase', async () => {
+      const exportKey = await admin.onrequest(REQ_EXPORT_RECOVERY_PHRASE(4, 'Wallet 1', 'wrong-passphrase'))
+      expect(exportKey.error).toEqual({
+        code: 1,
+        message: 'Invalid passphrase or corrupted storage'
+      })
+    })
+
+    it('should export key', async () => {
+      const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, passphrase))
+      expect(exportKey.error).toBeUndefined()
+      expect(exportKey.result.publicKey).toBe(key.publicKey)
+      expect(exportKey.result.secretKey).not.toBeNull()
+    })
   })
 
   describe('admin.rename_key', () => {

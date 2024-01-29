@@ -51,11 +51,11 @@ jobs:
           for file in "$ALL_CHANGED_FILES"; do
             echo "$file was changed"
           done
-      # - name: Evaluate if there are changes
-      #   if: steps.check-changes.outputs.outcome == failure()
-      #   run: |
-      #     echo "There are uncommitted schema changes for AJV"
-      #     exit 1
+      - name: Evaluate if there are changes
+        if: steps.check-changes.outputs.outcome == failure()
+        run: |
+          echo "There are uncommitted schema changes for AJV"
+          exit 1
 
       - name: Run Chrome e2e tests
         run: yarn test:e2e:chrome:ci
@@ -118,12 +118,11 @@ jobs:
           for file in "$ALL_CHANGED_FILES"; do
             echo "$file was changed"
           done
-
-      # - name: Evaluate if there are changes
-      #   if: steps.check-changes.outputs.outcome == failure()
-      #   run: |
-      #     echo "There are uncommitted schema changes for AJV"
-      #     exit 1
+      - name: Evaluate if there are changes
+        if: steps.check-changes.outputs.outcome == failure()
+        run: |
+          echo "There are uncommitted schema changes for AJV"
+          exit 1
 
       - name: Install dev version of firefox
         run: |

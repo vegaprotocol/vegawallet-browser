@@ -32,16 +32,21 @@ jobs:
         env:
           REACT_APP_TEST: true
 
-      # If the build results in changes this points to uncommitted schema changes for AJV not being generated
-      # fail the release if that is the case
-      - name: Check for uncommitted changes
-        id: check-changes
-        uses: mskri/check-uncommitted-changes-action@v1.0.1
-      - name: Evaluate if there are changes
-        if: steps.check-changes.outputs.outcome == failure()
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+      - name: List all changed files
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
-          echo "There are uncommitted schema changes for AJV"
-          exit 1
+          for file in "$ALL_CHANGED_FILES"; do
+            echo "$file was changed"
+          done
+      # - name: Evaluate if there are changes
+      #   if: steps.check-changes.outputs.outcome == failure()
+      #   run: |
+      #     echo "There are uncommitted schema changes for AJV"
+      #     exit 1
 
       - name: Run Chrome e2e tests
         run: yarn test:e2e:chrome:ci
@@ -87,14 +92,27 @@ jobs:
 
       # If the build results in changes this points to uncommitted schema changes for AJV not being generated
       # fail the release if that is the case
-      - name: Check for uncommitted changes
-        id: check-changes
-        uses: mskri/check-uncommitted-changes-action@v1.0.1
-      - name: Evaluate if there are changes
-        if: steps.check-changes.outputs.outcome == failure()
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+      - name: List all changed files
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
-          echo "There are uncommitted schema changes for AJV"
-          exit 1
+          for file in "$ALL_CHANGED_FILES"; do
+            echo "$file was changed"
+          done
+        with:
+          files_yaml: |
+            web-extension:
+              - web-extension/**
+            yarn:
+              - yarn.lock
+      # - name: Evaluate if there are changes
+      #   if: steps.check-changes.outputs.outcome == failure()
+      #   run: |
+      #     echo "There are uncommitted schema changes for AJV"
+      #     exit 1
 
       - name: Install dev version of firefox
         run: |

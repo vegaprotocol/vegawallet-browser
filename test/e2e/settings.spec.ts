@@ -97,7 +97,7 @@ describe('Settings test', () => {
     expect(recoveryPhrase).toBeTruthy()
   })
 
-  it('can export the recovery phrase of a connected wallet', async () => {
+  it('cannot export recovery phrase with incorrect passphrase', async () => {
     // 1138-EXRP-008 When I enter an incorrect my recovery phrase is not exported
     const navPanel = new NavPanel(driver)
     const settingsPage = await navPanel.goToSettings()

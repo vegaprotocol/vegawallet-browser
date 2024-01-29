@@ -21,8 +21,8 @@ describe('ExportRecoveryPhraseForm', () => {
     )
     expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalPassphrase)).toBeInTheDocument()
     expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalClose)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalClose)).toBeDisabled()
     expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)).toBeInTheDocument()
+    expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)).toBeDisabled()
   })
 
   it('renders error message if passphrase is incorrect', async () => {

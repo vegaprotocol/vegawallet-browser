@@ -5,7 +5,6 @@ import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers
 import { KeyDetails } from './page-objects/key-details'
 import { APIHelper } from './helpers/wallet/wallet-api'
 import { ExportPrivateKey } from './page-objects/export-private-key'
-import { staticWait } from './helpers/selenium-util'
 
 describe('Key details', () => {
   let driver: WebDriver

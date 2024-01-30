@@ -33,7 +33,7 @@ describe('GetStarted', () => {
 
     expect(screen.getByText('Securely connect to Vega dapps')).toBeInTheDocument()
     expect(screen.getByText('Instantly approve and reject transactions')).toBeInTheDocument()
-    expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('Get Started')
+    expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('I understand')
   })
   it('Redirects to the create password route when button is clicked', () => {
     renderComponent()

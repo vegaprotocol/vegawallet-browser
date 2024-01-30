@@ -6,7 +6,8 @@ import { Header } from '../header'
 import { NetworksList } from '../networks-list'
 
 export const locators = {
-  networkSwitcher: 'network-switcher'
+  networkSwitcher: 'network-switcher',
+  networkSwitcherCurrentNetwork: 'network-switcher-current-network'
 }
 
 export const NetworkSwitcher = () => {
@@ -25,7 +26,7 @@ export const NetworkSwitcher = () => {
     >
       <Dropdown
         enabled={networks.length > 1}
-        trigger={selectedNetwork.name}
+        trigger={<div data-testid={locators.networkSwitcherCurrentNetwork}>{selectedNetwork.name}</div>}
         content={() => (
           <div>
             <Header content="Select a network to view" />

@@ -4,12 +4,14 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import config from '@/lib/config'
 import { useGlobalsStore } from '@/stores/globals'
+import { useNetworksStore } from '@/stores/networks-store'
 import { usePopoverStore } from '@/stores/popover-store'
 import { mockStore } from '@/test-helpers/mock-store'
 
 import { testingNetwork } from '../../../config/well-known-networks'
 import componentLocators from '../locators'
 import { locators, PageHeader } from '.'
+import { locators as networkSwitchLocators } from './network-switcher'
 
 jest.mock('!/config', () => ({
   ...jest.requireActual('../../../config/test').default,
@@ -22,6 +24,7 @@ jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
 
 jest.mock('@/stores/popover-store')
 jest.mock('@/stores/globals')
+jest.mock('@/stores/networks-store')
 
 const mockPopoverStore = (isPopoverInstance: boolean) => {
   const focusPopover = jest.fn()
@@ -35,6 +38,11 @@ const mockPopoverStore = (isPopoverInstance: boolean) => {
 const mockGlobalsStore = (isMobile = false) => {
   mockStore(useGlobalsStore, {
     isMobile
+  })
+  mockStore(useNetworksStore, {
+    networks: [testingNetwork],
+    selectedNetwork: testingNetwork,
+    setSelectedNetwork: jest.fn()
   })
 }
 
@@ -61,7 +69,7 @@ describe('PageHeader', () => {
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: jest.fn() })
     renderComponent()
 
-    const networkIndicatorElement = screen.getByTestId(locators.networkIndicator)
+    const networkIndicatorElement = screen.getByTestId(networkSwitchLocators.networkSwitcherCurrentNetwork)
     expect(networkIndicatorElement).toBeInTheDocument()
     expect(networkIndicatorElement).toHaveTextContent(testingNetwork.name)
   })

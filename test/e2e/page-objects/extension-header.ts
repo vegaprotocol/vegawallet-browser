@@ -6,10 +6,12 @@ import {
   isElementDisplayed,
   openLatestWindowHandle
 } from '../helpers/selenium-util'
-import * as pageHeader from '../../../frontend/components/page-header/index'
+import * as networkSwitcher from '../../../frontend/components/page-header/network-switcher'
+import * as popoutButton from '../../../frontend/components/page-header/popout-button'
+
 export class ExtensionHeader {
-  private readonly openPopoutButton: By = getByDataTestID(pageHeader.locators.openPopoutButton)
-  private readonly networkIndicator: By = getByDataTestID(pageHeader.locators.networkIndicator)
+  private readonly openPopoutButton: By = getByDataTestID(popoutButton.locators.openPopoutButton)
+  private readonly networkIndicator: By = getByDataTestID(networkSwitcher.locators.networkSwitcher)
 
   constructor(private readonly driver: WebDriver) {}
 

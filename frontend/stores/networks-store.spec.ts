@@ -1,4 +1,5 @@
 import { RpcMethods } from '@/lib/client-rpc-methods'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 
 import { fairground, testingNetwork } from '../../config/well-known-networks'
 import { useNetworksStore } from './networks-store'
@@ -16,10 +17,17 @@ const globalsMock = {
 }
 
 const request = jest.fn().mockImplementation(async (method: string) => {
-  if (method === RpcMethods.ListNetworks) {
-    return { networks: [testingNetwork, fairground] }
-  } else if (method === RpcMethods.AppGlobals) {
-    return globalsMock
+  switch (method) {
+    case RpcMethods.ListNetworks: {
+      return { networks: [testingNetwork, fairground] }
+    }
+    case RpcMethods.AppGlobals: {
+      return globalsMock
+    }
+    case RpcMethods.UpdateSettings: {
+      return null
+    }
+    // No default
   }
   throw new Error('RPC method not in mock')
 })
@@ -61,5 +69,19 @@ describe('NetworksStore', () => {
     expect(result).toStrictEqual(fairground)
     const result2 = useNetworksStore.getState().getNetworkById('foo')
     expect(result2).toBeUndefined()
+  })
+
+  it('allows user to set selected network', async () => {
+    await useNetworksStore.setState({ networks: [testingNetwork] })
+    await useNetworksStore.getState().setSelectedNetwork(request, testingNetwork.id)
+    expect(request).toHaveBeenCalledWith(RpcMethods.UpdateSettings, { selectedNetwork: testingNetwork.id })
+    expect(useNetworksStore.getState().selectedNetwork).toStrictEqual(testingNetwork)
+  })
+
+  it('throws error if attempting to select non-existent network', async () => {
+    silenceErrors()
+    await expect(() => useNetworksStore.getState().setSelectedNetwork(request, 'foo')).rejects.toThrow(
+      `Could not find network foo`
+    )
   })
 })

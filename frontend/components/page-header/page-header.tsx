@@ -3,8 +3,7 @@ import { NetworkSwitcher } from './network-switcher'
 import { PopoutButton } from './popout-button'
 
 export const locators = {
-  pageHeader: 'page-header',
-  openPopoutButton: 'open-popout-button'
+  pageHeader: 'page-header'
 }
 
 export const PageHeader = () => {

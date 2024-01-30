@@ -1,150 +1,35 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
-import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
-import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
-import config from '@/lib/config'
-import { useGlobalsStore } from '@/stores/globals'
-import { useNetworksStore } from '@/stores/networks-store'
-import { usePopoverStore } from '@/stores/popover-store'
-import { mockStore } from '@/test-helpers/mock-store'
+import { PageHeader } from './page-header'
 
-import { testingNetwork } from '../../../config/well-known-networks'
-import componentLocators from '../locators'
-import { locators, PageHeader } from '.'
-import { locators as networkSwitchLocators } from './network-switcher'
-
-jest.mock('!/config', () => ({
-  ...jest.requireActual('../../../config/test').default,
-  closeWindowOnPopupOpen: true
+jest.mock('../icons/vega-icon', () => ({
+  VegaIcon: () => <div data-testid="vega-icon" />
+}))
+jest.mock('./network-switcher', () => ({
+  NetworkSwitcher: () => <div data-testid="network-switcher" />
+}))
+jest.mock('./popout-button', () => ({
+  PopoutButton: () => <div data-testid="popout-button" />
 }))
 
-jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
-  useJsonRpcClient: jest.fn()
-}))
-
-jest.mock('@/stores/popover-store')
-jest.mock('@/stores/globals')
-jest.mock('@/stores/networks-store')
-
-const mockPopoverStore = (isPopoverInstance: boolean) => {
-  const focusPopover = jest.fn()
-  mockStore(usePopoverStore, {
-    isPopoverInstance,
-    focusPopover
-  })
-  return focusPopover
-}
-
-const mockGlobalsStore = (isMobile = false) => {
-  mockStore(useGlobalsStore, {
-    isMobile
-  })
-  mockStore(useNetworksStore, {
-    networks: [testingNetwork],
-    selectedNetwork: testingNetwork,
-    setSelectedNetwork: jest.fn()
-  })
-}
-
-const renderComponent = () =>
-  render(
-    <MockNetworkProvider>
-      <PageHeader />
-    </MockNetworkProvider>
-  )
+const renderComponent = () => render(<PageHeader />)
 
 describe('PageHeader', () => {
   it('renders the VegaIcon component', () => {
-    mockPopoverStore(false)
-    mockGlobalsStore()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: jest.fn() })
     renderComponent()
-    const vegaIconElement = screen.getByTestId(componentLocators.vegaIcon)
+    const vegaIconElement = screen.getByTestId('vega-icon')
     expect(vegaIconElement).toBeVisible()
   })
 
+  it('renders the PopoutButton', () => {
+    renderComponent()
+    const popout = screen.getByTestId('popout-button')
+    expect(popout).toBeVisible()
+  })
+
   it('renders the network indicator correctly', () => {
-    mockPopoverStore(false)
-    mockGlobalsStore()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: jest.fn() })
     renderComponent()
 
-    const networkIndicatorElement = screen.getByTestId(networkSwitchLocators.networkSwitcherCurrentNetwork)
-    expect(networkIndicatorElement).toBeInTheDocument()
-    expect(networkIndicatorElement).toHaveTextContent(testingNetwork.name)
-  })
-
-  it('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {
-    mockPopoverStore(false)
-    mockGlobalsStore()
-    config.closeWindowOnPopupOpen = true
-    global.close = jest.fn()
-
-    const mockRequest = jest.fn()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    renderComponent()
-
-    fireEvent.click(screen.getByTestId(locators.openPopoutButton))
-
-    await waitFor(() => expect(global.close).toHaveBeenCalled())
-  })
-
-  it('when opening in new window does not close the window if config.closeWindowOnPopupOpen is false', async () => {
-    mockPopoverStore(false)
-    mockGlobalsStore()
-    config.closeWindowOnPopupOpen = false
-    global.close = jest.fn()
-
-    const mockRequest = jest.fn()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    renderComponent()
-
-    fireEvent.click(screen.getByTestId(locators.openPopoutButton))
-
-    await waitFor(() => expect(global.close).not.toHaveBeenCalled())
-  })
-
-  it('renders close button if popover is open', async () => {
-    mockGlobalsStore()
-    const mockClose = mockPopoverStore(true)
-    const mockRequest = jest.fn()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    renderComponent()
-
-    fireEvent.click(screen.getByTestId(locators.openPopoutButton))
-
-    await waitFor(() => expect(mockClose).toHaveBeenCalled())
-  })
-  it('does not render open in new window if feature is turned off', async () => {
-    mockPopoverStore(true)
-    mockGlobalsStore()
-    config.features = {
-      popoutHeader: false
-    }
-    const mockRequest = jest.fn()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    renderComponent()
-
-    expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
-  })
-  it('does not render open in new window if feature is not defined', async () => {
-    mockPopoverStore(true)
-    mockGlobalsStore()
-    config.features = undefined
-    const mockRequest = jest.fn()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    renderComponent()
-
-    expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
-  })
-
-  it('does not render popout button when in mobile', async () => {
-    mockPopoverStore(true)
-    mockGlobalsStore(true)
-    const mockRequest = jest.fn()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    renderComponent()
-
-    expect(screen.queryByTestId(locators.openPopoutButton)).not.toBeInTheDocument()
+    expect(screen.getByTestId('network-switcher')).toBeVisible()
   })
 })

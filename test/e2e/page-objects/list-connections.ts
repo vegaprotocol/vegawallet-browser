@@ -7,9 +7,9 @@ import {
   hasTotalNumElements,
   isElementDisplayed
 } from '../helpers/selenium-util'
-import { locators as noConnectionsLocators } from '../../../frontend/routes/auth/connections/no-dapps-connected'
-import { locators as connectionsLocators } from '../../../frontend/routes/auth/connections'
-import { locators as connectionsListLocators } from '../../../frontend/routes/auth/connections/connection-list'
+import { locators as noConnectionsLocators } from '../../../frontend/routes/auth/connections/home/no-dapps-connected'
+import { locators as connectionsLocators } from '../../../frontend/routes/auth/connections/home'
+import { locators as connectionsListLocators } from '../../../frontend/routes/auth/connections/home/connection-list'
 
 export class ListConnections {
   private readonly noConnections: By = getByDataTestID(noConnectionsLocators.connectionsNoConnections)

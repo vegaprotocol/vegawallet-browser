@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
+import { locators as dropDownLocators } from '@/components/dropdown/dropdown'
 import { KeyListProperties } from '@/components/key-list'
 
 import { KeySelector, locators } from './key-selector'
@@ -64,47 +65,12 @@ describe('KeySelector', () => {
   it('renders the currently selected key, opens key list and closes after a key is clicked', async () => {
     // 1125-KEYD-006 When switching, I can see key name, key icon and key address (truncated)
     renderComponent()
-    expect(screen.getByTestId(locators.keySelectedCurrentKey(MOCK_KEY.name))).toHaveTextContent('test')
-    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
+    expect(screen.getByTestId(dropDownLocators.dropdownSelected)).toHaveTextContent('test')
+    fireEvent.click(screen.getByTestId(dropDownLocators.dropdownTrigger))
     await screen.findByTestId(locators.keySelectorDropdownContent)
     const keyList = screen.getByTestId('key-list')
     expect(keyList).toBeInTheDocument()
     fireEvent.click(keyList)
-    await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
-  })
-
-  it('closes modal when clicking trigger', async () => {
-    renderComponent()
-    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
-    await screen.findByTestId(locators.keySelectorDropdownContent)
-    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
-    await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
-  })
-
-  it('closes dropdown when clicking outside', async () => {
-    const { container } = renderComponent()
-    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
-    await screen.findByTestId(locators.keySelectorDropdownContent)
-    fireEvent.pointerDown(
-      container,
-      new PointerEvent('pointerdown', {
-        ctrlKey: false,
-        button: 0
-      })
-    )
-    await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
-  })
-
-  it('closes dropdown when escape key is pressed', async () => {
-    const { container } = renderComponent()
-    fireEvent.click(screen.getByTestId(locators.keySelectorTrigger))
-    await screen.findByTestId(locators.keySelectorDropdownContent)
-    fireEvent.keyDown(container, {
-      key: 'Escape',
-      code: 'Escape',
-      keyCode: 27,
-      charCode: 27
-    })
     await waitFor(() => expect(screen.queryByTestId('key-list')).not.toBeInTheDocument())
   })
 })

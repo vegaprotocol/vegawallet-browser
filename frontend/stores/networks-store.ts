@@ -25,7 +25,6 @@ export const useNetworksStore = create<NetworksStore>((set, get) => ({
     try {
       const { networks } = (await request(RpcMethods.ListNetworks)) as NetworksResponse
       const globals = await request(RpcMethods.AppGlobals)
-      console.log(networks, globals)
       const selectedNetworkId = globals.settings.selectedNetwork
       const network = networks.find(({ id }) => id === selectedNetworkId)
       if (selectedNetworkId && !network) throw new Error(`Could not find selected network ${selectedNetworkId}`)

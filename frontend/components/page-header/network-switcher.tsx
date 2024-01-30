@@ -1,4 +1,5 @@
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { useGlobalsStore } from '@/stores/globals'
 import { useNetworksStore } from '@/stores/networks-store'
 
 import { Dropdown } from '../dropdown'
@@ -7,7 +8,8 @@ import { NetworksList } from '../networks-list'
 
 export const locators = {
   networkSwitcher: 'network-switcher',
-  networkSwitcherCurrentNetwork: 'network-switcher-current-network'
+  networkSwitcherCurrentNetwork: 'network-switcher-current-network',
+  networkSwitcherMessage: 'network-switcher-message'
 }
 
 export const NetworkSwitcher = () => {
@@ -16,6 +18,9 @@ export const NetworkSwitcher = () => {
     networks: state.networks,
     selectedNetwork: state.selectedNetwork,
     setSelectedNetwork: state.setSelectedNetwork
+  }))
+  const { loadGlobals } = useGlobalsStore((state) => ({
+    loadGlobals: state.loadGlobals
   }))
   if (!selectedNetwork)
     throw new Error('Selected network not found when rendering page header. This should not be possible.')
@@ -30,11 +35,17 @@ export const NetworkSwitcher = () => {
         content={() => (
           <div>
             <Header content="Select a network to view" />
-            <p className="text-vega-dark-300 mt-4">
+            <p data-testid={locators.networkSwitcherMessage} className="text-vega-dark-300 mt-4">
               Your selected network is for display purposes only, you can connect and place transactions on any
               configured network regardless of what network you have selected.
             </p>
-            <NetworksList networks={networks} onClick={(n) => setSelectedNetwork(request, n.id)} />
+            <NetworksList
+              networks={networks}
+              onClick={async (n) => {
+                await setSelectedNetwork(request, n.id)
+                await loadGlobals(request)
+              }}
+            />
           </div>
         )}
       />

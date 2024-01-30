@@ -4,7 +4,6 @@ import { PopoutButton } from './popout-button'
 
 export const locators = {
   pageHeader: 'page-header',
-  networkIndicator: 'network-indicator',
   openPopoutButton: 'open-popout-button'
 }
 

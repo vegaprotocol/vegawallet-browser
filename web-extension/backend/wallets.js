@@ -86,7 +86,7 @@ export class WalletCollection {
       await validate(recoveryPhrase)
 
       const words = recoveryPhrase.split(/\s+/)
-      if (!PERMITTED_RECOVERY_PHRASE_LENGTH.includes(words.length)) throw new Error('Recovery phrase must be 24 words')
+      if (!PERMITTED_RECOVERY_PHRASE_LENGTH.includes(words.length)) throw new Error('Recovery phrase must be 12, 15, 18, 21 or 24 words')
     } catch (err) {
       throw new Error(err.message)
     }

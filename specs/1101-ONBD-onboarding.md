@@ -55,6 +55,5 @@ As a wallet user When I am using the browser extension for the first time I want
 
 ## Getting started
 
-- If built for mainnet I can see a legal disclaimer with a button to read more (<a name="1101-ONBD-033" href="#1101-ONBD-033">1101-ONBD-033</a>)
-- If built for mainnet I can press read more to see the full disclaimer (<a name="1101-ONBD-034" href="#1101-ONBD-034">1101-ONBD-034</a>)
-- If not built for mainnet I can see a message related to testnet (<a name="1101-ONBD-035" href="#1101-ONBD-035">1101-ONBD-035</a>)
+- I can see a legal disclaimer with a button to read more (<a name="1101-ONBD-033" href="#1101-ONBD-033">1101-ONBD-033</a>)
+- I can press read more to see the full disclaimer (<a name="1101-ONBD-034" href="#1101-ONBD-034">1101-ONBD-034</a>)

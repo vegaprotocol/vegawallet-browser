@@ -1,13 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import config from '!/config'
 import componentLocators from '@/components/locators'
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
 import { FULL_ROUTES } from '../../route-names'
 import { GetStarted, locators } from '.'
 import { locators as disclaimerLocators } from './disclaimer'
-import { locators as incentivesLocators } from './incentives'
 
 const mockedUsedNavigate = jest.fn()
 
@@ -45,11 +43,9 @@ describe('GetStarted', () => {
     fireEvent.click(button)
     expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.createPassword)
   })
-  it('Renders disclaimer when showDisclaimer is true', async () => {
-    // 1101-ONBD-033 If built for mainnet I can see a legal disclaimer with a button to read more
-    // 1101-ONBD-034 If built for mainnet I can press read more to see the full disclaimer
-
-    config.showDisclaimer = true
+  it('Renders disclaimer', async () => {
+    // 1101-ONBD-033 I can see a legal disclaimer with a button to read more
+    // 1101-ONBD-034 I can press read more to see the full disclaimer
     renderComponent()
 
     expect(screen.getByTestId(disclaimerLocators.readMoreButton)).toBeInTheDocument()
@@ -58,13 +54,5 @@ describe('GetStarted', () => {
     fireEvent.click(screen.getByTestId(disclaimerLocators.readMoreButton))
     await screen.findByTestId(disclaimerLocators.disclaimerText)
     expect(screen.getByTestId(disclaimerLocators.disclaimerText)).toBeInTheDocument()
-  })
-  it('Renders incentive banner when showDisclaimer is false', () => {
-    // 1101-ONBD-035 If not built for mainnet I can see a message related to testnet
-    config.showDisclaimer = false
-    renderComponent()
-
-    expect(screen.getByTestId(locators.getStartedButton)).toHaveTextContent('Get Started')
-    expect(screen.getByTestId(incentivesLocators.paragraph)).toBeInTheDocument()
   })
 })

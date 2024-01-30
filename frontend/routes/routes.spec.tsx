@@ -8,7 +8,6 @@ import { Routing } from './routes'
 jest.mock('@/hooks/persist-location')
 
 jest.mock('./auth')
-jest.mock('./auth/connections/connection-details')
 jest.mock('./auth/connections/home')
 jest.mock('./auth/settings/home')
 jest.mock('./auth/settings/networks/home')

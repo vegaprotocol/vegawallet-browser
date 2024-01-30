@@ -12,7 +12,7 @@ export const locators = {
 export interface DropdownProperties {
   trigger: ReactNode
   content: (setOpen: (open: boolean) => void) => ReactNode
-  enabled?: boolean
+  enabled: boolean
 }
 
 const WrappedTrigger = ({ clickable, trigger }: { clickable: ReactNode; trigger: ReactNode }) => {
@@ -30,7 +30,7 @@ const WrappedTrigger = ({ clickable, trigger }: { clickable: ReactNode; trigger:
   )
 }
 
-export const Dropdown = ({ enabled = false, trigger, content }: DropdownProperties) => {
+export const Dropdown = ({ enabled, trigger, content }: DropdownProperties) => {
   const [open, setOpen] = useState<boolean>(false)
 
   if (!enabled) {

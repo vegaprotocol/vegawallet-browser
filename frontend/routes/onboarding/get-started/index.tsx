@@ -10,7 +10,6 @@ import { VegaHeader } from '@/components/vega-header'
 
 import { FULL_ROUTES } from '../../route-names'
 import { Disclaimer } from './disclaimer'
-import { Incentives } from './incentives'
 
 export const locators = {
   getStartedButton: 'get-started-button'
@@ -35,7 +34,7 @@ export const GetStarted = () => {
           ))}
         </ul>
       </Frame>
-      {config.showDisclaimer ? <Disclaimer /> : <Incentives />}
+      <Disclaimer />
       <Button
         className="mt-4"
         autoFocus
@@ -47,7 +46,7 @@ export const GetStarted = () => {
         variant="primary"
         fill={true}
       >
-        {config.showDisclaimer ? 'I understand' : 'Get Started'}
+        I understand
       </Button>
       <ExternalLink className="text-xs text-white mt-4" href={config.userDataPolicy}>
         User data policy

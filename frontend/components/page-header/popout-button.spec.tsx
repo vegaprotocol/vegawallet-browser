@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
-import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import config from '@/lib/config'
 import { useGlobalsStore } from '@/stores/globals'
 import { useNetworksStore } from '@/stores/networks-store'

@@ -7,7 +7,6 @@ declare module '!/config' {
     sentryDsn: string | undefined
     logging: boolean
     userDataPolicy: string
-    showDisclaimer: boolean
     features:
       | {
           [key: string]: boolean

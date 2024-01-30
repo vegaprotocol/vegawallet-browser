@@ -9,6 +9,7 @@ import {
 } from '../helpers/selenium-util'
 import { locators as keyListLocators } from '../../../frontend/components/key-list'
 import { locators as vegaKeyLocators } from '../../../frontend/components/keys/vega-key'
+import { locators as dropdownLocators } from '../../../frontend/components/dropdown'
 import { locators as keyDropdownLocators } from '../../../frontend/routes/auth/wallets/key-details/key-selector'
 import { locators as renameKeyLocators } from '../../../frontend/routes/auth/wallets/key-details/rename-key-dialog/rename-key-dialog'
 import { locators as renameKeyFormLocators } from '../../../frontend/routes/auth/wallets/key-details/rename-key-dialog/rename-key-form'
@@ -18,7 +19,7 @@ import { locators as exportPrivateKeyLocators } from '../../../frontend/routes/a
 import generalLocators from '../../../frontend/components/locators'
 
 export class KeyDetails {
-  private readonly keysDropdownMenu: By = getByDataTestID(keyDropdownLocators.keySelectorTrigger)
+  private readonly keysDropdownMenu: By = getByDataTestID(dropdownLocators.dropdownSelected)
   private readonly assetBalance: By = getByDataTestID(assetCardLocators.assetHeaderTotal)
   private readonly exportPrivateKey: By = getByDataTestID(exportPrivateKeyLocators.privateKeyTrigger)
   private readonly renameKeyButton: By = getByDataTestID(renameKeyLocators.renameKeyTrigger)

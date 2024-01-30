@@ -201,7 +201,6 @@ describe('admin-ns', () => {
           _nodeTimeout: null,
           chainId: 'test-chain-id',
           console: 'https://console.fairground.wtf',
-          deposit: 'https://console.fairground.wtf/#/portfolio/assets/deposit',
           docs: 'https://docs.vega.xyz/testnet',
           ethereumExplorerLink: 'https://sepolia.etherscan.io',
           explorer: 'https://explorer.fairground.wtf',
@@ -212,9 +211,7 @@ describe('admin-ns', () => {
           preferredNode: undefined,
           probing: false,
           rest: ['http://localhost:9090'],
-          transfer: 'https://console.fairground.wtf/#/portfolio/assets/transfer',
-          vegaDapps: 'https://vega.xyz/apps',
-          withdraw: 'https://console.fairground.wtf/#/portfolio/assets/withdraw'
+          vegaDapps: 'https://vega.xyz/apps'
         }
       ]
     })

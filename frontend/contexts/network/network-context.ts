@@ -4,6 +4,7 @@ import { Network } from '@/types/backend'
 
 export interface NetworkContextShape {
   network: Network
+  interactionMode: boolean
 }
 
 export const NetworkContext = createContext<NetworkContextShape | undefined>(undefined)

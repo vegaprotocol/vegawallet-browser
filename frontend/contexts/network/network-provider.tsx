@@ -53,7 +53,7 @@ export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
     loadNetworks(request)
   }, [loadGlobals, loadNetworks, request])
 
-  if (loadingNetworks || loadingGlobals) return null
+  if (loadingNetworks || loadingGlobals) return <div className="h-full w-full bg-black" />
 
   const interactionMode = transactionModalOpen || connectionModalOpen
   const value = interactionMode ? networkFromChainId : selectedNetwork
@@ -62,5 +62,5 @@ export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
   }
 
   // The above if statement ensures that either networkFromChainId or selectedNetwork is defined. So value is always defined.
-  return <NetworkContext.Provider value={{ network: value }}>{children}</NetworkContext.Provider>
+  return <NetworkContext.Provider value={{ network: value, interactionMode }}>{children}</NetworkContext.Provider>
 }

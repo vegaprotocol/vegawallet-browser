@@ -1,5 +1,6 @@
 import config from '!/config'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { useNetwork } from '@/contexts/network/network-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { useGlobalsStore } from '@/stores/globals'
 import { usePopoverStore } from '@/stores/popover-store'
@@ -31,13 +32,15 @@ export const PopoutButton = () => {
     focusPopover: state.focusPopover
   }))
   const open = useOpenInNewWindow()
+  const { network } = useNetwork()
 
   if (!config.features?.popoutHeader || isMobile) return null
   return (
     <button
       data-testid={locators.openPopoutButton}
       onClick={isPopoverInstance ? focusPopover : open}
-      className="border rounded-md border-vega-dark-300 text-sm h-6 ml-3 px-1"
+      className="border rounded-md text-sm h-6 ml-3 px-1"
+      style={{ borderColor: network.secondaryColor, color: network.secondaryColor }}
     >
       {isPopoverInstance ? <Cross className="h-4 w-4 flex justify-between items-center" /> : <ExpandIcon size={16} />}
     </button>

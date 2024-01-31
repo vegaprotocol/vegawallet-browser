@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 
+import { PageHeader } from '@/components/page-header'
 import { useErrorStore } from '@/stores/error'
 import { useInteractionStore } from '@/stores/interaction-store'
 import { useNetworksStore } from '@/stores/networks-store'
@@ -47,17 +48,22 @@ export const ConnectionModal = () => {
   if (!isOpen || !details) return null
   return (
     <Splash data-testid={locators.connectionModal} centered={true}>
-      {hasConnected ? (
-        <ConnectionSuccess
-          hostname={details.origin}
-          onClose={() => {
-            setHasConnected(false)
-            sendConnectionDecision(true)
-          }}
-        />
-      ) : (
-        <ConnectionDetails hostname={details.origin} handleDecision={handleDecision} />
-      )}
+      <div className="h-full w-full grid grid-rows-[min-content_1fr]">
+        <PageHeader />
+        <div className="h-full w-full min-h-full max-w-full flex flex-col justify-center">
+          {hasConnected ? (
+            <ConnectionSuccess
+              hostname={details.origin}
+              onClose={() => {
+                setHasConnected(false)
+                sendConnectionDecision(true)
+              }}
+            />
+          ) : (
+            <ConnectionDetails hostname={details.origin} handleDecision={handleDecision} />
+          )}
+        </div>
+      </div>
     </Splash>
   )
 }

@@ -23,6 +23,8 @@ export interface Key {
 
 export interface Network {
   id: string
+  color: string
+  secondaryColor: string
   name: string
   chainId: string
   hidden: boolean

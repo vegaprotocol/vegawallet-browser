@@ -116,7 +116,9 @@ export class Network {
     transfer,
     withdraw,
     docs,
-    vegaDapps
+    vegaDapps,
+    color,
+    secondaryColor
   }) {
     this.id = id
     this.name = name
@@ -132,6 +134,8 @@ export class Network {
     this.withdraw = withdraw
     this.docs = docs
     this.vegaDapps = vegaDapps
+    this.color = color
+    this.secondaryColor = secondaryColor
 
     this.probing = false
     this.preferredNode = null

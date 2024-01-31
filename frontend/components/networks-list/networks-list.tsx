@@ -1,3 +1,4 @@
+import { useNetwork } from '@/contexts/network/network-context'
 import { Network } from '@/types/backend'
 
 import { ChevronRight } from '../icons/chevron-right'

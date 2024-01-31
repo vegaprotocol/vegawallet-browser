@@ -93,7 +93,7 @@ describe('ImportWallet', () => {
     fireEvent.change(screen.getByTestId(locators.importMnemonic), {
       target: { value: twentyThreeWords }
     })
-    const errorMessage = await screen.findByText('Recovery phrase must be 24 words')
+    const errorMessage = await screen.findByText('Recovery phrase must be 12, 15, 18, 21 or 24 words')
     expect(errorMessage).toBeVisible()
     expect(screen.getByTestId(locators.importMnemonicSubmit)).toBeDisabled()
     fireEvent.change(screen.getByTestId(locators.importMnemonic), {

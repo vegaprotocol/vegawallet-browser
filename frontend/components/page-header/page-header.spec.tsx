@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
+
 import { PageHeader } from './page-header'
 
 jest.mock('../icons/vega-icon', () => ({
@@ -12,7 +14,12 @@ jest.mock('./popout-button', () => ({
   PopoutButton: () => <div data-testid="popout-button" />
 }))
 
-const renderComponent = () => render(<PageHeader />)
+const renderComponent = () =>
+  render(
+    <MockNetworkProvider>
+      <PageHeader />
+    </MockNetworkProvider>
+  )
 
 describe('PageHeader', () => {
   it('renders the VegaIcon component', () => {

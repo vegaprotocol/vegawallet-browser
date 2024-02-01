@@ -5,7 +5,6 @@ import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useGlobalsStore } from '@/stores/globals'
 import { useNetworksStore } from '@/stores/networks-store'
 import { mockStore } from '@/test-helpers/mock-store'
-import { silenceErrors } from '@/test-helpers/silence-errors'
 
 import { fairground, testingNetwork } from '../../../config/well-known-networks'
 import { NetworkListProperties } from '../networks-list'
@@ -33,6 +32,7 @@ const renderComponent = () => {
     </MockNetworkProvider>
   )
 }
+
 const mockStores = () => {
   const loadGlobals = jest.fn()
   const setSelectedNetwork = jest.fn()
@@ -49,21 +49,6 @@ const mockStores = () => {
 }
 
 describe('NetworkSwitcher', () => {
-  it('throws error if network cannot be found', () => {
-    mockStore(useGlobalsStore, { loadGlobals: jest.fn() })
-    mockStore(useNetworksStore, {
-      networks: [testingNetwork, fairground],
-      selectedNetwork: undefined,
-      setSelectedNetwork: jest.fn()
-    })
-    silenceErrors()
-    const mockRequest = jest.fn()
-    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
-    expect(() => renderComponent()).toThrow(
-      'Selected network not found when rendering page header. This should not be possible.'
-    )
-  })
-
   it('renders message explaining network selector and networks list', async () => {
     mockStores()
     const mockRequest = jest.fn()

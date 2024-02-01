@@ -9,7 +9,7 @@ import { silenceErrors } from '@/test-helpers/silence-errors'
 
 import { fairground, testingNetwork } from '../../../config/well-known-networks'
 import { useNetwork } from './network-context'
-import { NetworkProvider } from './network-provider'
+import { locators, NetworkProvider } from './network-provider'
 
 jest.mock('@/stores/globals')
 jest.mock('@/stores/interaction-store')
@@ -55,27 +55,27 @@ describe('NetworkProvider', () => {
       loading: true,
       loadNetworks
     }
-    const { container } = renderComponent(globalsState, networksState)
-    expect(container).toBeEmptyDOMElement()
+    const { unmount } = renderComponent(globalsState, networksState)
+    expect(screen.getByTestId(locators.networkProviderLoading)).toBeInTheDocument()
     expect(loadGlobals).toHaveBeenCalled()
     expect(loadNetworks).toHaveBeenCalled()
-    {
-      const { container } = renderComponent(
-        {
-          ...globalsState,
-          loading: false
-        },
-        networksState
-      )
-      expect(container).toBeEmptyDOMElement()
-    }
-    {
-      const { container } = renderComponent(globalsState, {
-        ...networksState,
+    unmount()
+
+    const { unmount: unmount2 } = renderComponent(
+      {
+        ...globalsState,
         loading: false
-      })
-      expect(container).toBeEmptyDOMElement()
-    }
+      },
+      networksState
+    )
+    expect(screen.getByTestId(locators.networkProviderLoading)).toBeInTheDocument()
+    unmount2()
+
+    renderComponent(globalsState, {
+      ...networksState,
+      loading: false
+    })
+    expect(screen.getByTestId(locators.networkProviderLoading)).toBeInTheDocument()
   })
 
   it('returns the network that is selected in settings by default', () => {

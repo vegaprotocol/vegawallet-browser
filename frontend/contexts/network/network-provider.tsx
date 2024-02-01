@@ -7,6 +7,10 @@ import { useNetworksStore } from '@/stores/networks-store'
 
 import { NetworkContext } from './network-context'
 
+export const locators = {
+  networkProviderLoading: 'network-provider-loading'
+}
+
 export const useNetworkFromChainId = (chainId?: string) => {
   const { networks } = useNetworksStore((store) => ({
     networks: store.networks
@@ -53,7 +57,8 @@ export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
     loadNetworks(request)
   }, [loadGlobals, loadNetworks, request])
 
-  if (loadingNetworks || loadingGlobals) return <div className="h-full w-full bg-black" />
+  if (loadingNetworks || loadingGlobals)
+    return <div data-testid={locators.networkProviderLoading} className="h-full w-full bg-black" />
 
   const interactionMode = transactionModalOpen || connectionModalOpen
   const value = interactionMode ? networkFromChainId : selectedNetwork

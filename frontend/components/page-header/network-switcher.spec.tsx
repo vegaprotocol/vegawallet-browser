@@ -25,9 +25,9 @@ jest.mock('../networks-list', () => ({
   )
 }))
 
-const renderComponent = () => {
+const renderComponent = (interactionMode?: boolean) => {
   return render(
-    <MockNetworkProvider>
+    <MockNetworkProvider interactionMode={interactionMode}>
       <NetworkSwitcher />
     </MockNetworkProvider>
   )
@@ -72,5 +72,14 @@ describe('NetworkSwitcher', () => {
     fireEvent.click(screen.getByTestId('networks-list'))
     await waitFor(() => expect(loadGlobals).toHaveBeenCalledTimes(1))
     expect(setSelectedNetwork).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not render drop down and only renders name in interaction mode', async () => {
+    mockStores()
+    const mockRequest = jest.fn()
+    ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })
+    renderComponent(true)
+    expect(screen.queryByTestId(locators.networkSwitcherCurrentNetwork)).not.toBeInTheDocument()
+    expect(screen.getByText(testingNetwork.name)).toBeInTheDocument()
   })
 })

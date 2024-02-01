@@ -1,5 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
+import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useErrorStore } from '@/stores/error'
 import { useInteractionStore } from '@/stores/interaction-store'
 import { useNetworksStore } from '@/stores/networks-store'
@@ -20,6 +22,20 @@ jest.mock('./connection-success', () => ({
   )
 }))
 
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
+  useJsonRpcClient: () => ({
+    request: jest.fn()
+  })
+}))
+
+const renderComponent = () => {
+  return render(
+    <MockNetworkProvider>
+      <ConnectionModal />
+    </MockNetworkProvider>
+  )
+}
+
 describe('ConnectionModal', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -30,7 +46,7 @@ describe('ConnectionModal', () => {
       networks: [testingNetwork]
     })
     mockStore(useInteractionStore, { connectionModalOpen: false })
-    const { container } = render(<ConnectionModal />)
+    const { container } = renderComponent()
     expect(container).toBeEmptyDOMElement()
   })
   it('renders connection details when open but not yet connected', () => {
@@ -39,7 +55,7 @@ describe('ConnectionModal', () => {
       networks: [testingNetwork]
     })
     mockStore(useInteractionStore, { connectionModalOpen: true, currentConnectionDetails: {} })
-    render(<ConnectionModal />)
+    renderComponent()
     expect(screen.getByTestId(locators.connectionModalApprove)).toBeInTheDocument()
   })
   it('renders connection success when hasConnected is true', () => {
@@ -54,7 +70,7 @@ describe('ConnectionModal', () => {
         chainId: testingNetwork.chainId
       }
     })
-    render(<ConnectionModal />)
+    renderComponent()
     fireEvent.click(screen.getByTestId(locators.connectionModalApproveButton))
     expect(screen.getByTestId('connection-success')).toBeInTheDocument()
   })
@@ -70,7 +86,7 @@ describe('ConnectionModal', () => {
         chainId: testingNetwork.chainId
       }
     })
-    render(<ConnectionModal />)
+    renderComponent()
     fireEvent.click(screen.getByTestId(locators.connectionModalDenyButton))
     expect(screen.queryByTestId('connection-success')).not.toBeInTheDocument()
   })
@@ -87,7 +103,7 @@ describe('ConnectionModal', () => {
         chainId: testingNetwork.chainId
       }
     })
-    render(<ConnectionModal />)
+    renderComponent()
     fireEvent.click(screen.getByTestId(locators.connectionModalApproveButton))
     fireEvent.click(screen.getByTestId('connection-success'))
     expect(handleConnectionDecision).toHaveBeenCalledWith({ approved: true, networkId: 'test' })
@@ -108,7 +124,7 @@ describe('ConnectionModal', () => {
     mockStore(useErrorStore, {
       setError
     })
-    render(<ConnectionModal />)
+    renderComponent()
     fireEvent.click(screen.getByTestId(locators.connectionModalApproveButton))
     fireEvent.click(screen.getByTestId('connection-success'))
     expect(setError).toHaveBeenCalledWith(new Error('Network could not be found with chainId foo'))

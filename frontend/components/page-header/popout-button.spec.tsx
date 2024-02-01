@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import config from '@/lib/config'
 import { useGlobalsStore } from '@/stores/globals'
 import { useNetworksStore } from '@/stores/networks-store'
@@ -36,7 +37,12 @@ const mockStores = (isPopoverInstance: boolean, isMobile = false) => {
   return focusPopover
 }
 
-const renderComponent = () => render(<PageHeader />)
+const renderComponent = () =>
+  render(
+    <MockNetworkProvider>
+      <PageHeader />
+    </MockNetworkProvider>
+  )
 
 describe('PopoutButton', () => {
   it('when opening in new window closes the window if config.closeWindowOnPopupOpen is true', async () => {

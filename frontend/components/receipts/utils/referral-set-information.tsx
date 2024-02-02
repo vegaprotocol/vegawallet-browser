@@ -5,6 +5,7 @@ import { CollapsiblePanel } from '@/components/collapsible-panel'
 import { DataTable } from '@/components/data-table/data-table'
 import { ExternalLink } from '@/components/external-link'
 import { PartyLink } from '@/components/vega-entities/party-link'
+import { VegaSection } from '@/components/vega-section'
 import { useNetwork } from '@/contexts/network/network-context'
 
 export const ReferralSetInformation = ({ referralSetData }: { referralSetData: any }) => {
@@ -12,18 +13,24 @@ export const ReferralSetInformation = ({ referralSetData }: { referralSetData: a
   const { name, teamUrl, avatarUrl, closed, allowList } = team || {}
   const { network } = useNetwork()
   const items = [
-    [
-      'Id',
-      <ExternalLink key="referral-set-information-id" href={`${network.console}/#/competitions/teams/${id}`}>
-        {truncateMiddle(id)}
-      </ExternalLink>
-    ],
-    ['Team', isTeam ? 'Yes' : 'No'],
-    ['Name', name],
+    id
+      ? [
+          'Id',
+          <ExternalLink
+            key="referral-set-information-id"
+            className="font-mono"
+            href={`${network.console}/#/competitions/teams/${id}`}
+          >
+            {truncateMiddle(id)}
+          </ExternalLink>
+        ]
+      : null,
+    isTeam ? ['Team', isTeam ? 'Yes' : 'No'] : null,
+    name ? ['Name', name] : name,
     teamUrl
       ? [
           'Team URL',
-          <ExternalLink key="referral-set-information-team" className="text-vega-dark-400" href={teamUrl}>
+          <ExternalLink key="referral-set-information-team" href={teamUrl}>
             {teamUrl}
           </ExternalLink>
         ]
@@ -31,12 +38,12 @@ export const ReferralSetInformation = ({ referralSetData }: { referralSetData: a
     avatarUrl
       ? [
           'Avatar URL',
-          <ExternalLink key="referral-set-information-avatar" className="text-vega-dark-400" href={avatarUrl}>
+          <ExternalLink key="referral-set-information-avatar" href={avatarUrl}>
             {avatarUrl}
           </ExternalLink>
         ]
       : null,
-    ['Closed', closed ? 'Yes' : 'No']
+    closed ? ['Closed', closed ? 'Yes' : 'No'] : null
   ]
   const dataTableItems = items.filter((item) => !!item) as [ReactNode, ReactNode][]
   const allowedPublicKeys = allowList as string[]
@@ -44,20 +51,24 @@ export const ReferralSetInformation = ({ referralSetData }: { referralSetData: a
     <>
       <DataTable items={dataTableItems} />
       {allowedPublicKeys && (
-        <CollapsiblePanel
-          title="Allow list"
-          panelContent={
-            allowedPublicKeys.length === 0 ? (
-              'No public keys allowed'
-            ) : (
-              <ul>
-                {allowedPublicKeys.map((publicKey) => (
-                  <PartyLink key={publicKey} publicKey={publicKey} />
-                ))}
-              </ul>
-            )
-          }
-        />
+        <VegaSection>
+          <CollapsiblePanel
+            title="Allow list"
+            panelContent={
+              allowedPublicKeys.length === 0 ? (
+                'No public keys allowed'
+              ) : (
+                <ul>
+                  {allowedPublicKeys.map((publicKey) => (
+                    <div>
+                      <PartyLink key={publicKey} publicKey={publicKey} />
+                    </div>
+                  ))}
+                </ul>
+              )
+            }
+          />
+        </VegaSection>
       )}
     </>
   )

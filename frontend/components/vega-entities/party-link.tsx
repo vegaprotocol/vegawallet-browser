@@ -11,7 +11,7 @@ export const PartyLink = ({ publicKey }: { publicKey: string }) => {
 
   return (
     <ExternalLink
-      className="text-vega-dark-400"
+      className="text-vega-dark-400 font-mono"
       data-testid={locators.partyLink}
       href={`${network.explorer}/parties/${publicKey}`}
     >

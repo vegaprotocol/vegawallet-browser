@@ -7,7 +7,7 @@ import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { PeggedOrderOptions } from '@/types/transactions'
 
 import { CopyWithCheckmark } from '../../../copy-with-check'
-import { OrderMarket } from './order-market'
+import { VegaMarket } from '../../../vega-entities/vega-market'
 import { OrderPrice } from './order-price'
 import { OrderSize } from './order-size'
 import { OrderType } from './order-type'
@@ -51,7 +51,7 @@ export const buildSizeColumn = (size?: string, marketId?: string): [ReactNode, R
 
 export const buildMarketColumn = (marketId?: string): [ReactNode, ReactNode] | null => {
   if (!marketId) return null
-  return ['Market', <OrderMarket key="order-details-market" marketId={marketId} />]
+  return ['Market', <VegaMarket key="order-details-market" marketId={marketId} />]
 }
 
 export const buildOrderColumn = (orderId?: string): [ReactNode, ReactNode] | null => {

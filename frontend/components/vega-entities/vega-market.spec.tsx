@@ -6,22 +6,31 @@ import { useMarketsStore } from '@/stores/markets-store.ts'
 import { generateMarket } from '@/test-helpers/generate-market.ts'
 import { mockStore } from '@/test-helpers/mock-store.ts'
 
-import { locators as marketLinkLocators } from '../../../vega-entities/market-link'
-import { locators as orderMarketComponentLocators, OrderMarket } from './order-market'
+import { locators as marketLinkLocators } from './market-link'
+import { locators as orderMarketComponentLocators, VegaMarket } from './vega-market'
 
 jest.mock('@/stores/markets-store')
 
 const renderComponent = ({ marketId }: { marketId: string }) =>
   render(
     <MockNetworkProvider>
-      <OrderMarket marketId={marketId} />
+      <VegaMarket marketId={marketId} />
     </MockNetworkProvider>
   )
 
 describe('OrderMarketComponent', () => {
-  it('should return basic market link if markets are loading or market is not defined', () => {
+  it('should return basic market link if markets are loading', () => {
     mockStore(useMarketsStore, {
       loading: true,
+      getMarketById: () => {}
+    })
+    renderComponent({ marketId: 'someMarketId' })
+    expect(screen.getByTestId(marketLinkLocators.marketLink)).toBeInTheDocument()
+  })
+
+  it('should return basic market link if market code is not defined', () => {
+    mockStore(useMarketsStore, {
+      loading: false,
       getMarketById: () => {}
     })
     renderComponent({ marketId: 'someMarketId' })
@@ -38,7 +47,7 @@ describe('OrderMarketComponent', () => {
 
     renderComponent({ marketId: mockMarket.id! })
 
-    expect(screen.getByTestId(orderMarketComponentLocators.orderDetailsMarketCode).textContent).toBe(
+    expect(screen.getByTestId(orderMarketComponentLocators.vegaMarketCode).textContent).toBe(
       mockMarket.tradableInstrument?.instrument?.code as string
     )
   })

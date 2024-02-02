@@ -15,13 +15,17 @@ jest.mock('@/components/vega-entities/vega-market', () => ({
 
 describe('UpdateMarginMode', () => {
   it('should render the market', () => {
+    // 1140-UPMM-001 I can see my new margin mode
+    // 1140-UPMM-002 I can see the market I am updating margin mode for
+    // 1140-UPMM-003 I can see my new leverage
+    // 1140-UPMM-004 I can see my margin factor
     const tx = {
       updateMarginMode: { mode: vegaMarginMode.MARGIN_MODE_CROSS_MARGIN, marginFactor: '0.1', marketId: 'someMarketId' }
     }
     renderComponent(tx)
-    expect(screen.getByTestId('vega-market')).toBeInTheDocument()
     const [market, mode, marginFactor, leverage] = screen.getAllByTestId(tableLocators.dataRow)
     expect(market).toHaveTextContent('Market')
+    expect(screen.getByTestId('vega-market')).toBeInTheDocument()
     expect(mode).toHaveTextContent('Mode')
     expect(mode).toHaveTextContent('Cross margin')
     expect(marginFactor).toHaveTextContent('Margin Factor')

@@ -1,30 +1,17 @@
-import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 
 import { CollapsiblePanel } from '@/components/collapsible-panel'
 import { DataTable } from '@/components/data-table/data-table'
 import { ExternalLink } from '@/components/external-link'
 import { PartyLink } from '@/components/vega-entities/party-link'
+import { TeamLink } from '@/components/vega-entities/team-link'
 import { VegaSection } from '@/components/vega-section'
-import { useNetwork } from '@/contexts/network/network-context'
 
 export const ReferralSetInformation = ({ referralSetData }: { referralSetData: any }) => {
   const { isTeam, team, id } = referralSetData
   const { name, teamUrl, avatarUrl, closed, allowList } = team || {}
-  const { network } = useNetwork()
   const items = [
-    id
-      ? [
-          'Id',
-          <ExternalLink
-            key="referral-set-information-id"
-            className="font-mono"
-            href={`${network.console}/#/competitions/teams/${id}`}
-          >
-            {truncateMiddle(id)}
-          </ExternalLink>
-        ]
-      : null,
+    id ? ['Id', <TeamLink key="referral-set-information-id" id={id} />] : null,
     isTeam ? ['Team', isTeam ? 'Yes' : 'No'] : null,
     name ? ['Name', name] : name,
     teamUrl

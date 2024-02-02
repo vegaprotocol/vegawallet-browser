@@ -8,6 +8,8 @@ import { JoinTeam } from './join-team'
 
 describe('JoinTeam', () => {
   it('returns a link to the team', () => {
+    // 1141-JNTM-001 I can see the id of the team I want to join
+    // 1141-JNTM-002 I can see a link to the team's page on console
     render(
       <MockNetworkProvider>
         <JoinTeam
@@ -19,6 +21,7 @@ describe('JoinTeam', () => {
         />
       </MockNetworkProvider>
     )
+    expect(screen.getByTestId(locators.teamLink)).toHaveTextContent('000000…0000')
     expect(screen.getByTestId(locators.teamLink)).toHaveAttribute(
       'href',
       `${testingNetwork.console}/#/competitions/teams/${'0'.repeat(64)}`

@@ -1,19 +1,14 @@
-import { UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { v1UndelegateSubmissionMethod as UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
 import { DataTable } from '@/components/data-table/data-table'
+import { UNDELEGATE_METHOD_MAP } from '@/components/enums'
 
 import { NodeLink } from '../../vega-entities/node-link'
 import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
-
-const UNDELEGATE_METHOD_MAP: Record<UndelegateSubmissionMethod, string> = {
-  [UndelegateSubmissionMethod.METHOD_AT_END_OF_EPOCH]: 'End of epoch',
-  [UndelegateSubmissionMethod.METHOD_NOW]: 'Now',
-  [UndelegateSubmissionMethod.METHOD_UNSPECIFIED]: 'Unspecified'
-}
 
 export const UndelegateSubmission = ({ transaction }: ReceiptComponentProperties) => {
   const { nodeId, amount, method } = transaction.undelegateSubmission

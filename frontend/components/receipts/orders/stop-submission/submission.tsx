@@ -1,5 +1,7 @@
+import { StopOrderExpiryStrategy } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { ReactNode } from 'react'
 
+import { EXPIRY_STRATEGY_MAP } from '@/components/enums'
 import { formatNanoDate } from '@/lib/utils'
 
 import { DataTable } from '../../../data-table/data-table'
@@ -8,7 +10,6 @@ import { OrderBadges } from '../../utils/order/badges'
 import { OrderTable } from '../../utils/order-table'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { PriceWithTooltip } from '../../utils/string-amounts/price-with-tooltip'
-import { ExpiryStrategyComponent } from './expiry-strategy'
 
 export const locators = {
   sectionHeader: 'section-header',
@@ -23,12 +24,7 @@ const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrd
       ? ['Trigger price', <PriceWithTooltip key={`${title}-trigger-price`} price={price} marketId={marketId} />]
       : null,
     trailingPercentOffset && Number(expiresAt) !== 0 ? ['Trailing offset', `${trailingPercentOffset}%`] : null,
-    expiryStrategy
-      ? [
-          'Expiry strategy',
-          <ExpiryStrategyComponent key={`${title}-expiry-strategy`} expiryStrategy={expiryStrategy} />
-        ]
-      : null,
+    expiryStrategy ? ['Expiry strategy', <>{EXPIRY_STRATEGY_MAP[expiryStrategy as StopOrderExpiryStrategy]}</>] : null,
     expiresAt && Number(expiresAt) !== 0 ? ['Expires at', formatNanoDate(expiresAt)] : null
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]

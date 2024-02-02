@@ -11,26 +11,26 @@ export const ReferralSetInformation = ({ referralSetData }: { referralSetData: a
   const { isTeam, team, id } = referralSetData
   const { name, teamUrl, avatarUrl, closed, allowList } = team || {}
   const items = [
-    id ? ['Id', <TeamLink key="referral-set-information-id" id={id} />] : null,
-    isTeam ? ['Team', isTeam ? 'Yes' : 'No'] : null,
-    name ? ['Name', name] : name,
-    teamUrl
-      ? [
+    id == null ? null : ['Id', <TeamLink key="referral-set-information-id" id={id} />],
+    isTeam == null ? null : ['Team', isTeam ? 'Yes' : 'No'],
+    name == null ? name : ['Name', name],
+    teamUrl == null
+      ? null
+      : [
           'Team URL',
           <ExternalLink key="referral-set-information-team" href={teamUrl}>
             {teamUrl}
           </ExternalLink>
-        ]
-      : null,
-    avatarUrl
-      ? [
+        ],
+    avatarUrl == null
+      ? null
+      : [
           'Avatar URL',
           <ExternalLink key="referral-set-information-avatar" href={avatarUrl}>
             {avatarUrl}
           </ExternalLink>
-        ]
-      : null,
-    closed ? ['Closed', closed ? 'Yes' : 'No'] : null
+        ],
+    closed == null ? null : ['Closed', closed ? 'Yes' : 'No']
   ]
   const dataTableItems = items.filter((item) => !!item) as [ReactNode, ReactNode][]
   const allowedPublicKeys = allowList as string[]

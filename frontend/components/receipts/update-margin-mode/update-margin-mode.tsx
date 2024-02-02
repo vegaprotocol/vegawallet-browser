@@ -12,14 +12,16 @@ import { ReceiptWrapper } from '../utils/receipt-wrapper'
 export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) => {
   const { mode, marginFactor, marketId } = transaction.updateMarginMode
   const items = [
-    ['Market', <VegaMarket key="update-margin-mode-market" marketId={marketId} />],
-    ['Mode', <>{MARGIN_MODE_MAP[mode as vegaMarginMode]}</>],
-    ['Leverage', `${formatNumber(1 / Number(marginFactor), 2)}X`],
-    ['Margin Factor', marginFactor]
-  ] as [ReactNode, ReactNode][]
+    marketId == null ? null : ['Market', <VegaMarket key="update-margin-mode-market" marketId={marketId} />],
+    mode == null ? null : ['Mode', <>{MARGIN_MODE_MAP[mode as vegaMarginMode]}</>],
+    marginFactor == null ? null : ['Leverage', `${formatNumber(1 / Number(marginFactor), 2)}X`],
+    marginFactor == null ? null : ['Margin Factor', marginFactor]
+  ]
+  const dataTableItems = items.filter((item) => !!item) as [ReactNode, ReactNode][]
+
   return (
     <ReceiptWrapper>
-      <DataTable items={items} />
+      <DataTable items={dataTableItems} />
     </ReceiptWrapper>
   )
 }

@@ -60,8 +60,8 @@ export const ReferralSetInformation = ({ referralSetData }: { referralSetData: a
               ) : (
                 <ul>
                   {allowedPublicKeys.map((publicKey) => (
-                    <div>
-                      <PartyLink key={publicKey} publicKey={publicKey} />
+                    <div key={publicKey}>
+                      <PartyLink publicKey={publicKey} />
                     </div>
                   ))}
                 </ul>

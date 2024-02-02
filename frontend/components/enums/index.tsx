@@ -2,6 +2,9 @@ import {
   OrderTimeInForce,
   StopOrderExpiryStrategy,
   vegaAccountType,
+  vegaOrderStatus,
+  vegaPeggedReference,
+  vegaSide,
   vegaVoteValue
 } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { v1UndelegateSubmissionMethod as UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
@@ -64,4 +67,29 @@ export const ACCOUNT_TYPE_MAP: Record<vegaAccountType, string> = {
   [vegaAccountType.ACCOUNT_TYPE_REWARD_VALIDATOR_RANKING]: 'Validator ranking rewards',
   [vegaAccountType.ACCOUNT_TYPE_PENDING_FEE_REFERRAL_REWARD]: 'Pending fee referral rewards',
   [vegaAccountType.ACCOUNT_TYPE_ORDER_MARGIN]: 'Order Margin'
+}
+
+export const ORDER_STATUS_MAP: Record<vegaOrderStatus, string> = {
+  STATUS_UNSPECIFIED: 'Unspecified',
+  STATUS_ACTIVE: 'Active',
+  STATUS_EXPIRED: 'Expired',
+  STATUS_CANCELLED: 'Cancelled',
+  STATUS_STOPPED: 'Stopped',
+  STATUS_FILLED: 'Filled',
+  STATUS_REJECTED: 'Rejected',
+  STATUS_PARTIALLY_FILLED: 'Partially FILLED',
+  STATUS_PARKED: 'Parked'
+}
+
+export const PEGGED_REFERENCE_MAP: Record<vegaPeggedReference, string> = {
+  [vegaPeggedReference.PEGGED_REFERENCE_BEST_ASK]: 'best ask',
+  [vegaPeggedReference.PEGGED_REFERENCE_BEST_BID]: 'best bid',
+  [vegaPeggedReference.PEGGED_REFERENCE_MID]: 'mid',
+  [vegaPeggedReference.PEGGED_REFERENCE_UNSPECIFIED]: 'unspecified'
+}
+
+export const SIDE_MAP: Record<vegaSide, string> = {
+  SIDE_UNSPECIFIED: 'Unspecified',
+  SIDE_BUY: 'Long',
+  SIDE_SELL: 'Short'
 }

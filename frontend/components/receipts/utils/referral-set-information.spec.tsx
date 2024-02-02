@@ -100,4 +100,21 @@ describe('ReferralSetInformation', () => {
     expect(screen.queryByText('Team URL')).not.toBeInTheDocument()
     expect(screen.queryByText('Avatar URL')).not.toBeInTheDocument()
   })
+
+  it('renders id and isTeam when team is not defined', () => {
+    renderComponent({
+      referralSetData: {
+        id: '0'.repeat(64),
+        isTeam: false
+      }
+    })
+    const [id, team] = screen.getAllByTestId(dataTableLocators.dataRow)
+    expect(id).toHaveTextContent('Id')
+    expect(id).toHaveTextContent('000000…0000')
+
+    expect(team).toHaveTextContent('Team')
+    expect(team).toHaveTextContent('No')
+    expect(screen.queryByText('Team URL')).not.toBeInTheDocument()
+    expect(screen.queryByText('Avatar URL')).not.toBeInTheDocument()
+  })
 })

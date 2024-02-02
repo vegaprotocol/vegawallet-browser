@@ -43,20 +43,22 @@ export const ReferralSetInformation = ({ referralSetData }: { referralSetData: a
   return (
     <>
       <DataTable items={dataTableItems} />
-      <CollapsiblePanel
-        title="Allow list"
-        panelContent={
-          allowedPublicKeys.length === 0 ? (
-            'No public keys allowed'
-          ) : (
-            <ul>
-              {allowedPublicKeys.map((publicKey) => (
-                <PartyLink key={publicKey} publicKey={publicKey} />
-              ))}
-            </ul>
-          )
-        }
-      />
+      {allowedPublicKeys && (
+        <CollapsiblePanel
+          title="Allow list"
+          panelContent={
+            allowedPublicKeys.length === 0 ? (
+              'No public keys allowed'
+            ) : (
+              <ul>
+                {allowedPublicKeys.map((publicKey) => (
+                  <PartyLink key={publicKey} publicKey={publicKey} />
+                ))}
+              </ul>
+            )
+          }
+        />
+      )}
     </>
   )
 }

@@ -2,6 +2,7 @@ import {
   OrderTimeInForce,
   StopOrderExpiryStrategy,
   vegaAccountType,
+  vegaMarginMode,
   vegaOrderStatus,
   vegaPeggedReference,
   vegaSide,
@@ -92,4 +93,10 @@ export const SIDE_MAP: Record<vegaSide, string> = {
   SIDE_UNSPECIFIED: 'Unspecified',
   SIDE_BUY: 'Long',
   SIDE_SELL: 'Short'
+}
+
+export const MARGIN_MODE_MAP: Record<vegaMarginMode, string> = {
+  [vegaMarginMode.MARGIN_MODE_UNSPECIFIED]: 'Unspecified',
+  [vegaMarginMode.MARGIN_MODE_CROSS_MARGIN]: 'Cross margin',
+  [vegaMarginMode.MARGIN_MODE_ISOLATED_MARGIN]: 'Isolated margin'
 }

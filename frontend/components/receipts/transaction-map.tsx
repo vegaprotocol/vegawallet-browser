@@ -11,6 +11,7 @@ import { Submission } from './orders/submission'
 import { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
 import { UndelegateSubmission } from './undelegate-submission'
+import { UpdateMarginMode } from './update-margin-mode'
 import { VoteSubmission } from './vote-submission'
 import { Withdraw } from './withdrawal'
 
@@ -32,5 +33,6 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.APPLY_REFERRAL_CODE]: ApplyReferralCode,
   [TransactionKeys.VOTE_SUBMISSION]: VoteSubmission,
   [TransactionKeys.DELEGATE_SUBMISSION]: DelegateSubmission,
-  [TransactionKeys.UNDELEGATE_SUBMISSION]: UndelegateSubmission
+  [TransactionKeys.UNDELEGATE_SUBMISSION]: UndelegateSubmission[Symbol],
+  [TransactionKeys.UPDATE_MARGIN_MODE]: UpdateMarginMode
 }

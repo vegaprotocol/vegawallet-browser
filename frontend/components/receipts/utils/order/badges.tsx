@@ -2,17 +2,8 @@ import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 
+import { TIF_MAP } from '@/components/enums'
 import { formatNanoDate } from '@/lib/utils'
-
-const TIF_MAP: { [key in OrderTimeInForce]: string } = {
-  [OrderTimeInForce.TIME_IN_FORCE_GTC]: 'GTC',
-  [OrderTimeInForce.TIME_IN_FORCE_GTT]: 'GTT',
-  [OrderTimeInForce.TIME_IN_FORCE_IOC]: 'IOC',
-  [OrderTimeInForce.TIME_IN_FORCE_FOK]: 'FOK',
-  [OrderTimeInForce.TIME_IN_FORCE_GFA]: 'GFA',
-  [OrderTimeInForce.TIME_IN_FORCE_GFN]: 'GFN',
-  [OrderTimeInForce.TIME_IN_FORCE_UNSPECIFIED]: 'Unspecified'
-}
 
 const OrderBadge = ({ children }: { children: ReactNode }) => {
   return <Lozenge className="text-xs mr-0.5 text-vega-dark-400 whitespace-nowrap">{children}</Lozenge>

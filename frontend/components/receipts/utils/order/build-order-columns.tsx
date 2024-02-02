@@ -3,6 +3,7 @@ import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
+import { ORDER_STATUS_MAP } from '@/components/enums'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { PeggedOrderOptions } from '@/types/transactions'
 
@@ -13,18 +14,6 @@ import { OrderSize } from './order-size'
 import { OrderType } from './order-type'
 import { PeggedOrderInfo } from './pegged-order-info'
 import { Side } from './side'
-
-const orderStatuses: Record<vegaOrderStatus, string> = {
-  STATUS_UNSPECIFIED: 'Unspecified',
-  STATUS_ACTIVE: 'Active',
-  STATUS_EXPIRED: 'Expired',
-  STATUS_CANCELLED: 'Cancelled',
-  STATUS_STOPPED: 'Stopped',
-  STATUS_FILLED: 'Filled',
-  STATUS_REJECTED: 'Rejected',
-  STATUS_PARTIALLY_FILLED: 'Partially FILLED',
-  STATUS_PARKED: 'Parked'
-}
 
 // Helper functions for building individual columns for the order table
 export const buildPriceColumn = (
@@ -107,7 +96,7 @@ export const buildRemainingColumn = (remaining?: string, marketId?: string): [Re
 
 export const buildStatusColumn = (status?: vegaOrderStatus): [ReactNode, ReactNode] | null => {
   if (!status) return null
-  return ['Status', orderStatuses[status]]
+  return ['Status', ORDER_STATUS_MAP[status]]
 }
 
 export const buildVersionColumn = (version?: string): [ReactNode, ReactNode] | null => {

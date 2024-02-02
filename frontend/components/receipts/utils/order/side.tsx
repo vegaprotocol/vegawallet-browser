@@ -1,9 +1,5 @@
 import { vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-export const sideText: Record<vegaSide, string> = {
-  SIDE_UNSPECIFIED: 'Unspecified',
-  SIDE_BUY: 'Long',
-  SIDE_SELL: 'Short'
-}
+import { SIDE_MAP } from '@/components/enums'
 
-export const Side = ({ side }: { side: vegaSide }) => <>{sideText[side]}</>
+export const Side = ({ side }: { side: vegaSide }) => <>{SIDE_MAP[side]}</>

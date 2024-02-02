@@ -94,9 +94,9 @@ describe('buildSizeColumn', () => {
   })
 })
 
-jest.mock('./order-market', () => {
+jest.mock('../../../vega-entities/vega-market', () => {
   return {
-    OrderMarket: () => <div data-testid="order-market-component" />
+    VegaMarket: () => <div data-testid="order-market-component" />
   }
 })
 

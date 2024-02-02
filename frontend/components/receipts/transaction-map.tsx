@@ -2,6 +2,7 @@ import { Transaction, TransactionKeys } from '@/lib/transactions'
 
 import { ApplyReferralCode } from './apply-referral-code'
 import { BatchMarketInstructions } from './batch-market-instructions'
+import { CreateReferralSet } from './create-referral-set'
 import { DelegateSubmission } from './delegate-submission'
 import { Amendment } from './orders/amend'
 import { Cancellation } from './orders/cancellation'
@@ -12,6 +13,7 @@ import { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
 import { UndelegateSubmission } from './undelegate-submission'
 import { UpdateMarginMode } from './update-margin-mode'
+import { UpdateReferralSet } from './update-referral-set'
 import { VoteSubmission } from './vote-submission'
 import { Withdraw } from './withdrawal'
 
@@ -34,5 +36,7 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.VOTE_SUBMISSION]: VoteSubmission,
   [TransactionKeys.DELEGATE_SUBMISSION]: DelegateSubmission,
   [TransactionKeys.UNDELEGATE_SUBMISSION]: UndelegateSubmission,
-  [TransactionKeys.UPDATE_MARGIN_MODE]: UpdateMarginMode
+  [TransactionKeys.UPDATE_MARGIN_MODE]: UpdateMarginMode,
+  [TransactionKeys.CREATE_REFERRAL_SET]: CreateReferralSet,
+  [TransactionKeys.UPDATE_REFERRAL_SET]: UpdateReferralSet
 }

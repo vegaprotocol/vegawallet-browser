@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { v1UndelegateSubmissionMethod as UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 import { locators as dataTableLocators } from '@/components/data-table/data-table'
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'

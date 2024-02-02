@@ -23,7 +23,7 @@ describe('UpdateMarginMode', () => {
     const [market, mode, marginFactor, leverage] = screen.getAllByTestId(tableLocators.dataRow)
     expect(market).toHaveTextContent('Market')
     expect(mode).toHaveTextContent('Mode')
-    expect(mode).toHaveTextContent('Cross Margin')
+    expect(mode).toHaveTextContent('Cross margin')
     expect(marginFactor).toHaveTextContent('Margin Factor')
     expect(marginFactor).toHaveTextContent('0.1')
     expect(leverage).toHaveTextContent('Leverage')

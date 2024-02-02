@@ -9,6 +9,10 @@ type LinkProperties = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children?: ReactNode
 }
 
+export const locators = {
+  externalLink: 'external-link'
+}
+
 const MobileLink = ({ children, className, href, ...properties }: LinkProperties) => {
   const openInNewTab = () => {
     const api = getExtensionApi()
@@ -16,6 +20,7 @@ const MobileLink = ({ children, className, href, ...properties }: LinkProperties
   }
   return (
     <Link
+      data-testid={locators.externalLink}
       onClick={openInNewTab}
       className={classNames('inline-flex items-center gap-1 underline-offset-4', className)}
       {...properties}
@@ -39,7 +44,7 @@ export const ExternalLink = ({ children, className, ...properties }: LinkPropert
       {children}
     </MobileLink>
   ) : (
-    <ExLink className={className} {...properties}>
+    <ExLink data-testid={locators.externalLink} className={className} {...properties}>
       {children}
     </ExLink>
   )

@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { useGlobalsStore } from '@/stores/globals'
 import { mockStore } from '@/test-helpers/mock-store'
 
-import { ExternalLink } from './external-link'
+import { ExternalLink, locators } from './external-link'
 
 jest.mock('@/stores/globals')
 
@@ -35,7 +35,7 @@ describe('ExternalLink component', () => {
     mockStore(useGlobalsStore, { isMobile: true })
 
     render(<ExternalLink href="https://example.com">Example Link</ExternalLink>)
-    expect(screen.getByTestId('link')).toBeInTheDocument()
+    expect(screen.getByTestId(locators.externalLink)).toBeInTheDocument()
   })
 
   it('renders MobileLink component with sub components isMobile is true', () => {

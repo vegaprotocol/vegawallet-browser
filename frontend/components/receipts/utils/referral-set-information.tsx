@@ -12,11 +12,30 @@ export const ReferralSetInformation = ({ referralSetData }: { referralSetData: a
   const { name, teamUrl, avatarUrl, closed, allowList } = team || {}
   const { network } = useNetwork()
   const items = [
-    ['Id', <ExternalLink href={`${network.console}/#/competitions/teams/${id}`}>{truncateMiddle(id)}</ExternalLink>],
+    [
+      'Id',
+      <ExternalLink key="referral-set-information-id" href={`${network.console}/#/competitions/teams/${id}`}>
+        {truncateMiddle(id)}
+      </ExternalLink>
+    ],
     ['Team', isTeam ? 'Yes' : 'No'],
     ['Name', name],
-    teamUrl ? ['Team URL', <ExternalLink className="text-vega-dark-400" href={teamUrl} />] : null,
-    avatarUrl ? ['Avatar URL', <ExternalLink className="text-vega-dark-400" href={avatarUrl} />] : null,
+    teamUrl
+      ? [
+          'Team URL',
+          <ExternalLink key="referral-set-information-team" className="text-vega-dark-400" href={teamUrl}>
+            {teamUrl}
+          </ExternalLink>
+        ]
+      : null,
+    avatarUrl
+      ? [
+          'Avatar URL',
+          <ExternalLink key="referral-set-information-avatar" className="text-vega-dark-400" href={avatarUrl}>
+            {avatarUrl}
+          </ExternalLink>
+        ]
+      : null,
     ['Closed', closed ? 'Yes' : 'No']
   ]
   const dataTableItems = items.filter((item) => !!item) as [ReactNode, ReactNode][]
@@ -32,7 +51,7 @@ export const ReferralSetInformation = ({ referralSetData }: { referralSetData: a
           ) : (
             <ul>
               {allowedPublicKeys.map((publicKey) => (
-                <PartyLink publicKey={publicKey} />
+                <PartyLink key={publicKey} publicKey={publicKey} />
               ))}
             </ul>
           )

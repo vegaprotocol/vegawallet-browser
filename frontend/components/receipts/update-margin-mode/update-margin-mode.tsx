@@ -14,8 +14,8 @@ export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) =>
   const items = [
     ['Market', <VegaMarket key="update-margin-mode-market" marketId={marketId} />],
     ['Mode', <>{MARGIN_MODE_MAP[mode as vegaMarginMode]}</>],
-    ['Margin Factor', marginFactor],
-    ['Leverage', `${formatNumber(1 / Number(marginFactor), 2)}X`]
+    ['Leverage', `${formatNumber(1 / Number(marginFactor), 2)}X`],
+    ['Margin Factor', marginFactor]
   ] as [ReactNode, ReactNode][]
   return (
     <ReceiptWrapper>

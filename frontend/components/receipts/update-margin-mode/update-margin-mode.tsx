@@ -7,6 +7,7 @@ import { MARGIN_MODE_MAP } from '@/components/enums'
 import { VegaMarket } from '@/components/vega-entities/vega-market'
 
 import { ReceiptComponentProperties } from '../receipts'
+import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) => {
   const { mode, marginFactor, marketId } = transaction.updateMarginMode
@@ -16,5 +17,9 @@ export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) =>
     ['Margin Factor', marginFactor],
     ['Leverage', formatNumber(1 / Number(marginFactor), 2)]
   ] as [ReactNode, ReactNode][]
-  return <DataTable items={items} />
+  return (
+    <ReceiptWrapper>
+      <DataTable items={items} />
+    </ReceiptWrapper>
+  )
 }

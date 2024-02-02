@@ -18,6 +18,19 @@ const renderComponent = ({ referralSetData }: { referralSetData: any }) => {
 
 describe('ReferralSetInformation', () => {
   it('renders each row', () => {
+    // 1139-RFRL-001 I can see if the referral is a team or not
+    // 1139-RFRL-002 If present I can see the team name
+    // 1139-RFRL-003 If present I can see the team URL, with a link to that URL
+    // 1139-RFRL-004 If present I can see the avatar URL, with a link to that URL
+    // 1139-RFRL-005 If present I can see if the team is closed
+    // 1139-RFRL-006 If present I can see the allow list, with links to explorer
+    // 1139-RFRL-008 I can see the id of the team, with a link to the competitions page on console
+    // 1139-RFRL-009 I can see if the referral is a team or not
+    // 1139-RFRL-010 If present I can see the team name
+    // 1139-RFRL-011 If present I can see the team URL, with a link to that URL
+    // 1139-RFRL-012 If present I can see the avatar URL, with a link to that URL
+    // 1139-RFRL-013 If present I can see if the team is closed
+    // 1139-RFRL-014 If present I can see the allow list, with links to explorer
     renderComponent({
       referralSetData: {
         id: '0'.repeat(64),
@@ -119,6 +132,8 @@ describe('ReferralSetInformation', () => {
   })
 
   it('renders no public keys allowed when none are', () => {
+    // 1139-RFRL-007 If there are no keys in the allowList I can see a message telling me that the allow list is empty
+    // 1139-RFRL-015 If there are no keys in the allowList I can see a message telling me that the allow list is empty
     renderComponent({
       referralSetData: {
         id: '0'.repeat(64),

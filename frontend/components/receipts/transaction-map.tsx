@@ -4,6 +4,7 @@ import { ApplyReferralCode } from './apply-referral-code'
 import { BatchMarketInstructions } from './batch-market-instructions'
 import { CreateReferralSet } from './create-referral-set'
 import { DelegateSubmission } from './delegate-submission'
+import { JoinTeam } from './join-team'
 import { Amendment } from './orders/amend'
 import { Cancellation } from './orders/cancellation'
 import { StopOrderCancellation } from './orders/stop-cancellation'
@@ -38,5 +39,6 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.UNDELEGATE_SUBMISSION]: UndelegateSubmission,
   [TransactionKeys.UPDATE_MARGIN_MODE]: UpdateMarginMode,
   [TransactionKeys.CREATE_REFERRAL_SET]: CreateReferralSet,
-  [TransactionKeys.UPDATE_REFERRAL_SET]: UpdateReferralSet
+  [TransactionKeys.UPDATE_REFERRAL_SET]: UpdateReferralSet,
+  [TransactionKeys.JOIN_TEAM]: JoinTeam
 }

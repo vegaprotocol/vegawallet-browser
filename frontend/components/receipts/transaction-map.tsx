@@ -33,6 +33,6 @@ export const TransactionMap: Partial<ReceiptMap> = {
   [TransactionKeys.APPLY_REFERRAL_CODE]: ApplyReferralCode,
   [TransactionKeys.VOTE_SUBMISSION]: VoteSubmission,
   [TransactionKeys.DELEGATE_SUBMISSION]: DelegateSubmission,
-  [TransactionKeys.UNDELEGATE_SUBMISSION]: UndelegateSubmission[Symbol],
+  [TransactionKeys.UNDELEGATE_SUBMISSION]: UndelegateSubmission,
   [TransactionKeys.UPDATE_MARGIN_MODE]: UpdateMarginMode
 }

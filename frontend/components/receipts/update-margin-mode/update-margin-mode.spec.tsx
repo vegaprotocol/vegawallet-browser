@@ -23,7 +23,7 @@ describe('UpdateMarginMode', () => {
       updateMarginMode: { mode: vegaMarginMode.MARGIN_MODE_CROSS_MARGIN, marginFactor: '0.1', marketId: 'someMarketId' }
     }
     renderComponent(tx)
-    const [market, mode, marginFactor, leverage] = screen.getAllByTestId(tableLocators.dataRow)
+    const [market, mode, leverage, marginFactor] = screen.getAllByTestId(tableLocators.dataRow)
     expect(market).toHaveTextContent('Market')
     expect(screen.getByTestId('vega-market')).toBeInTheDocument()
     expect(mode).toHaveTextContent('Mode')
@@ -32,5 +32,14 @@ describe('UpdateMarginMode', () => {
     expect(marginFactor).toHaveTextContent('0.1')
     expect(leverage).toHaveTextContent('Leverage')
     expect(leverage).toHaveTextContent('10.00')
+  })
+
+  it('should render only fields that are defined', () => {
+    const tx = {
+      updateMarginMode: {}
+    }
+    renderComponent(tx)
+    const rows = screen.getAllByTestId(tableLocators.dataRow)
+    expect(rows).toHaveLength(0)
   })
 })

@@ -6,6 +6,7 @@ import { testingNetwork } from '../../../../config/well-known-networks'
 import { locators as dataTableLocators } from '../../data-table/data-table'
 import { locators as externalLinkLocators } from '../../external-link'
 import locators from '../../locators'
+import { locators as teamLinkLocators } from '../../vega-entities/team-link'
 import { ReferralSetInformation } from './referral-set-information'
 
 const renderComponent = ({ referralSetData }: { referralSetData: any }) => {
@@ -47,7 +48,7 @@ describe('ReferralSetInformation', () => {
     const [id, team, name, teamUrl, avatarUrl, closed] = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(id).toHaveTextContent('Id')
     expect(id).toHaveTextContent('000000…0000')
-    expect(within(id).getByTestId(externalLinkLocators.externalLink)).toHaveAttribute(
+    expect(within(id).getByTestId(teamLinkLocators.teamLink)).toHaveAttribute(
       'href',
       testingNetwork.console + '/#/competitions/teams/' + '0'.repeat(64)
     )
@@ -102,12 +103,12 @@ describe('ReferralSetInformation', () => {
     renderComponent({
       referralSetData: {}
     })
-    expect(screen.getByText('Id')).toBeInTheDocument()
-    expect(screen.getByText('Team')).toBeInTheDocument()
-    expect(screen.getByText('Name')).toBeInTheDocument()
-    expect(screen.getByText('Team URL')).toBeInTheDocument()
-    expect(screen.getByText('Avatar URL')).toBeInTheDocument()
-    expect(screen.getByText('Closed')).toBeInTheDocument()
+    expect(screen.queryByText('Id')).not.toBeInTheDocument()
+    expect(screen.queryByText('Team')).not.toBeInTheDocument()
+    expect(screen.queryByText('Name')).not.toBeInTheDocument()
+    expect(screen.queryByText('Team URL')).not.toBeInTheDocument()
+    expect(screen.queryByText('Avatar URL')).not.toBeInTheDocument()
+    expect(screen.queryByText('Closed')).not.toBeInTheDocument()
   })
 
   it('renders id and isTeam when team is not defined', () => {
@@ -117,6 +118,7 @@ describe('ReferralSetInformation', () => {
         isTeam: false
       }
     })
+
     const [id, team] = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(id).toHaveTextContent('Id')
     expect(id).toHaveTextContent('000000…0000')

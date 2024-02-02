@@ -117,4 +117,19 @@ describe('ReferralSetInformation', () => {
     expect(screen.queryByText('Team URL')).not.toBeInTheDocument()
     expect(screen.queryByText('Avatar URL')).not.toBeInTheDocument()
   })
+
+  it('renders no public keys allowed when none are', () => {
+    renderComponent({
+      referralSetData: {
+        id: '0'.repeat(64),
+        isTeam: false,
+        team: {
+          name: 'foo',
+          closed: false,
+          allowList: []
+        }
+      }
+    })
+    expect(screen.getByText('No public keys allowed')).toBeInTheDocument()
+  })
 })

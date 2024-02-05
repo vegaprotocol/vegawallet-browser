@@ -8,6 +8,10 @@ jest.mock('@/components/vega-entities/vega-team', () => ({
   VegaTeam: () => <div data-testid="vega-team" />
 }))
 
+jest.mock('@/components/vega-entities/team-link', () => ({
+  TeamLink: () => <div data-testid="team-link" />
+}))
+
 describe('JoinTeam', () => {
   it('returns a link to the team', () => {
     render(
@@ -22,5 +26,6 @@ describe('JoinTeam', () => {
       </MockNetworkProvider>
     )
     expect(screen.getByTestId('vega-team')).toBeInTheDocument()
+    expect(screen.getByTestId('team-link')).toBeInTheDocument()
   })
 })

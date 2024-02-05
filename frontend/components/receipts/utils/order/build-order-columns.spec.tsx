@@ -8,7 +8,7 @@ import {
 
 import {
   buildCreatedAtColumn,
-  buildMarketColumn,
+  buildNameMarketColumn,
   buildOrderColumn,
   buildPeggedOrderColumn,
   buildPriceColumn,
@@ -102,14 +102,14 @@ jest.mock('../../../vega-entities/vega-market', () => {
 
 describe('buildMarketColumn', () => {
   it('returns Market column when marketId is defined', () => {
-    const result = buildMarketColumn('1')
+    const result = buildNameMarketColumn('1')
 
     render(<>{result}</>)
     expect(screen.getByTestId('order-market-component')).toBeInTheDocument()
   })
 
   it('returns null when marketId is undefined', () => {
-    const result = buildMarketColumn()
+    const result = buildNameMarketColumn()
     expect(result).toBeNull()
   })
 })

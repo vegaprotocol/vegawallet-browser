@@ -4,6 +4,7 @@ import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
 import { ORDER_STATUS_MAP } from '@/components/enums'
+import { MarketLink } from '@/components/vega-entities/market-link'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { PeggedOrderOptions } from '@/types/transactions'
 
@@ -38,9 +39,14 @@ export const buildSizeColumn = (size?: string, marketId?: string): [ReactNode, R
   return ['Size', <OrderSize key="order-details-size" size={size} marketId={marketId} />]
 }
 
-export const buildMarketColumn = (marketId?: string): [ReactNode, ReactNode] | null => {
+export const buildNameMarketColumn = (marketId?: string): [ReactNode, ReactNode] | null => {
   if (!marketId) return null
   return ['Market', <VegaMarket key="order-details-market" marketId={marketId} />]
+}
+
+export const buildMarketIdColumn = (marketId?: string): [ReactNode, ReactNode] | null => {
+  if (!marketId) return null
+  return ['Market Id', <MarketLink key="order-details-market-id" marketId={marketId} />]
 }
 
 export const buildOrderColumn = (orderId?: string): [ReactNode, ReactNode] | null => {

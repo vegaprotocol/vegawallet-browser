@@ -6,7 +6,8 @@ import { PeggedOrderOptions } from '@/types/transactions'
 import { DataTable } from '../../data-table/data-table'
 import {
   buildCreatedAtColumn,
-  buildMarketColumn,
+  buildMarketIdColumn,
+  buildNameMarketColumn,
   buildOrderColumn,
   buildPeggedOrderColumn,
   buildPriceColumn,
@@ -55,7 +56,8 @@ export const OrderTable = ({
     buildPriceColumn(price, marketId, type),
     buildPeggedOrderColumn(peggedOrder, marketId),
     buildSizeColumn(size, marketId),
-    buildMarketColumn(marketId),
+    buildNameMarketColumn(marketId),
+    buildMarketIdColumn(marketId),
     buildOrderColumn(orderId),
     buildSideColumn(side),
     buildTypeColumn(type),

@@ -51,6 +51,8 @@ export const fairground = {
 }
 
 export const devnet = {
+  color: '#00F780',
+  secondaryColor: '#FFFFFF',
   id: 'devnet',
   name: 'Devnet',
   chainId: 'vega-devnet1-202401251038',
@@ -71,6 +73,8 @@ export const devnet = {
 }
 
 export const stagnet1 = {
+  color: '#0075FF',
+  secondaryColor: '#FFFFFF',
   id: 'stagnet1',
   name: 'Stagnet 1',
   chainId: 'vega-stagnet1-202307191148',
@@ -95,6 +99,8 @@ export const stagnet1 = {
 }
 
 export const mirror = {
+  color: '#FF077F',
+  secondaryColor: '#FFFFFF',
   id: 'mainnet-mirror',
   name: 'Mainnet Mirror',
   chainId: 'vega-mainnet-mirror-202306231148',
@@ -115,6 +121,8 @@ export const mirror = {
 }
 
 export const validatorTestnet = {
+  color: '#8028FF',
+  secondaryColor: '#FFFFFF',
   id: 'validator-testnet',
   name: 'Validator Testnet',
   chainId: 'vega-testnet-0002-v4',

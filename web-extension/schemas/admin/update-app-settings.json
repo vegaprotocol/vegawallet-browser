@@ -11,6 +11,9 @@
     },
     "selectedNetwork": {
       "type": "string"
+    },
+    "showHiddenNetworks": {
+      "type": "boolean"
     }
   }
 }

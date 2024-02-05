@@ -9,7 +9,16 @@ const test = {
   test: {
     mockPort
   },
-  networks: [networks.testingNetwork, networks.fairground],
+  networks: [
+    networks.testingNetwork,
+    {
+      ...networks.testingNetwork,
+      explorer: 'https://different-explorer.vega.xyz',
+      id: 'test2',
+      name: 'Test 2',
+      chainId: 'test-chain-id-2'
+    }
+  ],
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',
   encryptionSettings: {

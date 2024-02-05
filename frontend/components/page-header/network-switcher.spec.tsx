@@ -75,6 +75,8 @@ describe('NetworkSwitcher', () => {
   })
 
   it('does not render drop down and only renders name in interaction mode', async () => {
+    // 1142-NWSW-002 Prevents switching displayed network when connecting
+    // 1142-NWSW-005 Prevents switching displayed network when transacting
     mockStores()
     const mockRequest = jest.fn()
     ;(useJsonRpcClient as unknown as jest.Mock).mockReturnValue({ request: mockRequest })

@@ -8,6 +8,7 @@ import {
 } from '../helpers/selenium-util'
 import * as networkSwitcher from '../../../frontend/components/page-header/network-switcher'
 import * as popoutButton from '../../../frontend/components/page-header/popout-button'
+import * as networkList from '../../../frontend/components/networks-list'
 
 export class ExtensionHeader {
   private readonly openPopoutButton: By = getByDataTestID(popoutButton.locators.openPopoutButton)
@@ -23,6 +24,15 @@ export class ExtensionHeader {
         showPrefix: false
       }
     ).toBe(true)
+  }
+
+  getConnectedNetwork() {
+    return getElementText(this.driver, this.networkIndicator)
+  }
+
+  async switchNetwork(networkName: string) {
+    await clickElement(this.driver, this.networkIndicator)
+    await clickElement(this.driver, getByDataTestID(networkList.locators.networkListButton(networkName)))
   }
 
   async openAppInNewWindowAndSwitchToIt() {

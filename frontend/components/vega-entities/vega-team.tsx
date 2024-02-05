@@ -13,14 +13,13 @@ export const VegaTeam = ({ id }: { id: string }) => {
   const { request } = useJsonRpcClient()
   const { network } = useNetwork()
   const load = useMemo(
-    () => request(RpcMethods.Fetch, { path: `api/v2/teams?teamId=${id}`, networkId: network.id }, true),
+    () => () => request(RpcMethods.Fetch, { path: `api/v2/teams?teamId=${id}`, networkId: network.id }, true),
     [id, network.id, request]
   )
-  const { loading, error, data, loaderFunction } = useAsyncAction<v2ListTeamsResponse>(() => load)
+  const { loading, error, data, loaderFunction } = useAsyncAction<v2ListTeamsResponse>(load)
   useEffect(() => {
     loaderFunction()
   }, [loaderFunction])
-  console.log(loading, error, data)
   return (
     <AsyncRenderer
       loading={loading}

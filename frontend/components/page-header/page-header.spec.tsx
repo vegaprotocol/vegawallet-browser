@@ -2,7 +2,8 @@ import { render, screen } from '@testing-library/react'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 
-import { PageHeader } from './page-header'
+import { testingNetwork } from '../../../config/well-known-networks'
+import { locators, PageHeader } from './page-header'
 
 jest.mock('../icons/vega-icon', () => ({
   VegaIcon: () => <div data-testid="vega-icon" />
@@ -38,5 +39,12 @@ describe('PageHeader', () => {
     renderComponent()
 
     expect(screen.getByTestId('network-switcher')).toBeVisible()
+  })
+
+  it('changes the color based on the network', () => {
+    renderComponent()
+    // 1142-NWSW-003 Renders header with network color when connecting
+    // 1142-NWSW-006 Renders header with network color when transacting
+    expect(screen.getByTestId(locators.pageHeader)).toHaveStyle(`backgroundColor: #${testingNetwork.color}`)
   })
 })

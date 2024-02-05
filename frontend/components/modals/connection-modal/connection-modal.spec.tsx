@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useErrorStore } from '@/stores/error'
 import { useInteractionStore } from '@/stores/interaction-store'
@@ -9,6 +8,7 @@ import { mockStore } from '@/test-helpers/mock-store'
 
 import { testingNetwork } from '../../../../config/well-known-networks'
 import locators from '../../locators'
+import { locators as pageHeaderLocators } from '../../page-header'
 import { ConnectionModal } from './connection-modal'
 import { ConnectionSuccessProperties } from './connection-success'
 
@@ -49,7 +49,9 @@ describe('ConnectionModal', () => {
     const { container } = renderComponent()
     expect(container).toBeEmptyDOMElement()
   })
-  it('renders connection details when open but not yet connected', () => {
+  it('renders connection details and page header when open but not yet connected', () => {
+    // 1142-NWSW-001 Renders header with network when connecting
+    // 1142-NWSW-004 Renders header with network when transacting
     mockStore(useErrorStore, {})
     mockStore(useNetworksStore, {
       networks: [testingNetwork]
@@ -57,6 +59,7 @@ describe('ConnectionModal', () => {
     mockStore(useInteractionStore, { connectionModalOpen: true, currentConnectionDetails: {} })
     renderComponent()
     expect(screen.getByTestId(locators.connectionModalApprove)).toBeInTheDocument()
+    expect(screen.getByTestId(pageHeaderLocators.pageHeader)).toBeInTheDocument()
   })
   it('renders connection success when hasConnected is true', () => {
     mockStore(useErrorStore, {})

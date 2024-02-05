@@ -48,7 +48,7 @@ As a wallet user When I am using the browser extension for the first time I want
 - I can see an explanation of what I am being asked to do (<a name="1101-ONBD-026" href="#1101-ONBD-026">1101-ONBD-026</a>)
 - I can enter the recovery phrase to import my existing vega wallet (<a name="1101-ONBD-027" href="#1101-ONBD-027">1101-ONBD-027</a>)
 - I can submit the recovery phrase I have entered to import the wallet (<a name="1101-ONBD-028" href="#1101-ONBD-028">1101-ONBD-028</a>)
-- I can not hit submit until I have entered 24 words (and given feedback that I haven't met the min number of words) (<a name="1101-ONBD-029" href="#1101-ONBD-029">1101-ONBD-029</a>)
+- I can not hit submit until I have entered 12, 15,18, 21 or 24 words (and given feedback that I haven't entered the correct number of words) (<a name="1101-ONBD-029" href="#1101-ONBD-029">1101-ONBD-029</a>)
 - If I submit a recovery phrase I am given feedback if the words are invalid i.e. no wallet found with that recovery phrase (and I can try again) (<a name="1101-ONBD-030" href="#1101-ONBD-030">1101-ONBD-030</a>)
 - I am redirected to the next step (<a name="1101-ONBD-031" href="#1101-ONBD-031">1101-ONBD-031</a>)
 - I can see the button is disabled and a loading state after submitting (<a name="1101-ONBD-032" href="#1101-ONBD-032">1101-ONBD-032</a>)

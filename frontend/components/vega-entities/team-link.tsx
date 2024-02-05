@@ -1,4 +1,5 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { ReactNode } from 'react'
 
 import { useNetwork } from '@/contexts/network/network-context'
 
@@ -8,7 +9,7 @@ export const locators = {
   teamLink: 'team-link'
 }
 
-export const TeamLink = ({ id }: { id: string }) => {
+export const TeamLink = ({ children, id }: { children?: ReactNode; id: string }) => {
   const { network } = useNetwork()
   return (
     <ExternalLink
@@ -16,7 +17,7 @@ export const TeamLink = ({ id }: { id: string }) => {
       className="font-mono"
       href={`${network.console}/#/competitions/teams/${id}`}
     >
-      {truncateMiddle(id)}
+      {children ?? truncateMiddle(id)}
     </ExternalLink>
   )
 }

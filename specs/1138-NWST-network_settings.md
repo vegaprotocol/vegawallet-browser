@@ -12,3 +12,5 @@
 - I can see the Vega dApp URLs of the network (<a name="1138-NWST-007" href="#1138-NWST-007">1138-NWST-007</a>)
 - I can see the configured ethereum explorer of the network (<a name="1138-NWST-008" href="#1138-NWST-008">1138-NWST-008</a>)
 - I can see the Vega node URLs of the network (<a name="1138-NWST-009" href="#1138-NWST-009">1138-NWST-009</a>)
+- I can see the Vega URLs of the network (<a name="1138-NWST-010" href="#1138-NWST-010">1138-NWST-010</a>)
+- I can see the color of the network (<a name="1138-NWST-011" href="#1138-NWST-011">1138-NWST-011</a>)

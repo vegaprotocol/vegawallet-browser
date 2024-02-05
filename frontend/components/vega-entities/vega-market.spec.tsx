@@ -7,7 +7,7 @@ import { generateMarket } from '@/test-helpers/generate-market.ts'
 import { mockStore } from '@/test-helpers/mock-store.ts'
 
 import { locators as marketLinkLocators } from './market-link'
-import { locators as orderMarketComponentLocators, VegaMarket } from './vega-market'
+import { VegaMarket } from './vega-market'
 
 jest.mock('@/stores/markets-store')
 
@@ -46,9 +46,6 @@ describe('OrderMarketComponent', () => {
     })
 
     renderComponent({ marketId: mockMarket.id! })
-
-    expect(screen.getByTestId(orderMarketComponentLocators.vegaMarketCode).textContent).toBe(
-      mockMarket.tradableInstrument?.instrument?.code as string
-    )
+    expect(screen.getByText(mockMarket.tradableInstrument?.instrument?.code as string)).toBeInTheDocument()
   })
 })

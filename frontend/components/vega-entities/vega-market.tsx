@@ -22,5 +22,5 @@ export const VegaMarket = ({ marketId }: { marketId: string }) => {
     return <MarketLink marketId={marketId} />
   }
 
-  return <div data-testid={locators.vegaMarketCode}>{code}</div>
+  return <MarketLink name={code} marketId={marketId} />
 }

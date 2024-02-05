@@ -13,9 +13,9 @@ script_dir="$(dirname "$0")"
 
 if [ -z "$node" ]; then
     if [ "$env" = "mainnet" ]; then
-        configPath="../../../config/mainnet.js"
+        configPath="../../../config/mainstream.js"
     elif [ "$env" = "testnet" ]; then
-        configPath="../../../config/testnet.js"
+        configPath="../../../config/beta.js"
     else
         echo "Invalid environment: $env, please choose mainnet or testnet"
         exit 1

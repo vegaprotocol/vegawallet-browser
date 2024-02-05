@@ -1,6 +1,6 @@
 import * as networks from './well-known-networks.js'
 const mainnet = {
-  title: 'Vega Wallet - Mainnet',
+  title: 'Vega Wallet',
   defaultNetworkId: networks.mainnet.id,
   defaultChainId: networks.mainnet.chainId,
   networks: [
@@ -18,7 +18,7 @@ const mainnet = {
   userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',
   logging: false,
   manifestReplacements: {
-    buildName: 'Mainnet',
+    buildName: 'Mainstream',
     geckoId: 'browser-extension-mainnet@vega.xyz',
     iconPrefix: 'Mainnet'
   },

@@ -22,7 +22,7 @@ const testnet = {
     popoutHeader: true
   },
   manifestReplacements: {
-    buildName: 'Fairground',
+    buildName: 'Beta',
     geckoId: 'browser-extension@vega.xyz',
     iconPrefix: 'Fairground'
   },

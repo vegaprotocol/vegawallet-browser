@@ -41,11 +41,11 @@
     "build": "rollup -c",
     "build:test-e2e": "yarn build --wallet-config=test",
     "build:dev": "yarn build --wallet-config=dev",
-    "build:testnet": "yarn build --wallet-config=testnet",
-    "build:mainnet": "yarn build --wallet-config=mainnet",
+    "build:beta": "yarn build --wallet-config=beta",
+    "build:mainstream": "yarn build --wallet-config=mainstream",
     "build:console:testnet": "yarn build --wallet-config=console-smoke-testnet",
     "build:console:mainnet": "yarn build --wallet-config=console-smoke-mainnet",
-    "build:analyze": "NODE_ENV=production yarn build:mainnet --analyze",
+    "build:analyze": "NODE_ENV=production yarn build:mainstream --analyze",
     "dev": "web-ext run --start-url=examples/sample-dapp/index.html",
     "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium",
     "dev:firefox": "yarn dev --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition",
@@ -76,7 +76,7 @@
     "test:frontend": "jest --config=test/test-config/jest.config-ui.js",
     "test:frontend:ci": "yarn test:frontend --coverage",
     "watch": "yarn build:dev -w",
-    "update-protos": "yarn add @vegaprotocol/protos@latest && node ./scripts/update-transaction-validation.js && yarn build:testnet"
+    "update-protos": "yarn add @vegaprotocol/protos@latest && node ./scripts/update-transaction-validation.js && yarn build:beta"
   },
   "browserslist": {
     "production": [

@@ -162,6 +162,17 @@ describe('Settings test', () => {
   })
 
   it('can navigate to multi network details', async () => {
+    // 1138-NWST-001 When I go to the settings page I see an option to view my configured networks
+    // 1138-NWST-002 When I click on view my configured networks I am presented with a list of networks configured for the wallet
+    // 1138-NWST-003 When I select a network I am taken to a page with the network details in it
+    // 1138-NWST-004 I can see the name of the network
+    // 1138-NWST-005 I can see the id of the network
+    // 1138-NWST-006 I can see the chainId of the network
+    // 1138-NWST-007 I can see the Vega dApp URLs of the network
+    // 1138-NWST-008 I can see the configured ethereum explorer of the network
+    // 1138-NWST-009 I can see the Vega node URLs of the network
+    // 1138-NWST-010 I can see the Vega URLs of the network
+    // 1138-NWST-011 I can see the color of the network
     await settingsPage.viewConfiguredNetworks()
     const networkSettings = new NetworkSettings(driver)
     await networkSettings.checkExpectedNetworksExist()

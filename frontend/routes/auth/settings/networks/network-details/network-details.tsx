@@ -40,6 +40,12 @@ export const NetworkDetails = () => {
         </div>
       </VegaSection>
       <VegaSection>
+        <SubHeader content="Color" />
+        <div className="text-white mt-1 flex items-center" data-testid={locators.chainId}>
+          {network.color} <div className="ml-3 h-3 w-3" style={{ backgroundColor: network.color }} />
+        </div>
+      </VegaSection>
+      <VegaSection>
         <SubHeader content="Vega URLs" />
         <DataTable
           items={[

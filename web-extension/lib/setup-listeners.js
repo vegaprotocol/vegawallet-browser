@@ -74,7 +74,7 @@ const migrations = [
 
   // The third migration is modifying the network structure,
   // adding a color to it
-  async function v3({ settings, networks, connections }) {
+  async function v3({ settings, networks }) {
     await settings.transaction(async (store) => {
       // repopulate all networks
       await networks.store.clear()

@@ -1,6 +1,9 @@
+import { NavLink } from 'react-router-dom'
+
 import { HostImage } from '@/components/host-image'
-import { Cross } from '@/components/icons/cross'
+import { ChevronRight } from '@/components/icons/chevron-right'
 import { List } from '@/components/list'
+import { FULL_ROUTES } from '@/routes/route-names'
 import { Connection } from '@/types/backend'
 
 export const locators = {
@@ -12,21 +15,21 @@ export const locators = {
 
 export interface ConnectionsListProperties {
   connections: Connection[]
-  removeConnection: (connection: Connection) => void
 }
 
-export const ConnectionsList = ({ connections, removeConnection }: ConnectionsListProperties) => {
+export const ConnectionsList = ({ connections }: ConnectionsListProperties) => {
   return (
     <>
       <p className="mb-6" data-testid={locators.connectionDetails}>
         These dapps have access to your public keys and permission to send transaction requests.
       </p>
       <List<Connection>
+        className="mt-2"
         idProp="origin"
         items={connections}
         renderItem={(connection) => (
           <div>
-            <div className="flex justify-between">
+            <div className="flex justify-between h-12">
               <div className="flex flex-col justify-center">
                 <HostImage size={42} hostname={connection.origin} />
               </div>
@@ -36,9 +39,12 @@ export const ConnectionsList = ({ connections, removeConnection }: ConnectionsLi
               >
                 {connection.origin}
               </div>
-              <button data-testid={locators.connectionRemoveConnection} onClick={() => removeConnection(connection)}>
-                <Cross className="w-4 h-4" />
-              </button>
+              <NavLink
+                className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
+                to={`${FULL_ROUTES.connections}/${encodeURIComponent(connection.origin)}`}
+              >
+                <ChevronRight />
+              </NavLink>
             </div>
           </div>
         )}

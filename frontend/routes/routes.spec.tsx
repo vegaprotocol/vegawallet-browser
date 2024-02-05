@@ -9,6 +9,7 @@ jest.mock('@/hooks/persist-location')
 
 jest.mock('./auth')
 jest.mock('./auth/connections/home')
+jest.mock('./auth/connections/details')
 jest.mock('./auth/settings/home')
 jest.mock('./auth/settings/networks/home')
 jest.mock('./auth/settings/networks/network-details')

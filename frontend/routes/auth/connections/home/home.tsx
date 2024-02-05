@@ -1,10 +1,7 @@
-import { useEffect } from 'react'
-
 import { AsyncRenderer } from '@/components/async-renderer'
 import { ExternalLink } from '@/components/external-link'
 import { Frame } from '@/components/frame'
 import { BasePage } from '@/components/pages/page'
-import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useNetwork } from '@/contexts/network/network-context'
 import { useConnectionStore } from '@/stores/connections'
 
@@ -18,22 +15,14 @@ export const locators = {
 }
 
 export const Connections = () => {
-  const { request } = useJsonRpcClient()
   const { network } = useNetwork()
-  const { connections, loading, loadConnections, removeConnection } = useConnectionStore((state) => ({
-    connections: state.connections,
-    loading: state.loading,
-    loadConnections: state.loadConnections,
-    removeConnection: state.removeConnection
+  const { connections } = useConnectionStore((state) => ({
+    connections: state.connections
   }))
-  useEffect(() => {
-    loadConnections(request)
-  }, [request, loadConnections])
 
   return (
     <BasePage dataTestId={locators.connectionsHeader} title="Connections">
       <AsyncRenderer
-        loading={loading}
         noData={connections.length === 0}
         renderNoData={() => (
           <div className="mt-6">
@@ -42,10 +31,7 @@ export const Connections = () => {
         )}
         render={() => (
           <div className="mt-6">
-            <ConnectionsList
-              connections={connections}
-              removeConnection={(connection) => removeConnection(request, connection)}
-            />
+            <ConnectionsList connections={connections} />
           </div>
         )}
       />

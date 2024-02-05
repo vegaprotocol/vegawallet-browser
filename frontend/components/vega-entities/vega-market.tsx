@@ -4,10 +4,6 @@ import { useMarketsStore } from '@/stores/markets-store'
 
 import { MarketLink } from './market-link'
 
-export const locators = {
-  vegaMarketCode: 'order-details-market-code'
-}
-
 export const VegaMarket = ({ marketId }: { marketId: string }) => {
   const { getMarketById, loading } = useMarketsStore((state) => ({
     loading: state.loading,

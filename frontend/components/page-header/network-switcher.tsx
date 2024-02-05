@@ -20,9 +20,12 @@ const NetworkDropdown = () => {
     setSelectedNetwork: state.setSelectedNetwork
   }))
   const { network } = useNetwork()
-  const { loadGlobals } = useGlobalsStore((state) => ({
-    loadGlobals: state.loadGlobals
+  const { loadGlobals, globals } = useGlobalsStore((state) => ({
+    loadGlobals: state.loadGlobals,
+    globals: state.globals
   }))
+
+  const displayNetworks = networks.filter((n) => globals?.settings.showHiddenNetworks || !n.hidden)
 
   return (
     <Dropdown
@@ -36,7 +39,7 @@ const NetworkDropdown = () => {
             network regardless of what network you have selected.
           </p>
           <NetworksList
-            networks={networks}
+            networks={displayNetworks}
             onClick={async (n) => {
               await setSelectedNetwork(request, n.id)
               await loadGlobals(request)

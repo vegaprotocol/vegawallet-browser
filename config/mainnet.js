@@ -3,7 +3,14 @@ const mainnet = {
   title: 'Vega Wallet - Mainnet',
   defaultNetworkId: networks.mainnet.id,
   defaultChainId: networks.mainnet.chainId,
-  networks: [networks.mainnet, networks.fairground],
+  networks: [
+    networks.mainnet,
+    networks.fairground,
+    networks.devnet,
+    networks.stagnet1,
+    networks.mirror,
+    networks.validatorTestnet
+  ],
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   encryptionSettings: undefined,
   closeWindowOnPopupOpen: true,

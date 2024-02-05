@@ -4,7 +4,14 @@ const testnet = {
   title: 'Vega Wallet - Fairground',
   defaultNetworkId: networks.fairground.id,
   defaultChainId: networks.fairground.chainId,
-  networks: [networks.mainnet, networks.fairground],
+  networks: [
+    networks.mainnet,
+    networks.fairground,
+    networks.devnet,
+    networks.stagnet1,
+    networks.mirror,
+    networks.validatorTestnet
+  ],
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
   encryptionSettings: undefined,
   closeWindowOnPopupOpen: true,

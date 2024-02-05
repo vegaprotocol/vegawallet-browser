@@ -7,7 +7,8 @@ export interface Connection {
   allowList: AllowList
   origin: string
   accessedAt: number
-  id: string
+  chainId: string
+  networkId: string
 }
 
 export interface Wallet {

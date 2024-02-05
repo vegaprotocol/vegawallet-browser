@@ -70,6 +70,20 @@ const migrations = [
 
       await store.set('version', 2)
     })
+  },
+
+  // The third migration is modifying the network structure,
+  // adding a color to it
+  async function v3({ settings, networks, connections }) {
+    await settings.transaction(async (store) => {
+      // repopulate all networks
+      await networks.store.clear()
+      for (const network of config.networks) {
+        await networks.set(network.id, network)
+      }
+
+      await store.set('version', 3)
+    })
   }
 ]
 

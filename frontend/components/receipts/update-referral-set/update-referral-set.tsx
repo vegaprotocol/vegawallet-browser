@@ -5,7 +5,7 @@ import { ReferralSetInformation } from '../utils/referral-set-information'
 export const UpdateReferralSet = ({ transaction }: ReceiptComponentProperties) => {
   return (
     <ReceiptWrapper>
-      <ReferralSetInformation referralSetData={transaction.UpdateReferralSet} />
+      <ReferralSetInformation referralSetData={transaction.updateReferralSet} />
     </ReceiptWrapper>
   )
 }

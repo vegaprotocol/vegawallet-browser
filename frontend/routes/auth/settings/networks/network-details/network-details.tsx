@@ -42,7 +42,11 @@ export const NetworkDetails = () => {
       <VegaSection>
         <SubHeader content="Color" />
         <div className="text-white mt-1 flex items-center" data-testid={locators.chainId}>
-          {network.color} <div className="ml-3 h-3 w-3" style={{ backgroundColor: network.color }} />
+          {network.color}{' '}
+          <div
+            className="border-1 border border-white rounded-sm ml-3 h-4 w-4"
+            style={{ backgroundColor: network.color }}
+          />
         </div>
       </VegaSection>
       <VegaSection>

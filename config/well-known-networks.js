@@ -2,7 +2,7 @@ const mockPort = 9090
 
 export const mainnet = {
   color: '#000000',
-  secondaryColor: '#8B8B8B',
+  secondaryColor: '#FFFFFF',
   id: 'mainnet',
   name: 'Mainnet',
   chainId: 'vega-mainnet-0011',

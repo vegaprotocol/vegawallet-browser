@@ -1,4 +1,4 @@
-import test from '../../config/test'
+import test from '../../config/beta'
 import { closeServerAndWait, server } from './helpers/wallet/http-server'
 
 beforeAll(() => {

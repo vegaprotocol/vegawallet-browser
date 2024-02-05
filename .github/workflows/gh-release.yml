@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        network: [testnet, mainnet]
+        network: [beta, mainnet]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

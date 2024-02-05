@@ -10,7 +10,7 @@
 
 ## Release a new version (Chrome)
 
-Depending on the version you are releasing (fairground or mainnet). In order to do this you will need access to Chrome Web Store Developer Dashboard for Vega and have paid the Chrome Developer fee.
+Depending on the version you are releasing (beta or mainstream). In order to do this you will need access to Chrome Web Store Developer Dashboard for Vega and have paid the Chrome Developer fee.
 
 1. Download the relevant assets `vega-browserwallet-${NETWORK}-chrome-v0.14.0.zip`
 2. Go to the Chrome Web Store Developer Dashboard

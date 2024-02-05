@@ -10,7 +10,7 @@ import { ExtensionHeader } from './page-objects/extension-header'
 import { WalletOpenInOtherWindow } from './page-objects/wallet-open-in-other-window'
 import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 import { NetworkSettings } from './page-objects/network-settings'
-import test from '../../config/test'
+import test from '../../config/beta'
 
 describe('Settings test', () => {
   let driver: WebDriver

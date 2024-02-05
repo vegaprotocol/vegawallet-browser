@@ -3,7 +3,7 @@ import * as networks from './well-known-networks.js'
 const mockPort = 9090
 
 const test = {
-  title: 'Vega Wallet - Test',
+  title: 'Vega Wallet - Beta',
   defaultNetworkId: networks.testingNetwork.id,
   defaultChainId: networks.testingNetwork.chainId,
   test: {
@@ -21,7 +21,7 @@ const test = {
   logging: false,
 
   manifestReplacements: {
-    buildName: 'Test',
+    buildName: 'Beta',
     geckoId: 'browser-extension-test@vega.xyz',
     iconPrefix: 'Fairground'
   },

@@ -80,7 +80,7 @@ describe('OrderTable', () => {
       }
     })
 
-    const [priceRow, peggedInfoRow, sizeRow, marketRow, orderRow, directionRow, typeRow, referenceRow] =
+    const [priceRow, peggedInfoRow, sizeRow, marketRow, marketIdRow, orderRow, directionRow, typeRow, referenceRow] =
       screen.getAllByTestId(dataTableLocators.dataRow)
     expect(priceRow).toHaveTextContent('Price')
     expect(priceRow).toHaveTextContent('123')
@@ -94,6 +94,9 @@ describe('OrderTable', () => {
     expect(marketRow).toHaveTextContent('Market')
     expect(marketRow).toHaveTextContent(truncateMiddle('1'.repeat(64)))
 
+    expect(marketIdRow).toHaveTextContent('Market Id')
+    expect(marketIdRow).toHaveTextContent(truncateMiddle('1'.repeat(64)))
+
     expect(orderRow).toHaveTextContent('Order')
     expect(orderRow).toHaveTextContent(truncateMiddle('2'.repeat(64)))
 
@@ -105,7 +108,7 @@ describe('OrderTable', () => {
 
     expect(referenceRow).toHaveTextContent('Reference')
     expect(referenceRow).toHaveTextContent('ref')
-    expect(screen.getAllByTestId(dataTableLocators.dataRow)).toHaveLength(8)
+    expect(screen.getAllByTestId(dataTableLocators.dataRow)).toHaveLength(9)
   })
 
   it('renders fields that are provided from the API', () => {
@@ -124,7 +127,8 @@ describe('OrderTable', () => {
     })
 
     // Skip market row, as asserted above
-    const [, createdAtRow, updatedAtRow, remainingRow, statusRow, versionRow] = screen.getAllByTestId(
+    // eslint-disable-next-line unicorn/no-unreadable-array-destructuring
+    const [, , createdAtRow, updatedAtRow, remainingRow, statusRow, versionRow] = screen.getAllByTestId(
       dataTableLocators.dataRow
     )
 

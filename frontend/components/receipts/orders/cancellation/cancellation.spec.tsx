@@ -76,7 +76,7 @@ describe('Cancellation', () => {
     // 1130-ODTB-019 If order cancellation then the data is enriched with [basic order data](#basic-order-data) from the API
     renderComponent()
 
-    const createdAt = screen.getAllByTestId(dataTableLocators.dataRow)[2]
+    const createdAt = screen.getAllByTestId(dataTableLocators.dataRow)[3]
     // Created at field is only present from API
     expect(createdAt).toHaveTextContent('Created at')
     expect(createdAt).toHaveTextContent('01 January 1970 00:16 (UTC)')

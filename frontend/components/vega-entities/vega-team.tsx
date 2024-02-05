@@ -20,6 +20,7 @@ export const VegaTeam = ({ id }: { id: string }) => {
   useEffect(() => {
     loaderFunction()
   }, [loaderFunction])
+
   return (
     <AsyncRenderer
       loading={loading}

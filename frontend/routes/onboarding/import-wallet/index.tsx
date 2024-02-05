@@ -70,7 +70,7 @@ export const ImportWallet = () => {
               autoFocus
               data-testid={locators.importMnemonic}
               hasError={!!errors.mnemonic?.message}
-              placeholder="24 word recovery phrase"
+              placeholder="Recovery phrase"
               {...register('mnemonic', {
                 required: Validation.REQUIRED,
                 validate: (value: string) => {

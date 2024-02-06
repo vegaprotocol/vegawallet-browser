@@ -48,7 +48,6 @@ describe('InteractionStore', () => {
     expect(useInteractionStore.getState().currentTransactionDetails).toBeNull()
     return expect(promise).resolves.toBe(false)
   })
-  // TODO this should throw an error but until sync across windows is implemented it will not
   it('transaction clears state when promise could not be found', () => {
     useInteractionStore.setState({
       transactionModalOpen: true,
@@ -84,7 +83,6 @@ describe('InteractionStore', () => {
     expect(useInteractionStore.getState().currentConnectionDetails).toBeNull()
     return expect(promise).resolves.toStrictEqual({ approved: false, networkId: 'chainId' })
   })
-  // TODO this should throw an error but until sync across windows is implemented it will not
   it('connection clears state when promise could not be found', () => {
     useInteractionStore.setState({
       connectionModalOpen: true,

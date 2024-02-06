@@ -173,11 +173,10 @@ describe('Settings test', () => {
     // 1138-NWST-009 I can see the Vega node URLs of the network
     // 1138-NWST-010 I can see the Vega URLs of the network
     // 1138-NWST-011 I can see the color of the network
-    await settingsPage.viewConfiguredNetworks()
     const networkSettings = new NetworkSettings(driver)
+    await settingsPage.viewConfiguredNetworks()
     await networkSettings.checkExpectedNetworksExist()
-    const networkList = test.networks
-    for (let network of networkList) {
+    for (const network of test.networks) {
       await networkSettings.openNetworkDetails(network.name)
       await networkSettings.checkNetworkID(network.id)
       await networkSettings.goBack()

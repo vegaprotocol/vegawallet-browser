@@ -1,4 +1,3 @@
-import { stat } from 'fs'
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 import { captureScreenshot } from './driver'
 

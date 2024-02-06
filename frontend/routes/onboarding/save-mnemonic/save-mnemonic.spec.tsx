@@ -8,8 +8,7 @@ import { mockClient } from '@/test-helpers/mock-client'
 import { mockStorage } from '@/test-helpers/mock-storage'
 
 import { FULL_ROUTES } from '../../route-names'
-import { SaveMnemonic } from '.'
-import { locators as saveMnemonicLocators } from '.'
+import { locators as saveMnemonicLocators, SaveMnemonic } from '.'
 import { locators as saveMnemonicFormLocators } from './save-mnemonic-form'
 
 const mockedUsedNavigate = jest.fn()

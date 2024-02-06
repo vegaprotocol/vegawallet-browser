@@ -6,8 +6,7 @@ import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
 import { mockClient } from '@/test-helpers/mock-client'
 
 import { FULL_ROUTES } from '../route-names'
-import { Login } from '.'
-import { locators } from '.'
+import { locators, Login } from '.'
 
 const mockedUsedNavigate = jest.fn()
 

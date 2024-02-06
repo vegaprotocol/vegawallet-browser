@@ -206,6 +206,8 @@ describe('admin-ns', () => {
           explorer: 'https://explorer.fairground.wtf',
           governance: 'https://governance.fairground.wtf',
           hidden: false,
+          color: '#D7FB50',
+          secondaryColor: '#000000',
           id: 'test',
           name: 'Test',
           preferredNode: undefined,

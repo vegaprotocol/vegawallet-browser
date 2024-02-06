@@ -57,3 +57,11 @@ export const testingNetwork = {
   chainId: 'test-chain-id',
   rest: [`http://localhost:${mockPort}`]
 }
+
+export const testingNetwork2 = {
+  ...testingNetwork,
+  explorer: 'https://different-explorer.vega.xyz',
+  id: 'test2',
+  name: 'Test 2',
+  chainId: 'test-chain-id-2'
+}

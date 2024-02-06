@@ -24,7 +24,7 @@ describe('getTitle', () => {
 
   it('should return "Mass Order Cancellation" when data is not defined', () => {
     const transaction = {
-      [TransactionKeys.ORDER_CANCELLATION]: {}
+      [TransactionKeys.ORDER_CANCELLATION]: null
     }
     expect(getTitle(transaction as any)).toBe('Mass Order Cancellation')
   })

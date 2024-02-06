@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
+import { locators as passwordFormLocators } from '@/components/password-form'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { REJECTION_ERROR_MESSAGE } from '@/lib/utils'
 
@@ -19,8 +20,8 @@ describe('ExportPrivateKeyForm', () => {
     expect(screen.getByTestId('notification')).toHaveTextContent(
       'Warning: Never share this key. Anyone who has access to this key will have access to your assets.'
     )
-    expect(screen.getByTestId(locators.privateKeyModalPassphrase)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.privateKeyModalSubmit)).toBeInTheDocument()
+    expect(screen.getByTestId(passwordFormLocators.passphraseInput)).toBeInTheDocument()
+    expect(screen.getByTestId(passwordFormLocators.passphraseSubmit)).toBeInTheDocument()
     expect(screen.getByTestId(locators.privateKeyModalClose)).toBeInTheDocument()
   })
 
@@ -29,10 +30,10 @@ describe('ExportPrivateKeyForm', () => {
       request: jest.fn().mockRejectedValue(new Error(REJECTION_ERROR_MESSAGE))
     })
     render(<ExportPrivateKeyForm publicKey="" onSuccess={jest.fn()} onClose={jest.fn()} />)
-    const passwordInput = screen.getByTestId(locators.privateKeyModalPassphrase)
+    const passwordInput = screen.getByTestId(passwordFormLocators.passphraseInput)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
-    const exportButton = screen.getByTestId(locators.privateKeyModalSubmit)
+    const exportButton = screen.getByTestId(passwordFormLocators.passphraseSubmit)
     fireEvent.click(exportButton)
     await screen.findByTestId('input-error-text')
     expect(screen.getByTestId('input-error-text')).toHaveTextContent('Incorrect passphrase')
@@ -43,10 +44,10 @@ describe('ExportPrivateKeyForm', () => {
       request: jest.fn().mockRejectedValue(new Error('Unknown error'))
     })
     render(<ExportPrivateKeyForm publicKey="" onSuccess={jest.fn()} onClose={jest.fn()} />)
-    const passwordInput = screen.getByTestId(locators.privateKeyModalPassphrase)
+    const passwordInput = screen.getByTestId(passwordFormLocators.passphraseInput)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
-    const exportButton = screen.getByTestId(locators.privateKeyModalSubmit)
+    const exportButton = screen.getByTestId(passwordFormLocators.passphraseSubmit)
     fireEvent.click(exportButton)
     await screen.findByTestId('input-error-text')
     expect(screen.getByTestId('input-error-text')).toHaveTextContent('Unknown error occurred: Unknown error')
@@ -61,11 +62,11 @@ describe('ExportPrivateKeyForm', () => {
     render(<ExportPrivateKeyForm publicKey="" onSuccess={onSuccess} onClose={onClose} />)
 
     // Simulate user entering a password
-    const passwordInput = screen.getByTestId(locators.privateKeyModalPassphrase)
+    const passwordInput = screen.getByTestId(passwordFormLocators.passphraseInput)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
     // Simulate form submission
-    const exportButton = screen.getByTestId(locators.privateKeyModalSubmit)
+    const exportButton = screen.getByTestId(passwordFormLocators.passphraseSubmit)
     fireEvent.click(exportButton)
 
     // Wait for the success callback to be called
@@ -99,11 +100,11 @@ describe('ExportPrivateKeyForm', () => {
       request: jest.fn().mockReturnValue({ secretKey: '0x123' })
     })
     render(<ExportPrivateKeyForm publicKey="" onSuccess={jest.fn()} onClose={jest.fn()} />)
-    const exportButton = screen.getByTestId(locators.privateKeyModalSubmit)
+    const exportButton = screen.getByTestId(passwordFormLocators.passphraseSubmit)
     expect(exportButton).toBeDisabled()
 
     // Input password
-    const passwordInput = screen.getByTestId(locators.privateKeyModalPassphrase)
+    const passwordInput = screen.getByTestId(passwordFormLocators.passphraseInput)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
     await waitFor(() => expect(exportButton).not.toBeDisabled())

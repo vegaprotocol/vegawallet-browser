@@ -31,7 +31,6 @@ describe('NavButton', () => {
         icon: icon,
         text: 'Test Button',
         to: '/',
-        end: false,
         isFairground: false
       },
       ['/foo']
@@ -50,7 +49,6 @@ describe('NavButton', () => {
         icon: icon,
         text: 'Test Button',
         to: '/settings',
-        end: false,
         isFairground: false
       },
       ['/settings']
@@ -66,7 +64,6 @@ describe('NavButton', () => {
         icon: icon,
         text: 'Test Button',
         to: '/settings',
-        end: false,
         isFairground: true
       },
       ['/settings']

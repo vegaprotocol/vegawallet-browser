@@ -87,24 +87,6 @@ describe('KeyDetailsPage', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('renders nothing while loading wallets', () => {
-    mockStore(useWalletStore, {
-      loading: true,
-      getKeyById: () => ({
-        publicKey: ID,
-        name: 'test'
-      })
-    })
-    mockStore(useMarketsStore, {
-      loading: false
-    })
-    mockStore(useAssetsStore, {
-      loading: false
-    })
-    const { container } = render(<KeyDetailsPage id={ID} />)
-    expect(container).toBeEmptyDOMElement()
-  })
-
   it('renders nothing while wallets are loading', () => {
     mockStore(useWalletStore, {
       loading: true,

@@ -14,7 +14,13 @@ export type CheckboxProperties<T extends FieldValues> = {
   className?: string
 }
 
-export function Checkbox<T extends FieldValues>({ name, control, label, disabled, className }: CheckboxProperties<T>) {
+export function Checkbox<T extends FieldValues>({
+  name,
+  control,
+  label,
+  disabled,
+  className
+}: Readonly<CheckboxProperties<T>>) {
   return (
     <Controller
       name={name}

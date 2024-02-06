@@ -2,7 +2,7 @@ import classnames from 'classnames'
 
 import { className as defaultClassName } from './style'
 
-export function Cross({ className }: { className?: string }) {
+export function Cross({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       className={classnames(defaultClassName, className)}

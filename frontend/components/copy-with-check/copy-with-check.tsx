@@ -13,7 +13,7 @@ interface CopyWithCheckmarkProperties {
   iconSide?: 'left' | 'right'
 }
 
-export function CopyWithCheckmark({ text, children, iconSide = 'right' }: CopyWithCheckmarkProperties) {
+export function CopyWithCheckmark({ text, children, iconSide = 'right' }: Readonly<CopyWithCheckmarkProperties>) {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import locators from '../locators'
 import { className as defaultClassName } from './style'
 
-export function DropdownArrow({ className }: { className?: string }) {
+export function DropdownArrow({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       data-testid={locators.dropdownArrow}

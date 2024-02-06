@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import locators from '../locators'
 import { className as defaultClassName } from './style'
 
-export function Tick({ className, size }: { className?: string; size?: number }) {
+export function Tick({ className, size }: Readonly<{ className?: string; size?: number }>) {
   return (
     <svg
       width={size}

@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
+import { locators as passwordFormLocators } from '@/components/password-form'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { WALLET_NAME } from '@/lib/create-wallet'
 import { REJECTION_ERROR_MESSAGE } from '@/lib/utils'
@@ -19,10 +20,10 @@ describe('ExportRecoveryPhraseForm', () => {
     expect(screen.getByTestId('notification')).toHaveTextContent(
       'Warning: Never share this key. Anyone who has access to this key will have access to your assets.'
     )
-    expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalPassphrase)).toBeInTheDocument()
+    expect(screen.getByTestId(passwordFormLocators.passphraseInput)).toBeInTheDocument()
     expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalClose)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)).toBeDisabled()
+    expect(screen.getByTestId(passwordFormLocators.passphraseSubmit)).toBeInTheDocument()
+    expect(screen.getByTestId(passwordFormLocators.passphraseSubmit)).toBeDisabled()
   })
 
   it('renders error message if passphrase is incorrect', async () => {
@@ -32,10 +33,10 @@ describe('ExportRecoveryPhraseForm', () => {
     })
     render(<ExportRecoveryPhraseForm walletName={WALLET_NAME} onSuccess={jest.fn()} onClose={jest.fn()} />)
 
-    const passwordInput = screen.getByTestId(locators.exportRecoveryPhraseFormModalPassphrase)
+    const passwordInput = screen.getByTestId(passwordFormLocators.passphraseInput)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
-    const exportButton = screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)
+    const exportButton = screen.getByTestId(passwordFormLocators.passphraseSubmit)
     fireEvent.click(exportButton)
     await screen.findByTestId('input-error-text')
     expect(screen.getByTestId('input-error-text')).toHaveTextContent('Incorrect passphrase')
@@ -47,10 +48,10 @@ describe('ExportRecoveryPhraseForm', () => {
     })
     render(<ExportRecoveryPhraseForm walletName={WALLET_NAME} onSuccess={jest.fn()} onClose={jest.fn()} />)
 
-    const passwordInput = screen.getByTestId(locators.exportRecoveryPhraseFormModalPassphrase)
+    const passwordInput = screen.getByTestId(passwordFormLocators.passphraseInput)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
-    const exportButton = screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)
+    const exportButton = screen.getByTestId(passwordFormLocators.passphraseSubmit)
     fireEvent.click(exportButton)
     await screen.findByTestId('input-error-text')
     expect(screen.getByTestId('input-error-text')).toHaveTextContent('Unknown error occurred: Unknown error')
@@ -64,10 +65,10 @@ describe('ExportRecoveryPhraseForm', () => {
     const onClose = jest.fn()
     render(<ExportRecoveryPhraseForm walletName={WALLET_NAME} onSuccess={onSuccess} onClose={onClose} />)
 
-    const passwordInput = screen.getByTestId(locators.exportRecoveryPhraseFormModalPassphrase)
+    const passwordInput = screen.getByTestId(passwordFormLocators.passphraseInput)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
-    const exportButton = screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)
+    const exportButton = screen.getByTestId(passwordFormLocators.passphraseSubmit)
     fireEvent.click(exportButton)
 
     await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1))
@@ -98,10 +99,10 @@ describe('ExportRecoveryPhraseForm', () => {
     })
     render(<ExportRecoveryPhraseForm walletName={WALLET_NAME} onSuccess={jest.fn()} onClose={jest.fn()} />)
 
-    const exportButton = screen.getByTestId(locators.exportRecoveryPhraseFormModalSubmit)
+    const exportButton = screen.getByTestId(passwordFormLocators.passphraseSubmit)
     expect(exportButton).toBeDisabled()
 
-    const passwordInput = screen.getByTestId(locators.exportRecoveryPhraseFormModalPassphrase)
+    const passwordInput = screen.getByTestId(passwordFormLocators.passphraseInput)
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
     await waitFor(() => expect(exportButton).not.toBeDisabled())

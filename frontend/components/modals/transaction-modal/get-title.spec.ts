@@ -22,6 +22,13 @@ describe('getTitle', () => {
     expect(getTitle(transaction as any)).toBe('Mass Order Cancellation')
   })
 
+  it('should return "Mass Order Cancellation" when data is not defined', () => {
+    const transaction = {
+      [TransactionKeys.ORDER_CANCELLATION]: {}
+    }
+    expect(getTitle(transaction as any)).toBe('Mass Order Cancellation')
+  })
+
   it('should return "Order Cancellation" when order cancellation has an orderId', () => {
     const transaction = {
       [TransactionKeys.ORDER_CANCELLATION]: { marketId: 'some-market-id', orderId: 'some-order-id' }

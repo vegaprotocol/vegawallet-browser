@@ -85,5 +85,4 @@ describe('NetworkDetails', () => {
       expect(link).toHaveTextContent(testingNetwork.rest[index])
     }
   })
-  it('should render the configured nodes of the network', () => {})
 })

@@ -5,7 +5,7 @@ import { useWalletStore } from '@/stores/wallets'
 import { Key } from '@/types/backend'
 
 export const locators = {
-  keySelectedCurrentKey: (keyName: string) => `${keyName}-selected-current-key`,
+  keySelectedCurrentKey: 'selected-current-key',
   keySelectorDropdownContent: 'key-selector-dropdown-content'
 }
 
@@ -17,7 +17,11 @@ export const KeySelector = ({ currentKey }: { currentKey: Key }) => {
   return (
     <Dropdown
       enabled={keys.length > 1}
-      trigger={<Header data-testid={locators.keySelectedCurrentKey(currentKey.name)} content={currentKey.name} />}
+      trigger={
+        <div data-testid={locators.keySelectedCurrentKey}>
+          <Header content={currentKey.name} />
+        </div>
+      }
       content={(setOpen) => (
         <div data-testid={locators.keySelectorDropdownContent} className="my-4">
           <KeyList keys={keys} onClick={() => setOpen(false)} />

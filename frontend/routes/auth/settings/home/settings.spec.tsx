@@ -19,6 +19,9 @@ jest.mock('./settings-form-elements/radio', () => ({
 jest.mock('./sections/lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
+jest.mock('./sections/export-recovery-phrase', () => ({
+  ExportRecoveryPhraseSection: () => <div data-testid="export-recovery-phrase-section" />
+}))
 jest.mock('!/config', () => ({
   ...jest.requireActual('../../../../../config/test').default,
   closeWindowOnPopupOpen: true

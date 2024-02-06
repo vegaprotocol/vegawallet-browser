@@ -14,7 +14,8 @@ export const locators = {
   networkId: 'network-id',
   chainId: 'chain-id',
   ethereumExplorer: 'ethereum-explorer',
-  networkDetailsNode: 'network-details-node'
+  networkDetailsNode: 'network-details-node',
+  color: 'color'
 }
 
 export const NetworkDetails = () => {
@@ -41,7 +42,7 @@ export const NetworkDetails = () => {
       </VegaSection>
       <VegaSection>
         <SubHeader content="Color" />
-        <div className="text-white mt-1 flex items-center" data-testid={locators.chainId}>
+        <div className="text-white mt-1 flex items-center" data-testid={locators.color}>
           {network.color}{' '}
           <div
             className="border-1 border border-white rounded-sm ml-3 h-4 w-4"

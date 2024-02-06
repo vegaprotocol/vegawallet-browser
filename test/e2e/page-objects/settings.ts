@@ -15,6 +15,7 @@ import * as networkLocators from '../../../frontend/routes/auth/settings/home/se
 import * as exportLocators from '../../../frontend/routes/auth/settings/home/sections/export-recovery-phrase'
 import * as exportFormLocators from '../../../frontend/routes/auth/settings/home/sections/export-recovery-phrase/export-recovery-phrase-form'
 import * as exportViewLocators from '../../../frontend/routes/auth/settings/home/sections/export-recovery-phrase/view-recovery-phrase'
+import * as passwordFormLocators from '../../../frontend/components/password-form'
 
 import { defaultPassword } from '../helpers/wallet/common-wallet-values'
 import locators from '../../../frontend/components/locators'
@@ -28,12 +29,8 @@ export class Settings {
   private readonly exportRecoveryPhraseTrigger: By = getByDataTestID(
     exportLocators.locators.exportRecoveryPhraseTrigger
   )
-  private readonly exportRecoveryPhrasePassphrase: By = getByDataTestID(
-    exportFormLocators.locators.exportRecoveryPhraseFormModalPassphrase
-  )
-  private readonly exportRecoveryPhraseSubmit: By = getByDataTestID(
-    exportFormLocators.locators.exportRecoveryPhraseFormModalSubmit
-  )
+  private readonly exportRecoveryPhrasePassphrase: By = getByDataTestID(passwordFormLocators.locators.passphraseInput)
+  private readonly exportRecoveryPhraseSubmit: By = getByDataTestID(passwordFormLocators.locators.passphraseSubmit)
   private readonly exportRecoveryPhraseClose: By = getByDataTestID(
     exportViewLocators.locators.exportRecoveryPhraseClose
   )

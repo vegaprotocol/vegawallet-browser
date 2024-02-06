@@ -7,13 +7,13 @@ import {
   sendKeysToElement
 } from '../helpers/selenium-util'
 import { defaultPassword } from '../helpers/wallet/common-wallet-values'
-import { locators as exportPrivateKeyLocators } from '../../../frontend/routes/auth/wallets/key-details/export-private-key-dialog/export-private-key-form'
 import { locators as viewPrivateKeyLocators } from '../../../frontend/routes/auth/wallets/key-details/export-private-key-dialog/view-private-key'
 import locators from '../../../frontend/components/locators'
+import { locators as passwordFormLocators } from '../../../frontend/components/password-form'
 
 export class ExportPrivateKey {
-  private readonly passwordField: By = getByDataTestID(exportPrivateKeyLocators.privateKeyModalPassphrase)
-  private readonly exportButton: By = getByDataTestID(exportPrivateKeyLocators.privateKeyModalSubmit)
+  private readonly passwordField: By = getByDataTestID(passwordFormLocators.passphraseInput])
+  private readonly exportButton: By = getByDataTestID(passwordFormLocators.passphraseSubmit)
   private readonly privateKeyHidden: By = getByDataTestID(locators.mnemonicContainerHidden)
   private readonly privateKeyRevealed: By = getByDataTestID(locators.mnemonicContainerMnemonic)
   private readonly viewPrivateKeyClose: By = getByDataTestID(viewPrivateKeyLocators.viewPrivateKeyClose)

@@ -52,12 +52,15 @@ describe('NetworkDetails', () => {
   it('should render the details of the network in each section', () => {
     renderComponent()
     const sections = screen.getAllByTestId(vegaSectionLocators.vegaSection)
-    const [id, chainId, vegaUrls, ethereumExplorer, nodes] = sections
+    const [id, chainId, color, vegaUrls, ethereumExplorer, nodes] = sections
     expect(within(id).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Id')
     expect(within(id).getByTestId(locators.networkId)).toHaveTextContent(testingNetwork.id)
 
     expect(within(chainId).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Chain id')
     expect(within(chainId).getByTestId(locators.chainId)).toHaveTextContent(testingNetwork.chainId)
+
+    expect(within(color).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Color')
+    expect(within(color).getByTestId(locators.color)).toHaveTextContent(testingNetwork.color)
 
     expect(within(vegaUrls).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Vega URLs')
     const rows = within(vegaUrls).getAllByTestId(dataTableLocators.dataRow)

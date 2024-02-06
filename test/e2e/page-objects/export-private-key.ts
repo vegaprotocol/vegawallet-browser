@@ -12,7 +12,7 @@ import locators from '../../../frontend/components/locators'
 import { locators as passwordFormLocators } from '../../../frontend/components/password-form'
 
 export class ExportPrivateKey {
-  private readonly passwordField: By = getByDataTestID(passwordFormLocators.passphraseInput])
+  private readonly passwordField: By = getByDataTestID(passwordFormLocators.passphraseInput)
   private readonly exportButton: By = getByDataTestID(passwordFormLocators.passphraseSubmit)
   private readonly privateKeyHidden: By = getByDataTestID(locators.mnemonicContainerHidden)
   private readonly privateKeyRevealed: By = getByDataTestID(locators.mnemonicContainerMnemonic)

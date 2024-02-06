@@ -40,7 +40,7 @@ export class Settings {
   private readonly passwordErrorText: By = getByDataTestID(locators.errorMessage)
   private readonly recoveryPhraseHidden: By = getByDataTestID(locators.mnemonicContainerHidden)
   private readonly recoveryPhraseRevealed: By = getByDataTestID(locators.mnemonicContainerMnemonic)
-  private readonly viewNetwork: By = getByDataTestID(networkLocators.locators.viewNetworks)
+  private readonly viewNetwork: By = getByDataTestID(networkLocators.locators.viewNetworksButton)
 
   constructor(private readonly driver: WebDriver) {}
 

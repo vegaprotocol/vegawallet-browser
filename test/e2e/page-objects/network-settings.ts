@@ -9,14 +9,11 @@ export class NetworkSettings {
   constructor(private readonly driver: WebDriver) {}
 
   async checkExpectedNetworksExist() {
-    const networkNames: string[] = []
-    let networkList = config.default.networks
-    networkList.forEach((network) => {
-      networkNames.push(network.name)
-    })
-    networkNames.forEach(async (network) => {
-      expect(await isElementDisplayed(this.driver, getByDataTestID(network))).toBe(true)
-    })
+    await Promise.all(
+      config.default.networks.map(async ({ name }) => {
+        expect(await isElementDisplayed(this.driver, getByDataTestID(name))).toBe(true)
+      })
+    )
   }
   async openNetworkDetails(network: string) {
     await clickElement(this.driver, getByDataTestID(networksLocators.networkListButton(network)))

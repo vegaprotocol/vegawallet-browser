@@ -35,7 +35,7 @@ export class KeyDetails {
     return getByDataTestID(keyListLocators.viewDetails(keyName))
   }
   private currentSelectedKey(keyName: string): By {
-    return getByDataTestID(keyDropdownLocators.keySelectedCurrentKey(keyName))
+    return getByDataTestID(keyDropdownLocators.keySelectedCurrentKey)
   }
 
   constructor(private readonly driver: WebDriver) {}
@@ -69,7 +69,7 @@ export class KeyDetails {
   }
 
   async selectKeyFromDropdownAndConfirmNewKeySelected(keyName: string) {
-    await clickElement(this.driver, this.keysDropdownMenu)
+    await clickElement(this.driver, this.currentSelectedKey('Key 1'))
     await clickElement(this.driver, this.keyDropdownItem(keyName))
     await this.checkExpectedKeySelected(keyName)
   }

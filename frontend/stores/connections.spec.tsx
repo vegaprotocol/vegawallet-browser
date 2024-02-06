@@ -7,13 +7,14 @@ const request = (method: string) => {
     return {
       connections: [
         {
-          id: 'foo',
           allowList: {
             publicKeys: [],
             wallets: ['Wallet 1']
           },
           accessedAt: Date.now(),
-          origin: 'https://vega.xyz'
+          origin: 'https://vega.xyz',
+          chainId: 'foo',
+          networkId: 'bar'
         }
       ]
     }
@@ -38,13 +39,14 @@ describe('Store', () => {
     expect(useConnectionStore.getState().loading).toBe(false)
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {
-        id: 'foo',
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
         accessedAt: Date.now(),
-        origin: 'https://vega.xyz'
+        origin: 'https://vega.xyz',
+        chainId: 'foo',
+        networkId: 'bar'
       }
     ])
   })
@@ -52,55 +54,60 @@ describe('Store', () => {
     expect(useConnectionStore.getState().loading).toBe(true)
     expect(useConnectionStore.getState().connections).toStrictEqual([])
     useConnectionStore.getState().addConnection({
-      id: 'foo',
       allowList: {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
       accessedAt: Date.now(),
-      origin: 'https://vega.xyz'
+      origin: 'https://vega.xyz',
+      chainId: 'foo',
+      networkId: 'bar'
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {
-        id: 'foo',
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
         accessedAt: Date.now(),
-        origin: 'https://vega.xyz'
+        origin: 'https://vega.xyz',
+        chainId: 'foo',
+        networkId: 'bar'
       }
     ])
     useConnectionStore.getState().addConnection({
-      id: 'foo',
       allowList: {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
       accessedAt: Date.now(),
-      origin: 'https://vega.xyz'
+      origin: 'https://vega.xyz',
+      chainId: 'foo',
+      networkId: 'bar'
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {
-        id: 'foo',
         allowList: {
           publicKeys: [],
           wallets: ['Wallet 1']
         },
         accessedAt: Date.now(),
-        origin: 'https://vega.xyz'
+        origin: 'https://vega.xyz',
+        chainId: 'foo',
+        networkId: 'bar'
       }
     ])
   })
   it('removes connections from backend', async () => {
     const mockConnection = {
-      id: 'foo',
       allowList: {
         publicKeys: [],
         wallets: ['Wallet 1']
       },
       accessedAt: Date.now(),
-      origin: 'https://vega.xyz'
+      origin: 'https://vega.xyz',
+      chainId: 'foo',
+      networkId: 'bar'
     }
     useConnectionStore.setState({
       connections: [mockConnection]

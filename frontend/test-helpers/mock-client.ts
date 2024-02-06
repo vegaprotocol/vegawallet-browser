@@ -135,7 +135,9 @@ export const mockClient = (
                         wallets: ['Wallet 1']
                       },
                       accessedAt: 1,
-                      origin: 'https://vega.xyz'
+                      origin: 'https://vega.xyz',
+                      chainId: 'foo',
+                      networkId: 'bar'
                     },
                     {
                       allowList: {
@@ -143,7 +145,9 @@ export const mockClient = (
                         wallets: ['Wallet 1']
                       },
                       accessedAt: 2,
-                      origin: 'foo.com'
+                      origin: 'foo.com',
+                      chainId: 'foo',
+                      networkId: 'bar'
                     }
                   ]
                 }

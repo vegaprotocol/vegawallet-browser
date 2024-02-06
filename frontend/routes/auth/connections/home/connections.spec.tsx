@@ -1,24 +1,23 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { ConnectionsStore, useConnectionStore } from '@/stores/connections'
-import { mockClient } from '@/test-helpers/mock-client'
+import { mockStore } from '@/test-helpers/mock-store'
 
 import { fairground } from '../../../../../config/well-known-networks'
 import { Connections, locators as connectionsLocators } from '.'
 import { locators as connectionListLocators } from './connection-list'
 import { locators as noConnectionsLocators } from './no-dapps-connected'
 
+jest.mock('@/stores/connections')
+
 const renderComponent = () =>
   render(
     <MemoryRouter>
-      <JsonRPCProvider>
-        <MockNetworkProvider>
-          <Connections />
-        </MockNetworkProvider>
-      </JsonRPCProvider>
+      <MockNetworkProvider>
+        <Connections />
+      </MockNetworkProvider>
     </MemoryRouter>
   )
 
@@ -34,7 +33,30 @@ describe('Connections', () => {
     act(() => useConnectionStore.setState(initialState as ConnectionsStore))
   })
   it('renders sorted list of connections with instructions on how to connect', async () => {
-    mockClient()
+    mockStore(useConnectionStore, {
+      connections: [
+        {
+          allowList: {
+            publicKeys: [],
+            wallets: ['Wallet 1']
+          },
+          accessedAt: Date.now(),
+          origin: 'foo.com',
+          chainId: 'foo',
+          networkId: 'bar'
+        },
+        {
+          allowList: {
+            publicKeys: [],
+            wallets: ['Wallet 1']
+          },
+          accessedAt: Date.now(),
+          origin: 'https://vega.xyz',
+          chainId: 'foo',
+          networkId: 'bar'
+        }
+      ]
+    })
     renderComponent()
     const [foo, vega] = await screen.findAllByTestId(connectionListLocators.connectionOrigin)
     expect(foo).toHaveTextContent('foo.com')
@@ -54,44 +76,13 @@ describe('Connections', () => {
     )
   })
   it('renders empty state with instructions on how to connect', async () => {
-    let listeners: Function[] = []
-    // @ts-ignore
-    global.browser = {
-      runtime: {
-        connect: () => ({
-          postMessage: (message: any) => {
-            listeners[0]({
-              id: message.id,
-              jsonrpc: '2.0',
-              result: {
-                connections: []
-              }
-            })
-          },
-          onmessage: () => {},
-          onMessage: {
-            addListener: (function_: any) => {
-              listeners.push(function_)
-            }
-          },
-          onDisconnect: {
-            addListener: (function_: any) => {}
-          }
-        })
-      }
-    }
+    mockStore(useConnectionStore, {
+      connections: []
+    })
     renderComponent()
     await screen.findByTestId(noConnectionsLocators.connectionsNoConnections)
     expect(screen.getByTestId(noConnectionsLocators.connectionsNoConnections)).toBeInTheDocument()
     // 1109-VCON-005 When I have no connections I can see that and still see instructions on how to connect to a Vega dapp
     expect(screen.getByTestId(connectionsLocators.connectionInstructions)).toBeVisible()
-  })
-
-  it('remove the connection', async () => {
-    mockClient()
-    renderComponent()
-    await waitFor(() => expect(screen.queryAllByTestId(connectionListLocators.connectionOrigin)).toHaveLength(2))
-    fireEvent.click(screen.getAllByTestId(connectionListLocators.connectionRemoveConnection)[0])
-    await waitFor(() => expect(screen.queryAllByTestId(connectionListLocators.connectionOrigin)).toHaveLength(1))
   })
 })

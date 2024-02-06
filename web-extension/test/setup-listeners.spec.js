@@ -8,7 +8,7 @@ import {
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import config from '!/config'
 import { NetworkCollection } from '../backend/network.js'
-import { fairground, testingNetwork } from '../../config/well-known-networks.js'
+import { fairground, testingNetwork, testingNetwork2 } from '../../config/well-known-networks.js'
 import { ConnectionsCollection } from '../backend/connections.js'
 
 describe('SetupListeners', () => {
@@ -53,11 +53,11 @@ describe('SetupListeners', () => {
 
     expect(networksMock.set).toHaveBeenCalledTimes(2)
     expect(networksMock.set).toHaveBeenCalledWith(testingNetwork.id, testingNetwork)
-    expect(networksMock.set).toHaveBeenCalledWith(fairground.id, fairground)
+    expect(networksMock.set).toHaveBeenCalledWith(testingNetwork2.id, testingNetwork2)
     expect(settingsMock.set).toHaveBeenCalledTimes(3)
     expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', testingNetwork.id)
     expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
-    expect(settingsMock.set).toHaveBeenCalledWith('version', 2)
+    expect(settingsMock.set).toHaveBeenCalledWith('version', 3)
   })
 
   it('should create a window if autoOpenOnInstall is true', async () => {
@@ -114,7 +114,7 @@ describe('SetupListeners', () => {
 
     await install({ networks, settings })
 
-    expect(await settings.get('version')).toBe(2)
+    expect(await settings.get('version')).toBe(3)
     const clone = Array.from(await settings.entries())
 
     await update({ settings, connections })
@@ -134,7 +134,7 @@ describe('SetupListeners', () => {
 
     await update({ settings, networks, connections })
 
-    expect(await settings.get('version')).toBe(2)
+    expect(await settings.get('version')).toBe(3)
     expect(await settings.get('autoOpen')).toBe(true)
   })
 
@@ -150,7 +150,7 @@ describe('SetupListeners', () => {
 
     await update({ settings, networks, connections })
 
-    expect(await settings.get('version')).toBe(2)
+    expect(await settings.get('version')).toBe(3)
     expect(await settings.get('autoOpen')).toBe(true)
   })
 
@@ -166,7 +166,7 @@ describe('SetupListeners', () => {
 
     await update({ settings, networks, connections })
 
-    expect(await settings.get('version')).toBe(2)
+    expect(await settings.get('version')).toBe(3)
     expect(await settings.get('autoOpen')).toBe(false)
   })
 
@@ -188,7 +188,7 @@ describe('SetupListeners', () => {
       accessedAt: 0
     })
     await update({ settings, networks, connections })
-    expect(await networks.list()).toStrictEqual(['test', 'fairground'])
+    expect(await networks.list()).toStrictEqual(['test', 'test2'])
     expect(await connections.get('https://example.com')).toStrictEqual({
       allowList: {
         wallets: ['w1'],

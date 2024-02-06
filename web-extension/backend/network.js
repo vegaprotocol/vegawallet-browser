@@ -112,9 +112,6 @@ export class Network {
     ethereumExplorerLink,
     explorer,
     governance,
-    deposit,
-    transfer,
-    withdraw,
     docs,
     vegaDapps,
     color,
@@ -129,9 +126,6 @@ export class Network {
     this.ethereumExplorerLink = ethereumExplorerLink
     this.explorer = explorer
     this.governance = governance
-    this.deposit = deposit
-    this.transfer = transfer
-    this.withdraw = withdraw
     this.docs = docs
     this.vegaDapps = vegaDapps
     this.color = color

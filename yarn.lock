@@ -3802,6 +3802,11 @@
     compare "^2.0.0"
     nanoassert "^2.0.0"
 
+"@vegaprotocol/enums@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/enums/-/enums-0.0.1.tgz#785e0c5b3ea3f8328db04a74108046bb739b3bf5"
+  integrity sha512-p5O+r+oRRg4IAn+BSEF91N0eirpSG9JyqBPv3SnjPIXphaumclo17//N6LBs3hh+0eyRagwIeFh1EAjb3FMQZQ==
+
 "@vegaprotocol/i18n@0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@vegaprotocol/i18n/-/i18n-0.0.3.tgz#36344549db815a720381b7fa4d155120bcc036c3"

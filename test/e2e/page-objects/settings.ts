@@ -9,12 +9,12 @@ import {
   waitForElementToBeSelected
 } from '../helpers/selenium-util'
 import { Login } from './login'
-import * as settingsLock from '../../../frontend/routes/auth/settings/lock-section'
-import * as radioLocators from '../../../frontend/routes/auth/settings/settings-form-elements/radio'
+import * as settingsLock from '../../../frontend/routes/auth/settings/home/sections/lock-section'
+import * as radioLocators from '../../../frontend/routes/auth/settings/home/settings-form-elements/radio'
 import * as networkLocators from '../../../frontend/routes/auth/settings/home/sections/networks-section.tsx'
-import * as exportLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase'
-import * as exportFormLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase/export-recovery-phrase-form'
-import * as exportViewLocators from '../../../frontend/routes/auth/settings/export-recovery-phrase/view-recovery-phrase'
+import * as exportLocators from '../../../frontend/routes/auth/settings/home/sections/export-recovery-phrase'
+import * as exportFormLocators from '../../../frontend/routes/auth/settings/home/sections/export-recovery-phrase/export-recovery-phrase-form'
+import * as exportViewLocators from '../../../frontend/routes/auth/settings/home/sections/export-recovery-phrase/view-recovery-phrase'
 
 import { defaultPassword } from '../helpers/wallet/common-wallet-values'
 import locators from '../../../frontend/components/locators'

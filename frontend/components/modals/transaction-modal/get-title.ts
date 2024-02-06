@@ -12,6 +12,10 @@ const processTitle = (type: TransactionKeys, data: any) => {
     data.size === HALF_MAX_POSITION_SIZE
   ) {
     return 'Close Position'
+  } else if (type === TransactionKeys.UPDATE_REFERRAL_SET && data) {
+    return data.isTeam ? 'Update Team' : 'Update Referral Set'
+  } else if (type === TransactionKeys.CREATE_REFERRAL_SET && data) {
+    return data.isTeam ? 'Update Team' : 'Create Referral Set'
   }
 
   return TRANSACTION_TITLES[type]

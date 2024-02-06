@@ -10,7 +10,6 @@ import { Wallet } from '../icons/wallet'
 import locators from '../locators'
 
 export interface NavButtonProperties {
-  end?: boolean
   icon: ReactNode
   text: string
   to: To

@@ -50,6 +50,10 @@ describe('NetworkDetails', () => {
     expect(() => renderComponent({ getNetworkById: () => undefined })).toThrow('Could not find network with id foo')
   })
   it('should render the details of the network in each section', () => {
+    // 1143-NWDT-001 Renders the last accessed time of a connection
+    // 1143-NWDT-002 Renders the chain ID of a connection
+    // 1143-NWDT-003 Renders the network ID of a connection
+    // 1143-NWDT-004 Allows removing a connection
     renderComponent()
     const sections = screen.getAllByTestId(vegaSectionLocators.vegaSection)
     const [id, chainId, colors, vegaUrls, ethereumExplorer, nodes] = sections

@@ -5,12 +5,16 @@ import { BasePage } from '@/components/pages/page'
 import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { formatDate } from '@/lib/utils'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { useConnectionStore } from '@/stores/connections'
 
 export const locators = {
   connectionDetails: 'connection-details',
-  accessedAt: 'accessed-at'
+  accessedAt: 'accessed-at',
+  chainId: 'chain-id',
+  networkId: 'network-id',
+  removeConnection: 'remove-connection'
 }
 
 export const ConnectionDetails = () => {
@@ -32,24 +36,33 @@ export const ConnectionDetails = () => {
       <VegaSection>
         <SubHeader content="Last accessed" />
         <div className="text-white mt-1" data-testid={locators.accessedAt}>
-          {connection.accessedAt}
+          {formatDate(connection.accessedAt)}
         </div>
       </VegaSection>
       <VegaSection>
-        <SubHeader content="Chain id" />
-        <div className="text-white mt-1" data-testid={locators.accessedAt}>
+        <SubHeader content="Chain Id" />
+        <div className="text-white mt-1" data-testid={locators.chainId}>
           {connection.chainId}
         </div>
       </VegaSection>
       <VegaSection>
-        <SubHeader content="Network id" />
+        <SubHeader content="Network Id" />
         <div className="mt-1">
-          <NavLink className="text-white underline" to={`${FULL_ROUTES.networksSettings}/${connection.networkId}`}>
+          <NavLink
+            data-testid={locators.networkId}
+            className="text-white underline"
+            to={`${FULL_ROUTES.networksSettings}/${connection.networkId}`}
+          >
             {connection.networkId}
           </NavLink>
         </div>
       </VegaSection>
-      <Button onClick={() => removeConnection(request, connection)} className="w-full" variant="secondary">
+      <Button
+        data-testid={locators.removeConnection}
+        onClick={() => removeConnection(request, connection)}
+        className="w-full"
+        variant="secondary"
+      >
         Remove connection
       </Button>
     </BasePage>

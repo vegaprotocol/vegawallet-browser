@@ -45,7 +45,6 @@ export const ConnectionDetails = ({
         <Button
           data-testid={locators.connectionModalApproveButton}
           variant="primary"
-          // TODO find and set networkId based on chainId
           onClick={() => handleDecision(true)}
         >
           Connect

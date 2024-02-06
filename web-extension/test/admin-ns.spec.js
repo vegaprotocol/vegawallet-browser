@@ -690,54 +690,54 @@ describe('admin.export_key', () => {
   })
 })
 
-  describe('admin.export_recovery_phrase', () => {
-    const passphrase = 'foo'
-    let admin
-    let key
-    beforeEach(async () => {
-      const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
-      admin = setupAdmin
-      key = setupKey
-    })
+describe('admin.export_recovery_phrase', () => {
+  const passphrase = 'foo'
+  let admin
+  let key
+  beforeEach(async () => {
+    const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
+    admin = setupAdmin
+    key = setupKey
+  })
 
-    afterEach(() => {
-      admin = null
-      key = null
-    })
+  afterEach(() => {
+    admin = null
+    key = null
+  })
 
-    it('should not export key with wrong wallet', async () => {
-      const exportKey = await admin.onrequest(REQ_EXPORT_RECOVERY_PHRASE(4, 'Wrong wallet', passphrase))
-      expect(exportKey.error).toMatchObject({
-        code: 1,
-        message: expect.stringMatching(/Cannot find wallet \"Wrong wallet\"./)
-      })
-    })
-
-    it('should not export key with wrong passphrase', async () => {
-      const exportKey = await admin.onrequest(REQ_EXPORT_RECOVERY_PHRASE(4, 'Wallet 1', 'wrong-passphrase'))
-      expect(exportKey.error).toEqual({
-        code: 1,
-        message: 'Invalid passphrase or corrupted storage'
-      })
-    })
-
-    it('should export key', async () => {
-      const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, passphrase))
-      expect(exportKey.error).toBeUndefined()
-      expect(exportKey.result.publicKey).toBe(key.publicKey)
-      expect(exportKey.result.secretKey).not.toBeNull()
+  it('should not export key with wrong wallet', async () => {
+    const exportKey = await admin.onrequest(REQ_EXPORT_RECOVERY_PHRASE(4, 'Wrong wallet', passphrase))
+    expect(exportKey.error).toMatchObject({
+      code: 1,
+      message: expect.stringMatching(/Cannot find wallet "Wrong wallet"./)
     })
   })
 
-  describe('admin.rename_key', () => {
-    const passphrase = 'foo'
-    let admin
-    let key
-    beforeEach(async () => {
-      const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
-      admin = setupAdmin
-      key = setupKey
+  it('should not export key with wrong passphrase', async () => {
+    const exportKey = await admin.onrequest(REQ_EXPORT_RECOVERY_PHRASE(4, 'Wallet 1', 'wrong-passphrase'))
+    expect(exportKey.error).toEqual({
+      code: 1,
+      message: 'Invalid passphrase or corrupted storage'
     })
+  })
+
+  it('should export key', async () => {
+    const exportKey = await admin.onrequest(REQ_EXPORT_KEY(4, key.publicKey, passphrase))
+    expect(exportKey.error).toBeUndefined()
+    expect(exportKey.result.publicKey).toBe(key.publicKey)
+    expect(exportKey.result.secretKey).not.toBeNull()
+  })
+})
+
+describe('admin.rename_key', () => {
+  const passphrase = 'foo'
+  let admin
+  let key
+  beforeEach(async () => {
+    const { admin: setupAdmin, key: setupKey } = await setupWallet(passphrase)
+    admin = setupAdmin
+    key = setupKey
+  })
 
   afterEach(() => {
     admin = null

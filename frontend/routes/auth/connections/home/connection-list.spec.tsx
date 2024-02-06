@@ -25,25 +25,26 @@ describe('ConnectionList', () => {
 
   it('renders list of connections passed in with image', () => {
     renderComponent({
-      removeConnection: () => {},
       connections: [
         {
-          id: 'foo',
           allowList: {
             publicKeys: [],
             wallets: ['Wallet 1']
           },
           accessedAt: Date.now(),
-          origin: 'https://vega.xyz'
+          origin: 'https://vega.xyz',
+          chainId: 'foo',
+          networkId: 'bar'
         },
         {
-          id: 'bar',
           allowList: {
             publicKeys: [],
             wallets: ['Wallet 1']
           },
           accessedAt: Date.now(),
-          origin: 'foo.com'
+          origin: 'foo.com',
+          chainId: 'foo',
+          networkId: 'bar'
         }
       ]
     })
@@ -55,57 +56,4 @@ describe('ConnectionList', () => {
     const images = screen.getAllByTestId(hostImageLocators.hostImage)
     expect(images).toHaveLength(2)
   })
-
-  it('calls remove connection when cross button is clicked', async () => {
-    const mockRemoveConnection = jest.fn()
-    const connections = [
-      {
-        id: 'foo',
-        allowList: {
-          publicKeys: [],
-          wallets: ['Wallet 1']
-        },
-        origin: 'https://vega.xyz',
-        accessedAt: Date.now()
-      },
-      {
-        id: 'bar',
-        allowList: {
-          publicKeys: [],
-          wallets: ['Wallet 1']
-        },
-        accessedAt: Date.now(),
-        origin: 'foo.com'
-      }
-    ]
-    renderComponent({
-      removeConnection: mockRemoveConnection,
-      connections
-    })
-    fireEvent.click(screen.getAllByTestId(locators.connectionRemoveConnection)[0])
-    expect(mockRemoveConnection).toHaveBeenCalledWith(connections[0])
-  })
-
-  // TODO replace in the connection details screen
-  // it('renders last accessed at time', () => {
-  //   render(
-  //     <ConnectionsList
-  //       removeConnection={() => {}}
-  //       connections={[
-  //         {
-  //           id: 'foo',
-  //           allowList: {
-  //             publicKeys: [],
-  //             wallets: ['Wallet 1']
-  //           },
-  //           origin: 'https://vega.xyz',
-  //           accessedAt: Date.now()
-  //         }
-  //       ]}
-  //     />
-  //   )
-  //   expect(screen.getByTestId(locators.connectionLastConnected)).toHaveTextContent(
-  //     'Last connected: 1/1/2021 · 12:00:00 AM'
-  //   )
-  // })
 })

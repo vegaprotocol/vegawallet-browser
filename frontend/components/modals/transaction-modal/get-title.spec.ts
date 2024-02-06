@@ -43,6 +43,42 @@ describe('getTitle', () => {
     expect(getTitle(transaction as any)).toBe('Close Position')
   })
 
+  it('should return "Update team" when updateReferralSet has isTeam true', () => {
+    const transaction = {
+      [TransactionKeys.UPDATE_REFERRAL_SET]: {
+        isTeam: true
+      }
+    }
+    expect(getTitle(transaction as any)).toBe('Update Team')
+  })
+
+  it('should return "Update referral set" when updateReferralSet has isTeam true', () => {
+    const transaction = {
+      [TransactionKeys.UPDATE_REFERRAL_SET]: {
+        isTeam: false
+      }
+    }
+    expect(getTitle(transaction as any)).toBe('Update Referral Set')
+  })
+
+  it('should return "Create team" when updateReferralSet has isTeam true', () => {
+    const transaction = {
+      [TransactionKeys.CREATE_REFERRAL_SET]: {
+        isTeam: true
+      }
+    }
+    expect(getTitle(transaction as any)).toBe('Update Team')
+  })
+
+  it('should return "Create referral set" when updateReferralSet has isTeam true', () => {
+    const transaction = {
+      [TransactionKeys.CREATE_REFERRAL_SET]: {
+        isTeam: false
+      }
+    }
+    expect(getTitle(transaction as any)).toBe('Create Referral Set')
+  })
+
   it('should return "Unknown" for unrecognized TransactionKeys', () => {
     const transaction = {
       [TransactionKeys.UNKNOWN]: {}

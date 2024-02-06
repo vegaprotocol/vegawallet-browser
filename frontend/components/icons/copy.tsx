@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import locators from '../locators'
 import { className as defaultClassName } from './style'
 
-export function Copy({ className }: { className?: string }) {
+export function Copy({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       data-testid={locators.copyIcon}

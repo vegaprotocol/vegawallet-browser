@@ -18,7 +18,7 @@ export function AsyncRenderer({
   error = null,
   loading = false,
   noData = false
-}: AsyncRendererProperties) {
+}: Readonly<AsyncRendererProperties>) {
   if (loading) return renderLoading ? <>{renderLoading()}</> : null
   if (error) return errorView ? <>{errorView(error)}</> : null
   if (noData) return renderNoData ? <>{renderNoData()}</> : null

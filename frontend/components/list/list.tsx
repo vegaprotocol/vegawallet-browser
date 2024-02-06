@@ -9,13 +9,13 @@ export function List<T>({
   empty,
   idProp,
   renderItem
-}: {
+}: Readonly<{
   items: T[]
   empty?: ReactNode
   idProp: keyof T
   renderItem: (item: T) => ReactNode
   className?: string
-}) {
+}>) {
   if (items.length === 0) {
     return <>{empty}</>
   }

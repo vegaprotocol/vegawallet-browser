@@ -8,6 +8,7 @@ import { LoadingButton } from '@/components/loading-button'
 import { StarsWrapper } from '@/components/stars-wrapper'
 import { VegaHeader } from '@/components/vega-header'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { RpcMethods } from '@/lib/client-rpc-methods'
 import { Validation } from '@/lib/form-validation'
 import { REJECTION_ERROR_MESSAGE } from '@/lib/utils'
 import { useGlobalsStore } from '@/stores/globals'
@@ -41,7 +42,7 @@ export const Login = () => {
   const submit = async (fields: { passphrase: string }) => {
     try {
       setLoading(true)
-      await request('admin.unlock', { passphrase: fields.passphrase }, true)
+      await request(RpcMethods.Unlock, { passphrase: fields.passphrase }, true)
       await loadGlobals(request)
       navigate(FULL_ROUTES.home)
     } catch (error) {

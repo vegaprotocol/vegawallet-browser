@@ -24,6 +24,8 @@ jest.mock('./onboarding/import-wallet')
 jest.mock('./onboarding/save-mnemonic')
 jest.mock('./onboarding/telemetry')
 
+jest.mock('./auth/transactions')
+
 describe('Routes', () => {
   it('calls persist location', () => {
     render(

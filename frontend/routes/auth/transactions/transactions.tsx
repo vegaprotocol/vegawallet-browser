@@ -14,7 +14,7 @@ export const Transactions = () => {
     <BasePage dataTestId={locators.transactions} title="Transactions">
       <div className="mt-6">
         <p data-testid={locators.transactionsDescription}>
-          You can view all of your transactions since the last network reset on the block explorer.
+          You can view your transactions for your keys on the block explorer.
         </p>
 
         <div className="mt-6">

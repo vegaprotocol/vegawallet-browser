@@ -24,7 +24,7 @@ export const mainnet = {
   ethereumExplorerLink: 'https://etherscan.io',
   explorer: 'https://explorer.vega.xyz',
   governance: 'https://governance.vega.xyz',
-  docs: 'https://docs.vega.xyz/mainnet',
+  docs: 'https://docs.vega.xyz/mainnet/concepts/new-to-vega',
   vegaDapps: 'https://vega.xyz/apps'
 }
 
@@ -46,7 +46,7 @@ export const fairground = {
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
   explorer: 'https://explorer.fairground.wtf',
   governance: 'https://governance.fairground.wtf',
-  docs: 'https://docs.vega.xyz/testnet',
+  docs: 'https://docs.vega.xyz/testnet/concepts/new-to-vega',
   vegaDapps: 'https://vega.xyz/apps'
 }
 

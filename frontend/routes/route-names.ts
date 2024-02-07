@@ -53,5 +53,7 @@ export const FULL_ROUTES = {
   wallets: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.wallets}`,
   connections: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.connections}`,
   settings: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.settings}`,
-  networksSettings: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.settings}/${ROUTE_NAMES.networks}`
+  networksSettings: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.settings}/${ROUTE_NAMES.networks}`,
+  connections: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.connections}`,
+  transactions: `/${ROUTE_NAMES.auth}/${ROUTE_NAMES.transactions}`
 }

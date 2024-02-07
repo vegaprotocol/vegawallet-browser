@@ -201,7 +201,7 @@ describe('admin-ns', () => {
           _nodeTimeout: null,
           chainId: 'test-chain-id',
           console: 'https://console.fairground.wtf',
-          docs: 'https://docs.vega.xyz/testnet',
+          docs: 'https://docs.vega.xyz/testnet/concepts/new-to-vega',
           ethereumExplorerLink: 'https://sepolia.etherscan.io',
           explorer: 'https://explorer.fairground.wtf',
           governance: 'https://governance.fairground.wtf',

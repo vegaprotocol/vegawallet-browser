@@ -32,7 +32,7 @@ describe('Transactions', () => {
     renderComponent()
     expect(screen.getByTestId(locators.transactions)).toBeVisible()
     expect(screen.getByTestId(locators.transactionsDescription)).toHaveTextContent(
-      'You can view your transactions for your keys on the block explorer.'
+      'View your historical transactions on the block explorer.'
     )
     expect(screen.getAllByTestId(partyLinkLocators.partyLink)).toHaveLength(2)
   })

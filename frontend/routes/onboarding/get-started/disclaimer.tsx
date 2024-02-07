@@ -1,11 +1,15 @@
 import { ButtonLink, Dialog } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
 
+import { ExternalLink } from '@/components/external-link'
+
 export const locators = {
   disclaimerText: 'disclaimer-text',
   dialog: 'disclaimer-dialog',
   readMoreButton: 'read-more-button',
-  previewText: 'preview-text'
+  previewText: 'preview-text',
+  dataPolicyLink: 'data-policy-link',
+  feedbackLink: 'feedback-link'
 }
 
 export const DisclaimerText = () => {
@@ -42,9 +46,17 @@ export const DisclaimerText = () => {
       </p>
       <p className="mb-2">
         By using the Vega Wallet, you acknowledge that you have read and understood the Vega Wallet User Data Policy
-        here: https://vega.xyz/vega-wallet-user-data-policy/
+        here:{' '}
+        <ExternalLink data-testid={locators.dataPolicyLink} href="https://vega.xyz/vega-wallet-user-data-policy/">
+          https://vega.xyz/vega-wallet-user-data-policy/
+        </ExternalLink>
       </p>
-      <p className="mb-2">Spot an issue? Provide feedback here: https://github.com/vegaprotocol/feedback/discussions</p>
+      <p className="mb-2">
+        Spot an issue? Provide feedback here:{' '}
+        <ExternalLink data-testid={locators.feedbackLink} href="https://github.com/vegaprotocol/feedback/discussions">
+          https://github.com/vegaprotocol/feedback/discussions
+        </ExternalLink>
+      </p>
     </section>
   )
 }

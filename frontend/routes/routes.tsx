@@ -3,8 +3,9 @@ import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import { usePersistLocation } from '@/hooks/persist-location'
 
 import { Auth } from './auth'
-import { Connections } from './auth/connections/home'
-import { Settings } from './auth/settings/home'
+import { Connections } from './auth/connections'
+import { Settings } from './auth/settings'
+import { Transactions } from './auth/transactions'
 import { NetworkSettings } from './auth/settings/networks/home'
 import { NetworkDetails } from './auth/settings/networks/network-details'
 import { WalletsRoot } from './auth/wallets'
@@ -41,6 +42,7 @@ export const Routing = () => {
               <Route path={':id'} element={<NetworkDetails />} />
             </Route>
           </Route>
+          <Route path={ROUTES.transactions} element={<Transactions />} />
         </Route>
         <Route path={ROUTES.onboarding} element={<Outlet />}>
           <Route index element={<Navigate to={FULL_ROUTES.getStarted} />} />

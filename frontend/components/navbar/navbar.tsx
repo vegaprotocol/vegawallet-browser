@@ -4,6 +4,7 @@ import type { To } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 
 import { FULL_ROUTES } from '../../routes/route-names'
+import { LeftRightArrows } from '../icons/left-right-arrows'
 import { Settings } from '../icons/settings'
 import { UpDownArrows } from '../icons/up-down-arrows'
 import { Wallet } from '../icons/wallet'
@@ -56,7 +57,7 @@ export const NavBar = ({ isFairground }: { isFairground: boolean }) => {
   return (
     <nav
       data-testid={locators.navBar}
-      className={classnames('z-[5] w-full h-20 grid gap-0 grid-cols-3 border-t border-vega-dark-200', {
+      className={classnames('z-[5] w-full h-20 grid gap-0 grid-cols-4 border-t border-vega-dark-200', {
         'bg-black': !isFairground,
         'bg-vega-yellow-500': isFairground
       })}
@@ -72,6 +73,12 @@ export const NavBar = ({ isFairground }: { isFairground: boolean }) => {
         icon={<UpDownArrows className="m-auto" />}
         to={{ pathname: FULL_ROUTES.connections }}
         text="Connections"
+      />
+      <NavButton
+        isFairground={isFairground}
+        icon={<LeftRightArrows className="m-auto" />}
+        to={{ pathname: FULL_ROUTES.transactions }}
+        text="Transactions"
       />
       <NavButton
         isFairground={isFairground}

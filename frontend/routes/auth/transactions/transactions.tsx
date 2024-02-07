@@ -3,7 +3,8 @@ import { PartyLink } from '@/components/vega-entities/party-link'
 import { useWalletStore } from '@/stores/wallets'
 
 export const locators = {
-  transactions: 'transactions'
+  transactions: 'transactions',
+  transactionsDescription: 'transactions-description'
 }
 
 export const Transactions = () => {
@@ -12,7 +13,9 @@ export const Transactions = () => {
   return (
     <BasePage dataTestId={locators.transactions} title="Transactions">
       <div className="mt-6">
-        <p>You can view all of your transactions since the last network reset on the block explorer.</p>
+        <p data-testid={locators.transactionsDescription}>
+          You can view all of your transactions since the last network reset on the block explorer.
+        </p>
 
         <div className="mt-6">
           {keys.map((key) => (

@@ -45,7 +45,7 @@ describe('Settings', () => {
     renderComponent()
     expect(screen.getByTestId('version-section')).toBeVisible()
     expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
-    expect(screen.getAllByTestId('radio')).toHaveLength(2)
+    expect(screen.getAllByTestId('radio')).toHaveLength(3)
     expect(screen.getByTestId('lock-section')).toBeVisible()
   })
 
@@ -59,7 +59,7 @@ describe('Settings', () => {
     renderComponent()
     expect(screen.getByTestId('version-section')).toBeVisible()
     expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
-    expect(screen.getAllByTestId('radio')).toHaveLength(1)
+    expect(screen.getAllByTestId('radio')).toHaveLength(2)
     expect(screen.getByTestId('lock-section')).toBeVisible()
   })
 })

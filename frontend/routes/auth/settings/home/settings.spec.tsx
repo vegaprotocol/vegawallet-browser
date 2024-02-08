@@ -6,8 +6,7 @@ import { useGlobalsStore } from '@/stores/globals'
 import { mockClient } from '@/test-helpers/mock-client'
 import { mockStore } from '@/test-helpers/mock-store'
 
-import { Settings } from '.'
-import { locators } from './settings'
+import { locators, Settings } from './settings'
 
 jest.mock('@/stores/globals')
 jest.mock('./sections/version-section', () => ({
@@ -47,6 +46,7 @@ describe('Settings', () => {
     expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
     expect(screen.getAllByTestId('radio')).toHaveLength(3)
     expect(screen.getByTestId('lock-section')).toBeVisible()
+    expect(screen.getByTestId('export-recovery-phrase-section')).toBeVisible()
   })
 
   it('does not render pop out settings on mobile', () => {

@@ -9,8 +9,7 @@ import { Connection } from '@/types/backend'
 export const locators = {
   connectionDetails: 'connection-details',
   connectionOrigin: 'connections-connection',
-  connectionRemoveConnection: 'connections-remove-connection',
-  connectionLastConnected: 'connections-last-connected'
+  connectionDetailsView: 'connection-details-view'
 }
 
 export interface ConnectionsListProperties {
@@ -40,6 +39,7 @@ export const ConnectionsList = ({ connections }: ConnectionsListProperties) => {
                 {connection.origin}
               </div>
               <NavLink
+                data-testid={locators.connectionDetailsView}
                 className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
                 to={`${FULL_ROUTES.connections}/${encodeURIComponent(connection.origin)}`}
               >

@@ -61,7 +61,10 @@ describe('ConnectionDetails', () => {
     })
     renderComponent()
     const sections = await screen.findAllByTestId(vegaSectionLocators.vegaSection)
-    const [lastAccessed, chainId, networkId] = sections
+    const [origin, lastAccessed, chainId, networkId] = sections
+    expect(within(origin).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Origin')
+    expect(within(origin).getByTestId(locators.origin)).toHaveTextContent('test')
+
     expect(within(lastAccessed).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Last accessed')
     expect(within(lastAccessed).getByTestId(locators.accessedAt)).toHaveTextContent('1/1/1970, 12:00:00 AM')
 
@@ -76,10 +79,10 @@ describe('ConnectionDetails', () => {
     expect(screen.getByTestId(locators.removeConnection)).toHaveTextContent('Remove connection')
   })
   it('allows removing of connection', () => {
-    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('test') })
+    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('http://foo.com') })
     const removeConnection = jest.fn()
     const connection = {
-      origin: 'test',
+      origin: 'http://foo.com',
       accessedAt: 0,
       chainId: 'chainId',
       networkId: 'networkId'

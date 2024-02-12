@@ -12,9 +12,19 @@ import { useConnectionStore } from '@/stores/connections'
 export const locators = {
   connectionDetails: 'connection-details',
   accessedAt: 'accessed-at',
+  origin: 'origin',
   chainId: 'chain-id',
   networkId: 'network-id',
   removeConnection: 'remove-connection'
+}
+
+const getTitle = (origin: string) => {
+  try {
+    const url = new URL(origin)
+    return url.hostname
+  } catch {
+    return origin
+  }
 }
 
 export const ConnectionDetails = () => {
@@ -32,7 +42,17 @@ export const ConnectionDetails = () => {
   if (!connection) throw new Error(`Could not find connection with origin ${connectionOrigin}`)
 
   return (
-    <BasePage backLocation={FULL_ROUTES.connections} dataTestId={locators.connectionDetails} title={connection.origin}>
+    <BasePage
+      backLocation={FULL_ROUTES.connections}
+      dataTestId={locators.connectionDetails}
+      title={getTitle(connection.origin)}
+    >
+      <VegaSection>
+        <SubHeader content="Origin" />
+        <div className="text-white mt-1" data-testid={locators.origin}>
+          {connection.origin}
+        </div>
+      </VegaSection>
       <VegaSection>
         <SubHeader content="Last accessed" />
         <div className="text-white mt-1" data-testid={locators.accessedAt}>

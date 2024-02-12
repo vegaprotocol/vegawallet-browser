@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { MemoryRouter, useParams } from 'react-router-dom'
 
 import { locators as vegaSubHeaderLocators } from '@/components/sub-header'
@@ -78,7 +78,7 @@ describe('ConnectionDetails', () => {
 
     expect(screen.getByTestId(locators.removeConnection)).toHaveTextContent('Remove connection')
   })
-  it('allows removing of connection', () => {
+  it('allows removing of connection', async () => {
     ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('http://foo.com') })
     const removeConnection = jest.fn()
     const connection = {
@@ -95,6 +95,29 @@ describe('ConnectionDetails', () => {
     renderComponent()
     const removeButton = screen.getByTestId(locators.removeConnection)
     fireEvent.click(removeButton)
-    expect(removeConnection).toHaveBeenCalledWith(request, connection)
+    await waitFor(() => expect(removeConnection).toHaveBeenCalledWith(request, connection))
+  })
+  it('throws error if error from remove connection', () => {
+    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('http://foo.com') })
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const removeConnection = () => {
+      throw new Error('Error')
+    }
+    const connection = {
+      origin: 'http://foo.com',
+      accessedAt: 0,
+      chainId: 'chainId',
+      networkId: 'networkId'
+    }
+    mockStore(useConnectionStore, {
+      connections: [connection],
+      loading: false,
+      removeConnection
+    })
+    const { container } = renderComponent()
+    const removeButton = screen.getByTestId(locators.removeConnection)
+    fireEvent.click(removeButton)
+    // Threw error and removed all UI
+    expect(container).toBeEmptyDOMElement()
   })
 })

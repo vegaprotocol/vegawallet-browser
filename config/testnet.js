@@ -1,7 +1,7 @@
 import * as networks from './well-known-networks.js'
 
 const testnet = {
-  title: 'Vega Wallet - Fairground',
+  title: 'Vega Wallet - Beta',
   defaultNetworkId: networks.fairground.id,
   defaultChainId: networks.fairground.chainId,
   networks: [

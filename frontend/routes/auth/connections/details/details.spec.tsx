@@ -3,6 +3,7 @@ import { MemoryRouter, useParams } from 'react-router-dom'
 
 import { locators as vegaSubHeaderLocators } from '@/components/sub-header'
 import { locators as vegaSectionLocators } from '@/components/vega-section'
+import { useAsyncAction } from '@/hooks/async-action'
 import { useConnectionStore } from '@/stores/connections'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
@@ -14,6 +15,8 @@ jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
   useJsonRpcClient: () => ({ request })
 }))
 
+jest.mock('@/hooks/async-action')
+
 jest.mock('@/stores/connections')
 
 jest.mock('react-router-dom', () => ({
@@ -21,7 +24,15 @@ jest.mock('react-router-dom', () => ({
   useParams: jest.fn()
 }))
 
-const renderComponent = () => {
+const defaultImplementation = (function_: any) => ({
+  error: null,
+  loading: false,
+  data: null,
+  loaderFunction: function_
+})
+
+const renderComponent = (async: typeof useAsyncAction = defaultImplementation) => {
+  ;(useAsyncAction as jest.Mock).mockImplementation(async)
   return render(
     <MemoryRouter>
       <ConnectionDetails />
@@ -97,12 +108,8 @@ describe('ConnectionDetails', () => {
     fireEvent.click(removeButton)
     await waitFor(() => expect(removeConnection).toHaveBeenCalledWith(request, connection))
   })
-  it('throws error if error from remove connection', () => {
+  it('throws error if error from remove connection', async () => {
     ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('http://foo.com') })
-    // eslint-disable-next-line unicorn/consistent-function-scoping
-    const removeConnection = () => {
-      throw new Error('Error')
-    }
     const connection = {
       origin: 'http://foo.com',
       accessedAt: 0,
@@ -112,12 +119,15 @@ describe('ConnectionDetails', () => {
     mockStore(useConnectionStore, {
       connections: [connection],
       loading: false,
-      removeConnection
+      removeConnection: jest.fn()
     })
-    const { container } = renderComponent()
-    const removeButton = screen.getByTestId(locators.removeConnection)
-    fireEvent.click(removeButton)
-    // Threw error and removed all UI
-    expect(container).toBeEmptyDOMElement()
+    expect(() =>
+      renderComponent((function_: any) => ({
+        error: new Error('Err'),
+        data: null,
+        loading: false,
+        loaderFunction: function_
+      }))
+    ).toThrow('Err')
   })
 })

@@ -1,13 +1,16 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 
 import { BasePage } from '@/components/pages/page'
 import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import { useAsyncAction } from '@/hooks/async-action'
 import { formatDate } from '@/lib/utils'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { useConnectionStore } from '@/stores/connections'
+import { Connection } from '@/types/backend'
 
 export const locators = {
   connectionDetails: 'connection-details',
@@ -37,7 +40,23 @@ export const ConnectionDetails = () => {
     removeConnection: state.removeConnection,
     loading: state.loading
   }))
-  if (loading) return null
+  const navigate = useNavigate()
+  const {
+    loading: removingConnection,
+    loaderFunction,
+    error
+  } = useAsyncAction<
+    void,
+    {
+      request: SendMessage
+      connection: Connection
+    }
+  >(async ({ request, connection }) => {
+    await navigate(FULL_ROUTES.connections)
+    await removeConnection(request, connection)
+  })
+  if (error) throw error
+  if (loading || removingConnection) return null
   const connection = connections.find((c) => c.origin === connectionOrigin)
   if (!connection) throw new Error(`Could not find connection with origin ${connectionOrigin}`)
 
@@ -79,8 +98,8 @@ export const ConnectionDetails = () => {
       </VegaSection>
       <Button
         data-testid={locators.removeConnection}
-        onClick={() => removeConnection(request, connection)}
-        className="w-full"
+        onClick={() => loaderFunction({ request, connection })}
+        className="w-full mb-6"
         variant="secondary"
       >
         Remove connection

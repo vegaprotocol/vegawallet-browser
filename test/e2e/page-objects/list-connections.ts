@@ -15,7 +15,7 @@ export class ListConnections {
   private readonly noConnections: By = getByDataTestID(noConnectionsLocators.connectionsNoConnections)
   private readonly connectionsHeader: By = getByDataTestID(connectionsLocators.connectionsHeader)
   private readonly connections: By = getByDataTestID('list-item')
-  private readonly connectionsRemoveConnection: By = getByDataTestID(connectionsListLocators.connectionRemoveConnection)
+  private readonly connectionsRemoveConnection: By = getByDataTestID(connectionsListLocators.connectionDetailsView)
 
   constructor(private readonly driver: WebDriver) {}
 

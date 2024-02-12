@@ -16,10 +16,10 @@ const renderNavButton = (properties: NavButtonProperties, initialEntries: string
     </MemoryRouter>
   )
 
-const renderNav = ({ isFairground }: { isFairground: boolean }) =>
+const renderNav = () =>
   render(
     <MemoryRouter>
-      <NavBar isFairground={isFairground} />
+      <NavBar />
     </MemoryRouter>
   )
 
@@ -30,8 +30,7 @@ describe('NavButton', () => {
       {
         icon: icon,
         text: 'Test Button',
-        to: '/',
-        isFairground: false
+        to: '/'
       },
       ['/foo']
     )
@@ -48,34 +47,18 @@ describe('NavButton', () => {
       {
         icon: icon,
         text: 'Test Button',
-        to: '/settings',
-        isFairground: false
+        to: '/settings'
       },
       ['/settings']
     )
 
     expect(screen.getByTestId('link-active')).toHaveClass('bg-vega-yellow')
   })
-
-  it('changes style when in fairground mode', () => {
-    const icon = <svg data-testid="test-icon" />
-    renderNavButton(
-      {
-        icon: icon,
-        text: 'Test Button',
-        to: '/settings',
-        isFairground: true
-      },
-      ['/settings']
-    )
-
-    expect(screen.getByTestId('link-active')).toHaveClass('bg-black')
-  })
 })
 
 describe('NavBar', () => {
   it('renders with all three NavButtons', () => {
-    renderNav({ isFairground: false })
+    renderNav()
     expect(screen.getByTestId('nav-bar')).toBeInTheDocument()
     expect(screen.getByTestId('nav-bar')).toHaveClass('bg-black')
     expect(screen.getAllByTestId('nav-button')).toHaveLength(4)
@@ -84,10 +67,5 @@ describe('NavBar', () => {
     expect(connections).toHaveTextContent('Connections')
     expect(transactions).toHaveTextContent('Transactions')
     expect(settings).toHaveTextContent('Settings')
-  })
-
-  it('changes color if in fairground mode', () => {
-    renderNav({ isFairground: true })
-    expect(screen.getByTestId('nav-bar')).toHaveClass('bg-vega-yellow-500')
   })
 })

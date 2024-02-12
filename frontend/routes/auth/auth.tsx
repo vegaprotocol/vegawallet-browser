@@ -67,7 +67,7 @@ export const Auth = () => {
           <Outlet />
         </div>
       </section>
-      <NavBar isFairground={false} />
+      <NavBar />
     </div>
   )
 }

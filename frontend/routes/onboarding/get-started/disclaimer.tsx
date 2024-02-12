@@ -47,14 +47,22 @@ export const DisclaimerText = () => {
       <p className="mb-2">
         By using the Vega Wallet, you acknowledge that you have read and understood the Vega Wallet User Data Policy
         here:{' '}
-        <ExternalLink data-testid={locators.dataPolicyLink} href="https://vega.xyz/vega-wallet-user-data-policy/">
-          https://vega.xyz/vega-wallet-user-data-policy/
+        <ExternalLink
+          className="underline"
+          data-testid={locators.dataPolicyLink}
+          href="https://vega.xyz/vega-wallet-user-data-policy/"
+        >
+          <>https://vega.xyz/vega-wallet-user-data-policy/</>
         </ExternalLink>
       </p>
       <p className="mb-2">
         Spot an issue? Provide feedback here:{' '}
-        <ExternalLink data-testid={locators.feedbackLink} href="https://github.com/vegaprotocol/feedback/discussions">
-          https://github.com/vegaprotocol/feedback/discussions
+        <ExternalLink
+          className="underline"
+          data-testid={locators.feedbackLink}
+          href="https://github.com/vegaprotocol/feedback/discussions"
+        >
+          <>https://github.com/vegaprotocol/feedback/discussions</>
         </ExternalLink>
       </p>
     </section>

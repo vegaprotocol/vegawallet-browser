@@ -109,9 +109,9 @@ describe('ConnectionDetails', () => {
     await waitFor(() => expect(removeConnection).toHaveBeenCalledWith(request, connection))
   })
   it('throws error if error from remove connection', async () => {
-    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('http://foo.com') })
+    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('https://foo.com') })
     const connection = {
-      origin: 'http://foo.com',
+      origin: 'https://foo.com',
       accessedAt: 0,
       chainId: 'chainId',
       networkId: 'networkId'

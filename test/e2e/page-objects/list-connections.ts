@@ -1,6 +1,7 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import {
   clickDescendantOfWebElement,
+  clickElement,
   getByDataTestID,
   getElements,
   getWebElementContainingText,
@@ -10,6 +11,7 @@ import {
 import { locators as noConnectionsLocators } from '../../../frontend/routes/auth/connections/home/no-dapps-connected'
 import { locators as connectionsLocators } from '../../../frontend/routes/auth/connections/home'
 import { locators as connectionsListLocators } from '../../../frontend/routes/auth/connections/home/connection-list'
+import { locators as connectionDetailsLocator } from '../../../frontend/routes/auth/connections/details/details'
 
 export class ListConnections {
   private readonly noConnections: By = getByDataTestID(noConnectionsLocators.connectionsNoConnections)
@@ -72,5 +74,6 @@ export class ListConnections {
   async disconnectConnection(connectionName: string) {
     const connection = await getWebElementContainingText(connectionName, this.driver, this.connections)
     await clickDescendantOfWebElement(this.driver, connection, this.connectionsRemoveConnection)
+    await clickElement(this.driver, getByDataTestID(connectionDetailsLocator.removeConnection))
   }
 }

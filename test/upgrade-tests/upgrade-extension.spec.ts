@@ -15,6 +15,7 @@ import { Settings } from '../e2e/page-objects/settings'
 import { Login } from '../e2e/page-objects/login'
 import { APIHelper } from '../e2e/helpers/wallet/wallet-api'
 import { fairground, mainnet } from '../../config/well-known-networks'
+import config from '../../config/testnet'
 
 describe('Check migration of settings after upgrade', () => {
   let driver: WebDriver
@@ -56,19 +57,14 @@ describe('Check migration of settings after upgrade', () => {
 
   it('adjusts the networks as required', async () => {
     const networks = await apiHelper.listNetworks()
-    expect(networks).toStrictEqual([
-      {
-        ...fairground,
+    const { networks: configNetworks } = config
+    expect(networks).toStrictEqual(
+      configNetworks.map((n) => ({
+        ...n,
         _nodeTimeout: expect.any(Number),
         preferredNode: expect.any(String),
         probing: expect.any(Boolean)
-      },
-      {
-        ...mainnet,
-        // Never used so default values
-        _nodeTimeout: null,
-        probing: false
-      }
-    ])
+      }))
+    )
   })
 })

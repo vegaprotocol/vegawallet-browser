@@ -143,12 +143,20 @@ describe('Check migration of settings after upgrade', () => {
     const networks = await apiHelper.listNetworks()
     const { networks: configNetworks } = config
 
-    expect(networks.sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))).toStrictEqual(
-      configNetworks
-        .sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))
+    expect(
+      networks
         .map((n) => {
           // @ts-ignore
           delete n.preferredNode
+          return {
+            ...n
+          }
+        })
+        .sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))
+    ).toStrictEqual(
+      configNetworks
+        .sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))
+        .map((n) => {
           return {
             ...n,
             // @ts-ignore

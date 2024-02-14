@@ -82,8 +82,8 @@ const migrations = [
       for (const network of config.networks) {
         await networks.set(network.id, network)
       }
-      await settings.set('showHiddenNetworks', false)
       await store.set('version', 3)
+      await store.set('showHiddenNetworks', false)
     })
   }
 ]
@@ -91,7 +91,6 @@ const migrations = [
 // Migration function, add more dependencies as needed for migrations
 export async function update(stores) {
   const previousVersion = (await stores.settings.get('version')) ?? 0
-
   for (let i = previousVersion; i < migrations.length; i++) {
     await migrations[i](stores)
   }

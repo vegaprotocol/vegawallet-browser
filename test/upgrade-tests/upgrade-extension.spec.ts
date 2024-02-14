@@ -58,6 +58,7 @@ describe('Check migration of settings after upgrade', () => {
   it('adjusts the networks as required', async () => {
     const networks = await apiHelper.listNetworks()
     const { networks: configNetworks } = config
+    console.log(networks, configNetworks)
     expect(networks).toStrictEqual(
       configNetworks.map((n) => ({
         ...n,

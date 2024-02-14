@@ -151,8 +151,6 @@ describe('Check migration of settings after upgrade', () => {
           // @ts-ignore
           _nodeTimeout: expect.nullOrAny(Number),
           // @ts-ignore
-          preferredNode: expect.nullOrAny(String),
-          // @ts-ignore
           probing: expect.nullOrAny(Boolean)
         }))
     )

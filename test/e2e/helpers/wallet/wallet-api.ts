@@ -1,6 +1,7 @@
 import { WebDriver } from 'selenium-webdriver'
 import { RpcMethods } from '../../../../frontend/lib/client-rpc-methods'
 import { defaultPassword } from './common-wallet-values'
+import { Network } from '../../../../frontend/types/backend'
 export class APIHelper {
   private driver: WebDriver
 
@@ -70,7 +71,7 @@ export class APIHelper {
   }
 
   async listNetworks() {
-    return await this.driver.executeAsyncScript<any>(async (callback: (arg0: any) => void) => {
+    return await this.driver.executeAsyncScript<Network[]>(async (callback: (arg0: any) => void) => {
       const { networks } = await window.client.request('admin.list_networks', null)
       callback(networks)
     })

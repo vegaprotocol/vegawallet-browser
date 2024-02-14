@@ -174,6 +174,18 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         return { recoveryPhrase: await wallets.generateRecoveryPhrase() }
       },
 
+      async 'admin.delete_wallet'(params) {
+        doValidate(adminValidation.deleteWallet, params)
+
+        try {
+          await wallets.store.delete(params.name)
+        } catch (ex) {
+          throw new JSONRPCServer.Error(ex.message, 1)
+        }
+
+        return null
+      },
+
       async 'admin.import_wallet'(params) {
         doValidate(adminValidation.importWallet, params)
 

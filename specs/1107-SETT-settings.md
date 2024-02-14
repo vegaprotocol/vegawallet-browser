@@ -17,3 +17,8 @@ As a wallet user I want to understand the version # I am using So that I can tro
 - I can see the feedback link (<a name="1107-SETT-008" href="#1107-SETT-008">1107-SETT-008</a>)
 - I can see a lock button and when I press it I am logged out and redirected to the login page (<a name="1107-SETT-009" href="#1107-SETT-009">1107-SETT-009</a>)
 - There is a setting to display development networks (<a name="1107-SETT-010" href="#1107-SETT-010">1107-SETT-010</a>)
+
+## Enable development networks
+
+- I can navigate to the settings page and enable development networks (<a name="1107-SETT-011" href="#1107-SETT-011">1107-SETT-011</a>)
+- When development networks are enabled I can see the development networks in the network dropdown (<a name="1107-SETT-012" href="#1107-SETT-012">1107-SETT-012</a>)

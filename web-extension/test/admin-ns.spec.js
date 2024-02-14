@@ -14,13 +14,14 @@ import { testingNetwork } from '../../config/well-known-networks.js'
 const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   const publicKeyIndexStore = new ConcurrentStorage(new Map())
+  const wallets = new WalletCollection({
+    walletsStore: enc,
+    publicKeyIndexStore
+  })
   const server = initAdminServer({
     encryptedStore: enc,
     settings: new ConcurrentStorage(new Map([['selectedNetwork', 'fairground']])),
-    wallets: new WalletCollection({
-      walletsStore: enc,
-      publicKeyIndexStore
-    }),
+    wallets,
     connections: new ConnectionsCollection({
       connectionsStore: new ConcurrentStorage(new Map()),
       publicKeyIndexStore
@@ -51,7 +52,9 @@ const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = 
     })
   }
 
-  return server
+  return {
+    admin: server
+  }
 }
 
 // Request templates to make it easier to read the tests
@@ -121,6 +124,13 @@ const REQ_LIST_KEYS = (id, wallet = 'Wallet 1') => ({
   }
 })
 
+const REQ_LIST_WALLETS = (id) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.list_wallets',
+  params: null
+})
+
 const REQ_FETCH = (id, path) => ({
   jsonrpc: '2.0',
   id,
@@ -136,7 +146,7 @@ describe('admin-ns', () => {
     jest.clearAllMocks()
   })
   it('should return app globals', async () => {
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
     const appGlobals = await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.app_globals', params: null }, {})
     expect(appGlobals.result.passphrase).toBe(false)
     expect(appGlobals.result.wallet).toBe(false)
@@ -146,7 +156,7 @@ describe('admin-ns', () => {
   })
 
   it('should update app settings', async () => {
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
     const updateAppSettings = await admin.onrequest({
       jsonrpc: '2.0',
       id: 1,
@@ -160,7 +170,7 @@ describe('admin-ns', () => {
   })
 
   it('should create passphrase', async () => {
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
 
     const createPassphrase = await admin.onrequest({
       jsonrpc: '2.0',
@@ -174,7 +184,7 @@ describe('admin-ns', () => {
   })
 
   it('should generate recovery phrase', async () => {
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
 
     const generateRecoveryPhrase = await admin.onrequest({
       jsonrpc: '2.0',
@@ -186,7 +196,7 @@ describe('admin-ns', () => {
   })
 
   it('should list networks', async () => {
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
 
     const listNetworks = await admin.onrequest({
       jsonrpc: '2.0',
@@ -220,7 +230,7 @@ describe('admin-ns', () => {
   })
 
   it('should create wallet', async () => {
-    const admin = await createAdmin({ passphrase: 'foo' })
+    const { admin } = await createAdmin({ passphrase: 'foo' })
 
     const generateRecoveryPhrase = await admin.onrequest({
       jsonrpc: '2.0',
@@ -243,7 +253,7 @@ describe('admin-ns', () => {
   })
 
   it('should allow updating the passphase', async () => {
-    const admin = await createAdmin({ passphrase: 'foo' })
+    const { admin } = await createAdmin({ passphrase: 'foo' })
 
     const updatePassphrase = await admin.onrequest({
       jsonrpc: '2.0',
@@ -301,7 +311,7 @@ describe('admin-ns', () => {
   })
 
   it('should not be able to unlock an uninitialised wallet', async () => {
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
 
     const unlockFailure = await admin.onrequest({
       jsonrpc: '2.0',
@@ -316,7 +326,7 @@ describe('admin-ns', () => {
   })
 
   it('app_globals should be true after creating a wallet, locking and unlocking', async () => {
-    const admin = await createAdmin({ passphrase: 'foo' })
+    const { admin } = await createAdmin({ passphrase: 'foo' })
 
     const generateRecoveryPhrase = await admin.onrequest({
       jsonrpc: '2.0',
@@ -368,7 +378,7 @@ describe('admin-ns', () => {
   })
 
   it('should list connections', async () => {
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
 
     const listConnections = await admin.onrequest({
       jsonrpc: '2.0',
@@ -382,7 +392,7 @@ describe('admin-ns', () => {
 
   it('should open popout', async () => {
     // 1107-SETT-001 When the browser wallet is open in a new window, the window stays on top
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
 
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
 
@@ -402,7 +412,7 @@ describe('admin-ns', () => {
     globalThis.chrome.windows.create.mockResolvedValue({
       id: 1
     })
-    const admin = await createAdmin()
+    const { admin } = await createAdmin()
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
     expect(globalThis.chrome.windows.create).toBeCalled()
     await admin.onrequest({ jsonrpc: '2.0', id: 1, method: 'admin.open_popout', params: null }, {})
@@ -410,7 +420,7 @@ describe('admin-ns', () => {
   })
 
   it('should sign message with given public key', async () => {
-    const admin = await createAdmin({ passphrase: 'foo' })
+    const { admin } = await createAdmin({ passphrase: 'foo' })
 
     const importWallet = await admin.onrequest({
       jsonrpc: '2.0',
@@ -536,7 +546,7 @@ describe('admin-ns', () => {
       return res.end('<Malformed JSON>')
     })
 
-    const admin = await createAdmin({ datanodeUrls: [happyServer.url, sadServer.url, malformedServer.url] })
+    const { admin } = await createAdmin({ datanodeUrls: [happyServer.url, sadServer.url, malformedServer.url] })
 
     const fetch = await admin.onrequest({
       jsonrpc: '2.0',
@@ -583,7 +593,7 @@ describe('admin-ns', () => {
         res.end(faultyResponse.body)
       })
 
-      const admin = await createAdmin({ datanodeUrls: [server.url] })
+      const { admin } = await createAdmin({ datanodeUrls: [server.url] })
 
       const fetch = await admin.onrequest(REQ_FETCH(1, '/assets'))
 
@@ -612,7 +622,7 @@ describe('admin-ns', () => {
       return { body: Date.now() }
     })
 
-    const admin = await createAdmin({ datanodeUrls: [server.url] })
+    const { admin } = await createAdmin({ datanodeUrls: [server.url] })
 
     const fetch1 = await admin.onrequest(REQ_FETCH(1, '/api/v2/assets'))
     jest.advanceTimersByTime(1)
@@ -632,7 +642,7 @@ describe('admin-ns', () => {
 })
 
 const setupWallet = async (passphrase) => {
-  let admin = await createAdmin({ passphrase })
+  let { admin, wallets } = await createAdmin({ passphrase })
 
   const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
   expect(generateRecoveryPhrase.error).toBeUndefined()
@@ -794,5 +804,35 @@ describe('admin.rename_key', () => {
       { ...key, name: 'New Name' },
       { ...generateKey2.result, name: 'New Name' }
     ])
+  })
+})
+
+describe('admin.delete_wallet', () => {
+  const passphrase = 'foo'
+  let admin
+  beforeEach(async () => {
+    const { admin: setupAdmin } = await setupWallet(passphrase)
+    admin = setupAdmin
+  })
+
+  afterEach(() => {
+    admin = null
+  })
+
+  it('allows deletion of a wallet', async () => {
+    const res = await admin.onrequest(REQ_LIST_WALLETS(1))
+    expect(res.result.wallets).toEqual(['Wallet 1'])
+    await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.delete_wallet',
+      params: {
+        name: 'Wallet 1'
+      }
+    })
+
+    const res2 = await admin.onrequest(REQ_LIST_WALLETS(2))
+
+    expect(res2.result.wallets).toEqual([])
   })
 })

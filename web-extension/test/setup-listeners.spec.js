@@ -54,7 +54,7 @@ describe('SetupListeners', () => {
     expect(networksMock.set).toHaveBeenCalledTimes(2)
     expect(networksMock.set).toHaveBeenCalledWith(testingNetwork.id, testingNetwork)
     expect(networksMock.set).toHaveBeenCalledWith(testingNetwork2.id, testingNetwork2)
-    expect(settingsMock.set).toHaveBeenCalledTimes(3)
+    expect(settingsMock.set).toHaveBeenCalledTimes(4)
     expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', testingNetwork.id)
     expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
     expect(settingsMock.set).toHaveBeenCalledWith('version', 3)
@@ -199,5 +199,38 @@ describe('SetupListeners', () => {
       chainId: 'test-chain-id',
       networkId: 'test'
     })
+  })
+
+  it('should apply migrations from version 2 to version 3', async () => {
+    const networks = new NetworkCollection(new Map([['something', fairground]]))
+    const settings = new ConcurrentStorage(
+      new Map([
+        ['version', 1],
+        ['autoOpen', true]
+      ])
+    )
+    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
+    await connections.set('https://example.com', {
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      },
+      accessedAt: 0
+    })
+    await update({ settings, networks, connections })
+    expect(await networks.listNetworkDetails()).toStrictEqual([
+      {
+        ...testingNetwork,
+        preferredNode: undefined,
+        probing: false,
+        _nodeTimeout: null
+      },
+      {
+        ...testingNetwork2,
+        preferredNode: undefined,
+        probing: false,
+        _nodeTimeout: null
+      }
+    ])
   })
 })

@@ -22,6 +22,12 @@ import locators from '../../../frontend/components/locators'
 export class Settings {
   private readonly lockWalletButton: By = getByDataTestID(settingsLock.locators.settingsLockButton)
   private readonly telemetryYes: By = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioYes}`)
+  private readonly developmentNetworksNo: By = getByDataTestID(
+    `showHiddenNetworks-${radioLocators.locators.settingsRadioNo}`
+  )
+  private readonly developmentNetworksYes: By = getByDataTestID(
+    `showHiddenNetworks-${radioLocators.locators.settingsRadioYes}`
+  )
   private readonly telemetryNo: By = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioNo}`)
   private readonly autoOpenYes: By = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioYes}`)
   private readonly autoOpenNo: By = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioNo}`)
@@ -107,6 +113,25 @@ export class Settings {
     }
 
     return recoveryPhrase
+  }
+
+  async developmentNetworksEnabled() {
+    await this.checkOnSettingsPage()
+    const telemetryYesSelected = await isElementSelected(this.driver, this.developmentNetworksYes)
+    const telemetryNoSelected = await isElementSelected(this.driver, this.developmentNetworksNo)
+
+    if (telemetryYesSelected) {
+      return true
+    }
+    if (telemetryNoSelected) {
+      return false
+    }
+  }
+
+  async setDevelopmentNetworksSetting(settingValue: boolean) {
+    await this.checkOnSettingsPage()
+    await clickElement(this.driver, settingValue ? this.developmentNetworksYes : this.developmentNetworksNo)
+    await waitForElementToBeSelected(this.driver, this.developmentNetworksYes)
   }
 
   async selectTelemetryYes() {

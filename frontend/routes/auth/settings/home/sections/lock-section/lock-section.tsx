@@ -8,7 +8,7 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import config from '@/lib/config'
 
-import { FULL_ROUTES } from '../../../../route-names'
+import { FULL_ROUTES } from '../../../../../route-names'
 
 export const locators = {
   settingsLockButton: 'settings-lock-button',

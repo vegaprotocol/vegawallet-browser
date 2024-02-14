@@ -147,6 +147,7 @@ describe('Check migration of settings after upgrade', () => {
       configNetworks
         .sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))
         .map((n) => {
+          // @ts-ignore
           delete n.preferredNode
           return {
             ...n,

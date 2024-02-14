@@ -146,13 +146,16 @@ describe('Check migration of settings after upgrade', () => {
     expect(networks.sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))).toStrictEqual(
       configNetworks
         .sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))
-        .map((n) => ({
-          ...n,
-          // @ts-ignore
-          _nodeTimeout: expect.nullOrAny(Number),
-          // @ts-ignore
-          probing: expect.nullOrAny(Boolean)
-        }))
+        .map((n) => {
+          delete n.preferredNode
+          return {
+            ...n,
+            // @ts-ignore
+            _nodeTimeout: expect.nullOrAny(Number),
+            // @ts-ignore
+            probing: expect.nullOrAny(Boolean)
+          }
+        })
     )
   })
 })

@@ -14,6 +14,7 @@ export { default as renameNetwork } from './rename-network.js'
 export { default as removeNetwork } from './remove-network.js'
 
 export { default as generateRecoveryPhrase } from './generate-recovery-phrase.js'
+export { default as deleteWallet } from './delete-wallet.js'
 export { default as importWallet } from './import-wallet.js'
 export { default as listWallets } from './list-wallets.js'
 export { default as describeWallet } from './describe-wallet.js'

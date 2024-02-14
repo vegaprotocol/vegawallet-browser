@@ -70,7 +70,7 @@ export class APIHelper {
   }
 
   async listNetworks() {
-    return await this.driver.executeAsyncScript<string>(async (callback: (arg0: any) => void) => {
+    return await this.driver.executeAsyncScript<any>(async (callback: (arg0: any) => void) => {
       const { networks } = await window.client.request('admin.list_networks', null)
       callback(networks)
     })

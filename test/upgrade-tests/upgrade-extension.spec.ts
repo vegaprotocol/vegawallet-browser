@@ -58,14 +58,16 @@ describe('Check migration of settings after upgrade', () => {
   it('adjusts the networks as required', async () => {
     const networks = await apiHelper.listNetworks()
     const { networks: configNetworks } = config
-    console.log(networks, configNetworks)
-    expect(networks).toStrictEqual(
-      configNetworks.map((n) => ({
-        ...n,
-        _nodeTimeout: expect.any(Number),
-        preferredNode: expect.any(String),
-        probing: expect.any(Boolean)
-      }))
+
+    expect(networks.sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))).toStrictEqual(
+      configNetworks
+        .sort(({ id: id1 }, { id: id2 }) => id1.localeCompare(id2))
+        .map((n) => ({
+          ...n,
+          _nodeTimeout: expect.any(Number),
+          preferredNode: expect.any(String),
+          probing: expect.any(Boolean)
+        }))
     )
   })
 })

@@ -64,10 +64,6 @@ export const devnet = {
   explorer: '',
   governance: '',
 
-  deposit: '',
-  transfer: '',
-  withdraw: '',
-
   docs: 'https://docs.vega.xyz/testnet',
   vegaDapps: 'https://vega.xyz/apps'
 }
@@ -90,10 +86,6 @@ export const stagnet1 = {
   explorer: 'https://explorer.stagnet1.vega.rocks',
   governance: 'https://governance.stagnet1.vega.rocks',
 
-  deposit: 'https://console.stagnet1.vega.rocks/#/portfolio/assets/deposit',
-  transfer: 'https://console.stagnet1.vega.rocks/#/portfolio/assets/transfer',
-  withdraw: 'https://console.stagnet1.vega.rocks/#/portfolio/assets/withdraw',
-
   docs: 'https://docs.vega.xyz/testnet',
   vegaDapps: 'https://vega.xyz/apps'
 }
@@ -111,10 +103,6 @@ export const mirror = {
   console: 'https://console.mainnet-mirror.vega.rocks',
   explorer: 'https://explorer.mainnet-mirror.vega.rocks',
   governance: 'https://governance.mainnet-mirror.vega.rocks',
-
-  deposit: 'https://console.mainnet-mirror.vega.rocks/#/portfolio/assets/deposit',
-  transfer: 'https://console.mainnet-mirror.vega.rocks/#/portfolio/assets/transfer',
-  withdraw: 'https://console.mainnet-mirror.vega.rocks/#/portfolio/assets/withdraw',
 
   docs: 'https://docs.vega.xyz/testnet',
   vegaDapps: 'https://vega.xyz/apps'
@@ -142,10 +130,6 @@ export const validatorTestnet = {
   console: 'https://console..validator-testnet.vega.rocks',
   explorer: 'https://explorer..validator-testnet.vega.rocks',
   governance: 'https://governance..validator-testnet.vega.rocks',
-
-  deposit: 'https://console..validator-testnet.vega.rocks/#/portfolio/assets/deposit',
-  transfer: 'https://console..validator-testnet.vega.rocks/#/portfolio/assets/transfer',
-  withdraw: 'https://console..validator-testnet.vega.rocks/#/portfolio/assets/withdraw',
 
   docs: 'https://docs.vega.xyz/testnet',
   vegaDapps: 'https://vega.xyz/apps'

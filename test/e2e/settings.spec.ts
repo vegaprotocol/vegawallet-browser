@@ -59,6 +59,17 @@ describe('Settings test', () => {
   })
 
   it('can navigate to settings and update telemetry opt in/out preference', async () => {
+    // 1111-TELE-008 There is a way to change whether I want to opt in / out of error reporting later (e.g. in settings)
+    const navPanel = new NavPanel(driver)
+    const settingsPage = await navPanel.goToSettings()
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryDisabledMessage).toBe(false)
+    await settingsPage.selectTelemetryYes()
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+    await navigateToExtensionLandingPage(driver)
+    expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
+  })
+
+  it('can navigate to settings and update development networks', async () => {
     // 1107-SETT-011 I can navigate to the settings page and enable development networks
     // 1107-SETT-012 When development networks are enabled I can see the development networks in the network dropdown
     const navPanel = new NavPanel(driver)

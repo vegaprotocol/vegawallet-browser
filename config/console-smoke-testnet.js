@@ -1,4 +1,4 @@
-import testnet from './testnet.js'
+import testnet from './beta.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import merge from 'lodash/merge.js'
 

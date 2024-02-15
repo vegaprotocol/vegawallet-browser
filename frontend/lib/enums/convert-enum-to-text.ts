@@ -5,6 +5,8 @@ import {
   MarginModeNumber,
   OrderStatus,
   OrderStatusNumber,
+  OrderTimeInForce,
+  OrderTimeInForceNumber,
   OrderType,
   OrderTypeNumber,
   PeggedReference,
@@ -14,7 +16,9 @@ import {
   StopOrderExpiryStrategy,
   StopOrderExpiryStrategyNumber,
   UndelegateSubmissionMethod,
-  UndelegateSubmissionMethodNumber
+  UndelegateSubmissionMethodNumber,
+  VoteValue,
+  VoteValueNumber
 } from '@vegaprotocol/enums'
 
 function getEnumString<T, S>(map: T, numberMap: S) {
@@ -37,6 +41,8 @@ export const processExpiryStrategy = getEnumString(StopOrderExpiryStrategy, Stop
 export const processUndelegateMethod = getEnumString(UndelegateSubmissionMethod, UndelegateSubmissionMethodNumber)
 export const processOrderStatus = getEnumString(OrderStatus, OrderStatusNumber)
 export const processOrderType = getEnumString(OrderType, OrderTypeNumber)
+export const processTimeInForce = getEnumString(OrderTimeInForce, OrderTimeInForceNumber)
 export const processPeggedReference = getEnumString(PeggedReference, PeggedReferenceNumber)
 export const processSide = getEnumString(Side, SideNumber)
 export const processAccountType = getEnumString(AccountType, AccountTypeNumber)
+export const processVoteValue = getEnumString(VoteValue, VoteValueNumber)

@@ -2,7 +2,7 @@ import get from 'lodash/get'
 
 import { useFormatMarketPrice } from '@/hooks/format-market-price'
 import { useMarketSettlementAsset } from '@/hooks/market-settlement-asset'
-import { PEGGED_REFERENCE_MAP } from '@/lib/enums'
+import { PEGGED_REFERENCE_MAP, processPeggedReference } from '@/lib/enums'
 import { PeggedOrderOptions } from '@/types/transactions'
 
 import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
@@ -24,11 +24,12 @@ export const PeggedOrderInfo = ({ peggedOrder, marketId }: PeggedOrderInfoProper
   ) : (
     <PriceWithTooltip price={offset} marketId={marketId} />
   )
+  const peggedReference = processPeggedReference(reference)
 
   return (
     <span className="flex items-center">
       {priceToDisplay}
-      <span className="pl-1 text-vega-dark-400">from {PEGGED_REFERENCE_MAP[reference]}</span>
+      <span className="pl-1 text-vega-dark-400">from {PEGGED_REFERENCE_MAP[peggedReference]}</span>
     </span>
   )
 }

@@ -1,9 +1,9 @@
-import { ReactNode } from 'react'
+import { StopOrderExpiryStrategy } from '@vegaprotocol/rest-clients/dist/trading-data'
 
+import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
 import { EXPIRY_STRATEGY_MAP, processExpiryStrategy } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'
 
-import { DataTable } from '../../../data-table'
 import { ReceiptComponentProperties } from '../../receipts'
 import { OrderBadges } from '../../utils/order/badges'
 import { OrderTable } from '../../utils/order-table'
@@ -16,24 +16,34 @@ export const locators = {
 }
 
 const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrderDetails: any }) => {
-  const { expiryStrategy, price, expiresAt, trailingPercentOffset, orderSubmission } = stopOrderDetails
-  const { marketId } = orderSubmission
-  const exStrategy = processExpiryStrategy(expiryStrategy)
-  const columns = [
-    price
-      ? ['Trigger price', <PriceWithTooltip key={`${title}-trigger-price`} price={price} marketId={marketId} />]
-      : null,
-    trailingPercentOffset && Number(expiresAt) !== 0 ? ['Trailing offset', `${trailingPercentOffset}%`] : null,
-    expiryStrategy ? ['Expiry strategy', <>{EXPIRY_STRATEGY_MAP[exStrategy]}</>] : null,
-    expiresAt && Number(expiresAt) !== 0 ? ['Expires at', formatNanoDate(expiresAt)] : null
+  const { orderSubmission = {} } = stopOrderDetails
+  const marketId = orderSubmission.marketId
+
+  const items: RowConfig<typeof stopOrderDetails>[] = [
+    {
+      prop: 'price',
+      render: (data) => [
+        'Trigger price',
+        <PriceWithTooltip key={`${title}-trigger-price`} price={data.price} marketId={marketId} />
+      ]
+    },
+    { prop: 'trailingPercentOffset', render: (data) => ['Trailing offset', `${data.trailingPercentOffset}%`] },
+    {
+      prop: 'expiryStrategy',
+      render: (data) => ['Expiry strategy', <>{EXPIRY_STRATEGY_MAP[processExpiryStrategy(data.expiryStrategy)]}</>]
+    },
+    {
+      prop: 'expiresAt',
+      render: (data) => ['Expires at', Number(data.expiresAt) === 0 ? 'Never' : formatNanoDate(data.expiresAt)]
+    }
   ]
-  const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
+
   return (
     <div className="mb-2">
       <h1 data-testid={locators.sectionHeader} className="text-vega-dark-400">
         {title}
       </h1>
-      <DataTable items={data} />
+      <ConditionalDataTable items={items} data={stopOrderDetails} />
       <h2 data-testid={locators.orderDetails} className="text-vega-dark-300">
         Order details
       </h2>

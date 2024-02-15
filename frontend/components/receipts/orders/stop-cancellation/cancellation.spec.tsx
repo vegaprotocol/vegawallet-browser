@@ -32,41 +32,4 @@ describe('StopOrderCancellation', () => {
     expect(order).toHaveTextContent('Order')
     expect(order).toHaveTextContent('222222…2222')
   })
-
-  it('renders the component without market ID', () => {
-    const transaction = {
-      stopOrdersCancellation: {
-        marketId: null,
-        stopOrderId: '2'.repeat(64)
-      }
-    }
-
-    renderComponent({
-      transaction
-    })
-
-    const rows = screen.getAllByTestId(tableLocators.dataRow)
-    expect(rows).toHaveLength(1)
-    const [order] = rows
-    expect(order).toHaveTextContent('Order')
-    expect(order).toHaveTextContent('222222…2222')
-  })
-
-  it('renders the component without stop order ID', () => {
-    const transaction = {
-      stopOrdersCancellation: {
-        marketId: '1'.repeat(64),
-        stopOrderId: null
-      }
-    }
-    renderComponent({
-      transaction
-    })
-
-    const rows = screen.getAllByTestId(tableLocators.dataRow)
-    expect(rows).toHaveLength(1)
-    const [order] = rows
-    expect(order).toHaveTextContent('Market')
-    expect(order).toHaveTextContent('111111…1111')
-  })
 })

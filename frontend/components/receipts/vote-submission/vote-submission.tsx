@@ -2,7 +2,7 @@ import { vegaVoteValue } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { ReactNode } from 'react'
 
 import { DataTable } from '@/components/data-table'
-import { VOTE_VALUE_MAP } from '@/components/enums'
+import { VOTE_VALUE_MAP } from '@/lib/enums'
 
 import { ProposalLink } from '../../vega-entities/proposal-link'
 import { ReceiptComponentProperties } from '../receipts'

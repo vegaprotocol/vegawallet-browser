@@ -3,7 +3,7 @@ import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
 import { DataTable } from '@/components/data-table'
-import { UNDELEGATE_METHOD_MAP } from '@/components/enums'
+import { UNDELEGATE_METHOD_MAP } from '@/lib/enums'
 
 import { NodeLink } from '../../vega-entities/node-link'
 import { ReceiptComponentProperties } from '../receipts'

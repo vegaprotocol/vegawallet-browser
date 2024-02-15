@@ -1,7 +1,7 @@
 import { StopOrderExpiryStrategy } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { ReactNode } from 'react'
 
-import { EXPIRY_STRATEGY_MAP } from '@/components/enums'
+import { EXPIRY_STRATEGY_MAP } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'
 
 import { DataTable } from '../../../data-table'

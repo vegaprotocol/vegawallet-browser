@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver'
 import { clickElement, getByDataTestID, getElementText, isElementDisplayed } from '../helpers/selenium-util'
-import * as config from '../../../config/beta'
+import * as config from '../../../config/test'
 import * as networkLocators from '../../../frontend/routes/auth/settings/networks/network-details'
 import { locators as baseLocators } from '../../../frontend/components/pages/page'
 import { locators as networksLocators } from '../../../frontend/components/networks-list'

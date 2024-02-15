@@ -19,6 +19,7 @@ jobs:
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3
         with:
+          cache: 'yarn'
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
 

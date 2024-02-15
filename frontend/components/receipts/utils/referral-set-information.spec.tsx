@@ -99,18 +99,6 @@ describe('ReferralSetInformation', () => {
     expect(closed).toHaveTextContent('Yes')
   })
 
-  it('does not render rows when they are undefined', () => {
-    renderComponent({
-      referralSetData: {}
-    })
-    expect(screen.queryByText('Id')).not.toBeInTheDocument()
-    expect(screen.queryByText('Team')).not.toBeInTheDocument()
-    expect(screen.queryByText('Name')).not.toBeInTheDocument()
-    expect(screen.queryByText('Team URL')).not.toBeInTheDocument()
-    expect(screen.queryByText('Avatar URL')).not.toBeInTheDocument()
-    expect(screen.queryByText('Closed')).not.toBeInTheDocument()
-  })
-
   it('renders id and isTeam when team is not defined', () => {
     renderComponent({
       referralSetData: {

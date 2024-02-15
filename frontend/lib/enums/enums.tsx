@@ -1,3 +1,4 @@
+// TODO should be imported from enums package but this is fine for now
 import {
   OrderTimeInForce,
   StopOrderExpiryStrategy,

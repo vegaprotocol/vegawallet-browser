@@ -197,7 +197,8 @@ describe('Settings test', () => {
     const networkSettings = new NetworkSettings(driver)
     await settingsPage.viewConfiguredNetworks()
     await networkSettings.checkExpectedNetworksExist()
-    for (const network of test.networks) {
+    const networksDisplayed = test.networks.filter((network) => !network.hidden)
+    for (const network of networksDisplayed) {
       await networkSettings.openNetworkDetails(network.name)
       await networkSettings.checkNetworkID(network.id)
       await networkSettings.goBack()

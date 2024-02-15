@@ -5,7 +5,7 @@ import get from 'lodash/get'
 
 import { CollapsibleCard } from '@/components/collapsible-card'
 import { DataTable } from '@/components/data-table'
-import { ACCOUNT_TYPE_MAP } from '@/lib/enums'
+import { ACCOUNT_TYPE_MAP, processAccountType } from '@/lib/enums'
 import { useAssetsStore } from '@/stores/assets-store'
 
 import { MarketLozenges } from './markets-lozenges'
@@ -69,10 +69,10 @@ export const AssetCard = ({
   if (!decimals || !symbol || !name) throw new Error('Asset details not populated')
   const filteredAccounts = accounts
     .filter((a) => allowZeroAccounts || (!!a.balance && toBigNum(a.balance, +decimals).gt(0)))
-    .map((a) => [
-      a.type ? ACCOUNT_TYPE_MAP[a.type] : 'Unknown',
-      addDecimalsFormatNumber(a.balance ?? 0, +decimals)
-    ]) as [string, string][]
+    .map((a) => {
+      const accountType = a.type ? ACCOUNT_TYPE_MAP[processAccountType(a.type)] : 'Unknown'
+      return [accountType, addDecimalsFormatNumber(a.balance ?? 0, +decimals)]
+    }) as [string, string][]
   return (
     <div data-testid={locators.assetCard} className="border border-vega-dark-150 mb-4">
       <CollapsibleCard

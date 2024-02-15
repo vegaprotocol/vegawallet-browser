@@ -4,7 +4,7 @@ import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
 import { MarketLink } from '@/components/vega-entities/market-link'
-import { ORDER_STATUS_MAP } from '@/lib/enums'
+import { ORDER_STATUS_MAP, processOrderStatus } from '@/lib/enums'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { PeggedOrderOptions } from '@/types/transactions'
 
@@ -102,7 +102,8 @@ export const buildRemainingColumn = (remaining?: string, marketId?: string): [Re
 
 export const buildStatusColumn = (status?: vegaOrderStatus): [ReactNode, ReactNode] | null => {
   if (!status) return null
-  return ['Status', ORDER_STATUS_MAP[status]]
+  const orderStatus = processOrderStatus(status)
+  return ['Status', ORDER_STATUS_MAP[orderStatus]]
 }
 
 export const buildVersionColumn = (version?: string): [ReactNode, ReactNode] | null => {

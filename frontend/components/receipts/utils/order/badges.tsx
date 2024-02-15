@@ -2,7 +2,7 @@ import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 
-import { TIF_MAP } from '@/lib/enums'
+import { processTimeInForce, TIF_MAP } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'
 
 const OrderBadge = ({ children }: { children: ReactNode }) => {
@@ -16,7 +16,8 @@ const TifBadge = ({ timeInForce, expiresAt }: { timeInForce: OrderTimeInForce; e
     }
     return <OrderBadge>Good til {formatNanoDate(expiresAt)}</OrderBadge>
   }
-  return <OrderBadge>{TIF_MAP[timeInForce]}</OrderBadge>
+  const tif = processTimeInForce(timeInForce)
+  return <OrderBadge>{TIF_MAP[tif]}</OrderBadge>
 }
 
 export const OrderBadges = ({

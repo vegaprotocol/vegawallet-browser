@@ -11,14 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3
         with:
           cache: 'yarn'
-          node-version: '*'
-          registry-url: 'https://registry.npmjs.org'
           node-version-file: '.nvmrc'
 
       - name: Install dependencies
@@ -43,14 +41,12 @@ jobs:
         configFile: ['$(pwd)/config/beta.js', ''] # Add '$(pwd)/config/mainnet.js' when mainnet has the check-tx functionality.
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3
         with:
           cache: 'yarn'
-          node-version: '*'
-          registry-url: 'https://registry.npmjs.org'
           node-version-file: '.nvmrc'
 
       - name: Download request files

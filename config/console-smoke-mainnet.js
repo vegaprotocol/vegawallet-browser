@@ -1,4 +1,4 @@
-import mainnet from './mainnet.js'
+import mainnet from './mainstream.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import merge from 'lodash/merge.js'
 

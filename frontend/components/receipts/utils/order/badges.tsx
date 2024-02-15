@@ -2,7 +2,7 @@ import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 
-import { TIF_MAP } from '@/components/enums'
+import { TIF_MAP } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'
 
 const OrderBadge = ({ children }: { children: ReactNode }) => {

@@ -1,7 +1,6 @@
 import { formatNumber } from '@vegaprotocol/utils'
-import { ReactNode } from 'react'
 
-import { DataTable } from '@/components/data-table/data-table'
+import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
 import { VegaMarket } from '@/components/vega-entities/vega-market'
 import { MARGIN_MODE_MAP, processMarginMode } from '@/lib/enums'
 
@@ -9,20 +8,20 @@ import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) => {
-  const { mode, marginFactor, marketId } = transaction.updateMarginMode
   const marginMode = processMarginMode(mode)
-
-  const items = [
-    marketId == null ? null : ['Market', <VegaMarket key="update-margin-mode-market" marketId={marketId} />],
-    mode == null ? null : ['Mode', <>{MARGIN_MODE_MAP[marginMode]}</>],
-    marginFactor == null ? null : ['Leverage', `${formatNumber(1 / Number(marginFactor), 2)}X`],
-    marginFactor == null ? null : ['Margin Factor', marginFactor]
+  const items: RowConfig<typeof transaction.updateMarginMode>[] = [
+    {
+      prop: 'marketId',
+      render: (data) => ['Market', <VegaMarket key="update-margin-mode-market" marketId={data.marketId} />]
+    },
+    { prop: 'mode', render: (data) => ['Mode', <>{MARGIN_MODE_MAP[processMarginMode(data.mode)]}</>] },
+    { prop: 'marginFactor', render: (data) => ['Leverage', `${formatNumber(1 / Number(data.marginFactor), 2)}X`] },
+    { prop: 'marginFactor', render: (data) => ['Margin Factor', data.marginFactor] }
   ]
-  const dataTableItems = items.filter((item) => !!item) as [ReactNode, ReactNode][]
 
   return (
     <ReceiptWrapper>
-      <DataTable items={dataTableItems} />
+      <ConditionalDataTable items={items} data={transaction.updateMarginMode} />
     </ReceiptWrapper>
   )
 }

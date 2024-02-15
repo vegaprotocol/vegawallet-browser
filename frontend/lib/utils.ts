@@ -1,6 +1,6 @@
 import { getDateTimeFormat } from '@vegaprotocol/utils'
 
-export const nanoSecondsToMilliseconds = (nanoSeconds: string) => {
+export const nanoSecondsToMilliseconds = (nanoSeconds: string | number) => {
   return Math.round(+nanoSeconds / 1e6)
 }
 

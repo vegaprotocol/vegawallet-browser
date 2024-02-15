@@ -1,7 +1,9 @@
+import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 import { useEffect } from 'react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useNetwork } from '@/contexts/network/network-context'
+import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { useOrdersStore } from '@/stores/orders-store'
 
 import { ReceiptComponentProperties } from '../../receipts'
@@ -31,7 +33,9 @@ export const Cancellation = ({ transaction }: ReceiptComponentProperties) => {
     <ReceiptWrapper errors={[error]}>
       <CancellationView cancellation={cancellation} order={order} />
       {order && lastUpdated && (
-        <div className="text-sm text-gray-500 mt-2">Last Updated: {new Date(lastUpdated).toLocaleString()}</div>
+        <div className="text-sm text-gray-500 mt-2">
+          Last Updated: {formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(lastUpdated)))}
+        </div>
       )}
     </ReceiptWrapper>
   )

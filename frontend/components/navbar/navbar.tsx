@@ -60,11 +60,7 @@ export const NavBar = () => {
         to={{ pathname: FULL_ROUTES.transactions }}
         text="Transactions"
       />
-      <NavButton
-        icon={<Settings className="m-auto" />}
-        to={{ pathname: FULL_ROUTES.settings }}
-        text="Settings"
-      />
+      <NavButton icon={<Settings className="m-auto" />} to={{ pathname: FULL_ROUTES.settings }} text="Settings" />
     </nav>
   )
 }

@@ -19,6 +19,7 @@ jobs:
           cache: 'yarn'
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
+          node-version-file: '.nvmrc'
 
       - name: Install dependencies
         run: yarn install
@@ -58,6 +59,7 @@ jobs:
           cache: 'yarn'
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
+          node-version-file: '.nvmrc'
 
       - name: Install dependencies
         run: yarn install

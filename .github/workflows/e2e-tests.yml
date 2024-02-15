@@ -19,6 +19,7 @@ jobs:
           cache: 'yarn'
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
+          node-version-file: '.nvmrc'
 
       - name: Install chrome and chromedriver
         run: |
@@ -64,6 +65,7 @@ jobs:
           cache: 'yarn'
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
+          node-version-file: '.nvmrc'
 
       - uses: browser-actions/setup-geckodriver@latest
         with:
@@ -113,6 +115,7 @@ jobs:
           cache: 'yarn'
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
+          node-version-file: '.nvmrc'
 
       - name: Install chrome and chromedriver
         run: |

@@ -3,7 +3,7 @@ import { formatNumber } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
 import { DataTable } from '@/components/data-table/data-table'
-import { MARGIN_MODE_MAP } from '@/components/enums'
+import { MARGIN_MODE_MAP } from '@/lib/enums'
 import { VegaMarket } from '@/components/vega-entities/vega-market'
 
 import { ReceiptComponentProperties } from '../receipts'

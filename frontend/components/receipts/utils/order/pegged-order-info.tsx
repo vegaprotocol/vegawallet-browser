@@ -1,6 +1,6 @@
 import get from 'lodash/get'
 
-import { PEGGED_REFERENCE_MAP } from '@/components/enums'
+import { PEGGED_REFERENCE_MAP } from '@/lib/enums'
 import { useFormatMarketPrice } from '@/hooks/format-market-price'
 import { useMarketSettlementAsset } from '@/hooks/market-settlement-asset'
 import { PeggedOrderOptions } from '@/types/transactions'

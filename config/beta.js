@@ -1,34 +1,32 @@
 import * as networks from './well-known-networks.js'
 
-const mockPort = 9090
-
-const test = {
+const testnet = {
   title: 'Vega Wallet - Beta',
-  defaultNetworkId: networks.testingNetwork.id,
-  defaultChainId: networks.testingNetwork.chainId,
-  test: {
-    mockPort
-  },
-  networks: [networks.testingNetwork, networks.testingNetwork2],
+  defaultNetworkId: networks.fairground.id,
+  defaultChainId: networks.fairground.chainId,
+  networks: [
+    networks.mainnet,
+    networks.fairground,
+    networks.devnet,
+    networks.stagnet1,
+    networks.mirror,
+    networks.validatorTestnet
+  ],
   feedbackLink: 'https://github.com/vegaprotocol/feedback/discussions',
+  encryptionSettings: undefined,
+  closeWindowOnPopupOpen: true,
   userDataPolicy: 'https://vega.xyz/vega-wallet-user-data-policy/',
-  encryptionSettings: {
-    memory: 10,
-    iterations: 1
-  },
-  closeWindowOnPopupOpen: false,
-  sentryDsn: undefined,
+  sentryDsn: 'https://7f7577b2eefe43a58dc25d2eda9b1a74@o286262.ingest.sentry.io/4505199579758592',
   logging: false,
-
-  manifestReplacements: {
-    buildName: 'Beta',
-    geckoId: 'browser-extension-test@vega.xyz',
-    iconPrefix: 'Fairground'
-  },
   features: {
     popoutHeader: true
   },
-  autoOpenOnInstall: false
+  manifestReplacements: {
+    buildName: 'Beta',
+    geckoId: 'browser-extension@vega.xyz',
+    iconPrefix: 'Fairground'
+  },
+  autoOpenOnInstall: true
 }
 
-export default test
+export default testnet

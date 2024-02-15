@@ -7,18 +7,18 @@ jobs:
   check-approbation:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository 'main'
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0
+
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3
         with:
           cache: 'yarn'
           node-version: '*'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Checkout repository 'main'
-        uses: actions/checkout@v3
-        with:
-          ref: main
-          fetch-depth: 0
 
       - name: Run Approbation on main
         id: approbation-main

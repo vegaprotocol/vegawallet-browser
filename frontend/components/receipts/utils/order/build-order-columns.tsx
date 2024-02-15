@@ -3,8 +3,8 @@ import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 import { ReactNode } from 'react'
 
-import { ORDER_STATUS_MAP } from '@/lib/enums'
 import { MarketLink } from '@/components/vega-entities/market-link'
+import { ORDER_STATUS_MAP } from '@/lib/enums'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { PeggedOrderOptions } from '@/types/transactions'
 

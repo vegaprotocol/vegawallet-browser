@@ -1,7 +1,6 @@
-import { StopOrderExpiryStrategy } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { ReactNode } from 'react'
 
-import { EXPIRY_STRATEGY_MAP } from '@/lib/enums'
+import { EXPIRY_STRATEGY_MAP, processExpiryStrategy } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'
 
 import { DataTable } from '../../../data-table'
@@ -19,12 +18,13 @@ export const locators = {
 const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrderDetails: any }) => {
   const { expiryStrategy, price, expiresAt, trailingPercentOffset, orderSubmission } = stopOrderDetails
   const { marketId } = orderSubmission
+  const exStrategy = processExpiryStrategy(expiryStrategy)
   const columns = [
     price
       ? ['Trigger price', <PriceWithTooltip key={`${title}-trigger-price`} price={price} marketId={marketId} />]
       : null,
     trailingPercentOffset && Number(expiresAt) !== 0 ? ['Trailing offset', `${trailingPercentOffset}%`] : null,
-    expiryStrategy ? ['Expiry strategy', <>{EXPIRY_STRATEGY_MAP[expiryStrategy as StopOrderExpiryStrategy]}</>] : null,
+    expiryStrategy ? ['Expiry strategy', <>{EXPIRY_STRATEGY_MAP[exStrategy]}</>] : null,
     expiresAt && Number(expiresAt) !== 0 ? ['Expires at', formatNanoDate(expiresAt)] : null
   ]
   const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]

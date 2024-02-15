@@ -169,16 +169,8 @@
               publicKey: Transfer.selectedKey.publicKey,
               sendingMode: 'TYPE_SYNC',
               transaction: {
-                createReferralSet: {
-                  id: '0'.repeat(64),
-                  isTeam: true,
-                  team: {
-                    name: 'VegaRocks',
-                    teamUrl: 'https://discord.com/channels/vegarocks',
-                    avatarUrl: 'https://vega-rocks/logo-360x360.jpg',
-                    allowList: ['0'.repeat(64), '1'.repeat(64)],
-                    closed: false
-                  }
+                updateMarginMode: {
+                  mode: 1
                 }
               }
             })

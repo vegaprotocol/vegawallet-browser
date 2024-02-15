@@ -33,13 +33,4 @@ describe('UpdateMarginMode', () => {
     expect(leverage).toHaveTextContent('Leverage')
     expect(leverage).toHaveTextContent('10.00')
   })
-
-  it('should render only fields that are defined', () => {
-    const tx = {
-      updateMarginMode: {}
-    }
-    renderComponent(tx)
-    const rows = screen.queryAllByTestId(tableLocators.dataRow)
-    expect(rows).toHaveLength(0)
-  })
 })

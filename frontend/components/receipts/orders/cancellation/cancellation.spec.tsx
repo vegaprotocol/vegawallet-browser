@@ -1,6 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react'
+import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
+import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { useMarketsStore } from '@/stores/markets-store'
 import { OrdersStore, useOrdersStore } from '@/stores/orders-store'
 import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
@@ -69,7 +71,9 @@ describe('Cancellation', () => {
     // 1117-ORDC-003 I can see the time of when the order was fetched from the data node
     renderComponent()
 
-    await screen.findByText(`Last Updated: ${new Date(mockLastUpdatedTimestamp).toLocaleString()}`)
+    await screen.findByText(
+      `Last Updated: ${formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(mockLastUpdatedTimestamp)))}`
+    )
   })
 
   it('renders additional API fields in order table if present', async () => {

@@ -9,14 +9,15 @@ import { AmountWithSymbol } from '../string-amounts/amount-with-symbol'
 import { PriceWithTooltip } from '../string-amounts/price-with-tooltip'
 
 interface PeggedOrderInfoProperties {
-  peggedOrder: PeggedOrderOptions
-  marketId: string
+  peggedOrder?: PeggedOrderOptions
+  marketId?: string
 }
 
 export const PeggedOrderInfo = ({ peggedOrder, marketId }: PeggedOrderInfoProperties) => {
-  const { offset, reference } = peggedOrder
+  const { offset, reference } = peggedOrder || {}
   const formattedOffset = useFormatMarketPrice(marketId, offset)
   const settlementAsset = useMarketSettlementAsset(marketId)
+  if (!peggedOrder || !marketId || !offset || !reference) return null
   const symbol = get(settlementAsset, 'details.symbol')
 
   const priceToDisplay = formattedOffset ? (

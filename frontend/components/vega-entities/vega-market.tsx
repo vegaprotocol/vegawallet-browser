@@ -4,11 +4,14 @@ import { useMarketsStore } from '@/stores/markets-store'
 
 import { MarketLink } from './market-link'
 
-export const VegaMarket = ({ marketId }: { marketId: string }) => {
+export const VegaMarket = ({ marketId }: { marketId?: string }) => {
   const { getMarketById, loading } = useMarketsStore((state) => ({
     loading: state.loading,
     getMarketById: state.getMarketById
   }))
+  if (!marketId) {
+    return null
+  }
   if (loading) {
     return <MarketLink marketId={marketId} />
   }

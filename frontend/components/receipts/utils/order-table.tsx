@@ -1,25 +1,20 @@
 import { vegaOrderStatus, vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
-import { ReactNode } from 'react'
+import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
+import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import { ORDER_STATUS_MAP } from '@/components/enums'
+import { MarketLink } from '@/components/vega-entities/market-link'
+import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { PeggedOrderOptions } from '@/types/transactions'
 
-import { DataTable } from '../../data-table'
-import {
-  buildCreatedAtColumn,
-  buildMarketIdColumn,
-  buildNameMarketColumn,
-  buildOrderColumn,
-  buildPeggedOrderColumn,
-  buildPriceColumn,
-  buildReferenceColumn,
-  buildRemainingColumn,
-  buildSideColumn,
-  buildSizeColumn,
-  buildStatusColumn,
-  buildTypeColumn,
-  buildUpdatedAtColumn,
-  buildVersionColumn
-} from './order/build-order-columns'
+import { CopyWithCheckmark } from '../../copy-with-check'
+import { VegaMarket } from '../../vega-entities/vega-market'
+import { OrderPrice } from './order/order-price'
+import { OrderSize } from './order/order-size'
+import { OrderType } from './order/order-type'
+import { PeggedOrderInfo } from './order/pegged-order-info'
+import { Side } from './order/side'
 
 export type OrderTableProperties = Partial<{
   marketId?: string
@@ -37,38 +32,78 @@ export type OrderTableProperties = Partial<{
   version?: string
 }>
 
-export const OrderTable = ({
-  marketId,
-  side,
-  orderId,
-  reference,
-  price,
-  size,
-  type,
-  peggedOrder,
-  createdAt,
-  updatedAt,
-  remaining,
-  status,
-  version
-}: OrderTableProperties) => {
-  const columns = [
-    buildPriceColumn(price, marketId, type),
-    buildPeggedOrderColumn(peggedOrder, marketId),
-    buildSizeColumn(size, marketId),
-    buildNameMarketColumn(marketId),
-    buildMarketIdColumn(marketId),
-    buildOrderColumn(orderId),
-    buildSideColumn(side),
-    buildTypeColumn(type),
-    buildReferenceColumn(reference),
-    buildCreatedAtColumn(createdAt),
-    buildUpdatedAtColumn(updatedAt),
-    buildRemainingColumn(remaining, marketId),
-    buildStatusColumn(status),
-    buildVersionColumn(version)
+export const OrderTable = (properties: OrderTableProperties) => {
+  const items: RowConfig<OrderTableProperties>[] = [
+    {
+      prop: 'price',
+      render: (data) => [
+        'Price',
+        <OrderPrice key="order-details-price" price={data.price} marketId={data.marketId} type={data.type} />
+      ]
+    },
+    {
+      prop: 'peggedOrder',
+      render: (data) => [
+        'Pegged price',
+        <PeggedOrderInfo key="order-details-pegged" peggedOrder={data.peggedOrder} marketId={data.marketId} />
+      ]
+    },
+    {
+      prop: 'size',
+      render: (data) => ['Size', <OrderSize key="order-details-size" size={data.size} marketId={data.marketId} />]
+    },
+    {
+      prop: 'marketId',
+      render: () => ['Market', <VegaMarket key="order-details-market" marketId={properties.marketId} />]
+    },
+    {
+      prop: 'marketId',
+      render: (data) => ['Market Id', <MarketLink key="order-details-market-id" marketId={data.marketId} />]
+    },
+    {
+      prop: 'orderId',
+      render: (data) => [
+        'Order',
+        <CopyWithCheckmark text={data.orderId!} key="order-value">
+          {truncateMiddle(data.orderId!)}
+        </CopyWithCheckmark>
+      ]
+    },
+    { prop: 'side', render: (data) => ['Side', <Side key="order-details-direction" side={data.side} />] },
+    { prop: 'type', render: (data) => ['Type', <OrderType key="order-details-type" type={data.type} />] },
+    {
+      prop: 'reference',
+      render: (data) => [
+        'Reference',
+        <CopyWithCheckmark text={data.reference!} key="order-reference">
+          {truncateMiddle(data.reference!)}
+        </CopyWithCheckmark>
+      ]
+    },
+    {
+      prop: 'createdAt',
+      render: (data) => [
+        'Created at',
+        formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(data.createdAt!)))
+      ]
+    },
+    {
+      prop: 'updatedAt',
+      render: (data) => [
+        'Updated at',
+        formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(data.updatedAt!)))
+      ]
+    },
+    {
+      prop: 'remaining',
+      render: (data) => [
+        'Remaining',
+        <OrderSize key="order-details-remaining" size={data.remaining} marketId={data.marketId} />
+      ]
+    },
+    { prop: 'status', render: (data) => ['Status', ORDER_STATUS_MAP[data.status!]] },
+    { prop: 'version', render: (data) => ['Version', data.version] }
   ]
-  const data = columns.filter((c) => !!c) as [ReactNode, ReactNode][]
 
-  return <DataTable items={data} />
+  return <ConditionalDataTable items={items} data={properties} />
 }

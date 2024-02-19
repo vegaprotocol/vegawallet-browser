@@ -11,6 +11,6 @@ export const useFormatMarketPrice = (marketId?: string, price?: string) => {
   if (loading || !marketId || !price) return
   const market = getMarketById(marketId)
   const marketDecimal = Number(get(market, 'decimalPlaces'))
-  if (!market || !marketDecimal) throw new Error('Could not find market or decimalPlaces')
+  if (!market || !marketDecimal) return
   return formatNumber(toBigNum(price, marketDecimal), marketDecimal)
 }

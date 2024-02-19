@@ -16,7 +16,7 @@ export const locators = {
 }
 
 const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrderDetails: any }) => {
-  const { orderSubmission = {} } = stopOrderDetails
+  const { orderSubmission } = stopOrderDetails
   const marketId = orderSubmission.marketId
 
   const items: RowConfig<typeof stopOrderDetails>[] = [

@@ -6,7 +6,7 @@ import { TeamLink } from '@/components/vega-entities/team-link'
 import { VegaSection } from '@/components/vega-section'
 
 export const ReferralSetInformation = ({ referralSetData }: { referralSetData: any }) => {
-  const allowList = referralSetData?.team?.allowList
+  const allowList = referralSetData.team?.allowList
   const items: RowConfig<typeof referralSetData>[] = [
     { prop: 'id', render: (data) => ['Id', <TeamLink key="referral-set-information-id" id={data.id} />] },
     { prop: 'isTeam', render: (data) => ['Team', data.isTeam ? 'Yes' : 'No'] },

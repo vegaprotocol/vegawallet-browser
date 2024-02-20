@@ -1,5 +1,6 @@
 export const RpcMethods = {
   // Wallets
+  DeleteWallet: 'admin.delete_wallet',
   ListWallets: 'admin.list_wallets',
   ListKeys: 'admin.list_keys',
   GenerateKey: 'admin.generate_key',

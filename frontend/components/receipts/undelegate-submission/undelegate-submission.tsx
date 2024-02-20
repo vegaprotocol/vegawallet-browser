@@ -9,16 +9,16 @@ import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
 
 export const UndelegateSubmission = ({ transaction }: ReceiptComponentProperties) => {
-  const { amount } = transaction.undelegateSubmission
-  // We know that VEGA always has 18 decimals
-  const formattedAmount = formatNumber(toBigNum(amount, 18), 18)
   const undelegateMethod = processUndelegateMethod(method)
 
   const items: RowConfig<typeof transaction.undelegateSubmission>[] = [
-    { prop: 'nodeId', render: (data) => ['Node Id', <NodeLink nodeId={data.nodeId} />] },
+    { prop: 'nodeId', render: (nodeId) => ['Node Id', <NodeLink nodeId={nodeId} />] },
     {
       prop: 'amount',
-      render: () => ['Amount', <AmountWithSymbol amount={formattedAmount} symbol={'VEGA'} />]
+      render: (amount) => [
+        'Amount',
+        <AmountWithSymbol amount={formatNumber(toBigNum(amount, 18), 18)} symbol={'VEGA'} />
+      ]
     },
     {
       prop: 'method',

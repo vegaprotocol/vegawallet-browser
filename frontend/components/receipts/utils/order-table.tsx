@@ -36,73 +36,71 @@ export const OrderTable = (properties: OrderTableProperties) => {
   const items: RowConfig<OrderTableProperties>[] = [
     {
       prop: 'price',
-      render: (data) => [
+      props: ['price', 'marketId', 'type'],
+      render: (price, { marketId, type }) => [
         'Price',
-        <OrderPrice key="order-details-price" price={data.price} marketId={data.marketId} type={data.type} />
+        <OrderPrice key="order-details-price" price={price} marketId={marketId} type={type} />
       ]
     },
     {
       prop: 'peggedOrder',
-      render: (data) => [
+      props: ['marketId', 'peggedOrder'],
+      render: (peggedOrder, { marketId }) => [
         'Pegged price',
-        <PeggedOrderInfo key="order-details-pegged" peggedOrder={data.peggedOrder} marketId={data.marketId} />
+        <PeggedOrderInfo key="order-details-pegged" peggedOrder={peggedOrder} marketId={marketId} />
       ]
     },
     {
       prop: 'size',
-      render: (data) => ['Size', <OrderSize key="order-details-size" size={data.size} marketId={data.marketId} />]
+      props: ['marketId', 'size'],
+      render: (size, { marketId }) => ['Size', <OrderSize key="order-details-size" size={size} marketId={marketId} />]
     },
     {
       prop: 'marketId',
-      render: () => ['Market', <VegaMarket key="order-details-market" marketId={properties.marketId} />]
+      render: (marketId) => ['Market', <VegaMarket key="order-details-market" marketId={marketId} />]
     },
     {
       prop: 'marketId',
-      render: (data) => ['Market Id', <MarketLink key="order-details-market-id" marketId={data.marketId} />]
+      render: (marketId) => ['Market Id', <MarketLink key="order-details-market-id" marketId={marketId} />]
     },
     {
       prop: 'orderId',
-      render: (data) => [
+      render: (orderId) => [
         'Order',
-        <CopyWithCheckmark text={data.orderId!} key="order-value">
-          {truncateMiddle(data.orderId!)}
+        <CopyWithCheckmark text={orderId} key="order-value">
+          {truncateMiddle(orderId)}
         </CopyWithCheckmark>
       ]
     },
-    { prop: 'side', render: (data) => ['Side', <Side key="order-details-direction" side={data.side} />] },
-    { prop: 'type', render: (data) => ['Type', <OrderType key="order-details-type" type={data.type} />] },
+    { prop: 'side', render: (side) => ['Side', <Side key="order-details-direction" side={side} />] },
+    { prop: 'type', render: (type) => ['Type', <OrderType key="order-details-type" type={type} />] },
     {
       prop: 'reference',
-      render: (data) => [
+      render: (reference) => [
         'Reference',
-        <CopyWithCheckmark text={data.reference!} key="order-reference">
-          {truncateMiddle(data.reference!)}
+        <CopyWithCheckmark text={reference} key="order-reference">
+          {truncateMiddle(reference)}
         </CopyWithCheckmark>
       ]
     },
     {
       prop: 'createdAt',
-      render: (data) => [
-        'Created at',
-        formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(data.createdAt!)))
-      ]
+      render: (createdAt) => ['Created at', formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(createdAt)))]
     },
     {
       prop: 'updatedAt',
-      render: (data) => [
-        'Updated at',
-        formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(data.updatedAt!)))
-      ]
+      render: (updatedAt) => ['Updated at', formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(updatedAt)))]
     },
     {
       prop: 'remaining',
-      render: (data) => [
+      props: ['remaining', 'marketId'],
+      render: (remaining, { marketId }) => [
         'Remaining',
-        <OrderSize key="order-details-remaining" size={data.remaining} marketId={data.marketId} />
+        <OrderSize key="order-details-remaining" size={remaining} marketId={marketId} />
       ]
     },
-    { prop: 'status', render: (data) => ['Status', ORDER_STATUS_MAP[data.status!]] },
-    { prop: 'version', render: (data) => ['Version', data.version] }
+    { prop: 'status', render: (status) => ['Status', ORDER_STATUS_MAP[status as vegaOrderStatus]] },
+    { prop: 'version', render: (version) => ['Version', version] }
   ]
 
   return <ConditionalDataTable items={items} data={properties} />

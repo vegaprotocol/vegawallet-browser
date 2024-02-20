@@ -12,7 +12,7 @@ export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) =>
   const items: RowConfig<typeof transaction.updateMarginMode>[] = [
     {
       prop: 'marketId',
-      render: (data) => ['Market', <VegaMarket key="update-margin-mode-market" marketId={data.marketId} />]
+      render: (marketId) => ['Market', <VegaMarket key="update-margin-mode-market" marketId={marketId} />]
     },
     { prop: 'mode', render: (data) => ['Mode', <>{MARGIN_MODE_MAP[processMarginMode(data.mode)]}</>] },
     { prop: 'marginFactor', render: (data) => ['Leverage', `${formatNumber(1 / Number(data.marginFactor), 2)}X`] },

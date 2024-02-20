@@ -8,28 +8,28 @@ import { VegaSection } from '@/components/vega-section'
 export const ReferralSetInformation = ({ referralSetData }: { referralSetData: any }) => {
   const allowList = referralSetData.team?.allowList
   const items: RowConfig<typeof referralSetData>[] = [
-    { prop: 'id', render: (data) => ['Id', <TeamLink key="referral-set-information-id" id={data.id} />] },
-    { prop: 'isTeam', render: (data) => ['Team', data.isTeam ? 'Yes' : 'No'] },
-    { prop: 'team.name', render: (data) => ['Name', data.team.name] },
+    { prop: 'id', render: (id) => ['Id', <TeamLink key="referral-set-information-id" id={id} />] },
+    { prop: 'isTeam', render: (isTeam) => ['Team', isTeam ? 'Yes' : 'No'] },
+    { prop: 'team.name', render: (name) => ['Name', name] },
     {
       prop: 'team.teamUrl',
-      render: (data) => [
+      render: (teamUrl) => [
         'Team URL',
-        <ExternalLink key="referral-set-information-team" href={data.team.teamUrl}>
-          {data.team.teamUrl}
+        <ExternalLink key="referral-set-information-team" href={teamUrl}>
+          {teamUrl}
         </ExternalLink>
       ]
     },
     {
       prop: 'team.avatarUrl',
-      render: (data) => [
+      render: (avatarUrl) => [
         'Avatar URL',
-        <ExternalLink key="referral-set-information-avatar" href={data.team.avatarUrl}>
-          {data.team.avatarUrl}
+        <ExternalLink key="referral-set-information-avatar" href={avatarUrl}>
+          {avatarUrl}
         </ExternalLink>
       ]
     },
-    { prop: 'team.closed', render: (data) => ['Closed', data.team.closed ? 'Yes' : 'No'] }
+    { prop: 'team.closed', render: (closed) => ['Closed', closed ? 'Yes' : 'No'] }
   ]
   const allowedPublicKeys = allowList as string[]
   return (

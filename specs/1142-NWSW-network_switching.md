@@ -16,5 +16,7 @@
 
 ## Network switching
 
-- Data is reloaded when switching networks (<a name="1142-NWSW-007" href="#1142-NWSW-007">1138-NWSW-007</a>)
-- Links are adjusted based on config when switching networks (<a name="1142-NWSW-008" href="#1142-NWSW-008">1138-NWSW-008</a>)
+- Data is reloaded when switching networks (<a name="1142-NWSW-007" href="#1142-NWSW-007">1142-NWSW-007</a>)
+- Links are adjusted based on config when switching networks (<a name="1142-NWSW-008" href="#1142-NWSW-008">1142-NWSW-008</a>)
+- Shows hidden networks when setting is turned on (<a name="1142-NWSW-009" href="#1142-NWSW-009">1142-NWSW-009</a>)
+- Hides hidden networks when setting is turned off (<a name="1142-NWSW-010" href="#1142-NWSW-010">1142-NWSW-010</a>)

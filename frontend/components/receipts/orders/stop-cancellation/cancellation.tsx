@@ -10,11 +10,11 @@ export const StopOrderCancellationView = ({ stopOrdersCancellation }: { stopOrde
   const items: RowConfig<typeof stopOrdersCancellation>[] = [
     {
       prop: 'marketId',
-      render: (data) => ['Market', <MarketLink key="order-details-market" marketId={data.marketId} />]
+      render: (marketId) => ['Market', <MarketLink key="order-details-market" marketId={marketId} />]
     },
     {
       prop: 'stopOrderId',
-      render: (data) => ['Stop Order', truncateMiddle(data.stopOrderId)]
+      render: (stopOrderId) => ['Stop Order', truncateMiddle(stopOrderId)]
     }
   ]
   return <ConditionalDataTable items={items} data={stopOrdersCancellation} />

@@ -7,8 +7,8 @@ import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const JoinTeam = ({ transaction }: ReceiptComponentProperties) => {
   const items: RowConfig<typeof transaction.joinTeam>[] = [
-    { prop: 'id', render: (data) => ['Team', <VegaTeam key="join-team-name" id={data.id} />] },
-    { prop: 'id', render: (data) => ['Team Id', <TeamLink key="join-team-id" id={data.id} />] }
+    { prop: 'id', render: (id) => ['Team', <VegaTeam key="join-team-name" id={id} />] },
+    { prop: 'id', render: (id) => ['Team Id', <TeamLink key="join-team-id" id={id} />] }
   ]
   return (
     <ReceiptWrapper>

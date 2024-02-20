@@ -17,24 +17,27 @@ export const locators = {
 
 const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrderDetails: any }) => {
   const { orderSubmission } = stopOrderDetails
-  const marketId = orderSubmission.marketId
 
   const items: RowConfig<typeof stopOrderDetails>[] = [
     {
       prop: 'price',
-      render: (data) => [
+      props: ['orderSubmission.marketId', 'price'],
+      render: (price, { marketId }) => [
         'Trigger price',
-        <PriceWithTooltip key={`${title}-trigger-price`} price={data.price} marketId={marketId} />
+        <PriceWithTooltip key={`${title}-trigger-price`} price={price} marketId={marketId} />
       ]
     },
-    { prop: 'trailingPercentOffset', render: (data) => ['Trailing offset', `${data.trailingPercentOffset}%`] },
+    {
+      prop: 'trailingPercentOffset',
+      render: (trailingPercentOffset) => ['Trailing offset', `${trailingPercentOffset}%`]
+    },
     {
       prop: 'expiryStrategy',
       render: (data) => ['Expiry strategy', <>{EXPIRY_STRATEGY_MAP[processExpiryStrategy(data.expiryStrategy)]}</>]
     },
     {
       prop: 'expiresAt',
-      render: (data) => ['Expires at', Number(data.expiresAt) === 0 ? 'Never' : formatNanoDate(data.expiresAt)]
+      render: (expiresAt) => ['Expires at', Number(expiresAt) === 0 ? 'Never' : formatNanoDate(expiresAt)]
     }
   ]
 

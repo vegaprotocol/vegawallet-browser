@@ -7,7 +7,6 @@ export const orderTypeShort: Record<vegaOrderType, string> = {
   [vegaOrderType.TYPE_UNSPECIFIED]: 'Unspecified'
 }
 
-export const OrderType = ({ type }: { type?: vegaOrderType }) => {
-  if (!type) return null
+export const OrderType = ({ type }: { type: vegaOrderType }) => {
   return <>{orderTypeShort[type]}</>
 }

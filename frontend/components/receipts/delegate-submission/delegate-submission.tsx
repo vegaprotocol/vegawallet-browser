@@ -13,7 +13,7 @@ export const DelegateSubmission = ({ transaction }: ReceiptComponentProperties) 
   const formattedAmount = formatNumber(toBigNum(amount, 18), 18)
 
   const items: RowConfig<typeof transaction.delegateSubmission>[] = [
-    { prop: 'nodeId', render: (data) => ['Node Id', <NodeLink nodeId={data.nodeId} />] },
+    { prop: 'nodeId', render: (nodeId) => ['Node Id', <NodeLink nodeId={nodeId} />] },
     {
       prop: 'amount',
       render: () => ['Amount', <AmountWithSymbol amount={formattedAmount} symbol={'VEGA'} />]

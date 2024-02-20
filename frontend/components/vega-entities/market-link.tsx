@@ -8,9 +8,8 @@ export const locators = {
   marketLink: 'market-link'
 }
 
-export const MarketLink = ({ marketId, name }: { marketId?: string; name?: string }) => {
+export const MarketLink = ({ marketId, name }: { marketId: string; name?: string }) => {
   const { network } = useNetwork()
-  if (!marketId) return null
   return (
     <ExternalLink data-testid={locators.marketLink} href={`${network.explorer}/markets/${marketId}`}>
       {name ?? truncateMiddle(marketId)}

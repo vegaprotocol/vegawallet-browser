@@ -24,7 +24,7 @@ const testnet = {
   manifestReplacements: {
     buildName: 'Beta',
     geckoId: 'browser-extension@vega.xyz',
-    iconPrefix: 'Fairground'
+    iconPrefix: 'Beta'
   },
   autoOpenOnInstall: true
 }

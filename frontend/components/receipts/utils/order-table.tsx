@@ -3,8 +3,8 @@ import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
 import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
-import { ORDER_STATUS_MAP } from '@/components/enums'
 import { MarketLink } from '@/components/vega-entities/market-link'
+import { ORDER_STATUS_MAP, processOrderStatus } from '@/lib/enums'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { PeggedOrderOptions } from '@/types/transactions'
 
@@ -99,7 +99,7 @@ export const OrderTable = (properties: OrderTableProperties) => {
         <OrderSize key="order-details-remaining" size={remaining} marketId={marketId} />
       ]
     },
-    { prop: 'status', render: (status) => ['Status', ORDER_STATUS_MAP[status as vegaOrderStatus]] },
+    { prop: 'status', render: (status) => ['Status', ORDER_STATUS_MAP[processOrderStatus(status)]] },
     { prop: 'version', render: (version) => ['Version', version] }
   ]
 

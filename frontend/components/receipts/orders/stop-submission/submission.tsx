@@ -1,5 +1,3 @@
-import { StopOrderExpiryStrategy } from '@vegaprotocol/rest-clients/dist/trading-data'
-
 import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
 import { EXPIRY_STRATEGY_MAP, processExpiryStrategy } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'
@@ -33,7 +31,7 @@ const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrd
     },
     {
       prop: 'expiryStrategy',
-      render: (data) => ['Expiry strategy', <>{EXPIRY_STRATEGY_MAP[processExpiryStrategy(data.expiryStrategy)]}</>]
+      render: (expiryStrategy) => ['Expiry strategy', <>{EXPIRY_STRATEGY_MAP[processExpiryStrategy(expiryStrategy)]}</>]
     },
     {
       prop: 'expiresAt',

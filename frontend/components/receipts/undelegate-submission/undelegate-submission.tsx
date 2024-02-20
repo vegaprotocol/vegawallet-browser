@@ -9,8 +9,6 @@ import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
 
 export const UndelegateSubmission = ({ transaction }: ReceiptComponentProperties) => {
-  const undelegateMethod = processUndelegateMethod(method)
-
   const items: RowConfig<typeof transaction.undelegateSubmission>[] = [
     { prop: 'nodeId', render: (nodeId) => ['Node Id', <NodeLink nodeId={nodeId} />] },
     {
@@ -22,7 +20,7 @@ export const UndelegateSubmission = ({ transaction }: ReceiptComponentProperties
     },
     {
       prop: 'method',
-      render: (data) => ['Method', <>{UNDELEGATE_METHOD_MAP[processUndelegateMethod(data.method)]}</>]
+      render: (method) => ['Method', <>{UNDELEGATE_METHOD_MAP[processUndelegateMethod(method)]}</>]
     }
   ]
   return (

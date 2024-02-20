@@ -8,15 +8,18 @@ import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) => {
-  const marginMode = processMarginMode(mode)
+  console.log(
+    MARGIN_MODE_MAP[processMarginMode(transaction.updateMarginMode.mode)],
+    processMarginMode(transaction.updateMarginMode.mode)
+  )
   const items: RowConfig<typeof transaction.updateMarginMode>[] = [
     {
       prop: 'marketId',
       render: (marketId) => ['Market', <VegaMarket key="update-margin-mode-market" marketId={marketId} />]
     },
-    { prop: 'mode', render: (data) => ['Mode', <>{MARGIN_MODE_MAP[processMarginMode(data.mode)]}</>] },
-    { prop: 'marginFactor', render: (data) => ['Leverage', `${formatNumber(1 / Number(data.marginFactor), 2)}X`] },
-    { prop: 'marginFactor', render: (data) => ['Margin Factor', data.marginFactor] }
+    { prop: 'mode', render: (mode) => ['Mode', <>{MARGIN_MODE_MAP[processMarginMode(mode)]}</>] },
+    { prop: 'marginFactor', render: (marginFactor) => ['Leverage', `${formatNumber(1 / Number(marginFactor), 2)}X`] },
+    { prop: 'marginFactor', render: (marginFactor) => ['Margin Factor', marginFactor] }
   ]
 
   return (

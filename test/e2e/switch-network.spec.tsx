@@ -30,8 +30,8 @@ describe('Switch network', () => {
   })
 
   it('reloads data and adjusts links when network is switched', async () => {
-    // 1138-NWSW-007 Data is reloaded when switching networks
-    // 1138-NWSW-008 Links are adjusted based on config when switching networks
+    // 1142-NWSW-007 Data is reloaded when switching networks
+    // 1142-NWSW-008 Links are adjusted based on config when switching networks
     const network = await header.getConnectedNetwork()
     expect(network).toBe(testingNetwork.name)
     let linkBeforeNameChange = await keyDetails.getVegaExplorerLink()

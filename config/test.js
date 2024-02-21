@@ -23,7 +23,7 @@ const test = {
   manifestReplacements: {
     buildName: 'Test',
     geckoId: 'browser-extension-test@vega.xyz',
-    iconPrefix: 'Fairground'
+    iconPrefix: 'Beta'
   },
   features: {
     popoutHeader: true

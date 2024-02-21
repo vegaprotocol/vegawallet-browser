@@ -54,7 +54,8 @@ export default function init({ onerror, settings, wallets, networks, connections
           if (network == null) {
             throw new JSONRPCServer.Error(...Errors.UNKNOWN_CHAIN_ID)
           }
-          if (network.hidden && settings.get('showHiddenNetworks') !== true) {
+          const hiddenNetworksEnabled = await settings.get('showHiddenNetworks')
+          if (network.hidden && hiddenNetworksEnabled !== true) {
             throw new JSONRPCServer.Error(...Errors.UNKNOWN_CHAIN_ID)
           }
 

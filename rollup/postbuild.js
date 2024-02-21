@@ -4,7 +4,8 @@ import pkg from '../package.json' assert { type: 'json' }
 import { glob } from 'glob'
 
 const fileName = 'I_SHOULD_NOT_EXIST.js'
-export const chromePublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA08UzOSHIQYHM54WUFpkwdli9r64CjLvR0zQywfNvJEW808vRJF86esnXtgFn+XaPc/rKL1SguiGrhi0DJH6uzNEBs37q7kEsEzK+yxWu8OPGp8Bf6p1MnvT5m/44tXqcbdLll3K8rBrNq8PAGIbw7AI/dkLnK1UosVDkkO7CCqLYLDp0ccJTLs1ALS78o6Es9tg91DuTRJyNc1HP8rZn0FL+rjOkqAX+26rhy+UOwWvqe7FZbMU18ZsQ5Z/rFWAYnRG6+lWMMWYBsU2irwRLVPd4RydEr2JKeaNi9V42a7kAtDlYW9607LCOtXfAJTIA3g2zrtxvPBSLMO84abvGzwIDAQAB'
+export const chromePublicKey =
+  'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA08UzOSHIQYHM54WUFpkwdli9r64CjLvR0zQywfNvJEW808vRJF86esnXtgFn+XaPc/rKL1SguiGrhi0DJH6uzNEBs37q7kEsEzK+yxWu8OPGp8Bf6p1MnvT5m/44tXqcbdLll3K8rBrNq8PAGIbw7AI/dkLnK1UosVDkkO7CCqLYLDp0ccJTLs1ALS78o6Es9tg91DuTRJyNc1HP8rZn0FL+rjOkqAX+26rhy+UOwWvqe7FZbMU18ZsQ5Z/rFWAYnRG6+lWMMWYBsU2irwRLVPd4RydEr2JKeaNi9V42a7kAtDlYW9607LCOtXfAJTIA3g2zrtxvPBSLMO84abvGzwIDAQAB'
 
 /**
  * Copies the common files to the browser-specific build folder
@@ -14,11 +15,12 @@ export const chromePublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA08Uz
  * @param {string} build - The browser specific build folder
  */
 export default async (browser, commonFolder, build, isTestBuild, walletConfig, config) => {
-  const testReplacements = isTestBuild && browser === 'chrome'
-    ? {
-      key: chromePublicKey
-    }
-    : {}
+  const testReplacements =
+    isTestBuild && browser === 'chrome'
+      ? {
+          key: chromePublicKey
+        }
+      : {}
   return [
     {
       // Not actually used, but required by rollup. We're just using thr copy plugin.
@@ -46,13 +48,13 @@ export default async (browser, commonFolder, build, isTestBuild, walletConfig, c
           manifests: [`manifests/common.json`, `manifests/${browser}.json`],
           outputFile: `${browser}/manifest.json`,
           replacements: {
-            // Used to prefix all icons eg. Fairground-16x16.png
+            // Used to prefix all icons eg. Beta-16x16.png
             __ICON_PREFIX__: config.manifestReplacements.iconPrefix,
 
             // Used in the extension name
             __BUILD_NAME__: config.title,
 
-            __GECKO_ID__: config.manifestReplacements.geckoId,
+            __GECKO_ID__: config.manifestReplacements.geckoId
           },
           overrides: {
             version: pkg.version,

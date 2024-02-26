@@ -50,11 +50,11 @@ export const Settings = () => {
       )}
       <NetworksSection />
 
-      <LockSection />
+      <ExportRecoveryPhraseSection />
 
       <DeleteWallet />
 
-      <ExportRecoveryPhraseSection />
+      <LockSection />
     </BasePage>
   )
 }

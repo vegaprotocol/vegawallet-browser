@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { VegaSection } from '@/components/vega-section'
 
-import { DeleteWalletForm } from './delete-wallet-form'
+import { DeleteWalletWarning } from './delete-wallet-warning'
 
 export const locators = {
   deleteWalletTrigger: 'delete-wallet-trigger',
@@ -34,7 +34,7 @@ export const DeleteWallet = () => {
           <h1 data-testid={locators.deleteWalletTitle} className="text-xl  text-center text-white mb-2">
             Delete Wallet
           </h1>
-          <DeleteWalletForm />
+          <DeleteWalletWarning onClose={resetDialog} />
         </div>
       </Dialog>
     </>

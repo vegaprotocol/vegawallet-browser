@@ -1,6 +1,6 @@
 import { Button } from '@vegaprotocol/ui-toolkit'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import config from '!/config'
 import { ExternalLink } from '@/components/external-link'
@@ -26,6 +26,9 @@ export const Telemetry = () => {
     saveSettings: state.saveSettings,
     loading: state.settingsLoading
   }))
+  const { globals } = useGlobalsStore((state) => ({
+    globals: state.globals
+  }))
   const { request } = useJsonRpcClient()
   const { handleSubmit } = useForm()
   const navigate = useNavigate()
@@ -34,6 +37,14 @@ export const Telemetry = () => {
       telemetry: value
     })
     navigate(FULL_ROUTES.wallets)
+  }
+
+  if (
+    globals?.settings &&
+    globals.settings.hasOwnProperty('telemetry') &&
+    typeof globals.settings.telemetry === 'boolean'
+  ) {
+    return <Navigate to={FULL_ROUTES.wallets} />
   }
 
   return (

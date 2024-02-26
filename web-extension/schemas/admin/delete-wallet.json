@@ -1,9 +1,12 @@
 {
   "type": "object",
   "additionalProperties": false,
-  "required": ["name"],
+  "required": ["name", "passphrase"],
   "properties": {
     "name": {
+      "type": "string"
+    },
+    "passphrase": {
       "type": "string"
     }
   }

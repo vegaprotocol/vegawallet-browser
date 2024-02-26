@@ -1,53 +1,47 @@
-import { Button, FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
-import { useForm } from 'react-hook-form'
+import { Button } from '@vegaprotocol/ui-toolkit'
 import { useNavigate } from 'react-router-dom'
 
+import { PasswordForm } from '@/components/password-form'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import { Validation } from '@/lib/form-validation'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { useWalletStore } from '@/stores/wallets'
 
-import { FormFields, locators } from './delete-wallet'
+export const locators = {
+  deleteWalletFormModalClose: 'delete-wallet-form-modal-close'
+}
 
 export const DeleteWalletForm = () => {
   const { request } = useJsonRpcClient()
   const navigate = useNavigate()
-  const {
-    handleSubmit,
-    register,
-    formState: { errors }
-  } = useForm<FormFields>()
   const { wallets } = useWalletStore((store) => ({
     wallets: store.wallets
   }))
 
   const [wallet] = wallets
 
-  const deleteWallet = async () => {
+  const deleteWallet = async (passphrase: string) => {
     await request(RpcMethods.DeleteWallet, {
-      name: wallet.name
+      name: wallet.name,
+      passphrase
     })
-    navigate(FULL_ROUTES.home)
+    navigate(FULL_ROUTES.createWallet)
   }
 
   return (
-    <form onSubmit={handleSubmit(deleteWallet)}>
-      <FormGroup label="Wallet name" labelFor="walletName">
-        <Input
-          autoFocus
-          hasError={!!errors.walletName?.message}
-          data-testid={locators.deleteWalletName}
-          type="text"
-          {...register('walletName', {
-            required: Validation.REQUIRED
-          })}
-        />
-        {errors.walletName?.message && <InputError forInput="walletName">{errors.walletName.message}</InputError>}
-      </FormGroup>
-      <Button className="mt-2" data-testid={locators.deleteWalletButton} fill={true} variant="secondary" type="submit">
-        Delete wallet
+    <>
+      <PasswordForm onSubmit={deleteWallet} text={'Delete wallet'} loadingText={'Deleting wallet'} />
+      <Button
+        data-testid={locators.deleteWalletFormModalClose}
+        fill={true}
+        // TODO
+        onClick={() => console.log('FILL ME IN ')}
+        className="mt-2"
+        variant="default"
+        type="submit"
+      >
+        Close
       </Button>
-    </form>
+    </>
   )
 }

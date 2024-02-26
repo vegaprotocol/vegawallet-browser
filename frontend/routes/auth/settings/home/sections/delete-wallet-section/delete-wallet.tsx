@@ -1,4 +1,4 @@
-import { Button, Dialog } from '@vegaprotocol/ui-toolkit'
+import { ButtonLink, Dialog } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
 
 import { VegaSection } from '@/components/vega-section'
@@ -6,7 +6,7 @@ import { VegaSection } from '@/components/vega-section'
 import { DeleteWalletForm } from './delete-wallet-form'
 
 export const locators = {
-  deleteWalletButton: 'delete-wallet-button',
+  deleteWalletTrigger: 'delete-wallet-trigger',
   deleteWalletName: 'delete-wallet-name',
   deleteWalletTitle: 'delete-wallet-title'
 }
@@ -25,20 +25,14 @@ export const DeleteWallet = () => {
   return (
     <>
       <VegaSection>
-        <Button
-          className="mt-2"
-          data-testid={locators.deleteWalletButton}
-          fill={true}
-          variant="secondary"
-          type="submit"
-        >
+        <ButtonLink onClick={() => setOpen(true)} data-testid={locators.deleteWalletTrigger}>
           Delete wallet
-        </Button>
+        </ButtonLink>
       </VegaSection>
       <Dialog open={open} onInteractOutside={resetDialog} onChange={resetDialog}>
         <div className="p-2 text-base text-vega-dark-400">
           <h1 data-testid={locators.deleteWalletTitle} className="text-xl  text-center text-white mb-2">
-            Delete Wallet Title
+            Delete Wallet
           </h1>
           <DeleteWalletForm />
         </div>

@@ -51,7 +51,7 @@ export const DeleteWalletWarning = ({ onClose }: { onClose: () => void }) => {
         >
           Continue
         </Button>
-        <Button className="mt-4" fill={true} onClick={onClose}>
+        <Button className="mt-2" fill={true} onClick={onClose}>
           Close
         </Button>
       </form>

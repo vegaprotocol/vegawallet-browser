@@ -22,3 +22,7 @@ As a wallet user I want to understand the version # I am using So that I can tro
 
 - I can navigate to the settings page and enable development networks (<a name="1107-SETT-011" href="#1107-SETT-011">1107-SETT-011</a>)
 - When development networks are enabled I can see the development networks in the network dropdown (<a name="1107-SETT-012" href="#1107-SETT-012">1107-SETT-012</a>)
+
+## Delete wallet
+
+- I can see the delete wallet button (<a name="1107-SETT-013" href="#1107-SETT-013">1107-SETT-013</a>)

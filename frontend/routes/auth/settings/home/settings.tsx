@@ -3,6 +3,7 @@ import { ExternalLink } from '@/components/external-link'
 import { BasePage } from '@/components/pages/page'
 import { useGlobalsStore } from '@/stores/globals'
 
+import { DeleteWallet } from './sections/delete-wallet-section'
 import { ExportRecoveryPhraseSection } from './sections/export-recovery-phrase-section'
 import { LockSection } from './sections/lock-section'
 import { NetworksSection } from './sections/networks-section'
@@ -50,6 +51,8 @@ export const Settings = () => {
       <NetworksSection />
 
       <LockSection />
+
+      <DeleteWallet />
 
       <ExportRecoveryPhraseSection />
     </BasePage>

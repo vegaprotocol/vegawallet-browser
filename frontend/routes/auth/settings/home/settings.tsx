@@ -6,8 +6,8 @@ import { useGlobalsStore } from '@/stores/globals'
 import { ExportRecoveryPhraseSection } from './sections/export-recovery-phrase-section'
 import { LockSection } from './sections/lock-section'
 import { NetworksSection } from './sections/networks-section'
+import { SettingsRadio } from './sections/radio-section'
 import { VersionSection } from './sections/version-section'
-import { SettingsRadio } from './settings-form-elements/radio'
 
 export const locators = {
   settingsPage: 'settings-page',

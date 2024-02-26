@@ -39,7 +39,10 @@ function App() {
       <GlobalErrorBoundary>
         <JsonRPCProvider>
           <NetworkProvider>
-            <main data-testid={locators.appWrapper} className="w-full h-full bg-black font-alpha text-vega-dark-400">
+            <main
+              data-testid={locators.appWrapper}
+              className="w-full h-full bg-black font-alpha text-vega-dark-400 overflow-hidden"
+            >
               <Routing />
             </main>
           </NetworkProvider>

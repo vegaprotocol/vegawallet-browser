@@ -52,10 +52,12 @@ export class FetchCache {
   }
 
   /**
-   * @param {string} key
+   * @param {string} path
+   * @param {string} networkId
    * @returns {Promise<boolean>}
    */
-  async has(key) {
+  async has(path, networkId) {
+    const key = this.getCacheKey(path, networkId)
     await this._gc()
 
     return this._cache.has(key)

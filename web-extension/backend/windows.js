@@ -3,6 +3,8 @@ import { CONSTANTS } from '../../lib/constants'
 const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
+const BUFFER_HEIGHT = 30
+
 export const createWindow = (top = undefined, left = undefined, once = false) => {
   const url = once ? 'index.html?once=1' : 'index.html'
   return windows.create({
@@ -12,7 +14,7 @@ export const createWindow = (top = undefined, left = undefined, once = false) =>
     // Approximate dimension. The client figures out exactly how big it should be as this height/width
     // includes the frame and different OSes have different sizes
     width: CONSTANTS.width,
-    height: CONSTANTS.defaultHeight,
+    height: CONSTANTS.defaultHeight + BUFFER_HEIGHT,
     top,
     left
   })

@@ -217,17 +217,6 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         }
       },
 
-      async 'admin.export_recovery_phrase'(params) {
-        doValidate(adminValidation.exportRecoveryPhrase, params)
-        if ((await encryptedStore.verifyPassphrase(params.passphrase)) !== true)
-          throw new JSONRPCServer.Error('Invalid passphrase or corrupted storage', 1)
-        try {
-          return await wallets.exportRecoveryPhrase({ walletName: params.walletName })
-        } catch (ex) {
-          throw new JSONRPCServer.Error(ex.message, 1)
-        }
-      },
-
       async 'admin.rename_key'(params) {
         doValidate(adminValidation.renameKey, params)
 
@@ -272,12 +261,12 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
           const network = await networks.getByNetworkId(params.networkId)
           const rpc = await network.rpc()
 
-          const cached = await fetchCache.get(params.path)
+          const cached = await fetchCache.get(params.path, params.networkId)
           if (cached) return cached
 
           const res = await rpc.getJSON(params.path)
 
-          await fetchCache.set(params.path, res)
+          await fetchCache.set(params.path, params.networkId, res)
 
           return res
         } catch (ex) {

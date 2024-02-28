@@ -20,13 +20,16 @@ export const Days = 24 * Hours
  * @param {Object} value
  * @returns {number} TTL in milliseconds
  */
-export function vegaCachingStrategy (key, value) {
+export function vegaCachingStrategy(key, value) {
   const url = new URL(key, 'https://localhost') // adding a random domain to make a valid URL
 
   switch (url.pathname) {
-    case '/api/v2/markets': return 30 * Minutes
-    case '/api/v2/assets': return 30 * Minutes
-    default: return 0
+    case '/api/v2/markets':
+      return 30 * Minutes
+    case '/api/v2/assets':
+      return 30 * Minutes
+    default:
+      return 0
   }
 }
 
@@ -36,7 +39,7 @@ export class FetchCache {
    * @param {Function} ttlFn Function that returns the TTL for a given key and value
    * @returns {FetchCache}
    */
-  constructor (storage, ttlFn = vegaCachingStrategy) {
+  constructor(storage, ttlFn = vegaCachingStrategy) {
     /**
      * @private
      */
@@ -52,18 +55,23 @@ export class FetchCache {
    * @param {string} key
    * @returns {Promise<boolean>}
    */
-  async has (key) {
+  async has(key) {
     await this._gc()
 
     return this._cache.has(key)
   }
 
+  getCacheKey(path, networkId) {
+    return `${networkId}:${path}`
+  }
+
   /**
-   * @param {string} key
+   * @param {string} path
    * @returns {Promise<Object> | Promise<undefined>}
-    */
-  async get (key) {
+   */
+  async get(path, networkId) {
     await this._gc()
+    const key = this.getCacheKey(path, networkId)
 
     const value = await this._cache.get(key)
     if (!value) return undefined
@@ -72,24 +80,29 @@ export class FetchCache {
   }
 
   /**
-   * @param {string} key
+   * @param {string} path
+   * @param {string} networkId
    * @param {Object} value
    * @returns {Promise<void>}
    */
-  async set (key, value) {
-    const ttl = this._ttlFn(key, value) ?? 0
+  async set(path, networkId, value) {
+    const key = this.getCacheKey(path, networkId)
+
+    const ttl = this._ttlFn(path, value) ?? 0
     if (ttl === 0) return
 
     const _value = await compress(value) // save space
     await this._cache.set(key, { value: _value, ttl: Date.now() + ttl })
   }
 
-  async _gc () {
-    await Promise.all(Array.from(await this._cache.entries(), async ([key, value]) => {
-      if (value.ttl < Date.now()) {
-        await this._cache.delete(key)
-      }
-    }))
+  async _gc() {
+    await Promise.all(
+      Array.from(await this._cache.entries(), async ([key, value]) => {
+        if (value.ttl < Date.now()) {
+          await this._cache.delete(key)
+        }
+      })
+    )
   }
 }
 
@@ -99,7 +112,7 @@ export class FetchCache {
  * @param {Object} value
  * @returns {Promise<string>}
  */
-async function compress (value) {
+async function compress(value) {
   const jsonString = JSON.stringify(value)
 
   // Create a Blob so we can use web streams
@@ -121,7 +134,7 @@ async function compress (value) {
  * @param {string} base64String
  * @returns {Promise<Object>}
  */
-async function decompress (base64String) {
+async function decompress(base64String) {
   // Convert base64 string to Uint8Array
   const binaryData = fromBase64(base64String)
 

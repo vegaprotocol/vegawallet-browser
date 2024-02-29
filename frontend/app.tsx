@@ -29,6 +29,7 @@ function App() {
     const minHeight = document.body.style.minHeight
     if (isDesktop) {
       document.body.style.minHeight = `${CONSTANTS.defaultHeight}px`
+      document.body.style.width = `100vw`
     }
     return () => {
       document.body.style.minHeight = minHeight

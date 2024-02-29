@@ -9,7 +9,11 @@ import { RpcMethods } from '@/lib/client-rpc-methods'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { useWalletStore } from '@/stores/wallets'
 
-export const DeleteWalletWarning = ({ onClose }: { onClose: () => void }) => {
+export interface DeleteWalletWarningProperties {
+  onClose: () => void
+}
+
+export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) => {
   const { control } = useForm<{
     accept: boolean
   }>()

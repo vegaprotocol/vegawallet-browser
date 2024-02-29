@@ -39,7 +39,7 @@ const htmlPlugin = (outputPath, title) => {
         })
         .join('\n')
       return `<!DOCTYPE html>
-    <html class="dark scrollbar-hide" lang="en">
+    <html class="bg-black dark scrollbar-hide" lang="en">
       <head>
         ${metas}
         <title>${title}</title>
@@ -64,13 +64,7 @@ const htmlPlugin = (outputPath, title) => {
  * @param {boolean} isProduction - Whether or not this is a production build
  * @param {string} outputPath - The path to output the build to
  */
-const frontend = ({
-  isProduction,
-  outputPath,
-  walletConfigName,
-  config,
-  analyze
-}) => [
+const frontend = ({ isProduction, outputPath, walletConfigName, config, analyze }) => [
   {
     input: './frontend/index.tsx',
     output: {

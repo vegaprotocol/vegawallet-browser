@@ -11,6 +11,8 @@ import { WalletOpenInOtherWindow } from './page-objects/wallet-open-in-other-win
 import { createWalletAndDriver, navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 import { NetworkSettings } from './page-objects/network-settings'
 import test from '../../config/test'
+import { DeleteWallet } from './page-objects/delete-wallet'
+import { CreateAWallet } from './page-objects/create-a-wallet'
 
 describe('Settings test', () => {
   let driver: WebDriver
@@ -20,6 +22,8 @@ describe('Settings test', () => {
   let transaction: Transaction
   let header: ExtensionHeader
   let vegaAPI: VegaAPI
+  let deleteWallet: DeleteWallet
+  let createAWallet: CreateAWallet
   const expectedTelemetryDisabledMessage = 'expected telemetry to be disabled but it was not'
   const expectedTelemetryEnabledMessage = 'expected telemetry to be enabled but it was not'
   const expectedAutoOpenDisabledMessage = 'expected auto open to be disabled but it was not'
@@ -42,13 +46,15 @@ describe('Settings test', () => {
     navPanel = new NavPanel(driver)
     transaction = new Transaction(driver)
     header = new ExtensionHeader(driver)
+    deleteWallet = new DeleteWallet(driver)
+    createAWallet = new CreateAWallet(driver)
     settingsPage = await navPanel.goToSettings()
     vegaAPI = new VegaAPI(driver)
   })
 
   afterEach(async () => {
     await captureScreenshot(driver, expect.getState().currentTestName as string)
-    await driver.quit()
+    // await driver.quit()
   })
 
   it('can navigate to settings and lock the wallet, wallent version is visible', async () => {
@@ -203,6 +209,13 @@ describe('Settings test', () => {
       await networkSettings.checkNetworkID(network.id)
       await networkSettings.goBack()
     }
+  })
+
+  it('allows me to delete a wallet', async () => {
+    await deleteWallet.openModal()
+    await deleteWallet.acceptTerms()
+    await deleteWallet.confirmDelete()
+    await createAWallet.checkOnCreateWalletPage()
   })
 
   async function switchToExtensionTab(

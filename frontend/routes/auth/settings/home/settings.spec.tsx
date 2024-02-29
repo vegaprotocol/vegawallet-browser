@@ -15,6 +15,9 @@ jest.mock('./sections/version-section', () => ({
 jest.mock('./sections/radio-section', () => ({
   SettingsRadio: () => <div data-testid="radio" />
 }))
+jest.mock('./sections/delete-wallet-section', () => ({
+  DeleteWallet: () => <div data-testid="delete-wallet-section" />
+}))
 jest.mock('./sections/lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
@@ -40,12 +43,14 @@ describe('Settings', () => {
     mockStore(useGlobalsStore, { isMobile: false })
     // 1107-SETT-007 I can see the version # of the browser extension
     // 1107-SETT-008 I can see the feedback link
+    // 1107-SETT-013 I can see the delete wallet button
     mockClient()
     renderComponent()
     expect(screen.getByTestId('version-section')).toBeVisible()
     expect(screen.getByTestId(locators.settingsPage)).toBeVisible()
     expect(screen.getAllByTestId('radio')).toHaveLength(3)
     expect(screen.getByTestId('lock-section')).toBeVisible()
+    expect(screen.getByTestId('delete-wallet-section')).toBeVisible()
     expect(screen.getByTestId('export-recovery-phrase-section')).toBeVisible()
   })
 

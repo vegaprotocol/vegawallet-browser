@@ -40,6 +40,7 @@ const renderComponent = (properties: DeleteWalletWarningProperties = { onClose: 
 
 describe('DeleteWalletWarning', () => {
   it('renders warning, checkbox, continue and close buttons', () => {
+    // 1144-DLWT-001 I can see a warning message when I click the delete wallet button
     renderComponent()
     expect(
       screen.getByLabelText(
@@ -49,16 +50,13 @@ describe('DeleteWalletWarning', () => {
     expect(screen.getByTestId(locators.deleteWalletWarningContinueButton)).toBeInTheDocument()
     expect(screen.getByTestId(locators.deleteWalletWarningCloseButton)).toBeInTheDocument()
   })
-
-  it('disables the continue button when the checkbox is not checked', () => {
-    renderComponent()
-    expect(screen.getByTestId(locators.deleteWalletWarningContinueButton)).toBeDisabled()
-  })
-  it('enables the continue button when the checkbox is checked', async () => {
+  it('disables the continue button when the checkbox is not checked', async () => {
+    // 1144-DLWT-002 The button is disabled until I accept the message
     renderComponent()
     const checkbox = screen.getByLabelText(
       'I have backed up my recovery phrase. I understand that I need the phrase to recover my wallet, and that if I delete it, my wallet may be lost.'
     )
+    expect(screen.getByTestId(locators.deleteWalletWarningContinueButton)).toBeDisabled()
     fireEvent.click(checkbox)
     await waitFor(() => expect(screen.getByTestId(locators.deleteWalletWarningContinueButton)).not.toBeDisabled())
   })

@@ -37,7 +37,6 @@ export const ExportRecoveryPhraseForm = ({ onSuccess, onClose, walletName }: Exp
         onClick={onClose}
         className="mt-2"
         variant="default"
-        type="submit"
       >
         Close
       </Button>

@@ -31,6 +31,7 @@ export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) 
   const { wallets } = useWalletStore((store) => ({
     wallets: store.wallets
   }))
+  const { handleSubmit } = useForm()
 
   const [wallet] = wallets
 
@@ -45,7 +46,7 @@ export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) 
 
   return (
     <div>
-      <form onSubmit={() => loaderFunction()}>
+      <form onSubmit={handleSubmit(() => loaderFunction())}>
         <Checkbox
           name="accept"
           label="I have backed up my recovery phrase. I understand that I need the phrase to recover my wallet, and that if I delete it, my wallet may be lost."
@@ -61,10 +62,10 @@ export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) 
         >
           Continue
         </Button>
-        <Button data-testid={locators.deleteWalletWarningCloseButton} className="mt-2" fill={true} onClick={onClose}>
-          Close
-        </Button>
       </form>
+      <Button data-testid={locators.deleteWalletWarningCloseButton} className="mt-2" fill={true} onClick={onClose}>
+        Close
+      </Button>
     </div>
   )
 }

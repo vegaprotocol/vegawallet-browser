@@ -212,6 +212,7 @@ describe('Settings test', () => {
   })
 
   it('allows me to delete a wallet', async () => {
+    // 1144-DLWT-003 When I press the delete wallet button I am redirected to the create wallet page
     await deleteWallet.openModal()
     await deleteWallet.acceptTerms()
     await deleteWallet.confirmDelete()

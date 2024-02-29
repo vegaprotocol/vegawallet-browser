@@ -8,10 +8,6 @@ import { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) => {
-  console.log(
-    MARGIN_MODE_MAP[processMarginMode(transaction.updateMarginMode.mode)],
-    processMarginMode(transaction.updateMarginMode.mode)
-  )
   const items: RowConfig<typeof transaction.updateMarginMode>[] = [
     {
       prop: 'marketId',

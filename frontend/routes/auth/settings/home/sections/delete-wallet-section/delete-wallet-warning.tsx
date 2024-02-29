@@ -9,6 +9,11 @@ import { RpcMethods } from '@/lib/client-rpc-methods'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { useWalletStore } from '@/stores/wallets'
 
+export const locators = {
+  deleteWalletWarningContinueButton: 'delete-wallet-warning-continue-button',
+  deleteWalletWarningCloseButton: 'delete-wallet-warning-close-button'
+}
+
 export interface DeleteWalletWarningProperties {
   onClose: () => void
 }
@@ -47,6 +52,7 @@ export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) 
           control={control}
         />
         <Button
+          data-testid={locators.deleteWalletWarningContinueButton}
           disabled={!accepted || loading}
           variant="secondary"
           className="mt-4"
@@ -55,7 +61,7 @@ export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) 
         >
           Continue
         </Button>
-        <Button className="mt-2" fill={true} onClick={onClose}>
+        <Button data-testid={locators.deleteWalletWarningCloseButton} className="mt-2" fill={true} onClick={onClose}>
           Close
         </Button>
       </form>

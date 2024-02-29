@@ -12,13 +12,13 @@ jest.mock('@/stores/globals')
 jest.mock('./sections/version-section', () => ({
   VersionSection: () => <div data-testid="version-section" />
 }))
-jest.mock('./settings-form-elements/radio', () => ({
+jest.mock('./sections/radio-section', () => ({
   SettingsRadio: () => <div data-testid="radio" />
 }))
 jest.mock('./sections/lock-section', () => ({
   LockSection: () => <div data-testid="lock-section" />
 }))
-jest.mock('./sections/export-recovery-phrase', () => ({
+jest.mock('./sections/export-recovery-phrase-section', () => ({
   ExportRecoveryPhraseSection: () => <div data-testid="export-recovery-phrase-section" />
 }))
 jest.mock('!/config', () => ({

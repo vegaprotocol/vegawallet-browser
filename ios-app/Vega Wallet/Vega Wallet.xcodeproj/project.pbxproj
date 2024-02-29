@@ -1,0 +1,703 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DF802BB82B90D95800A9C115 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF802BB72B90D95800A9C115 /* AppDelegate.swift */; };
+		DF802BBC2B90D95800A9C115 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = DF802BBA2B90D95800A9C115 /* Main.html */; };
+		DF802BBE2B90D95800A9C115 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BBD2B90D95800A9C115 /* Icon.png */; };
+		DF802BC02B90D95800A9C115 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = DF802BBF2B90D95800A9C115 /* Style.css */; };
+		DF802BC22B90D95800A9C115 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF802BC12B90D95800A9C115 /* SceneDelegate.swift */; };
+		DF802BC42B90D95800A9C115 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF802BC32B90D95800A9C115 /* ViewController.swift */; };
+		DF802BC72B90D95800A9C115 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF802BC52B90D95800A9C115 /* LaunchScreen.storyboard */; };
+		DF802BCA2B90D95800A9C115 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF802BC82B90D95800A9C115 /* Main.storyboard */; };
+		DF802BD22B90D95900A9C115 /* Vega Wallet Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF802BD12B90D95900A9C115 /* Vega Wallet Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF802BD72B90D95900A9C115 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF802BD62B90D95900A9C115 /* SafariWebExtensionHandler.swift */; };
+		DF802BD92B90D95900A9C115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF802BCB2B90D95900A9C115 /* Assets.xcassets */; };
+		DF802C022B90D95900A9C115 /* Fairground-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BE42B90D95900A9C115 /* Fairground-64x64.png */; };
+		DF802C032B90D95900A9C115 /* Mainnet-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BE52B90D95900A9C115 /* Mainnet-48x48.png */; };
+		DF802C042B90D95900A9C115 /* Fairground-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BE62B90D95900A9C115 /* Fairground-32x32.png */; };
+		DF802C052B90D95900A9C115 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DF802BE72B90D95900A9C115 /* popup.js */; };
+		DF802C062B90D95900A9C115 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DF802BE82B90D95900A9C115 /* index.html */; };
+		DF802C072B90D95900A9C115 /* Mainnet-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BE92B90D95900A9C115 /* Mainnet-96x96.png */; };
+		DF802C082B90D95900A9C115 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DF802BEA2B90D95900A9C115 /* background.js */; };
+		DF802C092B90D95900A9C115 /* Beta-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BEB2B90D95900A9C115 /* Beta-16x16.png */; };
+		DF802C0A2B90D95900A9C115 /* Mainnet-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BEC2B90D95900A9C115 /* Mainnet-64x64.png */; };
+		DF802C0B2B90D95900A9C115 /* Fairground-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BED2B90D95900A9C115 /* Fairground-48x48.png */; };
+		DF802C0C2B90D95900A9C115 /* Mainnet-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BEE2B90D95900A9C115 /* Mainnet-128x128.png */; };
+		DF802C0D2B90D95900A9C115 /* chrome-pow.html in Resources */ = {isa = PBXBuildFile; fileRef = DF802BEF2B90D95900A9C115 /* chrome-pow.html */; };
+		DF802C0E2B90D95900A9C115 /* chrome-pow.js in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF02B90D95900A9C115 /* chrome-pow.js */; };
+		DF802C0F2B90D95900A9C115 /* Fairground-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF12B90D95900A9C115 /* Fairground-96x96.png */; };
+		DF802C102B90D95900A9C115 /* Mainnet-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF22B90D95900A9C115 /* Mainnet-32x32.png */; };
+		DF802C112B90D95900A9C115 /* AlphaLyrae-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF32B90D95900A9C115 /* AlphaLyrae-Medium.woff2 */; };
+		DF802C122B90D95900A9C115 /* Fairground-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF42B90D95900A9C115 /* Fairground-128x128.png */; };
+		DF802C132B90D95900A9C115 /* pow-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF52B90D95900A9C115 /* pow-worker.js */; };
+		DF802C142B90D95900A9C115 /* Mainnet-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF62B90D95900A9C115 /* Mainnet-16x16.png */; };
+		DF802C152B90D95900A9C115 /* Beta-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF72B90D95900A9C115 /* Beta-64x64.png */; };
+		DF802C162B90D95900A9C115 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF82B90D95900A9C115 /* manifest.json */; };
+		DF802C172B90D95900A9C115 /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BF92B90D95900A9C115 /* question-mark.png */; };
+		DF802C182B90D95900A9C115 /* Beta-32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BFA2B90D95900A9C115 /* Beta-32x32.png */; };
+		DF802C192B90D95900A9C115 /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = DF802BFB2B90D95900A9C115 /* content-script.js */; };
+		DF802C1A2B90D95900A9C115 /* in-page.js in Resources */ = {isa = PBXBuildFile; fileRef = DF802BFC2B90D95900A9C115 /* in-page.js */; };
+		DF802C1B2B90D95900A9C115 /* Beta-48x48.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BFD2B90D95900A9C115 /* Beta-48x48.png */; };
+		DF802C1C2B90D95900A9C115 /* Fairground-16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BFE2B90D95900A9C115 /* Fairground-16x16.png */; };
+		DF802C1D2B90D95900A9C115 /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802BFF2B90D95900A9C115 /* stars.png */; };
+		DF802C1E2B90D95900A9C115 /* Beta-96x96.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802C002B90D95900A9C115 /* Beta-96x96.png */; };
+		DF802C1F2B90D95900A9C115 /* Beta-128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = DF802C012B90D95900A9C115 /* Beta-128x128.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DF802BD32B90D95900A9C115 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF802BAC2B90D95800A9C115 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF802BD02B90D95900A9C115;
+			remoteInfo = "Vega Wallet Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DF802BDF2B90D95900A9C115 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF802BD22B90D95900A9C115 /* Vega Wallet Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DF802BB42B90D95800A9C115 /* Vega Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vega Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF802BB72B90D95800A9C115 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DF802BBB2B90D95800A9C115 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		DF802BBD2B90D95800A9C115 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		DF802BBF2B90D95800A9C115 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		DF802BC12B90D95800A9C115 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DF802BC32B90D95800A9C115 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DF802BC62B90D95800A9C115 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DF802BC92B90D95800A9C115 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DF802BCB2B90D95900A9C115 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF802BCC2B90D95900A9C115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF802BD12B90D95900A9C115 /* Vega Wallet Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vega Wallet Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF802BD62B90D95900A9C115 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		DF802BD82B90D95900A9C115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF802BE42B90D95900A9C115 /* Fairground-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-64x64.png"; path = "../../../build/safari/Fairground-64x64.png"; sourceTree = "<group>"; };
+		DF802BE52B90D95900A9C115 /* Mainnet-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-48x48.png"; path = "../../../build/safari/Mainnet-48x48.png"; sourceTree = "<group>"; };
+		DF802BE62B90D95900A9C115 /* Fairground-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-32x32.png"; path = "../../../build/safari/Fairground-32x32.png"; sourceTree = "<group>"; };
+		DF802BE72B90D95900A9C115 /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.js; path = ../../../build/safari/popup.js; sourceTree = "<group>"; };
+		DF802BE82B90D95900A9C115 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../../../build/safari/index.html; sourceTree = "<group>"; };
+		DF802BE92B90D95900A9C115 /* Mainnet-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-96x96.png"; path = "../../../build/safari/Mainnet-96x96.png"; sourceTree = "<group>"; };
+		DF802BEA2B90D95900A9C115 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../build/safari/background.js; sourceTree = "<group>"; };
+		DF802BEB2B90D95900A9C115 /* Beta-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-16x16.png"; path = "../../../build/safari/Beta-16x16.png"; sourceTree = "<group>"; };
+		DF802BEC2B90D95900A9C115 /* Mainnet-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-64x64.png"; path = "../../../build/safari/Mainnet-64x64.png"; sourceTree = "<group>"; };
+		DF802BED2B90D95900A9C115 /* Fairground-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-48x48.png"; path = "../../../build/safari/Fairground-48x48.png"; sourceTree = "<group>"; };
+		DF802BEE2B90D95900A9C115 /* Mainnet-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-128x128.png"; path = "../../../build/safari/Mainnet-128x128.png"; sourceTree = "<group>"; };
+		DF802BEF2B90D95900A9C115 /* chrome-pow.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "chrome-pow.html"; path = "../../../build/safari/chrome-pow.html"; sourceTree = "<group>"; };
+		DF802BF02B90D95900A9C115 /* chrome-pow.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "chrome-pow.js"; path = "../../../build/safari/chrome-pow.js"; sourceTree = "<group>"; };
+		DF802BF12B90D95900A9C115 /* Fairground-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-96x96.png"; path = "../../../build/safari/Fairground-96x96.png"; sourceTree = "<group>"; };
+		DF802BF22B90D95900A9C115 /* Mainnet-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-32x32.png"; path = "../../../build/safari/Mainnet-32x32.png"; sourceTree = "<group>"; };
+		DF802BF32B90D95900A9C115 /* AlphaLyrae-Medium.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AlphaLyrae-Medium.woff2"; path = "../../../build/safari/AlphaLyrae-Medium.woff2"; sourceTree = "<group>"; };
+		DF802BF42B90D95900A9C115 /* Fairground-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-128x128.png"; path = "../../../build/safari/Fairground-128x128.png"; sourceTree = "<group>"; };
+		DF802BF52B90D95900A9C115 /* pow-worker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "pow-worker.js"; path = "../../../build/safari/pow-worker.js"; sourceTree = "<group>"; };
+		DF802BF62B90D95900A9C115 /* Mainnet-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Mainnet-16x16.png"; path = "../../../build/safari/Mainnet-16x16.png"; sourceTree = "<group>"; };
+		DF802BF72B90D95900A9C115 /* Beta-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-64x64.png"; path = "../../../build/safari/Beta-64x64.png"; sourceTree = "<group>"; };
+		DF802BF82B90D95900A9C115 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../build/safari/manifest.json; sourceTree = "<group>"; };
+		DF802BF92B90D95900A9C115 /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "question-mark.png"; path = "../../../build/safari/question-mark.png"; sourceTree = "<group>"; };
+		DF802BFA2B90D95900A9C115 /* Beta-32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-32x32.png"; path = "../../../build/safari/Beta-32x32.png"; sourceTree = "<group>"; };
+		DF802BFB2B90D95900A9C115 /* content-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-script.js"; path = "../../../build/safari/content-script.js"; sourceTree = "<group>"; };
+		DF802BFC2B90D95900A9C115 /* in-page.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "in-page.js"; path = "../../../build/safari/in-page.js"; sourceTree = "<group>"; };
+		DF802BFD2B90D95900A9C115 /* Beta-48x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-48x48.png"; path = "../../../build/safari/Beta-48x48.png"; sourceTree = "<group>"; };
+		DF802BFE2B90D95900A9C115 /* Fairground-16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Fairground-16x16.png"; path = "../../../build/safari/Fairground-16x16.png"; sourceTree = "<group>"; };
+		DF802BFF2B90D95900A9C115 /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars.png; path = ../../../build/safari/stars.png; sourceTree = "<group>"; };
+		DF802C002B90D95900A9C115 /* Beta-96x96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-96x96.png"; path = "../../../build/safari/Beta-96x96.png"; sourceTree = "<group>"; };
+		DF802C012B90D95900A9C115 /* Beta-128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-128x128.png"; path = "../../../build/safari/Beta-128x128.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DF802BB12B90D95800A9C115 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF802BCE2B90D95900A9C115 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DF802BAB2B90D95800A9C115 = {
+			isa = PBXGroup;
+			children = (
+				DF802BB62B90D95800A9C115 /* Vega Wallet */,
+				DF802BD52B90D95900A9C115 /* Vega Wallet Extension */,
+				DF802BB52B90D95800A9C115 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DF802BB52B90D95800A9C115 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DF802BB42B90D95800A9C115 /* Vega Wallet.app */,
+				DF802BD12B90D95900A9C115 /* Vega Wallet Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DF802BB62B90D95800A9C115 /* Vega Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				DF802BB72B90D95800A9C115 /* AppDelegate.swift */,
+				DF802BC12B90D95800A9C115 /* SceneDelegate.swift */,
+				DF802BC32B90D95800A9C115 /* ViewController.swift */,
+				DF802BC52B90D95800A9C115 /* LaunchScreen.storyboard */,
+				DF802BC82B90D95800A9C115 /* Main.storyboard */,
+				DF802BCB2B90D95900A9C115 /* Assets.xcassets */,
+				DF802BCC2B90D95900A9C115 /* Info.plist */,
+				DF802BB92B90D95800A9C115 /* Resources */,
+			);
+			path = "Vega Wallet";
+			sourceTree = "<group>";
+		};
+		DF802BB92B90D95800A9C115 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF802BBA2B90D95800A9C115 /* Main.html */,
+				DF802BBD2B90D95800A9C115 /* Icon.png */,
+				DF802BBF2B90D95800A9C115 /* Style.css */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DF802BD52B90D95900A9C115 /* Vega Wallet Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DF802BE32B90D95900A9C115 /* Resources */,
+				DF802BD62B90D95900A9C115 /* SafariWebExtensionHandler.swift */,
+				DF802BD82B90D95900A9C115 /* Info.plist */,
+			);
+			path = "Vega Wallet Extension";
+			sourceTree = "<group>";
+		};
+		DF802BE32B90D95900A9C115 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF802BE42B90D95900A9C115 /* Fairground-64x64.png */,
+				DF802BE52B90D95900A9C115 /* Mainnet-48x48.png */,
+				DF802BE62B90D95900A9C115 /* Fairground-32x32.png */,
+				DF802BE72B90D95900A9C115 /* popup.js */,
+				DF802BE82B90D95900A9C115 /* index.html */,
+				DF802BE92B90D95900A9C115 /* Mainnet-96x96.png */,
+				DF802BEA2B90D95900A9C115 /* background.js */,
+				DF802BEB2B90D95900A9C115 /* Beta-16x16.png */,
+				DF802BEC2B90D95900A9C115 /* Mainnet-64x64.png */,
+				DF802BED2B90D95900A9C115 /* Fairground-48x48.png */,
+				DF802BEE2B90D95900A9C115 /* Mainnet-128x128.png */,
+				DF802BEF2B90D95900A9C115 /* chrome-pow.html */,
+				DF802BF02B90D95900A9C115 /* chrome-pow.js */,
+				DF802BF12B90D95900A9C115 /* Fairground-96x96.png */,
+				DF802BF22B90D95900A9C115 /* Mainnet-32x32.png */,
+				DF802BF32B90D95900A9C115 /* AlphaLyrae-Medium.woff2 */,
+				DF802BF42B90D95900A9C115 /* Fairground-128x128.png */,
+				DF802BF52B90D95900A9C115 /* pow-worker.js */,
+				DF802BF62B90D95900A9C115 /* Mainnet-16x16.png */,
+				DF802BF72B90D95900A9C115 /* Beta-64x64.png */,
+				DF802BF82B90D95900A9C115 /* manifest.json */,
+				DF802BF92B90D95900A9C115 /* question-mark.png */,
+				DF802BFA2B90D95900A9C115 /* Beta-32x32.png */,
+				DF802BFB2B90D95900A9C115 /* content-script.js */,
+				DF802BFC2B90D95900A9C115 /* in-page.js */,
+				DF802BFD2B90D95900A9C115 /* Beta-48x48.png */,
+				DF802BFE2B90D95900A9C115 /* Fairground-16x16.png */,
+				DF802BFF2B90D95900A9C115 /* stars.png */,
+				DF802C002B90D95900A9C115 /* Beta-96x96.png */,
+				DF802C012B90D95900A9C115 /* Beta-128x128.png */,
+			);
+			name = Resources;
+			path = "Vega Wallet Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DF802BB32B90D95800A9C115 /* Vega Wallet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF802BE02B90D95900A9C115 /* Build configuration list for PBXNativeTarget "Vega Wallet" */;
+			buildPhases = (
+				DF802BB02B90D95800A9C115 /* Sources */,
+				DF802BB12B90D95800A9C115 /* Frameworks */,
+				DF802BB22B90D95800A9C115 /* Resources */,
+				DF802BDF2B90D95900A9C115 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF802BD42B90D95900A9C115 /* PBXTargetDependency */,
+			);
+			name = "Vega Wallet";
+			productName = "Vega Wallet";
+			productReference = DF802BB42B90D95800A9C115 /* Vega Wallet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF802BD02B90D95900A9C115 /* Vega Wallet Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF802BDC2B90D95900A9C115 /* Build configuration list for PBXNativeTarget "Vega Wallet Extension" */;
+			buildPhases = (
+				DF802BCD2B90D95900A9C115 /* Sources */,
+				DF802BCE2B90D95900A9C115 /* Frameworks */,
+				DF802BCF2B90D95900A9C115 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Vega Wallet Extension";
+			productName = "Vega Wallet Extension";
+			productReference = DF802BD12B90D95900A9C115 /* Vega Wallet Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DF802BAC2B90D95800A9C115 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					DF802BB32B90D95800A9C115 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					DF802BD02B90D95900A9C115 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = DF802BAF2B90D95800A9C115 /* Build configuration list for PBXProject "Vega Wallet" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DF802BAB2B90D95800A9C115;
+			productRefGroup = DF802BB52B90D95800A9C115 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DF802BB32B90D95800A9C115 /* Vega Wallet */,
+				DF802BD02B90D95900A9C115 /* Vega Wallet Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DF802BB22B90D95800A9C115 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF802BBE2B90D95800A9C115 /* Icon.png in Resources */,
+				DF802BCA2B90D95800A9C115 /* Main.storyboard in Resources */,
+				DF802BC72B90D95800A9C115 /* LaunchScreen.storyboard in Resources */,
+				DF802BBC2B90D95800A9C115 /* Main.html in Resources */,
+				DF802BD92B90D95900A9C115 /* Assets.xcassets in Resources */,
+				DF802BC02B90D95800A9C115 /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF802BCF2B90D95900A9C115 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF802C092B90D95900A9C115 /* Beta-16x16.png in Resources */,
+				DF802C162B90D95900A9C115 /* manifest.json in Resources */,
+				DF802C142B90D95900A9C115 /* Mainnet-16x16.png in Resources */,
+				DF802C152B90D95900A9C115 /* Beta-64x64.png in Resources */,
+				DF802C062B90D95900A9C115 /* index.html in Resources */,
+				DF802C022B90D95900A9C115 /* Fairground-64x64.png in Resources */,
+				DF802C082B90D95900A9C115 /* background.js in Resources */,
+				DF802C042B90D95900A9C115 /* Fairground-32x32.png in Resources */,
+				DF802C1A2B90D95900A9C115 /* in-page.js in Resources */,
+				DF802C1D2B90D95900A9C115 /* stars.png in Resources */,
+				DF802C172B90D95900A9C115 /* question-mark.png in Resources */,
+				DF802C1B2B90D95900A9C115 /* Beta-48x48.png in Resources */,
+				DF802C0B2B90D95900A9C115 /* Fairground-48x48.png in Resources */,
+				DF802C032B90D95900A9C115 /* Mainnet-48x48.png in Resources */,
+				DF802C052B90D95900A9C115 /* popup.js in Resources */,
+				DF802C122B90D95900A9C115 /* Fairground-128x128.png in Resources */,
+				DF802C0C2B90D95900A9C115 /* Mainnet-128x128.png in Resources */,
+				DF802C1E2B90D95900A9C115 /* Beta-96x96.png in Resources */,
+				DF802C0A2B90D95900A9C115 /* Mainnet-64x64.png in Resources */,
+				DF802C182B90D95900A9C115 /* Beta-32x32.png in Resources */,
+				DF802C1F2B90D95900A9C115 /* Beta-128x128.png in Resources */,
+				DF802C112B90D95900A9C115 /* AlphaLyrae-Medium.woff2 in Resources */,
+				DF802C192B90D95900A9C115 /* content-script.js in Resources */,
+				DF802C102B90D95900A9C115 /* Mainnet-32x32.png in Resources */,
+				DF802C1C2B90D95900A9C115 /* Fairground-16x16.png in Resources */,
+				DF802C132B90D95900A9C115 /* pow-worker.js in Resources */,
+				DF802C0E2B90D95900A9C115 /* chrome-pow.js in Resources */,
+				DF802C072B90D95900A9C115 /* Mainnet-96x96.png in Resources */,
+				DF802C0D2B90D95900A9C115 /* chrome-pow.html in Resources */,
+				DF802C0F2B90D95900A9C115 /* Fairground-96x96.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DF802BB02B90D95800A9C115 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF802BC42B90D95800A9C115 /* ViewController.swift in Sources */,
+				DF802BB82B90D95800A9C115 /* AppDelegate.swift in Sources */,
+				DF802BC22B90D95800A9C115 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF802BCD2B90D95900A9C115 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF802BD72B90D95900A9C115 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DF802BD42B90D95900A9C115 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF802BD02B90D95900A9C115 /* Vega Wallet Extension */;
+			targetProxy = DF802BD32B90D95900A9C115 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DF802BBA2B90D95800A9C115 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF802BBB2B90D95800A9C115 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		DF802BC52B90D95800A9C115 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF802BC62B90D95800A9C115 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DF802BC82B90D95800A9C115 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF802BC92B90D95800A9C115 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DF802BDA2B90D95900A9C115 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DF802BDB2B90D95900A9C115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DF802BDD2B90D95900A9C115 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Vega Wallet Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF802BDE2B90D95900A9C115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Vega Wallet Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DF802BE12B90D95900A9C115 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 35466DARSS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Vega Wallet/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.beta;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF802BE22B90D95900A9C115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 35466DARSS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Vega Wallet/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.beta;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DF802BAF2B90D95800A9C115 /* Build configuration list for PBXProject "Vega Wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF802BDA2B90D95900A9C115 /* Debug */,
+				DF802BDB2B90D95900A9C115 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF802BDC2B90D95900A9C115 /* Build configuration list for PBXNativeTarget "Vega Wallet Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF802BDD2B90D95900A9C115 /* Debug */,
+				DF802BDE2B90D95900A9C115 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF802BE02B90D95900A9C115 /* Build configuration list for PBXNativeTarget "Vega Wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF802BE12B90D95900A9C115 /* Debug */,
+				DF802BE22B90D95900A9C115 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DF802BAC2B90D95800A9C115 /* Project object */;
+}

@@ -14,9 +14,7 @@ jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
 
 const mockLoadGlobals = jest.fn()
 
-jest.mock('@/stores/globals', () => ({
-  useGlobalsStore: jest.fn()
-}))
+jest.mock('@/stores/globals')
 
 const renderRedirectHook = (globals: AppGlobals, loading: boolean = false) => {
   mockStore(useGlobalsStore, {

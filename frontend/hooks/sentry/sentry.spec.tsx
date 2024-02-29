@@ -3,12 +3,14 @@ import { renderHook } from '@testing-library/react'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useGlobalsStore } from '@/stores/globals'
+import { useWalletStore } from '@/stores/wallets'
 import { mockStore } from '@/test-helpers/mock-store'
 
 import { sanitizeEvent } from '../../../lib/sanitize-event'
 import { useSentry } from '.'
 
 jest.mock('@/stores/globals')
+jest.mock('@/stores/wallets')
 jest.mock('@sentry/react')
 jest.mock('!/config', () => ({
   ...jest.requireActual('../../../config/test').default,
@@ -19,27 +21,17 @@ describe('useSentry', () => {
   let initMock: jest.Mock
   let closeMock: jest.Mock
   let setTagMock: jest.Mock
-  let useGlobalsStoreMock: jest.Mock
-  let useWalletStoreMock: jest.Mock
 
   beforeEach(() => {
     initMock = jest.fn()
     closeMock = jest.fn()
     setTagMock = jest.fn()
-    useGlobalsStoreMock = jest.fn()
-    useWalletStoreMock = jest.fn()
 
     // Mocking external dependencies
     jest.mock('@sentry/react', () => ({
       init: initMock,
       close: closeMock,
       setTag: setTagMock
-    }))
-    jest.mock('@/stores/globals', () => ({
-      useGlobalsStore: useGlobalsStoreMock
-    }))
-    jest.mock('@/stores/wallets', () => ({
-      useWalletStore: useWalletStoreMock
     }))
   })
 
@@ -57,8 +49,7 @@ describe('useSentry', () => {
         version: '1.0.0'
       }
     })
-
-    useWalletStoreMock.mockReturnValue({
+    mockStore(useWalletStore, {
       wallets: []
     })
 
@@ -83,6 +74,9 @@ describe('useSentry', () => {
         },
         version: '1.0.0'
       }
+    })
+    mockStore(useWalletStore, {
+      wallets: []
     })
 
     renderHook(() => useSentry(), { wrapper: MockNetworkProvider })

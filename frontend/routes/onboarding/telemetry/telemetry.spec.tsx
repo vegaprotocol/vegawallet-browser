@@ -2,20 +2,14 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import config from '!/config'
+import { useGlobalsStore } from '@/stores/globals'
 import { mockClient } from '@/test-helpers/mock-client'
+import { mockStore } from '@/test-helpers/mock-store'
 
 import { FULL_ROUTES } from '../../route-names'
 import { locators, Telemetry } from '.'
 
-const saveSettings = jest.fn()
-
-jest.mock('@/stores/globals', () => ({
-  useGlobalsStore: jest.fn((function_) => {
-    return function_({
-      saveSettings
-    })
-  })
-}))
+jest.mock('@/stores/globals')
 
 const mockedRequest = jest.fn()
 
@@ -27,7 +21,8 @@ const mockedUsedNavigate = jest.fn()
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedUsedNavigate
+  useNavigate: () => mockedUsedNavigate,
+  Navigate: () => <div data-testid="navigate" />
 }))
 
 const renderComponent = () => {
@@ -46,6 +41,7 @@ describe('Telemetry', () => {
   it('renders description, scope of data, user data policy and buttons', () => {
     // 1111-TELE-001 I can see an explanation of what I am being asked to opt in/out to and why
     // 1111-TELE-002 I can click a link to read more details about vega user data policy
+    mockStore(useGlobalsStore, { saveSettings: jest.fn() })
     renderComponent()
     expect(screen.getByTestId(locators.description)).toHaveTextContent(
       'Improve Vega Wallet by automatically reporting bugs and crashes.'
@@ -65,7 +61,10 @@ describe('Telemetry', () => {
   })
 
   it('saves telemetry settings and navigates to wallets page if opted in', async () => {
+    const saveSettings = jest.fn()
+    mockStore(useGlobalsStore, { saveSettings })
     renderComponent()
+
     fireEvent.click(screen.getByTestId(locators.reportBugsAndCrashes))
     await waitFor(() => expect(screen.getByTestId(locators.reportBugsAndCrashes)).toBeEnabled())
     expect(saveSettings).toHaveBeenCalledWith(mockedRequest, { telemetry: true })
@@ -74,11 +73,20 @@ describe('Telemetry', () => {
   })
 
   it('saves telemetry settings and navigates to wallets page if opted out', async () => {
+    const saveSettings = jest.fn()
+    mockStore(useGlobalsStore, { saveSettings })
     renderComponent()
     fireEvent.click(screen.getByTestId(locators.noThanks))
     await waitFor(() => expect(screen.getByTestId(locators.noThanks)).toBeEnabled())
     expect(saveSettings).toHaveBeenCalledWith(mockedRequest, { telemetry: false })
     expect(saveSettings).toHaveBeenCalledTimes(1)
     expect(mockedUsedNavigate).toHaveBeenCalledWith(FULL_ROUTES.wallets)
+  })
+
+  it('navigates to the wallet page if the user has already set a telemetry preference', async () => {
+    const saveSettings = jest.fn()
+    mockStore(useGlobalsStore, { saveSettings, globals: { settings: { telemetry: true } } })
+    renderComponent()
+    expect(screen.getByTestId('navigate')).toBeVisible()
   })
 })

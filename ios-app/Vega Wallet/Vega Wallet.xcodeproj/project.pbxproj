@@ -540,6 +540,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Vega Wallet Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet Extension";
@@ -555,7 +556,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.betawallet.iosextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -569,6 +570,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Vega Wallet Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet Extension";
@@ -584,7 +586,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Vega-Wallet.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.betawallet.iosextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -622,7 +624,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.betawallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -659,7 +661,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.betawallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

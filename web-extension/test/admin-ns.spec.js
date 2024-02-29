@@ -390,7 +390,7 @@ describe('admin-ns', () => {
       url: 'moz-extension://8b413e68-1e0d-4cad-b98e-1eb000799783/index.html',
       type: 'popup',
       width: CONSTANTS.width,
-      height: CONSTANTS.defaultHeight,
+      height: CONSTANTS.defaultHeight + 30,
       focused: true,
       left: undefined,
       top: undefined

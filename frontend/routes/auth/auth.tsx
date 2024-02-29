@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/page-header'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useNetwork } from '@/contexts/network/network-context'
 import { useAssetsStore } from '@/stores/assets-store'
+import { useGlobalsStore } from '@/stores/globals'
 import { useMarketsStore } from '@/stores/markets-store'
 import { useNetworksStore } from '@/stores/networks-store'
 import { useWalletStore } from '@/stores/wallets'
@@ -39,6 +40,8 @@ export const Auth = () => {
     loading: state.loading
   }))
 
+  const isDesktop = useGlobalsStore((state) => !state.isMobile)
+
   useEffect(() => {
     loadWallets(request)
   }, [request, loadWallets])
@@ -62,7 +65,7 @@ export const Auth = () => {
       <ModalWrapper />
       <PageHeader />
       <section className="w-full h-full overflow-y-auto">
-        {isWallets && <DappsHeader />}
+        {isWallets && isDesktop && <DappsHeader />}
         <div className="px-5 pt-3">
           <Outlet />
         </div>

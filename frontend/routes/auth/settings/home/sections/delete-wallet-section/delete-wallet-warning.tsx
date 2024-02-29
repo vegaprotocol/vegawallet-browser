@@ -45,7 +45,7 @@ export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) 
 
   return (
     <div>
-      <form>
+      <form onSubmit={() => loaderFunction()}>
         <Checkbox
           name="accept"
           label="I have backed up my recovery phrase. I understand that I need the phrase to recover my wallet, and that if I delete it, my wallet may be lost."
@@ -57,7 +57,7 @@ export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) 
           variant="secondary"
           className="mt-4"
           fill={true}
-          onClick={() => loaderFunction()}
+          type="submit"
         >
           Continue
         </Button>

@@ -538,12 +538,9 @@
 		DF802BDD2B90D95900A9C115 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 35466DARSS;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Vega Wallet Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet Extension";
@@ -561,8 +558,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.betawallet.iosextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "iOS Vega Wallet Extension";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -573,12 +568,9 @@
 		DF802BDE2B90D95900A9C115 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 35466DARSS;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Vega Wallet Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet Extension";
@@ -596,8 +588,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.betawallet.iosextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "iOS Vega Wallet Extension";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -611,12 +601,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 35466DARSS;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Vega Wallet/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet";
@@ -639,8 +626,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.betawallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "iOS Vega Wallet Beta";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -653,12 +638,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 35466DARSS;
+				DEVELOPMENT_TEAM = 35466DARSS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Vega Wallet/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vega Wallet";
@@ -681,8 +663,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.vega.betawallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "iOS Vega Wallet Beta";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

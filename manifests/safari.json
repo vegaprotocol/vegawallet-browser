@@ -19,7 +19,8 @@
     }
   },
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"],
+    "persistent": false
   },
   "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
   "web_accessible_resources": ["in-page.js"]

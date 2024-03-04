@@ -13,3 +13,4 @@ jobs:
       - uses: yukiarrr/ios-build-action@v1.11.2
         with:
           project-path: './ios-app/Vega Wallet'
+          p12-base64: ${{ secrets.IOS_P12_BASE_64 }}

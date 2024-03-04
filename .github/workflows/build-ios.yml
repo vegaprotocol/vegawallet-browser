@@ -11,5 +11,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: yukiarrr/ios-build-action@v1.11.2
-          with:
-            project-path: './ios-app/Vega Wallet'
+        with:
+          project-path: './ios-app/Vega Wallet'

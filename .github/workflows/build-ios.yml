@@ -6,13 +6,13 @@ on:
 
 jobs:
   generate-requests:
-    runs-on: macos-latest
+  runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
       - uses: yukiarrr/ios-build-action@v1.11.2
         with:
-          project-path: './ios-app/Vega Wallet'
+          project-path: './ios-app/Vega Wallet/Vega Wallet.xcodeproj'
           p12-base64: ${{ secrets.IOS_P12_BASE_64 }}
           mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION }}
           code-signing-identity: ${{ secrets.IOS_CERTIFICATE_IDENTITY_ID }}

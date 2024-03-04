@@ -15,3 +15,5 @@ jobs:
           project-path: './ios-app/Vega Wallet'
           p12-base64: ${{ secrets.IOS_P12_BASE_64 }}
           mobile-provision: ${{ secrets.IOS_MOBILE_PROVISION }}
+          code-signing-identity: ${{ secrets.IOS_CERTIFICATE_IDENTITY_ID }}
+          team-id: ${{ secrets.IOS_TEAM_NAME }}

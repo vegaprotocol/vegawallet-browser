@@ -1,0 +1,15 @@
+name: Deploy sample dApp to Pages
+
+on:
+  push:
+    branches: ['ci/build-ios']
+
+jobs:
+  generate-requests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: yukiarrr/ios-build-action@v1.11.2
+          with:
+            project-path: './ios-app/Vega Wallet'

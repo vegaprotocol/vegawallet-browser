@@ -117,7 +117,7 @@ describe('RedirectPath', () => {
     })
     await waitFor(() => expect(view.result.current.loading).toBeFalsy())
     expect(view.result.current.loading).toBeFalsy()
-    expect(view.result.current.path).toBe(FULL_ROUTES.telemetry)
+    expect(view.result.current.path).toBe(FULL_ROUTES.wallets)
   })
 
   it('returns no path if loading', async () => {

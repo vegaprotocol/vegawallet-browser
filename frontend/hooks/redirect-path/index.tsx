@@ -51,22 +51,24 @@ export const useGetRedirectPath = () => {
         path: FULL_ROUTES.saveMnemonic
       })
       // If the user has a passphrase and the app is unlocked but has no wallets redirect to the create wallets page
-    } else if (!globals.wallet) {
-      setResult({
-        loading: false,
-        path: FULL_ROUTES.createWallet
-      })
-    } else if (globals.settings.telemetry === null || globals.settings.telemetry === undefined) {
-      setResult({
-        loading: false,
-        path: FULL_ROUTES.telemetry
-      })
-    } else {
+    } else if (globals.wallet) {
       // If the user has a path they were previously on then redirect to that
       const path = localStorage.getItem(LOCATION_KEY)
       setResult({
         loading: false,
         path: path ?? FULL_ROUTES.wallets
+      })
+    }
+    // else if (globals.settings.telemetry === null || globals.settings.telemetry === undefined) {
+    //   setResult({
+    //     loading: false,
+    //     path: FULL_ROUTES.telemetry
+    //   })
+    // }
+    else {
+      setResult({
+        loading: false,
+        path: FULL_ROUTES.createWallet
       })
     }
   }, [globals, loading])

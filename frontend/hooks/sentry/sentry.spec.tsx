@@ -1,10 +1,10 @@
 // import { close, init, setTag } from '@sentry/react'
-import { renderHook } from '@testing-library/react'
+// import { renderHook } from '@testing-library/react'
 
-import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
-import { useGlobalsStore } from '@/stores/globals'
-import { useWalletStore } from '@/stores/wallets'
-import { mockStore } from '@/test-helpers/mock-store'
+// import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
+// import { useGlobalsStore } from '@/stores/globals'
+// import { useWalletStore } from '@/stores/wallets'
+// import { mockStore } from '@/test-helpers/mock-store'
 
 import { sanitizeEvent } from '../../../lib/sanitize-event'
 // import { useSentry } from '.'

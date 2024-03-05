@@ -44,3 +44,4 @@
 //     }
 //   }, [globals?.settings.telemetry, globals?.version, network.chainId, network.name, wallets])
 // }
+export const useSentry = () => {}

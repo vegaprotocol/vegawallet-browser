@@ -1,4 +1,4 @@
-import { captureException } from '@sentry/react'
+// import { captureException } from '@sentry/react'
 import { Component, ErrorInfo, ReactNode } from 'react'
 
 import { FULL_ROUTES } from '../../routes/route-names'
@@ -26,7 +26,8 @@ class GlobalErrorBoundary extends Component<Properties, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    captureException(error)
+    // captureException(error)
+    console.error(error)
   }
 
   public render() {

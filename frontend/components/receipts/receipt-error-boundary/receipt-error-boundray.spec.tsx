@@ -8,9 +8,9 @@ import locators from '../../locators'
 import { ReceiptViewErrorBoundary } from './receipt-error-boundary'
 
 // Mock the Sentry captureException function
-jest.mock('@sentry/browser', () => ({
-  captureException: jest.fn()
-}))
+// jest.mock('@sentry/browser', () => ({
+//   captureException: jest.fn()
+// }))
 
 const BrokenComponent = ({ error }: { error: Error }) => {
   useEffect(() => {

@@ -14,8 +14,8 @@ import { FetchCache } from './backend/fetch-cache.js'
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'
 import config from '!/config'
-import { captureException } from '@sentry/browser'
-import { setupSentry } from './lib/sentry.js'
+// import { captureException } from '@sentry/browser'
+// import { setupSentry } from './lib/sentry.js'
 
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action

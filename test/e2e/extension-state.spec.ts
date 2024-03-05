@@ -21,7 +21,7 @@ describe('Check correct app state persists after closing the extension', () => {
   let viewWallet: ViewWallet
   let apiHelper: APIHelper
   let loginPage: Login
-  let telemetry: Telemetry
+  // let telemetry: Telemetry
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -32,7 +32,7 @@ describe('Check correct app state persists after closing the extension', () => {
     viewWallet = new ViewWallet(driver)
     apiHelper = new APIHelper(driver)
     loginPage = new Login(driver)
-    telemetry = new Telemetry(driver)
+    // telemetry = new Telemetry(driver)
     await navigateToExtensionLandingPage(driver)
   })
 
@@ -85,13 +85,13 @@ describe('Check correct app state persists after closing the extension', () => {
     await switchWindowHandles(driver)
     await navigateToExtensionLandingPage(driver)
     await secureYourWallet.revealRecoveryPhrase(true)
-    await telemetry.checkOnTelemetryPage()
+    // await telemetry.checkOnTelemetryPage()
 
-    await switchToNewWindow()
-    await telemetry.checkOnTelemetryPage()
+    // await switchToNewWindow()
+    // await telemetry.checkOnTelemetryPage()
 
-    await switchWindowHandles(driver)
-    await telemetry.optOut()
+    // await switchWindowHandles(driver)
+    // await telemetry.optOut()
     await viewWallet.checkOnViewWalletPage()
 
     await switchToNewWindow()

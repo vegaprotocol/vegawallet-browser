@@ -8,7 +8,7 @@ import { NavPanel } from './page-objects/navpanel'
 import { GetStarted } from './page-objects/get-started'
 import { SecureYourWallet } from './page-objects/secure-your-wallet'
 import { CreateAWallet } from './page-objects/create-a-wallet'
-import { Telemetry } from './page-objects/telemetry-opt-in'
+// import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage, setUpWalletAndKey } from './helpers/wallet/wallet-setup'
 import { testDAppUrl } from './helpers/wallet/common-wallet-values'
 import { fairground, testingNetwork } from '../../config/well-known-networks'
@@ -20,7 +20,7 @@ describe('Connect wallet', () => {
   let vegaAPI: VegaAPI
   let connectWallet: ConnectWallet
   let apiHelper: APIHelper
-  let telemetry: Telemetry
+  // let telemetry: Telemetry
   let connections: ListConnections
 
   beforeEach(async () => {
@@ -29,7 +29,7 @@ describe('Connect wallet', () => {
     const vegaHandle = await driver.getWindowHandle()
     vegaAPI = new VegaAPI(driver, undefined, vegaHandle)
     connectWallet = new ConnectWallet(driver)
-    telemetry = new Telemetry(driver)
+    // telemetry = new Telemetry(driver)
     apiHelper = new APIHelper(driver)
     connections = new ListConnections(driver)
     await navigateToExtensionLandingPage(driver)
@@ -171,7 +171,7 @@ describe('Connect wallet', () => {
       await creatWallet.createNewWallet()
       const secureYouWallet = new SecureYourWallet(driver)
       await secureYouWallet.revealRecoveryPhrase(true)
-      await telemetry.optOut()
+      // await telemetry.optOut()
       await connectWallet.checkOnConnectWallet()
       await connectWallet.approveConnectionAndCheckSuccess()
     })

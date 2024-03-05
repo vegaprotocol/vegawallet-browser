@@ -7,7 +7,7 @@ import { CreateAWallet } from './page-objects/create-a-wallet'
 import { ViewWallet } from './page-objects/view-wallet'
 import { defaultPassword, validRecoveryPhrase } from './helpers/wallet/common-wallet-values'
 import { APIHelper } from './helpers/wallet/wallet-api'
-import { Telemetry } from './page-objects/telemetry-opt-in'
+// import { Telemetry } from './page-objects/telemetry-opt-in'
 import { navigateToExtensionLandingPage } from './helpers/wallet/wallet-setup'
 import test from '../../config/test'
 
@@ -21,7 +21,7 @@ describe('Onboarding', () => {
   let secureYourWallet: SecureYourWallet
   let createAWallet: CreateAWallet
   let viewWallet: ViewWallet
-  let telemetry: Telemetry
+  // let telemetry: Telemetry
 
   beforeEach(async () => {
     driver = await initDriver()
@@ -30,7 +30,7 @@ describe('Onboarding', () => {
     secureYourWallet = new SecureYourWallet(driver)
     createAWallet = new CreateAWallet(driver)
     viewWallet = new ViewWallet(driver)
-    telemetry = new Telemetry(driver)
+    // telemetry = new Telemetry(driver)
     await navigateToExtensionLandingPage(driver)
     await getStarted.getStarted()
   })
@@ -54,7 +54,7 @@ describe('Onboarding', () => {
     await createAWallet.createNewWallet()
     await secureYourWallet.revealRecoveryPhrase(true)
     await secureYourWallet.checkCreateWalletSuccessful()
-    await telemetry.optIn()
+    // await telemetry.optIn()
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
     await navigateToExtensionLandingPage(driver)
     await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
@@ -74,7 +74,7 @@ describe('Onboarding', () => {
     const importWallet = await createAWallet.importWallet()
     await importWallet.fillInRecoveryPhraseAndSubmit(validRecoveryPhrase)
     await importWallet.checkImportWalletSuccessful()
-    await telemetry.optOut()
+    // await telemetry.optOut()
     await viewWallet.checkOnViewWalletPage()
   })
 
@@ -88,7 +88,7 @@ describe('Onboarding', () => {
     const errorText = await importWallet.getErrorMessageText()
     expect(errorText).toBeTruthy() //Improve this assertion before merging! Once validation is added.
     await importWallet.fillInRecoveryPhraseAndSubmit(validRecoveryPhrase)
-    await telemetry.optOut()
+    // await telemetry.optOut()
     await viewWallet.checkOnViewWalletPage()
   })
 

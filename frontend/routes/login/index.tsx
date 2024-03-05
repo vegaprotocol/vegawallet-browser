@@ -1,4 +1,4 @@
-import { captureException } from '@sentry/browser'
+// import { captureException } from '@sentry/browser'
 import { FormGroup, Input, InputError } from '@vegaprotocol/ui-toolkit'
 import { useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
@@ -50,7 +50,7 @@ export const Login = () => {
         setError('passphrase', { message: 'Incorrect passphrase' })
       } else {
         setError('passphrase', { message: `Unknown error occurred: ${(error as Error).message}` })
-        captureException(error)
+        // captureException(error)
       }
     } finally {
       setLoading(false)

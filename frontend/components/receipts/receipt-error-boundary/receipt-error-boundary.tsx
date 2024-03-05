@@ -1,4 +1,4 @@
-import { captureException } from '@sentry/browser'
+// import { captureException } from '@sentry/browser'
 import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
 import { Component, ReactNode } from 'react'
 
@@ -26,7 +26,8 @@ export class ReceiptViewErrorBoundary extends Component<Properties, State> {
   }
 
   public componentDidCatch(error: Error) {
-    captureException(error)
+    console.error(error)
+    // captureException(error)
   }
 
   public render() {

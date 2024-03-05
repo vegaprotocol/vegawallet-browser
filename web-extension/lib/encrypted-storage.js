@@ -74,7 +74,7 @@ export default class EncryptedStorage {
    * @returns {Promise<Array>}
    * @private
    */
-  async _load() {
+  async _load (passphrase) {
     const [ciphertext, salt, kdfParams] = await Promise.all([
       this._storage.get('ciphertext'),
       this._storage.get('salt'),
@@ -86,7 +86,7 @@ export default class EncryptedStorage {
     }
 
     try {
-      const plaintext = await decrypt(this._passphrase, fromBase64(ciphertext), fromBase64(salt), kdfParams)
+      const plaintext = await decrypt(passphrase, fromBase64(ciphertext), fromBase64(salt), kdfParams)
       return JSON.parse(toString(plaintext))
     } catch (err) {
       const isOperationError = err.name === 'OperationError'
@@ -175,9 +175,11 @@ export default class EncryptedStorage {
    * @returns {Promise<EncryptedStorage>} - The storage instance.
    */
   async unlock(passphrase) {
-    this._passphrase = fromString(passphrase)
-    this._cache = new Map(await this._load())
+    const passphraseBuf = fromString(passphrase)
+    const values = await this._load(passphraseBuf)
 
+    this._passphrase = passphraseBuf
+    this._cache = new Map(values)
     return this
   }
 

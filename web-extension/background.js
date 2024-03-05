@@ -45,11 +45,11 @@ const connections = new ConnectionsCollection({
 
 const fetchCache = new FetchCache(new StorageSessionMap('fetch-cache'))
 
-setupSentry(settings, wallets)
+// setupSentry(settings, wallets)
 
 const onerror = (...args) => {
   console.error(args)
-  captureException(args[0])
+  // captureException(args[0])
 }
 
 const clientServer = initClient({

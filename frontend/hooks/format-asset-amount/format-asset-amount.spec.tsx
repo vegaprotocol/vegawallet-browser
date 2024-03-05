@@ -66,4 +66,18 @@ describe('useFormatAssetAmount', () => {
     expect(result.current?.formattedAmount).toBe('0.000000000123')
     expect(result.current?.symbol).toBe('SYMBOL')
   })
+
+  it('handles decimals as 0', () => {
+    mockStore(useAssetsStore, {
+      getAssetById: () => ({
+        details: {
+          symbol: 'SYMBOL',
+          decimals: 0
+        }
+      })
+    })
+    const { result } = renderHook(() => useFormatAssetAmount('foo', '123'))
+    expect(result.current?.formattedAmount).toBe('123')
+    expect(result.current?.symbol).toBe('SYMBOL')
+  })
 })

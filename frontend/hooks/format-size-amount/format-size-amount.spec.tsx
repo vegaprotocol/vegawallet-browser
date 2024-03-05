@@ -42,6 +42,16 @@ describe('useFormatSizeAmount', () => {
     expect(result.current).toBe('0.000000000123')
   })
 
+  it('allows positionDecimals to be 0', () => {
+    mockStore(useMarketsStore, {
+      getMarketById: () => ({
+        positionDecimalPlaces: 0
+      })
+    })
+    const { result } = renderHook(() => useFormatSizeAmount('foo', '123'))
+    expect(result.current).toBe('123')
+  })
+
   it('returns max when size is max safe integer', () => {
     mockStore(useMarketsStore, {
       getMarketById: () => ({

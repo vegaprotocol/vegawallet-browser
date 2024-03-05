@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 // import { close, init, setTag } from '@sentry/react'
 // import { useEffect } from 'react'
 

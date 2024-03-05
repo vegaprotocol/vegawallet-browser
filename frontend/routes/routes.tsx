@@ -53,7 +53,7 @@ export const Routing = () => {
           <Route path={ROUTES.createPassword} element={<CreatePassword />} />
           <Route path={ROUTES.createWallet} element={<CreateWallet />} />
           <Route path={ROUTES.saveMnemonic} element={<SaveMnemonic />} />
-          <Route path={ROUTES.telemetry} element={<Telemetry />} />
+          {/* <Route path={ROUTES.telemetry} element={<Telemetry />} /> */}
           <Route path={ROUTES.importWallet} element={<ImportWallet />} />
         </Route>
         <Route path={ROUTES.login} element={<Login />} />

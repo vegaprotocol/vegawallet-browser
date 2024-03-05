@@ -40,7 +40,7 @@ const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = 
       ])
     ),
     fetchCache: new FetchCache(new Map()),
-    onerror(err) {
+    onerror (err) {
       throw err
     }
   })
@@ -58,6 +58,29 @@ const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = 
     admin: server
   }
 }
+
+const REQ_APP_GLOBALS = (id) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.app_globals',
+  params: null
+})
+
+const REQ_LOCK = (id) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.lock',
+  params: null
+})
+
+const REQ_UNLOCK = (id, passphrase) => ({
+  jsonrpc: '2.0',
+  id,
+  method: 'admin.unlock',
+  params: {
+    passphrase
+  }
+})
 
 // Request templates to make it easier to read the tests
 const REQ_GENERATE_RECOVERY_PHRASE = (id) => ({
@@ -379,6 +402,29 @@ describe('admin-ns', () => {
     expect(appGlobals.result.wallet).toEqual(true)
   })
 
+  it('should stay locked after a failed unlock', async () => {
+    const { admin } = await createAdmin({ passphrase: 'foo' })
+
+    // Check precondition
+    const appGlobalsPre = await admin.onrequest(REQ_APP_GLOBALS(1))
+    expect(appGlobalsPre.result.locked).toBe(false)
+
+    // Lock the wallet
+    await admin.onrequest(REQ_LOCK(2))
+
+    // Check postcondition
+    const appGlobalsPost = await admin.onrequest(REQ_APP_GLOBALS(3))
+    expect(appGlobalsPost.result.locked).toBe(true)
+
+    // Unlock with wrong passphrase
+    const wrongUnlockAttept = await admin.onrequest(REQ_UNLOCK(4, 'wrong-passphrase'))
+    expect(wrongUnlockAttept.error).toEqual({ code: 1, message: 'Invalid passphrase or corrupted storage' })
+
+    // Check postcondition
+    const appGlobalsPost2 = await admin.onrequest(REQ_APP_GLOBALS(5))
+    expect(appGlobalsPost2.result.locked).toBe(true)
+  })
+
   it('should list connections', async () => {
     const { admin } = await createAdmin()
 
@@ -578,7 +624,7 @@ describe('admin-ns', () => {
     })
   )
 
-  function setupFaultyFetch(faultyResponse) {
+  function setupFaultyFetch (faultyResponse) {
     return async () => {
       const chainHeight = {
         height: '2',
@@ -641,7 +687,7 @@ describe('admin-ns', () => {
 })
 
 const setupWallet = async (passphrase) => {
-  let { admin, wallets } = await createAdmin({ passphrase })
+  const { admin, wallets } = await createAdmin({ passphrase })
 
   const generateRecoveryPhrase = await admin.onrequest(REQ_GENERATE_RECOVERY_PHRASE(1))
   expect(generateRecoveryPhrase.error).toBeUndefined()

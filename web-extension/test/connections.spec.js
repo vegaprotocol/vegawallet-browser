@@ -291,4 +291,70 @@ describe('ConnectionsCollection', () => {
 
     jest.useRealTimers()
   })
+
+  it('should get the chainId of an origin', async () => {
+    const connectionsStore = new ConcurrentStorage(new Map())
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+
+    const connections = new ConnectionsCollection({
+      connectionsStore,
+      publicKeyIndexStore
+    })
+
+    await connections.set('https://example.com', {
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      },
+      chainId: 'chainId'
+    })
+
+    expect(await connections.getChainId('https://example.com')).toBe('chainId')
+    expect(await connections.getChainId('foo')).toBe(null)
+  })
+  it('should get the networkId of an origin', async () => {
+    const connectionsStore = new ConcurrentStorage(new Map())
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+
+    const connections = new ConnectionsCollection({
+      connectionsStore,
+      publicKeyIndexStore
+    })
+
+    await connections.set('https://example.com', {
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      },
+      networkId: 'networkId'
+    })
+
+    expect(await connections.getNetworkId('https://example.com')).toBe('networkId')
+  })
+  it('should clear connections, index and emit events', async () => {
+    const connectionsStore = new ConcurrentStorage(new Map())
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+
+    const connections = new ConnectionsCollection({
+      connectionsStore,
+      publicKeyIndexStore
+    })
+
+    const deleteListener = jest.fn()
+    connections.on('delete', deleteListener)
+
+    await connections.set('https://example.com', {
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      },
+      networkId: 'networkId'
+    })
+
+    await connections.clearConnections()
+
+    expect(deleteListener).toHaveBeenCalledWith({ origin: 'https://example.com' })
+    expect(Array.from(await connections.store.values()).length).toBe(0)
+    expect(Array.from(await connections.index.values()).length).toBe(0)
+  })
 })

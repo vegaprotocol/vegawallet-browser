@@ -50,7 +50,7 @@
     "dev:firefox": "yarn dev --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition",
     "dev:mobile:firefox": "web-ext run -t firefox-android --firefox-apk org.mozilla.fenix --source-dir=build/firefox",
     "docs:update-acs": "node ./scripts/update-ac-config.js",
-    "format": "prettier --check frontend specs",
+    "format": "prettier --check frontend specs examples",
     "format:write": "yarn format --write",
     "lint": "eslint --ext js,ts,tsx frontend --max-warnings=0",
     "lint:write": "yarn lint --fix",

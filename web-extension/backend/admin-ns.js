@@ -179,9 +179,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
 
         try {
           await wallets.store.delete(params.name)
-          // TODO Clear all connections for now, however this will need to be per key
-          await connections.store.clear()
-          await connections.index.clear()
+          await connections.clearConnections()
         } catch (ex) {
           throw new JSONRPCServer.Error(ex.message, 1)
         }

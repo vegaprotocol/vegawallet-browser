@@ -72,6 +72,15 @@ export class ConnectionsCollection {
     })
   }
 
+  async clearConnections() {
+    const origins = await this.list()
+    for (const { origin } of origins) {
+      this._emitter.emit('delete', { origin })
+    }
+    await this.store.clear()
+    await this.index.clear()
+  }
+
   async delete(origin) {
     const res = await this.store.delete(origin)
 

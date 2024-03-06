@@ -29,17 +29,14 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3
-      - name: Install dependencies
-        run: yarn install
         with:
           cache: 'yarn'
           node-version-file: '.nvmrc'
-        with:
-          working-directory: examples/sample-react-dapp
+          cache-dependency-path: examples/sample-react-dapp/yarn.lock
+      - name: Install dependencies
+        run: yarn install
       - name: Build app
         run: yarn build
-        with:
-          working-directory: examples/sample-react-dapp
 
       - name: Setup Pages
         uses: actions/configure-pages@v3

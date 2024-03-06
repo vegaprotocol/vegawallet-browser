@@ -32,10 +32,10 @@ jobs:
         with:
           cache: 'yarn'
           node-version-file: '.nvmrc'
-          cache-dependency-path: examples/sample-react-dapp
+          cache-dependency-path: examples/sample-react-dapp/yarn.lock
       - name: Install dependencies
         run: yarn install
-        working-directory: examples/sample-react-dapp/yarn.lock
+        working-directory: examples/sample-react-dapp
       - name: Build app
         run: yarn build
         working-directory: examples/sample-react-dapp

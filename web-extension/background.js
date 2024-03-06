@@ -93,7 +93,7 @@ connections.on('delete', ({ origin }) => {
     params: null
   })
   // TODO @emil to review as this doesn't seem like the correct place to do this
-  for (const [port, context] of clientPorts.ports.entries()) {
+  for (const [, context] of clientPorts.ports.entries()) {
     if (context.origin === origin || context.origin === '*') {
       context.isConnected = false
     }

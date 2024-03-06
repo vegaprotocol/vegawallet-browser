@@ -1,8 +1,8 @@
 name: Deploy sample dApp to Pages
 
 on:
-  push
-  # branches: ['main']
+  push:
+    branches: ['main']
   # paths:
   #   - 'examples/**'
 
@@ -31,11 +31,14 @@ concurrency:
       - name: Install dependencies
         run: yarn install
         with:
-          working-directory: ./examples/sample-react-dapp
+          cache: 'yarn'
+          node-version-file: '.nvmrc
+        with:
+          working-directory: examples/sample-react-dapp
       - name: Build app
         run: yarn build
         with:
-          working-directory: ./examples/sample-react-dapp
+          working-directory: examples/sample-react-dapp
 
       - name: Setup Pages
         uses: actions/configure-pages@v3

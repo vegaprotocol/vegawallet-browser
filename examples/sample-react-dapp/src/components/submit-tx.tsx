@@ -26,9 +26,9 @@ const createDefaultTransaction = (publicKey: string) => {
   )
 }
 
-export function SubmitTransaction({ keys, onDisconnect }: { keys: string[]; onDisconnect: () => void }) {
+export function SubmitTransaction({ keys, onDisconnect }: { keys: any[]; onDisconnect: () => void }) {
   const [tx, setTx] = useState<string>(createDefaultTransaction(keys[0]))
-  const [selectedKey, setSelectedKey] = useState<string>(keys[0])
+  const [selectedKey, setSelectedKey] = useState<string>(keys[0].publicKey)
   const [error, setError] = useState<null | string>(null)
   const [loading, setLoading] = useState(false)
 
@@ -74,8 +74,8 @@ export function SubmitTransaction({ keys, onDisconnect }: { keys: string[]; onDi
         <p style={{ color: 'white', marginTop: 10 }}>Current key: {selectedKey}</p>
         <select style={{ marginTop: 10 }} id="key" onChange={(e) => setSelectedKey(e.target.value)}>
           {keys.map((k) => (
-            <option key={k} id={k} value={k}>
-              {k}
+            <option key={k.publicKey} id={k.publicKey} value={k.publicKey}>
+              {k.publicKey} ({k.name})
             </option>
           ))}
         </select>

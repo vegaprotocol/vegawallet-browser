@@ -23,7 +23,7 @@ function AppContent() {
   // Connect state hoisted as shared bwetween components
   const [connected, setConnected] = useState(false)
   // Keys state likewise hoisted as shared between components
-  const [keys, setKeys] = useState<string[]>([])
+  const [keys, setKeys] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   // Check if the extension is available
   const [hasExtension, setHasExtension] = useState(false)
@@ -33,7 +33,7 @@ function AppContent() {
     if (connected) {
       // Load all keys the dapp has access to
       const { keys } = await window.vega.listKeys()
-      setKeys(keys.map((k) => k.publicKey))
+      setKeys(keys)
     }
     setConnected(connected)
   }

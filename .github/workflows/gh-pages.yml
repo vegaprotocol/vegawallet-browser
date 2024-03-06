@@ -32,7 +32,7 @@ concurrency:
         run: yarn install
         with:
           cache: 'yarn'
-          node-version-file: '.nvmrc
+          node-version-file: '.nvmrc'
         with:
           working-directory: examples/sample-react-dapp
       - name: Build app

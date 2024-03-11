@@ -38,6 +38,7 @@ describe('wallets', () => {
     await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
 
     const k = await wallets.generateKey({ wallet: 'wallet 1' })
+    expect(k.name).toBe('Key 0')
 
     expect(await wallets.listKeys({ wallet: 'wallet 1' })).toEqual([k])
 
@@ -49,7 +50,7 @@ describe('wallets', () => {
     expect(await wallets.listKeys({ wallet: 'wallet 1' })).toEqual([{ ...k, name: 'Custom name' }])
 
     const k2 = await wallets.generateKey({ wallet: 'wallet 1' })
-    expect(k2.name).toBe('Key 2')
+    expect(k2.name).toBe('Key 1')
 
     await wallets.renameKey({ publicKey: k2.publicKey, name: 'Custom name' })
 

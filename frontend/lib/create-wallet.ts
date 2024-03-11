@@ -11,6 +11,14 @@ export const createWallet = async (mnemonic: string, request: SendMessage, propa
     RpcMethods.GenerateKey,
     {
       wallet: WALLET_NAME,
+      name: `Key 0`
+    },
+    propagateError
+  )
+  await request(
+    RpcMethods.GenerateKey,
+    {
+      wallet: WALLET_NAME,
       name: `Key 1`
     },
     propagateError

@@ -444,6 +444,15 @@ describe('admin-ns', () => {
         wallet: 'Wallet 1'
       }
     })
+    const generateKey2 = await admin.onrequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'admin.generate_key',
+      params: {
+        name: 'Key 2',
+        wallet: 'Wallet 1'
+      }
+    })
 
     const publicKey = generateKey.result.publicKey
 
@@ -460,7 +469,7 @@ describe('admin-ns', () => {
     })
 
     expect(signMessage.result).toEqual({
-      signature: 'RdgrLZBovd0sCY4RcVFTF5aebV5TwbxkohhpvnJZMw0a1c0+50jqtJqaVTBBf4B3C1PlbvNGfGl4BMiqrr9DAA=='
+      signature: 'GJalQpvoDikaGkSFxI80nhscSUQDtbVUbwry7sZS1Y89CjH+DmfYFD3/I3uiliMrG7b5iC+gJxWETqi41+x1BQ=='
     })
 
     const message2 = 'Hello World'
@@ -476,19 +485,7 @@ describe('admin-ns', () => {
     })
 
     expect(signMessage2.result).toEqual({
-      signature: '2tCYSehD1WO0udvU1P92UzkP4BoPB4NLxs3JCGwFKb9oD86njCXoGrVgE1k2zpM7Tcjs3HzSBg8bDCTm3FjUBQ=='
-    })
-
-    // generate a new key
-
-    const generateKey2 = await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.generate_key',
-      params: {
-        name: 'Key 2',
-        wallet: 'Wallet 1'
-      }
+      signature: '1CcvhvS2RY1kqhSCE2V/5JrKD6pp4ez/4z84qrgjurFmtgZQD+KHresPEYz6V3NaDiSaDMfPUW+UxPdTFzjlDQ=='
     })
 
     const publicKey2 = generateKey2.result.publicKey
@@ -504,7 +501,7 @@ describe('admin-ns', () => {
     })
 
     expect(signMessage3.result).toEqual({
-      signature: '1f25T84uQ+CTePavhus+nKrIllQr5R1pdipstz8+J+bKDBQM0MGfFjuxRnaR9bqQrgW0xc/z2ma56I4MYInaBA=='
+      signature: 'RdgrLZBovd0sCY4RcVFTF5aebV5TwbxkohhpvnJZMw0a1c0+50jqtJqaVTBBf4B3C1PlbvNGfGl4BMiqrr9DAA=='
     })
 
     const signMessage4 = await admin.onrequest({
@@ -518,7 +515,7 @@ describe('admin-ns', () => {
     })
 
     expect(signMessage4.result).toEqual({
-      signature: 'sNGQ0io4t3oh/L8z1N8I+/gAai9I7ke10BcsGXmRXC70UHbYD5ysaA9v9/9g6gLBA9gfuXPuGxG9z+86yfYQDg=='
+      signature: '2tCYSehD1WO0udvU1P92UzkP4BoPB4NLxs3JCGwFKb9oD86njCXoGrVgE1k2zpM7Tcjs3HzSBg8bDCTm3FjUBQ=='
     })
   })
 

@@ -125,7 +125,7 @@ export class WalletCollection {
       const wallet = await VegaWallet.fromSeed(new Uint8Array(walletConfig.seed))
 
       const lastKey = walletConfig.keys.at(-1) ?? {}
-      const lastKeyIndex = (lastKey.index ?? HARDENED) + 1
+      const lastKeyIndex = lastKey.index ? lastKey.index + 1 : HARDENED
       const key = await this._generateKey({ walletInstance: wallet, name, metadata, options, index: lastKeyIndex })
 
       walletConfig.keys.push(key)

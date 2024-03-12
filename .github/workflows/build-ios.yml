@@ -11,16 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js Latest
-        uses: actions/setup-node@v3
-        with:
-          cache: 'yarn'
-          node-version-file: '.nvmrc'
+      # - name: Setup Node.js Latest
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     cache: 'yarn'
+      #     node-version-file: '.nvmrc'
 
-      - name: Install dependencies
-        run: yarn install
-      - name: Build app
-        run: yarn run build:beta
+      # - name: Install dependencies
+      #   run: yarn install
+      # - name: Build app
+      #   run: yarn run build:beta
 
       - name: Archive
         run: |

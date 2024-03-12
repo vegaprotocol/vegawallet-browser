@@ -1,4 +1,4 @@
-name: Deploy sample dApp to Pages
+name: Build iOS ipa
 
 on:
   push:
@@ -21,12 +21,19 @@ jobs:
       - name: Build app
         run: yarn run build:beta
 
-      - uses: yukiarrr/ios-build-action@v1.11.2
-        with:
-          project-path: './ios-app/Vega Wallet/Vega Wallet.xcodeproj'
-          p12-base64: ${{ secrets.IOS_P12_BASE_64 }}
-          certificate-password: ${{ secrets.IOS_P12_CERTIFICATE_PASS }}
-          mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION }}
-          code-signing-identity: ${{ secrets.IOS_CERTIFICATE_IDENTITY_ID }}
-          team-id: ${{ secrets.IOS_TEAM_NAME }}
-          output-path: app.ipa
+      - name: Archive
+        run: |
+          xcodebuild -project "./ios-app/Vega Wallet/Vega Wallet.xcodeproj" \
+          -scheme "Vega Wallet" \
+          archive \
+          -archivePath "./app.xcarchive" \
+          ENABLE_HARDENED_RUNTIME=NO \
+          CODE_SIGN_STYLE=Manual \
+          CODE_SIGN_IDENTITY=
+      -name: Build iOS app
+        run: | 
+          xcodebuild \
+          -exportArchive \
+          -exportOptionsPlist "./ios-app/ExportOptions.plist" \
+          -archivePath app.xcarchive \
+          -exportPath ./test.ipa

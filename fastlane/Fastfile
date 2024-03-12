@@ -1,15 +1,11 @@
-lane :ci do 
-  setup_ci
-end
-
-
 lane :release do
+  setup_ci
   api_key = app_store_connect_api_key(
     key_id: "YBANA83587",
     issuer_id: "8aa69e69-be1e-462d-b131-1f701b1c1d6b",
     key_content: ENV['IOS_APP_STORE_CONNECT_API_KEY'],
-    duration: 1200, # optional (maximum 1200)
-    in_house: false # optional but may be required if using match/sigh
+    duration: 1200,
+    in_house: false
   )
   match(
     git_basic_authorization: Base64.strict_encode64("vega-ci-bot:" + ENV['CI_BOT_GITHUB_TOKEN']),

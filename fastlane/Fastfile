@@ -1,5 +1,5 @@
 lane :release do
-  setup_ci
+  setup_ci if ENV['CI']
   api_key = app_store_connect_api_key(
     key_id: "YBANA83587",
     issuer_id: "8aa69e69-be1e-462d-b131-1f701b1c1d6b",
@@ -8,9 +8,9 @@ lane :release do
     in_house: false
   )
   match(
-    git_basic_authorization: Base64.strict_encode64("vega-ci-bot:" + ENV['CI_BOT_GITHUB_TOKEN']),
     type: 'appstore',
     app_identifier: 'xyz.vega.betawallet,xyz.vega.betawallet.iosextension',
+    git_basic_authorization: Base64.strict_encode64(ENV['CI_BOT_GITHUB_TOKEN']),
   )
   build_app(
     project: "./ios-app/Vega Wallet/Vega Wallet.xcodeproj",

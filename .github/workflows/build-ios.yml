@@ -10,6 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3
         with:
@@ -30,8 +31,8 @@ jobs:
           ENABLE_HARDENED_RUNTIME=NO \
           CODE_SIGN_STYLE=Manual \
           CODE_SIGN_IDENTITY=
-      -name: Build iOS app
-        run: | 
+      - name: Build iOS app
+        run: |
           xcodebuild \
           -exportArchive \
           -exportOptionsPlist "./ios-app/ExportOptions.plist" \

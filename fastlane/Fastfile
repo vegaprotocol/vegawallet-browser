@@ -8,7 +8,7 @@ lane :release do
     in_house: false
   )
   match(
-    git_basic_authorization: Base64.strict_encode64("vega-ci-bot:" + ENV['CI_BOT_GITHUB_TOKEN']),
+    git_basic_authorization: Base64.strict_encode64(ENV['CI_BOT_GITHUB_TOKEN']),
     type: 'appstore',
     app_identifier: 'xyz.vega.betawallet,xyz.vega.betawallet.iosextension',
   )

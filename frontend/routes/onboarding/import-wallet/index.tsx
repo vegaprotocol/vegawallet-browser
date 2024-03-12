@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { LoadingButton } from '@/components/loading-button'
 import { OnboardingPage } from '@/components/pages/onboarding-page'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
-import { createWallet } from '@/lib/create-wallet'
+import { importWallet } from '@/lib/create-wallet'
 import { Validation } from '@/lib/form-validation'
 
 import { FULL_ROUTES } from '../../route-names'
@@ -39,7 +39,7 @@ export const ImportWallet = () => {
   const submit = async (fields: FormFields) => {
     try {
       setLoading(true)
-      await createWallet(fields.mnemonic, request, true)
+      await importWallet(fields.mnemonic, request, true)
       setShowSuccess(true)
     } catch (error) {
       setError('mnemonic', { message: error?.toString() })

@@ -22,7 +22,7 @@ jobs:
       # - name: Build app
       #   run: yarn run build:beta
 
-      - run: fastlane beta
+      - run: fastlane release
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           IOS_APP_STORE_CONNECT_API_KEY: ${{ secrets.IOS_APP_STORE_CONNECT_API_KEY }}

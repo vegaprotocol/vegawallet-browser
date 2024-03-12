@@ -17,6 +17,7 @@ lane :release do
     configuration: "Release",
     scheme: "Vega Wallet",
     export_method: "app-store",
+    export_xcargs: "-allowProvisioningUpdates",
     export_options: {
       provisioningProfiles: {
         "xyz.vega.betawallet.iosextension" => "iOS Dist Extension",

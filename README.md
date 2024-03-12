@@ -62,9 +62,9 @@ methods exposed on `window`/`globalThis`:
 - `vega.on(event, listener)` / `vega.addEventListener(event, listener)`
 - `vega.off(event, listener)` / `vega.removeEventListener(event, listener)`
 
-Possible events include:
+Events include:
 
-- `client.disconnect`
+- `client.disconnected`
 
 A sample dApp is provided in [examples/sample-dapp/index.html](./examples/sample-dapp/index.html), and is also
 published to Github Pages - [see the live demo](https://vegaprotocol.github.io/vegawallet-browser/).
@@ -119,11 +119,12 @@ Examples of Firefox based browsers:
 
 ## Structure
 
-The project is built with `webpack`, `create-react-app` and `craco`:
+The project is built with `rollup`:
 
 ### Development + building
 
-- `build`: Builds the extension in production mode for both chrome and firefox. Outputs to `build/[BROWSER]`.
+- `build:beta`: Builds the beta extension in production mode for both chrome and firefox. Outputs to `build/[BROWSER]`.
+- `build:mainstream`: Builds the mainsteam release of the extension in production mode for both chrome and firefox. Outputs to `build/[BROWSER]`.
 - `dev:chrome` / `dev:firefox`: Serves the `build/[BROWSER]` directory to develop against the extension. First run `build:[BROWSER]` to build the extension _before_ running this command.
 - `format` / `lint`: Formats / lints the source code
 - `watch` Watch for changes in the source code and rebuild the extension in development mode for both firefox and chrome. Can be used with `dev:chrome` / `dev:firefox` to automatically reload the extension when changes are made.
@@ -151,7 +152,7 @@ The web extension has 4 components:
 
 ### Running the extension
 
-To run the extension, first build it using `NODE_ENV=production yarn build:[NETWORK]` and then load it into chrome or firefox.
+To run the extension, first build it using `NODE_ENV=production yarn build:beta` or `NODE_ENV=production yarn build:mainstream` and then load it into chrome or firefox. The `beta` build is to generate "Vega Wallet - Beta" and the mainstream build is to generate the "Vega Wallet" extension.
 
 For chrome follow [the instructions here](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked), the directory you need to select after pressing load unpacked should be `./build/chrome`.
 

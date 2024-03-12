@@ -12,7 +12,7 @@ lane :release do
     in_house: false # optional but may be required if using match/sigh
   )
   match(
-    git_basic_authorization: ENV['CI_BOT_GITHUB_TOKEN'],
+    git_bearer_authorization: ENV['CI_BOT_GITHUB_TOKEN'],
     type: 'appstore',
     app_identifier: 'xyz.vega.betawallet,xyz.vega.betawallet.iosextension',
   )

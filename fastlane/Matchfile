@@ -1,4 +1,4 @@
-git_url("https://github.com/vegaprotocol/ios-certificates.git")
+git_url("git@github.com:vegaprotocol/ios-certificates.git")
 
 storage_mode("git")
 

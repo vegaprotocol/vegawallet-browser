@@ -22,19 +22,7 @@ jobs:
       # - name: Build app
       #   run: yarn run build:beta
 
-      - name: Archive
-        run: |
-          xcodebuild -project "./ios-app/Vega Wallet/Vega Wallet.xcodeproj" \
-          -scheme "Vega Wallet" \
-          archive \
-          -archivePath "./app.xcarchive" \
-          ENABLE_HARDENED_RUNTIME=NO \
-          CODE_SIGN_STYLE=Manual \
-          CODE_SIGN_IDENTITY=
-      - name: Build iOS app
-        run: |
-          xcodebuild \
-          -exportArchive \
-          -exportOptionsPlist "./ios-app/ExportOptions.plist" \
-          -archivePath app.xcarchive \
-          -exportPath ./test.ipa
+      - run: fastlane beta
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          IOS_APP_STORE_CONNECT_API_KEY: ${{ secrets.IOS_APP_STORE_CONNECT_API_KEY }}

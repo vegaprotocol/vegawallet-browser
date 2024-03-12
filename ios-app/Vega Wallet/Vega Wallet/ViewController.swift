@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Vega Wallet
 //
-//  Created by Dexter Edwards on 29/02/2024.
+//  Created by Dexter Edwards on 12/03/2024.
 //
 
 import UIKit

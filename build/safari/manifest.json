@@ -1,0 +1,56 @@
+{
+  "name": "Vega Wallet - Beta",
+  "description": "Manage your assets and connect to dApps on Vega Protocol, the worlds most advanced DEX.",
+  "icons": {
+    "16": "Beta-16x16.png",
+    "32": "Beta-32x32.png",
+    "48": "Beta-48x48.png",
+    "64": "Beta-64x64.png",
+    "96": "Beta-96x96.png",
+    "128": "Beta-128x128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-script.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "manifest_version": 2,
+  "browser_action": {
+    "browser_style": false,
+    "default_icon": {
+      "16": "Beta-16x16.png",
+      "32": "Beta-32x32.png",
+      "48": "Beta-48x48.png",
+      "64": "Beta-64x64.png",
+      "96": "Beta-96x96.png",
+      "128": "Beta-128x128.png"
+    },
+    "default_title": "Vega Wallet - Beta",
+    "default_popup": "index.html"
+  },
+  "browser_specific_settings": {
+    "safari": {
+      "strict_min_version": "16.4"
+    }
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'",
+  "web_accessible_resources": [
+    "in-page.js"
+  ],
+  "version": "0.24.0"
+}

@@ -1,16 +1,34 @@
+lane :ci do 
+  setup_ci
+end
+
+
 lane :release do
-    api_key = app_store_connect_api_key(
-      key_id: "YBANA83587",
-      issuer_id: "8aa69e69-be1e-462d-b131-1f701b1c1d6b",
-      key_filepath: "./fastlane/AuthKey_YBANA83587.p8",
-      duration: 1200, # optional (maximum 1200)
-      in_house: false # optional but may be required if using match/sigh
-    )
-    build_app(
-      project: "./ios-app/Vega Wallet/Vega Wallet.xcodeproj",
-      configuration: "Release",
-      scheme: "Vega Wallet",
-      export_method: "app-store"
-    )
-  end
+  api_key = app_store_connect_api_key(
+    key_id: "YBANA83587",
+    issuer_id: "8aa69e69-be1e-462d-b131-1f701b1c1d6b",
+    key_filepath: "./fastlane/AuthKey_YBANA83587.p8",
+    duration: 1200, # optional (maximum 1200)
+    in_house: false # optional but may be required if using match/sigh
+  )
+  match(
+    type: 'appstore',
+    app_identifier: 'xyz.vega.betawallet,xyz.vega.betawallet.iosextension',
+  )
+  build_app(
+    project: "./ios-app/Vega Wallet/Vega Wallet.xcodeproj",
+    configuration: "Release",
+    scheme: "Vega Wallet",
+    export_method: "app-store",
+    export_options: {
+      provisioningProfiles: {
+        "xyz.vega.betawallet.iosextension" => "iOS Dist Extension",
+        "xyz.vega.betawallet" => "iOS Dist"
+      }
+    },
+    clean: true,
+    output_directory: ".", # Destination directory. Defaults to current directory.
+    output_name: "app.ipa",  
+  )
+end
   

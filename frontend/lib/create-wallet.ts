@@ -10,16 +10,14 @@ export const importWallet = async (mnemonic: string, request: SendMessage, propa
   await request(
     RpcMethods.GenerateKey,
     {
-      wallet: WALLET_NAME,
-      name: `Key 0`
+      wallet: WALLET_NAME
     },
     propagateError
   )
   await request(
     RpcMethods.GenerateKey,
     {
-      wallet: WALLET_NAME,
-      name: `Key 1`
+      wallet: WALLET_NAME
     },
     propagateError
   )
@@ -32,8 +30,7 @@ export const createWallet = async (mnemonic: string, request: SendMessage, propa
   await request(
     RpcMethods.GenerateKey,
     {
-      wallet: WALLET_NAME,
-      name: `Key 0`
+      wallet: WALLET_NAME
     },
     propagateError
   )

@@ -19,9 +19,9 @@ describe('Key details', () => {
     viewWallet = new ViewWallet(driver)
     keyDetails = new KeyDetails(driver)
     exportKey = new ExportPrivateKey(driver)
-    await apiHelper.createKey('Wallet 1', 'Key 2')
+    await apiHelper.createKey('Wallet 1', 'Key 0')
     await navigateToExtensionLandingPage(driver)
-    await viewWallet.openKeyDetails('Key 1')
+    await viewWallet.openKeyDetails('Key 0')
     await keyDetails.checkOnExpectedKeyDetails()
   })
 
@@ -42,8 +42,8 @@ describe('Key details', () => {
 
   it('can rename a key, the new key name remains associated with the same public key and can be selected from dropdown', async () => {
     // 1125-KEYD-016 When I press submit the page is updated with the new key name
-    const firstKey = 'Key 1'
-    const secondKey = 'Key 2'
+    const firstKey = 'Key 0'
+    const secondKey = 'Key 1'
     const newKeyName = 'newKey'
     await keyDetails.selectKeyFromDropdownAndConfirmNewKeySelected(firstKey)
     let linkBeforeNameChange = await keyDetails.getVegaExplorerLink()

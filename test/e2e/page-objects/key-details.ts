@@ -69,7 +69,7 @@ export class KeyDetails {
   }
 
   async selectKeyFromDropdownAndConfirmNewKeySelected(keyName: string) {
-    await clickElement(this.driver, this.currentSelectedKey('Key 1'))
+    await clickElement(this.driver, this.currentSelectedKey('Key 0'))
     await clickElement(this.driver, this.keyDropdownItem(keyName))
     await this.checkExpectedKeySelected(keyName)
   }

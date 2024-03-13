@@ -33,7 +33,7 @@ describe('Check browser wallet is resilient to node outages', () => {
     it('shows an error when no nodes are available', async () => {
       closeServer = false
       await navigateToExtensionLandingPage(driver)
-      await viewWallet.openKeyDetails('Key 1')
+      await viewWallet.openKeyDetails('Key 0')
       const errorText = await keyDetails.getNotificationText()
       expect(errorText).toBe('An error occurred when loading account information: Failed to fetch data')
     })
@@ -41,7 +41,7 @@ describe('Check browser wallet is resilient to node outages', () => {
     it('shows an error if a node outage occurrs after initially having a connection', async () => {
       server = await startServer()
       await navigateToExtensionLandingPage(driver)
-      await viewWallet.openKeyDetails('Key 1')
+      await viewWallet.openKeyDetails('Key 0')
       expect(await keyDetails.isNotificationDisplayed(500)).toBe(false)
       await closeServerAndWait(server)
       await navigateToExtensionLandingPage(driver)
@@ -54,20 +54,20 @@ describe('Check browser wallet is resilient to node outages', () => {
     it('does not show an error when the market endpoint is down', async () => {
       server = await startServer({ includeMarkets: false })
       await navigateToExtensionLandingPage(driver)
-      await viewWallet.openKeyDetails('Key 1')
+      await viewWallet.openKeyDetails('Key 0')
       expect(await keyDetails.isNotificationDisplayed(500)).toBe(false)
     })
     it('shows an error when assets endpoint only is down', async () => {
       server = await startServer({ includeAssets: false })
       await navigateToExtensionLandingPage(driver)
-      await viewWallet.openKeyDetails('Key 1')
+      await viewWallet.openKeyDetails('Key 0')
       const errorText = await keyDetails.getNotificationText()
       expect(errorText).toBe('An error occurred when loading account information: Failed to fetch data')
     })
     it('shows an error when accounts endpoint only is down', async () => {
       server = await startServer({ includeAccounts: false })
       await navigateToExtensionLandingPage(driver)
-      await viewWallet.openKeyDetails('Key 1')
+      await viewWallet.openKeyDetails('Key 0')
       const errorText = await keyDetails.getNotificationText()
       expect(errorText).toBe('An error occurred when loading account information: Failed to fetch data')
     })

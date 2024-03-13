@@ -21,7 +21,7 @@ describe('Switch network', () => {
     header = new ExtensionHeader(driver)
     keyDetails = new KeyDetails(driver)
     await navigateToExtensionLandingPage(driver)
-    await viewWallet.openKeyDetails('Key 1')
+    await viewWallet.openKeyDetails('Key 0')
     await keyDetails.checkOnExpectedKeyDetails()
   })
   afterEach(async () => {

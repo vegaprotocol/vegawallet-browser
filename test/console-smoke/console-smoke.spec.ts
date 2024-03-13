@@ -113,7 +113,7 @@ async function setUpTests() {
     consolePath = fairgroundConsolePath
     acceptRisk = false
   }
-  await apiHelper.setUpWalletAndKey('password', 'wallet', 'Key 1', false, recoveryPhrase)
+  await apiHelper.setUpWalletAndKey('password', 'wallet', 'Key 0', false, recoveryPhrase)
   await navigateToExtensionLandingPage(driver)
 }
 

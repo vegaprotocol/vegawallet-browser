@@ -55,9 +55,9 @@ describe('Onboarding', () => {
     await secureYourWallet.revealRecoveryPhrase(true)
     await secureYourWallet.checkCreateWalletSuccessful()
     // await telemetry.optIn()
-    await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
+    await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 0')
     await navigateToExtensionLandingPage(driver)
-    await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 1')
+    await checkOnWalletPageWithExpectedWalletAndKeys('Wallet 1', 'Key 0')
   })
 
   it('can successfully import a wallet', async () => {

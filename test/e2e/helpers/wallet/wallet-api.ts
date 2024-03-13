@@ -113,7 +113,7 @@ export class APIHelper {
   async setUpWalletAndKey(
     passphrase = 'password1',
     walletName = 'Wallet 1',
-    keyName = 'Key 1',
+    keyName = 'Key 0',
     telemetryOptIn = false,
     recoveryPhrase: undefined | string = undefined
   ) {

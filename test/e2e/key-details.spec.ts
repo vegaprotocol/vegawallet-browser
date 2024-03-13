@@ -19,7 +19,7 @@ describe('Key details', () => {
     viewWallet = new ViewWallet(driver)
     keyDetails = new KeyDetails(driver)
     exportKey = new ExportPrivateKey(driver)
-    await apiHelper.createKey('Wallet 1', 'Key 0')
+    await apiHelper.createKey('Wallet 1', 'Key 1')
     await navigateToExtensionLandingPage(driver)
     await viewWallet.openKeyDetails('Key 0')
     await keyDetails.checkOnExpectedKeyDetails()

@@ -18,6 +18,7 @@ approbation-diff.txt
 /results
 
 # production
+/build
 
 # misc
 .DS_Store

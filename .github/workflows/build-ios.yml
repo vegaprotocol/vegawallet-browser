@@ -31,4 +31,5 @@ jobs:
       - name: Upload IPA
         uses: actions/upload-artifact@v3
         with:
+          name: app.ipa
           path: './app.ipa'

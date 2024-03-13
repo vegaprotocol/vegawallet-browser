@@ -17,12 +17,6 @@ lane :release do
     configuration: "Release",
     scheme: "Vega Wallet",
     export_method: "app-store",
-    export_options: {
-      provisioningProfiles: {
-        "xyz.vega.betawallet.iosextension" => "iOS Dist Extension",
-        "xyz.vega.betawallet" => "iOS Dist"
-      }
-    },
     clean: true,
     output_directory: ".", # Destination directory. Defaults to current directory.
     output_name: "app.ipa",  

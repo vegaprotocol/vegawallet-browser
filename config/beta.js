@@ -26,7 +26,8 @@ const testnet = {
     geckoId: 'browser-extension@vega.xyz',
     iconPrefix: 'Beta'
   },
-  autoOpenOnInstall: true
+  autoOpenOnInstall: true,
+  addMobileIds: false
 }
 
 export default testnet

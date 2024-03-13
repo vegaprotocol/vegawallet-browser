@@ -28,7 +28,8 @@ const test = {
   features: {
     popoutHeader: true
   },
-  autoOpenOnInstall: false
+  autoOpenOnInstall: false,
+  addMobileIds: true
 }
 
 export default test

@@ -10,6 +10,7 @@ import { usePreventWindowResize } from '@/hooks/prevent-window-resize'
 import { useGlobalsStore } from '@/stores/globals'
 
 import { CONSTANTS } from '../lib/constants'
+import { generateTestIds } from './lib/generate-testids'
 import { Routing } from './routes'
 
 export const locators = {
@@ -41,7 +42,7 @@ function App() {
         <JsonRPCProvider>
           <NetworkProvider>
             <main
-              data-testid={locators.appWrapper}
+              {...generateTestIds(locators.appWrapper)}
               className="w-full h-full bg-black font-alpha text-vega-dark-400 overflow-hidden"
             >
               <Routing />

@@ -24,13 +24,13 @@ describe('View wallet page', () => {
     // 1106-KEYS-008 New key pairs are listed in order they were created - oldest first
     // 1106-KEYS-001 I can see a list of the keys in my wallet
     await viewWallet.createNewKeyPair()
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2'])
+    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 0', 'Key 1'])
 
     await viewWallet.createNewKeyPair()
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
+    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 0', 'Key 1', 'Key 2'])
 
     await navigateToExtensionLandingPage(driver)
-    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 1', 'Key 2', 'Key 3'])
+    expect(await viewWallet.getWalletKeys()).toMatchObject(['Key 0', 'Key 1', 'Key 2'])
   })
 
   it('can copy public key to clipboard and see where I am in the extension', async () => {

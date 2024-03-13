@@ -29,7 +29,6 @@ lane :release do
     key_id: "YBANA83587",
     issuer_id: "8aa69e69-be1e-462d-b131-1f701b1c1d6b",
     key_content: ENV['IOS_APP_STORE_CONNECT_API_KEY'],
-    key_filepath: './fastlane/key.p8',
     duration: 1200,
     in_house: false
   )

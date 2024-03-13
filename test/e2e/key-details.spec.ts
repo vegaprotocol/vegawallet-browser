@@ -35,7 +35,7 @@ describe('Key details', () => {
     // 1125-KEYD-003 I can see the balance of each (the sum across ALL account types)
     // 1125-KEYD-004 There is a button / icon that allows me to expand the view to show the breakdown of all non-zero accounts for that asset
     // 1125-KEYD-005 There is a way to switch between keys (or to easily navigate back to the keys page to achieve this)
-    await keyDetails.selectKeyFromDropdownAndConfirmNewKeySelected('Key 2')
+    await keyDetails.selectKeyFromDropdownAndConfirmNewKeySelected('Key 1')
     const balance = await keyDetails.getAssetBalance()
     expect(balance).toBeTruthy()
   })

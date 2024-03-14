@@ -1,8 +1,7 @@
 name: Build iOS ipa
 
 on:
-  push:
-    branches: ['ci/build-ios']
+  pull-request:
 
 jobs:
   build-ios:

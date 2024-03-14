@@ -2,11 +2,22 @@ import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
 import { generate as generateMnemonic, validate } from '@vegaprotocol/crypto/bip-0039/mnemonic'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import { PERMITTED_RECOVERY_PHRASE_LENGTH } from '../../lib/constants.js'
+import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
 
 export class WalletCollection {
   constructor({ walletsStore, publicKeyIndexStore }) {
     this.store = new ConcurrentStorage(walletsStore)
     this.index = new ConcurrentStorage(publicKeyIndexStore)
+
+    this._emitter = new TinyEventemitter()
+  }
+
+  on(event, listener) {
+    return this._emitter.on(event, listener)
+  }
+
+  off(event, listener) {
+    return this._emitter.off(event, listener)
   }
 
   async get({ name }) {
@@ -30,7 +41,6 @@ export class WalletCollection {
 
       const walletInst = await VegaWallet.fromSeed(new Uint8Array(walletConfig.seed))
       const keyPair = await walletInst.keyPair(keyConfig.index)
-
       return {
         keyPair,
         wallet,
@@ -86,7 +96,8 @@ export class WalletCollection {
       await validate(recoveryPhrase)
 
       const words = recoveryPhrase.split(/\s+/)
-      if (!PERMITTED_RECOVERY_PHRASE_LENGTH.includes(words.length)) throw new Error('Recovery phrase must be 12, 15, 18, 21 or 24 words')
+      if (!PERMITTED_RECOVERY_PHRASE_LENGTH.includes(words.length))
+        throw new Error('Recovery phrase must be 12, 15, 18, 21 or 24 words')
     } catch (err) {
       throw new Error(err.message)
     }
@@ -101,6 +112,7 @@ export class WalletCollection {
         recoveryPhrase,
         keys: []
       })
+      this._emitter.emit('create_wallet', { name })
 
       return null
     })
@@ -133,6 +145,7 @@ export class WalletCollection {
       await store.set(walletName, walletConfig)
 
       await this.index.set(key.publicKey, { name: key.name, wallet: walletName, publicKey: key.publicKey })
+      this._emitter.emit('create_key', { publicKey: key.publicKey })
 
       return key
     })
@@ -155,6 +168,7 @@ export class WalletCollection {
 
       await store.set(wallet, walletConfig)
       await this.index.set(publicKey, indexEntry)
+      this._emitter.emit('rename_key', { publicKey })
 
       return keyConfig
     })

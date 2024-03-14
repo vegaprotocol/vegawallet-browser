@@ -100,6 +100,38 @@ connections.on('delete', ({ origin }) => {
   }
 })
 
+wallets.on('create_key', async () => {
+  const ports = clientPorts.ports.entries()
+  for (const [port, context] of ports) {
+    const allowedKeys = await connections.listAllowedKeys(context.origin)
+    if (allowedKeys.length !== 0) {
+      port.postMessage({
+        jsonrpc: '2.0',
+        method: 'client.accounts_changed',
+        params: {
+          keys: allowedKeys
+        }
+      })
+    }
+  }
+})
+
+wallets.on('rename_key', async () => {
+  const ports = clientPorts.ports.entries()
+  for (const [port, context] of ports) {
+    const allowedKeys = await connections.listAllowedKeys(context.origin)
+    if (allowedKeys.length !== 0) {
+      port.postMessage({
+        jsonrpc: '2.0',
+        method: 'client.accounts_changed',
+        params: {
+          keys: allowedKeys
+        }
+      })
+    }
+  }
+})
+
 setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor, connections)
 
 async function setPending() {

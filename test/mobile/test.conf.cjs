@@ -7,38 +7,36 @@ exports.config = {
       'browserstack',
       {
         buildIdentifier: '${BUILD_NUMBER}',
-        app: "bs://a25c4dc3e4c2ae24d67f8b47646044f281bbac23"
+        app: 'bs://d8b33ceda5ef2318f791c9af11d8a73a67f5adcf'
       }
     ]
   ],
 
-  capabilities: [{
-    'bstack:options': {
-      deviceName: "iPhone 15",
-      osVersion: "17"
+  capabilities: [
+    {
+      'bstack:options': {
+        deviceName: 'iPhone 15',
+        osVersion: '17'
+      }
     }
-  }, ],
+  ],
 
   commonCapabilities: {
-    
     'bstack:options': {
-      projectName: "BrowserStack Samples",
+      projectName: 'BrowserStack Samples',
       buildName: 'browserstack build',
       sessionName: 'BStack parallel webdriverio-appium',
       debug: true,
       networkLogs: true,
-      browserName: 'safari',
+      browserName: 'safari'
     }
   },
 
   maxInstances: 10,
 
   updateJob: false,
-  specs: [
-    './tests/**/*.spec.js'
-  ],
+  specs: ['./tests/**/*.spec.js'],
   exclude: [],
-
 
   logLevel: 'info',
   coloredLogs: true,
@@ -53,10 +51,10 @@ exports.config = {
     ui: 'bdd',
     timeout: 40000
   }
-};
+}
 
 // Code to support common capabilities
-exports.config.capabilities.forEach(function(caps){
-  for(let key in exports.config.commonCapabilities)
-    caps[key] = { ...caps[key], ...exports.config.commonCapabilities[key]};
-});
+exports.config.capabilities.forEach(function (caps) {
+  for (let key in exports.config.commonCapabilities)
+    caps[key] = { ...caps[key], ...exports.config.commonCapabilities[key] }
+})

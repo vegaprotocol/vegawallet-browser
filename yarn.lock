@@ -861,7 +861,7 @@
     "@babel/helper-plugin-utils" "^7.22.5"
     "@babel/plugin-syntax-optional-catch-binding" "^7.8.3"
 
-"@babel/plugin-transform-optional-chaining@^7.23.4":
+"@babel/plugin-transform-optional-chaining@^7.23.3", "@babel/plugin-transform-optional-chaining@^7.23.4":
   version "7.23.4"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-optional-chaining/-/plugin-transform-optional-chaining-7.23.4.tgz#6acf61203bdfc4de9d4e52e64490aeb3e52bd017"
   integrity sha512-ZU8y5zWOfjM5vZ+asjgAPwDaBjJzgufjES89Rs4Lpq63O300R/kOz30WCLo6BxxX6QVEilwSlpClnG5cZaikTA==
@@ -2992,7 +2992,7 @@
     pathe "^1.1.1"
     pretty-format "^29.7.0"
 
-"@wdio/browserstack-service@^8.26.1":
+"@wdio/browserstack-service@^8.33.1":
   version "8.33.1"
   resolved "https://registry.yarnpkg.com/@wdio/browserstack-service/-/browserstack-service-8.33.1.tgz#43ec9693249d3c22ed9d27aa7b8d649a05ada7a1"
   integrity sha512-CcGZSp0xJXo0eHWM/LQBtTmV0Y9NsvJuVsj4tmAf5d/92GNHcF6fW22Udsp7or9g2tJyj6LmJI0lcaCOprliiw==

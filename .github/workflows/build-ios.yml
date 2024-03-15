@@ -59,5 +59,10 @@ jobs:
           method: POST
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
           password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          # data: '{ "custom_id": "test" }'
-          files: '{ "file": "${{ github.workspace }}/app.ipa" }'
+          data: '{ "custom_id": "test" }'
+          file: '{ "file": "${{ github.workspace }}/app.ipa" }'
+      - name: Show Response
+        run: |
+          echo ${{ steps.myRequest.outputs.response }}
+          echo ${{ steps.myRequest.outputs.headers }}
+          echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}

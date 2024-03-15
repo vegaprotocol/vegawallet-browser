@@ -61,6 +61,7 @@ jobs:
           password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           data: '{ "custom_id": "test" }'
           file: '{ "file": "${{ github.workspace }}/app.ipa" }'
+          maskResponse: false
       - name: Show Response
         run: |
           echo ${{ steps.myRequest.outputs.response }}

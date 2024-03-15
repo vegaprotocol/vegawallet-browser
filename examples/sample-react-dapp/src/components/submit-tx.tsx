@@ -27,7 +27,7 @@ const createDefaultTransaction = (publicKey: string) => {
 }
 
 export function SubmitTransaction({ keys, onDisconnect }: { keys: any[]; onDisconnect: () => void }) {
-  const [tx, setTx] = useState<string>(createDefaultTransaction(keys[0]))
+  const [tx, setTx] = useState<string>(createDefaultTransaction(keys[0].publicKey))
   const [selectedKey, setSelectedKey] = useState<string>(keys[0].publicKey)
   const [error, setError] = useState<null | string>(null)
   const [loading, setLoading] = useState(false)

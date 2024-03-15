@@ -45,7 +45,7 @@ jobs:
           path: .
 
       - name: Unzip artifact
-        run: unzip app.ipa -d extracted_ipa
+        run: unzip app.ipa.zip -d extracted_ipa
 
   upload-ios-app:
     needs: unzip-artifact

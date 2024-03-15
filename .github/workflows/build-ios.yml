@@ -41,7 +41,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: app
+          name: app.ipa
           path: .
 
       - name: Unzip artifact

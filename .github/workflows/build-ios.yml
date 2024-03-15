@@ -34,8 +34,21 @@ jobs:
           name: app.ipa
           path: './app.ipa'
 
-  upload-ios-app:
+  unzip-artifact:
     needs: build-ios
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app.ipa
+          path: .
+
+      # - name: Unzip artifact
+      #   run: unzip app.ipa.zip -d extracted_ipa
+
+  upload-ios-app:
+    needs: unzip-artifact
     runs-on: ubuntu-latest
     steps:
       - name: Upload iOS App
@@ -46,6 +59,5 @@ jobs:
           method: POST
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
           password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          data: '{ "custom_id": "IOSApp" }'
           files: '{ "file": "./app.ipa" }'
-          timeout: 5000
-          maskResponse: false

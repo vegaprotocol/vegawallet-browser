@@ -60,7 +60,7 @@ jobs:
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
           password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           data: '{ "custom_id": "test" }'
-          files: '{ "file": "${{ github.workspace }}/app.ipa" }'
+          files: '{ "file": "${{ github.workspace }}/test/app.ipa" }'
           maskResponse: false
       - name: Show Response
         run: |

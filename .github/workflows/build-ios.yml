@@ -46,5 +46,5 @@ jobs:
           method: POST
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
           password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          data: '{ "custom_id": "IOSApp" }'
+          # data: '{ "custom_id": "IOSApp" }'
           files: '{ "file": "./app.ipa" }'

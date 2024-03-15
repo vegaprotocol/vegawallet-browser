@@ -1,7 +1,8 @@
 name: Build iOS ipa
 
 on:
-  pull-request:
+  pull_request_target:
+  workflow_dispatch:
 
 jobs:
   build-ios:
@@ -32,3 +33,31 @@ jobs:
         with:
           name: app.ipa
           path: './app.ipa'
+
+  unzip-artifact:
+    needs: build-ios
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app
+          path: .
+
+      - name: Unzip artifact
+        run: unzip app.zip -d extracted_ipa
+
+  upload-ios-app:
+    needs: unzip-artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload iOS App
+        id: ios_app_upload
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: https://api-cloud.browserstack.com/app-automate/upload
+          method: POST
+          username: ${{ secrets.BROWSERSTACK_USERNAME }}
+          password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          data: '{ "custom_id": "IOSApp" }'
+          files: '{ "file": "extracted_ipa/app.ipa" }'

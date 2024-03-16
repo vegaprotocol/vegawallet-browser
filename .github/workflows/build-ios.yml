@@ -68,7 +68,7 @@ jobs:
           username: ${{ env.BS_USER }}
           password: ${{ env.BS_KEY }}
           data: '{ "custom_id": "IOSApp" }'
-          files: '{ "file": "${{ github.workspace }}/app.ipa" }'
+          files: '{ "file": "${{ github.workspace }}/test/app.ipa" }'
           maskResponse: false
       - name: Show Response
         run: |

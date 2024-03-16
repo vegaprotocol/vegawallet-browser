@@ -1,4 +1,4 @@
-import ok from 'node:assert/strict'
+import { ok } from 'assert'
 
 //Native selectors
 const safariAddressBarMenuButton = '~PageFormatMenuButton'

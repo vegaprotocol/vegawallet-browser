@@ -7,7 +7,7 @@ exports.config = {
       'browserstack',
       {
         buildIdentifier: '${BUILD_NUMBER}',
-        app: 'bs://d8b33ceda5ef2318f791c9af11d8a73a67f5adcf'
+        app: 'IOSApp'
       }
     ]
   ],

@@ -1,7 +1,12 @@
 name: Build iOS ipa
 
 on:
-  pull-request:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  BS_USER: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
 jobs:
   build-ios:
@@ -32,3 +37,20 @@ jobs:
         with:
           name: app.ipa
           path: './app.ipa'
+
+      - name: Upload iOS app to BrowserStack
+        id: ios_app_upload
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: https://api-cloud.browserstack.com/app-automate/upload
+          method: POST
+          username: ${{ env.BS_USER }}
+          password: ${{ env.BS_KEY }}
+          data: '{ "custom_id": "IOSApp" }'
+          files: '{ "file": "${{ github.workspace }}/app.ipa" }'
+          maskResponse: false
+      - name: Show Response
+        run: |
+          echo ${{ steps.ios_app_upload.outputs.response }}
+          echo ${{ steps.ios_app_upload.outputs.headers }}
+          echo ${{ fromJson(steps.ios_app_upload.outputs.response).field_you_want_to_access }}

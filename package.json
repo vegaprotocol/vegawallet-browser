@@ -156,6 +156,7 @@
     "webextension-polyfill-ts": "^0.26.0"
   },
   "resolutions": {
-    "tslib": "^2.3.1"
+    "tslib": "^2.3.1",
+    "string-width": "4.2.3"
   }
 }

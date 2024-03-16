@@ -72,6 +72,6 @@ jobs:
           maskResponse: false
       - name: Show Response
         run: |
-          echo ${{ steps.myRequest.outputs.response }}
-          echo ${{ steps.myRequest.outputs.headers }}
-          echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
+          echo ${{ steps.ios_app_upload.outputs.response }}  # Corrected line
+          echo ${{ steps.ios_app_upload.outputs.headers }}
+          echo ${{ fromJson(steps.ios_app_upload.outputs.response).field_you_want_to_access }}

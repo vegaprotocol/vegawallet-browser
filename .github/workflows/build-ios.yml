@@ -38,27 +38,6 @@ jobs:
           name: app.ipa
           path: './app.ipa'
 
-  unzip-artifact:
-    needs: build-ios
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: app.ipa
-          path: .
-
-  # - name: Unzip artifact
-  #   run: unzip app.ipa.zip -d extracted_ipa
-
-  upload-app:
-    name: Upload App to BrowserStack
-    needs: unzip-artifact
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v4
-
       - name: Upload iOS App
         id: ios_app_upload
         uses: fjogeleit/http-request-action@v1
@@ -75,3 +54,41 @@ jobs:
           echo ${{ steps.ios_app_upload.outputs.response }}  # Corrected line
           echo ${{ steps.ios_app_upload.outputs.headers }}
           echo ${{ fromJson(steps.ios_app_upload.outputs.response).field_you_want_to_access }}
+
+  # unzip-artifact:
+  #   needs: build-ios
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: app.ipa
+  #         path: .
+
+  # # - name: Unzip artifact
+  # #   run: unzip app.ipa.zip -d extracted_ipa
+
+  # upload-app:
+  #   name: Upload App to BrowserStack
+  #   needs: unzip-artifact
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out Git repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Upload iOS App
+  #       id: ios_app_upload
+  #       uses: fjogeleit/http-request-action@v1
+  #       with:
+  #         url: https://api-cloud.browserstack.com/app-automate/upload
+  #         method: POST
+  #         username: ${{ env.BS_USER }}
+  #         password: ${{ env.BS_KEY }}
+  #         data: '{ "custom_id": "IOSApp" }'
+  #         files: '{ "file": "${{ github.workspace }}/test/app.ipa" }'
+  #         maskResponse: false
+  #     - name: Show Response
+  #       run: |
+  #         echo ${{ steps.ios_app_upload.outputs.response }}  # Corrected line
+  #         echo ${{ steps.ios_app_upload.outputs.headers }}
+  #         echo ${{ fromJson(steps.ios_app_upload.outputs.response).field_you_want_to_access }}

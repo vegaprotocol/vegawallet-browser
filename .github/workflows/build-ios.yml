@@ -8,52 +8,52 @@ env:
   BS_USER: ${{ secrets.BROWSERSTACK_USERNAME }}
   BS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
-# jobs:
-#   build-ios:
-#     runs-on: macos-14
-
-#     steps:
-#       - uses: actions/checkout@v3
-
-#       - name: Setup Node.js Latest
-#         uses: actions/setup-node@v3
-#         with:
-#           cache: 'yarn'
-#           node-version-file: '.nvmrc'
-
-#       - name: Install dependencies
-#         run: yarn install
-#       - name: Build app
-#         run: yarn run build:beta
-
-#       - run: fastlane release
-#         env:
-#           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-#           IOS_APP_STORE_CONNECT_API_KEY: ${{ secrets.IOS_APP_STORE_CONNECT_API_KEY }}
-#           CI_BOT_GITHUB_TOKEN: ${{ secrets.CI_BOT_GITHUB_TOKEN }}
-
-#       - name: Upload IPA
-#         uses: actions/upload-artifact@v3
-#         with:
-#           name: app.ipa
-#           path: './app.ipa'
-
-#   unzip-artifact:
-#     needs: build-ios
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Download artifact
-#         uses: actions/download-artifact@v3
-#         with:
-#           name: app.ipa
-#           path: .
-
-# - name: Unzip artifact
-#   run: unzip app.ipa.zip -d extracted_ipa
-
 jobs:
+  build-ios:
+    runs-on: macos-14
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: yarn install
+      - name: Build app
+        run: yarn run build:beta
+
+      - run: fastlane release
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          IOS_APP_STORE_CONNECT_API_KEY: ${{ secrets.IOS_APP_STORE_CONNECT_API_KEY }}
+          CI_BOT_GITHUB_TOKEN: ${{ secrets.CI_BOT_GITHUB_TOKEN }}
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v3
+        with:
+          name: app.ipa
+          path: './app.ipa'
+
+  unzip-artifact:
+    needs: build-ios
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app.ipa
+          path: .
+
+  # - name: Unzip artifact
+  #   run: unzip app.ipa.zip -d extracted_ipa
+
   upload-app:
     name: Upload App to BrowserStack
+    needs: unzip-artifact
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -68,7 +68,7 @@ jobs:
           username: ${{ env.BS_USER }}
           password: ${{ env.BS_KEY }}
           data: '{ "custom_id": "IOSApp" }'
-          files: '{ "file": "${{ github.workspace }}/test/app.ipa" }'
+          files: '{ "file": "${{ github.workspace }}/app.ipa" }'
           maskResponse: false
       - name: Show Response
         run: |

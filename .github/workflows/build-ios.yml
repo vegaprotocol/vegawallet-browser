@@ -3,10 +3,6 @@ name: Build iOS ipa
 on:
   pull_request:
   workflow_dispatch:
-    inputs:
-      trigger-ios-test:
-        description: 'Trigger iOS Test workflow'
-        required: false
 
 env:
   BS_USER: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -59,10 +55,26 @@ jobs:
           echo ${{ steps.ios_app_upload.outputs.headers }}
           echo ${{ fromJson(steps.ios_app_upload.outputs.response).field_you_want_to_access }}
 
-      - name: Dispatch iOS Test workflow
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.trigger-ios-test
-        uses: peter-evans/repository-dispatch@v2
+  ios-test:
+    needs: build-ios
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
         with:
-          token: ${{ secrets.CI_BOT_GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          event-type: test_ios
+          node-version: '*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run E2E tests using Xvfb
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: yarn test:ios
+        env:
+          BROWSERSTACK_ACCESS_KEY: ${{ env.BS_USER }}
+          BROWSERSTACK_USERNAME: ${{ env.BS_KEY }}

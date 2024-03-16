@@ -3,9 +3,6 @@ name: iOS Test
 on:
   workflow_run:
     workflows: ['Build iOS ipa']
-  push:
-    branches:
-      - main
 
 jobs:
   ios-test:

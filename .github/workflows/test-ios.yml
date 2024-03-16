@@ -4,6 +4,8 @@ on:
   pull_request:
   workflow_run:
     workflows: ['Build iOS ipa']
+    types:
+      - completed
 
 jobs:
   ios-test:

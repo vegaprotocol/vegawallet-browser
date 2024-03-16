@@ -25,4 +25,4 @@ jobs:
           username: ${{ env.BS_USER }}
           password: ${{ env.BS_KEY }}
           data: '{ "custom_id": "IOSApp" }'
-          files: '{ "file": "${{ github.workspace }}/core-java/src/test/resources/apps/ios/sauce-demo.ipa" }'
+          files: '{ "file": "${{ github.workspace }}/test/app.ipa" }'

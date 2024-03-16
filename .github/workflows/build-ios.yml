@@ -38,15 +38,15 @@ jobs:
           name: app.ipa
           path: './app.ipa'
 
-  # unzip-artifact:
-  #   needs: build-ios
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download artifact
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: app.ipa
-  #         path: .
+  unzip-artifact:
+    needs: build-ios
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app.ipa
+          path: .
 
   # - name: Unzip artifact
   #   run: unzip app.ipa.zip -d extracted_ipa

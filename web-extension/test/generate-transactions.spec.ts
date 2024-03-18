@@ -113,7 +113,8 @@ const recurringTransfer: RecurringTransfer = {
     individualScope: IndividualScope.INDIVIDUAL_SCOPE_ALL,
     stakingRequirement: '',
     distributionStrategy: DistributionStrategy.DISTRIBUTION_STRATEGY_PRO_RATA,
-    notionalTimeWeightedAveragePositionRequirement: ''
+    notionalTimeWeightedAveragePositionRequirement: '',
+    capRewardFeeMultiple: ''
   }
 }
 

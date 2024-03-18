@@ -76,5 +76,5 @@ jobs:
         with:
           run: yarn test:ios
         env:
-          BROWSERSTACK_ACCESS_KEY: ${{ env.BS_USER }}
-          BROWSERSTACK_USERNAME: ${{ env.BS_KEY }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}

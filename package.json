@@ -152,7 +152,6 @@
     "typescript": "^5.0.4",
     "web-ext": "^7.6.1",
     "web-vitals": "^2.1.4",
-    "webdriverio": "^8.34.1",
     "webextension-polyfill-ts": "^0.26.0"
   },
   "resolutions": {

@@ -119,6 +119,7 @@
     "@types/zxcvbn": "^4.4.1",
     "@vegaprotocol/types": "^0.0.3",
     "@wdio/browserstack-service": "^8.34.1",
+    "@wdio/cli": "^8.34.1",
     "ajv": "^8.12.0",
     "ajv-errors": "^3.0.0",
     "archiver": "^5.3.1",
@@ -154,6 +155,7 @@
   },
   "resolutions": {
     "tslib": "^2.3.1",
+    "wrap-ansi": "7.0.0",
     "string-width": "4.2.3"
   }
 }

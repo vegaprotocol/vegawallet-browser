@@ -13,10 +13,6 @@
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
     "@vegaprotocol/ui-toolkit": "0.12.6",
     "@vegaprotocol/utils": "^0.0.10",
-    "@wdio/browserstack-service": "^8.33.1",
-    "@wdio/cli": "^8.26.1",
-    "@wdio/local-runner": "^8.26.1",
-    "@wdio/mocha-framework": "^8.24.12",
     "bignumber.js": "^9.0.2",
     "classnames": "^2.2.0",
     "date-fns": "^2.30.0",
@@ -37,7 +33,6 @@
     "react-time-ago": "^7.2.1",
     "tailwindcss": "^3.3.2",
     "tldts": "^6.0.8",
-    "webdriverio": "^8.26.1",
     "zustand": "^4.3.2",
     "zxcvbn": "^4.4.2"
   },
@@ -123,6 +118,10 @@
     "@types/selenium-webdriver": "^4.1.13",
     "@types/zxcvbn": "^4.4.1",
     "@vegaprotocol/types": "^0.0.3",
+    "@wdio/browserstack-service": "^8.34.1",
+    "@wdio/cli": "^8.34.1",
+    "@wdio/local-runner": "^8.34.1",
+    "@wdio/mocha-framework": "^8.33.1",
     "ajv": "^8.12.0",
     "ajv-errors": "^3.0.0",
     "archiver": "^5.3.1",
@@ -153,6 +152,7 @@
     "typescript": "^5.0.4",
     "web-ext": "^7.6.1",
     "web-vitals": "^2.1.4",
+    "webdriverio": "^8.34.1",
     "webextension-polyfill-ts": "^0.26.0"
   },
   "resolutions": {

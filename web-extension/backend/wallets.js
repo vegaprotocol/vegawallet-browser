@@ -145,7 +145,7 @@ export class WalletCollection {
       await store.set(walletName, walletConfig)
 
       await this.index.set(key.publicKey, { name: key.name, wallet: walletName, publicKey: key.publicKey })
-      this._emitter.emit('create_key', { publicKey: key.publicKey })
+      this._emitter.emit('create_key', { publicKey: key.publicKey, name: key.name })
 
       return key
     })
@@ -168,7 +168,7 @@ export class WalletCollection {
 
       await store.set(wallet, walletConfig)
       await this.index.set(publicKey, indexEntry)
-      this._emitter.emit('rename_key', { publicKey })
+      this._emitter.emit('rename_key', { publicKey, name })
 
       return keyConfig
     })

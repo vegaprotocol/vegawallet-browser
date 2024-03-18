@@ -67,4 +67,71 @@ describe('wallets', () => {
       { ...k2, name: '' }
     ])
   })
+
+  it('should emit an event when a new wallet is created', async () => {
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+
+    const wallets = new WalletCollection({
+      walletsStore: new ConcurrentStorage(enc),
+      publicKeyIndexStore: new ConcurrentStorage(new Map())
+    })
+
+    const cb = jest.fn()
+
+    wallets.on('create_wallet', cb)
+
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
+
+    const k = await wallets.generateKey({ wallet: 'wallet 1' })
+    expect(cb).toBeCalledTimes(1)
+    expect(cb).toBeCalledWith({ name: 'wallet 1' })
+  })
+
+  it('should emit an event when a new key is created', async () => {
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+
+    const wallets = new WalletCollection({
+      walletsStore: new ConcurrentStorage(enc),
+      publicKeyIndexStore: new ConcurrentStorage(new Map())
+    })
+
+    const cb = jest.fn()
+
+    wallets.on('create_key', cb)
+
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
+
+    const k = await wallets.generateKey({ wallet: 'wallet 1' })
+    expect(cb).toBeCalledTimes(1)
+    expect(cb).toBeCalledWith({
+      publicKey: expect.any(String),
+      name: 'Key 0'
+    })
+  })
+
+  it('should emit an event when a key is renamed', async () => {
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+
+    const wallets = new WalletCollection({
+      walletsStore: new ConcurrentStorage(enc),
+      publicKeyIndexStore: new ConcurrentStorage(new Map())
+    })
+
+    const cb = jest.fn()
+
+    wallets.on('rename_key', cb)
+
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
+
+    const k = await wallets.generateKey({ wallet: 'wallet 1' })
+    await wallets.renameKey({ publicKey: k.publicKey, name: 'Custom name' })
+    expect(cb).toBeCalledTimes(1)
+    expect(cb).toBeCalledWith({
+      publicKey: expect.any(String),
+      name: 'Custom name'
+    })
+  })
 })

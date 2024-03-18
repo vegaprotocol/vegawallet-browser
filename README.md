@@ -65,6 +65,7 @@ methods exposed on `window`/`globalThis`:
 Events include:
 
 - `client.disconnected`
+- `client.accounts_changed`
 
 A sample dApp is provided in [examples/sample-dapp/index.html](./examples/sample-dapp/index.html), and is also
 published to Github Pages - [see the live demo](https://vegaprotocol.github.io/vegawallet-browser/).

@@ -22,6 +22,11 @@ const Errors = {
     'Unknown chain ID',
     -7,
     'The chain ID is not known to the wallet, please review the chain ID and try again'
+  ],
+  DEVELOPMENT_CHAIN_ID: [
+    'Development chain ID',
+    -7,
+    'The chain ID is known to the wallet, but this is a hidden chainId used for development. Please ensure you have enabled hidden networks in settings'
   ]
 }
 
@@ -56,7 +61,7 @@ export default function init({ onerror, settings, wallets, networks, connections
           }
           const hiddenNetworksEnabled = await settings.get('showHiddenNetworks')
           if (network.hidden && hiddenNetworksEnabled !== true) {
-            throw new JSONRPCServer.Error(...Errors.UNKNOWN_CHAIN_ID)
+            throw new JSONRPCServer.Error(...Errors.DEVELOPMENT_CHAIN_ID)
           }
 
           const reply = await interactor.reviewConnection({

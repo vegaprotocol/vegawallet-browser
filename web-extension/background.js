@@ -107,7 +107,7 @@ wallets.on('create_key', async () => {
     if (allowedKeys.length !== 0) {
       port.postMessage({
         jsonrpc: '2.0',
-        method: 'client.accounts_changed',
+        method: 'client.keys_changed',
         params: {
           keys: allowedKeys
         }
@@ -123,7 +123,7 @@ wallets.on('rename_key', async () => {
     if (allowedKeys.length !== 0) {
       port.postMessage({
         jsonrpc: '2.0',
-        method: 'client.accounts_changed',
+        method: 'client.keys_changed',
         params: {
           keys: allowedKeys
         }

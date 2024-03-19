@@ -13,7 +13,7 @@ declare global {
       connectWallet: () => Promise<void>
       listKeys: () => Promise<{ keys: any[] }>
       sendTransaction: (tx: object) => Promise<void>
-      on: (event: string, cb: () => void) => void
+      on: (event: string, cb: (...args: any[]) => void) => void
       off: () => void
     }
   }
@@ -27,6 +27,7 @@ function AppContent() {
   const [loading, setLoading] = useState(false)
   // Check if the extension is available
   const [hasExtension, setHasExtension] = useState(false)
+  const [events, setEvents] = useState<[string, any][]>([])
 
   // Run when the wallet is connected
   const onConnected = async (connected: boolean) => {
@@ -58,6 +59,10 @@ function AppContent() {
       // Register disconnect event handler for if the user disconnects the app from the extension.
       window.vega.on('client.disconnected', () => {
         setConnected(false)
+        setEvents([...events, ['client.disconnected', null]])
+      })
+      window.vega.on('client.accounts_changed', (keys: any) => {
+        setEvents([...events, ['client.accounts_changed', keys]])
       })
     }
     // Remove all events. Can do specific events but easier for demo this way.
@@ -66,7 +71,7 @@ function AppContent() {
         window.vega.off()
       }
     }
-  }, [hasExtension])
+  }, [events, hasExtension])
   if (loading) {
     return null // Wait until we are sure the user has the extension or not. Until then render nothing.
   } else if (!hasExtension) {
@@ -75,7 +80,29 @@ function AppContent() {
     return <ConnectWallet onConnected={onConnected} /> // If the user is not connected, render the connect wallet button.
   } else {
     return (
-      <SubmitTransaction onDisconnect={() => setConnected(false)} keys={keys} /> // If the user is connected, render the transaction form.
+      <>
+        {/* If the user is connected, render
+        the transaction form. */}
+        <SubmitTransaction onDisconnect={() => setConnected(false)} keys={keys} />
+        {/* Events list */}
+        <h1 style={{ color: 'white' }}>Events</h1>
+        <table style={{ width: '100%' }}>
+          <thead>
+            <tr style={{ color: 'white', fontSize: 20 }}>
+              <th>Event</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            {events.map(([event, data], i) => (
+              <tr style={{ color: 'white' }} key={i}>
+                <td>{event}</td>
+                <td>{JSON.stringify(data)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
     )
   }
 }

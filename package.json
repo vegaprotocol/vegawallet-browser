@@ -42,8 +42,6 @@
     "build:dev": "yarn build --wallet-config=dev",
     "build:beta": "yarn build --wallet-config=beta",
     "build:mainstream": "yarn build --wallet-config=mainstream",
-    "build:console:testnet": "yarn build --wallet-config=console-smoke-testnet",
-    "build:console:mainnet": "yarn build --wallet-config=console-smoke-mainnet",
     "build:analyze": "NODE_ENV=production yarn build:mainstream --analyze",
     "dev": "web-ext run --start-url=examples/sample-dapp/index.html",
     "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium",

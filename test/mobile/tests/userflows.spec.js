@@ -21,7 +21,7 @@ const revealRecoveryPhraseWarning =
   '//XCUIElementTypeStaticText[@name="I understand that if I lose my recovery phrase, I lose access to my wallet and keys."]'
 const recoveryPhraseCreateWalletButton = '~CREATE WALLET'
 const optOutOfErrorReportingButton = '~NO THANKS'
-const viewWalletDefaultKey = '~Key 1'
+const viewWalletDefaultKey = '~Key 0'
 const connect = '//XCUIElementTypeButton[@name="CONNECT"]'
 
 const click = async (selector) => {

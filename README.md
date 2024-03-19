@@ -65,7 +65,7 @@ methods exposed on `window`/`globalThis`:
 Events include:
 
 - `client.disconnected` -- When the user has chosen to remove the connection from the wallet. This means the consuming dApp will need to call `await vega.connectWallet()` again to re-establish the connection.
-- `client.accounts_changed` -- When a key has been generated, or renamed. This event also presents all the new keys and metadata associated with them as an argument to the callback. A dApp should update any local state in which the keys are stored when receiving this event, with the new keys given in the callback.
+- `client.keys_changed` -- When a key has been generated, or renamed. This event also presents all the new keys and metadata associated with them as an argument to the callback. A dApp should update any local state in which the keys are stored when receiving this event, with the new keys given in the callback.
 
 A sample react dApp is provided in [examples/sample-react-dapp/index.html](./examples/sample-dapp/index.html), and is also
 published to Github Pages - [see the live demo](https://vegaprotocol.github.io/vegawallet-browser/).

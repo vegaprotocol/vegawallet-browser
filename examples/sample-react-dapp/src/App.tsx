@@ -10,7 +10,7 @@ declare global {
   interface Window {
     vega: {
       disconnectWallet: () => Promise<void>
-      connectWallet: () => Promise<void>
+      connectWallet: ({ chainId }: { chainId: string }) => Promise<void>
       listKeys: () => Promise<{ keys: any[] }>
       sendTransaction: (tx: object) => Promise<void>
       on: (event: string, cb: (...args: any[]) => void) => void

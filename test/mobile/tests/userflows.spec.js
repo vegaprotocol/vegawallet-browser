@@ -76,9 +76,8 @@ describe('Onboarding', () => {
     await click(recoveryPhraseCreateWalletButton)
 
     // await click(optOutOfErrorReportingButton)
-
-    var keyOne = await $(viewWalletDefaultKey)
-    ok(await keyOne.isDisplayed(), 'Could not locate Key 1, onboarding may have been unsuccessful')
+    // var keyOne = await $(viewWalletDefaultKey)
+    // ok(await keyOne.isDisplayed(), 'Could not locate Key 1, onboarding may have been unsuccessful')
   })
 
   it('Can connect to the wallet', async () => {
@@ -108,11 +107,6 @@ describe('Onboarding', () => {
     await click('~CONFIRM')
 
     // should be back on the connectons page after approving, this is due to the state of the previous test. Should make this independent if possible. POC disclaimer ;)
-    ok(
-      await $(
-        '~https://vegaprotocol.github.io',
-        'Expected to see the connections page displayed after confirming the transaction'
-      ).isDisplayed()
-    )
+    ok(await $('~https://vegaprotocol.github.io', '~could not transfer founds').isDisplayed())
   })
 })

@@ -75,6 +75,7 @@ describe('Onboarding', () => {
     await click(revealRecoveryPhraseWarning)
     await click(recoveryPhraseCreateWalletButton)
 
+    // firefox issue
     // await click(optOutOfErrorReportingButton)
     // var keyOne = await $(viewWalletDefaultKey)
     // ok(await keyOne.isDisplayed(), 'Could not locate Key 1, onboarding may have been unsuccessful')

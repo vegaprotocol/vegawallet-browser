@@ -25,7 +25,8 @@ const mainnet = {
   features: {
     popoutHeader: true
   },
-  autoOpenOnInstall: true
+  autoOpenOnInstall: true,
+  addMobileIds: false
 }
 
 export default mainnet

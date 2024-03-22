@@ -1,7 +1,7 @@
 name: Build iOS ipa
 
 on:
-  pull-request:
+  pull_request:
 
 jobs:
   build-ios:

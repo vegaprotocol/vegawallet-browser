@@ -13,6 +13,7 @@ declare module '!/config' {
         }
       | undefined
     autoOpenOnInstall: boolean
+    addMobileIds: boolean
   }
 
   export interface Network {

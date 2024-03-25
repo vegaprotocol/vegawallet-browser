@@ -146,8 +146,7 @@ export class WalletCollection {
       await this.index.set(key.publicKey, {
         name: key.name,
         wallet: walletName,
-        publicKey: key.publicKey,
-        order: lastKeyIndex - HARDENED
+        publicKey: key.publicKey
       })
       this._emitter.emit('create_key', { publicKey: key.publicKey, name: key.name })
 

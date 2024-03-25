@@ -94,10 +94,10 @@ describe('Onboarding', () => {
     await click(connect)
     await click('//XCUIElementTypeLink[@name="Connections"]')
 
-    // ok(
-    //   await $('~https://vegaprotocol.github.io').isDisplayed(),
-    //   "Could not find the connection to the dapp in the 'connections' vega wallet page"
-    // )
+    ok(
+      await $('//XCUIElementTypeButton[@name="Submit"]').isDisplayed(),
+      "Could not find the connection to the dapp in the 'connections' vega wallet page"
+    )
   })
 
   it('Can send a transaction to the wallet for approval', async () => {

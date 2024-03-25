@@ -42,7 +42,8 @@ const wallets = new WalletCollection({
 const networks = new NetworkCollection(new ConcurrentStorage(new StorageLocalMap('networks')))
 const connections = new ConnectionsCollection({
   connectionsStore: new ConcurrentStorage(new StorageLocalMap('connections')),
-  publicKeyIndexStore
+  publicKeyIndexStore,
+  keySortIndex
 })
 
 const fetchCache = new FetchCache(new StorageSessionMap('fetch-cache'))

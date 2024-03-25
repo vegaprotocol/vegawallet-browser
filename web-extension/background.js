@@ -31,11 +31,13 @@ const encryptedStore = new EncryptedStorage(
 )
 
 const publicKeyIndexStore = new ConcurrentStorage(new StorageLocalMap('public-key-index'))
+const keySortIndex = new ConcurrentStorage(new StorageLocalMap('key-sort-index'))
 
 const settings = new ConcurrentStorage(new StorageLocalMap('settings'))
 const wallets = new WalletCollection({
   walletsStore: encryptedStore,
-  publicKeyIndexStore
+  publicKeyIndexStore,
+  keySortIndex
 })
 const networks = new NetworkCollection(new ConcurrentStorage(new StorageLocalMap('networks')))
 const connections = new ConnectionsCollection({
@@ -132,7 +134,7 @@ wallets.on('rename_key', async () => {
   }
 })
 
-setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor, connections)
+setupListeners(runtime, networks, settings, clientPorts, popupPorts, interactor, connections, keySortIndex, wallets)
 
 async function setPending() {
   const pending = interactor.totalPending()

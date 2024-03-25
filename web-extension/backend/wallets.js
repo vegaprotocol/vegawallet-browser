@@ -5,9 +5,10 @@ import { PERMITTED_RECOVERY_PHRASE_LENGTH } from '../../lib/constants.js'
 import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
 
 export class WalletCollection {
-  constructor({ walletsStore, publicKeyIndexStore }) {
+  constructor({ walletsStore, publicKeyIndexStore, keySortIndex }) {
     this.store = new ConcurrentStorage(walletsStore)
     this.index = new ConcurrentStorage(publicKeyIndexStore)
+    this.sortIndex = new ConcurrentStorage(keySortIndex)
 
     this._emitter = new TinyEventemitter()
   }
@@ -148,6 +149,8 @@ export class WalletCollection {
         wallet: walletName,
         publicKey: key.publicKey
       })
+      const sortIndex = this.sortIndex.keys().length
+      await this.sortIndex.set(key.publicKey, sortIndex)
       this._emitter.emit('create_key', { publicKey: key.publicKey, name: key.name })
 
       return key

@@ -9,20 +9,21 @@ export const createConnectionHandler = (clientPorts, popupPorts, interactor) => 
   }
 }
 
-export const createOnInstalledListener = (networks, settings, connections) => async (details) => {
-  const { reason } = details
-  if (reason === 'install') {
-    await install({ networks, settings })
+export const createOnInstalledListener =
+  (networks, settings, connections, keySortIndex, wallets) => async (details) => {
+    const { reason } = details
+    if (reason === 'install') {
+      await install({ networks, settings })
 
-    if (config.autoOpenOnInstall) {
-      createWindow()
+      if (config.autoOpenOnInstall) {
+        createWindow()
+      }
+    }
+
+    if (reason === 'update') {
+      await update({ settings, networks, connections, keySortIndex, wallets })
     }
   }
-
-  if (reason === 'update') {
-    await update({ settings, networks, connections })
-  }
-}
 
 export async function install({ networks, settings }) {
   await Promise.allSettled([
@@ -85,6 +86,22 @@ const migrations = [
       await store.set('version', 3)
       await store.set('showHiddenNetworks', false)
     })
+  },
+
+  // Fourth migration is adding a keySortIndex to the wallet
+  // populate this with the existing keys
+  async function v4({ settings, keySortIndex, wallets }) {
+    await settings.transaction(async (store) => {
+      const wals = await wallets.list()
+      // There is only one wallet at this point
+      const keys = await wallets.listKeys({ wallet: wals[0] })
+      let i = 0
+      for (const key of keys) {
+        await keySortIndex.set(key, i)
+        i++
+      }
+      await store.set('version', 4)
+    })
   }
 ]
 
@@ -96,8 +113,18 @@ export async function update(stores) {
   }
 }
 
-export const setupListeners = (runtime, networks, settings, clientPorts, popupPorts, interactor, connections) => {
-  const installListener = createOnInstalledListener(networks, settings, connections)
+export const setupListeners = (
+  runtime,
+  networks,
+  settings,
+  clientPorts,
+  popupPorts,
+  interactor,
+  connections,
+  keySortIndex,
+  wallets
+) => {
+  const installListener = createOnInstalledListener(networks, settings, connections, keySortIndex, wallets)
   runtime.onInstalled.addListener(installListener)
 
   const connectionListener = createConnectionHandler(clientPorts, popupPorts, interactor)

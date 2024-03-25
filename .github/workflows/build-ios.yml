@@ -45,11 +45,6 @@ jobs:
           data: '{ "custom_id": "IOSApp" }'
           files: '{ "file": "${{ github.workspace }}/app.ipa" }'
           maskResponse: false
-      - name: Show Response
-        run: |
-          echo ${{ steps.ios_app_upload.outputs.response }}
-          echo ${{ steps.ios_app_upload.outputs.headers }}
-          echo ${{ fromJson(steps.ios_app_upload.outputs.response).field_you_want_to_access }}
 
   ios-test:
     needs: build-ios

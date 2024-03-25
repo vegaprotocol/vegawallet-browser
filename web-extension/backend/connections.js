@@ -1,9 +1,10 @@
 import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
 
 export class ConnectionsCollection {
-  constructor({ connectionsStore, publicKeyIndexStore }) {
+  constructor({ connectionsStore, publicKeyIndexStore, keySortIndex }) {
     this.store = connectionsStore
     this.index = publicKeyIndexStore
+    this.sortIndex = keySortIndex
 
     this._emitter = new TinyEventemitter()
   }
@@ -125,7 +126,13 @@ export class ConnectionsCollection {
       }
     }
 
-    return keys
+    const sortedKeys = [...keys].sort((a, b) => {
+      const aSort = this.sortIndex.get(a.publicKey)
+      const bSort = this.sortIndex.get(b.publicKey)
+      return aSort - bSort
+    })
+
+    return sortedKeys
   }
 
   /**

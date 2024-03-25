@@ -59,7 +59,6 @@ export class WalletCollection {
     if (walletConfig == null) {
       throw new Error(`Cannot find wallet with name "${wallet}".`)
     }
-
     return walletConfig.keys
   }
 
@@ -144,7 +143,12 @@ export class WalletCollection {
       walletConfig.keys.push(key)
       await store.set(walletName, walletConfig)
 
-      await this.index.set(key.publicKey, { name: key.name, wallet: walletName, publicKey: key.publicKey })
+      await this.index.set(key.publicKey, {
+        name: key.name,
+        wallet: walletName,
+        publicKey: key.publicKey,
+        order: lastKeyIndex - HARDENED
+      })
       this._emitter.emit('create_key', { publicKey: key.publicKey, name: key.name })
 
       return key

@@ -125,13 +125,16 @@ export class ConnectionsCollection {
         keys.push({ publicKey, name })
       }
     }
-
-    const sortedKeys = [...keys].sort((a, b) => {
-      const aSort = this.sortIndex.get(a.publicKey)
-      const bSort = this.sortIndex.get(b.publicKey)
-      return aSort - bSort
-    })
-
+    const enrichedKeys = await Promise.all(
+      keys.map(async (key) => {
+        const order = await this.sortIndex.get(key.publicKey)
+        return {
+          order,
+          ...key
+        }
+      })
+    )
+    const sortedKeys = enrichedKeys.sort((a, b) => a.order - b.order)
     return sortedKeys
   }
 

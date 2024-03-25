@@ -149,7 +149,7 @@ export class WalletCollection {
         wallet: walletName,
         publicKey: key.publicKey
       })
-      const sortIndex = this.sortIndex.keys().length
+      const sortIndex = Array.from(await this.sortIndex.keys()).length
       await this.sortIndex.set(key.publicKey, sortIndex)
       this._emitter.emit('create_key', { publicKey: key.publicKey, name: key.name })
 

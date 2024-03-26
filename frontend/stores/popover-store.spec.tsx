@@ -45,7 +45,7 @@ const mockChrome = () => {
 
 const initialState = createStore().getState()
 
-describe('useWindowStore', () => {
+describe('usePopoverStore', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     createStore().setState(initialState)

@@ -1,5 +1,3 @@
-import { silenceErrors, silenceLogs } from '@/test-helpers/silence-errors'
-
 import { createStore } from './tab-store'
 
 const mockBrowser = () => {

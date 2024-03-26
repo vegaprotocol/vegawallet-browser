@@ -2,15 +2,22 @@ import { WalletCollection } from '../backend/wallets.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import EncryptedStorage from '../lib/encrypted-storage.js'
 
+const createWallets = async () => {
+  const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+  await enc.create('p')
+  return {
+    enc,
+    wallets: new WalletCollection({
+      walletsStore: new ConcurrentStorage(enc),
+      publicKeyIndexStore: new ConcurrentStorage(new Map()),
+      keySortIndex: new ConcurrentStorage(new Map())
+    })
+  }
+}
+
 describe('wallets', () => {
   it('should be able to list public key info while locked', async () => {
-    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
-    await enc.create('p')
-
-    const wallets = new WalletCollection({
-      walletsStore: new ConcurrentStorage(enc),
-      publicKeyIndexStore: new ConcurrentStorage(new Map())
-    })
+    const { wallets, enc } = await createWallets()
 
     await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
 
@@ -27,13 +34,7 @@ describe('wallets', () => {
   })
 
   it('should be able to rename a key', async () => {
-    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
-    await enc.create('p')
-
-    const wallets = new WalletCollection({
-      walletsStore: new ConcurrentStorage(enc),
-      publicKeyIndexStore: new ConcurrentStorage(new Map())
-    })
+    const { wallets } = await createWallets()
 
     await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
 
@@ -69,13 +70,7 @@ describe('wallets', () => {
   })
 
   it('should emit an event when a new wallet is created', async () => {
-    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
-    await enc.create('p')
-
-    const wallets = new WalletCollection({
-      walletsStore: new ConcurrentStorage(enc),
-      publicKeyIndexStore: new ConcurrentStorage(new Map())
-    })
+    const { wallets } = await createWallets()
 
     const cb = jest.fn()
 
@@ -89,13 +84,7 @@ describe('wallets', () => {
   })
 
   it('should emit an event when a new key is created', async () => {
-    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
-    await enc.create('p')
-
-    const wallets = new WalletCollection({
-      walletsStore: new ConcurrentStorage(enc),
-      publicKeyIndexStore: new ConcurrentStorage(new Map())
-    })
+    const { wallets } = await createWallets()
 
     const cb = jest.fn()
 
@@ -112,13 +101,7 @@ describe('wallets', () => {
   })
 
   it('should emit an event when a key is renamed', async () => {
-    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
-    await enc.create('p')
-
-    const wallets = new WalletCollection({
-      walletsStore: new ConcurrentStorage(enc),
-      publicKeyIndexStore: new ConcurrentStorage(new Map())
-    })
+    const { wallets } = await createWallets()
 
     const cb = jest.fn()
 

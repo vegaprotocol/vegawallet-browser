@@ -10,6 +10,8 @@ import App from './app'
 
 jest.mock('@/stores/globals')
 jest.mock('@/hooks/prevent-window-resize')
+jest.mock('@/hooks/listen-for-popups')
+jest.mock('@/hooks/listen-for-active-tab')
 jest.mock('@/hooks/ping')
 jest.mock('@/contexts/network/network-provider', () => ({
   NetworkProvider: ({ children }: { children: ReactNode }) => <div data-testid="network-provider">{children}</div>

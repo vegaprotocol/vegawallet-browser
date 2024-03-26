@@ -4,7 +4,7 @@ import { create } from 'zustand'
 const getTabs = () => globalThis.browser?.tabs ?? globalThis.chrome?.tabs
 
 export type TabStore = {
-  onUpdated: any
+  onTabUpdated: any
   currentTab: chrome.tabs.Tab | null
   setup: () => Promise<void>
   teardown: () => void
@@ -16,20 +16,21 @@ export const createStore = () =>
   create<TabStore>()((set, get) => {
     const tabs = getTabs()
     return {
-      onUpdated: (_: number, __: chrome.tabs.Tab, tab: chrome.tabs.Tab) => {
-        set({ currentTab: tab })
+      onTabUpdated: async (_: number, __: chrome.tabs.Tab, tab: chrome.tabs.Tab) => {
+        const [activeTab] = await tabs.query({ active: true })
+        set({ currentTab: activeTab })
       },
       currentTab: null,
       async setup() {
         if (tabs) {
-          tabs.onUpdated.addListener(get().onUpdated)
+          tabs.onActivated.addListener(get().onTabUpdated)
           const [activeTab] = await tabs.query({ active: true })
           set({ currentTab: activeTab })
         }
       },
       async teardown() {
         if (tabs) {
-          tabs.onUpdated.removeListener(get().onUpdated)
+          tabs.onUpdated.removeListener(get().onTabUpdated)
         }
       }
     }

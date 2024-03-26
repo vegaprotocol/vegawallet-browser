@@ -102,6 +102,21 @@ const migrations = [
       }
       await store.set('version', 4)
     })
+  },
+
+  // Migration to ensure that all connections now have autoConsent set
+  async function v5({ settings, connections }) {
+    await settings.transaction(async (store) => {
+      // update all connections to have default values for chainId and networkId
+      for (const [, connection] of await connections.store.entries()) {
+        connection.autoConsent = false
+
+        await connections.store.set(origin, connection)
+      }
+
+      await store.set('version', 3)
+      await store.set('showHiddenNetworks', false)
+    })
   }
 ]
 

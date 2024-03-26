@@ -16,22 +16,18 @@ export const createStore = () =>
   create<TabStore>()((set, get) => {
     const tabs = getTabs()
     return {
-      onTabUpdated: async (_: number, __: chrome.tabs.Tab, tab: chrome.tabs.Tab) => {
+      onTabUpdated: async () => {
         const [activeTab] = await tabs.query({ active: true })
         set({ currentTab: activeTab })
       },
       currentTab: null,
       async setup() {
-        if (tabs) {
-          tabs.onActivated.addListener(get().onTabUpdated)
-          const [activeTab] = await tabs.query({ active: true })
-          set({ currentTab: activeTab })
-        }
+        tabs.onActivated.addListener(get().onTabUpdated)
+        const [activeTab] = await tabs.query({ active: true })
+        set({ currentTab: activeTab })
       },
       async teardown() {
-        if (tabs) {
-          tabs.onUpdated.removeListener(get().onTabUpdated)
-        }
+        tabs.onUpdated.removeListener(get().onTabUpdated)
       }
     }
   })

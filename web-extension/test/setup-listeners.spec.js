@@ -10,6 +10,8 @@ import config from '!/config'
 import { NetworkCollection } from '../backend/network.js'
 import { fairground, testingNetwork, testingNetwork2 } from '../../config/well-known-networks.js'
 import { ConnectionsCollection } from '../backend/connections.js'
+import EncryptedStorage from '../lib/encrypted-storage.js'
+import { WalletCollection } from '../backend/wallets.js'
 
 describe('SetupListeners', () => {
   beforeEach(() => {
@@ -47,8 +49,10 @@ describe('SetupListeners', () => {
     const networksMock = { set: jest.fn() }
     const settingsMock = { set: jest.fn() }
     const detailsMock = { reason: 'install' }
+    const walletsMock = new Map()
+    const keySortIndex = new Map()
 
-    const onInstalledListener = createOnInstalledListener(networksMock, settingsMock)
+    const onInstalledListener = createOnInstalledListener(networksMock, settingsMock, keySortIndex, walletsMock)
     await onInstalledListener(detailsMock)
 
     expect(networksMock.set).toHaveBeenCalledTimes(2)
@@ -57,18 +61,20 @@ describe('SetupListeners', () => {
     expect(settingsMock.set).toHaveBeenCalledTimes(4)
     expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', testingNetwork.id)
     expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
-    expect(settingsMock.set).toHaveBeenCalledWith('version', 3)
+    expect(settingsMock.set).toHaveBeenCalledWith('version', 4)
   })
 
   it('should create a window if autoOpenOnInstall is true', async () => {
     // 1113-POPT-009 The browser wallet opens in a pop-up window when the extension is installed
     const networksMock = { set: jest.fn() }
     const settingsMock = { set: jest.fn() }
+    const walletsMock = new Map()
+    const keySortIndex = new Map()
     const detailsMock = { reason: 'install' }
 
     config.autoOpenOnInstall = true
 
-    const onInstalledListener = createOnInstalledListener(networksMock, settingsMock)
+    const onInstalledListener = createOnInstalledListener(networksMock, settingsMock, keySortIndex, walletsMock)
     await onInstalledListener(detailsMock)
 
     expect(global.browser.windows.create).toHaveBeenCalledTimes(1)
@@ -78,10 +84,11 @@ describe('SetupListeners', () => {
     const networksMock = { set: jest.fn() }
     const settingsMock = { set: jest.fn() }
     const detailsMock = { reason: 'some-other-reason' }
-
+    const walletsMock = new Map()
+    const keySortIndex = new Map()
     config.autoOpenOnInstall = true
 
-    const onInstalledListener = createOnInstalledListener(networksMock, settingsMock)
+    const onInstalledListener = createOnInstalledListener(networksMock, settingsMock, keySortIndex, walletsMock)
     await onInstalledListener(detailsMock)
 
     expect(global.browser.windows.create).toHaveBeenCalledTimes(0)
@@ -114,7 +121,7 @@ describe('SetupListeners', () => {
 
     await install({ networks, settings })
 
-    expect(await settings.get('version')).toBe(3)
+    expect(await settings.get('version')).toBe(4)
     const clone = Array.from(await settings.entries())
 
     await update({ settings, connections })
@@ -130,11 +137,26 @@ describe('SetupListeners', () => {
         ['autoOpen', null]
       ])
     )
-    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const keySortIndex = new ConcurrentStorage(new Map())
+    const wallets = new WalletCollection({
+      walletsStore: enc,
+      publicKeyIndexStore,
+      keySortIndex
+    })
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
 
-    await update({ settings, networks, connections })
+    const connections = new ConnectionsCollection({
+      connectionsStore: new Map(),
+      publicKeyIndexStore,
+      keySortIndex
+    })
 
-    expect(await settings.get('version')).toBe(3)
+    await update({ settings, networks, connections, wallets, keySortIndex })
+
+    expect(await settings.get('version')).toBe(4)
     expect(await settings.get('autoOpen')).toBe(true)
   })
 
@@ -146,11 +168,26 @@ describe('SetupListeners', () => {
         ['autoOpen', null]
       ])
     )
-    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const keySortIndex = new ConcurrentStorage(new Map())
+    const wallets = new WalletCollection({
+      walletsStore: enc,
+      publicKeyIndexStore,
+      keySortIndex
+    })
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
 
-    await update({ settings, networks, connections })
+    const connections = new ConnectionsCollection({
+      connectionsStore: new Map(),
+      publicKeyIndexStore,
+      keySortIndex
+    })
 
-    expect(await settings.get('version')).toBe(3)
+    await update({ settings, networks, connections, wallets, keySortIndex })
+
+    expect(await settings.get('version')).toBe(4)
     expect(await settings.get('autoOpen')).toBe(true)
   })
 
@@ -162,11 +199,26 @@ describe('SetupListeners', () => {
         ['autoOpen', false]
       ])
     )
-    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const keySortIndex = new ConcurrentStorage(new Map())
+    const wallets = new WalletCollection({
+      walletsStore: enc,
+      publicKeyIndexStore,
+      keySortIndex
+    })
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
 
-    await update({ settings, networks, connections })
+    const connections = new ConnectionsCollection({
+      connectionsStore: new Map(),
+      publicKeyIndexStore,
+      keySortIndex
+    })
 
-    expect(await settings.get('version')).toBe(3)
+    await update({ settings, networks, connections, wallets, keySortIndex })
+
+    expect(await settings.get('version')).toBe(4)
     expect(await settings.get('autoOpen')).toBe(false)
   })
 
@@ -179,7 +231,23 @@ describe('SetupListeners', () => {
         ['autoOpen', true]
       ])
     )
-    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const keySortIndex = new ConcurrentStorage(new Map())
+    const wallets = new WalletCollection({
+      walletsStore: enc,
+      publicKeyIndexStore,
+      keySortIndex
+    })
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
+
+    const connections = new ConnectionsCollection({
+      connectionsStore: new Map(),
+      publicKeyIndexStore,
+      keySortIndex
+    })
+
     await connections.set('https://example.com', {
       allowList: {
         wallets: ['w1'],
@@ -187,7 +255,7 @@ describe('SetupListeners', () => {
       },
       accessedAt: 0
     })
-    await update({ settings, networks, connections })
+    await update({ settings, networks, connections, wallets, keySortIndex })
     expect(await networks.list()).toStrictEqual(['test', 'test2'])
     expect(await connections.get('https://example.com')).toStrictEqual({
       allowList: {
@@ -209,7 +277,24 @@ describe('SetupListeners', () => {
         ['autoOpen', true]
       ])
     )
-    const connections = new ConnectionsCollection({ connectionsStore: new Map(), publicKeyIndexStore: new Map() })
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const keySortIndex = new ConcurrentStorage(new Map())
+    const wallets = new WalletCollection({
+      walletsStore: enc,
+      publicKeyIndexStore,
+      keySortIndex
+    })
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
+
+    const connections = new ConnectionsCollection({
+      connectionsStore: new Map(),
+      publicKeyIndexStore,
+      keySortIndex
+    })
+
+    await update({ settings, networks, connections, wallets, keySortIndex })
     await connections.set('https://example.com', {
       allowList: {
         wallets: ['w1'],

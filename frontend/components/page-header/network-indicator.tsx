@@ -5,6 +5,8 @@ import { useNetwork } from '@/contexts/network/network-context'
 import { useConnectionStore } from '@/stores/connections'
 import { useTabStore } from '@/stores/tab-store'
 
+import { CONSTANTS } from '../../../lib/constants'
+
 const Indicator = ({ intent }: { intent: Intent }) => {
   const background = getIntentBackground(intent)
   return (
@@ -20,10 +22,10 @@ const Indicator = ({ intent }: { intent: Intent }) => {
 
 const IndicatorWithTooltip = ({ intent, description }: { description: string; intent: Intent }) => {
   return (
-    <Tooltip description={description}>
-      <span>
+    <Tooltip description={<div style={{ maxWidth: CONSTANTS.width - 60 }}>{description}</div>}>
+      <div>
         <Indicator intent={intent} />
-      </span>
+      </div>
     </Tooltip>
   )
 }

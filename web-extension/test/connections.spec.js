@@ -1,15 +1,25 @@
 import { ConnectionsCollection } from '../backend/connections.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 
+const createConnections = () => {
+  const connectionsStore = new ConcurrentStorage(new Map())
+  const publicKeyIndexStore = new ConcurrentStorage(new Map())
+  const keySortIndex = new ConcurrentStorage(new Map())
+  return {
+    connectionsStore,
+    publicKeyIndexStore,
+    keySortIndex,
+    connections: new ConnectionsCollection({
+      connectionsStore,
+      publicKeyIndexStore,
+      keySortIndex
+    })
+  }
+}
+
 describe('ConnectionsCollection', () => {
   it('should be allowed on static key set', async () => {
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-    const connections = new ConnectionsCollection({
-      connectionsStore,
-      publicKeyIndexStore
-    })
+    const { connections, publicKeyIndexStore } = createConnections()
 
     await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
     await publicKeyIndexStore.set('321', { publicKey: '321', wallet: 'w1', name: 'k2' })
@@ -87,13 +97,7 @@ describe('ConnectionsCollection', () => {
   })
 
   it('should be allowed on dynamic key set', async () => {
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-    const connections = new ConnectionsCollection({
-      connectionsStore,
-      publicKeyIndexStore
-    })
+    const { connections, publicKeyIndexStore } = createConnections()
 
     await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
 
@@ -131,13 +135,7 @@ describe('ConnectionsCollection', () => {
   it('should emit events set/delete', async () => {
     jest.useFakeTimers().setSystemTime(0)
 
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-    const connections = new ConnectionsCollection({
-      connectionsStore,
-      publicKeyIndexStore
-    })
+    const { connections, publicKeyIndexStore } = createConnections()
 
     const deleteListener = jest.fn()
     const setListener = jest.fn()
@@ -181,13 +179,7 @@ describe('ConnectionsCollection', () => {
   })
 
   it('should emit events disconnect', async () => {
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-    const connections = new ConnectionsCollection({
-      connectionsStore,
-      publicKeyIndexStore
-    })
+    const { connections } = createConnections()
 
     const listener = jest.fn()
     connections.on('delete', listener)
@@ -202,13 +194,7 @@ describe('ConnectionsCollection', () => {
   it('should order origins by last accessed', async () => {
     jest.useFakeTimers().setSystemTime(0)
 
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-    const connections = new ConnectionsCollection({
-      connectionsStore,
-      publicKeyIndexStore
-    })
+    const { connections, publicKeyIndexStore } = createConnections()
 
     await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
 
@@ -293,13 +279,7 @@ describe('ConnectionsCollection', () => {
   })
 
   it('should get the chainId of an origin', async () => {
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-    const connections = new ConnectionsCollection({
-      connectionsStore,
-      publicKeyIndexStore
-    })
+    const { connections } = createConnections()
 
     await connections.set('https://example.com', {
       allowList: {
@@ -313,13 +293,7 @@ describe('ConnectionsCollection', () => {
     expect(await connections.getChainId('foo')).toBe(null)
   })
   it('should get the networkId of an origin', async () => {
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-    const connections = new ConnectionsCollection({
-      connectionsStore,
-      publicKeyIndexStore
-    })
+    const { connections } = createConnections()
 
     await connections.set('https://example.com', {
       allowList: {
@@ -332,13 +306,7 @@ describe('ConnectionsCollection', () => {
     expect(await connections.getNetworkId('https://example.com')).toBe('networkId')
   })
   it('should clear connections, index and emit events', async () => {
-    const connectionsStore = new ConcurrentStorage(new Map())
-    const publicKeyIndexStore = new ConcurrentStorage(new Map())
-
-    const connections = new ConnectionsCollection({
-      connectionsStore,
-      publicKeyIndexStore
-    })
+    const { connections } = createConnections()
 
     const deleteListener = jest.fn()
     connections.on('delete', deleteListener)

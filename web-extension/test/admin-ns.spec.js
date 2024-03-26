@@ -14,9 +14,11 @@ import { testingNetwork } from '../../config/well-known-networks.js'
 const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
   const publicKeyIndexStore = new ConcurrentStorage(new Map())
+  const keySortIndex = new ConcurrentStorage(new Map())
   const wallets = new WalletCollection({
     walletsStore: enc,
-    publicKeyIndexStore
+    publicKeyIndexStore,
+    keySortIndex
   })
   const server = initAdminServer({
     encryptedStore: enc,

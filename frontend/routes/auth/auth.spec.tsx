@@ -29,7 +29,7 @@ jest.mock('@/stores/wallets')
 jest.mock('@/stores/assets-store')
 jest.mock('@/stores/networks-store')
 jest.mock('@/stores/markets-store')
-jest.mock('@/stores/networks-store')
+jest.mock('@/stores/connections')
 
 jest.mock('@/components/modals', () => ({
   ModalWrapper: () => <div data-testid="modal-wrapper" />

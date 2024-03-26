@@ -5,13 +5,17 @@ import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useAsyncAction } from '@/hooks/async-action'
+import { RpcMethods } from '@/lib/client-rpc-methods'
 import { Connection } from '@/types/backend'
 
 export const AutomaticConsentSection = ({ connection }: { connection: Connection }) => {
   const [autoConsent, setAutoConsent] = useState(connection.autoConsent)
   const { request } = useJsonRpcClient()
   const { loaderFunction, loading, error } = useAsyncAction(async () => {
-    console.log('Setting automatic consent to', autoConsent)
+    await request(RpcMethods.UpdateConnection, {
+      origin: connection.origin,
+      autoConsent: !autoConsent
+    })
     setAutoConsent(!autoConsent)
   })
 

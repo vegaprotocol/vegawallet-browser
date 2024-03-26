@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import locators from '@/components/locators'
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useAssetsStore } from '@/stores/assets-store'
+import { useConnectionStore } from '@/stores/connections'
 import { useMarketsStore } from '@/stores/markets-store'
 import { useNetworksStore } from '@/stores/networks-store'
 import { useWalletStore } from '@/stores/wallets'
@@ -44,6 +45,7 @@ const mockStores = () => {
   const fetchAssets = jest.fn()
   const fetchMarkets = jest.fn()
   const loadNetworks = jest.fn()
+  const loadConnections = jest.fn()
   mockStore(useWalletStore, {
     loadWallets
   })
@@ -56,12 +58,16 @@ const mockStores = () => {
   mockStore(useMarketsStore, {
     fetchMarkets
   })
+  mockStore(useConnectionStore, {
+    loadConnections
+  })
   mockStore(useNetworksStore, {})
 
   return {
     loadWallets,
     fetchAssets,
-    fetchMarkets
+    fetchMarkets,
+    loadConnections
   }
 }
 
@@ -86,10 +92,11 @@ describe('Auth', () => {
     expect(screen.getByTestId('page-header')).toBeInTheDocument()
   })
   it('loads the users wallets, networks, assets and markets', () => {
-    const { loadWallets, fetchAssets, fetchMarkets } = mockStores()
+    const { loadWallets, fetchAssets, fetchMarkets, loadConnections } = mockStores()
     renderComponent()
 
     expect(loadWallets).toHaveBeenCalledTimes(1)
+    expect(loadConnections).toHaveBeenCalledTimes(1)
     expect(fetchAssets).toHaveBeenCalledTimes(1)
     expect(fetchMarkets).toHaveBeenCalledTimes(1)
   })

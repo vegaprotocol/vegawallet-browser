@@ -108,7 +108,7 @@ const migrations = [
   async function v5({ settings, connections }) {
     await settings.transaction(async (store) => {
       // update all connections to have default values for chainId and networkId
-      for (const [, connection] of await connections.store.entries()) {
+      for (const [origin, connection] of await connections.store.entries()) {
         connection.autoConsent = false
 
         await connections.store.set(origin, connection)

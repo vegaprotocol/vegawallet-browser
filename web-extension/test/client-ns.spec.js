@@ -25,12 +25,14 @@ describe('client-ns', () => {
 
     const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
     await enc.create()
+    const keySortIndex = new ConcurrentStorage(new Map())
 
     const server = initClientServer({
       settings: new ConcurrentStorage(new Map([['selectedNetwork', testingNetwork.id]])),
       wallets: new WalletCollection({
         walletsStore: enc,
-        publicKeyIndexStore
+        publicKeyIndexStore,
+        keySortIndex
       }),
       networks: new NetworkCollection(new Map([[testingNetwork.id, new Network(testingNetwork)]])),
       connections,
@@ -98,12 +100,14 @@ describe('client-ns', () => {
 
     const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
     await enc.create()
+    const keySortIndex = new ConcurrentStorage(new Map())
 
     const server = initClientServer({
       settings: new ConcurrentStorage(new Map([['selectedNetwork', testingNetwork.id]])),
       wallets: new WalletCollection({
         walletsStore: enc,
-        publicKeyIndexStore
+        publicKeyIndexStore,
+        keySortIndex
       }),
       networks: new NetworkCollection(new Map([[testingNetwork.id, new Network(testingNetwork)]])),
       connections,

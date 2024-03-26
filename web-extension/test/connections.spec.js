@@ -132,6 +132,30 @@ describe('ConnectionsCollection', () => {
     expect(await connections.listAllowedKeys('https://example.com')).toEqual([])
   })
 
+  it('should order keys in order as set by index', async () => {
+    const { connections, publicKeyIndexStore, keySortIndex } = createConnections()
+
+    await publicKeyIndexStore.set('123', { publicKey: '123', wallet: 'w1', name: 'k1' })
+    await publicKeyIndexStore.set('321', { publicKey: '321', wallet: 'w1', name: 'k2' })
+    await publicKeyIndexStore.set('443', { publicKey: '443', wallet: 'w1', name: 'k3' })
+    await keySortIndex.set('123', 0)
+    await keySortIndex.set('321', 2)
+    await keySortIndex.set('443', 1)
+
+    await connections.set('https://example.com', {
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      }
+    })
+
+    expect(await connections.listAllowedKeys('https://example.com')).toEqual([
+      { publicKey: '123', name: 'k1', order: 0 },
+      { publicKey: '443', name: 'k3', order: 1 },
+      { publicKey: '321', name: 'k2', order: 2 }
+    ])
+  })
+
   it('should emit events set/delete', async () => {
     jest.useFakeTimers().setSystemTime(0)
 

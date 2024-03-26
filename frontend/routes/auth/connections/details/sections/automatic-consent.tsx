@@ -26,7 +26,7 @@ export const AutomaticConsentSection = ({ connection }: { connection: Connection
         <div className="mt-2">
           <Checkbox
             label={
-              'Allow order and vote transactions to be automatically signed from this site. Can be turned off at any time.'
+              'Allow this site to automatically approve order and vote transactions. This can be turned off in "Connections".'
             }
             checked={autoConsent}
             disabled={!!(loading || error)}

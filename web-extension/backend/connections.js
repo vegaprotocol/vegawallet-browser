@@ -28,13 +28,14 @@ export class ConnectionsCollection {
    * @param {string} [params.networkId] - Preferred networkId that was approved for the connection
    * @returns {Promise<void>}
    */
-  async set(origin, { allowList, chainId = null, networkId = null, accessedAt }) {
+  async set(origin, { allowList, chainId = null, networkId = null, accessedAt, autoConsent = false }) {
     const value = {
       origin,
       allowList,
       chainId,
       networkId,
-      accessedAt: accessedAt ?? Date.now()
+      accessedAt: accessedAt ?? Date.now(),
+      autoConsent
     }
 
     const res = await this.store.set(origin, value)

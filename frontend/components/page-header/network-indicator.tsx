@@ -7,6 +7,10 @@ import { useTabStore } from '@/stores/tab-store'
 
 import { CONSTANTS } from '../../../lib/constants'
 
+export const locators = {
+  indicator: 'indicator'
+}
+
 const Indicator = ({ intent }: { intent: Intent }) => {
   const background = getIntentBackground(intent)
   return (
@@ -15,7 +19,7 @@ const Indicator = ({ intent }: { intent: Intent }) => {
         'border-1 border-vega-dark-200 border inline-block w-3 h-3 mt-1 mr-2 rounded-full text-black',
         background
       )}
-      data-testid="indicator"
+      data-testid={locators.indicator}
     />
   )
 }

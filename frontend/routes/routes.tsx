@@ -34,7 +34,7 @@ export const Routing = () => {
             <Route index element={<Wallets />} />
             <Route path={':id'} element={<KeyDetails />} />
           </Route>
-          <Route path={ROUTES.connections} element={<ConnectionsIndex />}>
+          <Route path={ROUTES.connections} element={<Outlet />}>
             <Route index element={<Connections />} />
             <Route path={':id'} element={<ConnectionDetails />} />
           </Route>

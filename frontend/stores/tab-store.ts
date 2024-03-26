@@ -26,8 +26,8 @@ export const createStore = () =>
         const [activeTab] = await tabs.query({ active: true })
         set({ currentTab: activeTab })
       },
-      async teardown() {
-        tabs.onUpdated.removeListener(get().onTabUpdated)
+      teardown() {
+        tabs.onActivated.removeListener(get().onTabUpdated)
       }
     }
   })

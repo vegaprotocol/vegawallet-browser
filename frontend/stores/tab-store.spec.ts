@@ -82,4 +82,13 @@ describe('useTabStore', () => {
     await tabStore.getState().onTabUpdated()
     expect(tabStore.getState().currentTab).toBe(tab2)
   })
+  it('removes the event listener on teardown', async () => {
+    mockChrome()
+    const tab1 = { id: 1 }
+    globalThis.chrome.tabs.query = jest.fn().mockResolvedValue([tab1])
+    const tabStore = createStore()
+    await tabStore.getState().setup()
+    tabStore.getState().teardown()
+    expect(globalThis.chrome.tabs.onActivated.removeListener).toHaveBeenCalledTimes(1)
+  })
 })

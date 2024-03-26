@@ -278,6 +278,14 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         return null
       },
 
+      async 'admin.update_connection'(params) {
+        doValidate(adminValidation.updateConnection, params)
+
+        await connections.update(params.origin, { autoConsent: params.autoConsent })
+
+        return null
+      },
+
       async 'admin.fetch'(params) {
         doValidate(adminValidation.fetch, params)
 

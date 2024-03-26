@@ -10,6 +10,7 @@ import { usePreventWindowResize } from '@/hooks/prevent-window-resize'
 import { useGlobalsStore } from '@/stores/globals'
 
 import { CONSTANTS } from '../lib/constants'
+import { useListenForActiveTab } from './hooks/listen-for-active-tab/listen-for-active-tab'
 import { Routing } from './routes'
 
 export const locators = {
@@ -17,6 +18,7 @@ export const locators = {
 }
 
 function App() {
+  useListenForActiveTab()
   useListenForPopups()
   usePreventWindowResize()
   usePing()

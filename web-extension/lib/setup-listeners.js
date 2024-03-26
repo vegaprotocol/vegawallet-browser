@@ -97,7 +97,7 @@ const migrations = [
       const keys = await wallets.listKeys({ wallet: wals[0] })
       let i = 0
       for (const key of keys) {
-        await keySortIndex.set(key, i)
+        await keySortIndex.set(key.publicKey, i)
         i++
       }
       await store.set('version', 4)

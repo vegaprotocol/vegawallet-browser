@@ -318,4 +318,39 @@ describe('SetupListeners', () => {
       }
     ])
   })
+
+  it('should apply migrations from version 3 to version 4', async () => {
+    const networks = new NetworkCollection(new Map([['something', fairground]]))
+    const settings = new ConcurrentStorage(
+      new Map([
+        ['version', 1],
+        ['autoOpen', true]
+      ])
+    )
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const keySortIndex = new ConcurrentStorage(new Map())
+    const wallets = new WalletCollection({
+      walletsStore: enc,
+      publicKeyIndexStore,
+      keySortIndex: new Map()
+    })
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
+    await wallets.generateKey({ wallet: 'wallet 1', name: 'key 1' })
+    const connections = new ConnectionsCollection({
+      connectionsStore: new Map(),
+      publicKeyIndexStore,
+      keySortIndex
+    })
+
+    const initialEntries = await keySortIndex.entries()
+
+    expect(Array.from(initialEntries).length).toBe(0)
+
+    await update({ settings, networks, connections, wallets, keySortIndex })
+    const keySortIndexEntries = await keySortIndex.entries()
+
+    expect(Array.from(keySortIndexEntries).length).toBe(1)
+  })
 })

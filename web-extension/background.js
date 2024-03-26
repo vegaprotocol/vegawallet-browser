@@ -61,6 +61,7 @@ const clientServer = initClient({
   networks,
   connections,
   interactor,
+  encryptedStore,
   onerror
 })
 

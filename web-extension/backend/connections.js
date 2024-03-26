@@ -95,6 +95,12 @@ export class ConnectionsCollection {
     return await this.store.get(origin)
   }
 
+  async update(origin, newProperties) {
+    const connections = await this.store.get(origin)
+    if (connections == null) throw new Error(`Could not find connections with origin ${origin}`)
+    await this.store.set(origin, { ...connections, ...newProperties })
+  }
+
   async isAllowed(origin, publicKey) {
     const conn = await this.store.get(origin)
     if (conn?.allowList == null) return false

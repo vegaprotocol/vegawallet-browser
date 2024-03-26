@@ -43,7 +43,7 @@ describe('NetowrkIndicator', () => {
 
   it('should neutral indicator if the current site is not connected', () => {
     mockStore(useTabStore, {
-      currentTab: null
+      currentTab: { url: 'http://www.foo.com' }
     })
     mockStore(useConnectionStore, {
       connections: [{}]

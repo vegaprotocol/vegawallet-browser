@@ -48,7 +48,7 @@ export const NetworkIndicator = () => {
     const origin = new URL(currentTab.url).origin
     const connection = connections.find((c) => c.origin === origin)
     if (connection) {
-      const chainId = connection?.chainId
+      const { chainId } = connection
       return network.chainId === chainId ? (
         <IndicatorWithTooltip intent={Intent.Success} description={`You are currently connected to ${origin}.`} />
       ) : (

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { useConnectionStore } from '@/stores/connections'
@@ -22,7 +22,7 @@ const renderComponent = () => {
 }
 
 describe('NetworkIndicator', () => {
-  it('should render nothing while connections are loading', () => {
+  it('should render nothing while connections are loading', async () => {
     mockStore(useNetworksStore, {
       networks: []
     })
@@ -35,7 +35,9 @@ describe('NetworkIndicator', () => {
     const view = renderComponent()
     expect(view.container).toBeEmptyDOMElement()
   })
-  it('should render neutral indicator if there are no connections present', () => {
+  it('should render neutral indicator if there are no connections present', async () => {
+    // 1145-INDC-001 When I am not connected it shows not connected I see a neutral state (
+    // 1145-INDC-008 When I hover over the neutral state I can see that I am not connected
     mockStore(useNetworksStore, {
       networks: []
     })
@@ -47,44 +49,64 @@ describe('NetworkIndicator', () => {
     })
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-black')
+    fireEvent.pointerMove(screen.getByTestId(locators.indicator))
+    await screen.findAllByTestId(locators.networkIndicatorTooltip)
+    expect(screen.getByTestId(locators.networkIndicatorTooltip)).toHaveTextContent(
+      'You are not currently connected to any sites.'
+    )
   })
 
-  it('should neutral indicator if the current site is not connected', () => {
+  it('should neutral indicator if the current site is not connected', async () => {
+    // 1145-INDC-001 When I am not connected it shows not connected I see a neutral state (
     mockStore(useNetworksStore, {
       networks: []
     })
     mockStore(useTabStore, {
-      currentTab: { url: 'http://www.foo.com' }
+      currentTab: { url: 'https://www.foo.com' }
     })
     mockStore(useConnectionStore, {
       connections: [{}]
     })
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-black')
+    fireEvent.pointerMove(screen.getByTestId(locators.indicator))
+    await screen.findAllByTestId(locators.networkIndicatorTooltip)
+    expect(screen.getByTestId(locators.networkIndicatorTooltip)).toHaveTextContent(
+      'You are not currently connected to https://www.foo.com.'
+    )
   })
 
-  it('should success indicator if the current site is connected and on the same chainId', () => {
+  it('should success indicator if the current site is connected and on the same chainId', async () => {
+    // 1145-INDC-002 When I am connected it shows connected I see a success state
+    // 1145-INDC-010 When I hover over the success state I am informed that I am connected to the current tab
     mockStore(useNetworksStore, {
       networks: []
     })
     mockStore(useTabStore, {
       currentTab: {
-        url: 'http://www.foo.com'
+        url: 'https://www.foo.com'
       }
     })
     mockStore(useConnectionStore, {
       connections: [
         {
-          origin: 'http://www.foo.com',
+          origin: 'https://www.foo.com',
           chainId: testingNetwork.chainId
         }
       ]
     })
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-vega-green-550')
+    fireEvent.pointerMove(screen.getByTestId(locators.indicator))
+    await screen.findAllByTestId(locators.networkIndicatorTooltip)
+    expect(screen.getByTestId(locators.networkIndicatorTooltip)).toHaveTextContent(
+      'You are currently connected to https://www.foo.com.'
+    )
   })
 
-  it('should render warning indicator if the current site is connected and not on the same chainId', () => {
+  it('should render warning indicator if the current site is connected and not on the same chainId', async () => {
+    // 1145-INDC-003 When I am connected and the chain ids mismatch I see a warning state
+    // 1145-INDC-009 When I hover over the warning state I am informed I am viewing a different network to the currently connected tab
     mockStore(useNetworksStore, {
       networks: [
         {
@@ -99,13 +121,13 @@ describe('NetworkIndicator', () => {
     })
     mockStore(useTabStore, {
       currentTab: {
-        url: 'http://www.foo.com'
+        url: 'https://www.foo.com'
       }
     })
     mockStore(useConnectionStore, {
       connections: [
         {
-          origin: 'http://www.foo.com',
+          origin: 'https://www.foo.com',
           chainId: 'chainId',
           networkId: 'networkId'
         }
@@ -113,5 +135,10 @@ describe('NetworkIndicator', () => {
     })
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-warning')
+    fireEvent.pointerMove(screen.getByTestId(locators.indicator))
+    await screen.findAllByTestId(locators.networkIndicatorTooltip)
+    expect(screen.getByTestId(locators.networkIndicatorTooltip)).toHaveTextContent(
+      'The dApp https://www.foo.com is connected to the Testing network2 network, but your wallet is displaying Test data. To change the network for your wallet, click on the network dropdown.'
+    )
   })
 })

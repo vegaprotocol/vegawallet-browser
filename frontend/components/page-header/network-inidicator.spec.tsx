@@ -5,6 +5,7 @@ import { useConnectionStore } from '@/stores/connections'
 import { useNetworksStore } from '@/stores/networks-store'
 import { useTabStore } from '@/stores/tab-store'
 import { mockStore } from '@/test-helpers/mock-store'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 
 import { testingNetwork } from '../../../config/well-known-networks'
 import { locators, NetworkIndicator } from './network-indicator'
@@ -24,7 +25,12 @@ const renderComponent = () => {
 describe('NetworkIndicator', () => {
   it('should render nothing while connections are loading', async () => {
     mockStore(useNetworksStore, {
-      networks: []
+      networks: [
+        {
+          id: testingNetwork.id,
+          name: 'Testing network'
+        }
+      ]
     })
     mockStore(useTabStore, {
       currentTab: null
@@ -39,10 +45,15 @@ describe('NetworkIndicator', () => {
     // 1145-INDC-001 When I am not connected it shows not connected I see a neutral state (
     // 1145-INDC-008 When I hover over the neutral state I can see that I am not connected
     mockStore(useNetworksStore, {
-      networks: []
+      networks: [
+        {
+          id: testingNetwork.id,
+          name: 'Testing network'
+        }
+      ]
     })
     mockStore(useTabStore, {
-      currentTab: null
+      currentTab: { url: 'https://www.foo.com' }
     })
     mockStore(useConnectionStore, {
       connections: []
@@ -57,13 +68,24 @@ describe('NetworkIndicator', () => {
   it('should neutral indicator if the current site is not connected', async () => {
     // 1145-INDC-001 When I am not connected it shows not connected I see a neutral state (
     mockStore(useNetworksStore, {
-      networks: []
+      networks: [
+        {
+          id: testingNetwork.id,
+          name: 'Testing network'
+        }
+      ]
     })
     mockStore(useTabStore, {
       currentTab: { url: 'https://www.foo.com' }
     })
     mockStore(useConnectionStore, {
-      connections: [{}]
+      connections: [
+        {
+          origin: 'https://www.bar.com',
+          chainId: 'chainId',
+          networkId: testingNetwork.id
+        }
+      ]
     })
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-black')
@@ -76,7 +98,12 @@ describe('NetworkIndicator', () => {
     // 1145-INDC-002 When I am connected it shows connected I see a success state
     // 1145-INDC-010 When I hover over the success state I am informed that I am connected to the current tab
     mockStore(useNetworksStore, {
-      networks: []
+      networks: [
+        {
+          id: testingNetwork.id,
+          name: 'Testing network'
+        }
+      ]
     })
     mockStore(useTabStore, {
       currentTab: {
@@ -87,7 +114,8 @@ describe('NetworkIndicator', () => {
       connections: [
         {
           origin: 'https://www.foo.com',
-          chainId: testingNetwork.chainId
+          chainId: testingNetwork.chainId,
+          networkId: testingNetwork.id
         }
       ]
     })
@@ -134,5 +162,27 @@ describe('NetworkIndicator', () => {
     expect(tooltip).toHaveTextContent(
       'The dApp https://www.foo.com is connected to the Testing network2 network, but your wallet is displaying Test data. To change the network for your wallet, click on the network dropdown.'
     )
+  })
+
+  it('throws error if network could not be found', async () => {
+    silenceErrors()
+    mockStore(useNetworksStore, {
+      networks: []
+    })
+    mockStore(useTabStore, {
+      currentTab: {
+        url: 'https://www.foo.com'
+      }
+    })
+    mockStore(useConnectionStore, {
+      connections: [
+        {
+          origin: 'https://www.foo.com',
+          chainId: 'chainId',
+          networkId: 'networkId'
+        }
+      ]
+    })
+    expect(() => renderComponent()).toThrow('Could not find network with id networkId in the networks store.')
   })
 })

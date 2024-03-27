@@ -50,10 +50,8 @@ describe('NetworkIndicator', () => {
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-black')
     fireEvent.pointerMove(screen.getByTestId(locators.indicator))
-    await screen.findAllByTestId(locators.networkIndicatorTooltip)
-    expect(screen.getByTestId(locators.networkIndicatorTooltip)).toHaveTextContent(
-      'You are not currently connected to any sites.'
-    )
+    const [tooltip] = await screen.findAllByTestId(locators.networkIndicatorTooltip)
+    expect(tooltip).toHaveTextContent('You are not currently connected to any sites.')
   })
 
   it('should neutral indicator if the current site is not connected', async () => {
@@ -70,10 +68,8 @@ describe('NetworkIndicator', () => {
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-black')
     fireEvent.pointerMove(screen.getByTestId(locators.indicator))
-    await screen.findAllByTestId(locators.networkIndicatorTooltip)
-    expect(screen.getByTestId(locators.networkIndicatorTooltip)).toHaveTextContent(
-      'You are not currently connected to https://www.foo.com.'
-    )
+    const [tooltip] = await screen.findAllByTestId(locators.networkIndicatorTooltip)
+    expect(tooltip).toHaveTextContent('You are not currently connected to https://www.foo.com.')
   })
 
   it('should success indicator if the current site is connected and on the same chainId', async () => {
@@ -98,10 +94,8 @@ describe('NetworkIndicator', () => {
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-vega-green-550')
     fireEvent.pointerMove(screen.getByTestId(locators.indicator))
-    await screen.findAllByTestId(locators.networkIndicatorTooltip)
-    expect(screen.getByTestId(locators.networkIndicatorTooltip)).toHaveTextContent(
-      'You are currently connected to https://www.foo.com.'
-    )
+    const [tooltip] = await screen.findAllByTestId(locators.networkIndicatorTooltip)
+    expect(tooltip).toHaveTextContent('You are currently connected to https://www.foo.com.')
   })
 
   it('should render warning indicator if the current site is connected and not on the same chainId', async () => {
@@ -136,8 +130,8 @@ describe('NetworkIndicator', () => {
     renderComponent()
     expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-warning')
     fireEvent.pointerMove(screen.getByTestId(locators.indicator))
-    await screen.findAllByTestId(locators.networkIndicatorTooltip)
-    expect(screen.getByTestId(locators.networkIndicatorTooltip)).toHaveTextContent(
+    const [tooltip] = await screen.findAllByTestId(locators.networkIndicatorTooltip)
+    expect(tooltip).toHaveTextContent(
       'The dApp https://www.foo.com is connected to the Testing network2 network, but your wallet is displaying Test data. To change the network for your wallet, click on the network dropdown.'
     )
   })

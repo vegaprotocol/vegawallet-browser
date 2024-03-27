@@ -61,13 +61,16 @@ export const NetworkIndicator = () => {
     if (connection) {
       const { chainId, networkId } = connection
       const connectionNetwork = networks.find((n) => n.id === networkId)
+      if (!connectionNetwork) {
+        throw new Error(`Could not find network with id ${networkId} in the networks store.`)
+      }
       return network.chainId === chainId ? (
         <IndicatorWithTooltip intent={Intent.Success} description={`You are currently connected to ${origin}.`} />
       ) : (
         <IndicatorWithTooltip
           intent={Intent.Warning}
           description={`
-          The dApp ${origin} is connected to the ${connectionNetwork?.name} network, but your wallet is displaying ${network.name} data. To change the network for your wallet, click on the network dropdown.`}
+          The dApp ${origin} is connected to the ${connectionNetwork.name} network, but your wallet is displaying ${network.name} data. To change the network for your wallet, click on the network dropdown.`}
         />
       )
     }

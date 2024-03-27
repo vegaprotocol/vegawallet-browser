@@ -9,25 +9,32 @@ import { useTabStore } from '@/stores/tab-store'
 import { CONSTANTS } from '../../../lib/constants'
 
 export const locators = {
-  indicator: 'indicator'
+  indicator: 'indicator',
+  networkIndicatorTooltip: 'network-indicator-tooltip'
 }
 
 const Indicator = ({ intent }: { intent: Intent }) => {
   const background = getIntentBackground(intent)
   return (
     <div
+      data-testid={locators.indicator}
       className={classNames(
         'border-1 border-vega-dark-200 border inline-block w-3 h-3 mt-1 mr-2 rounded-full text-black',
         background
       )}
-      data-testid={locators.indicator}
     />
   )
 }
 
 const IndicatorWithTooltip = ({ intent, description }: { description: string; intent: Intent }) => {
   return (
-    <Tooltip description={<div style={{ maxWidth: CONSTANTS.width - 60 }}>{description}</div>}>
+    <Tooltip
+      description={
+        <div data-testid={locators.networkIndicatorTooltip} style={{ maxWidth: CONSTANTS.width - 60 }}>
+          {description}
+        </div>
+      }
+    >
       <div>
         <Indicator intent={intent} />
       </div>
@@ -60,7 +67,7 @@ export const NetworkIndicator = () => {
         <IndicatorWithTooltip
           intent={Intent.Warning}
           description={`
-          The dApp ${origin} is connected to the ${connectionNetwork?.name} network, but your wallet is displaying ${network.name} data. To change the network for your wallet, click on the network dropdown`}
+          The dApp ${origin} is connected to the ${connectionNetwork?.name} network, but your wallet is displaying ${network.name} data. To change the network for your wallet, click on the network dropdown.`}
         />
       )
     }

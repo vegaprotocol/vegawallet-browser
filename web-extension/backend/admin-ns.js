@@ -83,7 +83,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         doValidate(adminValidation.appGlobals, params)
 
         const hasPassphrase = await encryptedStore.exists()
-        const isLocked = encryptedStore.isLocked === true
+        const isLocked = encryptedStore.locked === true
 
         if (isLocked === false) {
           // kick keepalive loop

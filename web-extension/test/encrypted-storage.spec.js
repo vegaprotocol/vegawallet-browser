@@ -72,6 +72,7 @@ describe('encrypted-storage', () => {
     const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
+    await encryptedStorage.lock()
 
     await expect(encryptedStorage.create('passphrase')).rejects.toThrow('Storage already exists')
   })
@@ -80,6 +81,7 @@ describe('encrypted-storage', () => {
     const encryptedStorage = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
 
     await encryptedStorage.create('passphrase')
+    await encryptedStorage.lock()
 
     await encryptedStorage.create('passphrase2', true)
 
@@ -93,6 +95,6 @@ describe('encrypted-storage', () => {
 
     await encryptedStorage.lock()
 
-    expect(await encryptedStorage.lock()).toBe(null)
+    expect(await encryptedStorage.lock()).toBe(undefined)
   })
 })

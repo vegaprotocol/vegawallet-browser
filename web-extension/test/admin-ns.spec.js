@@ -380,23 +380,8 @@ describe('admin-ns', () => {
       params: null
     })
 
-    const [unlockSuccess, appGlobals] = await Promise.all([
-      admin.onrequest({
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'admin.unlock',
-        params: {
-          passphrase: 'foo'
-        }
-      }),
-
-      await admin.onrequest({
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'admin.app_globals',
-        params: null
-      })
-    ])
+    const unlockSuccess = await admin.onrequest(REQ_UNLOCK(1, 'foo'))
+    const appGlobals = await admin.onrequest(REQ_APP_GLOBALS(2))
 
     expect(unlockSuccess.result).toEqual(null)
     expect(appGlobals.result.wallet).toEqual(true)

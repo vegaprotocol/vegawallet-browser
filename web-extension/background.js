@@ -47,7 +47,7 @@ const connections = new ConnectionsCollection({
 })
 
 const fetchCache = new FetchCache(new StorageSessionMap('fetch-cache'))
-
+const transactionsStore = new ConcurrentStorage(new StorageLocalMap('transactions'))
 // setupSentry(settings, wallets)
 
 const onerror = (...args) => {
@@ -61,6 +61,7 @@ const clientServer = initClient({
   networks,
   connections,
   interactor,
+  transactionsStore,
   onerror
 })
 

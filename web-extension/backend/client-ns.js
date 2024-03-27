@@ -39,7 +39,7 @@ function doValidate(validator, params) {
       validator.errors.map((e) => e.message)
     )
 }
-export default function init({ onerror, settings, wallets, networks, connections, interactor, encryptedStore }) {
+export default function init({ onerror, settings, wallets, networks, connections, interactor, transactionsStore, encryptedStore }) {
   return new JSONRPCServer({
     onerror,
     methods: {
@@ -114,31 +114,39 @@ export default function init({ onerror, settings, wallets, networks, connections
         const transactionType = txHelpers.getTransactionType(params.transaction)
         const isLocked = encryptedStore.locked === true
 
-        // If the user has not enable auto consent or the transaction type is in the list of transaction types that require consent
-        // for approval or if the wallet was locked when the transaction was sent then require user approval
-        if (!connection.autoConsent || !AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) || isLocked) {
-          const approved = await interactor.reviewTransaction({
-            transaction: params.transaction,
-            publicKey: params.publicKey,
-            name: keyInfo.name,
-            wallet: keyInfo.wallet,
-            sendingMode: params.sendingMode,
-            origin: context.origin,
-            chainId: await connections.getChainId(context.origin),
-            networkId: await connections.getNetworkId(context.origin),
-            receivedAt
-          })
+        const approved = await interactor.reviewTransaction({
+          transaction: params.transaction,
+          publicKey: params.publicKey,
+          name: keyInfo.name,
+          wallet: keyInfo.wallet,
+          sendingMode: params.sendingMode,
+          origin: context.origin,
+          chainId: await connections.getChainId(context.origin),
+          networkId: await connections.getNetworkId(context.origin),
+          receivedAt
+        })
 
           if (approved === false) throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
         }
 
         const key = await wallets.getKeypair({ publicKey: params.publicKey })
-
-        const selectedNetworkId = await connections.getNetworkId(context.origin)
-        const selectedChainId = await connections.getChainId(context.origin)
         const network = await networks.get(selectedNetworkId, selectedChainId)
 
         const rpc = await network.rpc()
+        const storedTx = {
+          transaction: params.transaction,
+          publicKey: params.publicKey,
+          sendingMode: params.sendingMode,
+          name: keyInfo.name,
+          wallet: keyInfo.wallet,
+          origin: context.origin,
+          node: rpc._url,
+          receivedAt,
+          error: null,
+          networkId: selectedNetworkId,
+          chainId: selectedChainId,
+          approved: new Date().toISOString()
+        }
 
         try {
           const res = await txHelpers.sendTransaction({
@@ -152,6 +160,7 @@ export default function init({ onerror, settings, wallets, networks, connections
 
           return res
         } catch (e) {
+          storedTx.error = e.message
           if (NodeRPC.isTxError(e)) {
             throw new JSONRPCServer.Error(...Errors.TRANSACTION_FAILED, {
               message: e.message,
@@ -160,6 +169,9 @@ export default function init({ onerror, settings, wallets, networks, connections
           }
 
           throw e
+        } finally {
+          const existingTransactions = transactionsStore.get(keyInfo.publicKey)
+          transactionsStore.set(keyInfo.publicKey, [storedTx, ...existingTransactions])
         }
       },
       async 'client.sign_transaction'(params, context) {

@@ -3,6 +3,7 @@ import classNames from 'classnames'
 
 import { useNetwork } from '@/contexts/network/network-context'
 import { useConnectionStore } from '@/stores/connections'
+import { useNetworksStore } from '@/stores/networks-store'
 import { useTabStore } from '@/stores/tab-store'
 
 import { CONSTANTS } from '../../../lib/constants'
@@ -36,6 +37,9 @@ const IndicatorWithTooltip = ({ intent, description }: { description: string; in
 
 export const NetworkIndicator = () => {
   const { network } = useNetwork()
+  const { networks } = useNetworksStore((state) => ({
+    networks: state.networks
+  }))
   const { currentTab } = useTabStore((state) => ({
     currentTab: state.currentTab
   }))
@@ -48,13 +52,15 @@ export const NetworkIndicator = () => {
     const origin = new URL(currentTab.url).origin
     const connection = connections.find((c) => c.origin === origin)
     if (connection) {
-      const { chainId } = connection
+      const { chainId, networkId } = connection
+      const connectionNetwork = networks.find((n) => n.id === networkId)
       return network.chainId === chainId ? (
         <IndicatorWithTooltip intent={Intent.Success} description={`You are currently connected to ${origin}.`} />
       ) : (
         <IndicatorWithTooltip
           intent={Intent.Warning}
-          description={`You are connected to ${origin}, however you are currently viewing data for a different network. To view data for the network you are connected to select a different network in the network switcher.`}
+          description={`
+          The dApp ${origin} is connected to the ${connectionNetwork?.name} network, but your wallet is displaying ${network.name} data. To change the network for your wallet, click on the network dropdown`}
         />
       )
     }

@@ -52,7 +52,7 @@ const TransactionsList = ({ transactions }: { transactions: StoredTransaction[] 
           </div>
           <NavLink
             className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
-            to={`${FULL_ROUTES.home}`}
+            to={`${FULL_ROUTES.transactions}/${transaction.id}`}
           >
             <ChevronRight />
           </NavLink>

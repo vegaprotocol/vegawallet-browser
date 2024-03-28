@@ -33,3 +33,5 @@ export { default as removeConnection } from './remove-connection.js'
 export { default as updateConnection } from './update-connection.js'
 export { default as openPopout } from './open-popout.js'
 export { default as fetch } from './fetch.js'
+
+export { default as listTransactions } from './list-transactions.js'

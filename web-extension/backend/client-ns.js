@@ -132,6 +132,8 @@ export default function init({ onerror, settings, wallets, networks, connections
         // TODO Add rejected transactions to store as well
         if (approved === false) {
           const storedTx = {
+            // Cannot use tx hash as rejected transactions do not have a hash
+            id: uuid(),
             transaction: params.transaction,
             publicKey: params.publicKey,
             sendingMode: params.sendingMode,
@@ -160,6 +162,7 @@ export default function init({ onerror, settings, wallets, networks, connections
 
         const rpc = await network.rpc()
         const storedTx = {
+          id: uuid(),
           transaction: params.transaction,
           publicKey: params.publicKey,
           sendingMode: params.sendingMode,

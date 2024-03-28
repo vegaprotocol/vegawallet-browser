@@ -36,6 +36,8 @@ interface StoredTransaction {
   chainId: string
   decision: string // Date
   state: TransactionState
+  code: number
+  hash: string
 }
 
 const TRANSACTION_STATE_COLOR = {

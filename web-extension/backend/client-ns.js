@@ -2,6 +2,7 @@ import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
+import { v4 as uuidv4 } from 'uuid'
 
 const Errors = {
   NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],
@@ -38,7 +39,7 @@ function doValidate(validator, params) {
       validator.errors.map((e) => e.message)
     )
 }
-export default function init({ onerror, settings, wallets, networks, connections, interactor }) {
+export default function init({ onerror, settings, wallets, networks, connections, interactor, transactionsStore }) {
   return new JSONRPCServer({
     onerror,
     methods: {
@@ -111,6 +112,9 @@ export default function init({ onerror, settings, wallets, networks, connections
 
         if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
 
+        const selectedNetworkId = await connections.getNetworkId(context.origin)
+        const selectedChainId = await connections.getChainId(context.origin)
+
         const approved = await interactor.reviewTransaction({
           transaction: params.transaction,
           publicKey: params.publicKey,
@@ -118,20 +122,62 @@ export default function init({ onerror, settings, wallets, networks, connections
           wallet: keyInfo.wallet,
           sendingMode: params.sendingMode,
           origin: context.origin,
-          chainId: await connections.getChainId(context.origin),
-          networkId: await connections.getNetworkId(context.origin),
+          chainId: selectedChainId,
+          networkId: selectedNetworkId,
           receivedAt
         })
 
-        if (approved === false) throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
-
         const key = await wallets.getKeypair({ publicKey: params.publicKey })
-
-        const selectedNetworkId = await connections.getNetworkId(context.origin)
-        const selectedChainId = await connections.getChainId(context.origin)
         const network = await networks.get(selectedNetworkId, selectedChainId)
 
+        // TODO Add rejected transactions to store as well
+        if (approved === false) {
+          const storedTx = {
+            // Cannot use tx hash as rejected transactions do not have a hash
+            id: uuidv4(),
+            transaction: params.transaction,
+            publicKey: params.publicKey,
+            sendingMode: params.sendingMode,
+            keyName: keyInfo.name,
+            walletName: keyInfo.wallet,
+            origin: context.origin,
+            node: null,
+            receivedAt,
+            error: null,
+            networkId: selectedNetworkId,
+            chainId: selectedChainId,
+            decision: new Date().toISOString(),
+            state: 'Rejected',
+            hash: null,
+            code: null
+          }
+          const existingTransactions = (await transactionsStore.get(keyInfo.walletName)) ?? {}
+          const existingTransactionByPublicKey = existingTransactions[keyInfo.publicKey] ?? []
+          await transactionsStore.set(keyInfo.walletName, {
+            ...existingTransactions,
+            [keyInfo.publicKey]: [storedTx, ...existingTransactionByPublicKey]
+          })
+          throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
+        }
+
         const rpc = await network.rpc()
+        const storedTx = {
+          id: uuidv4(),
+          transaction: params.transaction,
+          publicKey: params.publicKey,
+          sendingMode: params.sendingMode,
+          keyName: keyInfo.name,
+          walletName: keyInfo.wallet,
+          origin: context.origin,
+          node: rpc._url.toString(),
+          receivedAt,
+          error: null,
+          networkId: selectedNetworkId,
+          chainId: selectedChainId,
+          decision: new Date().toISOString(),
+          hash: null,
+          code: null
+        }
 
         try {
           const res = await txHelpers.sendTransaction({
@@ -142,17 +188,30 @@ export default function init({ onerror, settings, wallets, networks, connections
           })
 
           res.receivedAt = receivedAt
-
+          storedTx.hash = res.txHash
+          storedTx.code = res.code
+          storedTx.state = 'Confirmed'
           return res
         } catch (e) {
+          storedTx.error = e.message
+          storedTx.state = 'Error'
           if (NodeRPC.isTxError(e)) {
+            storedTx.hash = e.data.txHash
+            storedTx.code = e.data.code
             throw new JSONRPCServer.Error(...Errors.TRANSACTION_FAILED, {
               message: e.message,
-              code: e.code
+              ...e.data
             })
           }
 
           throw e
+        } finally {
+          const existingTransactions = (await transactionsStore.get(keyInfo.walletName)) ?? {}
+          const existingTransactionByPublicKey = existingTransactions[keyInfo.publicKey] ?? []
+          await transactionsStore.set(keyInfo.walletName, {
+            ...existingTransactions,
+            [keyInfo.publicKey]: [storedTx, ...existingTransactionByPublicKey]
+          })
         }
       },
       async 'client.sign_transaction'(params, context) {

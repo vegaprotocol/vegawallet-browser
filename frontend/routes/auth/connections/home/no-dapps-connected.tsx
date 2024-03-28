@@ -5,7 +5,7 @@ export const locators = {
 export const NoAppsConnected = () => {
   return (
     <div data-testid={locators.connectionsNoConnections}>
-      <p>Your wallet is not connected to any dapps.</p>
+      <p className="text-sm">Your wallet is not connected to any dapps.</p>
     </div>
   )
 }

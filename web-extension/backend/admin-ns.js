@@ -30,7 +30,16 @@ function doValidate(validator, params) {
  * @param {Function} onerror Error handler
  * @returns {JSONRPCServer}
  */
-export default function init({ encryptedStore, settings, wallets, networks, connections, fetchCache, onerror }) {
+export default function init({
+  encryptedStore,
+  settings,
+  wallets,
+  networks,
+  connections,
+  fetchCache,
+  transactionsStore,
+  onerror
+}) {
   connections.on('set', (connection) => {
     server.notify('admin.connections_change', {
       add: [connection],
@@ -296,6 +305,12 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         } catch (ex) {
           throw new JSONRPCServer.Error('Failed to fetch data', -1, ex.message)
         }
+      },
+
+      async 'admin.list_transactions'(params) {
+        doValidate(adminValidation.listTransactions, params)
+        const transactions = (await transactionsStore.get(params.walletName)) ?? {}
+        return { transactions }
       }
     }
   })

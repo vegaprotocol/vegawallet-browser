@@ -7,7 +7,7 @@ import { VegaSection } from '@/components/vega-section'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { useAsyncAction } from '@/hooks/async-action'
-import { formatDate } from '@/lib/utils'
+import { formatDateTime } from '@/lib/utils'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { useConnectionStore } from '@/stores/connections'
 import { Connection } from '@/types/backend'
@@ -75,7 +75,7 @@ export const ConnectionDetails = () => {
       <VegaSection>
         <SubHeader content="Last accessed" />
         <div className="text-white mt-1" data-testid={locators.accessedAt}>
-          {formatDate(connection.accessedAt)}
+          {formatDateTime(connection.accessedAt)}
         </div>
       </VegaSection>
       <VegaSection>

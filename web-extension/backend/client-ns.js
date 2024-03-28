@@ -147,7 +147,7 @@ export default function init({ onerror, settings, wallets, networks, connections
             networkId: selectedNetworkId,
             chainId: selectedChainId,
             decision: new Date().toISOString(),
-            // TODO still handle transaction state
+            // TODO add error state
             state: 'Rejected',
             hash: null,
             code: null
@@ -176,7 +176,7 @@ export default function init({ onerror, settings, wallets, networks, connections
           networkId: selectedNetworkId,
           chainId: selectedChainId,
           decision: new Date().toISOString(),
-          // TODO still handle transaction state
+          // TODO add error state
           state: 'Confirmed',
           hash: null,
           code: null

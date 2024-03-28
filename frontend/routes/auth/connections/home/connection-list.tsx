@@ -19,7 +19,7 @@ export interface ConnectionsListProperties {
 export const ConnectionsList = ({ connections }: ConnectionsListProperties) => {
   return (
     <>
-      <p className="mb-6" data-testid={locators.connectionDetails}>
+      <p className="mb-6 text-sm" data-testid={locators.connectionDetails}>
         These dapps have access to your public keys and permission to send transaction requests.
       </p>
       <List<Connection>

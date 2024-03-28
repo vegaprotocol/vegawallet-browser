@@ -74,7 +74,7 @@ export const Transfer = ({ transaction }: ReceiptComponentProperties) => {
             <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({formatDateTime(time)})
           </>
         ) : (
-          'Now'
+          'Immediate'
         )}
       </p>
     </ReceiptWrapper>

@@ -12,7 +12,7 @@ export async function getChainId({ rpc }) {
   return latestBlock.chainId
 }
 
-export async function createTransactionData({rpc, keys, transaction}) {
+export async function createTransactionData({ rpc, keys, transaction }) {
   const latestBlock = await rpc.blockchainHeight()
   const tid = toHex(await randomFill(new Uint8Array(32)))
 
@@ -68,23 +68,24 @@ export async function createTransactionData({rpc, keys, transaction}) {
   const base64Tx = await toBase64(tx)
 
   return {
-    tx, 
-    base64Tx, 
+    tx,
+    base64Tx,
     txJSON
   }
 }
 
-export async function sendTransaction({rpc, keys, transaction, sendingMode}) {
-  const txData = await createTransactionData({rpc, keys, transaction})
+export async function sendTransaction({ rpc, keys, transaction, sendingMode }) {
+  const txData = await createTransactionData({ rpc, keys, transaction })
   const sentAt = new Date().toISOString()
-  const res = await rpc.submitRawTransaction(
-    txData.base64Tx,
-    sendingMode
-  )
+  const res = await rpc.submitRawTransaction(txData.base64Tx, sendingMode)
 
   return {
     sentAt,
     transactionHash: res.txHash,
     transaction: txData.txJSON
   }
+}
+
+export function getTransactionType(tx) {
+  return Object.keys(tx)[0]
 }

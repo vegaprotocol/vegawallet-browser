@@ -30,5 +30,6 @@ export { default as signMessage } from './sign-message.js'
 
 export { default as listConnections } from './list-connections.js'
 export { default as removeConnection } from './remove-connection.js'
+export { default as updateConnection } from './update-connection.js'
 export { default as openPopout } from './open-popout.js'
 export { default as fetch } from './fetch.js'

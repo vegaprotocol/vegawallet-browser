@@ -1,4 +1,3 @@
-import { Button } from '@vegaprotocol/ui-toolkit'
 import ReactTimeAgo from 'react-time-ago'
 
 import { useInteractionStore } from '@/stores/interaction-store'
@@ -8,12 +7,11 @@ import { Splash } from '../../splash'
 import { EnrichedDetails } from './enriched-details'
 import { RawTransaction } from './raw-transaction'
 import { TransactionHeader } from './transaction-header'
+import { TransactionModalFooter } from './transaction-modal-footer'
 
 export const locators = {
   transactionWrapper: 'transaction-wrapper',
-  transactionTimeAgo: 'transaction-time-ago',
-  transactionModalDenyButton: 'transaction-deny-button',
-  transactionModalApproveButton: 'transaction-approve-button'
+  transactionTimeAgo: 'transaction-time-ago'
 }
 
 export const TransactionModal = () => {
@@ -42,18 +40,7 @@ export const TransactionModal = () => {
           </div>
         </section>
       </Splash>
-      <div className="fixed bottom-0 grid grid-cols-[1fr_1fr] justify-between gap-4 py-4 bg-black z-[15] px-5 border-t border-vega-dark-200 w-full">
-        <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleTransactionDecision(false)}>
-          Reject
-        </Button>
-        <Button
-          data-testid={locators.transactionModalApproveButton}
-          variant="primary"
-          onClick={() => handleTransactionDecision(true)}
-        >
-          Confirm
-        </Button>
-      </div>
+      <TransactionModalFooter handleTransactionDecision={handleTransactionDecision} details={details} />
     </>
   )
 }

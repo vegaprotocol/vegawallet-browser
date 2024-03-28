@@ -30,6 +30,16 @@ const Errors = {
   ]
 }
 
+const AUTO_CONSENT_TRANSACTION_TYPES = [
+  'orderSubmission',
+  'orderCancellation',
+  'orderAmendment',
+  'stopOrdersSubmission',
+  'stopOrdersCancellation',
+  'voteSubmission',
+  'updateMarginMode'
+]
+
 function doValidate(validator, params) {
   if (!validator(params))
     throw new JSONRPCServer.Error(
@@ -38,7 +48,7 @@ function doValidate(validator, params) {
       validator.errors.map((e) => e.message)
     )
 }
-export default function init({ onerror, settings, wallets, networks, connections, interactor }) {
+export default function init({ onerror, settings, wallets, networks, connections, interactor, encryptedStore }) {
   return new JSONRPCServer({
     onerror,
     methods: {
@@ -63,7 +73,6 @@ export default function init({ onerror, settings, wallets, networks, connections
           if (network.hidden && hiddenNetworksEnabled !== true) {
             throw new JSONRPCServer.Error(...Errors.DEVELOPMENT_CHAIN_ID)
           }
-
           const reply = await interactor.reviewConnection({
             origin: context.origin,
             chainId: params.chainId,
@@ -110,20 +119,27 @@ export default function init({ onerror, settings, wallets, networks, connections
         })
 
         if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
+        const connection = await connections.get(context.origin)
+        const transactionType = txHelpers.getTransactionType(params.transaction)
+        const isLocked = encryptedStore.locked === true
 
-        const approved = await interactor.reviewTransaction({
-          transaction: params.transaction,
-          publicKey: params.publicKey,
-          name: keyInfo.name,
-          wallet: keyInfo.wallet,
-          sendingMode: params.sendingMode,
-          origin: context.origin,
-          chainId: await connections.getChainId(context.origin),
-          networkId: await connections.getNetworkId(context.origin),
-          receivedAt
-        })
+        // If the user has not enable auto consent or the transaction type is in the list of transaction types that require consent
+        // as for approval
+        if (!connection.autoConsent || !AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) || isLocked) {
+          const approved = await interactor.reviewTransaction({
+            transaction: params.transaction,
+            publicKey: params.publicKey,
+            name: keyInfo.name,
+            wallet: keyInfo.wallet,
+            sendingMode: params.sendingMode,
+            origin: context.origin,
+            chainId: await connections.getChainId(context.origin),
+            networkId: await connections.getNetworkId(context.origin),
+            receivedAt
+          })
 
-        if (approved === false) throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
+          if (approved === false) throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
+        }
 
         const key = await wallets.getKeypair({ publicKey: params.publicKey })
 

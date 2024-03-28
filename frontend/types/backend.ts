@@ -9,6 +9,7 @@ export interface Connection {
   accessedAt: number
   chainId: string
   networkId: string
+  autoConsent: boolean
 }
 
 export interface Wallet {

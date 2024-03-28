@@ -28,13 +28,14 @@ export class ConnectionsCollection {
    * @param {string} [params.networkId] - Preferred networkId that was approved for the connection
    * @returns {Promise<void>}
    */
-  async set(origin, { allowList, chainId = null, networkId = null, accessedAt }) {
+  async set(origin, { allowList, chainId = null, networkId = null, accessedAt, autoConsent = false }) {
     const value = {
       origin,
       allowList,
       chainId,
       networkId,
-      accessedAt: accessedAt ?? Date.now()
+      accessedAt: accessedAt ?? Date.now(),
+      autoConsent
     }
 
     const res = await this.store.set(origin, value)
@@ -92,6 +93,12 @@ export class ConnectionsCollection {
 
   async get(origin) {
     return await this.store.get(origin)
+  }
+
+  async update(origin, newProperties) {
+    const connections = await this.store.get(origin)
+    if (connections == null) throw new Error(`Could not find connections with origin ${origin}`)
+    await this.store.set(origin, { ...connections, ...newProperties })
   }
 
   async isAllowed(origin, publicKey) {

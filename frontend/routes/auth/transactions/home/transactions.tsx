@@ -12,33 +12,12 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useNetwork } from '@/contexts/network/network-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { WALLET_NAME } from '@/lib/create-wallet'
-import { Transaction } from '@/lib/transactions'
 import { FULL_ROUTES } from '@/routes/route-names'
+import { StoredTransaction, TransactionState } from '@/types/backend'
 
 export const locators = {
   transactions: 'transactions',
   transactionsDescription: 'transactions-description'
-}
-
-type TransactionState = 'Confirmed' | 'Rejected'
-
-interface StoredTransaction {
-  id: string
-  transaction: Transaction
-  publicKey: string
-  sendingMode: string
-  keyName: string
-  walletName: string
-  origin: string
-  node?: string
-  receivedAt: string // Date
-  error?: string
-  networkId: string
-  chainId: string
-  decision: string // Date
-  state: TransactionState
-  code: number
-  hash: string
 }
 
 const TRANSACTION_STATE_COLOR = {

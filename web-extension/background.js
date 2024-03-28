@@ -83,6 +83,7 @@ const server = initAdmin({
   networks,
   connections,
   fetchCache,
+  transactionsStore,
   onerror
 })
 

@@ -170,8 +170,12 @@ export default function init({ onerror, settings, wallets, networks, connections
 
           throw e
         } finally {
-          const existingTransactions = transactionsStore.get(keyInfo.publicKey)
-          transactionsStore.set(keyInfo.publicKey, [storedTx, ...existingTransactions])
+          const existingTransactions = transactionsStore.get(keyInfo.walletName)
+          const existingTransactionPublicKey = existingTransactions[publicKey] ?? []
+          await transactionsStore.set(keyInfo.wallet, {
+            ...existingTransactions,
+            [keyInfo.publicKey]: [storedTx, ...existingTransactionPublicKey]
+          })
         }
       },
       async 'client.sign_transaction'(params, context) {

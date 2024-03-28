@@ -23,6 +23,7 @@ export const locators = {
 type TransactionState = 'Confirmed' | 'Rejected'
 
 interface StoredTransaction {
+  id: string
   transaction: Transaction
   publicKey: string
   sendingMode: string
@@ -78,7 +79,7 @@ const TransactionsList = ({ transactions }: { transactions: StoredTransaction[] 
           </NavLink>
         </div>
       )}
-      idProp="publicKey"
+      idProp="id"
     />
   )
 }

@@ -3,7 +3,7 @@ import { isBefore } from 'date-fns'
 import ReactTimeAgo from 'react-time-ago'
 
 import { Transaction } from '@/lib/transactions'
-import { formatDate, nanoSecondsToMilliseconds } from '@/lib/utils'
+import { formatDateTime, nanoSecondsToMilliseconds } from '@/lib/utils'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useWalletStore } from '@/stores/wallets'
 
@@ -71,7 +71,7 @@ export const Transfer = ({ transaction }: ReceiptComponentProperties) => {
       <p data-testid={locators.whenElement}>
         {time ? (
           <>
-            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({formatDate(time)})
+            <ReactTimeAgo timeStyle="round" date={time} locale="en-US" /> ({formatDateTime(time)})
           </>
         ) : (
           'Now'

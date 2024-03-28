@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import ReactTimeAgo from 'react-time-ago'
 
+import { ExternalLink } from '@/components/external-link'
 import { HostImage } from '@/components/host-image'
 import { ChevronRight } from '@/components/icons/chevron-right'
 import { List } from '@/components/list'
 import { getTitle } from '@/components/modals/transaction-modal/get-title'
 import { BasePage } from '@/components/pages/page'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
+import { useNetwork } from '@/contexts/network/network-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { WALLET_NAME } from '@/lib/create-wallet'
 import { Transaction } from '@/lib/transactions'
@@ -81,6 +83,7 @@ const TransactionsList = ({ transactions }: { transactions: StoredTransaction[] 
 }
 
 export const Transactions = () => {
+  const { network } = useNetwork()
   const { request } = useJsonRpcClient()
   const [transactions, setTransactions] = useState<StoredTransaction[]>([])
   useEffect(() => {
@@ -89,10 +92,16 @@ export const Transactions = () => {
       setTransactions(transactionsFlat)
     })
   }, [request])
-  console.log(transactions)
+
   return (
     <BasePage dataTestId={locators.transactions} title="Transactions">
       <div className="mt-6">
+        <p className="text-sm">
+          This only includes transactions placed from this wallet, in order to see all transactions you can visit the{' '}
+          <ExternalLink className="text-white mt-1" href={network.explorer}>
+            <span className="underline">block explorer.</span>
+          </ExternalLink>
+        </p>
         <TransactionsList transactions={transactions} />
       </div>
     </BasePage>

@@ -6,18 +6,9 @@ import { ChevronRight } from '@/components/icons/chevron-right'
 import { List } from '@/components/list'
 import { getTitle } from '@/components/modals/transaction-modal/get-title'
 import { FULL_ROUTES } from '@/routes/route-names'
-import { StoredTransaction, TransactionState } from '@/types/backend'
+import { StoredTransaction } from '@/types/backend'
 
-const TRANSACTION_STATE_COLOR = {
-  Confirmed: 'text-vega-blue-500',
-  Rejected: 'text-vega-dark-300',
-  Error: 'text-vega-red-500'
-}
-
-const VegaTransactionState = ({ state }: { state: TransactionState }) => {
-  const color = TRANSACTION_STATE_COLOR[state]
-  return <span className={color}>{state}</span>
-}
+import { VegaTransactionState } from '../transactions-state'
 
 export const TransactionsList = ({ transactions }: { transactions: StoredTransaction[] }) => {
   return (

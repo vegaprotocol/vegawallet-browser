@@ -28,6 +28,9 @@ export const RpcMethods = {
   // Networks
   ListNetworks: 'admin.list_networks',
 
+  // Transaction
+  ListTransactions: 'admin.list_transactions',
+
   // Misc
   SignMessage: 'admin.sign_message',
   Fetch: 'admin.fetch'

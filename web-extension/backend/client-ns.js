@@ -121,7 +121,7 @@ export default function init({ onerror, settings, wallets, networks, connections
         if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
         const connection = await connections.get(context.origin)
         const transactionType = txHelpers.getTransactionType(params.transaction)
-        const isLocked = encryptedStore.isLocked === true
+        const isLocked = encryptedStore.locked === true
 
         // If the user has not enable auto consent or the transaction type is in the list of transaction types that require consent
         // as for approval

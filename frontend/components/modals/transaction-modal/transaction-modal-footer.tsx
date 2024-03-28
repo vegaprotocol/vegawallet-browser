@@ -50,21 +50,23 @@ export const TransactionModalFooter = ({
           Confirm
         </Button>
       </div>
-      <div>
-        <Checkbox
-          label={
-            <span className="text-xs">
-              Allow this site to automatically approve order and vote transactions. This can be turned off in
-              "Connections".
-            </span>
-          }
-          checked={autoConsent}
-          onCheckedChange={() => {
-            setAutoConsent(!autoConsent)
-          }}
-          name={'autoConsent'}
-        />
-      </div>
+      {autoConsent && (
+        <div>
+          <Checkbox
+            label={
+              <span className="text-xs">
+                Allow this site to automatically approve order and vote transactions. This can be turned off in
+                "Connections".
+              </span>
+            }
+            checked={autoConsent}
+            onCheckedChange={() => {
+              setAutoConsent(!autoConsent)
+            }}
+            name={'autoConsent'}
+          />
+        </div>
+      )}
     </div>
   )
 }

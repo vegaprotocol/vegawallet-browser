@@ -1,3 +1,5 @@
+import { Transaction } from '@/lib/transactions'
+
 export interface AllowList {
   publicKeys: any[]
   wallets: string[]
@@ -37,4 +39,25 @@ export interface Network {
   governance: string
   docs: string
   vegaDapps: string
+}
+
+export type TransactionState = 'Confirmed' | 'Rejected'
+
+export interface StoredTransaction {
+  id: string
+  transaction: Transaction
+  publicKey: string
+  sendingMode: string
+  keyName: string
+  walletName: string
+  origin: string
+  node?: string
+  receivedAt: string // Date
+  error?: string
+  networkId: string
+  chainId: string
+  decision: string // Date
+  state: TransactionState
+  code: number
+  hash: string
 }

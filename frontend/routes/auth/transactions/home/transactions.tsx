@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import ReactTimeAgo from 'react-time-ago'
 
@@ -8,11 +7,9 @@ import { ChevronRight } from '@/components/icons/chevron-right'
 import { List } from '@/components/list'
 import { getTitle } from '@/components/modals/transaction-modal/get-title'
 import { BasePage } from '@/components/pages/page'
-import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useNetwork } from '@/contexts/network/network-context'
-import { RpcMethods } from '@/lib/client-rpc-methods'
-import { WALLET_NAME } from '@/lib/create-wallet'
 import { FULL_ROUTES } from '@/routes/route-names'
+import { useTransactionsStore } from '@/stores/transactions-store'
 import { StoredTransaction, TransactionState } from '@/types/backend'
 
 export const locators = {
@@ -65,14 +62,9 @@ const TransactionsList = ({ transactions }: { transactions: StoredTransaction[] 
 
 export const Transactions = () => {
   const { network } = useNetwork()
-  const { request } = useJsonRpcClient()
-  const [transactions, setTransactions] = useState<StoredTransaction[]>([])
-  useEffect(() => {
-    request(RpcMethods.ListTransactions, { wallet: WALLET_NAME }).then((transactions) => {
-      const transactionsFlat = Object.values(transactions.transactions).flat(1) as StoredTransaction[]
-      setTransactions(transactionsFlat)
-    })
-  }, [request])
+  const { transactions } = useTransactionsStore((state) => ({
+    transactions: state.transactions
+  }))
 
   return (
     <BasePage dataTestId={locators.transactions} title="Transactions">

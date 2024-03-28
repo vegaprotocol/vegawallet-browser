@@ -3,6 +3,7 @@ import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../lib/constants.js'
+import { v4 as uuidv4 } from 'uuid'
 
 const Errors = {
   NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],
@@ -133,7 +134,7 @@ export default function init({ onerror, settings, wallets, networks, connections
         if (approved === false) {
           const storedTx = {
             // Cannot use tx hash as rejected transactions do not have a hash
-            id: uuid(),
+            id: uuidv4(),
             transaction: params.transaction,
             publicKey: params.publicKey,
             sendingMode: params.sendingMode,
@@ -162,7 +163,7 @@ export default function init({ onerror, settings, wallets, networks, connections
 
         const rpc = await network.rpc()
         const storedTx = {
-          id: uuid(),
+          id: uuidv4(),
           transaction: params.transaction,
           publicKey: params.publicKey,
           sendingMode: params.sendingMode,

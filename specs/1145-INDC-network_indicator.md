@@ -10,3 +10,4 @@
 - When I hover over the neutral state I can see that I am not connected (<a name="1145-INDC-008" href="#1145-INDC-008">1145-INDC-008</a>)
 - When I hover over the warning state I am informed I am viewing a different network to the currently connected tab (<a name="1145-INDC-009" href="#1145-INDC-009">1145-INDC-009</a>)
 - When I hover over the success state I am informed that I am connected to the current tab (<a name="1145-INDC-010" href="#1145-INDC-010">1145-INDC-010</a>)
+- When I remove the connection then I see a neutral state (<a name="1145-INDC-011" href="#1145-INDC-011">1145-INDC-011</a>)

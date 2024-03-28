@@ -8,6 +8,7 @@ import { Connections } from './auth/connections/home'
 import { Settings } from './auth/settings/home'
 import { NetworkSettings } from './auth/settings/networks/home'
 import { NetworkDetails } from './auth/settings/networks/network-details'
+import { TransactionsIndex } from './auth/transactions'
 import { TransactionDetails } from './auth/transactions/details'
 import { Transactions } from './auth/transactions/home'
 import { WalletsRoot } from './auth/wallets'
@@ -45,7 +46,7 @@ export const Routing = () => {
               <Route path={':id'} element={<NetworkDetails />} />
             </Route>
           </Route>
-          <Route path={ROUTES.transactions} element={<Outlet />}>
+          <Route path={ROUTES.transactions} element={<TransactionsIndex />}>
             <Route index element={<Transactions />} />
             <Route path={':id'} element={<TransactionDetails />} />
           </Route>

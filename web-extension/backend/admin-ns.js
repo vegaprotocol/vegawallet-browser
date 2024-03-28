@@ -309,7 +309,7 @@ export default function init({
 
       async 'admin.list_transactions'(params) {
         doValidate(adminValidation.listTransactions, params)
-        const transactions = await transactionsStore.get(params.walletName)
+        const transactions = (await transactionsStore.get(params.walletName)) ?? {}
         return { transactions }
       }
     }

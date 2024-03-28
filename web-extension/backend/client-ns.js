@@ -126,26 +126,52 @@ export default function init({ onerror, settings, wallets, networks, connections
           receivedAt
         })
 
-          if (approved === false) throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
-        }
-
         const key = await wallets.getKeypair({ publicKey: params.publicKey })
         const network = await networks.get(selectedNetworkId, selectedChainId)
+
+        // TODO Add rejected transactions to store as well
+        if (approved === false) {
+          const storedTx = {
+            transaction: params.transaction,
+            publicKey: params.publicKey,
+            sendingMode: params.sendingMode,
+            keyName: keyInfo.name,
+            walletName: keyInfo.wallet,
+            origin: context.origin,
+            node: null,
+            receivedAt,
+            error: null,
+            networkId: selectedNetworkId,
+            chainId: selectedChainId,
+            decision: new Date().toISOString(),
+            // TODO still handle transaction state
+            state: 'Rejected'
+          }
+          const existingTransactions = (await transactionsStore.get(keyInfo.walletName)) ?? {}
+          const existingTransactionByPublicKey = existingTransactions[keyInfo.publicKey] ?? []
+          await transactionsStore.set(keyInfo.walletName, {
+            ...existingTransactions,
+            [keyInfo.publicKey]: [storedTx, ...existingTransactionByPublicKey]
+          })
+          throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
+        }
 
         const rpc = await network.rpc()
         const storedTx = {
           transaction: params.transaction,
           publicKey: params.publicKey,
           sendingMode: params.sendingMode,
-          name: keyInfo.name,
-          wallet: keyInfo.wallet,
+          keyName: keyInfo.name,
+          walletName: keyInfo.wallet,
           origin: context.origin,
           node: rpc._url,
           receivedAt,
           error: null,
           networkId: selectedNetworkId,
           chainId: selectedChainId,
-          approved: new Date().toISOString()
+          decision: new Date().toISOString(),
+          // TODO still handle transaction state
+          state: 'Confirmed'
         }
 
         try {

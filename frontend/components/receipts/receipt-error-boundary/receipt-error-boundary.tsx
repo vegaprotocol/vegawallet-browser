@@ -39,9 +39,7 @@ export class ReceiptViewErrorBoundary extends Component<Properties, State> {
         <VegaSection>
           <Notification
             intent={Intent.Danger}
-            message={
-              "Your transaction receipt can't be shown. View the raw transaction to verify that you want to send this transaction."
-            }
+            message={"Your transaction receipt can't be shown. You can still view the raw transaction JSON below."}
           />
           <div className="mt-6">
             <CollapsiblePanel

@@ -8,13 +8,13 @@ export const formatNanoDate = (nanoSeconds: string | number) => {
   try {
     const milliseconds = nanoSecondsToMilliseconds(nanoSeconds.toString())
     if (Number.isNaN(milliseconds)) throw new Error('Invalid time value')
-    return formatDate(milliseconds)
+    return formatDateTime(milliseconds)
   } catch {
     return `Invalid time value: ${nanoSeconds}`
   }
 }
 
-export const formatDate = (milliseconds: number | string) => {
+export const formatDateTime = (milliseconds: number | string) => {
   try {
     return getDateTimeFormat().format(new Date(+milliseconds))
   } catch {

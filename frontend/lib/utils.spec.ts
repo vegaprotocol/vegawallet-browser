@@ -1,4 +1,4 @@
-import { formatDate, formatNanoDate, nanoSecondsToMilliseconds } from './utils'
+import { formatDateTime, formatNanoDate, nanoSecondsToMilliseconds } from './utils'
 
 describe('nanoSecondsToMilliseconds', () => {
   it('should convert nanoseconds to milliseconds correctly', () => {
@@ -26,7 +26,7 @@ describe('formatNanoDate', () => {
 
 describe('formatDate', () => {
   it('should format milliseconds date to a readable format correctly', () => {
-    expect(formatDate('invalid')).toBe('Invalid time value: invalid')
-    expect(formatDate(1_612_432_362_000)).toBe('2/4/2021, 9:52:42 AM')
+    expect(formatDateTime('invalid')).toBe('Invalid time value: invalid')
+    expect(formatDateTime(1_612_432_362_000)).toBe('2/4/2021, 9:52:42 AM')
   })
 })

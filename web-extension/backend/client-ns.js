@@ -169,7 +169,7 @@ export default function init({ onerror, settings, wallets, networks, connections
           keyName: keyInfo.name,
           walletName: keyInfo.wallet,
           origin: context.origin,
-          node: rpc._url,
+          node: rpc._url.toString(),
           receivedAt,
           error: null,
           networkId: selectedNetworkId,

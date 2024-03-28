@@ -9,7 +9,6 @@ export type TransactionsStore = {
   transactions: StoredTransaction[]
   loading: boolean
   loadTransactions: (request: SendMessage) => Promise<void>
-  getTransactionById: (id: string) => any
 }
 
 export const useTransactionsStore = create<TransactionsStore>()((set, get) => ({
@@ -24,8 +23,5 @@ export const useTransactionsStore = create<TransactionsStore>()((set, get) => ({
     } finally {
       set({ loading: false })
     }
-  },
-  async getTransactionById(id: string) {
-    return this.transactions.find((tx) => tx.id === id)
   }
 }))

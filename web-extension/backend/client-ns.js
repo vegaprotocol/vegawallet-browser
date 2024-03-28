@@ -147,7 +147,6 @@ export default function init({ onerror, settings, wallets, networks, connections
             networkId: selectedNetworkId,
             chainId: selectedChainId,
             decision: new Date().toISOString(),
-            // TODO add error state
             state: 'Rejected',
             hash: null,
             code: null
@@ -176,8 +175,6 @@ export default function init({ onerror, settings, wallets, networks, connections
           networkId: selectedNetworkId,
           chainId: selectedChainId,
           decision: new Date().toISOString(),
-          // TODO add error state
-          state: 'Confirmed',
           hash: null,
           code: null
         }
@@ -193,9 +190,11 @@ export default function init({ onerror, settings, wallets, networks, connections
           res.receivedAt = receivedAt
           storedTx.hash = res.txHash
           storedTx.code = res.code
+          storedTx.state = 'Confirmed'
           return res
         } catch (e) {
           storedTx.error = e.message
+          storedTx.state = 'Error'
           if (NodeRPC.isTxError(e)) {
             storedTx.hash = e.data.txHash
             storedTx.code = e.data.code

@@ -144,11 +144,6 @@ export class APIHelper {
       { showPrefix: false }
     ).toBeTruthy()
 
-    resp = await this.login(passphrase)
-    expect(resp, `expected to login via the api but the response was not null, instead it was: ${resp}`, {
-      showPrefix: false
-    }).toBe(null)
-
     resp = await this.setTelemetry(telemetryOptIn)
     expect(resp, `telemetry api response was not null, instead it was: ${resp}`, {
       showPrefix: false

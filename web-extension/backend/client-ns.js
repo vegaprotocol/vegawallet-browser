@@ -145,7 +145,9 @@ export default function init({ onerror, settings, wallets, networks, connections
             chainId: selectedChainId,
             decision: new Date().toISOString(),
             // TODO still handle transaction state
-            state: 'Rejected'
+            state: 'Rejected',
+            hash: null,
+            code: null
           }
           const existingTransactions = (await transactionsStore.get(keyInfo.walletName)) ?? {}
           const existingTransactionByPublicKey = existingTransactions[keyInfo.publicKey] ?? []
@@ -171,7 +173,9 @@ export default function init({ onerror, settings, wallets, networks, connections
           chainId: selectedChainId,
           decision: new Date().toISOString(),
           // TODO still handle transaction state
-          state: 'Confirmed'
+          state: 'Confirmed',
+          hash: null,
+          code: null
         }
 
         try {
@@ -183,14 +187,17 @@ export default function init({ onerror, settings, wallets, networks, connections
           })
 
           res.receivedAt = receivedAt
-
+          storedTx.hash = res.txHash
+          storedTx.code = res.code
           return res
         } catch (e) {
           storedTx.error = e.message
           if (NodeRPC.isTxError(e)) {
+            storedTx.hash = e.data.txHash
+            storedTx.code = e.data.code
             throw new JSONRPCServer.Error(...Errors.TRANSACTION_FAILED, {
               message: e.message,
-              code: e.code
+              ...e.data
             })
           }
 

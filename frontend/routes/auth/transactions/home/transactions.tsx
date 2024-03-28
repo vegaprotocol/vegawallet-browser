@@ -14,7 +14,6 @@ import { RpcMethods } from '@/lib/client-rpc-methods'
 import { WALLET_NAME } from '@/lib/create-wallet'
 import { Transaction } from '@/lib/transactions'
 import { FULL_ROUTES } from '@/routes/route-names'
-import { useWalletStore } from '@/stores/wallets'
 
 export const locators = {
   transactions: 'transactions',

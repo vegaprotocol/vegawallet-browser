@@ -42,7 +42,7 @@ export const TransactionDetails = () => {
         {transaction.error && <Notification intent={Intent.Danger} message={transaction.error} />}
         <VegaSection>
           <SubHeader content="Transaction Details" />
-          <h1 className="text-vega-dark-300 mt-4">From:</h1>
+          <h1 className="text-vega-dark-300 mt-4">From</h1>
           <VegaKey publicKey={transaction.publicKey} key={transaction.keyName} />
           <div className="mt-2">
             <DataTable

@@ -315,8 +315,8 @@ export default function init({
         }
       },
 
-      async 'admin.get_transactions'(params) {
-        params.walletName
+      async 'admin.list_transactions'(params) {
+        doValidate(adminValidation.listTransactions, params)
         const transactions = Object.fromEntries(await transactionsStore.entries())
         return transactions
       }

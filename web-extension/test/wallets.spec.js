@@ -29,8 +29,28 @@ describe('wallets', () => {
 
     await enc.lock()
 
-    expect(enc.isLocked).toBe(true)
+    expect(enc.locked).toBe(true)
     expect(await wallets.getKeyInfo({ publicKey: keys[0].publicKey })).toHaveProperty('publicKey', keys[0].publicKey)
+  })
+
+  it('should reject mnemonics outside the standard dictionary', async () => {
+    const { wallets } = await createWallets()
+
+    await expect(wallets.import({ name: 'wallet 2', recoveryPhrase: 'Tennis ridge feel tiny gather differ own dress isolate agree rain random glimpse cricket jar hurt bundle cattle solar capital require bacon shoulder live' }))
+      .rejects.toThrow(/"Tennis"/)
+
+    await expect(wallets.import({ name: 'wallet 3', recoveryPhrase: 'annual models hawk tell sauce improve real minimum cage rate barrel prize' }))
+      .rejects.toThrow(/"models"/)
+  })
+
+  it('should not reject mnemonics outside the standard dictionary if allow flag is set', async () => {
+    const { wallets } = await createWallets()
+
+    await expect(wallets.import({ name: 'wallet 2', skipValidation: true, recoveryPhrase: 'Tennis ridge feel tiny gather differ own dress isolate agree rain random glimpse cricket jar hurt bundle cattle solar capital require bacon shoulder live' }))
+      .resolves.toBeNull()
+
+    await expect(wallets.import({ name: 'wallet 3', skipValidation: true, recoveryPhrase: 'annual models hawk tell sauce improve real minimum cage rate barrel prize' }))
+      .resolves.toBeNull()
   })
 
   it('should be able to rename a key', async () => {

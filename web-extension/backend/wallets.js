@@ -1,7 +1,6 @@
 import { VegaWallet, HARDENED } from '@vegaprotocol/crypto'
-import { generate as generateMnemonic, validate } from '@vegaprotocol/crypto/bip-0039/mnemonic'
+import { generate as generateMnemonic, validate, VALID_WORD_COUNTS } from '@vegaprotocol/crypto/bip-0039/mnemonic'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
-import { PERMITTED_RECOVERY_PHRASE_LENGTH } from '../../lib/constants.js'
 import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
 
 export class WalletCollection {
@@ -91,15 +90,17 @@ export class WalletCollection {
     return (await generateMnemonic(bitStrength)).join(' ')
   }
 
-  async import({ name, recoveryPhrase }) {
-    try {
-      await validate(recoveryPhrase)
+  async import({ name, recoveryPhrase, skipValidation = false }) {
+    if (skipValidation !== true) {
+      try {
+        await validate(recoveryPhrase)
 
-      const words = recoveryPhrase.split(/\s+/)
-      if (!PERMITTED_RECOVERY_PHRASE_LENGTH.includes(words.length))
-        throw new Error('Recovery phrase must be 12, 15, 18, 21 or 24 words')
-    } catch (err) {
-      throw new Error(err.message)
+        const words = recoveryPhrase.split(/\s+/)
+        if (!VALID_WORD_COUNTS.includes(words.length))
+          throw new Error('Recovery phrase must be 12, 15, 18, 21 or 24 words')
+      } catch (err) {
+        throw new Error(err.message)
+      }
     }
 
     return await this.store.transaction(async (store) => {

@@ -11,6 +11,9 @@
     },
     "recoveryPhrase": {
       "type": "string"
+    },
+    "skipValidation": {
+      "type": "boolean"
     }
   }
 }

@@ -204,21 +204,7 @@ export default class NodeRPC {
     return this.getJSON(`/statistics/spam/${partyId}`)
   }
 
-  async checkRawTransaction(tx) {
-    const res = await this.postJSON('/transaction/raw/check', { tx })
-
-    return res
-  }
-
-  async submitRawTransaction(tx, type) {
-    assert(typeof tx === 'string')
-    assert(typeof type === 'string')
-
-    const res = await this.postJSON('/transaction/raw', {
-      tx,
-      type
-    })
-
+  validateTransactionResponse(res) {
     // Error codes from https://github.com/vegaprotocol/vega/blob/develop/core/blockchain/response.go
     switch (res.code) {
       case 0:
@@ -243,6 +229,24 @@ export default class NodeRPC {
       case 89:
         throw new NodeRPC.TxErrors.AbciSpamError(toString(fromHex(res.data)), res.code, res)
     }
+  }
+
+  async checkRawTransaction(tx) {
+    const res = await this.postJSON('/transaction/raw/check', { tx })
+
+    return this.validateTransactionResponse(res)
+  }
+
+  async submitRawTransaction(tx, type) {
+    assert(typeof tx === 'string')
+    assert(typeof type === 'string')
+
+    const res = await this.postJSON('/transaction/raw', {
+      tx,
+      type
+    })
+
+    return this.validateTransactionResponse(res)
   }
 
   static isTxError(err) {

@@ -61,7 +61,8 @@ describe('Store', () => {
       accessedAt: Date.now(),
       origin: 'https://vega.xyz',
       chainId: 'foo',
-      networkId: 'bar'
+      networkId: 'bar',
+      autoConsent: false
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {
@@ -72,7 +73,8 @@ describe('Store', () => {
         accessedAt: Date.now(),
         origin: 'https://vega.xyz',
         chainId: 'foo',
-        networkId: 'bar'
+        networkId: 'bar',
+        autoConsent: false
       }
     ])
     useConnectionStore.getState().addConnection({
@@ -83,7 +85,8 @@ describe('Store', () => {
       accessedAt: Date.now(),
       origin: 'https://vega.xyz',
       chainId: 'foo',
-      networkId: 'bar'
+      networkId: 'bar',
+      autoConsent: false
     })
     expect(useConnectionStore.getState().connections).toStrictEqual([
       {
@@ -107,7 +110,8 @@ describe('Store', () => {
       accessedAt: Date.now(),
       origin: 'https://vega.xyz',
       chainId: 'foo',
-      networkId: 'bar'
+      networkId: 'bar',
+      autoConsent: false
     }
     useConnectionStore.setState({
       connections: [mockConnection]

@@ -34,7 +34,8 @@ describe('ConnectionList', () => {
           accessedAt: Date.now(),
           origin: 'https://vega.xyz',
           chainId: 'foo',
-          networkId: 'bar'
+          networkId: 'bar',
+          autoConsent: false
         },
         {
           allowList: {
@@ -44,7 +45,8 @@ describe('ConnectionList', () => {
           accessedAt: Date.now(),
           origin: 'foo.com',
           chainId: 'foo',
-          networkId: 'bar'
+          networkId: 'bar',
+          autoConsent: false
         }
       ]
     })

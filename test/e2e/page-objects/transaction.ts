@@ -1,12 +1,13 @@
 import { By, WebDriver } from 'selenium-webdriver'
 import { locators as transactionModalLocators } from '../../../frontend/components/modals/transaction-modal'
+import { locators as transactionModalFooterLocators } from '../../../frontend/components/modals/transaction-modal/transaction-modal-footer'
 import { locators as transferLocators } from '../../../frontend/components/receipts/transfer'
 import { locators as receiptLocators } from '../../..//frontend/components/receipts/utils/receipt-wrapper'
 import { clickElement, getByDataTestID, isElementDisplayed, waitForElementToDisappear } from '../helpers/selenium-util'
 
 export class Transaction {
-  private readonly confirm: By = getByDataTestID(transactionModalLocators.transactionModalApproveButton)
-  private readonly reject: By = getByDataTestID(transactionModalLocators.transactionModalDenyButton)
+  private readonly confirm: By = getByDataTestID(transactionModalFooterLocators.transactionModalApproveButton)
+  private readonly reject: By = getByDataTestID(transactionModalFooterLocators.transactionModalDenyButton)
   private readonly errorLoadingData: By = getByDataTestID(receiptLocators.receiptWrapperError)
   private readonly transferWhen: By = getByDataTestID(transferLocators.whenElement)
 

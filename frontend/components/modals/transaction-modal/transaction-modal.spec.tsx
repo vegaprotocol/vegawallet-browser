@@ -6,6 +6,7 @@ import { mockStore } from '@/test-helpers/mock-store'
 import genericLocators from '../../locators'
 import { TransactionModal } from '.'
 import { locators } from './transaction-modal'
+import { locators as footerLocators } from './transaction-modal-footer'
 
 const transaction = {
   orderSubmission: {
@@ -90,8 +91,8 @@ describe('TransactionModal', () => {
     expect(screen.getByTestId(genericLocators.pageHeader)).toBeVisible()
     expect(screen.getByTestId(locators.transactionWrapper)).toBeVisible()
     expect(screen.getByTestId(locators.transactionTimeAgo)).toHaveTextContent('Received just now')
-    expect(screen.getByTestId(locators.transactionModalApproveButton)).toBeVisible()
-    expect(screen.getByTestId(locators.transactionModalDenyButton)).toBeVisible()
+    expect(screen.getByTestId(footerLocators.transactionModalApproveButton)).toBeVisible()
+    expect(screen.getByTestId(footerLocators.transactionModalDenyButton)).toBeVisible()
   })
 
   it('calls handleTransactionDecision with false if denying', async () => {
@@ -102,7 +103,7 @@ describe('TransactionModal', () => {
       handleTransactionDecision
     })
     render(<TransactionModal />)
-    fireEvent.click(screen.getByTestId(locators.transactionModalDenyButton))
+    fireEvent.click(screen.getByTestId(footerLocators.transactionModalDenyButton))
     expect(handleTransactionDecision).toHaveBeenCalledWith(false)
   })
 
@@ -114,7 +115,7 @@ describe('TransactionModal', () => {
       handleTransactionDecision
     })
     render(<TransactionModal />)
-    fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))
+    fireEvent.click(screen.getByTestId(footerLocators.transactionModalApproveButton))
     expect(handleTransactionDecision).toHaveBeenCalledWith(true)
   })
 })

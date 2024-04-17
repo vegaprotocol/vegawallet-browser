@@ -50,7 +50,7 @@ export const TransactionModalFooter = ({
           Confirm
         </Button>
       </div>
-      {autoConsent && (
+      {!autoConsent && (
         <div>
           <Checkbox
             label={

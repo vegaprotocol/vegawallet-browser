@@ -19,6 +19,8 @@ export const AutomaticConsentSection = ({ connection }: { connection: Connection
     setAutoConsent(!autoConsent)
   })
 
+  if (autoConsent === true) return null
+
   return (
     <form>
       <VegaSection>

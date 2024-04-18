@@ -34,6 +34,10 @@ const data = {
   receivedAt: new Date('2021-01-01T00:00:00.000Z').toISOString()
 }
 
+jest.mock('./transaction-modal-footer', () => ({
+  TransactionModalFooter: () => <div data-testid="transaction-footer" />
+}))
+
 jest.mock('./raw-transaction', () => ({
   RawTransaction: () => <div data-testid="raw-transaction" />
 }))
@@ -70,7 +74,7 @@ describe('TransactionModal', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('renders page header, transaction type, hostname and key', () => {
+  it('renders page header, footer, transaction type, hostname and key', () => {
     /* 1105-TRAN-011 For transactions that are not orders or withdraw / transfers, there is a standard template with the minimum information required i.e. 
 -- [ ] When it was received
 -- [ ] Raw JSON details
@@ -88,6 +92,7 @@ describe('TransactionModal', () => {
     expect(screen.getByTestId('enriched-details')).toBeVisible()
     expect(screen.getByTestId('raw-transaction')).toBeVisible()
     expect(screen.getByTestId('transaction-header')).toBeVisible()
+    expect(screen.getByTestId('transaction-footer')).toBeVisible()
     expect(screen.getByTestId(genericLocators.pageHeader)).toBeVisible()
     expect(screen.getByTestId(locators.transactionWrapper)).toBeVisible()
     expect(screen.getByTestId(locators.transactionTimeAgo)).toHaveTextContent('Received just now')

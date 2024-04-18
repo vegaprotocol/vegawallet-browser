@@ -1,19 +1,21 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { MemoryRouter, useParams } from 'react-router-dom'
 
-import { useAsyncAction } from '@/hooks/async-action'
 import { useConnectionStore } from '@/stores/connections'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
 
-import { ConnectionDetails, locators } from './details'
+import { ConnectionDetails } from './details'
 
-const request = jest.fn()
-jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
-  useJsonRpcClient: () => ({ request })
+jest.mock('./sections/automatic-consent', () => ({
+  AutomaticConsentSection: () => <div data-testid="automatic-consent" />
 }))
-
-jest.mock('@/hooks/async-action')
+jest.mock('./sections/delete-connection', () => ({
+  DeleteConnectionSection: () => <div data-testid="delete-connection" />
+}))
+jest.mock('./sections/details-list', () => ({
+  DetailsSection: () => <div data-testid="details-list" />
+}))
 
 jest.mock('@/stores/connections')
 
@@ -22,15 +24,7 @@ jest.mock('react-router-dom', () => ({
   useParams: jest.fn()
 }))
 
-const defaultImplementation = (function_: any) => ({
-  error: null,
-  loading: false,
-  data: null,
-  loaderFunction: function_
-})
-
-const renderComponent = (async: typeof useAsyncAction = defaultImplementation) => {
-  ;(useAsyncAction as jest.Mock).mockImplementation(async)
+const renderComponent = () => {
   return render(
     <MemoryRouter>
       <ConnectionDetails />
@@ -54,5 +48,27 @@ describe('ConnectionDetails', () => {
     mockStore(useConnectionStore, { connections: [], loading: true })
     const { container } = renderComponent()
     expect(container).toBeEmptyDOMElement()
+  })
+  it('renders all sections', () => {
+    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('http://foo.com') })
+    mockStore(useConnectionStore, {
+      connections: [
+        {
+          origin: 'http://foo.com',
+          accessedAt: 0,
+          chainId: 'chainId',
+          networkId: 'networkId',
+          allowList: {
+            publicKeys: [],
+            wallets: []
+          },
+          autoConsent: false
+        }
+      ]
+    })
+    renderComponent()
+    expect(screen.getByTestId('automatic-consent')).toBeInTheDocument()
+    expect(screen.getByTestId('delete-connection')).toBeInTheDocument()
+    expect(screen.getByTestId('details-list')).toBeInTheDocument()
   })
 })

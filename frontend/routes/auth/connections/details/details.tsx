@@ -9,12 +9,7 @@ import { DeleteConnectionSection } from './sections/delete-connection'
 import { DetailsSection } from './sections/details-list'
 
 export const locators = {
-  connectionDetails: 'connection-details',
-  accessedAt: 'accessed-at',
-  origin: 'origin',
-  chainId: 'chain-id',
-  networkId: 'network-id',
-  removeConnection: 'remove-connection'
+  connectionDetails: 'connection-details'
 }
 
 const getTitle = (origin: string) => {

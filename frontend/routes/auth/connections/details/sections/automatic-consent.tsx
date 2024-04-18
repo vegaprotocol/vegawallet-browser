@@ -18,6 +18,7 @@ export const AutomaticConsentSection = ({ connection }: { connection: Connection
     })
     setAutoConsent(!autoConsent)
   })
+  if (error) throw error
 
   return (
     <form>
@@ -29,7 +30,7 @@ export const AutomaticConsentSection = ({ connection }: { connection: Connection
               'Allow this site to automatically approve order and vote transactions. This can be turned off in "Connections".'
             }
             checked={autoConsent}
-            disabled={!!(loading || error)}
+            disabled={loading}
             onCheckedChange={() => loaderFunction()}
             name={'autoConsent'}
           />

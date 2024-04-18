@@ -15,8 +15,7 @@ export const Transactions = () => {
   const { transactions } = useTransactionsStore((state) => ({
     transactions: state.transactions
   }))
-  // TODO should we be filtering transactions by network id?
-  // const filteredTransactions = transactions.filter((tx) => tx.networkId === network.id)
+  const filteredTransactions = transactions.filter((tx) => tx.networkId === network.id)
 
   return (
     <BasePage dataTestId={locators.transactions} title="Transactions">
@@ -27,7 +26,7 @@ export const Transactions = () => {
             <span className="underline">block explorer.</span>
           </ExternalLink>
         </p>
-        <TransactionsList transactions={transactions} />
+        <TransactionsList transactions={filteredTransactions} />
       </div>
     </BasePage>
   )

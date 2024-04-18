@@ -42,11 +42,18 @@ export const TransactionDetails = () => {
         {transaction.error && <Notification intent={Intent.Danger} message={transaction.error} />}
         <VegaSection>
           <SubHeader content="Transaction Details" />
-          <h1 className="text-vega-dark-300 mt-4">From</h1>
-          <VegaKey publicKey={transaction.publicKey} key={transaction.keyName} />
           <div className="mt-2">
             <DataTable
               items={[
+                [
+                  'From',
+                  <ExternalLink
+                    className="text-vega-dark-400"
+                    href={`${network.explorer}/parties/${transaction.publicKey}`}
+                  >
+                    {truncateMiddle(transaction.publicKey)}
+                  </ExternalLink>
+                ],
                 [
                   'Hash',
                   <ExternalLink href={`${network.explorer}/txs/${transaction.hash}`}>
@@ -55,16 +62,13 @@ export const TransactionDetails = () => {
                 ],
                 [
                   'Network',
-                  <NavLink
-                    className="text-white underline"
-                    to={`${FULL_ROUTES.networksSettings}/${transaction.networkId}`}
-                  >
+                  <NavLink className="underline" to={`${FULL_ROUTES.networksSettings}/${transaction.networkId}`}>
                     {transaction.networkId}
                   </NavLink>
                 ],
                 ['Node', <ExternalLink href={transaction.node}>{transaction.node}</ExternalLink>],
                 ['Origin', <ExternalLink href={transaction.origin}>{transaction.origin}</ExternalLink>],
-                ['Sent', `Sent at ${formatDateTime(new Date(transaction.receivedAt).getTime())}`]
+                ['Sent', `${formatDateTime(new Date(transaction.receivedAt).getTime())}`]
               ]}
             />
           </div>

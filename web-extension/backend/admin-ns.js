@@ -38,6 +38,7 @@ export default function init({
   connections,
   fetchCache,
   transactionsStore,
+  publicKeyIndexStore,
   onerror
 }) {
   connections.on('set', (connection) => {
@@ -189,6 +190,8 @@ export default function init({
         try {
           await wallets.store.delete(params.name)
           await connections.clearConnections()
+          await transactionsStore.delete(params.name)
+          await publicKeyIndexStore.clear()
         } catch (ex) {
           throw new JSONRPCServer.Error(ex.message, 1)
         }

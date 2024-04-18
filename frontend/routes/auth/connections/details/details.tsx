@@ -30,10 +30,12 @@ export const ConnectionDetails = () => {
   const { id } = useParams<{ id: string }>()
   if (!id) throw new Error('Id param not provided to connection details')
 
-  const { connections } = useConnectionStore((state) => ({
-    connections: state.connections
+  const { connections, loading } = useConnectionStore((state) => ({
+    connections: state.connections,
+    loading: state.loading
   }))
   const connectionOrigin = decodeURI(id)
+  if (loading) return null
 
   const connection = connections.find((c) => c.origin === connectionOrigin)
   if (!connection) throw new Error(`Could not find connection with origin ${connectionOrigin}`)

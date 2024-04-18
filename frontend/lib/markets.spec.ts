@@ -68,6 +68,20 @@ describe('getMarketPriceAssetId', () => {
     expect(getMarketPriceAssetId(market)).toBe('asset2')
   })
 
+  it('should return the quote asset ID for a spot market', () => {
+    const market = {
+      id: 'market2',
+      tradableInstrument: {
+        instrument: {
+          spot: {
+            quoteAsset: 'asset3'
+          }
+        }
+      }
+    }
+    expect(getMarketPriceAssetId(market)).toBe('asset3')
+  })
+
   it('should throw an error if no settlement asset is found', () => {
     const market = {
       id: 'market3',

@@ -24,7 +24,7 @@ const MARKET_MOCK = {
 }
 
 const ASSET_MOCK = {
-  symbol: 'SYM'
+  details: { symbol: 'SYM' }
 }
 
 const renderComponent = ({ price, marketId, type }: { price: string; marketId: string; type?: vegaOrderType }) => {

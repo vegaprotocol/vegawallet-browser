@@ -8,7 +8,8 @@ import { useConnectionStore } from '@/stores/connections'
 
 export const locators = {
   transactionModalDenyButton: 'transaction-deny-button',
-  transactionModalApproveButton: 'transaction-approve-button'
+  transactionModalApproveButton: 'transaction-approve-button',
+  transactionModalFooterAutoConsentSection: 'transaction-autoconsent-section'
 }
 
 export const TransactionModalFooter = ({
@@ -22,7 +23,7 @@ export const TransactionModalFooter = ({
   const { connections } = useConnectionStore((state) => ({
     connections: state.connections
   }))
-  const connection = connections.find((c) => c.origin === details?.origin)
+  const connection = connections.find((c) => c.origin === details.origin)
   if (!connection) throw new Error(`Could not find connection with origin ${details.origin}`)
   const [autoConsent, setAutoConsent] = useState(connection.autoConsent)
 
@@ -52,7 +53,7 @@ export const TransactionModalFooter = ({
       </div>
       {/* TODO should only show on transactions where autoConsent is possible */}
       {!autoConsent && (
-        <div>
+        <div data-testid={locators.transactionModalFooterAutoConsentSection}>
           <Checkbox
             label={
               <span className="text-xs">

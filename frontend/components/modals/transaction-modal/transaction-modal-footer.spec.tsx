@@ -1,14 +1,21 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
 import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
+import { RpcMethods } from '@/lib/client-rpc-methods'
 import { useConnectionStore } from '@/stores/connections'
 import { mockClient } from '@/test-helpers/mock-client'
 import { mockStore } from '@/test-helpers/mock-store'
+import { silenceErrors } from '@/test-helpers/silence-errors'
 
 import { testingNetwork } from '../../../../config/well-known-networks'
 import { locators, TransactionModalFooter } from './transaction-modal-footer'
 
 jest.mock('@/stores/connections')
+const mockedRequest = jest.fn()
+
+jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
+  useJsonRpcClient: () => ({ request: mockedRequest })
+}))
 
 const transaction = {
   orderSubmission: {
@@ -38,15 +45,14 @@ const data = {
   receivedAt: new Date('2021-01-01T00:00:00.000Z').toISOString()
 }
 
-const renderComponent = () => {
-  mockClient()
+const renderComponent = (autoConsent = false) => {
   mockStore(useConnectionStore, {
     connections: [
       {
         origin: 'https://www.google.com',
         chainId: testingNetwork.chainId,
         networkId: testingNetwork.id,
-        autoConsent: false,
+        autoConsent,
         accessedAt: 0,
         allowList: {
           publicKeys: [],
@@ -56,32 +62,62 @@ const renderComponent = () => {
     ]
   })
   const function_ = jest.fn()
-  const view = render(
-    <JsonRPCProvider>
-      <TransactionModalFooter details={data} handleTransactionDecision={function_} />
-    </JsonRPCProvider>
-  )
+  const view = render(<TransactionModalFooter details={data} handleTransactionDecision={function_} />)
   return {
     view,
     fn: function_
   }
 }
 
-describe('TransactionModalFooter', () => {})
-test('renders approve and deny buttons', async () => {
-  renderComponent()
-  expect(screen.getByTestId(locators.transactionModalApproveButton)).toBeVisible()
-  expect(screen.getByTestId(locators.transactionModalDenyButton)).toBeVisible()
-})
+describe('TransactionModalFooter', () => {
+  it('throws error if connection could not be found', () => {
+    silenceErrors()
+    mockClient()
+    mockStore(useConnectionStore, {
+      connections: []
+    })
+    const function_ = jest.fn()
+    expect(() => render(<TransactionModalFooter details={data} handleTransactionDecision={function_} />)).toThrow(
+      'Could not find connection with origin https://www.google.com'
+    )
+  })
+  it('renders approve and deny buttons', async () => {
+    renderComponent()
+    expect(screen.getByTestId(locators.transactionModalApproveButton)).toBeVisible()
+    expect(screen.getByTestId(locators.transactionModalDenyButton)).toBeVisible()
+  })
 
-test('calls handleTransactionDecision with false if rejecting', async () => {
-  const { fn } = renderComponent()
-  fireEvent.click(screen.getByTestId(locators.transactionModalDenyButton))
-  expect(fn).toHaveBeenCalledWith(false)
-})
+  it('calls handleTransactionDecision with false if rejecting', async () => {
+    const { fn } = renderComponent()
+    fireEvent.click(screen.getByTestId(locators.transactionModalDenyButton))
+    expect(fn).toHaveBeenCalledWith(false)
+  })
 
-test('calls handleTransactionDecision with false if approving', async () => {
-  const { fn } = renderComponent()
-  fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))
-  expect(fn).toHaveBeenCalledWith(true)
+  it('calls handleTransactionDecision with false if approving', async () => {
+    const { fn } = renderComponent()
+    fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))
+    expect(fn).toHaveBeenCalledWith(true)
+  })
+  it('renders auto consent checkbox if autoConsent is false', async () => {
+    renderComponent()
+    expect(screen.getByTestId(locators.transactionModalFooterAutoConsentSection)).toBeVisible()
+  })
+  it('does not render auto consent checkbox if autoConsent is true', async () => {
+    renderComponent(true)
+    expect(screen.queryByTestId(locators.transactionModalFooterAutoConsentSection)).toBeNull()
+  })
+  it('sets the auto consent value when it changes', async () => {
+    expect(mockedRequest).not.toHaveBeenCalled()
+    renderComponent()
+    fireEvent.click(
+      screen.getByLabelText(
+        'Allow this site to automatically approve order and vote transactions. This can be turned off in "Connections".'
+      )
+    )
+    fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))
+    expect(mockedRequest).toHaveBeenCalledWith(RpcMethods.UpdateConnection, {
+      origin: 'https://www.google.com',
+      autoConsent: true
+    })
+  })
 })

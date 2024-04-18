@@ -15,7 +15,7 @@ jest.mock('@/hooks/async-action')
 
 const renderComponent = () => {
   const connection = {
-    origin: 'http://foo.com',
+    origin: 'https://foo.com',
     accessedAt: 0,
     chainId: 'chainId',
     networkId: 'networkId',
@@ -60,7 +60,7 @@ describe('AutomaticConsent', () => {
     )
     await waitFor(() =>
       expect(request).toHaveBeenCalledWith(RpcMethods.UpdateConnection, {
-        origin: 'http://foo.com',
+        origin: 'https://foo.com',
         autoConsent: true
       })
     )

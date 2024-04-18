@@ -50,11 +50,11 @@ describe('ConnectionDetails', () => {
     expect(container).toBeEmptyDOMElement()
   })
   it('renders all sections & title', () => {
-    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('http://foo.com') })
+    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('https://foo.com') })
     mockStore(useConnectionStore, {
       connections: [
         {
-          origin: 'http://foo.com',
+          origin: 'https://foo.com',
           accessedAt: 0,
           chainId: 'chainId',
           networkId: 'networkId',

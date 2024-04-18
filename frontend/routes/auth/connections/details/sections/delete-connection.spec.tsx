@@ -17,7 +17,7 @@ jest.mock('@/stores/connections')
 
 const renderComponent = () => {
   const connection = {
-    origin: 'http://foo.com',
+    origin: 'https://foo.com',
     accessedAt: 0,
     chainId: 'chainId',
     networkId: 'networkId',
@@ -44,7 +44,7 @@ describe('DeleteConnectionSection', () => {
     }))
     const removeConnection = jest.fn()
     const connection = {
-      origin: 'http://foo.com',
+      origin: 'https://foo.com',
       accessedAt: 0,
       chainId: 'chainId',
       networkId: 'networkId',

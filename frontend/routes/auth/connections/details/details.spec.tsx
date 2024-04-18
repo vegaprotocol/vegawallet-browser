@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter, useParams } from 'react-router-dom'
 
+import { locators } from '@/components/header'
 import { useConnectionStore } from '@/stores/connections'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
 
 import { ConnectionDetails } from './details'
-
 jest.mock('./sections/automatic-consent', () => ({
   AutomaticConsentSection: () => <div data-testid="automatic-consent" />
 }))
@@ -49,7 +49,7 @@ describe('ConnectionDetails', () => {
     const { container } = renderComponent()
     expect(container).toBeEmptyDOMElement()
   })
-  it('renders all sections', () => {
+  it('renders all sections & title', () => {
     ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('http://foo.com') })
     mockStore(useConnectionStore, {
       connections: [
@@ -70,5 +70,27 @@ describe('ConnectionDetails', () => {
     expect(screen.getByTestId('automatic-consent')).toBeInTheDocument()
     expect(screen.getByTestId('delete-connection')).toBeInTheDocument()
     expect(screen.getByTestId('details-list')).toBeInTheDocument()
+    expect(screen.getByTestId(locators.header)).toHaveTextContent('foo.com')
+  })
+
+  it('renders origin if cannot parse', () => {
+    ;(useParams as jest.Mock).mockReturnValue({ id: encodeURI('not-a-valid-url') })
+    mockStore(useConnectionStore, {
+      connections: [
+        {
+          origin: 'not-a-valid-url',
+          accessedAt: 0,
+          chainId: 'chainId',
+          networkId: 'networkId',
+          allowList: {
+            publicKeys: [],
+            wallets: []
+          },
+          autoConsent: false
+        }
+      ]
+    })
+    renderComponent()
+    expect(screen.getByTestId(locators.header)).toHaveTextContent('not-a-valid-url')
   })
 })

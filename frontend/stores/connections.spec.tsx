@@ -97,7 +97,8 @@ describe('Store', () => {
         accessedAt: Date.now(),
         origin: 'https://vega.xyz',
         chainId: 'foo',
-        networkId: 'bar'
+        networkId: 'bar',
+        autoConsent: false
       }
     ])
   })

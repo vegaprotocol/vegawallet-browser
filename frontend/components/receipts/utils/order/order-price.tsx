@@ -13,7 +13,7 @@ export const locators = {
 
 export const OrderPrice = ({ price, marketId, type }: { price: string; marketId: string; type?: vegaOrderType }) => {
   const asset = useMarketPriceAsset(marketId)
-  const symbol = get(asset, 'symbol')
+  const symbol = get(asset, 'details.symbol')
   const formattedPrice = useFormatMarketPrice(marketId, price)
   if (type === vegaOrderType.TYPE_MARKET) return <div data-testid="order-details-market-price">Market price</div>
 

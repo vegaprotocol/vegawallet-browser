@@ -14,7 +14,7 @@ import { BasicTransferView } from './basic-transfer-view'
 import { EnrichedTransferView } from './enriched-transfer-view'
 
 const getTime = (transaction: Transaction) => {
-  const deliverOn = transaction.transfer.oneOff?.deliverOn
+  const deliverOn = transaction.transfer?.oneOff?.deliverOn
   if (deliverOn) {
     const date = nanoSecondsToMilliseconds(deliverOn)
     if (isBefore(date, new Date())) return null

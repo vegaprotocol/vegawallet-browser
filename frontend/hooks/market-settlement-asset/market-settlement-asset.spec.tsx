@@ -5,7 +5,7 @@ import { MarketsStore, useMarketsStore } from '@/stores/markets-store'
 import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
 
-import { useMarketSettlementAsset } from './market-settlement-asset'
+import { useMarketPriceAsset } from './market-settlement-asset'
 
 jest.mock('@/stores/assets-store')
 jest.mock('@/stores/markets-store')
@@ -15,20 +15,20 @@ const mockStores = (marketStore: DeepPartial<MarketsStore>, assetStore: DeepPart
   mockStore(useAssetsStore, assetStore)
 }
 
-describe('useMarketSettlementAsset', () => {
+describe('useMarketPriceAsset', () => {
   it('returns nothing if markets are loading', () => {
     mockStores({ loading: true }, {})
-    const { result } = renderHook(() => useMarketSettlementAsset('someMarketId'))
+    const { result } = renderHook(() => useMarketPriceAsset('someMarketId'))
     expect(result.current).toBeUndefined()
   })
   it('returns nothing if assets are loading', () => {
     mockStores({}, { loading: true })
-    const { result } = renderHook(() => useMarketSettlementAsset('someMarketId'))
+    const { result } = renderHook(() => useMarketPriceAsset('someMarketId'))
     expect(result.current).toBeUndefined()
   })
   it('returns nothing if marketId is undefined', () => {
     mockStores({}, {})
-    const { result } = renderHook(() => useMarketSettlementAsset())
+    const { result } = renderHook(() => useMarketPriceAsset())
     expect(result.current).toBeUndefined()
   })
   it('returns settlement asset if settlement asset can be found', () => {
@@ -44,7 +44,7 @@ describe('useMarketSettlementAsset', () => {
         })
       }
     )
-    const { result } = renderHook(() => useMarketSettlementAsset('someMarketId'))
+    const { result } = renderHook(() => useMarketPriceAsset('someMarketId'))
     expect(result.current).toEqual({
       id: 'someAssetId'
     })
@@ -59,6 +59,6 @@ describe('useMarketSettlementAsset', () => {
       },
       {}
     )
-    expect(() => renderHook(() => useMarketSettlementAsset('someMarketId'))).toThrow()
+    expect(() => renderHook(() => useMarketPriceAsset('someMarketId'))).toThrow()
   })
 })

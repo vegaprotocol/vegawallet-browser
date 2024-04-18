@@ -173,7 +173,8 @@ describe('ConnectionsCollection', () => {
       networkId: null,
       chainId: null,
       allowList: { wallets: ['w1'], publicKeys: [] },
-      accessedAt: 0
+      accessedAt: 0,
+      autoConsent: false
     })
 
     expect(setListener).toHaveBeenCalledWith({
@@ -181,7 +182,8 @@ describe('ConnectionsCollection', () => {
       networkId: null,
       chainId: null,
       allowList: { wallets: ['w1'], publicKeys: [] },
-      accessedAt: 0
+      accessedAt: 0,
+      autoConsent: false
     })
 
     expect(await connections.list()).toEqual([
@@ -190,7 +192,8 @@ describe('ConnectionsCollection', () => {
         allowList: { wallets: ['w1'], publicKeys: [] },
         accessedAt: 0,
         networkId: null,
-        chainId: null
+        chainId: null,
+        autoConsent: false
       }
     ])
 
@@ -253,21 +256,24 @@ describe('ConnectionsCollection', () => {
         allowList: { wallets: ['w1'], publicKeys: [] },
         accessedAt: 2000,
         chainId: null,
-        networkId: null
+        networkId: null,
+        autoConsent: false
       },
       {
         origin: 'https://example.org',
         allowList: { wallets: ['w1'], publicKeys: [] },
         accessedAt: 1000,
         chainId: null,
-        networkId: null
+        networkId: null,
+        autoConsent: false
       },
       {
         origin: 'https://example.com',
         allowList: { wallets: ['w1'], publicKeys: [] },
         accessedAt: 0,
         chainId: null,
-        networkId: null
+        networkId: null,
+        autoConsent: false
       }
     ])
 
@@ -281,21 +287,24 @@ describe('ConnectionsCollection', () => {
         networkId: null,
         origin: 'https://example.org',
         allowList: { wallets: ['w1'], publicKeys: [] },
-        accessedAt: 3000
+        accessedAt: 3000,
+        autoConsent: false
       },
       {
         chainId: null,
         networkId: null,
         origin: 'https://example.net',
         allowList: { wallets: ['w1'], publicKeys: [] },
-        accessedAt: 2000
+        accessedAt: 2000,
+        autoConsent: false
       },
       {
         chainId: null,
         networkId: null,
         origin: 'https://example.com',
         allowList: { wallets: ['w1'], publicKeys: [] },
-        accessedAt: 0
+        accessedAt: 0,
+        autoConsent: false
       }
     ])
 

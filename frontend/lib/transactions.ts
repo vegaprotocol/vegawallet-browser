@@ -84,7 +84,7 @@ export const TRANSACTION_TITLES: Record<TransactionKeys, string> = {
 type TransactionData = Record<string, any>
 
 export type Transaction = {
-  [key in TransactionKeys]: TransactionData
+  [key in TransactionKeys]?: TransactionData
 }
 
 export enum SendingMode {

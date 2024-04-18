@@ -124,7 +124,7 @@ export default function init({ onerror, settings, wallets, networks, connections
         const isLocked = encryptedStore.locked === true
 
         // If the user has not enable auto consent or the transaction type is in the list of transaction types that require consent
-        // as for approval
+        // for approval or if the wallet was locked when the transaction was sent then require user approval
         if (!connection.autoConsent || !AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) || isLocked) {
           const approved = await interactor.reviewTransaction({
             transaction: params.transaction,

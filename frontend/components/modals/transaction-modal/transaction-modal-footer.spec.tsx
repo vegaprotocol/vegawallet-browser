@@ -2,7 +2,6 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { useConnectionStore } from '@/stores/connections'
-import { mockClient } from '@/test-helpers/mock-client'
 import { mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
 
@@ -71,7 +70,6 @@ const renderComponent = (autoConsent = false) => {
 describe('TransactionModalFooter', () => {
   it('throws error if connection could not be found', () => {
     silenceErrors()
-    mockClient()
     mockStore(useConnectionStore, {
       connections: []
     })

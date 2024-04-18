@@ -63,6 +63,7 @@ const clientServer = initClient({
   interactor,
   encryptedStore,
   transactionsStore,
+  publicKeyIndexStore,
   onerror
 })
 

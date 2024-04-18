@@ -1,7 +1,7 @@
 import get from 'lodash/get'
 
 import { useFormatMarketPrice } from '@/hooks/format-market-price'
-import { useMarketSettlementAsset } from '@/hooks/market-settlement-asset'
+import { useMarketPriceAsset } from '@/hooks/market-settlement-asset'
 import { PEGGED_REFERENCE_MAP, processPeggedReference } from '@/lib/enums'
 import { PeggedOrderOptions } from '@/types/transactions'
 
@@ -16,7 +16,7 @@ interface PeggedOrderInfoProperties {
 export const PeggedOrderInfo = ({ peggedOrder, marketId }: PeggedOrderInfoProperties) => {
   const { offset, reference } = peggedOrder
   const formattedOffset = useFormatMarketPrice(marketId, offset)
-  const settlementAsset = useMarketSettlementAsset(marketId)
+  const settlementAsset = useMarketPriceAsset(marketId)
   const symbol = get(settlementAsset, 'details.symbol')
 
   const priceToDisplay = formattedOffset ? (

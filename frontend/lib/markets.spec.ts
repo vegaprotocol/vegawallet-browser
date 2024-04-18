@@ -1,6 +1,6 @@
 import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
 
-import { getSettlementAssetId, isActiveMarket } from './markets'
+import { getMarketPriceAssetId, isActiveMarket } from './markets'
 
 describe('isActiveMarket', () => {
   it('should return true for CONTINUOUS trading mode', () => {
@@ -39,7 +39,7 @@ describe('isActiveMarket', () => {
   })
 })
 
-describe('getSettlementAssetId', () => {
+describe('getMarketPriceAssetId', () => {
   it('should return the settlement asset ID for a future market', () => {
     const market = {
       id: 'market1',
@@ -51,7 +51,7 @@ describe('getSettlementAssetId', () => {
         }
       }
     }
-    expect(getSettlementAssetId(market)).toBe('asset1')
+    expect(getMarketPriceAssetId(market)).toBe('asset1')
   })
 
   it('should return the settlement asset ID for a perpetual market', () => {
@@ -65,7 +65,7 @@ describe('getSettlementAssetId', () => {
         }
       }
     }
-    expect(getSettlementAssetId(market)).toBe('asset2')
+    expect(getMarketPriceAssetId(market)).toBe('asset2')
   })
 
   it('should throw an error if no settlement asset is found', () => {
@@ -78,13 +78,13 @@ describe('getSettlementAssetId', () => {
         }
       }
     }
-    expect(() => getSettlementAssetId(market)).toThrow('Could not find settlement asset from market market3')
+    expect(() => getMarketPriceAssetId(market)).toThrow('Could not find settlement asset from market market3')
   })
 
   it('should handle undefined tradableInstrument', () => {
     const market = {
       id: 'market4'
     }
-    expect(() => getSettlementAssetId(market)).toThrow('Could not find settlement asset from market market4')
+    expect(() => getMarketPriceAssetId(market)).toThrow('Could not find settlement asset from market market4')
   })
 })

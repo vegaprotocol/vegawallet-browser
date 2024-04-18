@@ -1,8 +1,8 @@
-import { getSettlementAssetId } from '@/lib/markets'
+import { getMarketPriceAssetId } from '@/lib/markets'
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'
 
-export const useMarketSettlementAsset = (marketId?: string) => {
+export const useMarketPriceAsset = (marketId?: string) => {
   const { getMarketById, loading: marketsLoading } = useMarketsStore((state) => ({
     getMarketById: state.getMarketById,
     loading: state.loading
@@ -13,6 +13,6 @@ export const useMarketSettlementAsset = (marketId?: string) => {
   }))
   if (assetsLoading || marketsLoading || !marketId) return
   const market = getMarketById(marketId)
-  const settlementAssetId = getSettlementAssetId(market)
+  const settlementAssetId = getMarketPriceAssetId(market)
   return getAssetById(settlementAssetId)
 }

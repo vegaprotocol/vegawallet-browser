@@ -3,7 +3,7 @@ import { create } from 'zustand'
 
 import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider.tsx'
 import { RpcMethods } from '@/lib/client-rpc-methods.ts'
-import { getSettlementAssetId } from '@/lib/markets'
+import { getMarketPriceAssetId } from '@/lib/markets'
 import { removePaginationWrapper } from '@/lib/remove-pagination.ts'
 
 export type MarketsStore = {
@@ -39,7 +39,7 @@ export const useMarketsStore = create<MarketsStore>((set, get) => ({
     return market
   },
   getMarketsByAssetId(assetId: string) {
-    const markets = get().markets.filter((market) => getSettlementAssetId(market) === assetId)
+    const markets = get().markets.filter((market) => getMarketPriceAssetId(market) === assetId)
     return markets
   }
 }))

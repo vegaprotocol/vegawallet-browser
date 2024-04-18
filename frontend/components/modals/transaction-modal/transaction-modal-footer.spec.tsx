@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { JsonRPCProvider } from '@/contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { useConnectionStore } from '@/stores/connections'
 import { mockClient } from '@/test-helpers/mock-client'

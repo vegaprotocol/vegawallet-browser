@@ -38,11 +38,7 @@ describe('AutomaticConsent', () => {
     }))
     renderComponent()
     expect(screen.getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Automatic consent')
-    expect(
-      screen.getByLabelText(
-        'Allow this site to automatically approve order and vote transactions. This can be turned off in "Connections".'
-      )
-    ).toBeVisible()
+    expect(screen.getByLabelText('Allow this site to automatically approve order and vote transactions.')).toBeVisible()
   })
 
   it('calls update connection if checkbox is clicked', async () => {
@@ -53,11 +49,7 @@ describe('AutomaticConsent', () => {
       loaderFunction: function_
     }))
     renderComponent()
-    fireEvent.click(
-      screen.getByLabelText(
-        'Allow this site to automatically approve order and vote transactions. This can be turned off in "Connections".'
-      )
-    )
+    fireEvent.click(screen.getByLabelText('Allow this site to automatically approve order and vote transactions.'))
     await waitFor(() =>
       expect(request).toHaveBeenCalledWith(RpcMethods.UpdateConnection, {
         origin: 'https://foo.com',

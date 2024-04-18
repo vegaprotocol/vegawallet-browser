@@ -26,9 +26,7 @@ export const AutomaticConsentSection = ({ connection }: { connection: Connection
         <SubHeader content="Automatic consent" />
         <div className="mt-2">
           <Checkbox
-            label={
-              'Allow this site to automatically approve order and vote transactions. This can be turned off in "Connections".'
-            }
+            label={'Allow this site to automatically approve order and vote transactions.'}
             checked={autoConsent}
             disabled={loading}
             onCheckedChange={() => loaderFunction()}

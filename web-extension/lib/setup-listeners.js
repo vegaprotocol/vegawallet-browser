@@ -35,7 +35,7 @@ export async function install({ networks, settings }) {
   ])
 }
 
-const migrations = [
+export const migrations = [
   // The first migration is due to the introduction of autoOpen in 0.11.0,
   // however, we failed to test updates in CI.
   async function v1({ settings }) {
@@ -84,7 +84,6 @@ const migrations = [
         await networks.set(network.id, network)
       }
       await store.set('version', 3)
-      await store.set('showHiddenNetworks', false)
     })
   },
 
@@ -114,7 +113,7 @@ const migrations = [
         await connections.store.set(origin, connection)
       }
 
-      await store.set('version', 3)
+      await store.set('version', 5)
       await store.set('showHiddenNetworks', false)
     })
   }

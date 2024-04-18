@@ -3,7 +3,8 @@ import {
   createOnInstalledListener,
   setupListeners,
   update,
-  install
+  install,
+  migrations
 } from '../lib/setup-listeners.js'
 import ConcurrentStorage from '../lib/concurrent-storage.js'
 import config from '!/config'
@@ -61,7 +62,7 @@ describe('SetupListeners', () => {
     expect(settingsMock.set).toHaveBeenCalledTimes(4)
     expect(settingsMock.set).toHaveBeenCalledWith('selectedNetwork', testingNetwork.id)
     expect(settingsMock.set).toHaveBeenCalledWith('autoOpen', true)
-    expect(settingsMock.set).toHaveBeenCalledWith('version', 4)
+    expect(settingsMock.set).toHaveBeenCalledWith('version', migrations.length)
   })
 
   it('should create a window if autoOpenOnInstall is true', async () => {
@@ -121,7 +122,7 @@ describe('SetupListeners', () => {
 
     await install({ networks, settings })
 
-    expect(await settings.get('version')).toBe(4)
+    expect(await settings.get('version')).toBe(migrations.length)
     const clone = Array.from(await settings.entries())
 
     await update({ settings, connections })
@@ -156,7 +157,7 @@ describe('SetupListeners', () => {
 
     await update({ settings, networks, connections, wallets, keySortIndex })
 
-    expect(await settings.get('version')).toBe(4)
+    expect(await settings.get('version')).toBe(migrations.length)
     expect(await settings.get('autoOpen')).toBe(true)
   })
 
@@ -187,7 +188,7 @@ describe('SetupListeners', () => {
 
     await update({ settings, networks, connections, wallets, keySortIndex })
 
-    expect(await settings.get('version')).toBe(4)
+    expect(await settings.get('version')).toBe(migrations.length)
     expect(await settings.get('autoOpen')).toBe(true)
   })
 
@@ -218,7 +219,7 @@ describe('SetupListeners', () => {
 
     await update({ settings, networks, connections, wallets, keySortIndex })
 
-    expect(await settings.get('version')).toBe(4)
+    expect(await settings.get('version')).toBe(migrations.length)
     expect(await settings.get('autoOpen')).toBe(false)
   })
 
@@ -265,7 +266,8 @@ describe('SetupListeners', () => {
       accessedAt: 0,
       origin: 'https://example.com',
       chainId: 'test-chain-id',
-      networkId: 'test'
+      networkId: 'test',
+      autoConsent: false
     })
   })
 
@@ -352,5 +354,52 @@ describe('SetupListeners', () => {
     const keySortIndexEntries = await keySortIndex.entries()
 
     expect(Array.from(keySortIndexEntries).length).toBe(1)
+  })
+
+  it('should apply migrations from version 3 to version 4', async () => {
+    const networks = new NetworkCollection(new Map([['something', fairground]]))
+    const settings = new ConcurrentStorage(
+      new Map([
+        ['version', 1],
+        ['autoOpen', true]
+      ])
+    )
+    const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
+    await enc.create('p')
+    const publicKeyIndexStore = new ConcurrentStorage(new Map())
+    const keySortIndex = new ConcurrentStorage(new Map())
+    const wallets = new WalletCollection({
+      walletsStore: enc,
+      publicKeyIndexStore,
+      keySortIndex: new Map()
+    })
+    await wallets.import({ name: 'wallet 1', recoveryPhrase: await wallets.generateRecoveryPhrase() })
+    await wallets.generateKey({ wallet: 'wallet 1', name: 'key 1' })
+    const connections = new ConnectionsCollection({
+      connectionsStore: new Map(),
+      publicKeyIndexStore,
+      keySortIndex
+    })
+
+    await connections.set('https://example.com', {
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      },
+      accessedAt: 0
+    })
+
+    await update({ settings, networks, connections, wallets, keySortIndex })
+    expect(await connections.get('https://example.com')).toStrictEqual({
+      allowList: {
+        wallets: ['w1'],
+        publicKeys: []
+      },
+      accessedAt: 0,
+      origin: 'https://example.com',
+      chainId: 'test-chain-id',
+      networkId: 'test',
+      autoConsent: false
+    })
   })
 })

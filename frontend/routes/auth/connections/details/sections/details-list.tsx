@@ -6,7 +6,12 @@ import { formatDate } from '@/lib/utils'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { Connection } from '@/types/backend'
 
-import { locators } from '../details'
+export const locators = {
+  accessedAt: 'accessed-at',
+  origin: 'origin',
+  chainId: 'chain-id',
+  networkId: 'network-id'
+}
 
 export const DetailsSection = ({ connection }: { connection: Connection }) => {
   return (

@@ -8,7 +8,9 @@ import { FULL_ROUTES } from '@/routes/route-names'
 import { useConnectionStore } from '@/stores/connections'
 import { Connection } from '@/types/backend'
 
-import { locators } from '../details'
+export const locators = {
+  removeConnection: 'remove-connection'
+}
 
 export const DeleteConnectionSection = ({ connection }: { connection: Connection }) => {
   const { request } = useJsonRpcClient()
@@ -30,7 +32,12 @@ export const DeleteConnectionSection = ({ connection }: { connection: Connection
   if (loading || removingConnection) return null
   return (
     <VegaSection>
-      <form onSubmit={() => loaderFunction()}>
+      <form
+        onSubmit={(event_) => {
+          event_.preventDefault()
+          loaderFunction()
+        }}
+      >
         <Button data-testid={locators.removeConnection} type="submit" className="w-full mb-6" variant="secondary">
           Remove connection
         </Button>

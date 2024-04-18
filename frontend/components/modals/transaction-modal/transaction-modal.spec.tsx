@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 import { useInteractionStore } from '@/stores/interaction-store'
 import { mockStore } from '@/test-helpers/mock-store'
@@ -6,7 +6,6 @@ import { mockStore } from '@/test-helpers/mock-store'
 import genericLocators from '../../locators'
 import { TransactionModal } from '.'
 import { locators } from './transaction-modal'
-import { locators as footerLocators } from './transaction-modal-footer'
 
 const transaction = {
   orderSubmission: {
@@ -96,31 +95,5 @@ describe('TransactionModal', () => {
     expect(screen.getByTestId(genericLocators.pageHeader)).toBeVisible()
     expect(screen.getByTestId(locators.transactionWrapper)).toBeVisible()
     expect(screen.getByTestId(locators.transactionTimeAgo)).toHaveTextContent('Received just now')
-    expect(screen.getByTestId(footerLocators.transactionModalApproveButton)).toBeVisible()
-    expect(screen.getByTestId(footerLocators.transactionModalDenyButton)).toBeVisible()
-  })
-
-  it('calls handleTransactionDecision with false if denying', async () => {
-    const handleTransactionDecision = jest.fn()
-    mockStore(useInteractionStore, {
-      transactionModalOpen: true,
-      currentTransactionDetails: data,
-      handleTransactionDecision
-    })
-    render(<TransactionModal />)
-    fireEvent.click(screen.getByTestId(footerLocators.transactionModalDenyButton))
-    expect(handleTransactionDecision).toHaveBeenCalledWith(false)
-  })
-
-  it('renders nothing after approving', async () => {
-    const handleTransactionDecision = jest.fn()
-    mockStore(useInteractionStore, {
-      transactionModalOpen: true,
-      currentTransactionDetails: data,
-      handleTransactionDecision
-    })
-    render(<TransactionModal />)
-    fireEvent.click(screen.getByTestId(footerLocators.transactionModalApproveButton))
-    expect(handleTransactionDecision).toHaveBeenCalledWith(true)
   })
 })

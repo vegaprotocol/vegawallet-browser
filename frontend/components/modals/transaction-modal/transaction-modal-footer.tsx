@@ -50,6 +50,7 @@ export const TransactionModalFooter = ({
           Confirm
         </Button>
       </div>
+      {/* TODO should only show on transactions where autoConsent is possible */}
       {!autoConsent && (
         <div>
           <Checkbox

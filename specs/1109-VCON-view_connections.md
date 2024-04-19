@@ -10,3 +10,4 @@ As a wallet user I want to see which dapps have permission to access my keys So 
 - I can choose to disconnect a dapp connection (and it's pre-approved status i.e. the next time I want to connect the dapp I am asked to approve the connection) (<a name="1109-VCON-006" href="#1109-VCON-006">1109-VCON-006</a>)
 - The dapp is informed of the disconnection via an event handler (<a name="1109-VCON-007" href="#1109-VCON-007">1109-VCON-007</a>)
 - If I have the extension open on the Connections view AND I approve a request to connect to a dapp (and the connection is successful), the connections view should update to show the new connection (<a name="1109-VCON-008" href="#1109-VCON-008">1109-VCON-008</a>)
+- I am able to toggle auto consent in the connection details screen (<a name="1109-VCON-009" href="#1109-VCON-009">1109-VCON-009</a>)

@@ -118,7 +118,7 @@ describe('TransferReceipt', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('if transfer time is in the past renders now', () => {
+  it('if transfer time is in the past renders immediate', () => {
     // 1124-TRAN-002 For a oneOff transfer which is has a delivery date in the past there is a way to see that the transfer will be executed immediately
     mockStore(useWalletStore, {
       loading: false,
@@ -135,10 +135,10 @@ describe('TransferReceipt', () => {
       }
     }
     renderComponent(oneOffTransfer)
-    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
+    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Immediate')
   })
 
-  it('if deliverOn is not provided renders now', () => {
+  it('if deliverOn is not provided renders immediate', () => {
     mockStores(mockAsset)
 
     const oneOffTransfer = {
@@ -148,7 +148,7 @@ describe('TransferReceipt', () => {
     }
     renderComponent(oneOffTransfer)
 
-    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Now')
+    expect(screen.getByTestId(locators.whenElement)).toHaveTextContent('Immediate')
   })
 
   it('if transfer is in future then it renders relative & absolute time', () => {

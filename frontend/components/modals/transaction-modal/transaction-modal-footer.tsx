@@ -3,13 +3,19 @@ import { useState } from 'react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import { TransactionMessage } from '@/lib/transactions'
+import { Transaction, TransactionMessage } from '@/lib/transactions'
 import { useConnectionStore } from '@/stores/connections'
+
+import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../../../lib/constants'
 
 export const locators = {
   transactionModalDenyButton: 'transaction-deny-button',
   transactionModalApproveButton: 'transaction-approve-button',
   transactionModalFooterAutoConsentSection: 'transaction-autoconsent-section'
+}
+
+export function getTransactionType(tx: Transaction) {
+  return Object.keys(tx)[0]
 }
 
 export const TransactionModalFooter = ({
@@ -52,7 +58,7 @@ export const TransactionModalFooter = ({
         </Button>
       </div>
       {/* TODO should only show on transactions where autoConsent is possible */}
-      {!autoConsent && (
+      {!autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(getTransactionType(t)) && (
         <div data-testid={locators.transactionModalFooterAutoConsentSection}>
           <Checkbox
             label={

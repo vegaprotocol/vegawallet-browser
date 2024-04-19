@@ -58,7 +58,7 @@ export const TransactionModalFooter = ({
         </Button>
       </div>
       {/* TODO should only show on transactions where autoConsent is possible */}
-      {!autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(getTransactionType(t)) && (
+      {!autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(getTransactionType(details.transaction)) && (
         <div data-testid={locators.transactionModalFooterAutoConsentSection}>
           <Checkbox
             label={

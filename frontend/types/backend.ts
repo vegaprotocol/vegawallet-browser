@@ -51,13 +51,13 @@ export interface StoredTransaction {
   keyName: string
   walletName: string
   origin: string
-  node?: string
   receivedAt: string // Date
-  error?: string
   networkId: string
   chainId: string
   decision: string // Date
   state: TransactionState
-  code: number
-  hash: string
+  node: string
+  error?: string
+  hash?: string
+  code?: number
 }

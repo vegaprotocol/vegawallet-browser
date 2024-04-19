@@ -1,10 +1,10 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
+import { ReactNode } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
 import { DataTable } from '@/components/data-table'
 import { ExternalLink } from '@/components/external-link'
-import { VegaKey } from '@/components/keys/vega-key'
 import { getTitle } from '@/components/modals/transaction-modal/get-title'
 import { RawTransaction } from '@/components/modals/transaction-modal/raw-transaction'
 import { BasePage } from '@/components/pages/page'
@@ -29,6 +29,32 @@ export const TransactionDetails = () => {
     throw new Error(`Could not find transaction with id ${id}`)
   }
 
+  const cols = [
+    [
+      'From',
+      <ExternalLink className="text-vega-dark-400" href={`${network.explorer}/parties/${transaction.publicKey}`}>
+        {truncateMiddle(transaction.publicKey)}
+      </ExternalLink>
+    ],
+    transaction.hash
+      ? [
+          'Hash',
+          <ExternalLink href={`${network.explorer}/txs/${transaction.hash}`}>
+            {truncateMiddle(transaction.hash)}
+          </ExternalLink>
+        ]
+      : null,
+    [
+      'Network',
+      <NavLink className="underline" to={`${FULL_ROUTES.networksSettings}/${transaction.networkId}`}>
+        {transaction.networkId}
+      </NavLink>
+    ],
+    ['Node', <ExternalLink href={transaction.node}>{transaction.node}</ExternalLink>],
+    ['Origin', <ExternalLink href={transaction.origin}>{transaction.origin}</ExternalLink>],
+    ['Sent', `${formatDateTime(new Date(transaction.receivedAt).getTime())}`]
+  ].filter(Boolean) as [ReactNode, ReactNode][]
+
   return (
     <BasePage
       backLocation={FULL_ROUTES.transactions}
@@ -43,34 +69,7 @@ export const TransactionDetails = () => {
         <VegaSection>
           <SubHeader content="Transaction Details" />
           <div className="mt-2">
-            <DataTable
-              items={[
-                [
-                  'From',
-                  <ExternalLink
-                    className="text-vega-dark-400"
-                    href={`${network.explorer}/parties/${transaction.publicKey}`}
-                  >
-                    {truncateMiddle(transaction.publicKey)}
-                  </ExternalLink>
-                ],
-                [
-                  'Hash',
-                  <ExternalLink href={`${network.explorer}/txs/${transaction.hash}`}>
-                    {truncateMiddle(transaction.hash)}
-                  </ExternalLink>
-                ],
-                [
-                  'Network',
-                  <NavLink className="underline" to={`${FULL_ROUTES.networksSettings}/${transaction.networkId}`}>
-                    {transaction.networkId}
-                  </NavLink>
-                ],
-                ['Node', <ExternalLink href={transaction.node}>{transaction.node}</ExternalLink>],
-                ['Origin', <ExternalLink href={transaction.origin}>{transaction.origin}</ExternalLink>],
-                ['Sent', `${formatDateTime(new Date(transaction.receivedAt).getTime())}`]
-              ]}
-            />
+            <DataTable items={cols} />
           </div>
         </VegaSection>
         <VegaSection>

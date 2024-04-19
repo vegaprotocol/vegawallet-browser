@@ -120,7 +120,7 @@ describe('list connections tests', () => {
     await secondDapp.removeEventListener('client.disconnected')
   })
 
-  it('disconnects all instances of a dapp when I have more than one instance when I click disonnect', async () => {
+  it('disconnects all instances of a dapp when I have more than one instance when I click disconnect', async () => {
     secondDapp = new VegaAPI(driver)
     await firstDapp.connectWallet()
     await firstDapp.addEventListener('client.disconnected')

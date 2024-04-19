@@ -42,6 +42,7 @@ describe('AutomaticConsent', () => {
   })
 
   it('calls update connection if checkbox is clicked', async () => {
+    // 1109-VCON-009 - I am able to toggle auto consent in the connection details screen
     ;(useAsyncAction as jest.Mock).mockImplementation((function_: any) => ({
       error: null,
       data: null,

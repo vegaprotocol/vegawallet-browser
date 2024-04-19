@@ -70,6 +70,19 @@ export class APIHelper {
     })
   }
 
+  async updateConnection(origin: string, autoConsent: boolean) {
+    return await this.driver.executeScript<any>(
+      async (origin: string, autoConsent: boolean) => {
+        await window.client.request('admin.update_connection', {
+          origin,
+          autoConsent
+        })
+      },
+      origin,
+      autoConsent
+    )
+  }
+
   async listNetworks() {
     return await this.driver.executeAsyncScript<Network[]>(async (callback: (arg0: any) => void) => {
       const { networks } = await window.client.request('admin.list_networks', null)

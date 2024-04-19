@@ -10,6 +10,9 @@ export class Transaction {
   private readonly reject: By = getByDataTestID(transactionModalFooterLocators.transactionModalDenyButton)
   private readonly errorLoadingData: By = getByDataTestID(receiptLocators.receiptWrapperError)
   private readonly transferWhen: By = getByDataTestID(transferLocators.whenElement)
+  private readonly autoConsent: By = getByDataTestID(
+    transactionModalFooterLocators.transactionModalFooterAutoConsentSection
+  )
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -41,5 +44,9 @@ export class Transaction {
       "expected to be on the confirm/reject transaction view but couldn't find the confirm button",
       { showPrefix: false }
     ).toBe(true)
+  }
+
+  async isAutoConsentPromptVisible() {
+    return await isElementDisplayed(this.driver, this.autoConsent)
   }
 }

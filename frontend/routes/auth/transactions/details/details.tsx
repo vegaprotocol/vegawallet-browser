@@ -74,7 +74,6 @@ export const TransactionDetails = () => {
         </VegaSection>
         <VegaSection>
           <SubHeader content="Transaction data" />
-          {/* TODO Show errors if data cannot be rendered (failed to read tx) */}
           <TransactionSwitch transaction={transaction.transaction} />
           <RawTransaction transaction={transaction.transaction} />
         </VegaSection>

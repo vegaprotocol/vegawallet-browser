@@ -42,7 +42,7 @@ describe('ReceiptViewErrorBoundary', () => {
     )
     // Verify that the error message is displayed
     const errorMessage = screen.getByText(
-      "Your transaction receipt can't be shown. View the raw transaction to verify that you want to send this transaction."
+      "Your transaction receipt can't be shown. You can still view the raw transaction JSON below."
     )
     expect(errorMessage).toBeInTheDocument()
 
@@ -65,7 +65,7 @@ describe('ReceiptViewErrorBoundary', () => {
     )
     // Verify that the error message is displayed
     const errorMessage = screen.getByText(
-      "Your transaction receipt can't be shown. View the raw transaction to verify that you want to send this transaction."
+      "Your transaction receipt can't be shown. You can still view the raw transaction JSON below."
     )
     expect(errorMessage).toBeInTheDocument()
 

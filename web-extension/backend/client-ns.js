@@ -2,6 +2,7 @@ import JSONRPCServer from '../../lib/json-rpc-server.js'
 import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
+import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../lib/constants.js'
 
 const Errors = {
   NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],
@@ -29,16 +30,6 @@ const Errors = {
     'The chain ID is known to the wallet, but this is a hidden chainId used for development. Please ensure you have enabled hidden networks in settings'
   ]
 }
-
-const AUTO_CONSENT_TRANSACTION_TYPES = [
-  'orderSubmission',
-  'orderCancellation',
-  'orderAmendment',
-  'stopOrdersSubmission',
-  'stopOrdersCancellation',
-  'voteSubmission',
-  'updateMarginMode'
-]
 
 function doValidate(validator, params) {
   if (!validator(params))

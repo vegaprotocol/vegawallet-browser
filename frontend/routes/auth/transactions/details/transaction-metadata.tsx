@@ -13,6 +13,15 @@ import { StoredTransaction } from '@/types/backend'
 
 import { VegaTransactionState } from '../transactions-state'
 
+export const locators = {
+  transactionMetadataPublicKey: 'transaction-metadata-public-key',
+  transactionMetadataHash: 'transaction-metadata-hash',
+  transactionMetadataNetwork: 'transaction-metadata-network',
+  transactionMetadataNode: 'transaction-metadata-node',
+  transactionMetadataOrigin: 'transaction-metadata-origin',
+  transactionMetadataSent: 'transaction-metadata-sent'
+}
+
 interface TransactionSectionProperties {
   transaction: StoredTransaction
 }
@@ -23,6 +32,7 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
     [
       'From',
       <ExternalLink
+        data-testid={locators.transactionMetadataPublicKey}
         key="transaction-details-public-key"
         className="text-vega-dark-400"
         href={`${network.explorer}/parties/${transaction.publicKey}`}
@@ -33,7 +43,11 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
     transaction.hash
       ? [
           'Hash',
-          <ExternalLink key="transaction-details-hash" href={`${network.explorer}/txs/${transaction.hash}`}>
+          <ExternalLink
+            data-testid={locators.transactionMetadataHash}
+            key="transaction-details-hash"
+            href={`${network.explorer}/txs/${transaction.hash}`}
+          >
             {truncateMiddle(transaction.hash)}
           </ExternalLink>
         ]
@@ -41,6 +55,7 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
     [
       'Network',
       <NavLink
+        data-testid={locators.transactionMetadataNetwork}
         key="transaction-details-network"
         className="underline"
         to={`${FULL_ROUTES.networksSettings}/${transaction.networkId}`}
@@ -50,17 +65,30 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
     ],
     [
       'Node',
-      <ExternalLink key="transaction-details-node" href={transaction.node}>
+      <ExternalLink
+        data-testid={locators.transactionMetadataNode}
+        key="transaction-details-node"
+        href={transaction.node}
+      >
         {transaction.node}
       </ExternalLink>
     ],
     [
       'Origin',
-      <ExternalLink key="transaction-details-origin" href={transaction.origin}>
+      <ExternalLink
+        data-testid={locators.transactionMetadataOrigin}
+        key="transaction-details-origin"
+        href={transaction.origin}
+      >
         {transaction.origin}
       </ExternalLink>
     ],
-    ['Sent', `${formatDateTime(new Date(transaction.receivedAt).getTime())}`]
+    [
+      'Sent',
+      <div key="transaction-details-sent" data-testid={locators.transactionMetadataSent}>
+        {formatDateTime(new Date(transaction.receivedAt).getTime())}
+      </div>
+    ]
   ].filter(Boolean) as [ReactNode, ReactNode][]
 
   return (

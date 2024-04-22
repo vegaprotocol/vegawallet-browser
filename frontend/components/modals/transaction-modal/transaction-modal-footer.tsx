@@ -36,7 +36,7 @@ export const TransactionModalFooter = ({
   const handleDecision = async (decision: boolean) => {
     handleTransactionDecision(decision)
     if (connection && autoConsent !== connection.autoConsent) {
-      await request(RpcMethods.UpdateConnection, {
+      await request(RpcMethods.UpdateAutomaticConsent, {
         origin: connection.origin,
         autoConsent
       })

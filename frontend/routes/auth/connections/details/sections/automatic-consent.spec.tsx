@@ -52,7 +52,7 @@ describe('AutomaticConsent', () => {
     renderComponent()
     fireEvent.click(screen.getByLabelText('Allow this site to automatically approve order and vote transactions.'))
     await waitFor(() =>
-      expect(request).toHaveBeenCalledWith(RpcMethods.UpdateConnection, {
+      expect(request).toHaveBeenCalledWith(RpcMethods.UpdateAutomaticConsent, {
         origin: 'https://foo.com',
         autoConsent: true
       })

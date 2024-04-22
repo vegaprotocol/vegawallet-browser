@@ -278,7 +278,7 @@ export default function init({ encryptedStore, settings, wallets, networks, conn
         return null
       },
 
-      async 'admin.update_connection'(params) {
+      async 'admin.update_automatic_consent'(params) {
         doValidate(adminValidation.updateConnection, params)
 
         await connections.update(params.origin, { autoConsent: params.autoConsent })

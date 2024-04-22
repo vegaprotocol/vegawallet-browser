@@ -12,7 +12,7 @@ export const AutomaticConsentSection = ({ connection }: { connection: Connection
   const [autoConsent, setAutoConsent] = useState(connection.autoConsent)
   const { request } = useJsonRpcClient()
   const { loaderFunction, loading, error } = useAsyncAction(async () => {
-    await request(RpcMethods.UpdateConnection, {
+    await request(RpcMethods.UpdateAutomaticConsent, {
       origin: connection.origin,
       autoConsent: !autoConsent
     })

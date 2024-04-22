@@ -1,5 +1,4 @@
-import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
+import { Intent, Notification, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
@@ -32,26 +31,44 @@ export const TransactionDetails = () => {
   const cols = [
     [
       'From',
-      <ExternalLink className="text-vega-dark-400" href={`${network.explorer}/parties/${transaction.publicKey}`}>
+      <ExternalLink
+        key="transaction-details-public-key"
+        className="text-vega-dark-400"
+        href={`${network.explorer}/parties/${transaction.publicKey}`}
+      >
         {truncateMiddle(transaction.publicKey)}
       </ExternalLink>
     ],
     transaction.hash
       ? [
           'Hash',
-          <ExternalLink href={`${network.explorer}/txs/${transaction.hash}`}>
+          <ExternalLink key="transaction-details-hash" href={`${network.explorer}/txs/${transaction.hash}`}>
             {truncateMiddle(transaction.hash)}
           </ExternalLink>
         ]
       : null,
     [
       'Network',
-      <NavLink className="underline" to={`${FULL_ROUTES.networksSettings}/${transaction.networkId}`}>
+      <NavLink
+        key="transaction-details-network"
+        className="underline"
+        to={`${FULL_ROUTES.networksSettings}/${transaction.networkId}`}
+      >
         {transaction.networkId}
       </NavLink>
     ],
-    ['Node', <ExternalLink href={transaction.node}>{transaction.node}</ExternalLink>],
-    ['Origin', <ExternalLink href={transaction.origin}>{transaction.origin}</ExternalLink>],
+    [
+      'Node',
+      <ExternalLink key="transaction-details-node" href={transaction.node}>
+        {transaction.node}
+      </ExternalLink>
+    ],
+    [
+      'Origin',
+      <ExternalLink key="transaction-details-origin" href={transaction.origin}>
+        {transaction.origin}
+      </ExternalLink>
+    ],
     ['Sent', `${formatDateTime(new Date(transaction.receivedAt).getTime())}`]
   ].filter(Boolean) as [ReactNode, ReactNode][]
 

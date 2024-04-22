@@ -22,14 +22,7 @@ describe('Orders Store', () => {
   })
 
   it('should set loading to true when getOrderById is called', async () => {
-    requestMock.mockImplementation(
-      () =>
-        new Promise((resolve) => {
-          Promise.resolve().then(() => {
-            resolve({ order: {} })
-          })
-        })
-    )
+    requestMock.mockImplementation(() => Promise.resolve({ order: {} }))
 
     useOrdersStore.setState({ loading: false })
     const promise = useOrdersStore.getState().getOrderById(requestMock, 'some-id', testingNetwork.id)

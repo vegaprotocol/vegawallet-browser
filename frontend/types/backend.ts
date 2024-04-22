@@ -41,7 +41,11 @@ export interface Network {
   vegaDapps: string
 }
 
-export type TransactionState = 'Confirmed' | 'Rejected' | 'Error'
+export enum TransactionState {
+  Confirmed = 'Confirmed',
+  Rejected = 'Rejected',
+  Error = 'Error'
+}
 
 export interface StoredTransaction {
   id: string

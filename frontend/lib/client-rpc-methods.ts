@@ -24,7 +24,7 @@ export const RpcMethods = {
   OpenPopout: 'admin.open_popout',
   UpdateSettings: 'admin.update_app_settings',
   RemoveConnection: 'admin.remove_connection',
-  UpdateConnection: 'admin.update_connection',
+  UpdateAutomaticConsent: 'admin.update_automatic_consent',
 
   // Networks
   ListNetworks: 'admin.list_networks',

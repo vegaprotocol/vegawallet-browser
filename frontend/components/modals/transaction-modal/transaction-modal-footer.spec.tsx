@@ -112,7 +112,7 @@ describe('TransactionModalFooter', () => {
       )
     )
     fireEvent.click(screen.getByTestId(locators.transactionModalApproveButton))
-    expect(mockedRequest).toHaveBeenCalledWith(RpcMethods.UpdateConnection, {
+    expect(mockedRequest).toHaveBeenCalledWith(RpcMethods.UpdateAutomaticConsent, {
       origin: 'https://www.google.com',
       autoConsent: true
     })

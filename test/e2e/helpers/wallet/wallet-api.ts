@@ -73,7 +73,7 @@ export class APIHelper {
   async updateConnection(origin: string, autoConsent: boolean) {
     return await this.driver.executeScript<any>(
       async (origin: string, autoConsent: boolean) => {
-        await window.client.request('admin.update_connection', {
+        await window.client.request('admin.update_automatic_consent', {
           origin,
           autoConsent
         })

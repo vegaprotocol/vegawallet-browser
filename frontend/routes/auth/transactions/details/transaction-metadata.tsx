@@ -95,8 +95,8 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
     <VegaSection>
       <div className="mb-2">
         <VegaTransactionState state={transaction.state} />
+        {transaction.error && <Notification intent={Intent.Danger} message={transaction.error} />}
       </div>
-      {transaction.error && <Notification intent={Intent.Danger} message={transaction.error} />}
       <SubHeader content="Transaction Details" />
       <div className="mt-2">
         <DataTable items={cols} />

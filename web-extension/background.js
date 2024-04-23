@@ -51,7 +51,8 @@ const connections = new ConnectionsCollection({
 const fetchCache = new FetchCache(new StorageSessionMap('fetch-cache'))
 const transactionsStore = new ConcurrentStorage(new StorageLocalMap('transactions'))
 const transactions = new TransactionsCollection({
-  store: transactionsStore
+  store: transactionsStore,
+  connections
 })
 // setupSentry(settings, wallets)
 
@@ -89,7 +90,7 @@ const server = initAdmin({
   networks,
   connections,
   fetchCache,
-  transactionsStore,
+  transactions,
   onerror
 })
 

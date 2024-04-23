@@ -1,9 +1,9 @@
 import JSONRPCServer from '../../lib/json-rpc-server.js'
+import { TransactionsCollection } from './transactions.js'
 import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../lib/constants.js'
-import { v4 as uuidv4 } from 'uuid'
 
 const Errors = {
   NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],
@@ -131,7 +131,7 @@ export default function init({ onerror, settings, wallets, networks, connections
         const network = await networks.get(selectedNetworkId, selectedChainId)
 
         if (approved === false) {
-          const storedTx = generateStoreTx({
+          const storedTx = TransactionsCollection.generateStoreTx({
             transaction: params.transaction,
             publicKey: params.publicKey,
             sendingMode: params.sendingMode,
@@ -140,14 +140,15 @@ export default function init({ onerror, settings, wallets, networks, connections
             origin: context.origin,
             networkId: selectedNetworkId,
             chainId: selectedChainId,
-            receivedAt
+            receivedAt,
+            state: 'Rejected'
           })
           await transactions.addTx(storedTx, keyInfo.walletName, keyInfo.publicKey)
           throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
         }
 
         const rpc = await network.rpc()
-        const storedTx = generateStoreTx({
+        const storedTx = TransactionsCollection.generateStoreTx({
           transaction: params.transaction,
           publicKey: params.publicKey,
           sendingMode: params.sendingMode,

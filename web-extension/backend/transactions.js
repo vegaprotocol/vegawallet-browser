@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 
 export class TransactionsCollection {
-  constructor({ store }) {
+  constructor({ store, connections }) {
     this.transactionStore = store
+    this.connections = connections
   }
 
   async addTx(transaction, wallet, publicKey) {
@@ -19,18 +20,9 @@ export class TransactionsCollection {
     return { transactions }
   }
 
-  static generateStoreTx({
-    transaction,
-    publicKey,
-    sendingMode,
-    keyName,
-    walletName,
-    origin,
-    networkId,
-    chainId,
-    receivedAt,
-    state
-  }) {
+  async generateStoreTx({ transaction, publicKey, sendingMode, keyName, walletName, origin, receivedAt, state }) {
+    const networkId = await this.connections.getNetworkId(origin)
+    const chainId = await this.connections.getChainId(origin)
     return {
       // Cannot use tx hash as an id as rejected transactions do not have a hash
       id: uuidv4(),

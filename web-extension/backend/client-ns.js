@@ -131,15 +131,13 @@ export default function init({ onerror, settings, wallets, networks, connections
         const network = await networks.get(selectedNetworkId, selectedChainId)
 
         if (approved === false) {
-          const storedTx = TransactionsCollection.generateStoreTx({
+          const storedTx = transactions.generateStoreTx({
             transaction: params.transaction,
             publicKey: params.publicKey,
             sendingMode: params.sendingMode,
             keyName: keyInfo.name,
             walletName: keyInfo.wallet,
             origin: context.origin,
-            networkId: selectedNetworkId,
-            chainId: selectedChainId,
             receivedAt,
             state: 'Rejected'
           })
@@ -148,15 +146,13 @@ export default function init({ onerror, settings, wallets, networks, connections
         }
 
         const rpc = await network.rpc()
-        const storedTx = TransactionsCollection.generateStoreTx({
+        const storedTx = transactions.generateStoreTx({
           transaction: params.transaction,
           publicKey: params.publicKey,
           sendingMode: params.sendingMode,
           keyName: keyInfo.name,
           walletName: keyInfo.wallet,
           origin: context.origin,
-          networkId: selectedNetworkId,
-          chainId: selectedChainId,
           receivedAt
         })
 
@@ -209,7 +205,6 @@ export default function init({ onerror, settings, wallets, networks, connections
 
         return { chainID: network.chainId }
       },
-
       async 'client.list_keys'(params, context) {
         doValidate(clientValidation.listKeys, params)
         if (context.isConnected !== true) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)

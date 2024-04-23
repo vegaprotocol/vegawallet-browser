@@ -16,7 +16,7 @@ export class TransactionsCollection {
   }
 
   async listTxs(wallet) {
-    const transactions = (await this.transactionsStore.get(wallet)) ?? {}
+    const transactions = (await this.transactionStore.get(wallet)) ?? {}
     return { transactions }
   }
 

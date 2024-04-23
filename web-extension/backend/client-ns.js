@@ -111,8 +111,8 @@ export default function init({ onerror, settings, wallets, networks, connections
         })
 
         if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
-        const connection = await connections.get(context.origin)
-        const transactionType = txHelpers.getTransactionType(params.transaction)
+        const selectedNetworkId = await connections.getNetworkId(context.origin)
+        const selectedChainId = await connections.getChainId(context.origin)
         const isLocked = encryptedStore.locked === true
 
         const approved = await interactor.reviewTransaction({
@@ -122,8 +122,8 @@ export default function init({ onerror, settings, wallets, networks, connections
           wallet: keyInfo.wallet,
           sendingMode: params.sendingMode,
           origin: context.origin,
-          chainId: await connections.getChainId(context.origin),
-          networkId: await connections.getNetworkId(context.origin),
+          chainId: selectedChainId,
+          networkId: selectedNetworkId,
           receivedAt
         })
 
@@ -131,7 +131,7 @@ export default function init({ onerror, settings, wallets, networks, connections
         const network = await networks.get(selectedNetworkId, selectedChainId)
 
         if (approved === false) {
-          const storedTx = transactions.generateStoreTx({
+          const storedTx = await transactions.generateStoreTx({
             transaction: params.transaction,
             publicKey: params.publicKey,
             sendingMode: params.sendingMode,
@@ -146,7 +146,7 @@ export default function init({ onerror, settings, wallets, networks, connections
         }
 
         const rpc = await network.rpc()
-        const storedTx = transactions.generateStoreTx({
+        const storedTx = await transactions.generateStoreTx({
           transaction: params.transaction,
           publicKey: params.publicKey,
           sendingMode: params.sendingMode,

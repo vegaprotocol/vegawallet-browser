@@ -37,7 +37,7 @@ export default function init({
   networks,
   connections,
   fetchCache,
-  transactionsStore,
+  transactions,
   publicKeyIndexStore,
   onerror
 }) {
@@ -320,8 +320,7 @@ export default function init({
 
       async 'admin.list_transactions'(params) {
         doValidate(adminValidation.listTransactions, params)
-        const transactions = (await transactionsStore.get(params.walletName)) ?? {}
-        return { transactions }
+        return await transactions.listTxs(params.walletName)
       }
     }
   })

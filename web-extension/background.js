@@ -1,5 +1,6 @@
 import { NetworkCollection } from './backend/network.js'
 import { WalletCollection } from './backend/wallets.js'
+import { TransactionsCollection } from './backend/transactions.js'
 import { ConnectionsCollection } from './backend/connections.js'
 import { PortServer } from '../lib/port-server.js'
 import { PopupClient } from './backend/popup-client.js'
@@ -14,6 +15,7 @@ import { FetchCache } from './backend/fetch-cache.js'
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'
 import config from '!/config'
+
 // import { captureException } from '@sentry/browser'
 // import { setupSentry } from './lib/sentry.js'
 
@@ -48,6 +50,9 @@ const connections = new ConnectionsCollection({
 
 const fetchCache = new FetchCache(new StorageSessionMap('fetch-cache'))
 const transactionsStore = new ConcurrentStorage(new StorageLocalMap('transactions'))
+const transactions = new TransactionsCollection({
+  store: transactionsStore
+})
 // setupSentry(settings, wallets)
 
 const onerror = (...args) => {
@@ -62,7 +67,7 @@ const clientServer = initClient({
   connections,
   interactor,
   encryptedStore,
-  transactionsStore,
+  transactions,
   publicKeyIndexStore,
   onerror
 })

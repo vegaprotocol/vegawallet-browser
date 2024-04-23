@@ -40,7 +40,7 @@ function doValidate(validator, params) {
       validator.errors.map((e) => e.message)
     )
 }
-export default function init({ onerror, settings, wallets, networks, connections, interactor, transactionsStore, encryptedStore }) {
+export default function init({ onerror, settings, wallets, networks, connections, interactor, transactions, encryptedStore }) {
   return new JSONRPCServer({
     onerror,
     methods: {
@@ -130,54 +130,34 @@ export default function init({ onerror, settings, wallets, networks, connections
         const key = await wallets.getKeypair({ publicKey: params.publicKey })
         const network = await networks.get(selectedNetworkId, selectedChainId)
 
-        // TODO Add rejected transactions to store as well
         if (approved === false) {
-          const storedTx = {
-            // Cannot use tx hash as rejected transactions do not have a hash
-            id: uuidv4(),
+          const storedTx = generateStoreTx({
             transaction: params.transaction,
             publicKey: params.publicKey,
             sendingMode: params.sendingMode,
             keyName: keyInfo.name,
             walletName: keyInfo.wallet,
             origin: context.origin,
-            node: null,
-            receivedAt,
-            error: null,
             networkId: selectedNetworkId,
             chainId: selectedChainId,
-            decision: new Date().toISOString(),
-            state: 'Rejected',
-            hash: null,
-            code: null
-          }
-          const existingTransactions = (await transactionsStore.get(keyInfo.walletName)) ?? {}
-          const existingTransactionByPublicKey = existingTransactions[keyInfo.publicKey] ?? []
-          await transactionsStore.set(keyInfo.walletName, {
-            ...existingTransactions,
-            [keyInfo.publicKey]: [storedTx, ...existingTransactionByPublicKey]
+            receivedAt
           })
+          await transactions.addTx(storedTx, keyInfo.walletName, keyInfo.publicKey)
           throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
         }
 
         const rpc = await network.rpc()
-        const storedTx = {
-          id: uuidv4(),
+        const storedTx = generateStoreTx({
           transaction: params.transaction,
           publicKey: params.publicKey,
           sendingMode: params.sendingMode,
           keyName: keyInfo.name,
           walletName: keyInfo.wallet,
           origin: context.origin,
-          node: rpc._url.toString(),
-          receivedAt,
-          error: null,
           networkId: selectedNetworkId,
           chainId: selectedChainId,
-          decision: new Date().toISOString(),
-          hash: null,
-          code: null
-        }
+          receivedAt
+        })
 
         try {
           const res = await txHelpers.sendTransaction({
@@ -206,12 +186,7 @@ export default function init({ onerror, settings, wallets, networks, connections
 
           throw e
         } finally {
-          const existingTransactions = (await transactionsStore.get(keyInfo.walletName)) ?? {}
-          const existingTransactionByPublicKey = existingTransactions[keyInfo.publicKey] ?? []
-          await transactionsStore.set(keyInfo.walletName, {
-            ...existingTransactions,
-            [keyInfo.publicKey]: [storedTx, ...existingTransactionByPublicKey]
-          })
+          await transactions.addTx(storedTx, keyInfo.walletName, keyInfo.publicKey)
         }
       },
       async 'client.sign_transaction'(params, context) {

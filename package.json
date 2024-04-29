@@ -11,7 +11,7 @@
     "@vegaprotocol/protos": "^0.14.0",
     "@vegaprotocol/rest-clients": "^0.0.5",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",
-    "@vegaprotocol/ui-toolkit": "0.12.6",
+    "@vegaprotocol/ui-toolkit": "0.12.8",
     "@vegaprotocol/utils": "^0.0.10",
     "bignumber.js": "^9.0.2",
     "classnames": "^2.2.0",

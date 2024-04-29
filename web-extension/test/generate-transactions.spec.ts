@@ -235,7 +235,8 @@ const delegateSubmission: DelegateSubmission = {
 const issueSignatures: IssueSignatures = {
   submitter: 'submitter',
   validatorNodeId: 'validatorNodeId',
-  kind: NodeSignatureKind.NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL
+  kind: NodeSignatureKind.NODE_SIGNATURE_KIND_ASSET_WITHDRAWAL,
+  chainId: 'chainId'
 }
 
 const liquidityProvisionAmendment: LiquidityProvisionAmendment = {

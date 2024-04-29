@@ -45,7 +45,7 @@ export const TransactionModalFooter = ({
 
   return (
     <div className="fixed bottom-0 py-4 bg-black z-[15] px-5 border-t border-vega-dark-200 w-full">
-      <div className="mt-2 grid grid-cols-[1fr_1fr] justify-between gap-4">
+      <div className="grid grid-cols-[1fr_1fr] justify-between gap-4">
         <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleDecision(false)}>
           Reject
         </Button>
@@ -57,9 +57,8 @@ export const TransactionModalFooter = ({
           Confirm
         </Button>
       </div>
-      {/* TODO should only show on transactions where autoConsent is possible */}
-      {!autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(getTransactionType(details.transaction)) && (
-        <div data-testid={locators.transactionModalFooterAutoConsentSection}>
+      {!connection.autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(getTransactionType(details.transaction)) && (
+        <div className="mt-2" data-testid={locators.transactionModalFooterAutoConsentSection}>
           <Checkbox
             label={
               <span className="text-xs">

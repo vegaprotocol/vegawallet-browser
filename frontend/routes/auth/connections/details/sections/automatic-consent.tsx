@@ -24,7 +24,7 @@ export const AutomaticConsentSection = ({ connection }: { connection: Connection
     <form>
       <VegaSection>
         <SubHeader content="Automatic consent" />
-        <div className="mt-4">
+        <div className="mt-2">
           <Checkbox
             label={'Allow this site to automatically approve order and vote transactions.'}
             checked={autoConsent}

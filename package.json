@@ -10,7 +10,7 @@
     "@vegaprotocol/enums": "^0.0.1",
     "@vegaprotocol/protos": "^0.14.0",
     "@vegaprotocol/rest-clients": "^0.0.5",
-    "@vegaprotocol/tailwindcss-config": "^0.0.2",
+    "@vegaprotocol/tailwindcss-config": "^0.0.5",
     "@vegaprotocol/ui-toolkit": "0.12.6",
     "@vegaprotocol/utils": "^0.0.10",
     "bignumber.js": "^9.0.2",

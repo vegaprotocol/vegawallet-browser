@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
-import { formatDate } from '@/lib/utils'
+import { formatDateTime } from '@/lib/utils'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { Connection } from '@/types/backend'
 
@@ -25,7 +25,7 @@ export const DetailsSection = ({ connection }: { connection: Connection }) => {
       <VegaSection>
         <SubHeader content="Last accessed" />
         <div className="text-white mt-1" data-testid={locators.accessedAt}>
-          {formatDate(connection.accessedAt)}
+          {formatDateTime(connection.accessedAt)}
         </div>
       </VegaSection>
       <VegaSection>

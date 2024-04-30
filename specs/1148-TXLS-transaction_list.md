@@ -5,4 +5,5 @@
 - I can see a description of the fact that this does not include all transactions and a link to the block explorer (<a name="1148-TXLS-003" href="#1148-TXLS-003">1148-TXLS-003</a>)
 - I can see a list of all transactions, including the transaction type, sending key, time sent and internal status of the transaction (<a name="1148-TXLS-004" href="#1148-TXLS-004">1148-TXLS-004</a>)
 - I can see a link to the transaction details page for each transaction (<a name="1148-TXLS-005" href="#1148-TXLS-005">1148-TXLS-005</a>)
-- When I confirm or reject a transaction that transaction is added to the list of transactions (<a name="1148-TXLS-006" href="#1148-TXLS-006">1148-TXLS-006</a>)
+- When I confirm a transaction that transaction is added to the list of transactions (<a name="1148-TXLS-006" href="#1148-TXLS-006">1148-TXLS-006</a>)
+- When I reject a transaction that transaction is added to the list of transactions (<a name="1148-TXLS-007" href="#1148-TXLS-007">1148-TXLS-007</a>)

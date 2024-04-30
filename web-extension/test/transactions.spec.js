@@ -74,7 +74,6 @@ describe('Transactions', () => {
       code: null
     })
   })
-
   it('allows adding and listing of transactions', async () => {
     const { transactions, connections } = createTransactionsCollection()
     const { result: tx1 } = await generateTx(connections, transactions)

@@ -204,6 +204,40 @@ export default function init({
       async 'client.sign_transaction'(params, context) {
         throw new JSONRPCServer.Error('Not Implemented', -32601)
       },
+      async 'client.check_transaction'(params, context) {
+        doValidate(clientValidation.sendTransaction, params)
+        if (context.isConnected !== true) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)
+
+        if ((await connections.isAllowed(context.origin, params.publicKey)) === false) {
+          throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
+        }
+
+        const keyInfo = await wallets.getKeyInfo({
+          publicKey: params.publicKey
+        })
+
+        if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
+        const key = await wallets.getKeypair({ publicKey: params.publicKey })
+
+        try {
+          const res = await txHelpers.checkTransaction({
+            keys: key.keyPair,
+            rpc,
+            transaction: params.transaction
+          })
+
+          return res
+        } catch (e) {
+          if (NodeRPC.isTxError(e)) {
+            throw new JSONRPCServer.Error(...Errors.TRANSACTION_VALIDATION_FAILED, {
+              message: e.message,
+              code: e.code
+            })
+          }
+
+          throw e
+        }
+      },
       async 'client.get_chain_id'(params, context) {
         doValidate(clientValidation.getChainId, params)
 

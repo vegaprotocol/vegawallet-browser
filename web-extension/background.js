@@ -91,6 +91,7 @@ const server = initAdmin({
   connections,
   fetchCache,
   transactions,
+  publicKeyIndexStore,
   onerror
 })
 

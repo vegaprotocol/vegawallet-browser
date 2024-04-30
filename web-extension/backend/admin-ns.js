@@ -321,6 +321,29 @@ export default function init({
       async 'admin.list_transactions'(params) {
         doValidate(adminValidation.listTransactions, params)
         return await transactions.listTxs(params.walletName)
+      },
+
+      async 'admin.check_transaction'(params) {
+        // TODO: do validate
+
+        // TODO: actual logic
+        // const keyInfo = await wallets.getKeyInfo({
+        //   publicKey: params.publicKey
+        // })
+
+        // if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
+        // const key = await wallets.getKeypair({ publicKey: params.publicKey })
+
+        // const res = await txHelpers.checkTransaction({
+        //   keys: key.keyPair,
+        //   rpc,
+        //   transaction: params.transaction
+        // })
+
+        return {
+          valid: false,
+          error: 'Party has insufficient funds'
+        }
       }
     }
   })

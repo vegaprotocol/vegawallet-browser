@@ -22,32 +22,34 @@ const renderComponent = (transaction: StoredTransaction) => {
   )
 }
 
+const mockTransaction = {
+  publicKey: '0'.repeat(64),
+  id: '1',
+  transaction: { transfer: {} },
+  sendingMode: 'SYNC',
+  keyName: 'Key 1',
+  walletName: 'Wallet 1',
+  origin: 'https://foo.com',
+  receivedAt: new Date(0).toISOString(),
+  networkId: testingNetwork.id,
+  chainId: testingNetwork.chainId,
+  decision: new Date(0).toISOString(),
+  state: TransactionState.Confirmed,
+  node: 'https://node.com',
+  error: undefined,
+  hash: '0'.repeat(64),
+  code: undefined
+}
+
 describe('TransactionMeta', () => {
   beforeEach(() => {
     jest.useFakeTimers()
+    jest.setSystemTime(0)
   })
   afterEach(() => {
     jest.useRealTimers()
   })
   it('renders transaction state, subheader and all metadata', () => {
-    const mockTransaction = {
-      publicKey: '0'.repeat(64),
-      id: '1',
-      transaction: { transfer: {} },
-      sendingMode: 'SYNC',
-      keyName: 'Key 1',
-      walletName: 'Wallet 1',
-      origin: 'https://foo.com',
-      receivedAt: new Date(0).toISOString(),
-      networkId: testingNetwork.id,
-      chainId: testingNetwork.chainId,
-      decision: new Date(0).toISOString(),
-      state: TransactionState.Confirmed,
-      node: 'https://node.com',
-      error: undefined,
-      hash: '0'.repeat(64),
-      code: undefined
-    }
     renderComponent(mockTransaction)
     expect(screen.getByTestId('transaction-state')).toBeInTheDocument()
     expect(screen.getByTestId(subHeaderLocators.subHeader)).toHaveTextContent('Transaction Details')
@@ -61,48 +63,20 @@ describe('TransactionMeta', () => {
   })
 
   it('shows error if there is error present', () => {
-    const mockTransaction = {
-      publicKey: '0'.repeat(64),
-      id: '1',
-      transaction: { transfer: {} },
-      sendingMode: 'SYNC',
-      keyName: 'Key 1',
-      walletName: 'Wallet 1',
-      origin: 'https://foo.com',
-      receivedAt: new Date(0).toISOString(),
-      networkId: testingNetwork.id,
-      chainId: testingNetwork.chainId,
-      decision: new Date(0).toISOString(),
-      state: TransactionState.Confirmed,
-      node: 'https://node.com',
-      error: 'Some error',
-      hash: '0'.repeat(64),
-      code: undefined
+    const tx = {
+      ...mockTransaction,
+      error: 'Some error'
     }
-    renderComponent(mockTransaction)
+    renderComponent(tx)
     expect(screen.getByText('Some error')).toBeInTheDocument()
   })
 
   it('handles no transaction hash', () => {
-    const mockTransaction = {
-      publicKey: '0'.repeat(64),
-      id: '1',
-      transaction: { transfer: {} },
-      sendingMode: 'SYNC',
-      keyName: 'Key 1',
-      walletName: 'Wallet 1',
-      origin: 'https://foo.com',
-      receivedAt: new Date(0).toISOString(),
-      networkId: testingNetwork.id,
-      chainId: testingNetwork.chainId,
-      decision: new Date(0).toISOString(),
-      state: TransactionState.Confirmed,
-      node: 'https://node.com',
-      error: undefined,
-      hash: undefined,
-      code: undefined
+    const tx = {
+      ...mockTransaction,
+      hash: undefined
     }
-    renderComponent(mockTransaction)
+    renderComponent(tx)
     expect(screen.queryByTestId(locators.transactionMetadataHash)).not.toBeInTheDocument()
   })
 })

@@ -24,7 +24,8 @@ export type InteractionStore = {
   checkTransaction: (
     request: SendMessage,
     transaction: Transaction,
-    publicKey: string
+    publicKey: string,
+    origin: string
   ) => Promise<{
     valid: boolean
     error?: string
@@ -65,10 +66,11 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
     const result = await transactionPromise
     return result
   },
-  checkTransaction: async (request: SendMessage, transaction: Transaction, publicKey: string) => {
+  checkTransaction: async (request: SendMessage, transaction: Transaction, publicKey: string, origin: string) => {
     const result = await request(RpcMethods.CheckTransaction, {
       transaction,
-      publicKey
+      publicKey,
+      origin
     })
     return result
   },

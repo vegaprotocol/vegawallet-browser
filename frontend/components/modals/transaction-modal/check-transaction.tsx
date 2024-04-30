@@ -75,14 +75,22 @@ const CheckTransactionResult = ({
   )
 }
 
-export const CheckTransaction = ({ transaction, publicKey }: { transaction: Transaction; publicKey: string }) => {
+export const CheckTransaction = ({
+  transaction,
+  publicKey,
+  origin
+}: {
+  transaction: Transaction
+  publicKey: string
+  origin: string
+}) => {
   const { request } = useJsonRpcClient()
   const { checkTransaction } = useInteractionStore((store) => ({
     checkTransaction: store.checkTransaction
   }))
   const checkTx = useCallback(
-    () => checkTransaction(request, transaction, publicKey),
-    [checkTransaction, publicKey, request, transaction]
+    () => checkTransaction(request, transaction, publicKey, origin),
+    [checkTransaction, publicKey, request, transaction, origin]
   )
   const { loading, error, data, loaderFunction } = useAsyncAction(checkTx)
   useEffect(() => {

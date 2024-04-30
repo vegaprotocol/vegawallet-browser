@@ -4,6 +4,7 @@ import pkg from '../../package.json'
 import { toBase64, string as fromString } from '@vegaprotocol/crypto/buf'
 import { createWindow } from './windows.js'
 import createKeepAlive from '../../lib/mv3-keep-alive.js'
+import * as txHelpers from './tx-helpers.js'
 
 const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
 
@@ -325,24 +326,28 @@ export default function init({
 
       async 'admin.check_transaction'(params) {
         // TODO: do validate
+        const keyInfo = await wallets.getKeyInfo({
+          publicKey: params.publicKey
+        })
 
-        // TODO: actual logic
-        // const keyInfo = await wallets.getKeyInfo({
-        //   publicKey: params.publicKey
-        // })
+        if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
+        const key = await wallets.getKeypair({ publicKey: params.publicKey })
 
-        // if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
-        // const key = await wallets.getKeypair({ publicKey: params.publicKey })
+        const selectedNetworkId = await connections.getNetworkId(params.origin)
+        const selectedChainId = await connections.getChainId(params.origin)
+        const network = await networks.get(selectedNetworkId, selectedChainId)
 
-        // const res = await txHelpers.checkTransaction({
-        //   keys: key.keyPair,
-        //   rpc,
-        //   transaction: params.transaction
-        // })
+        const rpc = await network.rpc()
+
+        const res = await txHelpers.checkTransaction({
+          keys: key.keyPair,
+          rpc,
+          transaction: params.transaction
+        })
 
         return {
-          valid: false,
-          error: 'Party has insufficient funds'
+          valid: res.valid,
+          error: res.error
         }
       }
     }

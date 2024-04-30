@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 
-import type { TransactionMessage } from '@/lib/transactions'
+import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import { RpcMethods } from '@/lib/client-rpc-methods'
+import { Transaction, TransactionMessage } from '@/lib/transactions'
 
 export interface ConnectionMessage {
   origin: string
@@ -19,6 +21,14 @@ export type InteractionStore = {
   handleTransactionDecision: (decision: boolean) => void
   transactionPromise: [Function, Function] | null
   currentTransactionDetails: TransactionMessage | null
+  checkTransaction: (
+    request: SendMessage,
+    transaction: Transaction,
+    publicKey: string
+  ) => Promise<{
+    valid: boolean
+    error?: string
+  }>
 
   connectionModalOpen: boolean
   handleConnection: (parameters: ConnectionMessage) => Promise<ConnectionReply>
@@ -55,7 +65,13 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
     const result = await transactionPromise
     return result
   },
-
+  checkTransaction: async (request: SendMessage, transaction: Transaction, publicKey: string) => {
+    const result = await request(RpcMethods.CheckTransaction, {
+      transaction,
+      publicKey
+    })
+    return result
+  },
   currentConnectionDetails: null,
   connectionPromise: null,
   connectionModalOpen: false,

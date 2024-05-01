@@ -26,6 +26,7 @@ const locators = {
   mnemonicContainerMnemonic: 'mnemonic-container-mnemonic',
   pageBack: 'page-back',
   dropdownArrow: 'dropdown-arrow',
+  leftRightArrows: 'left-right-arrows',
   listItem: 'list-item',
   list: 'list',
   mnemonicContainer: 'mnemonic-container',

@@ -1,6 +1,9 @@
+import locators from '../locators'
+
 export const LeftRightArrows = ({ className }: { className: string }) => {
   return (
     <svg
+      data-testid={locators.leftRightArrows}
       className={className}
       width="24"
       height="24"

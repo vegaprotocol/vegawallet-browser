@@ -7,6 +7,7 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useAsyncAction } from '@/hooks/async-action'
 import { Transaction } from '@/lib/transactions'
 import { useInteractionStore } from '@/stores/interaction-store'
+import { CheckTransactionResponse } from '@/types/backend'
 
 export const locators = {}
 
@@ -16,7 +17,7 @@ const CheckTransactionResult = ({
   error
 }: {
   loading: boolean
-  data: { valid: boolean; error?: string }
+  data: CheckTransactionResponse | null
   error: Error | null
 }) => {
   if (error)

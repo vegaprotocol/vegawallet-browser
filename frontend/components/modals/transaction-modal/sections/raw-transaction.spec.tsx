@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import genericLocators from '../../locators'
+import genericLocators from '../../../locators'
 import { RawTransaction } from './raw-transaction'
 
 describe('RawTransaction', () => {

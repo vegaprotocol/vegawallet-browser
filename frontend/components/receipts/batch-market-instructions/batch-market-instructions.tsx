@@ -2,11 +2,10 @@ import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
 import objectHash from 'object-hash'
 import { Fragment } from 'react'
 
-import type { BatchTransactionCommands } from '@/lib/transactions'
-import { TransactionKeys } from '@/lib/transactions'
+import { getBatchTitle } from '@/lib/get-title'
+import { BatchTransactionCommands, TransactionKeys } from '@/lib/transactions'
 
 import { CollapsiblePanel } from '../../collapsible-panel'
-import { getBatchTitle } from '../../modals/transaction-modal/get-title'
 import { AmendmentView } from '../orders/amend'
 import { CancellationView } from '../orders/cancellation/cancellation-view'
 import { StopOrderCancellationView } from '../orders/stop-cancellation'

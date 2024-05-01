@@ -204,8 +204,44 @@ export default class NodeRPC {
     return this.getJSON(`/statistics/spam/${partyId}`)
   }
 
-  validateTransactionResponse(res) {
-    // Error codes from https://github.com/vegaprotocol/vega/blob/develop/core/blockchain/response.go
+  async checkRawTransaction(tx) {
+    const res = await this.postJSON('/transaction/raw/check', { tx })
+
+    switch (res.code) {
+      case 0:
+        return res
+
+      case 51:
+        throw new NodeRPC.TxErrors.AbciTxnValidationFailure(res.data, res.code)
+
+      // AbciTxnDecodingFailure code is returned when CheckTx or DeliverTx fail to decode the Txn.
+      case 60:
+        throw new NodeRPC.TxErrors.AbciTxnDecodingFailure(res.data, res.code)
+
+      // AbciTxnInternalError code is returned when CheckTx or DeliverTx fail to process the Txn.
+      case 70:
+        throw new NodeRPC.TxErrors.AbciTxnInternalError(res.data, res.code)
+
+      // AbciUnknownCommandError code is returned when the app doesn't know how to handle a given command.
+      case 80:
+        throw new NodeRPC.TxErrors.AbciUnknownCommandError(res.data, res.code)
+
+      // AbciSpamError code is returned when CheckTx or DeliverTx fail spam protection tests.
+      case 89:
+        throw new NodeRPC.TxErrors.AbciSpamError(res.data, res.code)
+    }
+    return res
+  }
+
+  async submitRawTransaction(tx, type) {
+    assert(typeof tx === 'string')
+    assert(typeof type === 'string')
+
+    const res = await this.postJSON('/transaction/raw', {
+      tx,
+      type
+    })
+
     switch (res.code) {
       case 0:
         return res
@@ -229,24 +265,7 @@ export default class NodeRPC {
       case 89:
         throw new NodeRPC.TxErrors.AbciSpamError(toString(fromHex(res.data)), res.code, res)
     }
-  }
-
-  async checkRawTransaction(tx) {
-    const res = await this.postJSON('/transaction/raw/check', { tx })
-
-    return this.validateTransactionResponse(res)
-  }
-
-  async submitRawTransaction(tx, type) {
-    assert(typeof tx === 'string')
-    assert(typeof type === 'string')
-
-    const res = await this.postJSON('/transaction/raw', {
-      tx,
-      type
-    })
-
-    return this.validateTransactionResponse(res)
+    return res
   }
 
   static isTxError(err) {

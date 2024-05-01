@@ -90,7 +90,7 @@ export function getTransactionType(tx) {
   return Object.keys(tx)[0]
 }
 
-export async function checkTransaction({ rpc, keys, transaction, sendingMode }) {
+export async function checkTransaction({ rpc, keys, transaction }) {
   const txData = await createTransactionData({ rpc, keys, transaction })
   try {
     const res = await rpc.checkRawTransaction(txData.base64Tx)
@@ -103,7 +103,7 @@ export async function checkTransaction({ rpc, keys, transaction, sendingMode }) 
     return {
       valid: false,
       transaction: txData.txJSON,
-      error: err
+      error: err.message
     }
   }
 }

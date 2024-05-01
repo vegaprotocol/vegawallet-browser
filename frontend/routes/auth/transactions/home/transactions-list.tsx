@@ -14,11 +14,7 @@ export const locators = {
   transactionListItem: 'transaction-list-item',
   transactionListItemKeyName: 'transaction-list-item-key-name',
   transactionListItemTransactionType: 'transaction-list-item-transaction-type',
-  // TODO This is hostImage
-  // transactionListItemOrigin: 'transaction-list-item-origin',
   transactionListItemDecision: 'transaction-list-item-decision',
-  // TODO this is the transaction state component
-  // transactionListItemState: 'transaction-list-item-state',
   transactionListItemLink: 'transaction-list-item-link',
   transactionListEmpty: 'transaction-list-empty'
 }

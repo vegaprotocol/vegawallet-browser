@@ -37,10 +37,6 @@ jest.mock('./transaction-modal-footer', () => ({
   TransactionModalFooter: () => <div data-testid="transaction-footer" />
 }))
 
-jest.mock('./raw-transaction', () => ({
-  RawTransaction: () => <div data-testid="raw-transaction" />
-}))
-
 jest.mock('./transaction-header', () => ({
   TransactionHeader: () => <div data-testid="transaction-header" />
 }))
@@ -51,8 +47,16 @@ jest.mock('../../page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />
 }))
 
-jest.mock('./enriched-details', () => ({
+jest.mock('./sections/enriched-details', () => ({
   EnrichedDetails: () => <div data-testid="enriched-details" />
+}))
+
+jest.mock('./sections/raw-transaction', () => ({
+  RawTransaction: () => <div data-testid="raw-transaction" />
+}))
+
+jest.mock('./sections/check-transaction', () => ({
+  CheckTransaction: () => <div data-testid="check-transaction" />
 }))
 
 describe('TransactionModal', () => {
@@ -90,6 +94,7 @@ describe('TransactionModal', () => {
     render(<TransactionModal />)
     expect(screen.getByTestId('enriched-details')).toBeVisible()
     expect(screen.getByTestId('raw-transaction')).toBeVisible()
+    expect(screen.getByTestId('check-transaction')).toBeVisible()
     expect(screen.getByTestId('transaction-header')).toBeVisible()
     expect(screen.getByTestId('transaction-footer')).toBeVisible()
     expect(screen.getByTestId(genericLocators.pageHeader)).toBeVisible()

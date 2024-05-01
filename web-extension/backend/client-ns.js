@@ -27,10 +27,11 @@ const Errors = {
   ],
   DEVELOPMENT_CHAIN_ID: [
     'Development chain ID',
-    -7,
+    -8,
     'The chain ID is known to the wallet, but this is a hidden chainId used for development. Please ensure you have enabled hidden networks in settings'
   ],
-  TRANSACTION_VALIDATION_FAILED: ['Transaction validation failed', -8 /* This is filled in by the error thrown */]
+  TRANSACTION_VALIDATION_FAILED: ['Transaction validation failed', -9 /* This is filled in by the error thrown */],
+  WALLET_LOCKED: ['The wallet is locked', -10, 'The wallet is locked, some operations are not allowed']
 }
 
 function doValidate(validator, params) {
@@ -203,40 +204,6 @@ export default function init({
       },
       async 'client.sign_transaction'(params, context) {
         throw new JSONRPCServer.Error('Not Implemented', -32601)
-      },
-      async 'client.check_transaction'(params, context) {
-        doValidate(clientValidation.sendTransaction, params)
-        if (context.isConnected !== true) throw new JSONRPCServer.Error(...Errors.NOT_CONNECTED)
-
-        if ((await connections.isAllowed(context.origin, params.publicKey)) === false) {
-          throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
-        }
-
-        const keyInfo = await wallets.getKeyInfo({
-          publicKey: params.publicKey
-        })
-
-        if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
-        const key = await wallets.getKeypair({ publicKey: params.publicKey })
-
-        try {
-          const res = await txHelpers.checkTransaction({
-            keys: key.keyPair,
-            rpc,
-            transaction: params.transaction
-          })
-
-          return res
-        } catch (e) {
-          if (NodeRPC.isTxError(e)) {
-            throw new JSONRPCServer.Error(...Errors.TRANSACTION_VALIDATION_FAILED, {
-              message: e.message,
-              code: e.code
-            })
-          }
-
-          throw e
-        }
       },
       async 'client.get_chain_id'(params, context) {
         doValidate(clientValidation.getChainId, params)

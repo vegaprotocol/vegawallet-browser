@@ -51,9 +51,6 @@ import { TinyEventemitter } from './lib/tiny-eventemitter.js'
     async signTransaction(params) {
       return client.request('client.sign_transaction', params)
     },
-    async checkTransaction(params) {
-      return client.request('client.check_transaction', params)
-    },
     async sendTransaction(params) {
       return client.request('client.send_transaction', params)
     },

@@ -1,25 +1,55 @@
-import { WebDriver } from 'selenium-webdriver'
+import { By, WebDriver } from 'selenium-webdriver'
+import { locators as transactionsListLocators } from '../../../frontend/routes/auth/transactions/home/transactions-list'
+import { locators as transactionsPageLocators } from '../../../frontend/routes/auth/transactions/home/transactions'
+import {
+  clickWebElement,
+  getByDataTestID,
+  getElements,
+  hasTotalNumElements,
+  isElementDisplayed
+} from '../helpers/selenium-util'
 
 export class TransactionList {
+  private readonly transactionListItem: By = getByDataTestID(transactionsListLocators.transactionListItem)
+  private readonly transactionListEmpty: By = getByDataTestID(transactionsListLocators.transactionListEmpty)
+  private readonly transactionPage: By = getByDataTestID(transactionsPageLocators.transactions)
+
   constructor(private readonly driver: WebDriver) {}
 
   async isListTransactionPage() {
-    throw new Error('Not implemented')
+    return await isElementDisplayed(this.driver, this.transactionPage)
   }
 
-  async getNumberOfTransactions() {
-    throw new Error('Not implemented')
+  async checkOnListTransactionsPage() {
+    expect(
+      await this.isListTransactionPage(),
+      "expected to be on the 'list connections' page but could not locate the connections header",
+      { showPrefix: false }
+    ).toBe(true)
   }
 
-  getTransactionTypes() {
-    throw new Error('Not implemented')
+  async checkNumTransactions(expectedTransactions: number) {
+    const listOfConnectionElements = await getElements(this.driver, this.transactionListItem)
+    const numberOfTxs = listOfConnectionElements.length
+    expect(
+      await hasTotalNumElements(numberOfTxs, this.transactionListItem, this.driver),
+      `expected ${expectedTransactions} transactions(s), instead found ${numberOfTxs}`
+    ).toBe(true)
   }
 
-  checkNumTransactions(expectedTransactions: number) {
-    throw new Error('Not implemented')
+  async selectTransaction(transactionIndex: number) {
+    const listOfConnectionElements = await getElements(this.driver, this.transactionListItem)
+    const item = listOfConnectionElements[transactionIndex]
+    await clickWebElement(this.driver, item)
   }
 
-  selectTransaction(transactionIndex: number) {
-    throw new Error('Not implemented')
+  async listEmpty() {
+    return await isElementDisplayed(this.driver, this.transactionListEmpty)
+  }
+
+  async checkListEmpty() {
+    expect(await this.listEmpty(), 'expected the transaction list to be empty but it was not', {
+      showPrefix: false
+    }).toBe(true)
   }
 }

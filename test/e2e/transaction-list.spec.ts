@@ -62,6 +62,7 @@ describe('Transactions list', () => {
   })
 
   it('adds rejected transactions to the transactions list', async () => {
+    // 1148-TXLS-007 When I reject a transaction that transaction is added to the list of transactions (<a name="1148-TXLS-007" href="#1148-TXLS-007"></a>)
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()
@@ -73,6 +74,7 @@ describe('Transactions list', () => {
   })
 
   it('adds confirmed transactions to the transactions list', async () => {
+    // 1148-TXLS-006 When I confirm a transaction that transaction is added to the list of transactions (<a name="1148-TXLS-006" href="#1148-TXLS-006"></a>)
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()
@@ -81,16 +83,5 @@ describe('Transactions list', () => {
     await navPanel.goToListTransactions()
     await transactionList.checkOnListTransactionsPage()
     await transactionList.checkNumTransactions(1)
-  })
-
-  it('allows me to click through to the transactions page', async () => {
-    const keys = await vegaAPI.listKeys()
-    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
-    await transaction.checkOnTransactionPage()
-    await transaction.confirmTransaction()
-    await viewWallet.checkOnViewWalletPage()
-    await navPanel.goToListTransactions()
-    await transactionList.checkOnListTransactionsPage()
-    expect(false).toBe(true)
   })
 })

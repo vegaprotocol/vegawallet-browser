@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 
 import { EnrichedDetails } from './enriched-details'
 
-jest.mock('../../receipts', () => ({
+jest.mock('../../../receipts', () => ({
   TransactionSwitch: () => {
     return <div data-testid="mocked-transaction-switch" />
   }

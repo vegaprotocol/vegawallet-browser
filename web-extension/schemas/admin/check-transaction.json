@@ -1,8 +1,8 @@
 {
   "type": "object",
-  "required": ["publicKey", "transaction", "sendingMode"],
+  "required": ["publicKey", "transaction", "origin"],
   "additionalProperties": false,
-  "errorMessage": "`client.send_transaction` must only be given `publicKey`, `transaction` and `sendingMode`",
+  "errorMessage": "`client.send_transaction` must only be given `publicKey`, `transaction` and `origin`",
   "properties": {
     "publicKey": {
       "type": "string",

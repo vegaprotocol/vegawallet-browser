@@ -19,7 +19,14 @@ const CheckTransactionResult = ({
   data: { valid: boolean; error?: string }
   error: Error | null
 }) => {
-  if (loading)
+  if (error)
+    return (
+      <Notification
+        intent={Intent.Danger}
+        message={`There was an error checking your transactions validity. Error: ${error.message}`}
+      />
+    )
+  if (loading || !data)
     return (
       <Notification
         intent={Intent.None}
@@ -30,13 +37,6 @@ const CheckTransactionResult = ({
           </div>
         }
       ></Notification>
-    )
-  if (error)
-    return (
-      <Notification
-        intent={Intent.Danger}
-        message={`There was an error checking your transactions validity. Error: ${error.message}`}
-      />
     )
   if (data.valid)
     return (
@@ -97,7 +97,6 @@ export const CheckTransaction = ({
     loaderFunction()
   }, [loaderFunction])
 
-  if (!data) return null
   return (
     <VegaSection>
       <CheckTransactionResult loading={loading} data={data} error={error} />

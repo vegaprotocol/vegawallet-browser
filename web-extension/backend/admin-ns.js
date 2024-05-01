@@ -325,7 +325,8 @@ export default function init({
       },
 
       async 'admin.check_transaction'(params) {
-        // TODO: do validate
+        doValidate(adminValidation.checkTransaction, params)
+
         const keyInfo = await wallets.getKeyInfo({
           publicKey: params.publicKey
         })

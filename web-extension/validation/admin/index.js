@@ -35,3 +35,5 @@ export { default as openPopout } from './open-popout.js'
 export { default as fetch } from './fetch.js'
 
 export { default as listTransactions } from './list-transactions.js'
+
+export { default as checkTransaction } from './check-transaction.js'

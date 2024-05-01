@@ -4,12 +4,14 @@ import locators from '../../../frontend/components/locators'
 
 import { Settings } from './settings'
 import { ListConnections } from './list-connections'
+import { TransactionList } from './transaction-list'
 
 export class NavPanel {
   private readonly activeNavPanelButton: By = By.css('[data-testid="nav-button"].text-center.active')
   private readonly wallet: By = getByDataTestID(locators.walletIcon)
   private readonly settings: By = getByDataTestID(locators.settingsIcon)
   private readonly connections: By = getByDataTestID(locators.connectionsIcon)
+  private readonly transactions: By = getByDataTestID(locators.leftRightArrows)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -40,5 +42,16 @@ export class NavPanel {
       { showPrefix: false }
     ).toBe(true)
     return connections
+  }
+
+  async goToListTransactions() {
+    await clickElement(this.driver, this.transactions)
+    const transactions = new TransactionList(this.driver)
+    expect(
+      await transactions.isListTransactionPage(),
+      'expected to be able to navigate to transactions via the nav panel but was not on the transactions page',
+      { showPrefix: false }
+    ).toBe(true)
+    return transactions
   }
 }

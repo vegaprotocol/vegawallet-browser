@@ -15,6 +15,8 @@ jest.mock('@/components/receipts', () => ({
 
 describe('TransactionData', () => {
   it('renders the header, enriched data, and raw transaction', async () => {
+    // 1147-TXDT-007 I can see a transaction receipt, if supported, with all data
+    // 1147-TXDT-008 I can see the raw transaction data
     const mockTransaction = {
       publicKey: '0x1234',
       id: '1',

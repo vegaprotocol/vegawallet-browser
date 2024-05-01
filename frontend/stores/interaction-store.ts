@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { Transaction, TransactionMessage } from '@/lib/transactions'
+import { CheckTransactionResponse } from '@/types/backend'
 
 export interface ConnectionMessage {
   origin: string
@@ -26,10 +27,7 @@ export type InteractionStore = {
     transaction: Transaction,
     publicKey: string,
     origin: string
-  ) => Promise<{
-    valid: boolean
-    error?: string
-  }>
+  ) => Promise<CheckTransactionResponse>
 
   connectionModalOpen: boolean
   handleConnection: (parameters: ConnectionMessage) => Promise<ConnectionReply>

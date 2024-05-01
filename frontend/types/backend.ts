@@ -41,6 +41,11 @@ export interface Network {
   vegaDapps: string
 }
 
+export interface CheckTransactionResponse {
+  valid: boolean
+  error?: string
+}
+
 export enum TransactionState {
   Confirmed = 'Confirmed',
   Rejected = 'Rejected',

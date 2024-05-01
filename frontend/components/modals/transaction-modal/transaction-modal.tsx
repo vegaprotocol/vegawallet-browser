@@ -1,19 +1,12 @@
-import { Intent, Notification, Tooltip } from '@vegaprotocol/ui-toolkit'
-import { useCallback, useEffect } from 'react'
 import ReactTimeAgo from 'react-time-ago'
 
-import { LoaderBone } from '@/components/loader-bone'
-import { VegaSection } from '@/components/vega-section'
-import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
-import { useAsyncAction } from '@/hooks/async-action'
-import { Transaction } from '@/lib/transactions'
 import { useInteractionStore } from '@/stores/interaction-store'
 
 import { PageHeader } from '../../page-header'
 import { Splash } from '../../splash'
-import { CheckTransaction } from './check-transaction'
-import { EnrichedDetails } from './enriched-details'
-import { RawTransaction } from './raw-transaction'
+import { CheckTransaction } from './sections/check-transaction'
+import { EnrichedDetails } from './sections/enriched-details'
+import { RawTransaction } from './sections/raw-transaction'
 import { TransactionHeader } from './transaction-header'
 import { TransactionModalFooter } from './transaction-modal-footer'
 

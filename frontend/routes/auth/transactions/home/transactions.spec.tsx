@@ -38,6 +38,9 @@ describe('Transactions', () => {
     expect(screen.getByTestId('transactions-list')).toHaveTextContent('0')
   })
   it('filters out transactions not in the current network', () => {
+    // 1148-TXLS-001 When I change the network selector I am presented with transactions from that network
+    // 1148-TXLS-003 I can see a description of the fact that this does not include all transactions and a link to the block explorer
+
     mockStore(useTransactionsStore, {
       transactions: [
         { networkId: 'nope' },

@@ -41,6 +41,7 @@ describe('CheckTransaction', () => {
     expect(checkTransaction).toHaveBeenCalled()
   })
   it('should render a loading state while loading', () => {
+    // 1149-CHTX-001 I can see a loading indicator for while we are checking the transaction validity
     mockResult({
       loading: true,
       error: null,
@@ -61,6 +62,7 @@ describe('CheckTransaction', () => {
     expect(screen.getByTestId(locators.checkTransactionLoading)).toHaveTextContent('Checking transaction validity')
   })
   it('should render a notification with intent Danger when there is an unexpected error', async () => {
+    // 1149-CHTX-002 I can see an error explaining that we were unable to verify the validity of the transaction if an unexpected error occurs
     mockResult({
       loading: false,
       error: new Error('Unexpected error'),
@@ -76,6 +78,8 @@ describe('CheckTransaction', () => {
     expect(tooltip).toHaveTextContent('Unexpected error')
   })
   it('should render a Notification with intent Success when data.valid is true', async () => {
+    // 1149-CHTX-003 I can see a success notification when the transaction is valid
+    // 1149-CHTX-004 When the transaction is valid, I can see an explanation that this is not a guaranteeing the success of the tx
     mockResult({
       loading: false,
       error: null,
@@ -93,6 +97,9 @@ describe('CheckTransaction', () => {
     )
   })
   it('should render a Notification with intent Danger when data.valid is false', async () => {
+    // 1149-CHTX-005 I can see an error notification when the transaction is invalid
+    // 1149-CHTX-006 When the transaction is invalid I can see the error from the API
+    // 1149-CHTX-007 When the transaction is invalid I can see an explanation about what this means
     mockResult({
       loading: false,
       error: null,

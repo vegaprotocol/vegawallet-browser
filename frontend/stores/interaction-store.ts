@@ -65,11 +65,15 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
     return result
   },
   checkTransaction: async (request: SendMessage, transaction: Transaction, publicKey: string, origin: string) => {
-    const result = await request(RpcMethods.CheckTransaction, {
-      transaction,
-      publicKey,
-      origin
-    })
+    const result = await request(
+      RpcMethods.CheckTransaction,
+      {
+        transaction,
+        publicKey,
+        origin
+      },
+      true
+    )
     return result
   },
   currentConnectionDetails: null,

@@ -68,7 +68,7 @@ const CheckTransactionResult = ({
           <Tooltip
             description={
               <div data-testid={locators.checkTransactionValidTooltip} style={{ maxWidth: 300 }}>
-                This transaction has passed preflight checks and is ready to be sent to the network.
+                This transaction has passed initial checks and is ready to be sent to the network.
               </div>
             }
           >

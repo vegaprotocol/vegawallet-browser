@@ -165,6 +165,7 @@ describe('transactions', () => {
   })
 
   it('can still submit transaction when checkTx fails', async () => {
+    // 1149-CHTX-008 When the transaction is invalid I can still submit the transaction
     const keys = await vegaAPI.listKeys()
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
     await transaction.checkOnTransactionPage()

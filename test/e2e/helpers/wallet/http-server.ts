@@ -164,6 +164,7 @@ export const createServer = (config: ServerConfig = {}) => {
 
     if (includeCheckTx && req.url === checkTransactionsEndpoint) {
       res.end(checkTransactionResponse())
+      return
     }
 
     if (includeRawTransaction && req.url === rawTransactionEndpoint) {

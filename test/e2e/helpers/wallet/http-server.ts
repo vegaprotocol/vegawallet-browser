@@ -116,9 +116,16 @@ const rawTransactionResponse = () => JSON.stringify(rawTransactionObj)
 const marketsResponse = () => JSON.stringify(marketsResponseObj)
 const accountsResponse = () => JSON.stringify(accountsResponseObj)
 const assetsResponse = () => JSON.stringify(assetsResponseObj)
+const checkTransactionResponse = () =>
+  JSON.stringify({
+    valid: false,
+    error: 'could not transfer funds, less than minimal amount requested to transfer'
+  })
 
 //endpoints
 const rawTransactionEndpoint = '/transaction/raw'
+const checkTransactionsEndpoint = '/transaction/raw/check'
+
 const blockchainHeightEndpoint = '/blockchain/height'
 const accountsEndpoint = 'api/v2/accounts'
 const marketsEndpoint = '/api/v2/markets'
@@ -130,6 +137,7 @@ export type ServerConfig = {
   includeAccounts?: boolean
   includeMarkets?: boolean
   includeAssets?: boolean
+  includeCheckTx?: boolean
 }
 
 export const createServer = (config: ServerConfig = {}) => {
@@ -138,7 +146,8 @@ export const createServer = (config: ServerConfig = {}) => {
     includeBlockchainHeight = true,
     includeAccounts = true,
     includeMarkets = true,
-    includeAssets = true
+    includeAssets = true,
+    includeCheckTx = true
   } = config
 
   return http.createServer((req, res) => {
@@ -151,6 +160,10 @@ export const createServer = (config: ServerConfig = {}) => {
       res.writeHead(204)
       res.end()
       return
+    }
+
+    if (includeCheckTx && req.url === checkTransactionsEndpoint) {
+      res.end(checkTransactionResponse())
     }
 
     if (includeRawTransaction && req.url === rawTransactionEndpoint) {

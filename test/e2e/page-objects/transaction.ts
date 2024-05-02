@@ -1,8 +1,8 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { locators as transactionModalLocators } from '../../../frontend/components/modals/transaction-modal'
 import { locators as transactionModalFooterLocators } from '../../../frontend/components/modals/transaction-modal/transaction-modal-footer'
 import { locators as transferLocators } from '../../../frontend/components/receipts/transfer'
-import { locators as receiptLocators } from '../../..//frontend/components/receipts/utils/receipt-wrapper'
+import { locators as receiptLocators } from '../../../frontend/components/receipts/utils/receipt-wrapper'
+import { locators as checkTransaction } from '../../../frontend/components/modals/transaction-modal/sections/check-transaction'
 import { clickElement, getByDataTestID, isElementDisplayed, waitForElementToDisappear } from '../helpers/selenium-util'
 
 export class Transaction {
@@ -13,6 +13,7 @@ export class Transaction {
   private readonly autoConsent: By = getByDataTestID(
     transactionModalFooterLocators.transactionModalFooterAutoConsentSection
   )
+  private readonly checkTransactionFailed: By = getByDataTestID(checkTransaction.checkTransactionFailed)
 
   constructor(private readonly driver: WebDriver) {}
 
@@ -48,5 +49,9 @@ export class Transaction {
 
   async isAutoConsentPromptVisible() {
     return await isElementDisplayed(this.driver, this.autoConsent)
+  }
+
+  async checkTransactionFailedDisplayed() {
+    return await isElementDisplayed(this.driver, this.checkTransactionFailed)
   }
 }

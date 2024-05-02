@@ -118,8 +118,13 @@ const accountsResponse = () => JSON.stringify(accountsResponseObj)
 const assetsResponse = () => JSON.stringify(assetsResponseObj)
 const checkTransactionResponse = () =>
   JSON.stringify({
-    valid: false,
-    error: 'could not transfer funds, less than minimal amount requested to transfer'
+    info: '',
+    code: 51,
+    data: 'could not transfer funds, less than minimal amount requested to transfer',
+    gasUsed: 0,
+    gasWanted: 0,
+    log: '',
+    success: false
   })
 
 //endpoints

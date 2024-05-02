@@ -94,4 +94,13 @@ describe('InteractionStore', () => {
     expect(useInteractionStore.getState().transactionPromise).toBeNull()
     expect(useInteractionStore.getState().currentTransactionDetails).toBeNull()
   })
+  it('checks the transaction', async () => {
+    const request = jest.fn()
+    await useInteractionStore.getState().checkTransaction(request, { transfer: {} }, '0'.repeat(64), 'https://foo.com')
+    expect(request).toHaveBeenCalledWith('admin.check_transaction', {
+      transaction: { transfer: {} },
+      origin: 'https://foo.com',
+      publicKey: '0'.repeat(64)
+    })
+  })
 })

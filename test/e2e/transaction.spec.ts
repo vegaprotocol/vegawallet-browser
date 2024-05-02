@@ -163,4 +163,14 @@ describe('transactions', () => {
     await navigateToExtensionLandingPage(driver)
     await transaction.checkOnTransactionPage()
   })
+
+  it('can still submit transaction when checkTx fails', async () => {
+    const keys = await vegaAPI.listKeys()
+    await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction })
+    await transaction.checkOnTransactionPage()
+    const checkTxFailed = await transaction.checkTransactionFailedDisplayed()
+    expect(checkTxFailed).toBe(true)
+    await transaction.confirmTransaction()
+    await viewWallet.checkOnViewWalletPage()
+  })
 })

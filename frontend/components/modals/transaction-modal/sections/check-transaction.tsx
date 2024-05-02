@@ -13,7 +13,10 @@ export const locators = {
   checkTransactionLoading: 'check-transaction-loading',
   checkTransactionError: 'check-transaction-error',
   checkTransactionFailed: 'check-transaction-failed',
-  checkTransactionValid: 'check-transaction-valid'
+  checkTransactionValid: 'check-transaction-valid',
+  checkTransactionErrorTooltip: 'check-transaction-tooltip',
+  checkTransactionFailedTooltip: 'check-transaction-tooltip',
+  checkTransactionValidTooltip: 'check-transaction-tooltip'
 }
 
 const CheckTransactionResult = ({
@@ -28,11 +31,18 @@ const CheckTransactionResult = ({
   if (error)
     return (
       <Notification
-        testId={locators.checkTransactionError}
         intent={Intent.Danger}
         message={
-          <Tooltip description={<div style={{ maxWidth: 300 }}>{error.message}</div>}>
-            <span>There was a problem checking your transaction's validity, but you can still choose to send it.</span>
+          <Tooltip
+            description={
+              <div data-testid={locators.checkTransactionErrorTooltip} style={{ maxWidth: 300 }}>
+                {error.message}
+              </div>
+            }
+          >
+            <span data-testid={locators.checkTransactionError}>
+              There was a problem checking your transaction's validity, but you can still choose to send it.
+            </span>
           </Tooltip>
         }
       />
@@ -53,35 +63,33 @@ const CheckTransactionResult = ({
   if (data.valid)
     return (
       <Notification
-        testId={locators.checkTransactionValid}
         intent={Intent.Success}
         message={
           <Tooltip
             description={
-              <div style={{ maxWidth: 300 }}>
+              <div data-testid={locators.checkTransactionValidTooltip} style={{ maxWidth: 300 }}>
                 This transaction has passed all checks and is ready to be sent to the network. This is not a guarantee
                 of success and may still be rejected if secondary checks on the network fail.
               </div>
             }
           >
-            <span>Your transaction is valid.</span>
+            <span data-testid={locators.checkTransactionValid}>Your transaction is valid.</span>
           </Tooltip>
         }
       />
     )
   return (
     <Notification
-      testId={locators.checkTransactionFailed}
       intent={Intent.Danger}
       message={
         <Tooltip
           description={
-            <div style={{ maxWidth: 300 }}>
+            <div data-testid={locators.checkTransactionFailedTooltip} style={{ maxWidth: 300 }}>
               You can still send this transaction but it may be rejected by the network.
             </div>
           }
         >
-          <span>{data.error}</span>
+          <span data-testid={locators.checkTransactionFailed}>{data.error}</span>
         </Tooltip>
       }
     />

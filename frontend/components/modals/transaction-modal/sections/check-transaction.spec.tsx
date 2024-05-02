@@ -93,7 +93,7 @@ describe('CheckTransaction', () => {
     fireEvent.pointerMove(screen.getByTestId(locators.checkTransactionValid))
     const [tooltip] = await screen.findAllByTestId(locators.checkTransactionValidTooltip)
     expect(tooltip).toHaveTextContent(
-      'This transaction has passed preflight checks and is ready to be sent to the network.'
+      'This transaction has passed initial checks and is ready to be sent to the network.'
     )
   })
   it('should render a Notification with intent Danger when data.valid is false', async () => {

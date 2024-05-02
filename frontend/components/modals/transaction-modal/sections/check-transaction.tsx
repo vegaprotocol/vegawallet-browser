@@ -9,7 +9,12 @@ import { Transaction } from '@/lib/transactions'
 import { useInteractionStore } from '@/stores/interaction-store'
 import { CheckTransactionResponse } from '@/types/backend'
 
-export const locators = {}
+export const locators = {
+  checkTransactionLoading: 'check-transaction-loading',
+  checkTransactionError: 'check-transaction-error',
+  checkTransactionFailed: 'check-transaction-failed',
+  checkTransactionValid: 'check-transaction-valid'
+}
 
 const CheckTransactionResult = ({
   loading,
@@ -23,13 +28,19 @@ const CheckTransactionResult = ({
   if (error)
     return (
       <Notification
+        testId={locators.checkTransactionError}
         intent={Intent.Danger}
-        message={`There was an error checking your transactions validity. Error: ${error.message}`}
+        message={
+          <Tooltip description={<div style={{ maxWidth: 300 }}>{error.message}</div>}>
+            <span>There was a problem checking your transaction's validity, but you can still choose to send it.</span>
+          </Tooltip>
+        }
       />
     )
   if (loading || !data)
     return (
       <Notification
+        testId={locators.checkTransactionLoading}
         intent={Intent.None}
         message={
           <div className="flex flex-row justify-between">
@@ -37,11 +48,12 @@ const CheckTransactionResult = ({
             <LoaderBone width={10} height={2} baseSize={8} />
           </div>
         }
-      ></Notification>
+      />
     )
   if (data.valid)
     return (
       <Notification
+        testId={locators.checkTransactionValid}
         intent={Intent.Success}
         message={
           <Tooltip
@@ -52,20 +64,20 @@ const CheckTransactionResult = ({
               </div>
             }
           >
-            <span>Transaction is valid</span>
+            <span>Your transaction is valid.</span>
           </Tooltip>
         }
       />
     )
   return (
     <Notification
+      testId={locators.checkTransactionFailed}
       intent={Intent.Danger}
       message={
         <Tooltip
           description={
             <div style={{ maxWidth: 300 }}>
-              This error occurred when checking the transaction for validity, you can still send the transaction but it
-              may be rejected.
+              You can still send this transaction but it may be rejected by the network.
             </div>
           }
         >

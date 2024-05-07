@@ -1,5 +1,6 @@
 declare module '!/config' {
   export interface Config {
+    isTest: boolean
     networks: Network[]
     feedbackLink: string
     encryptionSettings: EncryptionSettings

@@ -1,5 +1,6 @@
 import * as networks from './well-known-networks.js'
 const mainnet = {
+  isTest: false,
   title: 'Vega Wallet',
   defaultNetworkId: networks.mainnet.id,
   defaultChainId: networks.mainnet.chainId,

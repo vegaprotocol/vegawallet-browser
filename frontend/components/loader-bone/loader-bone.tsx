@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import config from '!/config'
+
 const pseudoRandom = (seed: number) => {
   let value = seed
   return () => {
@@ -19,6 +21,7 @@ export const LoaderBone = ({ width, height, baseSize = 1 }: { width: number; hei
   const generate = useMemo(() => pseudoRandom(1), [])
 
   useEffect(() => {
+    if (config.isTest) return
     const interval = setInterval(() => {
       forceRender((x) => !x)
     }, 100)

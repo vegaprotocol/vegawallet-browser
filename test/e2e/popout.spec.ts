@@ -169,6 +169,7 @@ describe('check popout functionality', () => {
     connectWallet = new ConnectWallet(driver)
     apiHelper = new APIHelper(driver)
     transaction = new Transaction(driver)
+    await navigateToExtensionLandingPage(driver)
     await setUpWalletAndKey(driver)
     originalHandle = await driver.getWindowHandle()
   }

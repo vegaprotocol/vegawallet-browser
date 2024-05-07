@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 
-import { getTitle } from '@/components/modals/transaction-modal/get-title'
 import { BasePage } from '@/components/pages/page'
+import { getTitle } from '@/lib/get-title'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { useTransactionsStore } from '@/stores/transactions-store'
 

@@ -145,7 +145,7 @@ describe('check popout functionality', () => {
   async function sendConnectionRequestAndReturnHandles() {
     const handlesBeforeDappWindow = await driver.getAllWindowHandles()
     dappHandle = await createDappWindowHandle()
-    await driver.get('http://google.co.uk')
+    await driver.get('https://google.co.uk')
     await switchWindowHandles(driver, false, dappHandle)
 
     expect(await windowHandleHasCount(driver, handlesBeforeDappWindow.length + 1)).toBe(true)

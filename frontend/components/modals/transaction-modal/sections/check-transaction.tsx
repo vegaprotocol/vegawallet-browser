@@ -28,6 +28,7 @@ const CheckTransactionResult = ({
   data: CheckTransactionResponse | null
   error: Error | null
 }) => {
+  console.log('CheckTransactionResult')
   if (error)
     return (
       <Notification
@@ -104,6 +105,7 @@ export const CheckTransaction = ({
   publicKey: string
   origin: string
 }) => {
+  console.log('CheckTransaction')
   const { request } = useJsonRpcClient()
   const { checkTransaction } = useInteractionStore((store) => ({
     checkTransaction: store.checkTransaction
@@ -117,9 +119,5 @@ export const CheckTransaction = ({
     loaderFunction()
   }, [loaderFunction])
 
-  return (
-    <VegaSection>
-      <CheckTransactionResult loading={loading} data={data} error={error} />
-    </VegaSection>
-  )
+  return <VegaSection>{/* <CheckTransactionResult loading={loading} data={data} error={error} /> */}</VegaSection>
 }

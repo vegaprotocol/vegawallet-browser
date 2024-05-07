@@ -4,7 +4,7 @@ import ReactTimeAgo from 'react-time-ago'
 import { HostImage } from '@/components/host-image'
 import { ChevronRight } from '@/components/icons/chevron-right'
 import { List } from '@/components/list'
-import { getTitle } from '@/components/modals/transaction-modal/get-title'
+import { getTitle } from '@/lib/get-title'
 import { FULL_ROUTES } from '@/routes/route-names'
 import type { StoredTransaction } from '@/types/backend'
 

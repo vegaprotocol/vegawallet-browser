@@ -81,14 +81,22 @@ describe('check popout functionality', () => {
     // 1113-POPT-006 If I close the pop-up window the transaction persists
     await runTestRetryIfDriverCrashes(
       async () => {
+        console.log(1)
         const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
+        console.log(2)
         await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
+        console.log(3)
         await transaction.checkOnTransactionPage()
+        console.log(4)
         await driver.close()
+        console.log(5)
 
         await switchWindowHandles(driver, false)
+        console.log(6)
         await navigateToExtensionLandingPage(driver)
+        console.log(7)
         await transaction.checkOnTransactionPage()
+        console.log(8)
       },
       setupTests,
       tearDownTests

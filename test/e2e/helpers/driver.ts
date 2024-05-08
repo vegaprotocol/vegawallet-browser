@@ -157,7 +157,7 @@ export async function runTestRetryIfDriverCrashes(
   testFunction: () => Promise<void>,
   setupFunction?: () => Promise<void>,
   teardownFunction?: () => Promise<void>,
-  maxRetries = 3,
+  maxRetries = 0,
   retryIteration = 0
 ) {
   try {

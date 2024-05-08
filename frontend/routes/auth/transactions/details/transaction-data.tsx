@@ -1,4 +1,4 @@
-import { RawTransaction } from '@/components/modals/transaction-modal/raw-transaction'
+import { RawTransaction } from '@/components/modals/transaction-modal/sections/raw-transaction'
 import { TransactionSwitch } from '@/components/receipts'
 import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'

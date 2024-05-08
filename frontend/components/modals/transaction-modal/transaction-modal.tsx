@@ -34,7 +34,7 @@ export const TransactionModal = () => {
             name={details.name}
             transaction={details.transaction}
           />
-          {/* <CheckTransaction publicKey={details.publicKey} transaction={details.transaction} origin={details.origin} /> */}
+          <CheckTransaction publicKey={details.publicKey} transaction={details.transaction} origin={details.origin} />
           <EnrichedDetails transaction={details.transaction} />
           <RawTransaction transaction={details.transaction} />
           <div data-testid={locators.transactionTimeAgo} className="text-sm text-vega-dark-300 mt-6 mb-20">

@@ -111,13 +111,18 @@ export const CheckTransaction = ({
     checkTransaction: store.checkTransaction
   }))
   const checkTx = useCallback(
-    () => checkTransaction(request, transaction, publicKey, origin),
+    async () => await checkTransaction(request, transaction, publicKey, origin),
     [checkTransaction, publicKey, request, transaction, origin]
   )
   const { loading, error, data, loaderFunction } = useAsyncAction(checkTx)
+
   useEffect(() => {
     loaderFunction()
   }, [loaderFunction])
 
-  return <VegaSection>{/* <CheckTransactionResult loading={loading} data={data} error={error} /> */}</VegaSection>
+  return (
+    <VegaSection>
+      <CheckTransactionResult loading={loading} data={data} error={error} />
+    </VegaSection>
+  )
 }

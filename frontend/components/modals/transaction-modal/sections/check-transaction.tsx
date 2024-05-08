@@ -110,11 +110,10 @@ export const CheckTransaction = ({
   const { checkTransaction } = useInteractionStore((store) => ({
     checkTransaction: store.checkTransaction
   }))
-  const checkTx = useCallback(
-    async () => await checkTransaction(request, transaction, publicKey, origin),
-    [checkTransaction, publicKey, request, transaction, origin]
-  )
-  const { loading, error, data, loaderFunction } = useAsyncAction(checkTx)
+  const { loading, error, data, loaderFunction } = useAsyncAction(async () => {
+    const result = await checkTransaction(request, transaction, publicKey, origin)
+    return result
+  })
 
   useEffect(() => {
     loaderFunction()

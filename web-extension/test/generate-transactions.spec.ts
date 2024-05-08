@@ -114,7 +114,8 @@ const recurringTransfer: RecurringTransfer = {
     stakingRequirement: '',
     distributionStrategy: DistributionStrategy.DISTRIBUTION_STRATEGY_PRO_RATA,
     notionalTimeWeightedAveragePositionRequirement: '',
-    capRewardFeeMultiple: ''
+    capRewardFeeMultiple: '',
+    transferInterval: 1
   }
 }
 

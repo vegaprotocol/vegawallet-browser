@@ -14,7 +14,10 @@ on:
 jobs:
   release:
     environment:
-      name: github-releases
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+      contents: write
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,3 +27,8 @@ jobs:
       - run: |
           npm version ${{ inputs.version }}
       - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_user_name: vega-ci-bot
+          commit_user_email: vega-ci-bot@vega.xyz
+          push_options: '--follow-tags'
+      ${{ secrets.GITHUB_TOKEN }}

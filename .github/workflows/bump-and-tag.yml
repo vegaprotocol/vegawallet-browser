@@ -1,0 +1,26 @@
+name: Bump and tag version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: choice
+        description: Who to greet
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  release:
+    environment:
+      name: github-releases
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          git config --global user.email "vega-ci-bot@vega.xyz"
+          git config --global user.name "vega-ci-bot"
+      - run: |
+          npm version ${{ inputs.version }}
+      - uses: stefanzweifel/git-auto-commit-action@v5

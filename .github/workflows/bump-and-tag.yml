@@ -22,6 +22,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
+          git config --global user.email "vega-ci-bot@vega.xyz"
+          git config --global user.name "vega-ci-bot"
+      - run: |
           npm version ${{ inputs.version }}
       - run: cat package.json
       - uses: stefanzweifel/git-auto-commit-action@v5

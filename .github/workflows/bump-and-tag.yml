@@ -31,4 +31,3 @@ jobs:
           commit_user_name: vega-ci-bot
           commit_user_email: vega-ci-bot@vega.xyz
           push_options: '--follow-tags'
-      ${{ secrets.GITHUB_TOKEN }}

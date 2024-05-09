@@ -21,33 +21,32 @@ jobs:
     steps:
       - uses: olegtarasov/get-tag@v2.1.3
         id: tag-name
-      - run: echo ${{ steps.tag-name.outputs.tag }}
-      # - name: Checkout
-      #   uses: actions/checkout@v3
-      #   with:
-      #     ref: ${{ github.event.release.tag_name }}
-      # - name: Setup Node.js Latest
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     cache: 'yarn'
-      #     node-version-file: '.nvmrc'
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.tag-name.outputs.tag }}
+      - name: Setup Node.js Latest
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
 
-      # - name: Install dependencies
-      #   run: yarn install
-      # - name: Build app
-      #   run: NODE_ENV=production yarn run build:${{ matrix.config }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Build app
+        run: NODE_ENV=production yarn run build:${{ matrix.config }}
 
-      # - name: Zip Chrome
-      #   run: cd build/chrome && zip -qq -r ../vega-browserwallet-${{ matrix.config }}-chrome-${{ github.event.release.tag_name || 'latest' }}.zip .
-      # - name: Zip Firefox
-      #   run: cd build/firefox && zip -qq -r ../vega-browserwallet-${{ matrix.config }}-firefox-${{ github.event.release.tag_name || 'latest' }}.zip .
+      - name: Zip Chrome
+        run: cd build/chrome && zip -qq -r ../vega-browserwallet-${{ matrix.config }}-chrome-${{ steps.tag-name.outputs.tag || 'latest' }}.zip .
+      - name: Zip Firefox
+        run: cd build/firefox && zip -qq -r ../vega-browserwallet-${{ matrix.config }}-firefox-${{ steps.tag-name.outputs.tag || 'latest' }}.zip .
 
-      # - name: Upload to Github Releases
-      #   uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
-      #   with:
-      #     files: 'build/*.zip'
-      #     name: ${{ github.event.release.tag_name || 'Latest' }}
-      #     tag_name: ${{ github.event.release.tag_name || 'latest' }}
-      #     prerelease: true
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload to Github Releases
+        uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
+        with:
+          files: 'build/*.zip'
+          name: ${{ steps.tag-name.outputs.tag || 'Latest' }}
+          tag_name: ${{ steps.tag-name.outputs.tag || 'latest' }}
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

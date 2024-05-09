@@ -33,3 +33,4 @@ jobs:
           commit_user_email: vega-ci-bot@vega.xyz
           commit_author: vega-ci-bot <vega-ci-bot@vega.xyz>
           push_options: '--follow-tags'
+          skip_dirty_check: true

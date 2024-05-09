@@ -2,35 +2,16 @@ name: Release extension zip
 
 on:
   push:
-    branches: ['main']
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
 
-  workflow_dispatch:
-    inputs:
-      publish:
-        description: 'Publish as a GitHub release'
-        required: false
-        type: boolean
-        default: false
-      tag:
-        description: 'Git Tag to build and publish'
-        required: false
-        type: string
-        default: ''
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: write
-  id-token: write
-
-# Allow one concurrent deployment
 concurrency:
   group: 'releases'
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
   release:
-    if: ${{ inputs.publish }}
     environment:
       name: github-releases
     runs-on: ubuntu-latest
@@ -38,10 +19,11 @@ jobs:
       matrix:
         config: [beta, mainstream]
     steps:
+      - run: echo ${{ github.event.release.tag_name }}
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: ${{ inputs.tag }}
+          ref: ${{ github.event.release.tag_name }}
       - name: Setup Node.js Latest
         uses: actions/setup-node@v3
         with:
@@ -54,17 +36,16 @@ jobs:
         run: NODE_ENV=production yarn run build:${{ matrix.config }}
 
       - name: Zip Chrome
-        run: cd build/chrome && zip -qq -r ../vega-browserwallet-${{ matrix.config }}-chrome-${{ inputs.tag || 'latest' }}.zip .
+        run: cd build/chrome && zip -qq -r ../vega-browserwallet-${{ matrix.config }}-chrome-${{ github.event.release.tag_name || 'latest' }}.zip .
       - name: Zip Firefox
-        run: cd build/firefox && zip -qq -r ../vega-browserwallet-${{ matrix.config }}-firefox-${{ inputs.tag || 'latest' }}.zip .
+        run: cd build/firefox && zip -qq -r ../vega-browserwallet-${{ matrix.config }}-firefox-${{ github.event.release.tag_name || 'latest' }}.zip .
 
       - name: Upload to Github Releases
-        if: ${{ inputs.publish }}
         uses: softprops/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
         with:
           files: 'build/*.zip'
-          name: ${{ inputs.tag || 'Latest' }}
-          tag_name: ${{ inputs.tag || 'latest' }}
+          name: ${{ github.event.release.tag_name || 'Latest' }}
+          tag_name: ${{ github.event.release.tag_name || 'latest' }}
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

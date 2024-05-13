@@ -3,12 +3,13 @@ import {
   MarginMode,
   OrderStatus,
   OrderTimeInForce,
+  OrderType,
   PeggedReference,
   Side,
   StopOrderExpiryStrategy,
+  UndelegateSubmissionMethod,
   VoteValue
 } from '@vegaprotocol/enums'
-import { v1UndelegateSubmissionMethod as UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 export const EXPIRY_STRATEGY_MAP: Record<StopOrderExpiryStrategy, string> = {
   [StopOrderExpiryStrategy.EXPIRY_STRATEGY_UNSPECIFIED]: 'Unspecified',
@@ -100,4 +101,11 @@ export const MARGIN_MODE_MAP: Record<MarginMode, string> = {
   [MarginMode.MARGIN_MODE_UNSPECIFIED]: 'Unspecified',
   [MarginMode.MARGIN_MODE_CROSS_MARGIN]: 'Cross margin',
   [MarginMode.MARGIN_MODE_ISOLATED_MARGIN]: 'Isolated margin'
+}
+
+export const ORDER_TYPE: Record<OrderType, string> = {
+  [OrderType.TYPE_LIMIT]: 'Limit',
+  [OrderType.TYPE_MARKET]: 'Market',
+  [OrderType.TYPE_NETWORK]: 'Network',
+  [OrderType.TYPE_UNSPECIFIED]: 'Unspecified'
 }

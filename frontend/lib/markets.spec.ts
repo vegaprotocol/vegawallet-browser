@@ -1,4 +1,4 @@
-import { MarketTradingMode } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { MarketTradingMode } from '@vegaprotocol/enums'
 
 import { getMarketPriceAssetId, isActiveMarket } from './markets'
 

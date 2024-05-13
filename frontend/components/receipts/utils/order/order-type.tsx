@@ -1,12 +1,7 @@
-import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { OrderType as vegaOrderType } from '@vegaprotocol/enums'
 
-export const orderTypeShort: Record<vegaOrderType, string> = {
-  [vegaOrderType.TYPE_LIMIT]: 'Limit',
-  [vegaOrderType.TYPE_MARKET]: 'Market',
-  [vegaOrderType.TYPE_NETWORK]: 'Network',
-  [vegaOrderType.TYPE_UNSPECIFIED]: 'Unspecified'
-}
+import { ORDER_TYPE } from '@/lib/enums'
 
 export const OrderType = ({ type }: { type: vegaOrderType }) => {
-  return <>{orderTypeShort[type]}</>
+  return <>{ORDER_TYPE[type]}</>
 }

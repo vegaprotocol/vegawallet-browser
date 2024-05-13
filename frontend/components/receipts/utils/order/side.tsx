@@ -1,4 +1,4 @@
-import { vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { Side as vegaSide } from '@vegaprotocol/enums'
 
 import { processSide, SIDE_MAP } from '@/lib/enums'
 

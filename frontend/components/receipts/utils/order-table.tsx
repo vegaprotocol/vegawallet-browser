@@ -1,4 +1,4 @@
-import { vegaOrderStatus, vegaOrderType, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { OrderStatus, OrderType as vegaOrderType, Side as vegaSide } from '@vegaprotocol/enums'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
@@ -28,7 +28,7 @@ export type OrderTableProperties = Partial<{
   createdAt?: string
   updatedAt?: string
   remaining?: string
-  status?: vegaOrderStatus
+  status?: OrderStatus
   version?: string
 }>
 

@@ -1,4 +1,4 @@
-import { OrderTimeInForce } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { OrderTimeInForce } from '@vegaprotocol/enums'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
 import { ReactNode } from 'react'
 

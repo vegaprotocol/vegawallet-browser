@@ -160,6 +160,6 @@ html {
   }
 }
 
-input[type="radio"] {
+input[type='radio'] {
   display: none;
 }

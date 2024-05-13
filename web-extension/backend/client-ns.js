@@ -122,7 +122,10 @@ export default function init({
         if (keyInfo == null) throw new JSONRPCServer.Error(...Errors.UNKNOWN_PUBLIC_KEY)
         const selectedNetworkId = await connections.getNetworkId(context.origin)
         const selectedChainId = await connections.getChainId(context.origin)
+        const connection = await connections.get(context.origin)
+        const transactionType = txHelpers.getTransactionType(params.transaction)
         const isLocked = encryptedStore.locked === true
+
         let approved = true
         if (!connection.autoConsent || !AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) || isLocked) {
           approved = await interactor.reviewTransaction({

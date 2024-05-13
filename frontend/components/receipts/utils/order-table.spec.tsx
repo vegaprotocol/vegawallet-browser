@@ -1,6 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import { vegaOrderStatus } from '@vegaprotocol/rest-clients/dist/core'
-import { vegaOrderType, vegaPeggedReference, vegaSide } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { OrderStatus as vegaOrderStatus } from '@vegaprotocol/enums'
+import {
+  OrderType as vegaOrderType,
+  PeggedReference as vegaPeggedReference,
+  Side as vegaSide
+} from '@vegaprotocol/enums'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'

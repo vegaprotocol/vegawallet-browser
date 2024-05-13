@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { vegaOrderType } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { OrderType } from '@vegaprotocol/enums'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { AssetsStore, useAssetsStore } from '@/stores/assets-store'
@@ -27,7 +27,7 @@ const ASSET_MOCK = {
   details: { symbol: 'SYM' }
 }
 
-const renderComponent = ({ price, marketId, type }: { price: string; marketId: string; type?: vegaOrderType }) => {
+const renderComponent = ({ price, marketId, type }: { price: string; marketId: string; type?: OrderType }) => {
   render(
     <MockNetworkProvider>
       <OrderPrice price={price} marketId={marketId} type={type} />
@@ -46,7 +46,7 @@ describe('OrderPriceComponent', () => {
       }
     )
     // 1130-ODTB-010 I can see 'Market price'
-    renderComponent({ price: '0', marketId: 'someMarketId', type: vegaOrderType.TYPE_MARKET })
+    renderComponent({ price: '0', marketId: 'someMarketId', type: OrderType.TYPE_MARKET })
     expect(screen.getByTestId(orderPriceLocators.orderDetailsMarketPrice).textContent).toBe('Market price')
   })
 

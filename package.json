@@ -8,7 +8,7 @@
     "@types/object-hash": "^3.0.4",
     "@types/uuid": "^9.0.8",
     "@vegaprotocol/crypto": "^0.12.0",
-    "@vegaprotocol/enums": "^0.0.1",
+    "@vegaprotocol/enums": "^0.0.2",
     "@vegaprotocol/protos": "^0.16.0",
     "@vegaprotocol/rest-clients": "^0.0.5",
     "@vegaprotocol/tailwindcss-config": "^0.0.2",

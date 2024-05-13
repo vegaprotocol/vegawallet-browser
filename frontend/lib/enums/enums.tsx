@@ -1,14 +1,13 @@
-// TODO should be imported from enums package but this is fine for now
 import {
+  AccountType,
+  MarginMode,
+  OrderStatus,
   OrderTimeInForce,
+  PeggedReference,
+  Side,
   StopOrderExpiryStrategy,
-  vegaAccountType,
-  vegaMarginMode,
-  vegaOrderStatus,
-  vegaPeggedReference,
-  vegaSide,
-  vegaVoteValue
-} from '@vegaprotocol/rest-clients/dist/trading-data'
+  VoteValue
+} from '@vegaprotocol/enums'
 import { v1UndelegateSubmissionMethod as UndelegateSubmissionMethod } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 export const EXPIRY_STRATEGY_MAP: Record<StopOrderExpiryStrategy, string> = {
@@ -34,71 +33,71 @@ export const TIF_MAP: { [key in OrderTimeInForce]: string } = {
 }
 
 export const VOTE_VALUE_MAP = {
-  [vegaVoteValue.VALUE_YES]: 'For',
-  [vegaVoteValue.VALUE_NO]: 'Against',
-  [vegaVoteValue.VALUE_UNSPECIFIED]: 'Unspecified'
+  [VoteValue.VALUE_YES]: 'For',
+  [VoteValue.VALUE_NO]: 'Against',
+  [VoteValue.VALUE_UNSPECIFIED]: 'Unspecified'
 }
 
-export const ACCOUNT_TYPE_MAP: Record<vegaAccountType, string> = {
-  [vegaAccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
-  [vegaAccountType.ACCOUNT_TYPE_SETTLEMENT]: 'Settlement',
-  [vegaAccountType.ACCOUNT_TYPE_MARGIN]: 'Margin',
-  [vegaAccountType.ACCOUNT_TYPE_GENERAL]: 'General',
-  [vegaAccountType.ACCOUNT_TYPE_FEES_INFRASTRUCTURE]: 'Fees (infra)',
-  [vegaAccountType.ACCOUNT_TYPE_FEES_LIQUIDITY]: 'Fees (liquidity)',
-  [vegaAccountType.ACCOUNT_TYPE_FEES_MAKER]: 'Fees (maker)',
-  [vegaAccountType.ACCOUNT_TYPE_BOND]: 'Bond',
-  [vegaAccountType.ACCOUNT_TYPE_EXTERNAL]: 'External',
-  [vegaAccountType.ACCOUNT_TYPE_GLOBAL_INSURANCE]: 'Global insurance',
-  [vegaAccountType.ACCOUNT_TYPE_GLOBAL_REWARD]: 'Global reward',
-  [vegaAccountType.ACCOUNT_TYPE_PENDING_TRANSFERS]: 'Pending transfers',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_MAKER_PAID_FEES]: 'Maker paid fees',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES]: 'Maker received fees',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES]: 'LP received fees',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS]: 'Market proposers',
-  [vegaAccountType.ACCOUNT_TYPE_UNSPECIFIED]: 'Unspecified',
-  [vegaAccountType.ACCOUNT_TYPE_HOLDING]: 'Holding',
-  [vegaAccountType.ACCOUNT_TYPE_LP_LIQUIDITY_FEES]: 'LP liquidity fees',
-  [vegaAccountType.ACCOUNT_TYPE_LIQUIDITY_FEES_BONUS_DISTRIBUTION]: '',
-  [vegaAccountType.ACCOUNT_TYPE_NETWORK_TREASURY]: 'Network treasury',
-  [vegaAccountType.ACCOUNT_TYPE_VESTING_REWARDS]: 'Vesting rewards',
-  [vegaAccountType.ACCOUNT_TYPE_VESTED_REWARDS]: 'Vested rewards',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_AVERAGE_POSITION]: 'Average position rewards',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_RELATIVE_RETURN]: 'Relative return rewards',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_RETURN_VOLATILITY]: 'Volatility rewards',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_VALIDATOR_RANKING]: 'Validator ranking rewards',
-  [vegaAccountType.ACCOUNT_TYPE_PENDING_FEE_REFERRAL_REWARD]: 'Pending fee referral rewards',
-  [vegaAccountType.ACCOUNT_TYPE_ORDER_MARGIN]: 'Order Margin',
-  [vegaAccountType.ACCOUNT_TYPE_REWARD_REALISED_RETURN]: 'Reward realised return'
+export const ACCOUNT_TYPE_MAP: Record<AccountType, string> = {
+  [AccountType.ACCOUNT_TYPE_INSURANCE]: 'Insurance',
+  [AccountType.ACCOUNT_TYPE_SETTLEMENT]: 'Settlement',
+  [AccountType.ACCOUNT_TYPE_MARGIN]: 'Margin',
+  [AccountType.ACCOUNT_TYPE_GENERAL]: 'General',
+  [AccountType.ACCOUNT_TYPE_FEES_INFRASTRUCTURE]: 'Fees (infra)',
+  [AccountType.ACCOUNT_TYPE_FEES_LIQUIDITY]: 'Fees (liquidity)',
+  [AccountType.ACCOUNT_TYPE_FEES_MAKER]: 'Fees (maker)',
+  [AccountType.ACCOUNT_TYPE_BOND]: 'Bond',
+  [AccountType.ACCOUNT_TYPE_EXTERNAL]: 'External',
+  [AccountType.ACCOUNT_TYPE_GLOBAL_INSURANCE]: 'Global insurance',
+  [AccountType.ACCOUNT_TYPE_GLOBAL_REWARD]: 'Global reward',
+  [AccountType.ACCOUNT_TYPE_PENDING_TRANSFERS]: 'Pending transfers',
+  [AccountType.ACCOUNT_TYPE_REWARD_MAKER_PAID_FEES]: 'Maker paid fees',
+  [AccountType.ACCOUNT_TYPE_REWARD_MAKER_RECEIVED_FEES]: 'Maker received fees',
+  [AccountType.ACCOUNT_TYPE_REWARD_LP_RECEIVED_FEES]: 'LP received fees',
+  [AccountType.ACCOUNT_TYPE_REWARD_MARKET_PROPOSERS]: 'Market proposers',
+  [AccountType.ACCOUNT_TYPE_UNSPECIFIED]: 'Unspecified',
+  [AccountType.ACCOUNT_TYPE_HOLDING]: 'Holding',
+  [AccountType.ACCOUNT_TYPE_LP_LIQUIDITY_FEES]: 'LP liquidity fees',
+  [AccountType.ACCOUNT_TYPE_LIQUIDITY_FEES_BONUS_DISTRIBUTION]: '',
+  [AccountType.ACCOUNT_TYPE_NETWORK_TREASURY]: 'Network treasury',
+  [AccountType.ACCOUNT_TYPE_VESTING_REWARDS]: 'Vesting rewards',
+  [AccountType.ACCOUNT_TYPE_VESTED_REWARDS]: 'Vested rewards',
+  [AccountType.ACCOUNT_TYPE_REWARD_AVERAGE_POSITION]: 'Average position rewards',
+  [AccountType.ACCOUNT_TYPE_REWARD_RELATIVE_RETURN]: 'Relative return rewards',
+  [AccountType.ACCOUNT_TYPE_REWARD_RETURN_VOLATILITY]: 'Volatility rewards',
+  [AccountType.ACCOUNT_TYPE_REWARD_VALIDATOR_RANKING]: 'Validator ranking rewards',
+  [AccountType.ACCOUNT_TYPE_PENDING_FEE_REFERRAL_REWARD]: 'Pending fee referral rewards',
+  [AccountType.ACCOUNT_TYPE_ORDER_MARGIN]: 'Order Margin',
+  [AccountType.ACCOUNT_TYPE_REWARD_REALISED_RETURN]: 'Reward realised return'
 }
 
-export const ORDER_STATUS_MAP: Record<vegaOrderStatus, string> = {
-  STATUS_UNSPECIFIED: 'Unspecified',
-  STATUS_ACTIVE: 'Active',
-  STATUS_EXPIRED: 'Expired',
-  STATUS_CANCELLED: 'Cancelled',
-  STATUS_STOPPED: 'Stopped',
-  STATUS_FILLED: 'Filled',
-  STATUS_REJECTED: 'Rejected',
-  STATUS_PARTIALLY_FILLED: 'Partially FILLED',
-  STATUS_PARKED: 'Parked'
+export const ORDER_STATUS_MAP: Record<OrderStatus, string> = {
+  [OrderStatus.STATUS_UNSPECIFIED]: 'Unspecified',
+  [OrderStatus.STATUS_ACTIVE]: 'Active',
+  [OrderStatus.STATUS_EXPIRED]: 'Expired',
+  [OrderStatus.STATUS_CANCELLED]: 'Cancelled',
+  [OrderStatus.STATUS_STOPPED]: 'Stopped',
+  [OrderStatus.STATUS_FILLED]: 'Filled',
+  [OrderStatus.STATUS_REJECTED]: 'Rejected',
+  [OrderStatus.STATUS_PARTIALLY_FILLED]: 'Partially FILLED',
+  [OrderStatus.STATUS_PARKED]: 'Parked'
 }
 
-export const PEGGED_REFERENCE_MAP: Record<vegaPeggedReference, string> = {
-  [vegaPeggedReference.PEGGED_REFERENCE_BEST_ASK]: 'best ask',
-  [vegaPeggedReference.PEGGED_REFERENCE_BEST_BID]: 'best bid',
-  [vegaPeggedReference.PEGGED_REFERENCE_MID]: 'mid',
-  [vegaPeggedReference.PEGGED_REFERENCE_UNSPECIFIED]: 'unspecified'
+export const PEGGED_REFERENCE_MAP: Record<PeggedReference, string> = {
+  [PeggedReference.PEGGED_REFERENCE_BEST_ASK]: 'best ask',
+  [PeggedReference.PEGGED_REFERENCE_BEST_BID]: 'best bid',
+  [PeggedReference.PEGGED_REFERENCE_MID]: 'mid',
+  [PeggedReference.PEGGED_REFERENCE_UNSPECIFIED]: 'unspecified'
 }
 
-export const SIDE_MAP: Record<vegaSide, string> = {
-  SIDE_UNSPECIFIED: 'Unspecified',
-  SIDE_BUY: 'Long',
-  SIDE_SELL: 'Short'
+export const SIDE_MAP: Record<Side, string> = {
+  [Side.SIDE_UNSPECIFIED]: 'Unspecified',
+  [Side.SIDE_BUY]: 'Long',
+  [Side.SIDE_SELL]: 'Short'
 }
 
-export const MARGIN_MODE_MAP: Record<vegaMarginMode, string> = {
-  [vegaMarginMode.MARGIN_MODE_UNSPECIFIED]: 'Unspecified',
-  [vegaMarginMode.MARGIN_MODE_CROSS_MARGIN]: 'Cross margin',
-  [vegaMarginMode.MARGIN_MODE_ISOLATED_MARGIN]: 'Isolated margin'
+export const MARGIN_MODE_MAP: Record<MarginMode, string> = {
+  [MarginMode.MARGIN_MODE_UNSPECIFIED]: 'Unspecified',
+  [MarginMode.MARGIN_MODE_CROSS_MARGIN]: 'Cross margin',
+  [MarginMode.MARGIN_MODE_ISOLATED_MARGIN]: 'Isolated margin'
 }

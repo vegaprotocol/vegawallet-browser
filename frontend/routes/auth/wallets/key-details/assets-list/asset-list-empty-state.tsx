@@ -1,4 +1,4 @@
-import { AccountType as vegaAccountType } from '@vegaprotocol/enums'
+import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 import { SubHeader } from '@/components/sub-header'
 import { isActiveMarket } from '@/lib/markets'

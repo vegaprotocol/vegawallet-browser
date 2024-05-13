@@ -26,8 +26,9 @@ export const TransactionModalFooter = ({
   details: TransactionMessage
 }) => {
   const { request } = useJsonRpcClient()
-  const { connections } = useConnectionStore((state) => ({
-    connections: state.connections
+  const { connections, loadConnections } = useConnectionStore((state) => ({
+    connections: state.connections,
+    loadConnections: state.loadConnections
   }))
   const connection = connections.find((c) => c.origin === details.origin)
   if (!connection) throw new Error(`Could not find connection with origin ${details.origin}`)
@@ -40,6 +41,7 @@ export const TransactionModalFooter = ({
         origin: connection.origin,
         autoConsent
       })
+      await loadConnections(request)
     }
   }
 

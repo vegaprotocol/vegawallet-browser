@@ -22,7 +22,9 @@ module.exports = {
     'unicorn/no-null': 'off',
     'unicorn/no-array-reduce': 'off',
     'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error'
+    'simple-import-sort/exports': 'error',
+    // Reduces bundle size
+    '@typescript-eslint/consistent-type-imports': 'error'
   },
   overrides: [
     // Jest files
@@ -32,7 +34,8 @@ module.exports = {
       plugins: ['jest'],
       rules: {
         'jest/consistent-test-it': 'warn',
-        'unicorn/no-useless-undefined': 'off'
+        'unicorn/no-useless-undefined': 'off',
+        '@typescript-eslint/consistent-type-imports': 'off'
       }
     },
     // JSX files

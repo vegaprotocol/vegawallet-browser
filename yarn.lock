@@ -3927,10 +3927,10 @@
     react-dom "18.2.0"
     zustand "^4.3.2"
 
-"@vegaprotocol/rest-clients@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/rest-clients/-/rest-clients-0.0.5.tgz#b75f14fc549e8d170518e973435f2b91ec19f553"
-  integrity sha512-UTsGJKrzMsXHkuAmRxEA3ei9GEGFKwIHPdVl2DHlRMQRnP39atSu4IZsP6kK2HqLgJi8QiEZCyIkXQk+jrNRDA==
+"@vegaprotocol/rest-clients@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/rest-clients/-/rest-clients-0.0.6.tgz#e699a39ce6c07178b22f7d9675dd8c01d66e9dcb"
+  integrity sha512-6+tcTOBk09IkYyBueJlorABffAONFgck+dg5ccjQNC8eAgFbJCc/hgQyHKcqzd+BDSch7od2HOsfGUAeQPJRFA==
 
 "@vegaprotocol/tailwindcss-config@0.0.3":
   version "0.0.3"

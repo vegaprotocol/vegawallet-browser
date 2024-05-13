@@ -159,3 +159,7 @@ html {
     opacity: 0;
   }
 }
+
+input[type="radio"] {
+  display: none;
+}

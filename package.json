@@ -46,7 +46,7 @@
     "build:beta": "yarn build --wallet-config=beta",
     "build:mainstream": "yarn build --wallet-config=mainstream",
     "build:analyze": "NODE_ENV=production yarn build:mainstream --analyze",
-    "dev": "web-ext run --start-url=examples/sample-dapp/index.html",
+    "dev": "web-ext run --start-url=https://vegaprotocol.github.io/vegawallet-browser/",
     "dev:chrome": "yarn dev --source-dir=build/chrome --target=chromium",
     "dev:firefox": "yarn dev --source-dir=build/firefox --devtools --firefox=firefoxdeveloperedition",
     "dev:mobile:firefox": "web-ext run -t firefox-android --firefox-apk org.mozilla.fenix --source-dir=build/firefox",

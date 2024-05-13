@@ -1,6 +1,6 @@
-import { vegaPeggedReference } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { PeggedReference } from '@vegaprotocol/enums'
 
 export interface PeggedOrderOptions {
   offset: string
-  reference: vegaPeggedReference
+  reference: PeggedReference
 }

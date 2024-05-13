@@ -1,4 +1,5 @@
-import { MarketTradingMode, vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { MarketTradingMode } from '@vegaprotocol/enums'
+import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import get from 'lodash/get'
 
 export const getMarketPriceAssetId = (market: vegaMarket) => {

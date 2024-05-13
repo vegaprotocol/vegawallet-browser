@@ -40,7 +40,16 @@ function doValidate(validator, params) {
       validator.errors.map((e) => e.message)
     )
 }
-export default function init({ onerror, settings, wallets, networks, connections, interactor, transactions, encryptedStore }) {
+export default function init({
+  onerror,
+  settings,
+  wallets,
+  networks,
+  connections,
+  interactor,
+  transactions,
+  encryptedStore
+}) {
   return new JSONRPCServer({
     onerror,
     methods: {
@@ -114,18 +123,20 @@ export default function init({ onerror, settings, wallets, networks, connections
         const selectedNetworkId = await connections.getNetworkId(context.origin)
         const selectedChainId = await connections.getChainId(context.origin)
         const isLocked = encryptedStore.locked === true
-
-        const approved = await interactor.reviewTransaction({
-          transaction: params.transaction,
-          publicKey: params.publicKey,
-          name: keyInfo.name,
-          wallet: keyInfo.wallet,
-          sendingMode: params.sendingMode,
-          origin: context.origin,
-          chainId: selectedChainId,
-          networkId: selectedNetworkId,
-          receivedAt
-        })
+        let approved = true
+        if (!connection.autoConsent || !AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) || isLocked) {
+          approved = await interactor.reviewTransaction({
+            transaction: params.transaction,
+            publicKey: params.publicKey,
+            name: keyInfo.name,
+            wallet: keyInfo.wallet,
+            sendingMode: params.sendingMode,
+            origin: context.origin,
+            chainId: selectedChainId,
+            networkId: selectedNetworkId,
+            receivedAt
+          })
+        }
 
         const key = await wallets.getKeypair({ publicKey: params.publicKey })
         const network = await networks.get(selectedNetworkId, selectedChainId)

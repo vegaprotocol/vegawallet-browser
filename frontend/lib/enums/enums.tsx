@@ -68,7 +68,8 @@ export const ACCOUNT_TYPE_MAP: Record<vegaAccountType, string> = {
   [vegaAccountType.ACCOUNT_TYPE_REWARD_RETURN_VOLATILITY]: 'Volatility rewards',
   [vegaAccountType.ACCOUNT_TYPE_REWARD_VALIDATOR_RANKING]: 'Validator ranking rewards',
   [vegaAccountType.ACCOUNT_TYPE_PENDING_FEE_REFERRAL_REWARD]: 'Pending fee referral rewards',
-  [vegaAccountType.ACCOUNT_TYPE_ORDER_MARGIN]: 'Order Margin'
+  [vegaAccountType.ACCOUNT_TYPE_ORDER_MARGIN]: 'Order Margin',
+  [vegaAccountType.ACCOUNT_TYPE_REWARD_REALISED_RETURN]: 'Reward realised return'
 }
 
 export const ORDER_STATUS_MAP: Record<vegaOrderStatus, string> = {

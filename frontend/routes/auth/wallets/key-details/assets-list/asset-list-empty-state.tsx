@@ -1,4 +1,5 @@
-import { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
+import { AccountType } from '@vegaprotocol/enums'
+import type { vegaAccountType } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 import { SubHeader } from '@/components/sub-header'
 import { isActiveMarket } from '@/lib/markets'
@@ -47,7 +48,7 @@ export const AssetListEmptyState = ({ publicKey }: { publicKey: string }) => {
                 balance: '0',
                 asset: asset.id,
                 owner: publicKey,
-                type: vegaAccountType.ACCOUNT_TYPE_GENERAL
+                type: AccountType.ACCOUNT_TYPE_GENERAL as unknown as vegaAccountType
               }
             ]}
             assetId={asset.id}

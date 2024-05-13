@@ -57,7 +57,8 @@ const renderComponent = (autoConsent = false) => {
           wallets: ['test-wallet']
         }
       }
-    ]
+    ],
+    loadConnections: jest.fn()
   })
   const function_ = jest.fn()
   const view = render(<TransactionModalFooter details={data} handleTransactionDecision={function_} />)
@@ -71,7 +72,8 @@ describe('TransactionModalFooter', () => {
   it('throws error if connection could not be found', () => {
     silenceErrors()
     mockStore(useConnectionStore, {
-      connections: []
+      connections: [],
+      loadConnections: jest.fn()
     })
     const function_ = jest.fn()
     expect(() => render(<TransactionModalFooter details={data} handleTransactionDecision={function_} />)).toThrow(

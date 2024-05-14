@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { TransactionMessage } from '@/lib/transactions'
+import type { TransactionMessage } from '@/lib/transactions'
 
 export interface ConnectionMessage {
   origin: string

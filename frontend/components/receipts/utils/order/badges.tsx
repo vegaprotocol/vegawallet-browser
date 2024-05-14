@@ -1,6 +1,6 @@
 import { OrderTimeInForce } from '@vegaprotocol/enums'
 import { Lozenge } from '@vegaprotocol/ui-toolkit'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { processTimeInForce, TIF_MAP } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'

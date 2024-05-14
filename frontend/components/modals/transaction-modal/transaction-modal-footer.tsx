@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import { Transaction, TransactionMessage } from '@/lib/transactions'
+import type { Transaction, TransactionMessage } from '@/lib/transactions'
 import { useConnectionStore } from '@/stores/connections'
 
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../../../lib/constants'

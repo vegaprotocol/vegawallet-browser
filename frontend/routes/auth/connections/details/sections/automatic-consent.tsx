@@ -6,7 +6,7 @@ import { VegaSection } from '@/components/vega-section'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useAsyncAction } from '@/hooks/async-action'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import { Connection } from '@/types/backend'
+import type { Connection } from '@/types/backend'
 
 export const AutomaticConsentSection = ({ connection }: { connection: Connection }) => {
   const [autoConsent, setAutoConsent] = useState(connection.autoConsent)

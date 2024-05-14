@@ -1,4 +1,4 @@
-import { ReceiptComponentProperties } from '../receipts'
+import type { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const locators = {

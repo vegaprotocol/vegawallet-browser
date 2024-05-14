@@ -6,7 +6,7 @@ import { useNetwork } from '@/contexts/network/network-context'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { useOrdersStore } from '@/stores/orders-store'
 
-import { ReceiptComponentProperties } from '../../receipts'
+import type { ReceiptComponentProperties } from '../../receipts'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 import { CancellationView } from './cancellation-view'
 

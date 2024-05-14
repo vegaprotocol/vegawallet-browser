@@ -4,7 +4,7 @@ import { HostImage } from '@/components/host-image'
 import { ChevronRight } from '@/components/icons/chevron-right'
 import { List } from '@/components/list'
 import { FULL_ROUTES } from '@/routes/route-names'
-import { Connection } from '@/types/backend'
+import type { Connection } from '@/types/backend'
 
 export const locators = {
   connectionDetails: 'connection-details',

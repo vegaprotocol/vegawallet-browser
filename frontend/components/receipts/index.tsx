@@ -1,7 +1,7 @@
-import { TransactionKeys } from '@/lib/transactions'
+import type { TransactionKeys } from '@/lib/transactions'
 
 import { ReceiptViewErrorBoundary } from './receipt-error-boundary'
-import { ReceiptComponentProperties } from './receipts'
+import type { ReceiptComponentProperties } from './receipts'
 import { TransactionMap } from './transaction-map'
 
 export const TransactionSwitch = ({ transaction }: ReceiptComponentProperties) => {

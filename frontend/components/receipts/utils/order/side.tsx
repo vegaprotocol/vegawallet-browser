@@ -1,4 +1,4 @@
-import { Side as vegaSide } from '@vegaprotocol/enums'
+import type { Side as vegaSide } from '@vegaprotocol/enums'
 
 import { processSide, SIDE_MAP } from '@/lib/enums'
 

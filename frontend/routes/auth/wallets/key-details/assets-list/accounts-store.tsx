@@ -1,8 +1,8 @@
-import { vegaAccount } from '@vegaprotocol/rest-clients/dist/trading-data'
+import type { vegaAccount } from '@vegaprotocol/rest-clients/dist/trading-data'
 import groupBy from 'lodash/groupBy'
 import { create } from 'zustand'
 
-import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import type { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '@/lib/client-rpc-methods'
 import { removePaginationWrapper } from '@/lib/remove-pagination'
 

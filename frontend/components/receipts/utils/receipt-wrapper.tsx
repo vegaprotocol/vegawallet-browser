@@ -1,5 +1,5 @@
 import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { useAssetsStore } from '@/stores/assets-store'
 import { useMarketsStore } from '@/stores/markets-store'

@@ -1,5 +1,5 @@
 import { Header } from '../../header'
-import { ReceiptComponentProperties } from '../receipts'
+import type { ReceiptComponentProperties } from '../receipts'
 import { AmountWithTooltip } from '../utils/string-amounts/amount-with-tooltip'
 
 export const locators = {

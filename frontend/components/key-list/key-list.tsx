@@ -1,7 +1,7 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { Key } from '@/types/backend'
+import type { Key } from '@/types/backend'
 
 import { FULL_ROUTES } from '../../routes/route-names'
 import { ChevronRight } from '../icons/chevron-right'

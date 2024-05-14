@@ -6,7 +6,7 @@ import { ChevronRight } from '@/components/icons/chevron-right'
 import { List } from '@/components/list'
 import { getTitle } from '@/components/modals/transaction-modal/get-title'
 import { FULL_ROUTES } from '@/routes/route-names'
-import { StoredTransaction } from '@/types/backend'
+import type { StoredTransaction } from '@/types/backend'
 
 import { VegaTransactionState } from '../transactions-state'
 

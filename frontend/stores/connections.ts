@@ -2,9 +2,9 @@ import orderBy from 'lodash/orderBy'
 import uniqBy from 'lodash/uniqBy'
 import { create } from 'zustand'
 
-import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import type { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import { Connection } from '@/types/backend'
+import type { Connection } from '@/types/backend'
 
 export type ConnectionsStore = {
   connections: Connection[]

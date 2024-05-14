@@ -1,6 +1,7 @@
 // import { captureException } from '@sentry/browser'
 import { Intent, Notification } from '@vegaprotocol/ui-toolkit'
-import { Component, ReactNode } from 'react'
+import type { ReactNode } from 'react';
+import { Component } from 'react'
 
 import { CodeWindow } from '../../code-window'
 import { CollapsiblePanel } from '../../collapsible-panel'

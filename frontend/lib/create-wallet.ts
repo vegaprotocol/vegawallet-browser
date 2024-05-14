@@ -1,4 +1,4 @@
-import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import type { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { clearMnemonic } from '@/hooks/suggest-mnemonic'
 
 import { RpcMethods } from './client-rpc-methods'

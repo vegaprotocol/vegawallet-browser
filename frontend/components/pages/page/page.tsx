@@ -1,5 +1,5 @@
 import { Icon } from '@vegaprotocol/ui-toolkit'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Header } from '../../header'

@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
-import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import type { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import { Key, Wallet } from '@/types/backend'
+import type { Key, Wallet } from '@/types/backend'
 
 export type WalletsStore = {
   wallets: Wallet[]

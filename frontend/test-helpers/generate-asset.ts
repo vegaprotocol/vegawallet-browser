@@ -1,4 +1,5 @@
-import { vegaAsset, vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
+import type { vegaAsset} from '@vegaprotocol/rest-clients/dist/trading-data';
+import { vegaAssetStatus } from '@vegaprotocol/rest-clients/dist/trading-data'
 import merge from 'lodash/merge'
 import type { PartialDeep } from 'type-fest'
 

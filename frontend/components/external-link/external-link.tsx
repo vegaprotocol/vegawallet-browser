@@ -1,6 +1,6 @@
 import { ExternalLink as ExLink, Link, VegaIcon, VegaIconNames } from '@vegaprotocol/ui-toolkit'
 import classNames from 'classnames'
-import { AnchorHTMLAttributes, ReactNode } from 'react'
+import type { AnchorHTMLAttributes, ReactNode } from 'react'
 
 import { getExtensionApi } from '@/lib/extension-apis'
 import { useGlobalsStore } from '@/stores/globals'

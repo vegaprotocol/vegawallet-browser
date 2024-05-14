@@ -2,7 +2,7 @@ import { Dropdown } from '@/components/dropdown'
 import { Header } from '@/components/header'
 import { KeyList } from '@/components/key-list'
 import { useWalletStore } from '@/stores/wallets'
-import { Key } from '@/types/backend'
+import type { Key } from '@/types/backend'
 
 export const locators = {
   keySelectedCurrentKey: 'selected-current-key',

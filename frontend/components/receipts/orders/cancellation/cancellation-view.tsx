@@ -1,4 +1,4 @@
-import { vegaOrder } from '@vegaprotocol/rest-clients/dist/trading-data'
+import type { vegaOrder } from '@vegaprotocol/rest-clients/dist/trading-data'
 
 import { OrderBadges } from '../../utils/order/badges'
 import { OrderTable } from '../../utils/order-table'

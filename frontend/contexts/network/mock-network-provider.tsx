@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Network } from '@/types/backend'
+import type { Network } from '@/types/backend'
 
 import { testingNetwork } from '../../../config/well-known-networks'
 import { NetworkContext } from './network-context'

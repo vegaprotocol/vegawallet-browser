@@ -1,10 +1,11 @@
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 
-import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { processUndelegateMethod, UNDELEGATE_METHOD_MAP } from '@/lib/enums'
 
 import { NodeLink } from '../../vega-entities/node-link'
-import { ReceiptComponentProperties } from '../receipts'
+import type { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
 

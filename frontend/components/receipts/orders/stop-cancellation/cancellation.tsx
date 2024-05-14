@@ -1,9 +1,10 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
-import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 
 import { MarketLink } from '../../../vega-entities/market-link'
-import { ReceiptComponentProperties } from '../../receipts'
+import type { ReceiptComponentProperties } from '../../receipts'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'
 
 export const StopOrderCancellationView = ({ stopOrdersCancellation }: { stopOrdersCancellation: any }) => {

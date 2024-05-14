@@ -1,10 +1,13 @@
 // import { captureException } from '@sentry/react'
-import { Component, ErrorInfo, ReactNode } from 'react'
+import type { ErrorInfo, ReactNode } from 'react';
+import { Component } from 'react'
 
 import { FULL_ROUTES } from '../../routes/route-names'
 import { ErrorModal } from '../modals/error-modal'
-import { ErrorProperties, withErrorStore } from './with-error-store'
-import { RouterProperties, withRouter } from './with-router'
+import type { ErrorProperties} from './with-error-store';
+import { withErrorStore } from './with-error-store'
+import type { RouterProperties} from './with-router';
+import { withRouter } from './with-router'
 
 interface Properties extends RouterProperties, ErrorProperties {
   children?: ReactNode

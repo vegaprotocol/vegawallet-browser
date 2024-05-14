@@ -4,11 +4,11 @@ import { getExtensionApi } from '@/lib/extension-apis'
 import { log } from '@/lib/logging'
 import { useConnectionStore } from '@/stores/connections'
 import { useErrorStore } from '@/stores/error'
-import { Connection } from '@/types/backend'
+import type { Connection } from '@/types/backend'
 
 import JSONRPCClient from '../../../../lib/json-rpc-client'
 import { RpcMethods } from '../../../lib/client-rpc-methods'
-import { JsonRpcNotification } from '../json-rpc-provider'
+import type { JsonRpcNotification } from '../json-rpc-provider'
 
 const createClient = (notificationHandler: Function) => {
   const { runtime } = getExtensionApi()

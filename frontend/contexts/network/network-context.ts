@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import { Network } from '@/types/backend'
+import type { Network } from '@/types/backend'
 
 export interface NetworkContextShape {
   network: Network

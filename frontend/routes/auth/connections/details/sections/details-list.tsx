@@ -4,7 +4,7 @@ import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
 import { formatDateTime } from '@/lib/utils'
 import { FULL_ROUTES } from '@/routes/route-names'
-import { Connection } from '@/types/backend'
+import type { Connection } from '@/types/backend'
 
 export const locators = {
   accessedAt: 'accessed-at',

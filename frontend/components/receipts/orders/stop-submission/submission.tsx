@@ -1,8 +1,9 @@
-import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { EXPIRY_STRATEGY_MAP, processExpiryStrategy } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'
 
-import { ReceiptComponentProperties } from '../../receipts'
+import type { ReceiptComponentProperties } from '../../receipts'
 import { OrderBadges } from '../../utils/order/badges'
 import { OrderTable } from '../../utils/order-table'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'

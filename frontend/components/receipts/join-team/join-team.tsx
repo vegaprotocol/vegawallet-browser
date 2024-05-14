@@ -1,8 +1,9 @@
-import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { TeamLink } from '@/components/vega-entities/team-link'
 import { VegaTeam } from '@/components/vega-entities/vega-team'
 
-import { ReceiptComponentProperties } from '../receipts'
+import type { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const JoinTeam = ({ transaction }: ReceiptComponentProperties) => {

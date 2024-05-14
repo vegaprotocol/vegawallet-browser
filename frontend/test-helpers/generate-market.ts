@@ -1,9 +1,10 @@
+import type {
+  vegaMarket} from '@vegaprotocol/rest-clients/dist/trading-data';
 import {
   ConditionOperator,
   MarketTradingMode,
   v1PropertyKeyType,
   vegaDataSourceSpecStatus,
-  vegaMarket,
   vegaMarketState
 } from '@vegaprotocol/rest-clients/dist/trading-data'
 import merge from 'lodash/merge'

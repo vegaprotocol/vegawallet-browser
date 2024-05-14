@@ -1,5 +1,5 @@
 import { Tooltip } from '@vegaprotocol/ui-toolkit'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { useNetwork } from '@/contexts/network/network-context'
 

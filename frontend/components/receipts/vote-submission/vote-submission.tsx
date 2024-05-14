@@ -1,8 +1,9 @@
-import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { processVoteValue, VOTE_VALUE_MAP } from '@/lib/enums'
 
 import { ProposalLink } from '../../vega-entities/proposal-link'
-import { ReceiptComponentProperties } from '../receipts'
+import type { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const VoteSubmission = ({ transaction }: ReceiptComponentProperties) => {

@@ -2,7 +2,7 @@ import { RawTransaction } from '@/components/modals/transaction-modal/raw-transa
 import { TransactionSwitch } from '@/components/receipts'
 import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
-import { StoredTransaction } from '@/types/backend'
+import type { StoredTransaction } from '@/types/backend'
 
 interface TransactionSectionProperties {
   transaction: StoredTransaction

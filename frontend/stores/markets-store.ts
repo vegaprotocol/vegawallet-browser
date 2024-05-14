@@ -1,7 +1,7 @@
-import { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
+import type { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { create } from 'zustand'
 
-import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider.tsx'
+import type { SendMessage } from '@/contexts/json-rpc/json-rpc-provider.tsx'
 import { RpcMethods } from '@/lib/client-rpc-methods.ts'
 import { getMarketPriceAssetId } from '@/lib/markets'
 import { removePaginationWrapper } from '@/lib/remove-pagination.ts'

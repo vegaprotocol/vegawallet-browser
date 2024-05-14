@@ -1,12 +1,13 @@
-import { OrderStatus, OrderType as vegaOrderType, Side as vegaSide } from '@vegaprotocol/enums'
+import type { OrderStatus, OrderType as vegaOrderType, Side as vegaSide } from '@vegaprotocol/enums'
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
-import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { MarketLink } from '@/components/vega-entities/market-link'
 import { ORDER_STATUS_MAP, processOrderStatus } from '@/lib/enums'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
-import { PeggedOrderOptions } from '@/types/transactions'
+import type { PeggedOrderOptions } from '@/types/transactions'
 
 import { CopyWithCheckmark } from '../../copy-with-check'
 import { VegaMarket } from '../../vega-entities/vega-market'

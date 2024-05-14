@@ -1,7 +1,7 @@
-import { vegaOrder } from '@vegaprotocol/rest-clients/dist/trading-data'
+import type { vegaOrder } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { create } from 'zustand'
 
-import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider.tsx'
+import type { SendMessage } from '@/contexts/json-rpc/json-rpc-provider.tsx'
 import { RpcMethods } from '@/lib/client-rpc-methods.ts'
 
 export type OrdersStore = {

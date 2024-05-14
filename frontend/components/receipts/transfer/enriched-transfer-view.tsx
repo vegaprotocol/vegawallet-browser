@@ -1,7 +1,7 @@
 import { useFormatAssetAmount } from '@/hooks/format-asset-amount'
 
 import { Header } from '../../header'
-import { ReceiptComponentProperties } from '../receipts'
+import type { ReceiptComponentProperties } from '../receipts'
 import { AmountWithSymbol } from '../utils/string-amounts/amount-with-symbol'
 
 export const locators = {

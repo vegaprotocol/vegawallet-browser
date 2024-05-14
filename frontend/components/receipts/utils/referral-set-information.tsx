@@ -1,5 +1,6 @@
 import { CollapsiblePanel } from '@/components/collapsible-panel'
-import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { ExternalLink } from '@/components/external-link'
 import { PartyLink } from '@/components/vega-entities/party-link'
 import { TeamLink } from '@/components/vega-entities/team-link'

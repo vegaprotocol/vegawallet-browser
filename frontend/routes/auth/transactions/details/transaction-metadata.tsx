@@ -1,5 +1,5 @@
 import { Intent, Notification, truncateMiddle } from '@vegaprotocol/ui-toolkit'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { DataTable } from '@/components/data-table'
@@ -9,7 +9,7 @@ import { VegaSection } from '@/components/vega-section'
 import { useNetwork } from '@/contexts/network/network-context'
 import { formatDateTime } from '@/lib/utils'
 import { FULL_ROUTES } from '@/routes/route-names'
-import { StoredTransaction } from '@/types/backend'
+import type { StoredTransaction } from '@/types/backend'
 
 import { VegaTransactionState } from '../transactions-state'
 

@@ -1,6 +1,6 @@
 import get from 'lodash/get'
 import has from 'lodash/has'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { DataTable } from './data-table'
 

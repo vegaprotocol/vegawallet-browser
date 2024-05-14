@@ -1,4 +1,4 @@
-import { vegaAccount } from '@vegaprotocol/rest-clients/dist/trading-data'
+import type { vegaAccount } from '@vegaprotocol/rest-clients/dist/trading-data'
 import { addDecimalsFormatNumber, formatNumber, toBigNum } from '@vegaprotocol/utils'
 import BigNumber from 'bignumber.js'
 import get from 'lodash/get'

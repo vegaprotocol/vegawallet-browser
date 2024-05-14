@@ -1,4 +1,4 @@
-import { ReceiptComponentProperties } from '../../receipts'
+import type { ReceiptComponentProperties } from '../../receipts'
 import { OrderBadges } from '../../utils/order/badges'
 import { OrderTable } from '../../utils/order-table'
 import { ReceiptWrapper } from '../../utils/receipt-wrapper'

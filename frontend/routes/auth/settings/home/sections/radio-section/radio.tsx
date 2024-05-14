@@ -1,5 +1,5 @@
 import { Radio, RadioGroup } from '@vegaprotocol/ui-toolkit'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'

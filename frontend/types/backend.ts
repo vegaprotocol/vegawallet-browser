@@ -1,4 +1,4 @@
-import { Transaction } from '@/lib/transactions'
+import type { Transaction } from '@/lib/transactions'
 
 export interface AllowList {
   publicKeys: any[]

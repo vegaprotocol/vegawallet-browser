@@ -6,7 +6,7 @@ import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useAsyncAction } from '@/hooks/async-action'
 import { FULL_ROUTES } from '@/routes/route-names'
 import { useConnectionStore } from '@/stores/connections'
-import { Connection } from '@/types/backend'
+import type { Connection } from '@/types/backend'
 
 export const locators = {
   removeConnection: 'remove-connection'

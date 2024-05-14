@@ -1,4 +1,5 @@
-import { Transaction, TransactionKeys } from '@/lib/transactions'
+import type { Transaction} from '@/lib/transactions';
+import { TransactionKeys } from '@/lib/transactions'
 
 import { ApplyReferralCode } from './apply-referral-code'
 import { BatchMarketInstructions } from './batch-market-instructions'
@@ -10,7 +11,7 @@ import { Cancellation } from './orders/cancellation'
 import { StopOrderCancellation } from './orders/stop-cancellation'
 import { StopOrderSubmission } from './orders/stop-submission'
 import { Submission } from './orders/submission'
-import { ReceiptMap } from './receipts'
+import type { ReceiptMap } from './receipts'
 import { Transfer } from './transfer'
 import { UndelegateSubmission } from './undelegate-submission'
 import { UpdateMarginMode } from './update-margin-mode'

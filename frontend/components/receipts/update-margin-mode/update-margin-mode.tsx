@@ -1,10 +1,11 @@
 import { formatNumber } from '@vegaprotocol/utils'
 
-import { ConditionalDataTable, RowConfig } from '@/components/data-table/conditional-data-table'
+import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { VegaMarket } from '@/components/vega-entities/vega-market'
 import { MARGIN_MODE_MAP, processMarginMode } from '@/lib/enums'
 
-import { ReceiptComponentProperties } from '../receipts'
+import type { ReceiptComponentProperties } from '../receipts'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const UpdateMarginMode = ({ transaction }: ReceiptComponentProperties) => {

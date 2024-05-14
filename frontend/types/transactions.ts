@@ -1,4 +1,4 @@
-import { PeggedReference } from '@vegaprotocol/enums'
+import type { PeggedReference } from '@vegaprotocol/enums'
 
 export interface PeggedOrderOptions {
   offset: string

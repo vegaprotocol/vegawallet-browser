@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { VegaKey } from '@/components/keys/vega-key'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useWalletStore } from '@/stores/wallets'
-import { Key } from '@/types/backend'
+import type { Key } from '@/types/backend'
 
 import { CONSTANTS } from '../../../../../../lib/constants'
 import { RenameKeyForm } from './rename-key-form'

@@ -1,4 +1,4 @@
-import { OrderType as vegaOrderType } from '@vegaprotocol/enums'
+import type { OrderType as vegaOrderType } from '@vegaprotocol/enums'
 
 import { ORDER_TYPE } from '@/lib/enums'
 

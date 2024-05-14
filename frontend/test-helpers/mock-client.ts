@@ -4,8 +4,8 @@
 // need to investigate a better mocking solution]
 
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import { AppGlobals } from '@/stores/globals'
-import { Key } from '@/types/backend'
+import type { AppGlobals } from '@/stores/globals'
+import type { Key } from '@/types/backend'
 
 const defaultWallets = ['wallet 1']
 const defaultKeys = [

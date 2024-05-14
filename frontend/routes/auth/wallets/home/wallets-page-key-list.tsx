@@ -5,7 +5,7 @@ import { MessageIcon } from '@/components/icons/message'
 import { KeyList } from '@/components/key-list'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useWalletStore } from '@/stores/wallets'
-import { Wallet } from '@/types/backend'
+import type { Wallet } from '@/types/backend'
 
 export const locators = {
   walletsCreateKey: 'wallets-create-key',

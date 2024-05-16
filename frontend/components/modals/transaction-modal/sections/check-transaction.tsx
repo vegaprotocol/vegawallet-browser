@@ -28,7 +28,6 @@ const CheckTransactionResult = ({
   data: CheckTransactionResponse | null
   error: Error | null
 }) => {
-  console.log('CheckTransactionResult')
   if (error)
     return (
       <Notification
@@ -105,7 +104,6 @@ export const CheckTransaction = ({
   publicKey: string
   origin: string
 }) => {
-  console.log('CheckTransaction')
   const { request } = useJsonRpcClient()
   const { checkTransaction } = useInteractionStore((store) => ({
     checkTransaction: store.checkTransaction
@@ -118,6 +116,7 @@ export const CheckTransaction = ({
 
   useEffect(() => {
     loaderFunction()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

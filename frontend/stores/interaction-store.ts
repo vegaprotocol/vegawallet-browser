@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 
-import { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
+import type { SendMessage } from '@/contexts/json-rpc/json-rpc-provider'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import { Transaction, TransactionMessage } from '@/lib/transactions'
-import { CheckTransactionResponse } from '@/types/backend'
+import type { Transaction, TransactionMessage } from '@/lib/transactions'
+import type { CheckTransactionResponse } from '@/types/backend'
 
 export interface ConnectionMessage {
   origin: string

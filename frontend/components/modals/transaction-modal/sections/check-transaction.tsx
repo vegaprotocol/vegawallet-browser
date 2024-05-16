@@ -5,9 +5,9 @@ import { LoaderBone } from '@/components/loader-bone'
 import { VegaSection } from '@/components/vega-section'
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { useAsyncAction } from '@/hooks/async-action'
-import { Transaction } from '@/lib/transactions'
+import type { Transaction } from '@/lib/transactions'
 import { useInteractionStore } from '@/stores/interaction-store'
-import { CheckTransactionResponse } from '@/types/backend'
+import type { CheckTransactionResponse } from '@/types/backend'
 
 export const locators = {
   checkTransactionLoading: 'check-transaction-loading',

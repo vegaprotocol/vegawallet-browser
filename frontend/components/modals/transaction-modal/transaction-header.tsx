@@ -1,5 +1,5 @@
 import { getTitle } from '@/lib/get-title'
-import { Transaction } from '@/lib/transactions'
+import type { Transaction } from '@/lib/transactions'
 
 import { Header } from '../../header'
 import { HostImage } from '../../host-image'

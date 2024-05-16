@@ -2,6 +2,10 @@ import { act, render, screen, waitFor } from '@testing-library/react'
 
 import { LoaderBone, locators } from '.'
 
+jest.mock('!/config', () => ({
+  default: {}
+}))
+
 describe('LoaderBone', () => {
   beforeEach(() => {
     jest.useFakeTimers()

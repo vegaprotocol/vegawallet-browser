@@ -1,5 +1,5 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@vegaprotocol/ui-toolkit'
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react'
 import { useState } from 'react'
 
 import { IconChevronDown } from '@/components/icons/chevron-down'

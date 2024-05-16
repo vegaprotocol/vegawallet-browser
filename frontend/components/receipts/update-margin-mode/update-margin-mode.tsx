@@ -1,6 +1,6 @@
 import { formatNumber } from '@vegaprotocol/utils'
 
-import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import type { RowConfig } from '@/components/data-table/conditional-data-table'
 import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { VegaMarket } from '@/components/vega-entities/vega-market'
 import { MARGIN_MODE_MAP, processMarginMode } from '@/lib/enums'

@@ -1,4 +1,4 @@
-import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import type { RowConfig } from '@/components/data-table/conditional-data-table'
 import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { EXPIRY_STRATEGY_MAP, processExpiryStrategy } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'

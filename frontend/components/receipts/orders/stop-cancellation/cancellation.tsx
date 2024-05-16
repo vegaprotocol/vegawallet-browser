@@ -1,6 +1,6 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
-import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import type { RowConfig } from '@/components/data-table/conditional-data-table'
 import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 
 import { MarketLink } from '../../../vega-entities/market-link'

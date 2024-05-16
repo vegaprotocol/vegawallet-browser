@@ -1,4 +1,4 @@
-import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import type { RowConfig } from '@/components/data-table/conditional-data-table'
 import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { processVoteValue, VOTE_VALUE_MAP } from '@/lib/enums'
 

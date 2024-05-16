@@ -1,4 +1,4 @@
-import type { ButtonProps} from '@vegaprotocol/ui-toolkit';
+import type { ButtonProps } from '@vegaprotocol/ui-toolkit'
 import { Button, Loader } from '@vegaprotocol/ui-toolkit'
 
 export interface LoadingButtonProperties extends ButtonProps {

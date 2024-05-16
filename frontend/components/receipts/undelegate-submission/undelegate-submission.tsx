@@ -1,6 +1,6 @@
 import { formatNumber, toBigNum } from '@vegaprotocol/utils'
 
-import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import type { RowConfig } from '@/components/data-table/conditional-data-table'
 import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { processUndelegateMethod, UNDELEGATE_METHOD_MAP } from '@/lib/enums'
 

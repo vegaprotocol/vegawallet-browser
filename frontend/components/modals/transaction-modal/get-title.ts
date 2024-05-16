@@ -1,4 +1,4 @@
-import type { Transaction} from '@/lib/transactions';
+import type { Transaction } from '@/lib/transactions'
 import { HALF_MAX_POSITION_SIZE, TRANSACTION_TITLES, TransactionKeys } from '@/lib/transactions'
 
 const processTitle = (type: TransactionKeys, data: any) => {

@@ -1,4 +1,4 @@
-import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import type { RowConfig } from '@/components/data-table/conditional-data-table'
 import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { TeamLink } from '@/components/vega-entities/team-link'
 import { VegaTeam } from '@/components/vega-entities/vega-team'

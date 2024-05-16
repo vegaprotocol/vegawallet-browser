@@ -2,7 +2,7 @@ import type { OrderStatus, OrderType as vegaOrderType, Side as vegaSide } from '
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
-import type { RowConfig } from '@/components/data-table/conditional-data-table';
+import type { RowConfig } from '@/components/data-table/conditional-data-table'
 import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { MarketLink } from '@/components/vega-entities/market-link'
 import { ORDER_STATUS_MAP, processOrderStatus } from '@/lib/enums'

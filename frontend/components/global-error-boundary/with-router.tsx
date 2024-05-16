@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import type { NavigateFunction} from 'react-router-dom';
+import type { NavigateFunction } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 export interface RouterProperties {

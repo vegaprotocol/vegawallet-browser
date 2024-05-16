@@ -1,5 +1,4 @@
-import type {
-  vegaMarket} from '@vegaprotocol/rest-clients/dist/trading-data';
+import type { vegaMarket } from '@vegaprotocol/rest-clients/dist/trading-data'
 import {
   ConditionOperator,
   MarketTradingMode,

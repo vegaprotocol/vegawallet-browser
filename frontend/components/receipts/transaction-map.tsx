@@ -1,4 +1,4 @@
-import type { Transaction} from '@/lib/transactions';
+import type { Transaction } from '@/lib/transactions'
 import { TransactionKeys } from '@/lib/transactions'
 
 import { ApplyReferralCode } from './apply-referral-code'

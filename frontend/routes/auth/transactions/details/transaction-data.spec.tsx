@@ -6,7 +6,7 @@ import { TransactionState } from '@/types/backend'
 import { testingNetwork } from '../../../../../config/well-known-networks'
 import { TransactionData } from './transaction-data'
 
-jest.mock('@/components/modals/transaction-modal/raw-transaction', () => ({
+jest.mock('@/components/modals/transaction-modal/sections/raw-transaction', () => ({
   RawTransaction: () => <div data-testid="raw-transaction" />
 }))
 jest.mock('@/components/receipts', () => ({

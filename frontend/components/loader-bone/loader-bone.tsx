@@ -21,6 +21,7 @@ export const LoaderBone = ({ width, height, baseSize = 1 }: { width: number; hei
   const generate = useMemo(() => pseudoRandom(1), [])
 
   useEffect(() => {
+    /* istanbul ignore next */
     if (config.isTest) return
     const interval = setInterval(() => {
       forceRender((x) => !x)

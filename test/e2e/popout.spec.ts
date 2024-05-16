@@ -81,22 +81,14 @@ describe('check popout functionality', () => {
     // 1113-POPT-006 If I close the pop-up window the transaction persists
     await runTestRetryIfDriverCrashes(
       async () => {
-        console.log(1)
         const { handlesBeforeTransaction, handlesAfterTransaction } = await sendTransactionAndGetWindowHandles()
-        console.log(2)
         await goToNewWindowHandle(driver, handlesBeforeTransaction, handlesAfterTransaction)
-        console.log(3)
         await transaction.checkOnTransactionPage()
-        console.log(4)
         await driver.close()
-        console.log(5)
 
         await switchWindowHandles(driver, false)
-        console.log(6)
         await navigateToExtensionLandingPage(driver)
-        console.log(7)
         await transaction.checkOnTransactionPage()
-        console.log(8)
       },
       setupTests,
       tearDownTests
@@ -135,37 +127,27 @@ describe('check popout functionality', () => {
   })
 
   async function sendTransactionAndGetWindowHandles() {
-    console.log(1.1)
     const { handlesBeforeConnect, handlesAfterConnect } = await sendConnectionRequestAndReturnHandles()
-    console.log(1.2)
     await goToNewWindowHandle(driver, handlesBeforeConnect, handlesAfterConnect)
-    console.log(1.3)
     await connectWallet.checkOnConnectWallet()
-    console.log(1.4)
     await connectWallet.approveConnectionAndCheckSuccess()
-    console.log(1.5)
     expect(await isDriverInstanceClosed(driver, originalHandle)).toBe(true)
-
-    console.log(1.6)
     await switchWindowHandles(driver, false)
-    console.log(1.7)
     const keys = await vegaAPI.listKeys(false, false)
-    console.log(1.8)
     const handlesBeforeTransaction = await driver.getAllWindowHandles()
-    console.log(1.9)
+    console.log(handlesBeforeTransaction)
     await vegaAPI.sendTransaction(keys[0].publicKey, { transfer: dummyTransaction }, false, false)
-    console.log(1.1)
+    const handlesBeforeTransactionUpdate = await driver.getAllWindowHandles()
+    console.log(handlesBeforeTransactionUpdate)
     expect(await windowHandleHasCount(driver, handlesBeforeTransaction.length + 1)).toBe(true)
-    console.log(1.11)
     const handlesAfterTransaction = await driver.getAllWindowHandles()
-    console.log(1.12)
     return { handlesBeforeTransaction, handlesAfterTransaction }
   }
 
   async function sendConnectionRequestAndReturnHandles() {
     const handlesBeforeDappWindow = await driver.getAllWindowHandles()
     dappHandle = await createDappWindowHandle()
-    await driver.get('https://google.co.uk')
+    await driver.get('http://google.co.uk')
     await switchWindowHandles(driver, false, dappHandle)
 
     expect(await windowHandleHasCount(driver, handlesBeforeDappWindow.length + 1)).toBe(true)

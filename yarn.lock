@@ -4032,6 +4032,11 @@
   resolved "https://registry.yarnpkg.com/@vegaprotocol/tailwindcss-config/-/tailwindcss-config-0.0.2.tgz#e97b80ce06232269d5736828935c7c081992a596"
   integrity sha512-YGSkeuBeD2zRm3EC0NSpq7PPVEJbYS49yEe5G4ZkMhLDBXFoypF/oDP+BKSAunhEBbBkAuwif1myZR0/8QyrMw==
 
+"@vegaprotocol/types@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/types/-/types-0.0.7.tgz#7de43d24ce02fd5b2ad7a76bc133fdf552a4a202"
+  integrity sha512-YX754qbWNMfzpslcXWfj2ldPU3N5/6XgZFruy+XuflOK+iJXzRhHFmqrIUOTAlBgZVyOZ9BaNa8DA8w0xMbVnQ==
+
 "@vegaprotocol/types@^0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@vegaprotocol/types/-/types-0.0.3.tgz#ef5fba91b4bfcf25e468157d9ca52b064a97f296"
@@ -4081,11 +4086,12 @@
   resolved "https://registry.yarnpkg.com/@vegaprotocol/utils/-/utils-0.0.6.tgz#85c03ead0a46658f966a66b018c341de607d8953"
   integrity sha512-neYOBebKguIym/0oIYPm6kTFmQia/o/TErZsObMRqmCAeF7GKBNvoDojdH85Y79V/PlRb0gsL2//YqjJl+bXgw==
 
-"@vegaprotocol/utils@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/utils/-/utils-0.0.10.tgz#80a0b9978cf890a75286ce3d6f9fe64936a85f17"
-  integrity sha512-1yQt17asCbiT20DflwG2zXUg9XH+LdM2RV4Jf2LUkn2c50ekawIGOLK1X1+MEFE6mbO43Z4kRLBtxThKgNBa8w==
+"@vegaprotocol/utils@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/utils/-/utils-0.0.11.tgz#9e7f03aa975f52755c0188326f63e84bdf783150"
+  integrity sha512-eemz47r45VtG/3sHqyfhtDpE1Rrzz+puy9xpNZCE3eRfbTjVRZHqZdSLOkVYDfcELwEEY2BFsp+FgPheQRa7jA==
   dependencies:
+    "@vegaprotocol/types" "0.0.7"
     bignumber.js "^9.0.2"
     date-fns "^2.28.0"
     lodash "^4.17.21"

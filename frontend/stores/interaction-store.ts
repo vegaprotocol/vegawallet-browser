@@ -28,6 +28,8 @@ export type InteractionStore = {
     publicKey: string,
     origin: string
   ) => Promise<CheckTransactionResponse>
+  setTransactionCount: (count: number) => void
+  transactionCount: number
 
   connectionModalOpen: boolean
   handleConnection: (parameters: ConnectionMessage) => Promise<ConnectionReply>
@@ -40,6 +42,7 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
   transactionModalOpen: false,
   currentTransactionDetails: null,
   transactionPromise: null,
+  transactionCount: 0,
   handleTransactionDecision: (decision: boolean) => {
     const promise = get().transactionPromise
     if (promise) {
@@ -76,6 +79,12 @@ export const useInteractionStore = create<InteractionStore>()((set, get) => ({
     )
     return result
   },
+  setTransactionCount: (count: number) => {
+    set({
+      transactionCount: count
+    })
+  },
+
   currentConnectionDetails: null,
   connectionPromise: null,
   connectionModalOpen: false,

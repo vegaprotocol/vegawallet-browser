@@ -17,35 +17,46 @@ export const locators = {
 }
 
 export const TransactionModal = () => {
-  const { isOpen, handleTransactionDecision, details } = useInteractionStore((store) => ({
+  const { isOpen, handleTransactionDecision, details, transactionCount } = useInteractionStore((store) => ({
     isOpen: store.transactionModalOpen,
     handleTransactionDecision: store.handleTransactionDecision,
-    details: store.currentTransactionDetails
+    details: store.currentTransactionDetails,
+    transactionCount: store.transactionCount
   }))
 
   if (!isOpen || !details) return null
   return (
     <>
       <Splash data-testid={locators.transactionWrapper}>
-        <PageHeader />
-
-        <section className="pb-4 pt-2 px-5">
-          <TransactionHeader
-            origin={details.origin}
-            publicKey={details.publicKey}
-            name={details.name}
-            transaction={details.transaction}
+        <div className="grid grid-rows-[min-content_1fr_min-content] h-full w-full ">
+          <PageHeader />
+          <section className="overflow-y-auto">
+            <div className="pb-4 pt-2 px-5">
+              <TransactionHeader
+                origin={details.origin}
+                publicKey={details.publicKey}
+                name={details.name}
+                transaction={details.transaction}
+              />
+              <CheckTransaction
+                publicKey={details.publicKey}
+                transaction={details.transaction}
+                origin={details.origin}
+              />
+              <EnrichedDetails transaction={details.transaction} />
+              <RawTransaction transaction={details.transaction} />
+              <div data-testid={locators.transactionTimeAgo} className="text-sm text-vega-dark-300 mt-4 mb-4">
+                Received <ReactTimeAgo timeStyle="round" date={new Date(details.receivedAt)} locale="en-US" />
+              </div>
+            </div>
+          </section>
+          <TransactionModalFooter
+            handleTransactionDecision={handleTransactionDecision}
+            details={details}
+            transactionCount={transactionCount}
           />
-          <TransactionNotAutoApproved details={details} />
-          <CheckTransaction publicKey={details.publicKey} transaction={details.transaction} origin={details.origin} />
-          <EnrichedDetails transaction={details.transaction} />
-          <RawTransaction transaction={details.transaction} />
-          <div data-testid={locators.transactionTimeAgo} className="text-sm text-vega-dark-300 mt-6 mb-20">
-            Received <ReactTimeAgo timeStyle="round" date={new Date(details.receivedAt)} locale="en-US" />
-          </div>
-        </section>
+        </div>
       </Splash>
-      <TransactionModalFooter handleTransactionDecision={handleTransactionDecision} details={details} />
     </>
   )
 }

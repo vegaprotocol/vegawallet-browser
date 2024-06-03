@@ -14,12 +14,48 @@ export const locators = {
   transactionModalFooterAutoConsentSection: 'transaction-autoconsent-section'
 }
 
+export function getTransactionType(tx: Transaction) {
+  return Object.keys(tx)[0]
+}
+
+const AutoConsentOptIn = ({
+  autoConsent,
+  setAutoConsent
+}: {
+  autoConsent: boolean
+  setAutoConsent: (autoConsent: boolean) => void
+}) => {
+  return (
+    <div className="mt-2" data-testid={locators.transactionModalFooterAutoConsentSection}>
+      <Checkbox
+        label={
+          <span className="text-xs">
+            Allow this site to automatically approve order and vote transactions. This can be turned off in
+            "Connections".
+          </span>
+        }
+        checked={autoConsent}
+        onCheckedChange={() => {
+          setAutoConsent(!autoConsent)
+        }}
+        name={'autoConsent'}
+      />
+    </div>
+  )
+}
+
+const TransactionQueueNotifier = ({ transactionCount }: { transactionCount: number }) => {
+  return <div className="mt-2 text-xs">There are {transactionCount} transactions pending</div>
+}
+
 export const TransactionModalFooter = ({
   handleTransactionDecision,
-  details
+  details,
+  transactionCount
 }: {
   handleTransactionDecision: (decision: boolean) => void
   details: TransactionMessage
+  transactionCount: number
 }) => {
   const { request } = useJsonRpcClient()
   const { connections, loadConnections } = useConnectionStore((state) => ({
@@ -40,9 +76,13 @@ export const TransactionModalFooter = ({
       await loadConnections(request)
     }
   }
+  console.log(transactionCount)
+  const showAutoConsent =
+    !connection.autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(getTransactionType(details.transaction))
+  const hasTransactionQueue = transactionCount > 1
 
   return (
-    <div className="fixed bottom-0 py-4 bg-black z-[15] px-5 border-t border-vega-dark-200 w-full">
+    <div className="py-4 bg-black z-[15] px-5 border-t border-vega-dark-200 w-full">
       <div className="grid grid-cols-[1fr_1fr] justify-between gap-4">
         <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleDecision(false)}>
           Reject
@@ -55,22 +95,10 @@ export const TransactionModalFooter = ({
           Confirm
         </Button>
       </div>
-      {!connection.autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(getTransactionType(details.transaction)) && (
-        <div className="mt-2" data-testid={locators.transactionModalFooterAutoConsentSection}>
-          <Checkbox
-            label={
-              <span className="text-xs">
-                Allow this site to automatically approve order and vote transactions. This can be turned off in
-                "Connections".
-              </span>
-            }
-            checked={autoConsent}
-            onCheckedChange={() => {
-              setAutoConsent(!autoConsent)
-            }}
-            name={'autoConsent'}
-          />
-        </div>
+      {hasTransactionQueue && <TransactionQueueNotifier transactionCount={transactionCount} />}
+      {/* Do not show auto consent opt in when there are multiple pending transactions, to avoid crowding the UI */}
+      {showAutoConsent && !hasTransactionQueue && (
+        <AutoConsentOptIn autoConsent={autoConsent} setAutoConsent={setAutoConsent} />
       )}
     </div>
   )

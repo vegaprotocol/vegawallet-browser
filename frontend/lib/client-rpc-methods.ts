@@ -37,5 +37,6 @@ export const RpcMethods = {
   Fetch: 'admin.fetch',
 
   // Transactions
-  CheckTransaction: 'admin.check_transaction'
+  CheckTransaction: 'admin.check_transaction',
+  TransactionCountChanged: 'admin.transaction_count_changed'
 }

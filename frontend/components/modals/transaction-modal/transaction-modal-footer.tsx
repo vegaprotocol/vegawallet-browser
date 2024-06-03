@@ -45,7 +45,11 @@ const AutoConsentOptIn = ({
 }
 
 const TransactionQueueNotifier = ({ transactionCount }: { transactionCount: number }) => {
-  return <div className="mt-2 text-xs">There are {transactionCount} transactions pending</div>
+  return (
+    <div className="mt-2 text-xs text-vega-dark-300">
+      There are {transactionCount} transactions currently in the the queue
+    </div>
+  )
 }
 
 export const TransactionModalFooter = ({

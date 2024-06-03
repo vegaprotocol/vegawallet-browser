@@ -4,6 +4,7 @@ import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../lib/constants.js'
+import { maybeCloseWindow } from './windows.js'
 
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
@@ -52,6 +53,7 @@ function doValidate(validator, params) {
       validator.errors.map((e) => e.message)
     )
 }
+
 export default function init({
   onerror,
   settings,
@@ -94,7 +96,12 @@ export default function init({
             chainId: params.chainId,
             receivedAt
           })
-          if (reply.approved === false) throw new JSONRPCServer.Error(...Errors.CONNECTION_DENIED)
+          if (reply.approved === false) {
+            if (interactor.totalPending() === 0) {
+              await maybeCloseWindow()
+            }
+            throw new JSONRPCServer.Error(...Errors.CONNECTION_DENIED)
+          }
           const allWallets = await wallets.list()
           const walletPubKeys = await Promise.all(allWallets.map((w) => wallets.listKeys({ wallet: w })))
           await connections.set(context.origin, {
@@ -103,6 +110,9 @@ export default function init({
             chainId: params.chainId,
             networkId: reply.networkId
           })
+          if (interactor.totalPending() === 0) {
+            await maybeCloseWindow()
+          }
         } else if (params.chainId != null && (await connections.getChainId(context.origin)) !== params.chainId) {
           throw new JSONRPCServer.Error(...Errors.MISMATCHING_CHAIN_ID)
         }
@@ -176,6 +186,10 @@ export default function init({
             autoApproved: canBeAutoApproved // Should always be false here
           })
           await transactions.addTx(storedTx, keyInfo.walletName, keyInfo.publicKey)
+          if (interactor.totalPending() === 0) {
+            await maybeCloseWindow()
+          }
+
           throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
         }
 
@@ -203,6 +217,10 @@ export default function init({
           storedTx.hash = res.txHash
           storedTx.code = res.code
           storedTx.state = 'Confirmed'
+          if (interactor.totalPending() === 0) {
+            await maybeCloseWindow()
+          }
+
           return res
         } catch (e) {
           storedTx.error = e.message

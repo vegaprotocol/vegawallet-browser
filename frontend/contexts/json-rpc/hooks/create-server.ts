@@ -7,14 +7,6 @@ import type { ConnectionMessage, ConnectionReply } from '@/stores/interaction-st
 import JSONRPCServer from '../../../../lib/json-rpc-server'
 import { PortServer } from '../../../../lib/port-server'
 
-const maybeCloseWindow = () => {
-  const url = new URL(window.location.href)
-  const shouldClose = url.search.includes('once')
-  if (shouldClose) {
-    window.close()
-  }
-}
-
 // TODO add own tests
 export const createServer = (
   handleConnection: (parameters: ConnectionMessage) => Promise<ConnectionReply>,
@@ -27,13 +19,11 @@ export const createServer = (
       async [ServerRpcMethods.Connection](parameters: any, context: any) {
         log('info', 'Message pushed from background', parameters, context)
         const response = await handleConnection(parameters)
-        maybeCloseWindow()
         return response
       },
       async [ServerRpcMethods.Transaction](parameters: any, context: any) {
         log('info', 'Message pushed from background', parameters, context)
         const response = await handleTransaction(parameters)
-        maybeCloseWindow()
         return response
       }
     }

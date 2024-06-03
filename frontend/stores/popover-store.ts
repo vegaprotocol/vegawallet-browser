@@ -47,6 +47,7 @@ export const createStore = () =>
       },
       setup: async () => {
         if (windows) {
+          // TODO: what if a popup is created by another extension?
           windows.onCreated.addListener(get().onCreated)
           windows.onRemoved.addListener(get().onRemoved)
           const [allWins, currentWindow] = await Promise.all([windows.getAll(), windows.getCurrent()])

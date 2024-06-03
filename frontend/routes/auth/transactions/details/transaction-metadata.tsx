@@ -96,8 +96,8 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
         key="transaction-details-automatically-confirmed"
         data-testid={locators.transactionMetadataAutomaticallyConfirmed}
       >
-        <Tooltip description="This can be changed in the connection details screen">
-          <span>{transaction.autoApproved ? '👍' : '👎'}</span>
+        <Tooltip description="You can permit certain dApps to bypass transaction confirmation. This setting can be found and changed in the connection details screen.">
+          <span>{transaction.autoApproved === undefined ? '-' : transaction.autoApproved ? '👍' : '👎'}</span>
         </Tooltip>
       </div>
     ]

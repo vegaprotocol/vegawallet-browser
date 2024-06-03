@@ -68,6 +68,7 @@ export interface StoredTransaction {
   chainId: string
   decision: string // Date
   state: TransactionState
+  autoApproved: boolean
   node: string
   error?: string
   hash?: string

@@ -1,4 +1,4 @@
-import { Intent, Notification, truncateMiddle } from '@vegaprotocol/ui-toolkit'
+import { Intent, Notification, Tooltip, truncateMiddle } from '@vegaprotocol/ui-toolkit'
 import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -19,7 +19,8 @@ export const locators = {
   transactionMetadataNetwork: 'transaction-metadata-network',
   transactionMetadataNode: 'transaction-metadata-node',
   transactionMetadataOrigin: 'transaction-metadata-origin',
-  transactionMetadataSent: 'transaction-metadata-sent'
+  transactionMetadataSent: 'transaction-metadata-sent',
+  transactionMetadataAutomaticallyConfirmed: 'transaction-metadata-automatically-confirmed'
 }
 
 interface TransactionSectionProperties {
@@ -87,6 +88,17 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
       'Sent',
       <div key="transaction-details-sent" data-testid={locators.transactionMetadataSent}>
         {formatDateTime(new Date(transaction.receivedAt).getTime())}
+      </div>
+    ],
+    [
+      'Automatically Confirmed',
+      <div
+        key="transaction-details-automatically-confirmed"
+        data-testid={locators.transactionMetadataAutomaticallyConfirmed}
+      >
+        <Tooltip description="This can be changed in the connection details screen">
+          <span>{transaction.autoApproved ? '👍' : '👎'}</span>
+        </Tooltip>
       </div>
     ]
   ].filter(Boolean) as [ReactNode, ReactNode][]

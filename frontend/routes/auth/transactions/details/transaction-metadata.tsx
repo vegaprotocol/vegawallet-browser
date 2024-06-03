@@ -96,7 +96,20 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
         key="transaction-details-automatically-confirmed"
         data-testid={locators.transactionMetadataAutomaticallyConfirmed}
       >
-        <Tooltip description="You can permit certain dApps to bypass transaction confirmation. This setting can be found and changed in the connection details screen.">
+        <Tooltip
+          description={
+            <span>
+              This setting can be found and changed under
+              <NavLink
+                className="text-white underline"
+                to={`${FULL_ROUTES.connections}/${encodeURIComponent(transaction.origin)}`}
+              >
+                Connections
+              </NavLink>
+              .
+            </span>
+          }
+        >
           <span>{transaction.autoApproved === undefined ? '-' : transaction.autoApproved ? '👍' : '👎'}</span>
         </Tooltip>
       </div>

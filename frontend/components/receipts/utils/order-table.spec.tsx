@@ -81,11 +81,26 @@ describe('OrderTable', () => {
       peggedOrder: {
         reference: vegaPeggedReference.PEGGED_REFERENCE_BEST_BID,
         offset: '6'
+      },
+      icebergOpts: {
+        minimumVisibleSize: '1',
+        peakSize: '2'
       }
     })
 
-    const [priceRow, peggedInfoRow, sizeRow, marketRow, marketIdRow, orderRow, directionRow, typeRow, referenceRow] =
-      screen.getAllByTestId(dataTableLocators.dataRow)
+    const [
+      priceRow,
+      peggedInfoRow,
+      sizeRow,
+      marketRow,
+      marketIdRow,
+      orderRow,
+      directionRow,
+      typeRow,
+      referenceRow,
+      icebergPeakRow,
+      icebergMinRow
+    ] = screen.getAllByTestId(dataTableLocators.dataRow)
     expect(priceRow).toHaveTextContent('Price')
     expect(priceRow).toHaveTextContent('123')
 
@@ -112,7 +127,13 @@ describe('OrderTable', () => {
 
     expect(referenceRow).toHaveTextContent('Reference')
     expect(referenceRow).toHaveTextContent('ref')
-    expect(screen.getAllByTestId(dataTableLocators.dataRow)).toHaveLength(9)
+
+    expect(icebergPeakRow).toHaveTextContent('Peak size')
+    expect(icebergPeakRow).toHaveTextContent('2')
+
+    expect(icebergMinRow).toHaveTextContent('Minimum visible size')
+    expect(icebergMinRow).toHaveTextContent('1')
+    expect(screen.getAllByTestId(dataTableLocators.dataRow)).toHaveLength(11)
   })
 
   it('renders fields that are provided from the API', () => {

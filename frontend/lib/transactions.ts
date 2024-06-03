@@ -105,6 +105,6 @@ export interface TransactionMessage {
 }
 
 export type IcebergOptions = {
-  peakSize: number
-  minimumVisibleSize: number
+  peakSize: string
+  minimumVisibleSize: string
 }

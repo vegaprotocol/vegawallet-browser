@@ -108,3 +108,7 @@ export type IcebergOptions = {
   peakSize: string
   minimumVisibleSize: string
 }
+
+export function getTransactionType(tx: Transaction) {
+  return Object.keys(tx)[0]
+}

@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { useJsonRpcClient } from '@/contexts/json-rpc/json-rpc-context'
 import { RpcMethods } from '@/lib/client-rpc-methods'
-import type { Transaction, TransactionMessage } from '@/lib/transactions'
+import { getTransactionType, type TransactionMessage } from '@/lib/transactions'
 import { useConnectionStore } from '@/stores/connections'
 
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../../../lib/constants'
@@ -12,10 +12,6 @@ export const locators = {
   transactionModalDenyButton: 'transaction-deny-button',
   transactionModalApproveButton: 'transaction-approve-button',
   transactionModalFooterAutoConsentSection: 'transaction-autoconsent-section'
-}
-
-export function getTransactionType(tx: Transaction) {
-  return Object.keys(tx)[0]
 }
 
 export const TransactionModalFooter = ({

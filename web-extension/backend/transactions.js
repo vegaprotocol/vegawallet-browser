@@ -20,7 +20,17 @@ export class TransactionsCollection {
     return { transactions }
   }
 
-  async generateStoreTx({ transaction, publicKey, sendingMode, keyName, walletName, origin, receivedAt, state }) {
+  async generateStoreTx({
+    transaction,
+    publicKey,
+    sendingMode,
+    keyName,
+    walletName,
+    origin,
+    receivedAt,
+    state,
+    autoApproved
+  }) {
     const networkId = await this.connections.getNetworkId(origin)
     const chainId = await this.connections.getChainId(origin)
     return {
@@ -37,6 +47,7 @@ export class TransactionsCollection {
       decision: new Date().toISOString(),
       state,
       receivedAt,
+      autoApproved,
       node: null,
       error: null,
       hash: null,

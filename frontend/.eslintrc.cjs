@@ -21,6 +21,7 @@ module.exports = {
     ],
     'unicorn/no-null': 'off',
     'unicorn/no-array-reduce': 'off',
+    'unicorn/no-nested-ternary': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     // Reduces bundle size

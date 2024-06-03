@@ -5,6 +5,16 @@ import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../lib/constants.js'
 
+const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
+
+const isIos = () => {
+  return (
+    typeof navigator !== 'undefined' &&
+    (/iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
+  )
+}
+
 const Errors = {
   NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],
   CONNECTION_DENIED: ['Connection denied', -2, 'The user denied the connection request'],
@@ -76,6 +86,9 @@ export default function init({
           if (network.hidden && hiddenNetworksEnabled !== true) {
             throw new JSONRPCServer.Error(...Errors.DEVELOPMENT_CHAIN_ID)
           }
+          if (action.openPopup && isIos()) {
+            action.openPopup()
+          }
           const reply = await interactor.reviewConnection({
             origin: context.origin,
             chainId: params.chainId,
@@ -130,6 +143,9 @@ export default function init({
 
         let approved = true
         if (!connection.autoConsent || !AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) || isLocked) {
+          if (action.openPopup && isIos()) {
+            action.openPopup()
+          }
           approved = await interactor.reviewTransaction({
             transaction: params.transaction,
             publicKey: params.publicKey,

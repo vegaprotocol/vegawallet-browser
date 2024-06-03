@@ -76,8 +76,8 @@ export default function init({
     })
   })
 
-  interactor.on(PopupClient.METHODS.TRANSACTION_RECEIVED, (params) => {
-    server.notify('admin.transaction_received', params)
+  interactor.on(PopupClient.EVENTS.TRANSACTION_COUNT_CHANGED, (params) => {
+    server.notify('admin.transaction_count_changed', params)
   })
 
   let handle = null

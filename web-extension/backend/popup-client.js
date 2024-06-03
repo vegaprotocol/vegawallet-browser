@@ -12,8 +12,13 @@ export class PopupClient {
   static get METHODS() {
     return {
       REVIEW_CONNECTION: 'popup.review_connection',
-      REVIEW_TRANSACTION: 'popup.review_transaction',
-      TRANSACTION_RECEIVED: 'popup.transaction_received'
+      REVIEW_TRANSACTION: 'popup.review_transaction'
+    }
+  }
+
+  static get EVENTS() {
+    return {
+      TRANSACTION_COUNT_CHANGED: 'transaction-count-changed'
     }
   }
 
@@ -28,6 +33,9 @@ export class PopupClient {
       idPrefix: 'background-',
       send: (msg) => {
         this.persistentQueue.push(msg)
+        this._emitter.emit(PopupClient.EVENTS.TRANSACTION_COUNT_CHANGED, {
+          transactionsPending: this.totalPending()
+        })
         this.ports.forEach((p) => p.postMessage(msg))
       }
     })
@@ -46,16 +54,16 @@ export class PopupClient {
     return this.persistentQueue.length
   }
 
+  totalTransactionsPending() {
+    return this.persistentQueue.filter((msg) => msg.method === 'popup.review_transaction').length
+  }
+
   reviewConnection(params) {
     return this._send(PopupClient.METHODS.REVIEW_CONNECTION, params)
   }
 
-  async reviewTransaction(params) {
-    const res = await this._send(PopupClient.METHODS.REVIEW_TRANSACTION, params)
-    this._emitter.emit(PopupClient.METHODS.TRANSACTION_RECEIVED, {
-      transactionsPending: this.totalPending()
-    })
-    return res
+  reviewTransaction(params) {
+    return this._send(PopupClient.METHODS.REVIEW_TRANSACTION, params)
   }
 
   async _send(method, params) {
@@ -76,15 +84,16 @@ export class PopupClient {
     for (const msg of this.persistentQueue) {
       port.postMessage(msg)
     }
+    // Update the transaction count
+    this._emitter.emit(PopupClient.EVENTS.TRANSACTION_COUNT_CHANGED, {
+      transactionsPending: this.totalPending()
+    })
 
     const self = this
     function _onmessage(message) {
       if (isResponse(message)) {
-        const idx = self.persistentQueue.findIndex((msg) => msg.id === message.id)
-        if (idx !== -1) {
-          self.persistentQueue.splice(idx, 1)
-        }
-        this._emitter.emit(PopupClient.METHODS.TRANSACTION_RECEIVED, {
+        self.persistentQueue = self.persistentQueue.filter((msg) => msg.id !== message.id)
+        self._emitter.emit(PopupClient.EVENTS.TRANSACTION_COUNT_CHANGED, {
           transactionsPending: self.totalPending()
         })
       }

@@ -47,7 +47,7 @@ const AutoConsentOptIn = ({
 const TransactionQueueNotifier = ({ transactionCount }: { transactionCount: number }) => {
   return (
     <div className="mb-2 text-xs text-vega-dark-400">
-      There are {transactionCount} transactions currently in the the queue
+      There are {transactionCount} transactions currently in the queue
     </div>
   )
 }

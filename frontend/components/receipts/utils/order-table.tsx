@@ -6,6 +6,7 @@ import type { RowConfig } from '@/components/data-table/conditional-data-table'
 import { ConditionalDataTable } from '@/components/data-table/conditional-data-table'
 import { MarketLink } from '@/components/vega-entities/market-link'
 import { ORDER_STATUS_MAP, processOrderStatus } from '@/lib/enums'
+import type { IcebergOptions } from '@/lib/transactions'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import type { PeggedOrderOptions } from '@/types/transactions'
 
@@ -31,6 +32,7 @@ export type OrderTableProperties = Partial<{
   remaining?: string
   status?: OrderStatus
   version?: string
+  icebergOpts?: IcebergOptions
 }>
 
 export const OrderTable = (properties: OrderTableProperties) => {
@@ -108,7 +110,23 @@ export const OrderTable = (properties: OrderTableProperties) => {
       ]
     },
     { prop: 'status', render: (status) => ['Status', ORDER_STATUS_MAP[processOrderStatus(status)]] },
-    { prop: 'version', render: (version) => ['Version', version] }
+    { prop: 'version', render: (version) => ['Version', version] },
+    {
+      prop: 'icebergOpts',
+      props: ['marketId'],
+      render: (icebergOptions, { marketId }) => [
+        'Peak size',
+        <OrderSize key="order-details-iceberg" size={icebergOptions.peakSize} marketId={marketId} />
+      ]
+    },
+    {
+      prop: 'icebergOpts',
+      props: ['marketId'],
+      render: (icebergOptions, { marketId }) => [
+        'Minimum visible size',
+        <OrderSize key="order-details-iceberg" size={icebergOptions.minimumVisibleSize} marketId={marketId} />
+      ]
+    }
   ]
 
   return <ConditionalDataTable items={items} data={properties} />

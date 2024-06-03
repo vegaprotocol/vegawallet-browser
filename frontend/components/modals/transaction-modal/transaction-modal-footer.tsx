@@ -46,7 +46,7 @@ const AutoConsentOptIn = ({
 
 const TransactionQueueNotifier = ({ transactionCount }: { transactionCount: number }) => {
   return (
-    <div className="mt-2 text-xs text-vega-dark-300">
+    <div className="mb-2 text-xs text-vega-dark-400">
       There are {transactionCount} transactions currently in the the queue
     </div>
   )
@@ -87,6 +87,7 @@ export const TransactionModalFooter = ({
 
   return (
     <div className="py-4 bg-black z-[15] px-5 border-t border-vega-dark-200 w-full">
+      {hasTransactionQueue && <TransactionQueueNotifier transactionCount={transactionCount} />}
       <div className="grid grid-cols-[1fr_1fr] justify-between gap-4">
         <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleDecision(false)}>
           Reject
@@ -99,7 +100,6 @@ export const TransactionModalFooter = ({
           Confirm
         </Button>
       </div>
-      {hasTransactionQueue && <TransactionQueueNotifier transactionCount={transactionCount} />}
       {/* Do not show auto consent opt in when there are multiple pending transactions, to avoid crowding the UI */}
       {showAutoConsent && !hasTransactionQueue && (
         <AutoConsentOptIn autoConsent={autoConsent} setAutoConsent={setAutoConsent} />

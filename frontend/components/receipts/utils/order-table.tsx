@@ -116,7 +116,7 @@ export const OrderTable = (properties: OrderTableProperties) => {
       props: ['marketId'],
       render: (icebergOptions, { marketId }) => [
         'Peak size',
-        <OrderSize key="order-details-iceberg" size={icebergOptions.peakSize} marketId={marketId} />
+        <OrderSize key="order-details-iceberg-peak" size={icebergOptions.peakSize} marketId={marketId} />
       ]
     },
     {
@@ -124,7 +124,7 @@ export const OrderTable = (properties: OrderTableProperties) => {
       props: ['marketId'],
       render: (icebergOptions, { marketId }) => [
         'Minimum visible size',
-        <OrderSize key="order-details-iceberg" size={icebergOptions.minimumVisibleSize} marketId={marketId} />
+        <OrderSize key="order-details-iceberg-minimum" size={icebergOptions.minimumVisibleSize} marketId={marketId} />
       ]
     }
   ]

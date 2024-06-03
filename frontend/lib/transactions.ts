@@ -103,3 +103,8 @@ export interface TransactionMessage {
   receivedAt: string
   chainId: string
 }
+
+export type IcebergOptions = {
+  peakSize: number
+  minimumVisibleSize: number
+}

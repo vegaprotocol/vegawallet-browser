@@ -8,8 +8,6 @@ export const locators = {
 }
 
 export const SubmissionView = ({ orderSubmission }: { orderSubmission: any }) => {
-  if (orderSubmission.icebergOpts)
-    return <div data-testid={locators.icebergMessage}>Iceberg Order, see raw JSON for more information</div>
   return (
     <>
       <OrderTable {...orderSubmission} />
@@ -21,7 +19,6 @@ export const SubmissionView = ({ orderSubmission }: { orderSubmission: any }) =>
 export const Submission = ({ transaction }: ReceiptComponentProperties) => {
   const orderSubmission = transaction.orderSubmission
 
-  if (orderSubmission.icebergOpts) return null
   return (
     <ReceiptWrapper>
       <SubmissionView orderSubmission={orderSubmission} />

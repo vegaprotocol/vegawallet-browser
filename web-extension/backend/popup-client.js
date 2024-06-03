@@ -1,6 +1,7 @@
 import JSONRPCClient from '../../lib/json-rpc-client.js'
 import assert from 'nanoassert'
 import { isResponse } from '../../lib/json-rpc.js'
+import { TinyEventemitter } from '../lib/tiny-eventemitter.js'
 
 /**
  * Popup client
@@ -8,6 +9,14 @@ import { isResponse } from '../../lib/json-rpc.js'
  * @param {object} opts Options note that onbeforerequest and onafterrequest will not be called if the method is "ping"
  */
 export class PopupClient {
+  static get METHODS() {
+    return {
+      REVIEW_CONNECTION: 'popup.review_connection',
+      REVIEW_TRANSACTION: 'popup.review_transaction',
+      TRANSACTION_RECEIVED: 'popup.transaction_received'
+    }
+  }
+
   constructor({ onbeforerequest, onafterrequest }) {
     this.onbeforerequest = onbeforerequest
     this.onafterrequest = onafterrequest
@@ -22,6 +31,15 @@ export class PopupClient {
         this.ports.forEach((p) => p.postMessage(msg))
       }
     })
+    this._emitter = new TinyEventemitter()
+  }
+
+  on(event, listener) {
+    return this._emitter.on(event, listener)
+  }
+
+  off(event, listener) {
+    return this._emitter.off(event, listener)
   }
 
   totalPending() {
@@ -29,11 +47,15 @@ export class PopupClient {
   }
 
   reviewConnection(params) {
-    return this._send('popup.review_connection', params)
+    return this._send(PopupClient.METHODS.REVIEW_CONNECTION, params)
   }
 
-  reviewTransaction(params) {
-    return this._send('popup.review_transaction', params)
+  async reviewTransaction(params) {
+    const res = await this._send(PopupClient.METHODS.REVIEW_TRANSACTION, params)
+    this._emitter.emit(PopupClient.METHODS.TRANSACTION_RECEIVED, {
+      transactionsPending: this.totalPending()
+    })
+    return res
   }
 
   async _send(method, params) {
@@ -62,6 +84,9 @@ export class PopupClient {
         if (idx !== -1) {
           self.persistentQueue.splice(idx, 1)
         }
+        this._emitter.emit(PopupClient.METHODS.TRANSACTION_RECEIVED, {
+          transactionsPending: self.totalPending()
+        })
       }
 
       self.client.onmessage(message)

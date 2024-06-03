@@ -5,8 +5,25 @@ import { toBase64, string as fromString } from '@vegaprotocol/crypto/buf'
 import { createWindow } from './windows.js'
 import createKeepAlive from '../../lib/mv3-keep-alive.js'
 import * as txHelpers from './tx-helpers.js'
+import { PopupClient } from './popup-client.js'
 
 const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
+
+// const ADMIN_RPC_METHODS = {
+//   openPopout: 'admin.open_popout',
+//   appGlobals: 'admin.app_globals',
+//   updateAppSettings: 'admin.update_app_settings',
+//   createPassphrase: 'admin.create_passphrase',
+//   updatePassphrase: 'admin.update_passphrase',
+//   unlock: 'admin.unlock',
+//   lock: 'admin.lock',
+//   listNetworks: 'admin.list_networks',
+//   generateRecoveryPhrase: 'admin.generate_recovery_phrase',
+//   deleteWallet: 'admin.delete_wallet',
+//   importWallet: 'admin.import_wallet',
+//   listWallets: 'admin.list_wallets',
+//   listKeys: 'admin.list_keys'
+// }
 
 function doValidate(validator, params) {
   if (!validator(params)) {
@@ -40,6 +57,7 @@ export default function init({
   fetchCache,
   transactions,
   publicKeyIndexStore,
+  interactor,
   onerror
 }) {
   connections.on('set', (connection) => {
@@ -56,6 +74,10 @@ export default function init({
       update: [],
       delete: [connection]
     })
+  })
+
+  interactor.on(PopupClient.METHODS.TRANSACTION_RECEIVED, (params) => {
+    server.notify('admin.transaction_received', params)
   })
 
   let handle = null

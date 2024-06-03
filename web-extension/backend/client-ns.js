@@ -140,12 +140,10 @@ export default function init({
         const connection = await connections.get(context.origin)
         const transactionType = txHelpers.getTransactionType(params.transaction)
         const isLocked = encryptedStore.locked === true
-
-        let approved = true
-        if (!connection.autoConsent || !AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) || isLocked) {
-          if (action.openPopup && isIos()) {
-            action.openPopup()
-          }
+        const canBeAutoApproved =
+          connection.autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) && !isLocked
+        let approved = canBeAutoApproved
+        if (!canBeAutoApproved) {
           approved = await interactor.reviewTransaction({
             transaction: params.transaction,
             publicKey: params.publicKey,
@@ -171,7 +169,8 @@ export default function init({
             walletName: keyInfo.wallet,
             origin: context.origin,
             receivedAt,
-            state: 'Rejected'
+            state: 'Rejected',
+            autoApproved: canBeAutoApproved // Should always be false here
           })
           await transactions.addTx(storedTx, keyInfo.walletName, keyInfo.publicKey)
           throw new JSONRPCServer.Error(...Errors.TRANSACTION_DENIED)
@@ -185,7 +184,8 @@ export default function init({
           keyName: keyInfo.name,
           walletName: keyInfo.wallet,
           origin: context.origin,
-          receivedAt
+          receivedAt,
+          autoApproved: canBeAutoApproved
         })
 
         try {

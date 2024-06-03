@@ -39,7 +39,8 @@ const generateTx = async (connections, transactions) => {
     walletName: 'w1',
     origin: 'https://example.com',
     receivedAt: new Date().toISOString(),
-    state: 'Rejected'
+    state: 'Rejected',
+    autoApproved: false
   })
   return { result, mockTx }
 }

@@ -91,10 +91,16 @@ export const PEGGED_REFERENCE_MAP: Record<PeggedReference, string> = {
   [PeggedReference.PEGGED_REFERENCE_UNSPECIFIED]: 'unspecified'
 }
 
-export const SIDE_MAP: Record<Side, string> = {
+export const DERIVATIVE_SIDE_MAP: Record<Side, string> = {
   [Side.SIDE_UNSPECIFIED]: 'Unspecified',
   [Side.SIDE_BUY]: 'Long',
   [Side.SIDE_SELL]: 'Short'
+}
+
+export const SPOT_SIDE_MAP: Record<Side, string> = {
+  [Side.SIDE_UNSPECIFIED]: 'Unspecified',
+  [Side.SIDE_BUY]: 'Buy',
+  [Side.SIDE_SELL]: 'Sell'
 }
 
 export const MARGIN_MODE_MAP: Record<MarginMode, string> = {

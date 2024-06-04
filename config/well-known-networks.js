@@ -1,3 +1,5 @@
+import { ar } from 'date-fns/locale'
+
 const mockPort = 9090
 
 export const mainnet = {
@@ -20,11 +22,16 @@ export const mainnet = {
     'https://vega-mainnet.anyvalid.com',
     'https://vega.mainnet.stakingcabin.com:3008'
   ],
-  console: 'https://console.vega.xyz',
+
   ethereumExplorerLink: 'https://etherscan.io',
+  ethereumChainId: 1,
   arbitrumExplorerLink: 'https://arbiscan.io',
+  arbitrumChainId: 42161,
+
+  console: 'https://console.vega.xyz',
   explorer: 'https://explorer.vega.xyz',
   governance: 'https://governance.vega.xyz',
+
   docs: 'https://docs.vega.xyz/mainnet/concepts/new-to-vega',
   vegaDapps: 'https://vega.xyz/apps'
 }
@@ -43,11 +50,16 @@ export const fairground = {
     'https://api.n08.testnet.vega.rocks',
     'https://api.n09.testnet.vega.rocks'
   ],
-  console: 'https://console.fairground.wtf',
+
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  ethereumChainId: 11155111,
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
+  arbitrumChainId: 421614,
+
+  console: 'https://console.fairground.wtf',
   explorer: 'https://explorer.fairground.wtf',
   governance: 'https://governance.fairground.wtf',
+
   docs: 'https://docs.vega.xyz/testnet/concepts/new-to-vega',
   vegaDapps: 'https://vega.xyz/apps'
 }

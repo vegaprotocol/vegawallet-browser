@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
-import { EthereumKey } from '../../keys/ethereum-key'
+import { EthereumKey } from '@/components/keys/ethereum-key'
+
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
 export const ReceivingKey = ({ assetId, address }: { address: string; assetId: string }) => {

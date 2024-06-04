@@ -1,24 +1,23 @@
 import { truncateMiddle } from '@vegaprotocol/ui-toolkit'
 
+import { CopyWithCheckmark } from '@/components/copy-with-check'
+import { ExternalLink } from '@/components/external-link'
+import { ArbitrumLogo } from '@/components/icons/arbitrum'
 import { useNetwork } from '@/contexts/network/network-context'
 
-import { CopyWithCheckmark } from '../../copy-with-check'
-import { ExternalLink } from '../../external-link'
-import { EthereumIcon } from '../../icons/ethereum-icon'
-
 export const locators = {
-  title: 'ethereum-key-title',
-  explorerLink: 'ethereum-explorer-link'
+  title: 'arbitrum-key-title',
+  explorerLink: 'arbitrum-explorer-link'
 }
 
-export const EthereumKey = ({ address }: { address: string }) => {
+export const ArbitrumKey = ({ address }: { address: string }) => {
   const { network } = useNetwork()
   return (
     <div className="flex items-center">
-      <EthereumIcon />
+      <ArbitrumLogo />
       <div className="ml-4">
         <div data-testid={locators.title} className="text-left text-white">
-          Ethereum Address
+          Arbitrum Address
         </div>
         <ExternalLink
           className="text-vega-dark-400"

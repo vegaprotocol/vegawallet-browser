@@ -70,8 +70,11 @@ export const devnet = {
   chainId: 'vega-devnet1-202401251038',
   hidden: true,
   rest: ['https://api.devnet1.vega.rocks', 'https://api.n06.devnet1.vega.rocks', 'https://api.n07.devnet1.vega.rocks'],
+
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  ethereumChainId: 11155111,
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
+  arbitrumChainId: 421614,
 
   console: '',
   explorer: '',
@@ -93,8 +96,11 @@ export const stagnet1 = {
     'https://api.n05.stagnet1.vega.rocks',
     'https://api.n06.stagnet1.vega.rocks'
   ],
+
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  ethereumChainId: 11155111,
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
+  arbitrumChainId: 421614,
 
   console: 'https://console.stagnet1.vega.rocks',
   explorer: 'https://explorer.stagnet1.vega.rocks',
@@ -112,8 +118,11 @@ export const mirror = {
   chainId: 'vega-mainnet-mirror-202306231148',
   hidden: true,
   rest: ['https://api.mainnet-mirror.vega.rocks', 'https://api.n06.mainnet-mirror.vega.rocks'],
+
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  ethereumChainId: 11155111,
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
+  arbitrumChainId: 421614,
 
   console: 'https://console.mainnet-mirror.vega.rocks',
   explorer: 'https://explorer.mainnet-mirror.vega.rocks',
@@ -140,8 +149,11 @@ export const validatorTestnet = {
     'https://vega-rest.testnet.lovali.xyz',
     'https://vega-test-data.bharvest.io:3009'
   ],
+
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  ethereumChainId: 11155111,
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
+  arbitrumChainId: 421614,
 
   console: 'https://console..validator-testnet.vega.rocks',
   explorer: 'https://explorer..validator-testnet.vega.rocks',

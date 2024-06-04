@@ -15,7 +15,7 @@ import { OrderPrice } from './order/order-price'
 import { OrderSize } from './order/order-size'
 import { OrderType } from './order/order-type'
 import { PeggedOrderInfo } from './order/pegged-order-info'
-import { Side } from './order/side'
+import { OrderSide } from './order/side'
 
 export type OrderTableProperties = Partial<{
   marketId?: string
@@ -73,7 +73,14 @@ export const OrderTable = (properties: OrderTableProperties) => {
         </CopyWithCheckmark>
       ]
     },
-    { prop: 'side', render: (side) => ['Side', <Side key="order-details-direction" side={side} />] },
+    {
+      prop: 'side',
+      props: ['side', 'marketId'],
+      render: (side, { marketId }) => [
+        'Side',
+        <OrderSide key="order-details-direction" side={side} marketId={marketId} />
+      ]
+    },
     { prop: 'type', render: (type) => ['Type', <OrderType key="order-details-type" type={type} />] },
     {
       prop: 'reference',

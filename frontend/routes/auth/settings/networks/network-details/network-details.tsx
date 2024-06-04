@@ -63,18 +63,34 @@ export const NetworkDetails = () => {
       </VegaSection>
       <VegaSection>
         <SubHeader content="Ethereum Explorer" />
-        <ExternalLink
-          data-testid={locators.ethereumExplorer}
-          className="text-white mt-1"
-          href={network.ethereumExplorerLink}
+        <DataTable
+          items={[
+            [
+              'Explorer',
+              <ExternalLink
+                data-testid={locators.ethereumExplorer}
+                className="text-white mt-1"
+                href={network.ethereumExplorerLink}
+              />
+            ],
+            ['Chain Id', network.ethereumChainId]
+          ]}
         />
       </VegaSection>
       <VegaSection>
         <SubHeader content="Arbitrum Explorer" />
-        <ExternalLink
-          data-testid={locators.ethereumExplorer}
-          className="text-white mt-1"
-          href={network.arbitrumExplorerLink}
+        <DataTable
+          items={[
+            [
+              'Explorer',
+              <ExternalLink
+                data-testid={locators.ethereumExplorer}
+                className="text-white mt-1"
+                href={network.arbitrumExplorerLink}
+              />
+            ],
+            ['Chain Id', network.arbitrumChainId]
+          ]}
         />
       </VegaSection>
       <VegaSection>

@@ -70,6 +70,14 @@ export const NetworkDetails = () => {
         />
       </VegaSection>
       <VegaSection>
+        <SubHeader content="Arbitrum Explorer" />
+        <ExternalLink
+          data-testid={locators.ethereumExplorer}
+          className="text-white mt-1"
+          href={network.arbitrumExplorerLink}
+        />
+      </VegaSection>
+      <VegaSection>
         <CollapsiblePanel
           initiallyOpen
           title="Nodes"

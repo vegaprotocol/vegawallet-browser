@@ -15,7 +15,7 @@ export interface JsonRpcNotification {
 }
 
 /**
- * Provides Vega Ethereum contract instances to its children.
+ * Provides the client and server for JSON-RPC communication
  */
 export const JsonRPCProvider = ({ children }: { children: JSX.Element }) => {
   const { client, request } = useCreateClient()

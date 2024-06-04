@@ -1,5 +1,3 @@
-import { ar } from 'date-fns/locale'
-
 const mockPort = 9090
 
 export const mainnet = {

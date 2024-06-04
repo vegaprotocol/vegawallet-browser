@@ -62,7 +62,7 @@ export const NetworkDetails = () => {
         />
       </VegaSection>
       <VegaSection>
-        <SubHeader content="Ethereum Explorer" />
+        <SubHeader content="Ethereum config" />
         <DataTable
           items={[
             [
@@ -78,7 +78,7 @@ export const NetworkDetails = () => {
         />
       </VegaSection>
       <VegaSection>
-        <SubHeader content="Arbitrum Explorer" />
+        <SubHeader content="Arbitrum config" />
         <DataTable
           items={[
             [

@@ -19,3 +19,7 @@ export const isActiveMarket = (market: vegaMarket) => {
     market.tradingMode
   )
 }
+
+export const isSpotMarket = (market: vegaMarket) => {
+  return !!get(market, 'tradableInstrument.instrument.spot')
+}

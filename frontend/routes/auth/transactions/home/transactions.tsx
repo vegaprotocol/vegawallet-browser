@@ -3,7 +3,7 @@ import { BasePage } from '@/components/pages/page'
 import { useNetwork } from '@/contexts/network/network-context'
 import { useTransactionsStore } from '@/stores/transactions-store'
 
-import { TransactionsList } from './transactions-list'
+import { GroupedTransactionList } from './transactions-list'
 
 export const locators = {
   transactions: 'transactions',
@@ -26,7 +26,7 @@ export const Transactions = () => {
             <span className="underline">block explorer.</span>
           </ExternalLink>
         </p>
-        <TransactionsList transactions={filteredTransactions} />
+        <GroupedTransactionList transactions={filteredTransactions} />
       </div>
     </BasePage>
   )

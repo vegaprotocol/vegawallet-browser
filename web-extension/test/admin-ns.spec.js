@@ -40,7 +40,7 @@ const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = 
       ])
     ),
     fetchCache: new FetchCache(new Map()),
-    onerror (err) {
+    onerror(err) {
       throw err
     }
   })
@@ -234,9 +234,12 @@ describe('admin-ns', () => {
       networks: [
         {
           _nodeTimeout: null,
+          arbitrumChainId: '421614',
+          arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
           chainId: 'test-chain-id',
           console: 'https://console.fairground.wtf',
           docs: 'https://docs.vega.xyz/testnet/concepts/new-to-vega',
+          ethereumChainId: '11155111',
           ethereumExplorerLink: 'https://sepolia.etherscan.io',
           explorer: 'https://explorer.fairground.wtf',
           governance: 'https://governance.fairground.wtf',
@@ -609,7 +612,7 @@ describe('admin-ns', () => {
     })
   )
 
-  function setupFaultyFetch (faultyResponse) {
+  function setupFaultyFetch(faultyResponse) {
     return async () => {
       const chainHeight = {
         height: '2',

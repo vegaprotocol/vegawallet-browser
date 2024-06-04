@@ -15,7 +15,8 @@ export const locators = {
   chainId: 'chain-id',
   ethereumExplorer: 'ethereum-explorer',
   networkDetailsNode: 'network-details-node',
-  color: 'color'
+  color: 'color',
+  arbitrumExplorerLink: 'arbitrum-explorer-link'
 }
 
 export const NetworkDetails = () => {
@@ -84,7 +85,7 @@ export const NetworkDetails = () => {
             [
               'Explorer',
               <ExternalLink
-                data-testid={locators.ethereumExplorer}
+                data-testid={locators.arbitrumExplorerLink}
                 className="text-white mt-1"
                 href={network.arbitrumExplorerLink}
               />

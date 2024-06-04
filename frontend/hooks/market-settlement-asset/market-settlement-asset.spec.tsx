@@ -22,7 +22,7 @@ describe('useMarketPriceAsset', () => {
     expect(result.current).toBeUndefined()
   })
   it('returns nothing if assets are loading', () => {
-    mockStores({}, { loading: true })
+    mockStores({ getMarketById: jest.fn() }, { loading: true })
     const { result } = renderHook(() => useMarketPriceAsset('someMarketId'))
     expect(result.current).toBeUndefined()
   })

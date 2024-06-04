@@ -73,7 +73,7 @@ export const NetworkDetails = () => {
                 href={network.ethereumExplorerLink}
               />
             ],
-            ['Chain Id', network.ethereumChainId]
+            ['Chain ID', network.ethereumChainId]
           ]}
         />
       </VegaSection>
@@ -89,7 +89,7 @@ export const NetworkDetails = () => {
                 href={network.arbitrumExplorerLink}
               />
             ],
-            ['Chain Id', network.arbitrumChainId]
+            ['Chain ID', network.arbitrumChainId]
           ]}
         />
       </VegaSection>

@@ -5,25 +5,14 @@ import { ArbitrumKey } from '@/components/keys/arbitrum'
 import { EthereumKey } from '@/components/keys/ethereum-key'
 import { UnknownNetworkKey } from '@/components/keys/unknown-network-key'
 import { useNetwork } from '@/contexts/network/network-context'
-import { useAssetsStore } from '@/stores/assets-store'
+import { useAsset } from '@/hooks/use-asset'
 
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
-
-const useAsset = (assetId?: string) => {
-  const { getAssetById, loading } = useAssetsStore((state) => ({
-    getAssetById: state.getAssetById,
-    loading: state.loading
-  }))
-  if (loading || !assetId) return null
-  const assetInfo = getAssetById(assetId)
-  return assetInfo
-}
 
 export const ReceivingKey = ({ assetId, address }: { address: string; assetId: string }) => {
   const { network } = useNetwork()
   const asset = useAsset(assetId)
   let chainId = get(asset, 'details.erc20.chainId')
-
   if (!asset || !chainId) return <UnknownNetworkKey address={address} />
 
   if (network.ethereumChainId === chainId) return <EthereumKey address={address} />

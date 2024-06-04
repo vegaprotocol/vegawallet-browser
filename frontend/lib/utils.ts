@@ -1,4 +1,4 @@
-import { getDateTimeFormat } from '@vegaprotocol/utils'
+import { getDateFormat, getDateTimeFormat, getTimeFormat } from '@vegaprotocol/utils'
 
 export const nanoSecondsToMilliseconds = (nanoSeconds: string | number) => {
   return Math.round(+nanoSeconds / 1e6)
@@ -19,6 +19,22 @@ export const formatDateTime = (milliseconds: number | string) => {
     return getDateTimeFormat().format(new Date(+milliseconds))
   } catch {
     return `Invalid time value: ${milliseconds}`
+  }
+}
+
+export const formatDate = (date: number | string | Date) => {
+  try {
+    return getDateFormat().format(new Date(date))
+  } catch {
+    return `Invalid time value: ${date}`
+  }
+}
+
+export const formatTime = (date: number | string | Date) => {
+  try {
+    return getTimeFormat().format(new Date(date))
+  } catch {
+    return `Invalid time value: ${date}`
   }
 }
 

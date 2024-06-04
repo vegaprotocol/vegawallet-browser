@@ -110,6 +110,9 @@ export class Network {
     rest,
     console,
     ethereumExplorerLink,
+    arbitrumExplorerLink,
+    ethereumChainId,
+    arbitrumChainId,
     explorer,
     governance,
     docs,
@@ -124,6 +127,9 @@ export class Network {
     this.rest = rest
     this.console = console
     this.ethereumExplorerLink = ethereumExplorerLink
+    this.arbitrumExplorerLink = arbitrumExplorerLink
+    this.ethereumChainId = ethereumChainId
+    this.arbitrumChainId = arbitrumChainId
     this.explorer = explorer
     this.governance = governance
     this.docs = docs

@@ -50,9 +50,9 @@ export const fairground = {
   ],
 
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
-  ethereumChainId: 11155111,
+  ethereumChainId: '11155111',
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
-  arbitrumChainId: 421614,
+  arbitrumChainId: '421614',
 
   console: 'https://console.fairground.wtf',
   explorer: 'https://explorer.fairground.wtf',
@@ -72,9 +72,9 @@ export const devnet = {
   rest: ['https://api.devnet1.vega.rocks', 'https://api.n06.devnet1.vega.rocks', 'https://api.n07.devnet1.vega.rocks'],
 
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
-  ethereumChainId: 11155111,
+  ethereumChainId: '11155111',
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
-  arbitrumChainId: 421614,
+  arbitrumChainId: '421614',
 
   console: '',
   explorer: '',
@@ -98,9 +98,9 @@ export const stagnet1 = {
   ],
 
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
-  ethereumChainId: 11155111,
+  ethereumChainId: '11155111',
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
-  arbitrumChainId: 421614,
+  arbitrumChainId: '421614',
 
   console: 'https://console.stagnet1.vega.rocks',
   explorer: 'https://explorer.stagnet1.vega.rocks',
@@ -120,9 +120,9 @@ export const mirror = {
   rest: ['https://api.mainnet-mirror.vega.rocks', 'https://api.n06.mainnet-mirror.vega.rocks'],
 
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
-  ethereumChainId: 11155111,
+  ethereumChainId: '11155111',
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
-  arbitrumChainId: 421614,
+  arbitrumChainId: '421614',
 
   console: 'https://console.mainnet-mirror.vega.rocks',
   explorer: 'https://explorer.mainnet-mirror.vega.rocks',
@@ -151,9 +151,9 @@ export const validatorTestnet = {
   ],
 
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
-  ethereumChainId: 11155111,
+  ethereumChainId: '11155111',
   arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
-  arbitrumChainId: 421614,
+  arbitrumChainId: '421614',
 
   console: 'https://console..validator-testnet.vega.rocks',
   explorer: 'https://explorer..validator-testnet.vega.rocks',

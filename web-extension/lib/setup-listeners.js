@@ -90,17 +90,22 @@ export const migrations = [
   // Fourth migration is adding a keySortIndex to the wallet
   // populate this with the existing keys
   async function v4({ settings, keySortIndex, wallets }) {
-    await settings.transaction(async (store) => {
-      const wals = await wallets.list()
-      // There is only one wallet at this point
-      const keys = await wallets.listKeys({ wallet: wals[0] })
-      let i = 0
-      for (const key of keys) {
-        await keySortIndex.set(key.publicKey, i)
-        i++
-      }
-      await store.set('version', 4)
-    })
+    // TODO the wallets is not gaurenteed to be unlocked. This has been around for a couple of months though with no reports... so maybe it doesn't matter?
+    try {
+      await settings.transaction(async (store) => {
+        const wals = await wallets.list()
+        // There is only one wallet at this point
+        const keys = await wallets.listKeys({ wallet: wals[0] })
+        let i = 0
+        for (const key of keys) {
+          await keySortIndex.set(key.publicKey, i)
+          i++
+        }
+        await store.set('version', 4)
+      })
+    } catch (e) {
+      console.error('Error migrating keySortIndex', e)
+    }
   },
 
   // Migration to ensure that all connections now have autoConsent set
@@ -115,6 +120,21 @@ export const migrations = [
 
       await store.set('version', 5)
       await store.set('showHiddenNetworks', false)
+    })
+  },
+
+  // The sixth migration is modifying the network structure,
+  // introducing arbitrum URLS and chainIds for both Eth and Arb
+  // Easiest thing to do is nuke the networks and repopulate them
+  async function v6({ settings, networks }) {
+    await settings.transaction(async (store) => {
+      // populate all networks
+      await networks.store.clear()
+      for (const network of config.networks) {
+        await networks.set(network.id, network)
+      }
+
+      await store.set('version', 6)
     })
   }
 ]

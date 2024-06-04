@@ -56,7 +56,7 @@ describe('NetworkDetails', () => {
     // 1143-NWDT-004 Allows removing a connection
     renderComponent()
     const sections = screen.getAllByTestId(vegaSectionLocators.vegaSection)
-    const [id, chainId, colors, vegaUrls, ethereumExplorer, nodes] = sections
+    const [id, chainId, colors, vegaUrls, ethereumConfig, arbitrumConfig, nodes] = sections
     expect(within(id).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Id')
     expect(within(id).getByTestId(locators.networkId)).toHaveTextContent(testingNetwork.id)
 
@@ -77,8 +77,21 @@ describe('NetworkDetails', () => {
     expect(rows[2]).toHaveTextContent(testingNetwork.explorer)
     expect(rows[3]).toHaveTextContent(testingNetwork.docs)
 
-    expect(within(ethereumExplorer).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Ethereum Explorer')
-    expect(within(ethereumExplorer).getByTestId(locators.ethereumExplorer)).toHaveTextContent(
+    expect(within(ethereumConfig).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Ethereum config')
+    const ethRows = within(ethereumConfig).getAllByTestId(dataTableLocators.dataRow)
+    expect(ethRows[0]).toHaveTextContent('Explorer')
+    expect(ethRows[1]).toHaveTextContent('Chain ID')
+    expect(ethRows[1]).toHaveTextContent(testingNetwork.ethereumChainId)
+    expect(within(ethereumConfig).getByTestId(locators.ethereumExplorer)).toHaveTextContent(
+      testingNetwork.ethereumExplorerLink
+    )
+
+    expect(within(arbitrumConfig).getByTestId(vegaSubHeaderLocators.subHeader)).toHaveTextContent('Arbitrum config')
+    const arbRows = within(arbitrumConfig).getAllByTestId(dataTableLocators.dataRow)
+    expect(arbRows[0]).toHaveTextContent('Explorer')
+    expect(arbRows[1]).toHaveTextContent('Chain ID')
+    expect(arbRows[1]).toHaveTextContent(testingNetwork.arbitrumChainId)
+    expect(within(ethereumConfig).getByTestId(locators.ethereumExplorer)).toHaveTextContent(
       testingNetwork.ethereumExplorerLink
     )
 

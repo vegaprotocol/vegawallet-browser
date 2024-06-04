@@ -19,8 +19,8 @@ export const OrderSide = ({ side, marketId }: { side: vegaSide; marketId: string
     loading: state.loading,
     getMarketById: state.getMarketById
   }))
+  if (loading || !marketId) return <DerivativeSide side={side} />
   const market = getMarketById(marketId)
-  if (loading || !market) return <DerivativeSide side={side} />
   const isSpot = isSpotMarket(market)
   return <>{isSpot ? <SpotSide side={side} /> : <DerivativeSide side={side} />}</>
 }

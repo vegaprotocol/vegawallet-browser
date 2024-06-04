@@ -1,18 +1,12 @@
 import get from 'lodash/get'
 
-import { useMarketsStore } from '@/stores/markets-store'
+import { useMarket } from '@/hooks/use-market'
 
 import { MarketLink } from './market-link'
 
 export const VegaMarket = ({ marketId }: { marketId: string }) => {
-  const { getMarketById, loading } = useMarketsStore((state) => ({
-    loading: state.loading,
-    getMarketById: state.getMarketById
-  }))
-  if (loading) {
-    return <MarketLink marketId={marketId} />
-  }
-  const market = getMarketById(marketId)
+  const market = useMarket(marketId)
+  if (!market) return <MarketLink marketId={marketId} />
   const code = get(market, 'tradableInstrument.instrument.code')
   if (!code) {
     return <MarketLink marketId={marketId} />

@@ -14,7 +14,7 @@ describe('BasicWithdrawal', () => {
     // 1123-WITH-002 I can see a the a truncated asset id of the amount being withdrawn with link to the block explorer
     render(
       <MockNetworkProvider>
-        <BasicWithdrawal receiverAddress="0x12345678" amount="10" asset="ETH" />
+        <BasicWithdrawal receiverAddress="0x12345678" amount="10" assetId="ETH" />
       </MockNetworkProvider>
     )
 

@@ -11,11 +11,25 @@ export const locators = {
   explorerLink: 'ethereum-explorer-link'
 }
 
+const EthIcon = () => {
+  return (
+    <div
+      style={{
+        height: 42,
+        width: 42
+      }}
+      className="flex items-center justify-center rounded-md overflow-hidden bg-vega-blue-650"
+    >
+      <EthereumIcon />
+    </div>
+  )
+}
+
 export const EthereumKey = ({ address }: { address: string }) => {
   const { network } = useNetwork()
   return (
     <div className="flex items-center">
-      <EthereumIcon />
+      <EthIcon />
       <div className="ml-4">
         <div data-testid={locators.title} className="text-left text-white">
           Ethereum Address

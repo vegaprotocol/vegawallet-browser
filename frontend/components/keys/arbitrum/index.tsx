@@ -10,11 +10,25 @@ export const locators = {
   explorerLink: 'arbitrum-explorer-link'
 }
 
+const ArbIcon = () => {
+  return (
+    <div
+      style={{
+        height: 42,
+        width: 42
+      }}
+      className="flex items-center justify-center rounded-md overflow-hidden bg-vega-pink-650 p-1.5"
+    >
+      <ArbitrumLogo />
+    </div>
+  )
+}
+
 export const ArbitrumKey = ({ address }: { address: string }) => {
   const { network } = useNetwork()
   return (
     <div className="flex items-center">
-      <ArbitrumLogo />
+      <ArbIcon />
       <div className="ml-4">
         <div data-testid={locators.title} className="text-left text-white">
           Arbitrum Address
@@ -22,7 +36,7 @@ export const ArbitrumKey = ({ address }: { address: string }) => {
         <ExternalLink
           className="text-vega-dark-400"
           data-testid={locators.explorerLink}
-          href={`${network.ethereumExplorerLink}/address/${address}`}
+          href={`${network.arbitrumExplorerLink}/address/${address}`}
         >
           {truncateMiddle(address)}
         </ExternalLink>

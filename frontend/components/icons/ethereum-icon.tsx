@@ -1,12 +1,12 @@
 export const EthereumIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" aria-label="Ethereum" role="img" viewBox="0 0 512 512">
-      <rect width="512" height="512" rx="15%" fill="#ffffff" />
-      <path fill="#3C3C3B" d="m256 362v107l131-185z" />
-      <path fill="#343434" d="m256 41l131 218-131 78-132-78" />
-      <path fill="#8C8C8C" d="m256 41v158l-132 60m0 25l132 78v107" />
-      <path fill="#141414" d="m256 199v138l131-78" />
-      <path fill="#393939" d="m124 259l132-60v138" />
+    <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.13882 0L6.00464 0.455777V13.6802L6.13882 13.8141L12.2773 10.1855L6.13882 0Z" fill="#0075FF" />
+      <path d="M6.13866 0L0 10.1855L6.13866 13.8141V7.39529V0Z" fill="#0075FF" />
+      <path d="M6.13849 14.9763L6.06287 15.0685V19.7793L6.13849 20L12.2807 11.3497L6.13849 14.9763Z" fill="#0075FF" />
+      <path d="M6.13866 20V14.9763L0 11.3497L6.13866 20Z" fill="#0075FF" />
+      <path d="M6.13855 13.8141L12.2771 10.1855L6.13855 7.39529V13.8141Z" fill="#0075FF" />
+      <path d="M0 10.1855L6.13866 13.8141V7.39529L0 10.1855Z" fill="#0075FF" />
     </svg>
   )
 }

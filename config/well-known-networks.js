@@ -22,6 +22,7 @@ export const mainnet = {
   ],
   console: 'https://console.vega.xyz',
   ethereumExplorerLink: 'https://etherscan.io',
+  arbitrumExplorerLink: 'https://arbiscan.io',
   explorer: 'https://explorer.vega.xyz',
   governance: 'https://governance.vega.xyz',
   docs: 'https://docs.vega.xyz/mainnet/concepts/new-to-vega',
@@ -44,6 +45,7 @@ export const fairground = {
   ],
   console: 'https://console.fairground.wtf',
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
   explorer: 'https://explorer.fairground.wtf',
   governance: 'https://governance.fairground.wtf',
   docs: 'https://docs.vega.xyz/testnet/concepts/new-to-vega',
@@ -59,6 +61,7 @@ export const devnet = {
   hidden: true,
   rest: ['https://api.devnet1.vega.rocks', 'https://api.n06.devnet1.vega.rocks', 'https://api.n07.devnet1.vega.rocks'],
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
 
   console: '',
   explorer: '',
@@ -81,6 +84,7 @@ export const stagnet1 = {
     'https://api.n06.stagnet1.vega.rocks'
   ],
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
 
   console: 'https://console.stagnet1.vega.rocks',
   explorer: 'https://explorer.stagnet1.vega.rocks',
@@ -99,6 +103,7 @@ export const mirror = {
   hidden: true,
   rest: ['https://api.mainnet-mirror.vega.rocks', 'https://api.n06.mainnet-mirror.vega.rocks'],
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
 
   console: 'https://console.mainnet-mirror.vega.rocks',
   explorer: 'https://explorer.mainnet-mirror.vega.rocks',
@@ -126,6 +131,7 @@ export const validatorTestnet = {
     'https://vega-test-data.bharvest.io:3009'
   ],
   ethereumExplorerLink: 'https://sepolia.etherscan.io',
+  arbitrumExplorerLink: 'https://sepolia.arbiscan.io',
 
   console: 'https://console..validator-testnet.vega.rocks',
   explorer: 'https://explorer..validator-testnet.vega.rocks',

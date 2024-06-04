@@ -35,6 +35,7 @@ export interface Network {
   rest: string[]
   console: string
   ethereumExplorerLink: string
+  arbitrumExplorerLink: string
   explorer: string
   governance: string
   docs: string

@@ -6,17 +6,17 @@ import { BaseWithdrawal } from './base-withdrawal'
 
 export const EnrichedWithdrawal = ({
   amount,
-  asset,
+  assetId,
   receiverAddress
 }: {
   receiverAddress: string
   amount: string
-  asset: string
+  assetId: string
 }) => {
-  const { formattedAmount, symbol } = useFormatAssetAmount(asset, amount)
+  const { formattedAmount, symbol } = useFormatAssetAmount(assetId, amount)
   if (!formattedAmount || !symbol) return null
   return (
-    <BaseWithdrawal receiverAddress={receiverAddress}>
+    <BaseWithdrawal receiverAddress={receiverAddress} assetId={assetId}>
       <Header content={<AmountWithSymbol amount={formattedAmount} symbol={symbol} />} />
     </BaseWithdrawal>
   )

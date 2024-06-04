@@ -19,14 +19,14 @@ export const Withdraw = ({ transaction }: ReceiptComponentProperties) => {
         <BasicWithdrawal
           receiverAddress={receiverAddress}
           amount={transaction.withdrawSubmission.amount}
-          asset={transaction.withdrawSubmission.asset}
+          assetId={transaction.withdrawSubmission.asset}
         />
       )}
       render={() => (
         <EnrichedWithdrawal
           receiverAddress={receiverAddress}
           amount={transaction.withdrawSubmission.amount}
-          asset={transaction.withdrawSubmission.asset}
+          assetId={transaction.withdrawSubmission.asset}
         />
       )}
     />

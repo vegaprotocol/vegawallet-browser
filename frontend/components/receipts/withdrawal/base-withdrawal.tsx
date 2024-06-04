@@ -3,11 +3,23 @@ import type { ReactNode } from 'react'
 import { EthereumKey } from '../../keys/ethereum-key'
 import { ReceiptWrapper } from '../utils/receipt-wrapper'
 
-export const BaseWithdrawal = ({ children, receiverAddress }: { receiverAddress: string; children: ReactNode }) => {
+export const ReceivingKey = ({ assetId, address }: { address: string; assetId: string }) => {
+  return <EthereumKey address={address} />
+}
+
+export const BaseWithdrawal = ({
+  children,
+  receiverAddress,
+  assetId
+}: {
+  receiverAddress: string
+  children: ReactNode
+  assetId: string
+}) => {
   return (
     <ReceiptWrapper>
       {children}
-      <EthereumKey address={receiverAddress} />
+      <ReceivingKey address={receiverAddress} assetId={assetId} />
     </ReceiptWrapper>
   )
 }

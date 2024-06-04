@@ -4,16 +4,16 @@ import { BaseWithdrawal } from './base-withdrawal'
 
 export const BasicWithdrawal = ({
   amount,
-  asset,
+  assetId,
   receiverAddress
 }: {
   receiverAddress: string
   amount: string
-  asset: string
+  assetId: string
 }) => {
   return (
-    <BaseWithdrawal receiverAddress={receiverAddress}>
-      <Header content={<AmountWithTooltip amount={amount} assetId={asset} />} />
+    <BaseWithdrawal receiverAddress={receiverAddress} assetId={assetId}>
+      <Header content={<AmountWithTooltip amount={amount} assetId={assetId} />} />
     </BaseWithdrawal>
   )
 }

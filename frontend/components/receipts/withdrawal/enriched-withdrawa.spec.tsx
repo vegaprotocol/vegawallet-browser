@@ -21,7 +21,7 @@ const renderComponent = ({
 }) =>
   render(
     <MockNetworkProvider>
-      <EnrichedWithdrawal amount={amount} asset={asset} receiverAddress={receiverAddress} />
+      <EnrichedWithdrawal amount={amount} assetId={asset} receiverAddress={receiverAddress} />
     </MockNetworkProvider>
   )
 

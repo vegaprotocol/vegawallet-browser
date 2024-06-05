@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom'
 
 import { StoredTransaction, TransactionState } from '@/types/backend'
 
-import { testingNetwork } from '../../../../../config/well-known-networks'
+import { testingNetwork } from '../../../../../../config/well-known-networks'
 import { locators, TransactionsList } from './transactions-list'
 
 jest.mock('@/components/host-image', () => ({
@@ -11,6 +11,9 @@ jest.mock('@/components/host-image', () => ({
 }))
 jest.mock('../transactions-state', () => ({
   VegaTransactionState: () => <div data-testid="transaction-state" />
+}))
+jest.mock('./transactions-list-empty', () => ({
+  TransactionsListEmpty: () => <div data-testid="empty" />
 }))
 
 const renderComponent = (transactions: StoredTransaction[]) => {
@@ -25,7 +28,7 @@ describe('TransactionList', () => {
   it('renders an empty message is there are no transactions present', async () => {
     // 1148-TXLS-002 When I have no transactions I am presented with a message informing me so
     renderComponent([])
-    expect(screen.getByTestId(locators.transactionListEmpty)).toBeInTheDocument()
+    expect(screen.getByTestId('empty')).toBeInTheDocument()
   })
 
   it('renders host image, transaction type, key used, time it was confirmed, transaction state and link', async () => {
@@ -51,7 +54,7 @@ describe('TransactionList', () => {
         code: undefined
       }
     ])
-    expect(screen.queryByTestId(locators.transactionListEmpty)).not.toBeInTheDocument()
+    expect(screen.queryByTestId('empty')).not.toBeInTheDocument()
     expect(screen.getByTestId('host-image')).toBeInTheDocument()
     expect(screen.getByTestId(locators.transactionListItemTransactionType)).toBeInTheDocument()
     expect(screen.getByTestId(locators.transactionListItemKeyName)).toBeInTheDocument()

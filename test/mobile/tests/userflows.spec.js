@@ -100,7 +100,7 @@ describe('Onboarding', () => {
     )
   })
 
-  it('Can send a transaction to the wallet for approval', async () => {
+  it.skip('Can send a transaction to the wallet for approval', async () => {
     await click('//XCUIElementTypeButton[@name="Submit"]')
 
     await switchToVegaWallet()

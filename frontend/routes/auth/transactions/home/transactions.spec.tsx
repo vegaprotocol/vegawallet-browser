@@ -11,7 +11,7 @@ import { locators, Transactions } from './transactions'
 jest.mock('@/stores/wallets')
 jest.mock('@/stores/transactions-store')
 jest.mock('./transactions-list', () => ({
-  TransactionsList: ({ transactions }: { transactions: StoredTransaction[] }) => (
+  GroupedTransactionList: ({ transactions }: { transactions: StoredTransaction[] }) => (
     <div data-testid="transactions-list">{transactions.length}</div>
   )
 }))

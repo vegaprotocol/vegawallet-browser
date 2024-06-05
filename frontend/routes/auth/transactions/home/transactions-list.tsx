@@ -38,26 +38,19 @@ export const GroupedTransactionList = ({ transactions }: { transactions: StoredT
     daySent: format(new Date(transaction.decision), 'yyyy-MM-dd')
   }))
   const groupedTransactions = groupBy(transactionsByDate, 'daySent')
-  const today = format(new Date(), 'yyyy-MM-dd')
   return (
     <section>
       {Object.keys(groupedTransactions).map((date) => (
         <VegaSection key={date}>
           <SubHeader content={formatDate(date)} />
-          <TransactionsList transactions={groupedTransactions[date]} renderTime={date === today} />
+          <TransactionsList transactions={groupedTransactions[date]} />
         </VegaSection>
       ))}
     </section>
   )
 }
 
-export const TransactionsList = ({
-  transactions,
-  renderTime
-}: {
-  transactions: StoredTransaction[]
-  renderTime: boolean
-}) => {
+export const TransactionsList = ({ transactions }: { transactions: StoredTransaction[] }) => {
   return (
     <List<StoredTransaction>
       items={transactions}
@@ -78,16 +71,6 @@ export const TransactionsList = ({
                 </div>
               </div>
               <VegaTransactionState state={transaction.state} />
-            </div>
-            <div className="text-xs">
-              <ReactTimeAgo
-                data-testid={locators.transactionListItemDecision}
-                timeStyle="round"
-                date={new Date(transaction.decision)}
-                locale="en-US"
-              />
-              <span className="mx-2">•</span>
-              <span>{formatTime(new Date(transaction.decision).getTime())}</span>
             </div>
           </div>
           <NavLink

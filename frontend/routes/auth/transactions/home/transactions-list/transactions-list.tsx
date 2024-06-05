@@ -1,53 +1,21 @@
-import { format } from 'date-fns'
-import groupBy from 'lodash/groupBy'
 import { NavLink } from 'react-router-dom'
-import ReactTimeAgo from 'react-time-ago'
 
 import { HostImage } from '@/components/host-image'
 import { ChevronRight } from '@/components/icons/chevron-right'
 import { List } from '@/components/list'
-import { SubHeader } from '@/components/sub-header'
-import { VegaSection } from '@/components/vega-section'
 import { getTitle } from '@/lib/get-title'
-import { formatDate, formatTime } from '@/lib/utils'
 import { FULL_ROUTES } from '@/routes/route-names'
 import type { StoredTransaction } from '@/types/backend'
 
-import { VegaTransactionState } from '../transactions-state'
+import { VegaTransactionState } from '../../transactions-state'
+import { TransactionListEmpty } from './transactions-list-empty'
 
 export const locators = {
   transactionListItem: 'transaction-list-item',
   transactionListItemKeyName: 'transaction-list-item-key-name',
   transactionListItemTransactionType: 'transaction-list-item-transaction-type',
   transactionListItemDecision: 'transaction-list-item-decision',
-  transactionListItemLink: 'transaction-list-item-link',
-  transactionListEmpty: 'transaction-list-empty'
-}
-
-const TransactionListEmpty = () => {
-  return (
-    <div data-testid={locators.transactionListEmpty} className="mt-6 text-sm">
-      No transactions have been placed using this wallet on this network.
-    </div>
-  )
-}
-
-export const GroupedTransactionList = ({ transactions }: { transactions: StoredTransaction[] }) => {
-  const transactionsByDate = transactions.map((transaction) => ({
-    ...transaction,
-    daySent: format(new Date(transaction.decision), 'yyyy-MM-dd')
-  }))
-  const groupedTransactions = groupBy(transactionsByDate, 'daySent')
-  return (
-    <section>
-      {Object.keys(groupedTransactions).map((date) => (
-        <VegaSection key={date}>
-          <SubHeader content={formatDate(date)} />
-          <TransactionsList transactions={groupedTransactions[date]} />
-        </VegaSection>
-      ))}
-    </section>
-  )
+  transactionListItemLink: 'transaction-list-item-link'
 }
 
 export const TransactionsList = ({ transactions }: { transactions: StoredTransaction[] }) => {

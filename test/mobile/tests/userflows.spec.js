@@ -93,6 +93,7 @@ describe('Onboarding', () => {
 
     await click(connect)
     await click('//XCUIElementTypeLink[@name="Connections"]')
+    await click(safariManageExtensionsDoneButton)
 
     ok(
       await $('//XCUIElementTypeButton[@name="Submit"]').isDisplayed(),
@@ -100,7 +101,7 @@ describe('Onboarding', () => {
     )
   })
 
-  it.skip('Can send a transaction to the wallet for approval', async () => {
+  it('Can send a transaction to the wallet for approval', async () => {
     await click('//XCUIElementTypeButton[@name="Submit"]')
 
     await switchToVegaWallet()

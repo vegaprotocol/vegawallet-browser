@@ -9,7 +9,7 @@ import { locators, TransactionsList } from './transactions-list'
 jest.mock('@/components/host-image', () => ({
   HostImage: () => <div data-testid="host-image" />
 }))
-jest.mock('../transactions-state', () => ({
+jest.mock('../../transactions-state', () => ({
   VegaTransactionState: () => <div data-testid="transaction-state" />
 }))
 jest.mock('./transactions-list-empty', () => ({
@@ -58,7 +58,6 @@ describe('TransactionList', () => {
     expect(screen.getByTestId('host-image')).toBeInTheDocument()
     expect(screen.getByTestId(locators.transactionListItemTransactionType)).toBeInTheDocument()
     expect(screen.getByTestId(locators.transactionListItemKeyName)).toBeInTheDocument()
-    expect(screen.getByTestId(locators.transactionListItemDecision)).toBeInTheDocument()
     expect(screen.getByTestId('transaction-state')).toBeInTheDocument()
     expect(screen.getByTestId(locators.transactionListItemLink)).toBeInTheDocument()
   })

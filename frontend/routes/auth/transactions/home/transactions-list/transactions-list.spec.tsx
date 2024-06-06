@@ -13,7 +13,7 @@ jest.mock('../../transactions-state', () => ({
   VegaTransactionState: () => <div data-testid="transaction-state" />
 }))
 jest.mock('./transactions-list-empty', () => ({
-  TransactionsListEmpty: () => <div data-testid="empty" />
+  TransactionListEmpty: () => <div data-testid="empty" />
 }))
 
 const renderComponent = (transactions: StoredTransaction[]) => {

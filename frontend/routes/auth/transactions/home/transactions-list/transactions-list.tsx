@@ -8,7 +8,6 @@ import { FULL_ROUTES } from '@/routes/route-names'
 import type { StoredTransaction } from '@/types/backend'
 
 import { VegaTransactionState } from '../../transactions-state'
-import { TransactionListEmpty } from './transactions-list-empty'
 
 export const locators = {
   transactionListItem: 'transaction-list-item',
@@ -21,7 +20,6 @@ export const TransactionsList = ({ transactions }: { transactions: StoredTransac
   return (
     <List<StoredTransaction>
       items={transactions}
-      empty={<TransactionListEmpty />}
       renderItem={(transaction) => (
         <div data-testid={locators.transactionListItem} className="flex flex-row justify-between h-16">
           <div className="flex flex-col w-full mr-2">

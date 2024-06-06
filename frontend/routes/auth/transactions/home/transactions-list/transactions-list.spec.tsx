@@ -25,12 +25,6 @@ const renderComponent = (transactions: StoredTransaction[]) => {
 }
 
 describe('TransactionList', () => {
-  it('renders an empty message is there are no transactions present', async () => {
-    // 1148-TXLS-002 When I have no transactions I am presented with a message informing me so
-    renderComponent([])
-    expect(screen.getByTestId('empty')).toBeInTheDocument()
-  })
-
   it('renders host image, transaction type, key used, time it was confirmed, transaction state and link', async () => {
     // 1148-TXLS-004 I can see a list of all transactions, including the transaction type, sending key, time sent and internal status of the transaction
     // 1148-TXLS-005 I can see a link to the transaction details page for each transaction

@@ -1,5 +1,6 @@
 import { By, WebDriver } from 'selenium-webdriver'
-import { locators as transactionsListLocators } from '../../../frontend/routes/auth/transactions/home/transactions-list'
+import { locators as transactionsListLocators } from '../../../frontend/routes/auth/transactions/home/transactions-list/transactions-list'
+import { locators as transactionsListEmptyLocators } from '../../../frontend/routes/auth/transactions/home/transactions-list/transactions-list-empty'
 import { locators as transactionsPageLocators } from '../../../frontend/routes/auth/transactions/home/transactions'
 import {
   clickWebElement,
@@ -11,7 +12,7 @@ import {
 
 export class TransactionList {
   private readonly transactionListItem: By = getByDataTestID(transactionsListLocators.transactionListItem)
-  private readonly transactionListEmpty: By = getByDataTestID(transactionsListLocators.transactionListEmpty)
+  private readonly transactionListEmpty: By = getByDataTestID(transactionsListEmptyLocators.transactionListEmpty)
   private readonly transactionPage: By = getByDataTestID(transactionsPageLocators.transactions)
 
   constructor(private readonly driver: WebDriver) {}

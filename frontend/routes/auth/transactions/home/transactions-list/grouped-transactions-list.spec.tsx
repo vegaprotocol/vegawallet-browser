@@ -9,7 +9,16 @@ jest.mock('./transactions-list', () => ({
   TransactionsList: () => <div data-testid="transactions-list" />
 }))
 
+jest.mock('./transactions-list-empty', () => ({
+  TransactionListEmpty: () => <div data-testid="empty" />
+}))
+
 describe('GroupedTransactionsList', () => {
+  it('renders empty state if there are not transactions', () => {
+    // 1148-TXLS-002 When I have no transactions I am presented with a message informing me so
+    render(<GroupedTransactionList transactions={[]} />)
+    expect(screen.getByTestId('empty')).toBeInTheDocument()
+  })
   it('groups all transactions by date', () => {
     render(
       <GroupedTransactionList

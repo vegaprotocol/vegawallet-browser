@@ -14,7 +14,6 @@ export const locators = {
   transactionListItem: 'transaction-list-item',
   transactionListItemKeyName: 'transaction-list-item-key-name',
   transactionListItemTransactionType: 'transaction-list-item-transaction-type',
-  transactionListItemDecision: 'transaction-list-item-decision',
   transactionListItemLink: 'transaction-list-item-link'
 }
 

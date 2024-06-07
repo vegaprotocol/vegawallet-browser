@@ -43,6 +43,7 @@ describe('TransactionList', () => {
         decision: new Date().toISOString(),
         state: TransactionState.Confirmed,
         node: 'https://node.com',
+        autoApproved: false,
         error: undefined,
         hash: undefined,
         code: undefined

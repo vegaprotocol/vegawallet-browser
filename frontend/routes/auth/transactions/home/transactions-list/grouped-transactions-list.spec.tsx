@@ -37,6 +37,7 @@ describe('GroupedTransactionsList', () => {
             decision: new Date(0).toISOString(),
             state: TransactionState.Confirmed,
             node: 'https://node.com',
+            autoApproved: false,
             error: undefined,
             hash: undefined,
             code: undefined

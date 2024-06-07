@@ -43,10 +43,10 @@ const renderComponent = ({ details }: { details: TransactionMessage }) =>
 
 describe('TransactionNotAutoApproved', () => {
   it('throws error if the connection could not be found', () => {
+    silenceErrors()
     mockStore(useConnectionStore, {
       connections: []
     })
-    // silenceErrors()
     expect(() => renderComponent({ details })).toThrow('')
   })
   it('renders nothing if this connection does not have auto approval enabled', () => {

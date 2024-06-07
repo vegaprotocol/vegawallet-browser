@@ -43,7 +43,7 @@ const data = {
   receivedAt: new Date('2021-01-01T00:00:00.000Z').toISOString()
 }
 
-const renderComponent = (autoConsent = false) => {
+const renderComponent = (autoConsent = false, transactionCount = 0) => {
   mockStore(useConnectionStore, {
     connections: [
       {
@@ -61,7 +61,9 @@ const renderComponent = (autoConsent = false) => {
     loadConnections: jest.fn()
   })
   const function_ = jest.fn()
-  const view = render(<TransactionModalFooter details={data} handleTransactionDecision={function_} />)
+  const view = render(
+    <TransactionModalFooter transactionCount={transactionCount} details={data} handleTransactionDecision={function_} />
+  )
   return {
     view,
     fn: function_
@@ -76,9 +78,9 @@ describe('TransactionModalFooter', () => {
       loadConnections: jest.fn()
     })
     const function_ = jest.fn()
-    expect(() => render(<TransactionModalFooter details={data} handleTransactionDecision={function_} />)).toThrow(
-      'Could not find connection with origin https://www.google.com'
-    )
+    expect(() =>
+      render(<TransactionModalFooter transactionCount={0} details={data} handleTransactionDecision={function_} />)
+    ).toThrow('Could not find connection with origin https://www.google.com')
   })
   it('renders approve and deny buttons', async () => {
     renderComponent()
@@ -118,5 +120,15 @@ describe('TransactionModalFooter', () => {
       origin: 'https://www.google.com',
       autoConsent: true
     })
+  })
+  it('does not render auto consent checkbox if there is a queue', async () => {
+    renderComponent(true, 2)
+    expect(screen.queryByTestId(locators.transactionModalFooterAutoConsentSection)).toBeNull()
+  })
+  it('renders queue notification if there is a transaction queue', async () => {
+    renderComponent(true, 2)
+    expect(screen.getByTestId(locators.transactionModalFooterTransactionQueue)).toHaveTextContent(
+      'There are 2 transactions currently in the queue'
+    )
   })
 })

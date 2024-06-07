@@ -11,7 +11,8 @@ import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../../../lib/constants'
 export const locators = {
   transactionModalDenyButton: 'transaction-deny-button',
   transactionModalApproveButton: 'transaction-approve-button',
-  transactionModalFooterAutoConsentSection: 'transaction-autoconsent-section'
+  transactionModalFooterAutoConsentSection: 'transaction-autoconsent-section',
+  transactionModalFooterTransactionQueue: 'transaction-queue'
 }
 
 export function getTransactionType(tx: Transaction) {
@@ -46,7 +47,7 @@ const AutoConsentOptIn = ({
 
 const TransactionQueueNotifier = ({ transactionCount }: { transactionCount: number }) => {
   return (
-    <div className="mb-2 text-xs text-vega-dark-400">
+    <div data-testid={locators.transactionModalFooterTransactionQueue} className="mb-2 text-xs text-vega-dark-400">
       There are {transactionCount} transactions currently in the queue
     </div>
   )
@@ -80,7 +81,6 @@ export const TransactionModalFooter = ({
       await loadConnections(request)
     }
   }
-  console.log(transactionCount)
   const showAutoConsent =
     !connection.autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(getTransactionType(details.transaction))
   const hasTransactionQueue = transactionCount > 1

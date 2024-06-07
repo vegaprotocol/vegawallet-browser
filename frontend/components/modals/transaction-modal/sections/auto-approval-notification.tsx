@@ -1,10 +1,14 @@
 import { Intent, Notification, Tooltip } from '@vegaprotocol/ui-toolkit'
 
-import type { TransactionMessage } from '@/lib/transactions'
+import { getTransactionType, type TransactionMessage } from '@/lib/transactions'
 import { useConnectionStore } from '@/stores/connections'
 
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../../../../lib/constants'
-import { getTransactionType } from '../../../../../web-extension/backend/tx-helpers'
+
+export const locators = {
+  autoApprovalMessage: 'auto-approval-message',
+  autoApprovalTooltip: 'auto-approval-tooltip'
+}
 
 export const TransactionNotAutoApproved = ({ details }: { details: TransactionMessage }) => {
   const { connections } = useConnectionStore((state) => ({
@@ -17,8 +21,14 @@ export const TransactionNotAutoApproved = ({ details }: { details: TransactionMe
   return (
     <Notification
       message={
-        <Tooltip description="This transaction was not automatically confirmed because it was received while your wallet was locked.">
-          <span>Transaction not automatically confirmed</span>
+        <Tooltip
+          description={
+            <span data-testid={locators.autoApprovalTooltip}>
+              This transaction was not automatically confirmed because it was received while your wallet was locked.
+            </span>
+          }
+        >
+          <span data-testid={locators.autoApprovalMessage}>Transaction not automatically confirmed</span>
         </Tooltip>
       }
       intent={Intent.None}

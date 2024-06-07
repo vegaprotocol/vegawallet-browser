@@ -64,6 +64,7 @@ describe('Transactions', () => {
       sendingMode: 'TYPE_ASYNC',
       keyName: 'key1',
       networkId: 'n1',
+      autoApproved: false,
       chainId: 'c1',
       decision: '1970-01-01T00:00:00.000Z',
       origin: 'https://example.com',

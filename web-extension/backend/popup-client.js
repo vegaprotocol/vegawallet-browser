@@ -22,7 +22,7 @@ export class PopupClient {
     }
   }
 
-  constructor({ onbeforerequest, onafterrequest }) {
+  constructor({ onbeforerequest, onafterrequest } = {}) {
     this.onbeforerequest = onbeforerequest
     this.onafterrequest = onafterrequest
 

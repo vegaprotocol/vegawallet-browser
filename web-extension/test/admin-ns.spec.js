@@ -10,6 +10,7 @@ import { FetchCache } from '../backend/fetch-cache.js'
 import { createHTTPServer, createJSONHTTPServer } from './helpers.js'
 import { CONSTANTS } from '../../lib/constants.js'
 import { testingNetwork } from '../../config/well-known-networks.js'
+import { PopupClient } from '../backend/popup-client.js'
 
 const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = {}) => {
   const enc = new EncryptedStorage(new Map(), { memory: 10, iterations: 1 })
@@ -40,6 +41,7 @@ const createAdmin = async ({ passphrase, datanodeUrls = testingNetwork.rest } = 
       ])
     ),
     fetchCache: new FetchCache(new Map()),
+    interactor: new PopupClient(),
     onerror(err) {
       throw err
     }

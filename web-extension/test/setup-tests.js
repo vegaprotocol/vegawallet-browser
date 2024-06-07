@@ -29,7 +29,7 @@ const popout = {
 const windows = {
   create: jest.fn().mockResolvedValue(() => popout),
   get: jest.fn(),
-  getAll: jest.fn(),
+  getAll: jest.fn().mockResolvedValue([]),
   getCurrent: jest.fn().mockResolvedValue(() => window),
   getLastFocused: jest.fn(() => window),
   remove: jest.fn(),

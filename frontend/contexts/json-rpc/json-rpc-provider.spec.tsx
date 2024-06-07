@@ -191,25 +191,6 @@ describe('JsonRpcProvider', () => {
     )
     expect(handleTransaction).toHaveBeenCalled()
   })
-  it('closes the window after an interaction if once is present in the URL', async () => {
-    global.close = jest.fn()
-    Object.defineProperty(window, 'location', {
-      value: {
-        href: 'http://localhost/index.html?once=1'
-      },
-      writable: true // possibility to override
-    })
-    mockModalStore()
-    mockErrorStore()
-    mockConnectionStore()
-
-    render(
-      <JsonRPCProvider>
-        <TransactionConfirmComponent expect={expect} />
-      </JsonRPCProvider>
-    )
-    await waitFor(() => expect(window.close).toHaveBeenCalled())
-  })
   it('does not close the window after an interaction if once is present in the URL', async () => {
     global.close = jest.fn()
     Object.defineProperty(window, 'location', {

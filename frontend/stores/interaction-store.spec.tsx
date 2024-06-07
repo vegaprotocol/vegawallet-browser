@@ -107,4 +107,8 @@ describe('InteractionStore', () => {
       true
     )
   })
+  it('sets the number of transactions in the queue', async () => {
+    await useInteractionStore.getState().setTransactionCount(1)
+    expect(await useInteractionStore.getState().transactionCount).toBe(1)
+  })
 })

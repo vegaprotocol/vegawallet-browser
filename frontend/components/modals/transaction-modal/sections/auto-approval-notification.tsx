@@ -23,7 +23,7 @@ export const TransactionNotAutoApproved = ({ details }: { details: TransactionMe
       message={
         <Tooltip
           description={
-            <span data-testid={locators.autoApprovalTooltip}>
+            <span data-testid={locators.autoApprovalTooltip} style={{ maxWidth: 300 }}>
               This transaction was not automatically confirmed because it was received while your wallet was locked.
             </span>
           }

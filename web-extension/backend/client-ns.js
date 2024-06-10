@@ -3,7 +3,7 @@ import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../lib/constants.js'
-import { isIos } from '../../lib/utils.js'
+import { isIos } from '../lib/utils.js'
 
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
 
@@ -44,6 +44,7 @@ function doValidate(validator, params) {
       validator.errors.map((e) => e.message)
     )
 }
+
 export default function init({
   onerror,
   settings,

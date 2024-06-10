@@ -38,6 +38,7 @@ export const TransactionModal = () => {
                 name={details.name}
                 transaction={details.transaction}
               />
+              <TransactionNotAutoApproved details={details} />
               <CheckTransaction
                 publicKey={details.publicKey}
                 transaction={details.transaction}

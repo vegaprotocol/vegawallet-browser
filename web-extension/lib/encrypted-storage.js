@@ -48,18 +48,20 @@ async function _save(storage, values, key, kdfSettings) {
   ])
 }
 
+const PERSISTENT_STORAGE_KEY = 'persisted-phrase'
+
 export default class LockedStorage {
   /**
    * @param {Storage} storage - The underlying storage.
    * @param {Object} kdfSettings - The key derivation function settings.
-   * @param {Uint8Array} key - The encryption key.
+   * @param {Boolean} persist - persist
    */
   constructor(storage, kdfSettings) {
     /**
-    * Whether the storage is locked.
+     * Whether the storage is locked.
      * @readonly
-    * @type {boolean}
-    */
+     * @type {boolean}
+     */
     this.locked = true
 
     /** @private */
@@ -73,17 +75,26 @@ export default class LockedStorage {
     this._kdfSettings = kdfSettings
 
     /** @private */
-    this._key = null
+    this._key = this.persist
+      ? storage.getItem(PERSISTENT_STORAGE_KEY).then((key) => {
+          if (key) {
+            this.unlock(fromBase64(key))
+          }
+        })
+      : null
     /** @private */
     this._cache = null
     /** @private */
     this._mutex = null
+    /** @private */
+    this.persist = persist
 
     WRITE_METHODS.forEach((method) => {
-      this[method] = (...args) => this._dowrite(async () => {
-        await this._cache[method](...args)
-        await _save(this._storage, this._cache.entries(), this._key, this._kdfSettings)
-      })
+      this[method] = (...args) =>
+        this._dowrite(async () => {
+          await this._cache[method](...args)
+          await _save(this._storage, this._cache.entries(), this._key, this._kdfSettings)
+        })
     })
 
     READ_METHODS.forEach((method) => {
@@ -92,49 +103,27 @@ export default class LockedStorage {
   }
 
   /**
-  * Flag indicating if the storage is currently being unlocked.
-  * @type {boolean}
-  */
+   * Flag indicating if the storage is currently being unlocked.
+   * @type {boolean}
+   */
   get unlocking() {
     return this._unlocking != null
   }
 
   /**
-  * Falg indicating if the storage is currently being locked.
-  * @type {boolean}
-  */
+   * Falg indicating if the storage is currently being locked.
+   * @type {boolean}
+   */
   get locking() {
     return this._locking != null
   }
 
   /**
-  * @deprecated use `locked` instead
-  * @returns {boolean}
-  */
+   * @deprecated use `locked` instead
+   * @returns {boolean}
+   */
   get isLocked() {
     return this.locked
-  }
-
-  /**
-  * Change the passphrase used to encrypt the storage.
-  * Only unlocked storage can be changed.
-  *
-  * @param {string} oldPassphrase - The current passphrase.
-  * @param {string} newPassphrase - The new passphrase.
-  * @returns {Promise<void>}
-  * @throws {Error} - If the storage is locked.
-  * @throws {Error} - If the passphrase is incorrect.
-  */
-  async changePassphrase(oldPassphrase, newPassphrase) {
-    if (this.locked) throw new Error('Storage is locked')
-    if (!this.verifyPassphrase(oldPassphrase)) {
-      throw new Error('Invalid passphrase')
-    }
-
-    await this._dowrite(async () => {
-      this._key = fromString(newPassphrase)
-      await _save(this._storage, this._cache.entries(), this._key, this._kdfSettings)
-    })
   }
 
   /** @private */
@@ -166,12 +155,12 @@ export default class LockedStorage {
   }
 
   /**
-  * Verify that the given passphrase is equal to the one used to encrypt the storage.
-  * Only unlocked storage can be verified.
-  * @param {string} passphrase - The passphrase to verify.
-  * @returns {boolean} - Whether the passphrase is valid.
-  * @throws {Error} - If the storage is locked.
-  */
+   * Verify that the given passphrase is equal to the one used to encrypt the storage.
+   * Only unlocked storage can be verified.
+   * @param {string} passphrase - The passphrase to verify.
+   * @returns {boolean} - Whether the passphrase is valid.
+   * @throws {Error} - If the storage is locked.
+   */
   verifyPassphrase(passphrase) {
     if (this._key == null) throw new Error('Storage is already locked')
 
@@ -181,80 +170,90 @@ export default class LockedStorage {
   }
 
   /**
-  * Check if the encrypted storage exists and is populated.
-  * @returns {Promise<boolean>} - Whether the storage exists and is populated.
-  */
+   * Check if the encrypted storage exists and is populated.
+   * @returns {Promise<boolean>} - Whether the storage exists and is populated.
+   */
   async exists() {
     return Array.from(await this._storage.entries()).length > 0
   }
 
   /**
-  * Create a new encrypted storage. Can only be called once and only if the storage does not already exist.
-  * If the existing storage should be overwritten, pass `true` as the second argument.
-  * Creating a new storage will unlock it.
-  *
-  * @param {string} passphrase - the encryption key.
-  * @param {boolean} [overwrite=false] - whether to overwrite the existing storage.
-  * @returns {Promise<void>}
-  * @throws {Error} - if the storage already exists.
-  * @throws {Error} - if the storage is already unlocked.
-  * @throws {Error} - if the storage is currently locking.
-  */
+   * Create a new encrypted storage. Can only be called once and only if the storage does not already exist.
+   * If the existing storage should be overwritten, pass `true` as the second argument.
+   * Creating a new storage will unlock it.
+   *
+   * @param {string} passphrase - the encryption key.
+   * @param {boolean} [overwrite=false] - whether to overwrite the existing storage.
+   * @returns {Promise<void>}
+   * @throws {Error} - if the storage already exists.
+   * @throws {Error} - if the storage is already unlocked.
+   * @throws {Error} - if the storage is currently locking.
+   */
   async create(passphrase, overwrite = false) {
     if (this.unlocking) await this._unlocking
     if (!this.locked) throw new Error('Storage is unlocked')
     if (this.locking) throw new Error('Storage is locking')
 
     const key = fromString(passphrase)
-    this._unlocking = this.exists().then((exists) => {
-      if (!overwrite && exists) {
-        throw new Error('Storage already exists')
-      }
-    }).then(() => {
-      return _save(this._storage, [], key, this._kdfSettings)
-    }).then(() => {
-      this._key = key
-      this._cache = new Map()
-      this._mutex = new RWLock()
-      this.locked = false
-    }).finally(() => {
-      this._unlocking = null
-    })
+    this._unlocking = this.exists()
+      .then((exists) => {
+        if (!overwrite && exists) {
+          throw new Error('Storage already exists')
+        }
+      })
+      .then(() => {
+        return _save(this._storage, [], key, this._kdfSettings)
+      })
+      .then(() => {
+        this._key = key
+        this._cache = new Map()
+        this._mutex = new RWLock()
+        this.locked = false
+        if (this.persist) {
+          const storedKey = toBase64(key)
+          this._storage.setItem(PERSISTENT_STORAGE_KEY, storedKey)
+        }
+      })
+      .finally(() => {
+        this._unlocking = null
+      })
 
     await this._unlocking
   }
 
   /**
-  * Open the encrypted storage and decrypt. Can only be called once. Unlocking an unlocked storage throws an error.
-  *
-  * @param {string} passphrase - the decryption key.
-  * @returns {Promise<void>}
-  * @throws {Error} - if the storage is already unlocked or currently unlocking.
-  * @throws {Error} - if the passphrase is incorrect.
-  */
+   * Open the encrypted storage and decrypt. Can only be called once. Unlocking an unlocked storage throws an error.
+   *
+   * @param {string} passphrase - the decryption key.
+   * @returns {Promise<void>}
+   * @throws {Error} - if the storage is already unlocked or currently unlocking.
+   * @throws {Error} - if the passphrase is incorrect.
+   */
   async unlock(passphrase) {
     if (this.locking) await this._locking
     if (this.unlocking) throw new Error('Storage is unlocking')
     if (!this.locked) throw new Error('Storage is unlocked')
 
     const key = fromString(passphrase)
-    this._unlocking = _load(this._storage, key).then((values) => {
-      this._key = key
-      this._cache = new Map(values)
-      this._mutex = new RWLock()
-      this.locked = false
-    }).finally(() => {
-      this._unlocking = null
-    })
+    this._unlocking = _load(this._storage, key)
+      .then((values) => {
+        this._key = key
+        this._cache = new Map(values)
+        this._mutex = new RWLock()
+        this.locked = false
+      })
+      .finally(() => {
+        this._unlocking = null
+      })
 
     await this._unlocking
   }
 
   /**
-  * Lock the encrypte storage, saving and clearing the in-memory state.
-  * Multiple concurrent lock calls are coalesced and locking a locked storage is a no-op.
-  *
-  * @returns {Promise<void>}
+   * Lock the encrypte storage, saving and clearing the in-memory state.
+   * Multiple concurrent lock calls are coalesced and locking a locked storage is a no-op.
+   *
+   * @returns {Promise<void>}
    **/
   async lock() {
     // Concurrent locks are coalesced
@@ -262,18 +261,21 @@ export default class LockedStorage {
     if (this.unlocking) await this._unlocking
     if (this.locked) return
 
-    this._locking = this._mutex.destroy().then(() => {
-      return _save(this._storage, this._cache.entries(), this._key, this._kdfSettings)
-    }).finally(() => {
-      this._locking = null
-      this.locked = true
-      this._key.fill(0)
-      this._key = null
-      this._cache = null
-      this._mutex = null
-    })
+    this._locking = this._mutex
+      .destroy()
+      .then(() => {
+        return _save(this._storage, this._cache.entries(), this._key, this._kdfSettings)
+      })
+      .finally(() => {
+        this._locking = null
+        this.locked = true
+        this._key.fill(0)
+        this._key = null
+        this._cache = null
+        this._mutex = null
+        this._storage.delete(PERSISTENT_STORAGE_KEY, storedKey)
+      })
 
     await this._locking
   }
 }
-

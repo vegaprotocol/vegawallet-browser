@@ -98,7 +98,7 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
       >
         <Tooltip
           description={
-            <span>
+            <span style={{ maxWidth: 300 }}>
               The auto consent setting can be found and changed under{' '}
               <NavLink
                 className="text-white underline"

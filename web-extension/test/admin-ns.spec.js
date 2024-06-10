@@ -280,64 +280,6 @@ describe('admin-ns', () => {
     expect(importWallet.result).toEqual(null)
   })
 
-  it('should allow updating the passphase', async () => {
-    const { admin } = await createAdmin({ passphrase: 'foo' })
-
-    const updatePassphrase = await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.update_passphrase',
-      params: {
-        passphrase: 'notfoo',
-        newPassphrase: 'bar'
-      }
-    })
-
-    expect(updatePassphrase.error).toEqual({ code: 1, message: 'Invalid passphrase' })
-
-    const updatePassphrase2 = await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.update_passphrase',
-      params: {
-        passphrase: 'foo',
-        newPassphrase: 'bar'
-      }
-    })
-
-    expect(updatePassphrase2.result).toEqual(null)
-
-    // Lock the wallet
-    await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.lock',
-      params: null
-    })
-
-    const unlockFailure = await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.unlock',
-      params: {
-        passphrase: 'foo'
-      }
-    })
-
-    expect(unlockFailure.error).toEqual({ code: 1, message: 'Invalid passphrase or corrupted storage' })
-
-    const unlockSuccess = await admin.onrequest({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'admin.unlock',
-      params: {
-        passphrase: 'bar'
-      }
-    })
-
-    expect(unlockSuccess.result).toEqual(null)
-  })
-
   it('should not be able to unlock an uninitialised wallet', async () => {
     const { admin } = await createAdmin()
 

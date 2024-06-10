@@ -56,7 +56,7 @@ export default class LockedStorage {
    * @param {Object} kdfSettings - The key derivation function settings.
    * @param {Boolean} persist - persist
    */
-  constructor(storage, kdfSettings) {
+  constructor(storage, kdfSettings, persist) {
     /**
      * Whether the storage is locked.
      * @readonly
@@ -75,8 +75,9 @@ export default class LockedStorage {
     this._kdfSettings = kdfSettings
 
     /** @private */
-    this._key = this.persist
-      ? storage.getItem(PERSISTENT_STORAGE_KEY).then((key) => {
+    this._key = persist
+      ? storage.get(PERSISTENT_STORAGE_KEY).then((key) => {
+          console.log(key)
           if (key) {
             this.unlock(fromBase64(key))
           }
@@ -211,7 +212,7 @@ export default class LockedStorage {
         this.locked = false
         if (this.persist) {
           const storedKey = toBase64(key)
-          this._storage.setItem(PERSISTENT_STORAGE_KEY, storedKey)
+          this._storage.set(PERSISTENT_STORAGE_KEY, storedKey)
         }
       })
       .finally(() => {
@@ -241,6 +242,10 @@ export default class LockedStorage {
         this._cache = new Map(values)
         this._mutex = new RWLock()
         this.locked = false
+        if (this.persist) {
+          const storedKey = toBase64(key)
+          this._storage.set(PERSISTENT_STORAGE_KEY, storedKey)
+        }
       })
       .finally(() => {
         this._unlocking = null
@@ -273,7 +278,7 @@ export default class LockedStorage {
         this._key = null
         this._cache = null
         this._mutex = null
-        this._storage.delete(PERSISTENT_STORAGE_KEY, storedKey)
+        this._storage.delete(PERSISTENT_STORAGE_KEY)
       })
 
     await this._locking

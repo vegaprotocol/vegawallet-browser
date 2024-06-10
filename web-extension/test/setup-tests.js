@@ -52,11 +52,28 @@ const windows = {
   }
 }
 
+const tab = {
+  active: true,
+  height: 800,
+  id: Math.floor(Math.random() * 10000),
+  incognito: false,
+  left: 258,
+  top: 25,
+  width: 742,
+  windowId: window.id
+}
+
+const tabs = {
+  query: jest.fn([tab])
+}
+
 global.chrome = {
   ...global.chrome,
-  windows
+  windows,
+  tabs
 }
 global.browser = {
   ...global.browser,
-  windows
+  windows,
+  tabs
 }

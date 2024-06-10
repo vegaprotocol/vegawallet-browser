@@ -41,6 +41,10 @@ export const maybeCloseWindow = async () => {
   const allWindows = await windows.getAll()
   const wins = allWindows.filter((win) => win.type === 'popup')
   if (wins.length === 1) {
-    await windows.remove(wins[0].id)
+    const url = await wins[0].getURL()
+    const urlParts = new URL(url)
+    if (urlParts.searchParams.has('once')) {
+      await windows.remove(wins[0].id)
+    }
   }
 }

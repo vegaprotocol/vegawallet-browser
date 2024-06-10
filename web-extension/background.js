@@ -11,6 +11,7 @@ import { StorageLocalMap, StorageSessionMap } from './lib/storage.js'
 import ConcurrentStorage from './lib/concurrent-storage.js'
 import EncryptedStorage from './lib/encrypted-storage.js'
 import { FetchCache } from './backend/fetch-cache.js'
+import { isIos } from './lib/utils.js'
 
 import initAdmin from './backend/admin-ns.js'
 import initClient from './backend/client-ns.js'
@@ -29,7 +30,8 @@ const interactor = new PopupClient({
 
 const encryptedStore = new EncryptedStorage(
   new ConcurrentStorage(new StorageLocalMap('wallets')),
-  config.encryptionSettings
+  config.encryptionSettings,
+  isIos()
 )
 
 const publicKeyIndexStore = new ConcurrentStorage(new StorageLocalMap('public-key-index'))

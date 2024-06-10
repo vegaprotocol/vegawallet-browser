@@ -1,19 +1,11 @@
 import JSONRPCServer from '../../lib/json-rpc-server.js'
-import { TransactionsCollection } from './transactions.js'
 import * as txHelpers from './tx-helpers.js'
 import * as clientValidation from '../validation/client/index.js'
 import NodeRPC from './node-rpc.js'
 import { AUTO_CONSENT_TRANSACTION_TYPES } from '../../lib/constants.js'
+import { isIos } from '../../lib/utils.js'
 
 const action = globalThis.browser?.browserAction ?? globalThis.chrome?.action
-
-const isIos = () => {
-  return (
-    typeof navigator !== 'undefined' &&
-    (/iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
-  )
-}
 
 const Errors = {
   NOT_CONNECTED: ['Not connected', -1, 'You must connect to the wallet before further interaction'],

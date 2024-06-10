@@ -39,7 +39,7 @@ export const createNotificationWindow = async () => {
  * @returns {Promise<void>}
  */
 export const maybeCloseWindow = async () => {
-  let [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+  let [tab] = await tabs.query({ active: true, lastFocusedWindow: true })
   if (tab) {
     const url = tab.url
     const urlParts = new URL(url)

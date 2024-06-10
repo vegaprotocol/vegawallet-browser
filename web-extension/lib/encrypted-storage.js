@@ -77,7 +77,6 @@ export default class LockedStorage {
     /** @private */
     this._key = persist
       ? storage.get(PERSISTENT_STORAGE_KEY).then((key) => {
-          console.log(key)
           if (key) {
             this.unlock(fromBase64(key))
           }

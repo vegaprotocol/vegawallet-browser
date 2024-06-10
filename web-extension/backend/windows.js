@@ -1,6 +1,7 @@
 import { CONSTANTS } from '../../lib/constants'
 
 const windows = globalThis.browser?.windows ?? globalThis.chrome?.windows
+const tabs = globalThis.browser?.tabs ?? globalThis.chrome?.tabs
 const runtime = globalThis.browser?.runtime ?? globalThis.chrome?.runtime
 
 const BUFFER_HEIGHT = 30
@@ -38,13 +39,12 @@ export const createNotificationWindow = async () => {
  * @returns {Promise<void>}
  */
 export const maybeCloseWindow = async () => {
-  const allWindows = await windows.getAll()
-  const wins = allWindows.filter((win) => win.type === 'popup')
-  if (wins.length === 1) {
-    const url = await wins[0].getURL()
+  let [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+  if (tab) {
+    const url = tab.url
     const urlParts = new URL(url)
     if (urlParts.searchParams.has('once')) {
-      await windows.remove(wins[0].id)
+      await windows.remove(tab.windowId)
     }
   }
 }

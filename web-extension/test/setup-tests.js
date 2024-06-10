@@ -60,11 +60,12 @@ const tab = {
   left: 258,
   top: 25,
   width: 742,
+  url: 'http://localhost:3000/index.html?once=1',
   windowId: window.id
 }
 
 const tabs = {
-  query: jest.fn([tab])
+  query: jest.fn().mockResolvedValue([tab])
 }
 
 global.chrome = {
@@ -72,6 +73,7 @@ global.chrome = {
   windows,
   tabs
 }
+
 global.browser = {
   ...global.browser,
   windows,

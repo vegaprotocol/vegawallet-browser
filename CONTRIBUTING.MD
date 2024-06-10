@@ -1,3 +1,7 @@
+# Installation
+
+`yarn`
+
 # Development
 
 To watch for changes in the `frontend` and `web-extension` fire up two terminals and run:

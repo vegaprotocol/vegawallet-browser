@@ -144,6 +144,9 @@ export default function init({
           connection.autoConsent && AUTO_CONSENT_TRANSACTION_TYPES.includes(transactionType) && !isLocked
         let approved = canBeAutoApproved
         if (!canBeAutoApproved) {
+          if (action.openPopup && isIos()) {
+            action.openPopup()
+          }
           approved = await interactor.reviewTransaction({
             transaction: params.transaction,
             publicKey: params.publicKey,

@@ -133,19 +133,6 @@ export default function init({
         return null
       },
 
-      async 'admin.update_passphrase'(params) {
-        doValidate(adminValidation.updatePassphrase, params)
-        if ((await encryptedStore.exists()) === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)
-        try {
-          await encryptedStore.changePassphrase(params.passphrase, params.newPassphrase)
-        } catch (e) {
-          if (e.message === 'Invalid passphrase') throw new JSONRPCServer.Error('Invalid passphrase', 1)
-          throw e
-        }
-
-        return null
-      },
-
       async 'admin.unlock'(params) {
         doValidate(adminValidation.unlock, params)
         if ((await encryptedStore.exists()) === false) throw new JSONRPCServer.Error('Encryption not initialised', 1)

@@ -29,7 +29,8 @@ export class TransactionsCollection {
     origin,
     receivedAt,
     state,
-    autoApproved
+    autoApproved,
+    node
   }) {
     const networkId = await this.connections.getNetworkId(origin)
     const chainId = await this.connections.getChainId(origin)
@@ -48,7 +49,7 @@ export class TransactionsCollection {
       state,
       receivedAt,
       autoApproved,
-      node: null,
+      node,
       error: null,
       hash: null,
       code: null

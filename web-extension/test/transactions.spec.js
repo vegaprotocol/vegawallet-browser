@@ -70,7 +70,7 @@ describe('Transactions', () => {
       origin: 'https://example.com',
       state: 'Rejected',
       receivedAt: '1970-01-01T00:00:00.000Z',
-      node: null,
+      node: undefined,
       error: null,
       hash: null,
       code: null

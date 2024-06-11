@@ -21,7 +21,7 @@ export const TransactionsList = ({ transactions }: { transactions: StoredTransac
     <List<StoredTransaction>
       items={transactions}
       renderItem={(transaction) => (
-        <div data-testid={locators.transactionListItem} className="flex flex-row justify-between h-16">
+        <div data-testid={locators.transactionListItem} className="flex flex-row justify-between h-12">
           <div className="flex flex-col w-full mr-2">
             <div className="flex flex-row items-center">
               <HostImage hostname={transaction.origin} size={20} />

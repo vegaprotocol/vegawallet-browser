@@ -24,7 +24,13 @@ export const GroupedTransactionList = ({ transactions }: { transactions: StoredT
       {Object.keys(groupedTransactions).map((date) => (
         <VegaSection key={date}>
           <SubHeader content={formatDate(date)} />
-          <TransactionsList transactions={groupedTransactions[date]} />
+          <TransactionsList
+            transactions={[
+              ...groupedTransactions[date].sort((a, b) => {
+                return new Date(a.decision).getTime() - new Date(b.decision).getTime()
+              })
+            ]}
+          />
         </VegaSection>
       ))}
     </section>

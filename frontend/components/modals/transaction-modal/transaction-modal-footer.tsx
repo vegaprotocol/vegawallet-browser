@@ -15,10 +15,6 @@ export const locators = {
   transactionModalFooterTransactionQueue: 'transaction-queue'
 }
 
-export function getTransactionType(tx: Transaction) {
-  return Object.keys(tx)[0]
-}
-
 const AutoConsentOptIn = ({
   autoConsent,
   setAutoConsent

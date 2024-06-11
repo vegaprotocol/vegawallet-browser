@@ -1,7 +1,6 @@
 import { format } from 'date-fns'
 import groupBy from 'lodash/groupBy'
 
-import { SubHeader } from '@/components/sub-header'
 import { VegaSection } from '@/components/vega-section'
 import { formatDate } from '@/lib/utils'
 import type { StoredTransaction } from '@/types/backend'
@@ -9,7 +8,9 @@ import type { StoredTransaction } from '@/types/backend'
 import { TransactionsList } from './transactions-list'
 import { TransactionListEmpty } from './transactions-list-empty'
 
-export const locators = {}
+export const locators = {
+  dateHeader: 'date-header'
+}
 
 export const GroupedTransactionList = ({ transactions }: { transactions: StoredTransaction[] }) => {
   const transactionsByDate = transactions.map((transaction) => ({
@@ -23,7 +24,9 @@ export const GroupedTransactionList = ({ transactions }: { transactions: StoredT
     <section>
       {Object.keys(groupedTransactions).map((date) => (
         <VegaSection key={date}>
-          <SubHeader content={formatDate(date)} />
+          <h1 data-testid={locators.dateHeader} className="text-vega-dark-300 uppercase">
+            {formatDate(date)}
+          </h1>
           <TransactionsList
             transactions={[
               ...groupedTransactions[date].sort((a, b) => {

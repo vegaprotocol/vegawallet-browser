@@ -188,7 +188,8 @@ export default function init({
           walletName: keyInfo.wallet,
           origin: context.origin,
           receivedAt,
-          autoApproved: canBeAutoApproved
+          autoApproved: canBeAutoApproved,
+          node: rpc._url.toString()
         })
 
         try {

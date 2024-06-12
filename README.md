@@ -1,5 +1,9 @@
 # Experimental browser extension
 
+## Contributing
+
+Instructions for build and running the app can be found [here](./CONTRIBUTING.MD).
+
 Securely connect to Vega dapps and sign transactions from your browser.
 
 This is an experimental release for test purposes only and is in active development. You should only transfer funds you are willing to lose to keys that are managed by the extension.

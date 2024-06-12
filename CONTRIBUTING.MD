@@ -1,17 +1,21 @@
-# Installation
+# Running the app
+
+## Installation
 
 `yarn`
 
-# Development
+## Building
+
+Build the app with the preferred config, beta is the canary release config with mainstream being mainstream release.
+
+`yarn build[beta:mainstream]`
+
+## Development
 
 To watch for changes in the `frontend` and `web-extension` fire up two terminals and run:
 
 `yarn watch` in the first terminal
 `yarn dev:[chrome|firefox]` in the second terminal
-
-# Building
-
-`yarn build`
 
 # Updating the protos
 

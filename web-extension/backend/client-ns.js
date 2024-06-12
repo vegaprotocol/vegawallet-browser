@@ -201,8 +201,7 @@ export default function init({
           })
 
           res.receivedAt = receivedAt
-          storedTx.hash = res.txHash
-          storedTx.code = res.code
+          storedTx.hash = res.transactionHash
           storedTx.state = 'Confirmed'
           return res
         } catch (e) {

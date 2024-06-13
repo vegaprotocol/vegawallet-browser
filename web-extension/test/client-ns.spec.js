@@ -20,6 +20,9 @@ describe('client-ns', () => {
       },
       reviewTransaction() {
         return true
+      },
+      totalPending() {
+        return 0
       }
     }
 
@@ -95,6 +98,9 @@ describe('client-ns', () => {
     const interactor = {
       reviewConnection() {
         return true
+      },
+      totalPending() {
+        return 0
       }
     }
 

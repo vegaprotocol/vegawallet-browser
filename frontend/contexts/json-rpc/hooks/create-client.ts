@@ -4,6 +4,7 @@ import { getExtensionApi } from '@/lib/extension-apis'
 import { log } from '@/lib/logging'
 import { useConnectionStore } from '@/stores/connections'
 import { useErrorStore } from '@/stores/error'
+import { useInteractionStore } from '@/stores/interaction-store'
 import type { Connection } from '@/types/backend'
 
 import JSONRPCClient from '../../../../lib/json-rpc-client'
@@ -45,6 +46,9 @@ export const useCreateClient = () => {
   const { addConnection } = useConnectionStore((store) => ({
     addConnection: store.addConnection
   }))
+  const { setTransactionCount } = useInteractionStore((store) => ({
+    setTransactionCount: store.setTransactionCount
+  }))
 
   // TODO better pattern for this
   const notificationHandler = useCallback(
@@ -53,9 +57,11 @@ export const useCreateClient = () => {
         for (const connections of message.params.add as Array<Connection>) {
           addConnection(connections)
         }
+      } else if (message.method === RpcMethods.TransactionCountChanged) {
+        setTransactionCount(message.params.transactionsPending)
       }
     },
-    [addConnection]
+    [addConnection, setTransactionCount]
   )
   const client = useMemo(() => createClient(notificationHandler), [notificationHandler])
   const request = useCallback(

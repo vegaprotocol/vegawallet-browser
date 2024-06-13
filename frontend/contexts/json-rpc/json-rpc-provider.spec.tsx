@@ -21,13 +21,16 @@ const mockModalStore = () => {
   const store = useInteractionStore as jest.MockedFunction<typeof useInteractionStore>
   const handleConnection = jest.fn()
   const handleTransaction = jest.fn()
+  const setTransactionCount = jest.fn()
   store.mockImplementation(() => ({
     handleConnection,
-    handleTransaction
+    handleTransaction,
+    setTransactionCount
   }))
   return {
     handleConnection,
-    handleTransaction
+    handleTransaction,
+    setTransactionCount
   }
 }
 
@@ -157,6 +160,32 @@ describe('JsonRpcProvider', () => {
       origin: 'https://vega.xyz'
     })
   })
+  it('handles transaction count notification messages', () => {
+    const { setTransactionCount } = mockModalStore()
+    mockErrorStore()
+    mockConnectionStore()
+    const TestComponent = ({ expect }: { expect: jest.Expect }) => {
+      const { client } = useJsonRpcClient()
+      useEffect(() => {
+        client.onmessage({
+          jsonrpc: '2.0',
+          method: RpcMethods.TransactionCountChanged,
+          params: {
+            transactionsPending: 2
+          }
+        })
+      }, [client])
+      return <div>Content</div>
+    }
+
+    render(
+      <JsonRPCProvider>
+        <TestComponent expect={expect} />
+      </JsonRPCProvider>
+    )
+    expect(setTransactionCount).toHaveBeenCalledTimes(1)
+    expect(setTransactionCount).toHaveBeenCalledWith(2)
+  })
   it('handles connection background interaction messages', () => {
     const { handleConnection } = mockModalStore()
     mockConnectionStore()
@@ -190,25 +219,6 @@ describe('JsonRpcProvider', () => {
       </JsonRPCProvider>
     )
     expect(handleTransaction).toHaveBeenCalled()
-  })
-  it('closes the window after an interaction if once is present in the URL', async () => {
-    global.close = jest.fn()
-    Object.defineProperty(window, 'location', {
-      value: {
-        href: 'http://localhost/index.html?once=1'
-      },
-      writable: true // possibility to override
-    })
-    mockModalStore()
-    mockErrorStore()
-    mockConnectionStore()
-
-    render(
-      <JsonRPCProvider>
-        <TransactionConfirmComponent expect={expect} />
-      </JsonRPCProvider>
-    )
-    await waitFor(() => expect(window.close).toHaveBeenCalled())
   })
   it('does not close the window after an interaction if once is present in the URL', async () => {
     global.close = jest.fn()

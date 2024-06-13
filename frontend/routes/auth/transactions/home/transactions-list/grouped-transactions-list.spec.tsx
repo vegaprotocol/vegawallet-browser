@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import { first } from 'lodash'
 
 import { TransactionState } from '@/types/backend'
 

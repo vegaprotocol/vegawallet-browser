@@ -30,7 +30,7 @@ export const GroupedTransactionList = ({ transactions }: { transactions: StoredT
           <TransactionsList
             transactions={[
               ...groupedTransactions[date].sort((a, b) => {
-                return new Date(a.decision).getTime() - new Date(b.decision).getTime()
+                return new Date(b.decision).getTime() - new Date(a.decision).getTime()
               })
             ]}
           />

@@ -1,10 +1,11 @@
+import { error } from 'node:console'
+
 import { render, screen, waitFor } from '@testing-library/react'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { useMarketsStore } from '@/stores/markets-store'
-import { OrdersStore, useOrdersStore } from '@/stores/orders-store'
 import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
 import { silenceErrors } from '@/test-helpers/silence-errors'
 
@@ -23,7 +24,6 @@ const mockGetOrderById = jest.fn()
 
 const mockLastUpdatedTimestamp = 100_000_000
 
-jest.mock('@/stores/orders-store')
 jest.mock('@/stores/markets-store')
 
 const mockTransaction = {
@@ -31,13 +31,17 @@ const mockTransaction = {
 }
 
 const defaultStoreData = {
-  getOrderById: mockGetOrderById,
   lastUpdated: mockLastUpdatedTimestamp,
-  order: { id: '123', marketId: 'abc', createdAt: '1000000000000' }
+  data: { id: '123', marketId: 'abc', createdAt: '1000000000000' },
+  loading: false,
+  error: null
 }
 
-const renderComponent = (storeData: DeepPartial<OrdersStore> = defaultStoreData) => {
-  mockStore(useOrdersStore, storeData)
+jest.mock('@/hooks/order', () => ({
+  useOrder: jest.fn(() => defaultStoreData)
+}))
+
+const renderComponent = () => {
   mockStore(useMarketsStore, {
     getMarketById: () => ({})
   })
@@ -56,10 +60,6 @@ describe('Cancellation', () => {
   afterEach(() => {
     jest.useRealTimers()
   })
-  it('calls getOrderById when orderId is provided', async () => {
-    renderComponent()
-    await waitFor(() => expect(mockGetOrderById).toHaveBeenCalledWith(expect.anything(), '123', testingNetwork.id))
-  })
 
   it('renders CancellationView', async () => {
     renderComponent()
@@ -70,7 +70,6 @@ describe('Cancellation', () => {
   it('renders last updated field', async () => {
     // 1117-ORDC-003 I can see the time of when the order was fetched from the data node
     renderComponent()
-
     await screen.findByText(
       `Last Updated: ${formatDateWithLocalTimezone(new Date(nanoSecondsToMilliseconds(mockLastUpdatedTimestamp)))}`
     )
@@ -84,16 +83,5 @@ describe('Cancellation', () => {
     // Created at field is only present from API
     expect(createdAt).toHaveTextContent('Created at')
     expect(createdAt).toHaveTextContent('01 January 1970 00:16 (UTC)')
-  })
-
-  it('errors if the order cannot be found', async () => {
-    silenceErrors()
-    expect(() =>
-      renderComponent({
-        getOrderById: mockGetOrderById,
-        lastUpdated: mockLastUpdatedTimestamp,
-        order: null
-      })
-    ).toThrow('Order not found')
   })
 })

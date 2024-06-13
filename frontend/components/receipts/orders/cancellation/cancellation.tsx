@@ -11,7 +11,6 @@ export const Cancellation = ({ transaction }: ReceiptComponentProperties) => {
   const cancellation = transaction.orderCancellation
   const { orderId } = cancellation
   const { data: order, loading, error, lastUpdated } = useOrder(orderId)
-  console.log(order, loading, error, lastUpdated)
   if (loading) return null
   return (
     <ReceiptWrapper errors={[error]}>

@@ -24,9 +24,7 @@ export const Cancellation = ({ transaction }: ReceiptComponentProperties) => {
   const { request } = useJsonRpcClient()
 
   useEffect(() => {
-    if (orderId) {
-      getOrderById(request, orderId, network.id)
-    }
+    getOrderById(request, orderId, network.id)
   }, [orderId, getOrderById, request, network.id])
   if (!order && !loading && lastUpdated) throw new Error('Order not found')
   return (

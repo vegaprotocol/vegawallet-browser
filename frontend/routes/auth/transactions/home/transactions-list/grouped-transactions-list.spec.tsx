@@ -1,11 +1,21 @@
 import { render, screen } from '@testing-library/react'
+import { first } from 'lodash'
 
 import { TransactionState } from '@/types/backend'
 
 import { GroupedTransactionList, locators } from './grouped-transactions-list'
+import { TransactionsListProperties } from './transactions-list'
 
 jest.mock('./transactions-list', () => ({
-  TransactionsList: () => <div data-testid="transactions-list" />
+  TransactionsList: ({ transactions }: TransactionsListProperties) => (
+    <div data-testid="transactions-list">
+      {transactions.map((t) => (
+        <div key={t.id} data-testid="transactions-list-item">
+          {t.id}
+        </div>
+      ))}
+    </div>
+  )
 }))
 
 jest.mock('./transactions-list-empty', () => ({
@@ -43,7 +53,7 @@ describe('GroupedTransactionsList', () => {
           },
           {
             publicKey: '0'.repeat(64),
-            id: '1',
+            id: '2',
             transaction: { transfer: {} },
             sendingMode: 'SYNC',
             keyName: 'Key 1',
@@ -65,5 +75,8 @@ describe('GroupedTransactionsList', () => {
     )
     expect(screen.getByTestId(locators.dateHeader)).toHaveTextContent('1/1/1970')
     expect(screen.getByTestId('transactions-list')).toBeInTheDocument()
+    const [firstTx, secondTx] = screen.getAllByTestId('transactions-list-item')
+    expect(firstTx).toHaveTextContent('2')
+    expect(secondTx).toHaveTextContent('1')
   })
 })

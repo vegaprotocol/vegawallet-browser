@@ -16,7 +16,11 @@ export const locators = {
   transactionListItemLink: 'transaction-list-item-link'
 }
 
-export const TransactionsList = ({ transactions }: { transactions: StoredTransaction[] }) => {
+export interface TransactionsListProperties {
+  transactions: StoredTransaction[]
+}
+
+export const TransactionsList = ({ transactions }: TransactionsListProperties) => {
   return (
     <List<StoredTransaction>
       items={transactions}

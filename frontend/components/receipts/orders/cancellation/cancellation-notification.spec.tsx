@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
 
-import { CancellationNotification } from './cancellation-notification'
+import { CancellationNotification, locators } from './cancellation-notification'
 
 jest.mock('@/stores/markets-store')
 
@@ -23,6 +23,14 @@ describe('CancellationNotification', () => {
     })
     render(<CancellationNotification orderId="" marketId="some-market-id" />)
     expect(screen.getByText('Cancel ALL open orders in BTC/USD')).toBeInTheDocument()
+  })
+
+  it('should render nothing while loading the market name', () => {
+    mockStore(useMarketsStore, {
+      loading: true
+    })
+    render(<CancellationNotification orderId="" marketId="some-market-id" />)
+    expect(screen.getByTestId(locators.cancellationNotification)).toBeEmptyDOMElement()
   })
 
   it('should display "Cancel all open orders in all markets" when neither orderId nor marketId is provided', () => {

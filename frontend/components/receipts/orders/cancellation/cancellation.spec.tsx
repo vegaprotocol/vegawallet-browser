@@ -1,15 +1,11 @@
-import { error } from 'node:console'
-
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { useMarketsStore } from '@/stores/markets-store'
-import { DeepPartial, mockStore } from '@/test-helpers/mock-store'
-import { silenceErrors } from '@/test-helpers/silence-errors'
+import { mockStore } from '@/test-helpers/mock-store'
 
-import { testingNetwork } from '../../../../../config/well-known-networks'
 import { locators as dataTableLocators } from '../../../data-table'
 import { Cancellation } from './cancellation'
 import { locators } from './cancellation-view'
@@ -19,8 +15,6 @@ jest.mock('@/contexts/json-rpc/json-rpc-context', () => ({
     request: jest.fn()
   })
 }))
-
-const mockGetOrderById = jest.fn()
 
 const mockLastUpdatedTimestamp = 100_000_000
 

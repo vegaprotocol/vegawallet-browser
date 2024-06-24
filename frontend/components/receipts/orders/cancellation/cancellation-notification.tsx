@@ -18,7 +18,7 @@ const AllOrdersInMarketNotification = ({ marketId }: { marketId: string }) => {
     <Notification
       intent={Intent.Warning}
       message={`Cancel ALL open orders in ${
-        get(market, 'tradableInstrument.instrument.code') || truncateMiddle(marketId)
+        get(market, 'tradableInstrument.instrument.code') ?? truncateMiddle(marketId)
       }`}
     />
   )

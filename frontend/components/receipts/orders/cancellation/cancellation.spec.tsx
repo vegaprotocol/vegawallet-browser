@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { formatDateWithLocalTimezone } from '@vegaprotocol/utils'
 
 import { MockNetworkProvider } from '@/contexts/network/mock-network-provider'
+import { useOrder } from '@/hooks/order'
 import { nanoSecondsToMilliseconds } from '@/lib/utils'
 import { useMarketsStore } from '@/stores/markets-store'
 import { mockStore } from '@/test-helpers/mock-store'
@@ -31,15 +32,15 @@ const defaultStoreData = {
   error: null
 }
 
-jest.mock('@/hooks/order', () => ({
-  useOrder: jest.fn(() => defaultStoreData)
-}))
+jest.mock('@/hooks/order')
 
 const renderComponent = () => {
   mockStore(useMarketsStore, {
     getMarketById: () => ({})
   })
-  render(
+  ;(useOrder as unknown as jest.Mock).mockReturnValueOnce(defaultStoreData)
+
+  return render(
     <MockNetworkProvider>
       <Cancellation transaction={mockTransaction} />
     </MockNetworkProvider>
@@ -53,6 +54,20 @@ describe('Cancellation', () => {
   })
   afterEach(() => {
     jest.useRealTimers()
+  })
+
+  it('renders nothing while loading the order', async () => {
+    mockStore(useMarketsStore, {
+      getMarketById: () => ({})
+    })
+    ;(useOrder as unknown as jest.Mock).mockReturnValueOnce({ ...defaultStoreData, loading: true })
+
+    const { container } = render(
+      <MockNetworkProvider>
+        <Cancellation transaction={mockTransaction} />
+      </MockNetworkProvider>
+    )
+    expect(container).toBeEmptyDOMElement()
   })
 
   it('renders CancellationView', async () => {

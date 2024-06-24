@@ -40,7 +40,8 @@ const baseTransfer: TransferType = {
   fromAccountType: AccountType.ACCOUNT_TYPE_BOND,
   toAccountType: AccountType.ACCOUNT_TYPE_BOND,
   reference: 'reference',
-  kind: null
+  kind: null,
+  from: '1'.repeat(64)
 }
 
 const mockAsset: vegaAsset = {

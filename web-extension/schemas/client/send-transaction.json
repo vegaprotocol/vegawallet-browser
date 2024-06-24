@@ -247,6 +247,33 @@
         {
           "additionalProperties": false,
           "required": [
+            "submitAmm"
+          ],
+          "properties": {
+            "submitAmm": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "amendAmm"
+          ],
+          "properties": {
+            "amendAmm": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "cancelAmm"
+          ],
+          "properties": {
+            "cancelAmm": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
             "nodeVote"
           ],
           "properties": {
@@ -332,6 +359,15 @@
           ],
           "properties": {
             "oracleDataSubmission": {}
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "delayedTransactionsWrapper"
+          ],
+          "properties": {
+            "delayedTransactionsWrapper": {}
           }
         }
       ]

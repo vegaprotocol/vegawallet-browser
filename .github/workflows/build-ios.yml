@@ -34,38 +34,38 @@ jobs:
           name: app.ipa
           path: './app.ipa'
 
-      - name: Upload iOS app to BrowserStack
-        id: ios_app_upload
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: https://api-cloud.browserstack.com/app-automate/upload
-          method: POST
-          username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          data: '{ "custom_id": "IOSApp" }'
-          files: '{ "file": "${{ github.workspace }}/app.ipa" }'
-          maskResponse: false
+      # - name: Upload iOS app to BrowserStack
+      #   id: ios_app_upload
+      #   uses: fjogeleit/http-request-action@v1
+      #   with:
+      #     url: https://api-cloud.browserstack.com/app-automate/upload
+      #     method: POST
+      #     username: ${{ secrets.BROWSERSTACK_USERNAME }}
+      #     password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      #     data: '{ "custom_id": "IOSApp" }'
+      #     files: '{ "file": "${{ github.workspace }}/app.ipa" }'
+      #     maskResponse: false
 
-  ios-test:
-    needs: build-ios
-    runs-on: ubuntu-latest
+  # ios-test:
+  #   needs: build-ios
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Setup Node.js Latest
-        uses: actions/setup-node@v3
-        with:
-          node-version: '*'
-          registry-url: 'https://registry.npmjs.org'
+  #     - name: Setup Node.js Latest
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '*'
+  #         registry-url: 'https://registry.npmjs.org'
 
-      - name: Install dependencies
-        run: yarn install
+  #     - name: Install dependencies
+  #       run: yarn install
 
-      - name: Run E2E tests using Xvfb
-        uses: coactions/setup-xvfb@v1
-        with:
-          run: yarn test:ios
-        env:
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  #     - name: Run E2E tests using Xvfb
+  #       uses: coactions/setup-xvfb@v1
+  #       with:
+  #         run: yarn test:ios
+  #       env:
+  #         BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  #         BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}

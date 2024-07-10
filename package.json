@@ -77,8 +77,7 @@
     "test:frontend": "jest --config=test/test-config/jest.config-ui.js",
     "test:frontend:ci": "yarn test:frontend --coverage",
     "watch": "yarn build:dev -w",
-    "update-protos": "yarn add @vegaprotocol/protos@latest && node ./scripts/update-transaction-validation.js && yarn build:beta",
-    "postinstall": "node ./scripts/update-transaction-validation.js && yarn build:beta"
+    "update-protos": "yarn add @vegaprotocol/protos@latest && node ./scripts/update-transaction-validation.js && yarn build:beta"
   },
   "browserslist": {
     "production": [

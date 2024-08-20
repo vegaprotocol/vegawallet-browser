@@ -1,4 +1,4 @@
-import { Button } from '@vegaprotocol/ui-toolkit'
+import { Button, Intent } from '@vegaprotocol/ui-toolkit'
 import { useForm, useWatch } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -55,7 +55,7 @@ export const DeleteWalletWarning = ({ onClose }: DeleteWalletWarningProperties) 
         <Button
           data-testid={locators.deleteWalletWarningContinueButton}
           disabled={!accepted || loading}
-          variant="secondary"
+          intent={Intent.Secondary}
           className="mt-4"
           fill={true}
           type="submit"

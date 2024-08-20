@@ -1,6 +1,5 @@
 import { join } from 'path'
-import theme from '@vegaprotocol/tailwindcss-config/src/theme'
-import vegaCustomClasses from '@vegaprotocol/tailwindcss-config/src/vega-custom-classes'
+import { theme, vegaCustomClasses } from '@vegaprotocol/tailwindcss-config'
 
 export default {
   content: [

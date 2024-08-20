@@ -1,4 +1,4 @@
-import { Button } from '@vegaprotocol/ui-toolkit'
+import { Button, Intent } from '@vegaprotocol/ui-toolkit'
 import { useNavigate } from 'react-router-dom'
 
 import { VegaSection } from '@/components/vega-section'
@@ -38,7 +38,8 @@ export const DeleteConnectionSection = ({ connection }: { connection: Connection
           loaderFunction()
         }}
       >
-        <Button data-testid={locators.removeConnection} type="submit" className="w-full mb-6" variant="secondary">
+        <Button data-testid={locators.removeConnection} type="submit" className="w-full mb-6" 
+                intent={Intent.Secondary}>
           Remove connection
         </Button>
       </form>

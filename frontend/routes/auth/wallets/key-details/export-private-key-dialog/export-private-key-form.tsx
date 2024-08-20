@@ -34,7 +34,6 @@ export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPr
         fill={true}
         onClick={onClose}
         className="mt-2"
-        variant="default"
         type="submit"
       >
         Close

@@ -1,4 +1,4 @@
-import { Button, InputError, TextArea } from '@vegaprotocol/ui-toolkit'
+import { Button, InputError, Intent, TextArea } from '@vegaprotocol/ui-toolkit'
 import { useForm } from 'react-hook-form'
 
 import { Validation } from '@/lib/form-validation'
@@ -38,7 +38,8 @@ const SignMessageForm = ({ onCancel, onSign, disabled }: SignMessageProperties) 
         <Button disabled={disabled} onClick={onCancel} data-testid={locators.cancelButton}>
           Cancel
         </Button>
-        <Button disabled={disabled} type="submit" variant="secondary" data-testid={locators.signButton}>
+        <Button disabled={disabled} type="submit"
+                intent={Intent.Secondary} data-testid={locators.signButton}>
           Sign
         </Button>
       </div>

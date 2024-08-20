@@ -1,4 +1,4 @@
-import { Button } from '@vegaprotocol/ui-toolkit'
+import { Button, Intent } from '@vegaprotocol/ui-toolkit'
 
 import { HiddenContainer } from '@/components/hidden-container'
 
@@ -19,7 +19,7 @@ export const ViewRecoveryPhrase = ({ recoveryPhrase, onClose }: ViewRecoveryPhra
         data-testid={locators.exportRecoveryPhraseClose}
         className="mt-4"
         fill={true}
-        variant="primary"
+        intent={Intent.Primary}
         onClick={onClose}
       >
         Close

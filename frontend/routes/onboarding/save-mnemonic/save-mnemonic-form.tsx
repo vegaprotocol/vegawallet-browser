@@ -1,3 +1,4 @@
+import { Intent } from '@vegaprotocol/ui-toolkit'
 import { useForm, useWatch } from 'react-hook-form'
 
 import { Checkbox } from '@/components/checkbox'
@@ -39,7 +40,7 @@ export const SaveMnemonicForm = ({
         data-testid={locators.saveMnemonicButton}
         fill={true}
         type="submit"
-        variant="primary"
+        intent={Intent.Primary}
         disabled={!acceptedTerms || loading || disabled}
       />
     </form>

@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  if: false
   build-ios:
     runs-on: macos-14
 

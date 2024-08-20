@@ -1,4 +1,4 @@
-import { Button } from '@vegaprotocol/ui-toolkit'
+import { Button, Intent } from '@vegaprotocol/ui-toolkit'
 
 import { usePopoverStore } from '@/stores/popover-store'
 
@@ -28,7 +28,9 @@ export const PopoverOpenSplash = () => {
               <ExpandIcon size={24} />
             </div>
             <p className="my-4 text-lg">You're viewing your wallet in another window</p>
-            <Button fill={true} onClick={focusPopover} variant="primary" data-testid={locators.continueHere}>
+            <Button fill={true} onClick={focusPopover} 
+          intent={Intent.Primary}
+          data-testid={locators.continueHere}>
               Continue here
             </Button>
           </div>

@@ -1,4 +1,4 @@
-import { Button } from '@vegaprotocol/ui-toolkit'
+import { Button, Intent } from '@vegaprotocol/ui-toolkit'
 
 import { CodeWindow } from '../code-window'
 
@@ -17,7 +17,7 @@ export const SignedMessage = ({ onClick, message }: { onClick: () => void; messa
       <Button
         data-testid={locators.signedMessageDoneButton}
         className="mt-4"
-        variant="secondary"
+        intent={Intent.Secondary}
         fill={true}
         onClick={onClick}
       >

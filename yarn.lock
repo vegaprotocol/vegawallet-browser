@@ -3564,10 +3564,12 @@
   resolved "https://registry.npmjs.org/@vegaprotocol/tailwindcss-config/-/tailwindcss-config-0.0.3.tgz"
   integrity sha512-l8djmCfReeCkdhF4M5Qf4PUWiF2rjkjsE17kzGt+LngZn1xRxOH7Jhb8UULj7oMXwfLQfvNS1VXK26JtlPOMQw==
 
-"@vegaprotocol/tailwindcss-config@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/@vegaprotocol/tailwindcss-config/-/tailwindcss-config-0.0.2.tgz"
-  integrity sha512-YGSkeuBeD2zRm3EC0NSpq7PPVEJbYS49yEe5G4ZkMhLDBXFoypF/oDP+BKSAunhEBbBkAuwif1myZR0/8QyrMw==
+"@vegaprotocol/tailwindcss-config@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/tailwindcss-config/-/tailwindcss-config-0.1.0.tgz#a1b871267d4ec3ccd3c5dbba9d56e045c2fe0801"
+  integrity sha512-IWLGqU/GsPCAB7a0LBgSTdVg31NXllS39vTRSBhnhTG6r+8PqaWD70ZboekfhOLB6Lj8naRr8B7KV7xCL6O1dg==
+  dependencies:
+    tailwindcss "3.3.3"
 
 "@vegaprotocol/types@^0.0.6":
   version "0.0.6"
@@ -11801,10 +11803,10 @@ symbol-tree@^3.2.4:
   resolved "https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.4.tgz"
   integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
 
-tailwindcss@^3.3.2:
-  version "3.3.2"
-  resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.3.2.tgz"
-  integrity sha512-9jPkMiIBXvPc2KywkraqsUfbfj+dHDb+JPWtSJa9MLFdrPyazI7q6WX2sUrm7R9eVR7qqv3Pas7EvQFzxKnI6w==
+tailwindcss@3.3.3, tailwindcss@^3.3.2:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.3.3.tgz#90da807393a2859189e48e9e7000e6880a736daf"
+  integrity sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==
   dependencies:
     "@alloc/quick-lru" "^5.2.0"
     arg "^5.0.2"
@@ -11826,7 +11828,6 @@ tailwindcss@^3.3.2:
     postcss-load-config "^4.0.1"
     postcss-nested "^6.0.1"
     postcss-selector-parser "^6.0.11"
-    postcss-value-parser "^4.2.0"
     resolve "^1.22.2"
     sucrase "^3.32.0"
 

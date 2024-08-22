@@ -34,7 +34,7 @@ export const KeyList = ({ keys, renderActions, onClick }: KeyListProperties) => 
               onClick={onClick}
               to={{ pathname: `${FULL_ROUTES.wallets}/${k.publicKey}` }}
               data-testid={locators.viewDetails(k.name)}
-              className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-200 flex items-center justify-center"
+              className="hover:bg-surface-2 w-12 h-full border-l border-1 border-vega-dark-200 flex items-center justify-center"
             >
               <ChevronRight />
             </NavLink>

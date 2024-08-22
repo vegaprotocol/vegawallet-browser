@@ -9,7 +9,7 @@ export const locators = {
 export const ApplyReferralCode = ({ transaction }: ReceiptComponentProperties) => {
   return (
     <ReceiptWrapper>
-      <h1 className="text-vega-dark-300" data-testid={locators.referralCodeTitle}>
+      <h1 className="text-vega-dark-400" data-testid={locators.referralCodeTitle}>
         Code
       </h1>
       <p data-testid={locators.referralCode}>{transaction.applyReferralCode.id}</p>

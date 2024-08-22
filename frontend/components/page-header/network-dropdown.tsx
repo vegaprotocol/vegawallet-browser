@@ -33,7 +33,7 @@ export const NetworkDropdown = () => {
       content={() => (
         <div>
           <Header content="Select a network to view" />
-          <p data-testid={locators.networkSwitcherMessage} className="text-vega-dark-300 mt-4">
+          <p data-testid={locators.networkSwitcherMessage} className="text-vega-dark-400 mt-4">
             Your selected network is for display purposes only, you can connect and place transactions on any configured
             network regardless of what network you have selected.
           </p>

@@ -46,7 +46,7 @@ const SubmissionDetails = ({ title, stopOrderDetails }: { title: string; stopOrd
         {title}
       </h1>
       <ConditionalDataTable items={items} data={stopOrderDetails} />
-      <h2 data-testid={locators.orderDetails} className="text-vega-dark-300">
+      <h2 data-testid={locators.orderDetails} className="text-vega-dark-400">
         Order details
       </h2>
       <OrderTable {...orderSubmission} />

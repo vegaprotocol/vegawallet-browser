@@ -44,7 +44,7 @@ export const TransactionsList = ({ transactions }: TransactionsListProperties) =
           </div>
           <NavLink
             data-testid={locators.transactionListItemLink}
-            className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-150 flex items-center justify-center"
+            className="hover:bg-vega-dark-200 w-12 h-full border-l border-1 border-vega-dark-200 flex items-center justify-center"
             to={`${FULL_ROUTES.transactions}/${transaction.id}`}
           >
             <ChevronRight />

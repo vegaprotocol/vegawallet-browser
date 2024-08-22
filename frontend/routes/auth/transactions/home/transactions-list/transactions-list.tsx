@@ -35,7 +35,7 @@ export const TransactionsList = ({ transactions }: TransactionsListProperties) =
             </div>
             <div className="flex flex-row justify-between items-center text-sm mt-1">
               <div className="flex flex-row">
-                <div data-testid={locators.transactionListItemKeyName} className="text-vega-dark-300">
+                <div data-testid={locators.transactionListItemKeyName} className="text-vega-dark-400">
                   {transaction.keyName}
                 </div>
               </div>

@@ -27,7 +27,7 @@ export const AmountWithTooltip = ({ assetId, amount }: { assetId: string; amount
         </span>
       </Tooltip>
       &nbsp;
-      <ExternalLink data-testid={locators.assetExplorerLink} className="text-vega-dark-300" href={assetHref}>
+      <ExternalLink data-testid={locators.assetExplorerLink} className="text-vega-dark-400" href={assetHref}>
         {truncateMiddle(assetId)}
       </ExternalLink>
     </span>

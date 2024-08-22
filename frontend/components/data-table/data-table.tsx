@@ -19,7 +19,7 @@ export const DataTable = ({ items }: DataTableProperties) => {
           key={`data-row-${key}`}
           className="flex gap-1 flex-wrap justify-between py-1 text-sm flex-row items-center w-full"
         >
-          <dt data-testid={locators.dataKey} className="text-vega-dark-300 break-words">
+          <dt data-testid={locators.dataKey} className="text-vega-dark-400 break-words">
             {key}
           </dt>
           <dd data-testid={locators.dataValue} className="break-words">

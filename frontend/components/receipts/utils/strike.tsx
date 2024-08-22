@@ -6,7 +6,7 @@ export const locators = {
 
 export const Strike = ({ children }: { children: ReactNode }) => {
   return (
-    <s data-testid={locators.strike} className="text-vega-dark-300">
+    <s data-testid={locators.strike} className="text-vega-dark-400">
       {children}
     </s>
   )

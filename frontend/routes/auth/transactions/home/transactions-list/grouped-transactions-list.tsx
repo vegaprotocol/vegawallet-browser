@@ -24,7 +24,7 @@ export const GroupedTransactionList = ({ transactions }: { transactions: StoredT
     <section>
       {Object.keys(groupedTransactions).map((date) => (
         <VegaSection key={date}>
-          <h1 data-testid={locators.dateHeader} className="text-vega-dark-300 uppercase">
+          <h1 data-testid={locators.dateHeader} className="text-vega-dark-400 uppercase">
             {formatDate(date)}
           </h1>
           <TransactionsList

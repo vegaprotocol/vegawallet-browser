@@ -6,7 +6,7 @@ export const locators = {
 
 export const SubHeader = ({ content }: { content: ReactNode }) => {
   return (
-    <h1 data-testid={locators.subHeader} className="text-vega-dark-300 text-sm uppercase">
+    <h1 data-testid={locators.subHeader} className="text-vega-dark-400 text-sm uppercase">
       {content}
     </h1>
   )

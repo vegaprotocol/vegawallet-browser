@@ -14,7 +14,7 @@ export const DepositAssetsCallout = () => {
   return (
     <section className="mt-10">
       <Frame>
-        <h1 data-testid={locators.walletsAssetHeader} className="mb-3 text-vega-dark-300 uppercase text-sm">
+        <h1 data-testid={locators.walletsAssetHeader} className="mb-3 text-vega-dark-400 uppercase text-sm">
           Connect to console to deposit funds
         </h1>
         <p className="mb-3" data-testid={locators.walletAssetDescription}>

@@ -16,7 +16,7 @@ export const ConnectionDetails = ({
     <div className="py-3 px-5" data-testid={locators.connectionModalApprove}>
       <ConnectionHeader hostname={hostname} title="Connect to dapp" />
       <Frame>
-        <p className="text-vega-dark-300 mb-3" data-testid={locators.connectionModalAccessListTitle}>
+        <p className="text-vega-dark-400 mb-3" data-testid={locators.connectionModalAccessListTitle}>
           Allow this site to:
         </p>
         <ul className="list-none">

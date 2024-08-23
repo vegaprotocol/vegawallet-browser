@@ -21,7 +21,7 @@ export class Console {
   private readonly placeOrder: By = getByDataTestID('place-order')
   private readonly welcomeDialog: By = getByDataTestID('dialog-close')
   private readonly connectDialog: By = getByDataTestID('wallet-dialog-title')
-  private readonly successToast: By = By.css("[data-testid='toast'][class*='bg-vega-green']")
+  private readonly successToast: By = By.css("[data-testid='toast'][class*='bg-intent-success']")
   private readonly closeAnyToast: By = By.css("[data-testid='toast-close']")
   private readonly marketsParentElement: By = By.css("[data-testid*='pathname-/markets']")
   private readonly marketSelector: By = getByDataTestID('popover-trigger')

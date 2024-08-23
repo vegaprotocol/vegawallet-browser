@@ -59,7 +59,7 @@ export const Telemetry = () => {
               <div>
                 <Tick size={12} className="mr-2 text-vega-green-550" />
               </div>
-              <p data-testid={locators.scope} className="text-white">
+              <p data-testid={locators.scope} className="text-surface-0-fg">
                 Your identity and keys will remain anonymous
               </p>
             </li>
@@ -67,13 +67,13 @@ export const Telemetry = () => {
               <div>
                 <Tick size={12} className="mr-2 text-vega-green-550" />
               </div>
-              <p data-testid={locators.scope} className="text-white">
+              <p data-testid={locators.scope} className="text-surface-0-fg">
                 You can change this anytime via settings
               </p>
             </li>
           </ul>
         </Frame>
-        <ExternalLink data-testid={locators.userDataPolicy} className="text-white" href={config.userDataPolicy}>
+        <ExternalLink data-testid={locators.userDataPolicy} className="text-surface-0-fg" href={config.userDataPolicy}>
           Read Vega Wallet's user data policy
         </ExternalLink>
         <form onSubmit={handleSubmit(() => submit(true))} className="mt-8">

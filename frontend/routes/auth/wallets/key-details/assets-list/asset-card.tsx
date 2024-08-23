@@ -35,14 +35,14 @@ const AssetHeader = ({
   return (
     <div className="flex items-center justify-between w-full">
       <div className="text-left">
-        <div data-testid={locators.assetHeaderSymbol} className="text-white">
+        <div data-testid={locators.assetHeaderSymbol} className="text-surface-0-fg">
           {symbol}
         </div>
         <div data-testid={locators.assetHeaderName} className="text-sm">
           {name}
         </div>
       </div>
-      <div data-testid={locators.assetHeaderTotal} className="text-right text-white">
+      <div data-testid={locators.assetHeaderTotal} className="text-right text-surface-0-fg">
         {formatNumber(total, decimals)}
       </div>
     </div>

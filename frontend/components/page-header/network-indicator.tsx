@@ -19,7 +19,7 @@ const Indicator = ({ intent }: { intent: Intent }) => {
     <div
       data-testid={locators.indicator}
       className={classNames(
-        'border-1 border-vega-dark-200 border inline-block w-3 h-3 mt-1 mr-2 rounded-full text-black',
+        'border-1 border-surface-0-fg-muted border inline-block w-3 h-3 mt-1 mr-2 rounded-full text-black',
         background
       )}
     />

@@ -21,7 +21,7 @@ export const NetworksSection = () => {
         <NavLink
           to={{ pathname: FULL_ROUTES.networksSettings }}
           data-testid={locators.viewNetworksButton}
-          className="hover:bg-surface-2 w-12 h-full border-l border-1 border-vega-dark-200 flex items-center justify-center"
+          className="hover:bg-surface-2 w-12 h-full border-l border-1 border-surface-0-fg-muted flex items-center justify-center"
         >
           <ChevronRight />
         </NavLink>

@@ -22,7 +22,7 @@ export const Transactions = () => {
       <div className="mt-6">
         <p data-testid={locators.transactionsDescription} className="text-sm">
           This only includes transactions placed from this wallet, in order to see all transactions you can visit the{' '}
-          <ExternalLink className="text-white mt-1" href={network.explorer}>
+          <ExternalLink className="text-surface-0-fg mt-1" href={network.explorer}>
             <span className="underline">block explorer.</span>
           </ExternalLink>
         </p>

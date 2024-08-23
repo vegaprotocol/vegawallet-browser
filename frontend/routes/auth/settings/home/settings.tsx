@@ -28,7 +28,7 @@ export const Settings = () => {
       >
         <ExternalLink
           data-testid={locators.settingsDataPolicy}
-          className="text-white mt-4"
+          className="text-surface-0-fg mt-4"
           href={config.userDataPolicy}
         >
           Read Vega Wallet's user data policy

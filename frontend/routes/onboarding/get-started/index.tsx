@@ -29,7 +29,7 @@ export const GetStarted = () => {
               <div>
                 <Tick size={12} className="mr-2 text-vega-green-550" />
               </div>
-              <p className="text-white">{index}</p>
+              <p className="text-surface-0-fg">{index}</p>
             </li>
           ))}
         </ul>
@@ -48,7 +48,7 @@ export const GetStarted = () => {
       >
         I understand
       </Button>
-      <ExternalLink className="text-xs text-white mt-4" href={config.userDataPolicy}>
+      <ExternalLink className="text-xs text-surface-0-fg mt-4" href={config.userDataPolicy}>
         User data policy
       </ExternalLink>
     </StarsWrapper>

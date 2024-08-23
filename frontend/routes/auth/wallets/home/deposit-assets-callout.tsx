@@ -23,7 +23,7 @@ export const DepositAssetsCallout = () => {
         </p>
         <ExternalLink
           data-testid={locators.walletsDepositLink}
-          className="break-word text-white"
+          className="break-word text-surface-0-fg"
           href={network.console}
         >
           Vega Console dapp

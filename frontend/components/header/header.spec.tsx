@@ -12,6 +12,6 @@ describe('Header component', () => {
 
     expect(headerElement).toBeInTheDocument()
     expect(headerElement).toHaveTextContent(content)
-    expect(headerElement).toHaveClass('flex', 'justify-center', 'flex-col', 'text-2xl', 'text-white')
+    expect(headerElement).toHaveClass('flex', 'justify-center', 'flex-col', 'text-2xl', 'text-surface-0-fg')
   })
 })

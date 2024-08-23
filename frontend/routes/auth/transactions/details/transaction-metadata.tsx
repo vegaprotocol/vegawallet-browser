@@ -101,7 +101,7 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
             <span style={{ maxWidth: 300 }}>
               The auto consent setting can be found and changed under{' '}
               <NavLink
-                className="text-white underline"
+                className="text-surface-0-fg underline"
                 to={`${FULL_ROUTES.connections}/${encodeURIComponent(transaction.origin)}`}
               >
                 Connections

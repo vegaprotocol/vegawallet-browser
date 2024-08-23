@@ -32,7 +32,7 @@ export const BasePage = ({ className, dataTestId, title, children, backLocation,
                 }}
                 className="flex flex-col justify-center"
               >
-                <div className="flex flex-col justify-center mr-2 text-vega-dark-400">
+                <div className="flex flex-col justify-center mr-2 text-surface-0-fg-muted">
                   <Icon size={6} name="chevron-left" />
                 </div>
               </NavLink>

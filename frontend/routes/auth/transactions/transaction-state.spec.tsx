@@ -19,6 +19,6 @@ describe('TransactionState', () => {
   })
   it('renders neutral color when transaction state is rejected', () => {
     renderComponent(TransactionState.Rejected)
-    expect(screen.getByTestId(locators.transactionState)).toHaveClass('text-vega-dark-400')
+    expect(screen.getByTestId(locators.transactionState)).toHaveClass('text-surface-0-fg-muted')
   })
 })

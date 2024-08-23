@@ -39,7 +39,7 @@ export const AssetsList = ({ publicKey }: { publicKey: string }) => {
         render={() => (
           <>
             <SubHeader content="Balances" />
-            <p data-testid={locators.assetListDescription} className="text-vega-dark-400 my-3">
+            <p data-testid={locators.assetListDescription} className="text-surface-0-fg-muted my-3">
               Recent balance changes caused by your open positions may not be reflected below
             </p>
             {Object.entries(accountsByAsset).map(([assetId, value]) => (

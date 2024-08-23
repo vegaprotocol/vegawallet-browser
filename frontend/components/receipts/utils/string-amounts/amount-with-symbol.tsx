@@ -10,7 +10,7 @@ export const AmountWithSymbol = ({ amount, symbol }: { amount: string | number; 
       <span data-testid={locators.amount}>{amount}</span>
       &nbsp;
       {symbol ? (
-        <span className="text-vega-dark-400" data-testid={locators.symbol}>
+        <span className="text-surface-0-fg-muted" data-testid={locators.symbol}>
           {symbol}
         </span>
       ) : null}

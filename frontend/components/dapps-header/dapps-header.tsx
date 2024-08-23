@@ -48,7 +48,7 @@ export const DappsHeader = () => {
   const withdrawLink = `${network.console}/#/portfolio/assets/withdraw`
   return (
     <div
-      className="flex justify-evenly bg-vega-dark-150/25 w-full py-3 border-b border-1 border-vega-dark-200"
+      className="flex justify-evenly bg-surface-1 w-full py-3 border-b border-1 border-surface-0-fg-muted"
       data-testid={locators.walletsHeader}
     >
       <DappsHeaderButton href={network.console} tooltipContent="Console" icon={<TradeIcon />} text="Trade" />

@@ -42,7 +42,7 @@ export const TransactionModalFooter = ({
   }
 
   return (
-    <div className="fixed bottom-0 py-4 bg-black z-[15] px-5 border-t border-vega-dark-200 w-full">
+    <div className="fixed bottom-0 py-4 bg-surface-0 z-[15] px-5 border-t border-vega-dark-200 w-full">
       <div className="grid grid-cols-[1fr_1fr] justify-between gap-4">
         <Button data-testid={locators.transactionModalDenyButton} onClick={() => handleDecision(false)}>
           Reject

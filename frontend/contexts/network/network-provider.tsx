@@ -58,7 +58,7 @@ export const NetworkProvider = ({ children }: { children: JSX.Element }) => {
   }, [loadGlobals, loadNetworks, request])
 
   if (loadingNetworks || loadingGlobals)
-    return <div data-testid={locators.networkProviderLoading} className="h-full w-full bg-black" />
+    return <div data-testid={locators.networkProviderLoading} className="h-full w-full bg-surface-0" />
 
   const interactionMode = transactionModalOpen || connectionModalOpen
   const value = interactionMode ? networkFromChainId : selectedNetwork

@@ -43,7 +43,7 @@ export const NavBar = () => {
   return (
     <nav
       data-testid={locators.navBar}
-      className={'z-[5] w-full h-20 grid gap-0 grid-cols-4 border-t border-vega-dark-200 bg-black'}
+      className={'z-[5] w-full h-20 grid gap-0 grid-cols-4 border-t border-vega-dark-200 bg-surface-0'}
     >
       <NavButton
         icon={<Wallet className="m-auto" squareFill={'black'} />}

@@ -22,12 +22,12 @@ const getRemainder = (string_: string) => {
 }
 
 const COLORS_MAP = [
-  { backgroundColor: 'bg-vega-pink-650', textColor: 'text-vega-pink-500' },
-  { backgroundColor: 'bg-vega-green-650', textColor: 'text-vega-green-500' },
-  { backgroundColor: 'bg-vega-purple-650', textColor: 'text-vega-purple-500' },
-  { backgroundColor: 'bg-vega-blue-650', textColor: 'text-vega-blue-500' },
-  { backgroundColor: 'bg-vega-yellow-650', textColor: 'text-vega-yellow-500' },
-  { backgroundColor: 'bg-vega-orange-650', textColor: 'text-vega-orange-500' }
+  { backgroundColor: 'bg-pink-650', textColor: 'text-pink-500' },
+  { backgroundColor: 'bg-green-650', textColor: 'text-green-500' },
+  { backgroundColor: 'bg-purple-650', textColor: 'text-purple-500' },
+  { backgroundColor: 'bg-blue-650', textColor: 'text-blue-500' },
+  { backgroundColor: 'bg-yellow-650', textColor: 'text-yellow-500' },
+  { backgroundColor: 'bg-orange-650', textColor: 'text-orange-500' }
 ]
 
 export interface HostImageProperties {

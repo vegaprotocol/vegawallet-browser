@@ -63,6 +63,10 @@ html {
     --color-green: 0 247 128;
     --color-green-700: 1 41 21;
 
+    --color-yellow-300: 249 254 227;
+    --color-yellow: 215 251 80;
+    --color-yellow-700: 35 41 14;
+
     /* grayscale */
     /* --gs-0: var(--color-black);
     --gs-50: 4 4 5;
@@ -129,10 +133,10 @@ html {
     --intent-none-foreground: var(--gs-950);
     --intent-none-background: var(--gs-300);
 
-    --intent-primary: var(--color-blue);
-    --intent-primary-outline: var(--color-blue);
-    --intent-primary-foreground: var(--color-white);
-    --intent-primary-background: var(--color-blue-300);
+    --intent-primary: var(--color-yellow);
+    --intent-primary-outline: var(--color-yellow);
+    --intent-primary-foreground: var(--color-black);
+    --intent-primary-background: var(--color-yellow-300);
 
     --intent-secondary: var(--color-blue);
     --intent-secondary-outline: var(--color-blue);

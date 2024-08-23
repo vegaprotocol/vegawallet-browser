@@ -40,7 +40,7 @@ export const TransactionModal = () => {
           <CheckTransaction publicKey={details.publicKey} transaction={details.transaction} origin={details.origin} />
           <EnrichedDetails transaction={details.transaction} />
           <RawTransaction transaction={details.transaction} />
-          <div data-testid={locators.transactionTimeAgo} className="text-sm text-vega-dark-400 mt-6 mb-20">
+          <div data-testid={locators.transactionTimeAgo} className="text-sm text-surface-0-fg-muted mt-6 mb-20">
             Received <ReactTimeAgo timeStyle="round" date={new Date(details.receivedAt)} locale="en-US" />
           </div>
         </section>

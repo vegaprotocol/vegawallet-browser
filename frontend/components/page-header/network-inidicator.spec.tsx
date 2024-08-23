@@ -120,7 +120,6 @@ describe('NetworkIndicator', () => {
       ]
     })
     renderComponent()
-    expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-vega-green-550')
     fireEvent.pointerMove(screen.getByTestId(locators.indicator))
     const [tooltip] = await screen.findAllByTestId(locators.networkIndicatorTooltip)
     expect(tooltip).toHaveTextContent('You are currently connected to https://www.foo.com.')

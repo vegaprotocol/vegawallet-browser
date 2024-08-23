@@ -16,7 +16,7 @@ const PixelatedTick = () => {
 
 export const SuccessTick = () => {
   return (
-    <div className="rounded-md py-5 px-4 bg-vega-green-550 mb-8">
+    <div className="rounded-md py-5 px-4 bg-intent-success mb-8">
       <PixelatedTick />
     </div>
   )

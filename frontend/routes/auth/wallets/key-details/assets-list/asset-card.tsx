@@ -74,7 +74,7 @@ export const AssetCard = ({
       return [accountType, addDecimalsFormatNumber(a.balance ?? 0, +decimals)]
     }) as [string, string][]
   return (
-    <div data-testid={locators.assetCard} className="border border-vega-dark-200 mb-4">
+    <div data-testid={locators.assetCard} className="border border-surface-0-fg-muted mb-4">
       <CollapsibleCard
         title={<AssetHeader symbol={symbol} name={name} decimals={+decimals} accounts={accounts} />}
         cardContent={

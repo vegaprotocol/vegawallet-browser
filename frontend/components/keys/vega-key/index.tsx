@@ -28,7 +28,7 @@ export const VegaKey = ({ publicKey, name, children, actions }: VegaKeyPropertie
         <KeyIcon publicKey={publicKey} />
         <div className="ml-4">
           {name ? (
-            <div data-testid={locators.keyName} className="text-left text-white" style={{ wordBreak: 'break-word' }}>
+            <div data-testid={locators.keyName} className="text-left text-surface-0-fg" style={{ wordBreak: 'break-word' }}>
               {name}
             </div>
           ) : null}

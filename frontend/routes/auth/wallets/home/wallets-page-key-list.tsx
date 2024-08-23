@@ -44,7 +44,7 @@ export const WalletsPageKeyList = ({ wallet, onSignMessage }: WalletPageKeyListP
           </button>
         )}
       />
-      <div className="mt-3 text-white">
+      <div className="mt-3 text-surface-0-fg">
         <ButtonLink disabled={creatingKey} onClick={createKey} data-testid={locators.walletsCreateKey}>
           Create new key/pair
         </ButtonLink>

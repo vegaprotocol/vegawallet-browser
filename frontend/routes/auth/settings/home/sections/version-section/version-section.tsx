@@ -12,7 +12,7 @@ export const VersionSection = () => {
   return (
     <VegaSection>
       <SubHeader content="Vega wallet version" />
-      <div className="text-white text-lg mt-1" data-testid={locators.settingsVersionNumber}>
+      <div className="text-surface-0-fg text-lg mt-1" data-testid={locators.settingsVersionNumber}>
         {packageJson.version}
       </div>
     </VegaSection>

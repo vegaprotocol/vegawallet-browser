@@ -29,7 +29,7 @@ export const ExportRecoveryPhraseSection = () => {
       </VegaSection>
       <Dialog open={open} onInteractOutside={resetDialog} onChange={resetDialog}>
         <div className="p-2 text-base text-surface-0-fg-muted">
-          <h1 data-testid={locators.exportRecoveryPhraseTitle} className="text-xl  text-center text-white mb-2">
+          <h1 data-testid={locators.exportRecoveryPhraseTitle} className="text-xl  text-center text-surface-0-fg mb-2">
             Export Recovery Phrase
           </h1>
           {recoveryPhrase ? (

@@ -31,19 +31,19 @@ export const NetworkDetails = () => {
     <BasePage backLocation={FULL_ROUTES.networksSettings} dataTestId={locators.networkDetails} title={network.name}>
       <VegaSection>
         <SubHeader content="Id" />
-        <div className="text-white mt-1" data-testid={locators.networkId}>
+        <div className="text-surface-0-fg mt-1" data-testid={locators.networkId}>
           {network.id}
         </div>
       </VegaSection>
       <VegaSection>
         <SubHeader content="Chain id" />
-        <div className="text-white mt-1" data-testid={locators.chainId}>
+        <div className="text-surface-0-fg mt-1" data-testid={locators.chainId}>
           {network.chainId}
         </div>
       </VegaSection>
       <VegaSection>
         <SubHeader content="Color" />
-        <div className="text-white mt-1 flex items-center" data-testid={locators.color}>
+        <div className="text-surface-0-fg mt-1 flex items-center" data-testid={locators.color}>
           {network.color}{' '}
           <div
             className="border-1 border border-white rounded-sm ml-3 h-4 w-4"
@@ -55,10 +55,10 @@ export const NetworkDetails = () => {
         <SubHeader content="Vega URLs" />
         <DataTable
           items={[
-            ['Console', <ExternalLink className="text-white mt-1" href={network.console} />],
-            ['Governance', <ExternalLink className="text-white mt-1" href={network.governance} />],
-            ['Explorer', <ExternalLink className="text-white mt-1" href={network.explorer} />],
-            ['Docs', <ExternalLink className="text-white mt-1" href={network.docs} />]
+            ['Console', <ExternalLink className="text-surface-0-fg mt-1" href={network.console} />],
+            ['Governance', <ExternalLink className="text-surface-0-fg mt-1" href={network.governance} />],
+            ['Explorer', <ExternalLink className="text-surface-0-fg mt-1" href={network.explorer} />],
+            ['Docs', <ExternalLink className="text-surface-0-fg mt-1" href={network.docs} />]
           ]}
         />
       </VegaSection>
@@ -70,7 +70,7 @@ export const NetworkDetails = () => {
               'Explorer',
               <ExternalLink
                 data-testid={locators.ethereumExplorer}
-                className="text-white mt-1"
+                className="text-surface-0-fg mt-1"
                 href={network.ethereumExplorerLink}
               />
             ],
@@ -86,7 +86,7 @@ export const NetworkDetails = () => {
               'Explorer',
               <ExternalLink
                 data-testid={locators.arbitrumExplorerLink}
-                className="text-white mt-1"
+                className="text-surface-0-fg mt-1"
                 href={network.arbitrumExplorerLink}
               />
             ],
@@ -101,7 +101,7 @@ export const NetworkDetails = () => {
           panelContent={
             <ul>
               {network.rest.map((r) => (
-                <ExternalLink data-testid={locators.networkDetailsNode} key={r} className="text-white" href={r} />
+                <ExternalLink data-testid={locators.networkDetailsNode} key={r} className="text-surface-0-fg" href={r} />
               ))}
             </ul>
           }

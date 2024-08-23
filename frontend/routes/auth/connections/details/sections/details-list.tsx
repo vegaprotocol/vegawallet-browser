@@ -18,19 +18,19 @@ export const DetailsSection = ({ connection }: { connection: Connection }) => {
     <>
       <VegaSection>
         <SubHeader content="Origin" />
-        <div className="text-white mt-1" data-testid={locators.origin}>
+        <div className="text-surface-0-fg mt-1" data-testid={locators.origin}>
           {connection.origin}
         </div>
       </VegaSection>
       <VegaSection>
         <SubHeader content="Last accessed" />
-        <div className="text-white mt-1" data-testid={locators.accessedAt}>
+        <div className="text-surface-0-fg mt-1" data-testid={locators.accessedAt}>
           {formatDateTime(connection.accessedAt)}
         </div>
       </VegaSection>
       <VegaSection>
         <SubHeader content="Chain Id" />
-        <div className="text-white mt-1" data-testid={locators.chainId}>
+        <div className="text-surface-0-fg mt-1" data-testid={locators.chainId}>
           {connection.chainId}
         </div>
       </VegaSection>
@@ -39,7 +39,7 @@ export const DetailsSection = ({ connection }: { connection: Connection }) => {
         <div className="mt-1">
           <NavLink
             data-testid={locators.networkId}
-            className="text-white underline"
+            className="text-surface-0-fg underline"
             to={`${FULL_ROUTES.networksSettings}/${connection.networkId}`}
           >
             {connection.networkId}

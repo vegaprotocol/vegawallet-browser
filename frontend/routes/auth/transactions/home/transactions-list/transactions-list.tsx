@@ -29,7 +29,7 @@ export const TransactionsList = ({ transactions }: TransactionsListProperties) =
           <div className="flex flex-col w-full mr-2">
             <div className="flex flex-row items-center">
               <HostImage hostname={transaction.origin} size={20} />
-              <div data-testid={locators.transactionListItemTransactionType} className="ml-2 text-white">
+              <div data-testid={locators.transactionListItemTransactionType} className="ml-2 text-surface-0-fg">
                 {getTitle(transaction.transaction)}
               </div>
             </div>

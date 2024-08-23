@@ -34,7 +34,7 @@ export const LockSection = () => {
       <div data-testid={locators.settingsFeedbackDescription}>Spotted any issues or bugs?</div>
       <ExternalLink
         data-testid={locators.settingsFeedbackLink}
-        className="text-white mt-1 underline"
+        className="text-surface-0-fg mt-1 underline"
         href={config.feedbackLink}
       >
         Provide feedback

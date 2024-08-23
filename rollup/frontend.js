@@ -39,7 +39,7 @@ const htmlPlugin = (outputPath, title) => {
         })
         .join('\n')
       return `<!DOCTYPE html>
-    <html class="bg-black dark scrollbar-hide" lang="en">
+    <html class="bg-surface-0 dark scrollbar-hide" lang="en">
       <head>
         ${metas}
         <title>${title}</title>

@@ -57,7 +57,7 @@ export const Telemetry = () => {
           <ul className="list-none" data-testid={locators.scopeContainer}>
             <li className="flex">
               <div>
-                <Tick size={12} className="mr-2 text-vega-green-550" />
+                <Tick size={12} className="mr-2 text-intent-success" />
               </div>
               <p data-testid={locators.scope} className="text-surface-0-fg">
                 Your identity and keys will remain anonymous
@@ -65,7 +65,7 @@ export const Telemetry = () => {
             </li>
             <li className="flex">
               <div>
-                <Tick size={12} className="mr-2 text-vega-green-550" />
+                <Tick size={12} className="mr-2 text-intent-success" />
               </div>
               <p data-testid={locators.scope} className="text-surface-0-fg">
                 You can change this anytime via settings

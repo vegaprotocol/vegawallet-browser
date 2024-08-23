@@ -26,7 +26,7 @@ describe('CopyWithCheckmark', () => {
 
     expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
-    expect(tick).toHaveClass('text-vega-green-550')
+    expect(tick).toHaveClass('text-intent-success')
 
     await waitFor(() => expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument())
   })
@@ -47,7 +47,7 @@ describe('CopyWithCheckmark', () => {
 
     expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
-    expect(tick).toHaveClass('text-vega-green-550')
+    expect(tick).toHaveClass('text-intent-success')
     await waitFor(() => expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument())
   })
 
@@ -65,7 +65,7 @@ describe('CopyWithCheckmark', () => {
 
     expect(screen.queryByTestId(locators.copyIcon)).not.toBeInTheDocument()
     expect(tick).toBeInTheDocument()
-    expect(tick).toHaveClass('text-vega-green-550')
+    expect(tick).toHaveClass('text-intent-success')
 
     await screen.findByTestId(locators.copyIcon)
     expect(screen.queryByTestId(locators.tickIcon)).not.toBeInTheDocument()

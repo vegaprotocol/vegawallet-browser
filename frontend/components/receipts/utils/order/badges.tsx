@@ -6,7 +6,7 @@ import { processTimeInForce, TIF_MAP } from '@/lib/enums'
 import { formatNanoDate } from '@/lib/utils'
 
 const OrderBadge = ({ children }: { children: ReactNode }) => {
-  return <Lozenge className="text-xs mr-0.5 text-vega-dark-400 whitespace-nowrap">{children}</Lozenge>
+  return <Lozenge className="text-xs mr-0.5 text-surface-0-fg-muted whitespace-nowrap">{children}</Lozenge>
 }
 
 const TifBadge = ({ timeInForce, expiresAt }: { timeInForce: OrderTimeInForce; expiresAt: string | undefined }) => {

@@ -35,7 +35,7 @@ export const TransactionMetadata = ({ transaction }: TransactionSectionPropertie
       <ExternalLink
         data-testid={locators.transactionMetadataPublicKey}
         key="transaction-details-public-key"
-        className="text-vega-dark-400"
+        className="text-surface-0-fg-muted"
         href={`${network.explorer}/parties/${transaction.publicKey}`}
       >
         {truncateMiddle(transaction.publicKey)}

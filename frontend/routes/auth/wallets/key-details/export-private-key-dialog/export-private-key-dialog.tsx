@@ -28,7 +28,7 @@ export const ExportPrivateKeysDialog = ({ publicKey }: { publicKey: string }) =>
         </ButtonLink>
       </VegaSection>
       <Dialog open={open} onInteractOutside={resetDialog} onChange={resetDialog}>
-        <div className="p-2 text-base text-vega-dark-400">
+        <div className="p-2 text-base text-surface-0-fg-muted">
           <h1 data-testid={locators.privateKeyTitle} className="text-xl  text-center text-white mb-2">
             Export Private Key
           </h1>

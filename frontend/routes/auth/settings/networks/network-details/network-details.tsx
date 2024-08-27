@@ -101,7 +101,12 @@ export const NetworkDetails = () => {
           panelContent={
             <ul>
               {network.rest.map((r) => (
-                <ExternalLink data-testid={locators.networkDetailsNode} key={r} className="text-surface-0-fg" href={r} />
+                <ExternalLink
+                  data-testid={locators.networkDetailsNode}
+                  key={r}
+                  className="text-surface-0-fg"
+                  href={r}
+                />
               ))}
             </ul>
           }

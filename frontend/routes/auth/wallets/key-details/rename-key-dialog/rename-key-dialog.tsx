@@ -52,7 +52,10 @@ export const RenameKeyDialog = ({ vegaKey }: RenameKeyDialogProperties) => {
         </svg>
       </button>
       <Dialog open={open} onInteractOutside={resetDialog} onChange={resetDialog}>
-        <div className="p-2 text-base text-surface-0-fg-muted overflow-hidden" style={{ maxWidth: CONSTANTS.width - 60 }}>
+        <div
+          className="p-2 text-base text-surface-0-fg-muted overflow-hidden"
+          style={{ maxWidth: CONSTANTS.width - 60 }}
+        >
           <h1 data-testid={locators.renameKeyTitle} className="text-xl text-center text-surface-0-fg mb-2">
             Rename Key
           </h1>

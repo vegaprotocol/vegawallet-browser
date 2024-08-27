@@ -29,13 +29,7 @@ export const ExportPrivateKeyForm = ({ publicKey, onSuccess, onClose }: ExportPr
         data-testid={locators.privateKeyDescription}
       />
       <PasswordForm onSubmit={exportPrivateKey} text="Export" loadingText="Exporting..." />
-      <Button
-        data-testid={locators.privateKeyModalClose}
-        fill={true}
-        onClick={onClose}
-        className="mt-2"
-        type="submit"
-      >
+      <Button data-testid={locators.privateKeyModalClose} fill={true} onClick={onClose} className="mt-2" type="submit">
         Close
       </Button>
     </>

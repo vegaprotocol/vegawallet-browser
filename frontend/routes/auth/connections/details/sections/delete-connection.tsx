@@ -38,8 +38,7 @@ export const DeleteConnectionSection = ({ connection }: { connection: Connection
           loaderFunction()
         }}
       >
-        <Button data-testid={locators.removeConnection} type="submit" className="w-full mb-6" 
-                intent={Intent.Secondary}>
+        <Button data-testid={locators.removeConnection} type="submit" className="w-full mb-6" intent={Intent.Secondary}>
           Remove connection
         </Button>
       </form>

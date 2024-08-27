@@ -2,12 +2,7 @@ import { InputError } from '@vegaprotocol/ui-toolkit'
 import classNames from 'classnames'
 import zxcvbn from 'zxcvbn'
 
-const COLORS = [
-  'bg-yellow-600',
-  'bg-yellow-550',
-  'bg-yellow-500',
-  'bg-yellow-450',
-]
+const COLORS = ['bg-yellow-600', 'bg-yellow-550', 'bg-yellow-500', 'bg-yellow-450']
 
 export const locators = {
   error: 'password-feedback-error',

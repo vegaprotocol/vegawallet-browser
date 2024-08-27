@@ -29,9 +29,15 @@ const DappsHeaderButton = ({
 }) => {
   return (
     <Tooltip description={tooltipContent}>
-      <div data-testid={locators.walletsHeaderItem} className="text-center hover:text-surface-0-fg text-surface-0-fg-muted no-underline">
+      <div
+        data-testid={locators.walletsHeaderItem}
+        className="text-center hover:text-surface-0-fg text-surface-0-fg-muted no-underline"
+      >
         <ExternalLink className="flex flex-col items-center" data-testid={locators.walletsHeaderLink} href={href}>
-          <div className="rounded-full p-2 bg-intent-primary text-intent-primary-foreground" style={{ maxWidth: '2.5rem' }}>
+          <div
+            className="rounded-full p-2 bg-intent-primary text-intent-primary-foreground"
+            style={{ maxWidth: '2.5rem' }}
+          >
             {icon}
           </div>
           <div className="text-xs mt-1">{text}</div>

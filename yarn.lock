@@ -2934,6 +2934,11 @@
     protobuf-codec "^2.0.1"
     type-fest "^3.6.0"
 
+"@vegaprotocol/react-helpers@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/react-helpers/-/react-helpers-0.3.0.tgz#7192b8eefc574e8b6eee05e5b68e3ab15cb47f77"
+  integrity sha512-taZE7J7Kr8aofQRRujBCVcAqPXDSkq7TpUQKMUrReITR4re8zATQ2fnnndg0Z0+iCchPQh0+erKEJ7SuUh9a5A==
+
 "@vegaprotocol/rest-clients@^0.0.6":
   version "0.0.6"
   resolved "https://registry.npmjs.org/@vegaprotocol/rest-clients/-/rest-clients-0.0.6.tgz"

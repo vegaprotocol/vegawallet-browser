@@ -1719,6 +1719,13 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
+"@babel/runtime@^7.24.8":
+  version "7.25.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.25.4.tgz#6ef37d678428306e7d75f054d5b1bdb8cf8aa8ee"
+  integrity sha512-DSgLeL/FNcpXuzav5wfYvHCGvynXkJbn3Zvc3823AEe9nPwW9IK4UoCSS5yGymmQzN0pCPvivtgS6/8U2kkm1w==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/runtime@^7.8.4":
   version "7.22.3"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.22.3.tgz"
@@ -2929,42 +2936,42 @@
     protobuf-codec "^2.0.1"
     type-fest "^3.6.0"
 
-"@vegaprotocol/react-helpers@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/react-helpers/-/react-helpers-0.3.0.tgz#7192b8eefc574e8b6eee05e5b68e3ab15cb47f77"
-  integrity sha512-taZE7J7Kr8aofQRRujBCVcAqPXDSkq7TpUQKMUrReITR4re8zATQ2fnnndg0Z0+iCchPQh0+erKEJ7SuUh9a5A==
+"@vegaprotocol/react-helpers@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/react-helpers/-/react-helpers-0.4.0.tgz#970f10739273c545ea7b5de7482c5aba85daf18d"
+  integrity sha512-DqzxN8lqcghR4FEO0BbfMGYLBTP7ajESl3k6z5afJQSp4H+zEEX/mmaQ9VLyFimOASo3kv35W2oOvB7slEzzUw==
 
 "@vegaprotocol/rest-clients@^0.0.6":
   version "0.0.6"
   resolved "https://registry.npmjs.org/@vegaprotocol/rest-clients/-/rest-clients-0.0.6.tgz"
   integrity sha512-6+tcTOBk09IkYyBueJlorABffAONFgck+dg5ccjQNC8eAgFbJCc/hgQyHKcqzd+BDSch7od2HOsfGUAeQPJRFA==
 
-"@vegaprotocol/tailwindcss-config@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/tailwindcss-config/-/tailwindcss-config-0.1.0.tgz#a1b871267d4ec3ccd3c5dbba9d56e045c2fe0801"
-  integrity sha512-IWLGqU/GsPCAB7a0LBgSTdVg31NXllS39vTRSBhnhTG6r+8PqaWD70ZboekfhOLB6Lj8naRr8B7KV7xCL6O1dg==
+"@vegaprotocol/tailwindcss-config@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/tailwindcss-config/-/tailwindcss-config-0.2.0.tgz#b18277df0b1777d820e0c31e77847027ab40c7b7"
+  integrity sha512-UPEPN/yj5EdHxTfOqkXyfBjXGcCCuBYTv5h6u6qT+/HEdzBrKwgialm51p8Sj+0ePNKBxVqL4ofrV7+3tiyhDw==
   dependencies:
     tailwindcss "3.3.3"
 
-"@vegaprotocol/types@0.0.7", "@vegaprotocol/types@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/types/-/types-0.0.7.tgz#7de43d24ce02fd5b2ad7a76bc133fdf552a4a202"
-  integrity sha512-YX754qbWNMfzpslcXWfj2ldPU3N5/6XgZFruy+XuflOK+iJXzRhHFmqrIUOTAlBgZVyOZ9BaNa8DA8w0xMbVnQ==
+"@vegaprotocol/types@0.0.8", "@vegaprotocol/types@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/types/-/types-0.0.8.tgz#5fcb61641edf25034c1baade423aebc0628f9fab"
+  integrity sha512-ri+QaNTFFc/jSVWzi4lt/cjXk+e32k1QsfwMwT19l2pp+1BzkJ8XzHG2hs0/EiDV7j6LvO2VzpgIc75HKwJ9SQ==
 
-"@vegaprotocol/ui-toolkit@0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/ui-toolkit/-/ui-toolkit-0.13.0.tgz#6504ca0af86b88634498ec3e6233f5d61c8166b7"
-  integrity sha512-KtXDZR3Q9tOYF1B0at85KXL+txpM3M0irAGX0kI12IbYvKQGq3l8n+ujlHS50zMGZpTc7qcb1MjQ8OpXGHXndA==
+"@vegaprotocol/ui-toolkit@0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/ui-toolkit/-/ui-toolkit-0.14.0.tgz#0dfcf7d7f448aeb732f9aae7e62b84f4cdf7c1e8"
+  integrity sha512-DJ75gQjQCIzHkCUfUOcj7d4e26heerTSFHDAdc7mts28hZGtCYGrpbDuwlxzdblcYH/sxMvDPoxpeoO9qhsG+w==
   dependencies:
     clsx "^2.1.1"
     tailwind-merge "^2.4.0"
 
-"@vegaprotocol/utils@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/utils/-/utils-0.0.12.tgz#d8ddf0381c9ce0d90ec8560b4c6a275347318106"
-  integrity sha512-Vq9XJwYC1xB1fDWjo2TjxxpXuw+ewlNkjlm+0y/HykJDbFq+E8zboyP1G7CR6ydQo+mngr/VFuFVw6QE1kEH6Q==
+"@vegaprotocol/utils@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/utils/-/utils-0.0.14.tgz#fdc9bccef7afe8ba7feeb4755274be1feb8ec177"
+  integrity sha512-kU0DXsQs53bbwFcO2TvXfzbco5JXL/VH+L0TIf1ZKdL49obEKxNQQ4XG2d4ROahAMEEB1UEpjaj7y26zAus47g==
   dependencies:
-    "@vegaprotocol/types" "0.0.7"
+    "@vegaprotocol/types" "0.0.8"
     bignumber.js "^9.0.2"
     date-fns "^2.28.0"
     lodash "^4.17.21"
@@ -6537,6 +6544,13 @@ html-escaper@^2.0.0:
   resolved "https://registry.npmjs.org/html-escaper/-/html-escaper-2.0.2.tgz"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
+html-parse-stringify@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/html-parse-stringify/-/html-parse-stringify-3.0.1.tgz#dfc1017347ce9f77c8141a507f233040c59c55d2"
+  integrity sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==
+  dependencies:
+    void-elements "3.1.0"
+
 htmlparser2@^8.0.1:
   version "8.0.2"
   resolved "https://registry.npmjs.org/htmlparser2/-/htmlparser2-8.0.2.tgz"
@@ -9771,6 +9785,14 @@ react-hook-form@7.39.1:
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.39.1.tgz"
   integrity sha512-MiF9PCILN5KulhSGbnjohMiTOrB47GerDTichMNP0y2cPUu1GTRFqbunOxCE9N1499YTLMV/ne4gFzqCp1rxrQ==
 
+react-i18next@^15.0.1:
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-15.0.1.tgz#fc662d93829ecb39683fe2757a47ebfbc5c912a0"
+  integrity sha512-NwxLqNM6CLbeGA9xPsjits0EnXdKgCRSS6cgkgOdNcPXqL+1fYNl8fBg1wmnnHvFy812Bt4IWTPE9zjoPmFj3w==
+  dependencies:
+    "@babel/runtime" "^7.24.8"
+    html-parse-stringify "^3.0.1"
+
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -9949,6 +9971,11 @@ regenerator-runtime@^0.13.11:
   version "0.13.11"
   resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz"
   integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
+
+regenerator-runtime@^0.14.0:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.14.1.tgz#356ade10263f685dda125100cd862c1db895327f"
+  integrity sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==
 
 regenerator-transform@^0.15.1:
   version "0.15.1"
@@ -11545,6 +11572,11 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+void-elements@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
+  integrity sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==
 
 w3c-xmlserializer@^4.0.0:
   version "4.0.0"

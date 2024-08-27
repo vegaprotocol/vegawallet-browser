@@ -59,7 +59,7 @@ describe('NetworkIndicator', () => {
       connections: []
     })
     renderComponent()
-    expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-surface-0')
+    expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-intent-none-background')
     fireEvent.pointerMove(screen.getByTestId(locators.indicator))
     const [tooltip] = await screen.findAllByTestId(locators.networkIndicatorTooltip)
     expect(tooltip).toHaveTextContent('You are not currently connected to any sites.')
@@ -88,7 +88,7 @@ describe('NetworkIndicator', () => {
       ]
     })
     renderComponent()
-    expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-surface-0')
+    expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-intent-none-background')
     fireEvent.pointerMove(screen.getByTestId(locators.indicator))
     const [tooltip] = await screen.findAllByTestId(locators.networkIndicatorTooltip)
     expect(tooltip).toHaveTextContent('You are not currently connected to https://www.foo.com.')
@@ -155,7 +155,7 @@ describe('NetworkIndicator', () => {
       ]
     })
     renderComponent()
-    expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-warning')
+    expect(screen.getByTestId(locators.indicator)).toHaveClass('bg-intent-warning-background')
     fireEvent.pointerMove(screen.getByTestId(locators.indicator))
     const [tooltip] = await screen.findAllByTestId(locators.networkIndicatorTooltip)
     expect(tooltip).toHaveTextContent(

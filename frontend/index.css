@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   margin: 0;
   overflow: auto;
@@ -38,7 +37,6 @@ html {
   font-family: 'AlphaLyrae';
   src: url('./AlphaLyrae-Medium.woff2') format('woff2');
 }
-
 
 @layer base {
   :root {
@@ -164,15 +162,12 @@ html {
     --intent-success-background: var(--color-green-300);
 
     /* Fonts */
-    --font-sans: AlphaLyrae, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-      'Noto Color Emoji';
-    --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-      'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-      'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-    --font-alt: AlphaLyrae, 'Helvetica Neue', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-      'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: AlphaLyrae, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono',
+      'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+    --font-alt: AlphaLyrae, 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif,
+      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     /* Navbar */
     --nav-accent-color: #d7fb50;
@@ -339,5 +334,3 @@ html {
 input[type='radio'] {
   display: none;
 }
-
-

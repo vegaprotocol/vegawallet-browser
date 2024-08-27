@@ -5,10 +5,7 @@ import locators from '../locators'
 
 export const CodeWindow = ({ content, text }: { content: ReactNode; text: string }) => {
   return (
-    <div
-      data-testid={locators.codeWindow}
-      className="whitespace-pre max-h-60 flex p-4 rounded-md w-full bg-surface-1"
-    >
+    <div data-testid={locators.codeWindow} className="whitespace-pre max-h-60 flex p-4 rounded-md w-full bg-surface-1">
       <code
         data-testid={locators.codeWindowContent}
         className="text-left overflow-y-auto overflow-x-auto w-full scrollbar-hide"

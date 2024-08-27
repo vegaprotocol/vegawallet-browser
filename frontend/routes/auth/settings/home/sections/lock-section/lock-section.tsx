@@ -27,7 +27,7 @@ export const LockSection = () => {
   return (
     <VegaSection>
       <form className="pb-6" onSubmit={handleLock(lock)}>
-        <Button data-testid={locators.settingsLockButton} fill={true}        intent={Intent.Secondary} type="submit">
+        <Button data-testid={locators.settingsLockButton} fill={true} intent={Intent.Secondary} type="submit">
           Lock
         </Button>
       </form>

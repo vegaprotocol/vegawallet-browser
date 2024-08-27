@@ -31,12 +31,7 @@ export const ExportRecoveryPhraseForm = ({ onSuccess, onClose, walletName }: Exp
         data-testid={locators.exportRecoveryPhraseFormDescription}
       />
       <PasswordForm onSubmit={exportPrivateKey} text="Export" loadingText="Exporting..." />
-      <Button
-        data-testid={locators.exportRecoveryPhraseFormModalClose}
-        fill={true}
-        onClick={onClose}
-        className="mt-2"
-      >
+      <Button data-testid={locators.exportRecoveryPhraseFormModalClose} fill={true} onClick={onClose} className="mt-2">
         Close
       </Button>
     </>

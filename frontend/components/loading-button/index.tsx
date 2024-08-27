@@ -14,7 +14,7 @@ export const LoadingButton = ({ text, loading, loadingText, disabled, ...rest }:
         {loading ? `${loadingText}…` : text}
         {loading && (
           <span className="ml-2">
-            <Loader size="small" forceTheme="light" />
+            <Loader size="small" />
           </span>
         )}
       </div>

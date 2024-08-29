@@ -21,16 +21,16 @@ import locators from '../../../frontend/components/locators'
 
 export class Settings {
   private readonly lockWalletButton: By = getByDataTestID(settingsLock.locators.settingsLockButton)
-  private readonly telemetryYes: By = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioYes}`)
   private readonly developmentNetworksNo: By = getByDataTestID(
     `showHiddenNetworks-${radioLocators.locators.settingsRadioNo}`
   )
   private readonly developmentNetworksYes: By = getByDataTestID(
     `showHiddenNetworks-${radioLocators.locators.settingsRadioYes}`
   )
-  private readonly telemetryNo: By = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioNo}`)
-  private readonly autoOpenYes: By = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioYes}`)
-  private readonly autoOpenNo: By = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioNo}`)
+  private readonly telemetryYes: By = getByDataTestID(`[for='${radioLocators.locators.settingsRadioYes}'`)
+  private readonly telemetryNo: By = By.css(`[for='${radioLocators.locators.settingsRadioNo}'`) // getByDataTestID(`telemetry-${}`)
+  private readonly autoOpenYes: By = By.css(`[for='${radioLocators.locators.settingsRadioYes}'`) // getByDataTestID(`autoOpen-${}`)
+  private readonly autoOpenNo: By = By.css(`[for='${radioLocators.locators.settingsRadioNo}'`) // getByDataTestID(`autoOpen-${}`)
   private readonly exportRecoveryPhraseTrigger: By = getByDataTestID(
     exportLocators.locators.exportRecoveryPhraseTrigger
   )

@@ -9,7 +9,7 @@
     "@types/uuid": "^9.0.8",
     "@vegaprotocol/crypto": "^0.12.0",
     "@vegaprotocol/enums": "^0.0.3",
-    "@vegaprotocol/protos": "^0.21.0",
+    "@vegaprotocol/protos": "^0.23.0",
     "@vegaprotocol/react-helpers": "^0.4.0",
     "@vegaprotocol/rest-clients": "^0.0.6",
     "@vegaprotocol/tailwindcss-config": "^0.2.0",

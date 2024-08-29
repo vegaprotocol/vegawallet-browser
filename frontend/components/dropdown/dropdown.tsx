@@ -16,20 +16,21 @@ export interface DropdownProperties {
   enabled: boolean
 }
 
-const WrappedTrigger = ({ clickable, trigger }: { clickable: ReactNode; trigger: ReactNode }) => {
-  return (
-    <div className="items-center">
-      <div data-testid={locators.dropdownSelected} className="flex items-center text-left">
-        {trigger}
-        {clickable && (
-          <span className="ml-2">
-            <IconChevronDown size={16} />
-          </span>
-        )}
-      </div>
-    </div>
-  )
-}
+// TODO: have replaced with duplicated code, however using this component causes jest tests to fail. Inlining the code fixed it.
+// const WrappedTrigger = ({ clickable, trigger }: { clickable: ReactNode; trigger: ReactNode }) => {
+//   return (
+//     <div className="items-center">
+//       <div data-testid={locators.dropdownSelected} className="flex items-center text-left">
+//         {trigger}
+//         {clickable && (
+//           <span className="ml-2">
+//             <IconChevronDown size={16} />
+//           </span>
+//         )}
+//       </div>
+//     </div>
+//   )
+// }
 
 export const Dropdown = ({ enabled, trigger, content }: DropdownProperties) => {
   const [open, setOpen] = useState<boolean>(false)

@@ -41,33 +41,51 @@ describe('WalletsHeader', () => {
     expect(withdrawButton).toHaveAttribute('href', `${fairground.console}/#/portfolio/assets/withdraw`)
   })
 
-  it('renders the correct tooltip content', async () => {
+  it('renders the correct tooltip content for console', async () => {
     // 1106-KEYS-009 There is a way to see what's linked to my wallet from the wallet view
     renderComponent()
 
-    const [tradeButton, governButton, transferButton, depositButton, withdrawButton] = screen.getAllByTestId(
-      locators.walletsHeaderItem
-    )
+    const [tradeButton] = screen.getAllByTestId(locators.walletsHeaderItem)
     fireEvent.pointerMove(tradeButton)
     await screen.findByRole('tooltip')
     expect(screen.queryByRole('tooltip')).toHaveTextContent('Console')
-    fireEvent.pointerLeave(tradeButton)
+  })
 
+  it('renders the correct tooltip content for governance', async () => {
+    // 1106-KEYS-009 There is a way to see what's linked to my wallet from the wallet view
+    renderComponent()
+
+    const [, governButton] = screen.getAllByTestId(locators.walletsHeaderItem)
     fireEvent.pointerMove(governButton)
     await screen.findByRole('tooltip')
     expect(screen.queryByRole('tooltip')).toHaveTextContent('Governance')
-    fireEvent.pointerLeave(governButton)
+  })
 
+  it('renders the correct tooltip content for transfer', async () => {
+    // 1106-KEYS-009 There is a way to see what's linked to my wallet from the wallet view
+    renderComponent()
+
+    const transferButton = screen.getAllByTestId(locators.walletsHeaderItem)[2]
     fireEvent.pointerMove(transferButton)
     await screen.findByRole('tooltip')
     expect(screen.queryByRole('tooltip')).toHaveTextContent('Transfer')
-    fireEvent.pointerLeave(transferButton)
+  })
 
+  it('renders the correct tooltip content for deposit', async () => {
+    // 1106-KEYS-009 There is a way to see what's linked to my wallet from the wallet view
+    renderComponent()
+
+    const depositButton = screen.getAllByTestId(locators.walletsHeaderItem)[3]
     fireEvent.pointerMove(depositButton)
     await screen.findByRole('tooltip')
     expect(screen.queryByRole('tooltip')).toHaveTextContent('Deposit')
-    fireEvent.pointerLeave(depositButton)
+  })
 
+  it('renders the correct tooltip content for withdraw', async () => {
+    // 1106-KEYS-009 There is a way to see what's linked to my wallet from the wallet view
+    renderComponent()
+
+    const withdrawButton = screen.getAllByTestId(locators.walletsHeaderItem)[4]
     fireEvent.pointerMove(withdrawButton)
     await screen.findByRole('tooltip')
     expect(screen.queryByRole('tooltip')).toHaveTextContent('Withdraw')

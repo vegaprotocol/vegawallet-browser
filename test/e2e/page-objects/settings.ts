@@ -21,16 +21,29 @@ import locators from '../../../frontend/components/locators'
 
 export class Settings {
   private readonly lockWalletButton: By = getByDataTestID(settingsLock.locators.settingsLockButton)
-  private readonly developmentNetworksNo: By = getByDataTestID(
+  private readonly developmentNetworksRadioNo: By = getByDataTestID(
     `showHiddenNetworks-${radioLocators.locators.settingsRadioNo}`
   )
-  private readonly developmentNetworksYes: By = getByDataTestID(
+  private readonly developmentNetworksRadioYes: By = getByDataTestID(
     `showHiddenNetworks-${radioLocators.locators.settingsRadioYes}`
   )
+  private readonly telemetryRadioYes = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioYes}`)
+  private readonly telemetryRadioNo = getByDataTestID(`telemetry-${radioLocators.locators.settingsRadioNo}`)
+  private readonly autoOpenRadioYes = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioYes}`)
+  private readonly autoOpenRadioNo = getByDataTestID(`autoOpen-${radioLocators.locators.settingsRadioNo}`)
+
   private readonly telemetryYes: By = By.css(`[for="telemetry-${radioLocators.locators.settingsRadioYes}"`)
-  private readonly telemetryNo: By = By.css(`[for="telemetry-${radioLocators.locators.settingsRadioNo}"`) // getByDataTestID(`telemetry-${}`)
-  private readonly autoOpenYes: By = By.css(`[for="autoOpen-${radioLocators.locators.settingsRadioYes}"`) // getByDataTestID(`autoOpen-${}`)
-  private readonly autoOpenNo: By = By.css(`[for="autoOpen-${radioLocators.locators.settingsRadioNo}"`) // getByDataTestID(`autoOpen-${}`)
+  private readonly telemetryNo: By = By.css(`[for="telemetry-${radioLocators.locators.settingsRadioNo}"`)
+  private readonly autoOpenYes: By = By.css(`[for="autoOpen-${radioLocators.locators.settingsRadioYes}"`)
+  private readonly autoOpenNo: By = By.css(`[for="autoOpen-${radioLocators.locators.settingsRadioNo}"`)
+
+  private readonly developmentNetworksYes: By = By.css(
+    `[for="showHiddenNetworks-${radioLocators.locators.settingsRadioYes}"`
+  )
+  private readonly developmentNetworksNo: By = By.css(
+    `[for="showHiddenNetworks-${radioLocators.locators.settingsRadioNo}"`
+  )
+
   private readonly exportRecoveryPhraseTrigger: By = getByDataTestID(
     exportLocators.locators.exportRecoveryPhraseTrigger
   )
@@ -57,8 +70,8 @@ export class Settings {
 
   async isTelemetrySelected() {
     await this.checkOnSettingsPage()
-    const telemetryYesSelected = await isElementSelected(this.driver, this.telemetryYes)
-    const telemetryNoSelected = await isElementSelected(this.driver, this.telemetryNo)
+    const telemetryYesSelected = await isElementSelected(this.driver, this.telemetryRadioYes)
+    const telemetryNoSelected = await isElementSelected(this.driver, this.telemetryRadioNo)
 
     if (telemetryYesSelected) {
       return true
@@ -117,8 +130,8 @@ export class Settings {
 
   async developmentNetworksEnabled() {
     await this.checkOnSettingsPage()
-    const telemetryYesSelected = await isElementSelected(this.driver, this.developmentNetworksYes)
-    const telemetryNoSelected = await isElementSelected(this.driver, this.developmentNetworksNo)
+    const telemetryYesSelected = await isElementSelected(this.driver, this.developmentNetworksRadioNo)
+    const telemetryNoSelected = await isElementSelected(this.driver, this.developmentNetworksRadioNo)
 
     if (telemetryYesSelected) {
       return true
@@ -153,8 +166,8 @@ export class Settings {
 
   async isAutoOpenSelected() {
     await this.checkOnSettingsPage()
-    const autoOpenYesSelected = await isElementSelected(this.driver, this.autoOpenYes)
-    const autoOpenNoSelected = await isElementSelected(this.driver, this.autoOpenNo)
+    const autoOpenYesSelected = await isElementSelected(this.driver, this.autoOpenRadioYes)
+    const autoOpenNoSelected = await isElementSelected(this.driver, this.autoOpenRadioNo)
 
     if (autoOpenYesSelected) {
       return true

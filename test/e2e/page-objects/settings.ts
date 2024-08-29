@@ -130,7 +130,7 @@ export class Settings {
 
   async developmentNetworksEnabled() {
     await this.checkOnSettingsPage()
-    const telemetryYesSelected = await isElementSelected(this.driver, this.developmentNetworksRadioNo)
+    const telemetryYesSelected = await isElementSelected(this.driver, this.developmentNetworksRadioYes)
     const telemetryNoSelected = await isElementSelected(this.driver, this.developmentNetworksRadioNo)
 
     if (telemetryYesSelected) {

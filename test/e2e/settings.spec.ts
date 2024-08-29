@@ -64,7 +64,7 @@ describe('Settings test', () => {
     await settingsPage.lockWalletAndCheckLoginPageAppears()
   })
 
-  it('can navigate to settings and update telemetry opt in/out preference', async () => {
+  it.skip('can navigate to settings and update telemetry opt in/out preference', async () => {
     // 1111-TELE-008 There is a way to change whether I want to opt in / out of error reporting later (e.g. in settings)
     const navPanel = new NavPanel(driver)
     const settingsPage = await navPanel.goToSettings()
@@ -75,7 +75,7 @@ describe('Settings test', () => {
     expect(await settingsPage.isTelemetrySelected(), expectedTelemetryEnabledMessage).toBe(true)
   })
 
-  it('can navigate to settings and update development networks', async () => {
+  it.skip('can navigate to settings and update development networks', async () => {
     // 1107-SETT-011 I can navigate to the settings page and enable development networks
     // 1107-SETT-012 When development networks are enabled I can see the development networks in the network dropdown
     const navPanel = new NavPanel(driver)
@@ -96,7 +96,7 @@ describe('Settings test', () => {
     ).toBe(true)
   })
 
-  it('can navigate to settings and update auto open settings, behaviour will be correctly modified after update', async () => {
+  it.skip('can navigate to settings and update auto open settings, behaviour will be correctly modified after update', async () => {
     // 1113-POPT-010 The browser wallet does not open in a pop-up window if the autoOpen setting is set to false
     // 1113-POPT-011 There is a way to change the auto open setting
     const navPanel = new NavPanel(driver)

@@ -27,7 +27,7 @@ export class Settings {
   private readonly developmentNetworksYes: By = getByDataTestID(
     `showHiddenNetworks-${radioLocators.locators.settingsRadioYes}`
   )
-  private readonly telemetryYes: By = getByDataTestID(`[for="${radioLocators.locators.settingsRadioYes}"`)
+  private readonly telemetryYes: By = By.css(`[for="${radioLocators.locators.settingsRadioYes}"`)
   private readonly telemetryNo: By = By.css(`[for="${radioLocators.locators.settingsRadioNo}"`) // getByDataTestID(`telemetry-${}`)
   private readonly autoOpenYes: By = By.css(`[for="${radioLocators.locators.settingsRadioYes}"`) // getByDataTestID(`autoOpen-${}`)
   private readonly autoOpenNo: By = By.css(`[for="${radioLocators.locators.settingsRadioNo}"`) // getByDataTestID(`autoOpen-${}`)

@@ -35,7 +35,13 @@ export const Dropdown = ({ enabled, trigger, content }: DropdownProperties) => {
   const [open, setOpen] = useState<boolean>(false)
 
   if (!enabled) {
-    return <WrappedTrigger clickable={false} trigger={trigger} />
+    return (
+      <div className="items-center">
+        <div data-testid={locators.dropdownSelected} className="flex items-center text-left">
+          {trigger}
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -49,7 +55,16 @@ export const Dropdown = ({ enabled, trigger, content }: DropdownProperties) => {
             data-testid={locators.dropdownTrigger}
             className="border-0"
           >
-            <WrappedTrigger clickable={true} trigger={trigger} />
+            <div className="items-center">
+              <div data-testid={locators.dropdownSelected} className="flex items-center text-left">
+                <>
+                  {trigger}
+                  <span className="ml-2">
+                    <IconChevronDown size={16} />
+                  </span>
+                </>
+              </div>
+            </div>
           </DropdownMenuTrigger>
         }
       >

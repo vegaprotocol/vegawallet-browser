@@ -136,6 +136,19 @@ export const migrations = [
 
       await store.set('version', 6)
     })
+  },
+
+  // The seventh migration is forcing an update of networks, as some data has changed
+  async function v6({ settings, networks }) {
+    await settings.transaction(async (store) => {
+      // populate all networks
+      await networks.store.clear()
+      for (const network of config.networks) {
+        await networks.set(network.id, network)
+      }
+
+      await store.set('version', 7)
+    })
   }
 ]
 

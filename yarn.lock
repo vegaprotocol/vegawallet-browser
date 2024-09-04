@@ -2928,15 +2928,10 @@
   resolved "https://registry.yarnpkg.com/@vegaprotocol/enums/-/enums-0.0.3.tgz#167a810c76c3f799e677ce40ffd71727e670da41"
   integrity sha512-mcovDhh46qeUP61Myoni97cpHCmdmHONBVbYV2s3P/sxciNx5tjF3ZthtnfgRCNOHfMQ75CjSX2NzE5DDd8EMQ==
 
-"@vegaprotocol/i18n@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/@vegaprotocol/i18n/-/i18n-0.0.3.tgz"
-  integrity sha512-ExZi8VXZ2Cpf6k7j5P8PfNW2+eWL+766C1bXvKR9zd2p79oGL8TRqObS+q+UWHz1hL3vLepdVEel5rW/I0E3lw==
-
-"@vegaprotocol/protos@^0.21.0":
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/protos/-/protos-0.21.0.tgz#cfc3588ad3716f69654b235356bc2e16d044b0cf"
-  integrity sha512-e+7UvWUqM0pUCnjZR6pHTd5pL2iDpmfGEsLtFhwcdx58gWrOXcLeRZVpKpPljhDyaOPkLIIJ4Ok2IJ9Fohc7qQ==
+"@vegaprotocol/protos@^0.23.0":
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/protos/-/protos-0.23.0.tgz#410abbdbc6cdeab8ffef4ebed5d573c2e853f413"
+  integrity sha512-oR538m428ehGIIkpAh3Fws4aLKNxbdhpJJNZmf5aghcKCYzqk3uaXS+KKAF9eBkZp1ENk/3u5gMwDUc8Zov/9A==
   dependencies:
     protobuf-codec "^2.0.1"
     type-fest "^3.6.0"
@@ -2946,10 +2941,10 @@
   resolved "https://registry.yarnpkg.com/@vegaprotocol/react-helpers/-/react-helpers-0.4.0.tgz#970f10739273c545ea7b5de7482c5aba85daf18d"
   integrity sha512-DqzxN8lqcghR4FEO0BbfMGYLBTP7ajESl3k6z5afJQSp4H+zEEX/mmaQ9VLyFimOASo3kv35W2oOvB7slEzzUw==
 
-"@vegaprotocol/rest-clients@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.npmjs.org/@vegaprotocol/rest-clients/-/rest-clients-0.0.6.tgz"
-  integrity sha512-6+tcTOBk09IkYyBueJlorABffAONFgck+dg5ccjQNC8eAgFbJCc/hgQyHKcqzd+BDSch7od2HOsfGUAeQPJRFA==
+"@vegaprotocol/rest-clients@^0.77.1":
+  version "0.77.1"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/rest-clients/-/rest-clients-0.77.1.tgz#8d8ab70cd23cd84cf39711b9f18545c5f95f847a"
+  integrity sha512-VAUyuU0nvhyum1DOEEAzog6BGfkWXkIiZdMoSuFQqV2VViv97kO72+Uq6az/betfBZydqUHlhhpSCSDNMHu4xA==
 
 "@vegaprotocol/tailwindcss-config@^0.2.0":
   version "0.2.0"

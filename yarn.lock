@@ -2928,15 +2928,10 @@
   resolved "https://registry.yarnpkg.com/@vegaprotocol/enums/-/enums-0.0.3.tgz#167a810c76c3f799e677ce40ffd71727e670da41"
   integrity sha512-mcovDhh46qeUP61Myoni97cpHCmdmHONBVbYV2s3P/sxciNx5tjF3ZthtnfgRCNOHfMQ75CjSX2NzE5DDd8EMQ==
 
-"@vegaprotocol/i18n@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/@vegaprotocol/i18n/-/i18n-0.0.3.tgz"
-  integrity sha512-ExZi8VXZ2Cpf6k7j5P8PfNW2+eWL+766C1bXvKR9zd2p79oGL8TRqObS+q+UWHz1hL3vLepdVEel5rW/I0E3lw==
-
-"@vegaprotocol/protos@^0.21.0":
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/@vegaprotocol/protos/-/protos-0.21.0.tgz#cfc3588ad3716f69654b235356bc2e16d044b0cf"
-  integrity sha512-e+7UvWUqM0pUCnjZR6pHTd5pL2iDpmfGEsLtFhwcdx58gWrOXcLeRZVpKpPljhDyaOPkLIIJ4Ok2IJ9Fohc7qQ==
+"@vegaprotocol/protos@^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@vegaprotocol/protos/-/protos-0.24.0.tgz#99efb0d55433f8a4643c8363fc32bbe843903822"
+  integrity sha512-iC+Xa3zgtJZJCFvhP7IkIT0rjGt63NLXCivwwl2PNgQRvbzbd+V/cHaEk1mFcbCUQrH1Ry/Obdt2Q6unWfSaGg==
   dependencies:
     protobuf-codec "^2.0.1"
     type-fest "^3.6.0"
@@ -11344,15 +11339,10 @@ type-fest@^2.12.2, type-fest@^2.13.0:
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-2.19.0.tgz"
   integrity sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==
 
-type-fest@^3.12.0, type-fest@^3.8.0:
+type-fest@^3.12.0, type-fest@^3.6.0, type-fest@^3.8.0:
   version "3.13.1"
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-3.13.1.tgz"
   integrity sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==
-
-type-fest@^3.6.0:
-  version "3.8.0"
-  resolved "https://registry.npmjs.org/type-fest/-/type-fest-3.8.0.tgz"
-  integrity sha512-FVNSzGQz9Th+/9R6Lvv7WIAkstylfHN2/JYxkyhhmKFYh9At2DST8t6L6Lref9eYO8PXFTfG9Sg1Agg0K3vq3Q==
 
 type-fest@^4.2.0:
   version "4.12.0"
